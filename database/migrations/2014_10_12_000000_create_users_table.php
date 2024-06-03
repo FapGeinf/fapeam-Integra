@@ -20,6 +20,8 @@ return new class extends Migration
 						$table->string('cpf')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+						$table->bigInteger('unidadeIdUser')->unsigned();
+						$table->foreign('unidadeIdUser')->references('id')->on('unidades');
             $table->rememberToken();
             $table->timestamps();
         });
