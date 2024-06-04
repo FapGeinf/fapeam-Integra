@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
 						$table->string('unidadeNome');
 						$table->string('unidadeEmail')->unique();
+						$table->unsignedBigInteger('unidadeTipoFK');
+						$table->foreign('unidadeTipoFK')->references('id')->on('unidade_tipos');
             $table->timestamps();
         });
     }

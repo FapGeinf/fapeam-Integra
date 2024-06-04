@@ -13,16 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('riscos', function (Blueprint $table) {
+        Schema::create('respostas', function (Blueprint $table) {
             $table->id();
-						$table->string('riscoEvento');
-						$table->string('riscoCausa');
-						$table->string('riscoConsequencia');
-						$table->integer('riscoAvaliacao');
-						$table->unsignedBigInteger('unidadeRiscoFK');
-						$table->foreign('unidadeRiscoFk')->references('id')->on('unidades');
+						$table->string('respostaRisco');
+						$table->unsignedBigInteger('respostaRiscoFk');
+						$table->foreign('respostaRiscoFk')->references('id')->on('riscos');
             $table->timestamps();
-						//Quando criado o campo unidade, referenciar a unidade aqui
         });
     }
 
@@ -33,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('riscos');
+        Schema::dropIfExists('respostas');
     }
 };

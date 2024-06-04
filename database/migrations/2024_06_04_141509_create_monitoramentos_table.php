@@ -13,9 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('unidade_tipo', function (Blueprint $table) {
+        Schema::create('monitoramentos', function (Blueprint $table) {
             $table->id();
-						$table->string('unidadeTipoNome');
+						$table->string('monitoramentoControleSugerido');
+						$table->string('statusMonitoramento');
+						$table->string('execucaoMonitoramento');
             $table->timestamps();
         });
     }
@@ -27,6 +29,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('unidade_tipo');
+        Schema::dropIfExists('monitoramentos');
     }
 };
+ 
