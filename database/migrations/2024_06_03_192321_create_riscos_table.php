@@ -15,14 +15,14 @@ return new class extends Migration
     {
         Schema::create('riscos', function (Blueprint $table) {
             $table->id();
-						$table->string('riscoEvento');
-						$table->string('riscoCausa');
-						$table->string('riscoConsequencia');
-						$table->integer('riscoAvaliacao');
-						$table->unsignedBigInteger('unidadeRiscoFK');
-						$table->foreign('unidadeRiscoFk')->references('id')->on('unidades');
+            $table->string('riscoEvento');
+            $table->string('riscoCausa');
+            $table->string('riscoConsequencia');
+            $table->integer('riscoAvaliacao');
+            $table->unsignedBigInteger('unidadeRiscoFK');
+            $table->foreign('unidadeRiscoFk')->references('id')->on('unidades');
             $table->timestamps();
-						//Quando criado o campo unidade, referenciar a unidade aqui
+            //Quando criado o campo unidade, referenciar a unidade aqui
         });
     }
 

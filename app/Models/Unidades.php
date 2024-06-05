@@ -5,11 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class Unidades extends Model
 {
     use HasFactory;
 
 		protected $fillable = [
-			'unidadeNome','unidadeEmail',
+			'unidadeNome','unidadeEmail','unidadeTipoFK'
 		];
+
+	 public function unidadeTipo()
+	 {
+		    return $this->belongsTo(UnidadeTipos::class,'unidadeTipoFK');
+	 }
 }
