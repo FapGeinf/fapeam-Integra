@@ -18,10 +18,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();//a ser removido que a auth tiver pronta
 						$table->string('cpf')->unique();
-            $table->string('password');
             $table->timestamp('email_verified_at')->nullable();
-						$table->unsignedBigInteger('userTipoFk');
-						$table->foreign('userTipoFk')->references('id')->on('user_tipos');
+            $table->string('password');
 						$table->bigInteger('unidadeIdFK')->unsigned();
 						$table->foreign('unidadeIdFK')->references('id')->on('unidades');
             $table->rememberToken();
