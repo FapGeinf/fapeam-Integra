@@ -15,9 +15,11 @@ return new class extends Migration
     {
         Schema::create('respostas', function (Blueprint $table) {
             $table->id();
-						$table->string('respostaRisco');
-						$table->unsignedBigInteger('respostaRiscoFk');
-						$table->foreign('respostaRiscoFk')->references('id')->on('riscos');
+            $table->string('respostaRisco');
+            $table->unsignedBigInteger('respostaRiscoFk');
+            $table->foreign('respostaRiscoFk')->references('id')->on('riscos')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

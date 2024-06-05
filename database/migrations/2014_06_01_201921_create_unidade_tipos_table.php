@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('unidade_tipos', function (Blueprint $table) {
             $table->id();
-						$table->string('unidadeTipoNome');
+            $table->string('unidadeTipoNome');
             $table->timestamps();
         });
     }

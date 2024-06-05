@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('unidades', function (Blueprint $table) {
             $table->id();
-						$table->string('unidadeNome');
-						$table->string('unidadeEmail')->unique();
-						$table->unsignedBigInteger('unidadeTipoFK');
-						$table->foreign('unidadeTipoFK')->references('id')->on('unidade_tipos');
+            $table->string('unidadeNome');
+            $table->string('unidadeEmail')->unique();
+            $table->unsignedBigInteger('unidadeTipoFK');
+            $table->foreign('unidadeTipoFK')->references('id')->on('unidade_tipos');
             $table->timestamps();
         });
     }

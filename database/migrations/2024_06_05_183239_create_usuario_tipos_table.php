@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('monitoramentos', function (Blueprint $table) {
+        Schema::create('usuario_tipos', function (Blueprint $table) {
             $table->id();
-            $table->string('monitoramentoControleSugerido');
-            $table->string('statusMonitoramento');
-            $table->string('execucaoMonitoramento');
-            $table->unsignedInteger('riscoFK');
-            $table->foreign('riscoFK')->references('id')->on('riscos')->onDelete('cascade');
+            $table->string('tipo');
             $table->timestamps();
         });
     }
@@ -31,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('monitoramentos');
+        Schema::dropIfExists('usuario_tipos');
     }
 };
