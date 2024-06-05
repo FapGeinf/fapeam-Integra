@@ -53,7 +53,51 @@ class RiscoController extends Controller
 
     public function edit()
     {
-           $unidades = Unidades::all();
-           return view('riscos.edit',['unidades'=>$unidades]);
+        $unidades = Unidades::all();
+        return view('riscos.edit', ['unidades' => $unidades]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $risco = Riscos::findorFail($id);
+
+        try {
+            $request->validate([
+                'riscoEvento' => 'required',
+                'riscoCausa' => 'required',
+                'riscoConsequencia' => 'required',
+                'riscoAvaliacao' => 'required',
+                'unidadeRiscoFK' => 'required'
+            ]);
+
+            $atualizaRisco =  $risco->update([
+                'riscoEvento' => $request->riscoEvento,
+                'riscoCausa' => $request->riscoCausa,
+                'riscoConsequencia' => $request->riscoConsequencia,
+                'riscoAvaliacao' => $request->riscoAvaliacao,
+            ]);
+
+            if(!$atualizaRisco){
+                return redirect()->back()->with('errors','Houve um erro no processo de edição:');
+            }else{
+                return redirect()->route('riscos.show')->with('success','Risco editado com sucesso');
+            }
+
+        } catch (\Exception $e) {
+            return redirect()->back()->with('errors',$e->getMessage());
+        }
+    }
+
+    public function delete($id)
+    {
+           $risco = Riscos::findorFail($id);
+
+           $deleteRisco = $risco->delete();
+
+           if(!$deleteRisco){
+              return redirect()->back()->with('errors','Erro ao deletar o risco');
+           }
+
+           return redirect()->back()->with('success','Risco Deletado com sucesso');
     }
 }
