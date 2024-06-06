@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RiscoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/risco', [RiscoController::class,'create'])->name('riscos.create');
+Route::post('/risco/criar', [RiscoController::class, 'store'])->name('riscos.store');

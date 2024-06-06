@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use app\Http\Middleware\VerifyCsrfToken;
 use App\Models\Riscos;
 use App\Models\Unidades;
 
@@ -18,21 +19,21 @@ class RiscoController extends Controller
     public function create()
     {
         $unidades = Unidades::all();
-        return view('riscos.create');
+        return view('riscos.store', ['unidades' => $unidades]);
     }
 
     public function store(Request $request)
     {
+					$request->all();
+					$request->validate([
+            'riscoEvento' => 'required',
+            'riscoCausa' => 'required',
+            'riscoConsequencia' => 'required',
+            'riscoAvaliacao' => 'required',
+            'unidadeRiscoFK' => 'required'
+          ]);
+					
         try {
-            $request->validate([
-                'riscoEvento' => 'required',
-                'riscoCausa' => 'required',
-                'riscoConsequencia' => 'required',
-                'riscoAvaliacao' => 'required',
-                'unidadeRiscoFK' => 'required'
-            ]);
-
-
             $risco = Riscos::create([
                 'riscoEvento' => $request->riscoEvento,
                 'riscoCausa' => $request->riscoCausa,
@@ -40,14 +41,14 @@ class RiscoController extends Controller
                 'riscoAvaliacao' => $request->riscoAvaliacao,
                 'unidadeRiscoFK' => $request->unidadeRiscoFK
             ]);
-
             if (!$risco) {
                 return redirect()->back()->with('error', 'Houve um erro ao processar a criação de um risco');
             } else {
                 return redirect()->route('riscos.index');
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', $e->getMessage());
+            // return redirect()->back()->with('error', $e->getMessage());
+            return redirect()->back()->with('error', 'Huuummmmmm');
         }
     }
 
