@@ -9,11 +9,14 @@ use App\Models\Unidades;
 
 class RiscoController extends Controller
 {
-    public function index()
+    public function home()
     {
-        $user_id = auth()->user();
-        $riscos = Riscos::where('user_id', $user_id)->get();
-        return view('riscos.index', ['riscos' => $riscos]);
+			// dd('Entrou na funcao home');
+        // $user_id = auth()->user();
+				$riscos = Riscos::all();
+				$unidades = Unidades::all();
+        // $riscos = Riscos::where('user_id', $user_id)->get();
+        return view('riscos.home', ['riscos' => $riscos, 'unidades' => $unidades]);
     }
 
     public function create()
@@ -23,8 +26,8 @@ class RiscoController extends Controller
     }
 
     public function store(Request $request)
-    {
-					$request->all();
+    {			
+					// dd($request->all());
 					$request->validate([
             'riscoEvento' => 'required',
             'riscoCausa' => 'required',
@@ -32,8 +35,8 @@ class RiscoController extends Controller
             'riscoAvaliacao' => 'required',
             'unidadeRiscoFK' => 'required'
           ]);
-					
-        try {
+					try {
+						// dd($request->unidadeRiscoFk);
             $risco = Riscos::create([
                 'riscoEvento' => $request->riscoEvento,
                 'riscoCausa' => $request->riscoCausa,
@@ -44,11 +47,11 @@ class RiscoController extends Controller
             if (!$risco) {
                 return redirect()->back()->with('error', 'Houve um erro ao processar a criação de um risco');
             } else {
-                return redirect()->route('riscos.index');
+                return redirect()->route('riscos.home');
             }
         } catch (\Exception $e) {
-            // return redirect()->back()->with('error', $e->getMessage());
-            return redirect()->back()->with('error', 'Huuummmmmm');
+						dd($e);
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 

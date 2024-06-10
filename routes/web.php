@@ -14,9 +14,13 @@ use App\Http\Controllers\RiscoController;
 |
 */
 
-Route::get('/', function () {
+Route::get('/welcome', function () {
     return view('welcome');
 });
+Route::get('/', function (){
+	return view('riscos.home');
+});
 
-Route::get('/risco', [RiscoController::class,'create'])->name('riscos.create');
+Route::get('/home', [RiscoController::class, 'home'])->name('riscos.home');
+Route::get('/risco/novo', [RiscoController::class,'create'])->name('riscos.create');
 Route::post('/risco/criar', [RiscoController::class, 'store'])->name('riscos.store');

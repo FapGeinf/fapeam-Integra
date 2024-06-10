@@ -18,4 +18,7 @@ class Unidades extends Model
 	 {
 		    return $this->belongsTo(UnidadeTipos::class,'unidadeTipoFK');
 	 }
+	//  public function risco(){
+	// 		return $this->belongsToMany(Riscos::class);
+	//  }
 }

@@ -19,7 +19,7 @@ class Riscos extends Model
 	
 	public function unidade()
 	{
-		   return $this->belongsTo(Unidades::class,'id','unidadeRiscoFK');
+		   return $this->belongsTo(Unidades::class, 'unidadeRiscoFK');
 	}
 
 	public function monitoramentos()
