@@ -47,20 +47,18 @@
 		}
 
 	</style>
-	<script defer>
+		<script>
 		let cont = 0;
 
 		function addMonitoramentos(){
 			let controleSugerido = document.createElement('input');
 			controleSugerido.setAttribute('type','text');
 			controleSugerido.setAttribute('name','monitoramentos['+cont+'][monitoramentoControleSugerido]');
-			controleSugerido.setAttirbute('placeholder','Monitoramento');
-			controleSugerido.setAttirbute('class','controle');
+			controleSugerido.setAttribute('placeholder','Monitoramento');
+			controleSugerido.setAttribute('class','controle');
 			
-
-			let monitoramentosDiv = document.getElementById('monitoramentos');
-			monitoramentosDiv.appendChild(contoleSugerido);
-
+			let monitoramentosDiv = document.getElementById('monitoramentosDiv');
+			monitoramentosDiv.appendChild(controleSugerido);
 			cont++;
 		}
 
@@ -69,7 +67,7 @@
 </head>
 <body>
 	<div class="form_risco">
-		<input action="{{route('riscos.store')}}" method="post" class="form_create">
+		<form action="{{route('riscos.store')}}" method="post" class="form_create" id="formCreate">
 			@csrf 
 			<label for="name">Evento</label>
 			<textarea type="text" name="riscoEvento" class="textInput" required></textarea>
@@ -90,7 +88,9 @@
 					<option value="{{$unidade->id}}">{{$unidade->unidadeNome}}</option>
 				@endforeach
 			</select>
+			<div id="monitoramentosDiv" class="monitoramento"></div>
 			<input type="button" onclick="addMonitoramentos()" value="Adicionar Monitoramento"></input>
+
 			<input type="submit" value="Salvar">
 
 		</form>

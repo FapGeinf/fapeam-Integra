@@ -18,7 +18,7 @@ Route::get('/welcome', function () {
     return view('welcome');
 });
 Route::get('/', function (){
-	return view('riscos.home');
+	return redirect()->route('riscos.home');
 });
 
 Route::get('/home', [RiscoController::class, 'home'])->name('riscos.home');

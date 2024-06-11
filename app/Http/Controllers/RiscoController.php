@@ -11,11 +11,8 @@ class RiscoController extends Controller
 {
     public function home()
     {
-			// dd('Entrou na funcao home');
-        // $user_id = auth()->user();
 				$riscos = Riscos::all();
 				$unidades = Unidades::all();
-        // $riscos = Riscos::where('user_id', $user_id)->get();
         return view('riscos.home', ['riscos' => $riscos, 'unidades' => $unidades]);
     }
 
@@ -27,7 +24,7 @@ class RiscoController extends Controller
 
     public function store(Request $request)
     {			
-					// dd($request->all());
+					dd($request->all());
 					$request->validate([
             'riscoEvento' => 'required',
             'riscoCausa' => 'required',

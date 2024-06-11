@@ -19,7 +19,6 @@
 					<th>Consequência</th>
 					<th>Avaliação</th>
 					<th>Unidade</th>
-					
 			</tr>
 			@foreach ($riscos as $risco)
 				<tr>
