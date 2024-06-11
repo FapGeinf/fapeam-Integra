@@ -53,12 +53,22 @@
 		function addMonitoramentos(){
 			let controleSugerido = document.createElement('input');
 			controleSugerido.setAttribute('type','text');
-			controleSugerido.setAttribute('name','monitoramentos['+cont+'][monitoramentoControleSugerido]');
+			controleSugerido.setAttribute(`name`,`monitoramentos[${cont}][monitoramentoControleSugerido]`);
 			controleSugerido.setAttribute('placeholder','Monitoramento');
-			controleSugerido.setAttribute('class','controle');
+			controleSugerido.setAttribute('class','textInput');
 			
-			let monitoramentosDiv = document.getElementById('monitoramentosDiv');
+			let statusMonitoramento = document.createElement('input');
+			statusMonitoramento.type = `text`;
+			statusMonitoramento.name = `monitoramentos[${cont}][statusMonitoramento]`;
+			statusMonitoramento.placeholder = "Status do Monitoramento";
+			statusMonitoramento.class = "textInput";
+
+			const br = document.createElement('br');
+
+
+			let monitoramentosDiv = document.getElementById('formCreate');
 			monitoramentosDiv.appendChild(controleSugerido);
+			monitoramentosDiv.appendChild(statusMonitoramento);
 			cont++;
 		}
 
