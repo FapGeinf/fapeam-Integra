@@ -56,12 +56,18 @@
 			controleSugerido.setAttribute(`name`,`monitoramentos[${cont}][monitoramentoControleSugerido]`);
 			controleSugerido.setAttribute('placeholder','Monitoramento');
 			controleSugerido.setAttribute('class','textInput');
-			
+
 			let statusMonitoramento = document.createElement('input');
 			statusMonitoramento.type = `text`;
 			statusMonitoramento.name = `monitoramentos[${cont}][statusMonitoramento]`;
 			statusMonitoramento.placeholder = "Status do Monitoramento";
-			statusMonitoramento.class = "textInput";
+			statusMonitoramento.classList = "textInput";
+
+            let execucaoMonitoramento = document.createElement('input');
+            execucaoMonitoramento.setAttribute('type','text');
+            execucaoMonitoramento.setAttribute('name',`monitoramentos[${cont}][execucaoMonitoramento]`);
+            execucaoMonitoramento.setAttribute('placeholder','Execução do Monitoramento');
+            execucaoMonitoramento.setAttribute('class','textInput');
 
 			const br = document.createElement('br');
 
@@ -69,6 +75,7 @@
 			let monitoramentosDiv = document.getElementById('formCreate');
 			monitoramentosDiv.appendChild(controleSugerido);
 			monitoramentosDiv.appendChild(statusMonitoramento);
+            monitoramentosDiv.appendChild(execucaoMonitoramento);
 			cont++;
 		}
 
@@ -78,19 +85,19 @@
 <body>
 	<div class="form_risco">
 		<form action="{{route('riscos.store')}}" method="post" class="form_create" id="formCreate">
-			@csrf 
+			@csrf
 			<label for="name">Evento</label>
 			<textarea type="text" name="riscoEvento" class="textInput" required></textarea>
-			
+
 			<label for="name">Causa</label>
 			<textarea type="text" name="riscoCausa" class="textInput" required></textarea>
-			
+
 			<label for="name">Consequência</label>
 			<textarea type="text" name="riscoConsequencia" class="textInput" required></textarea>
-			
+
 			<label for="name">Avaliação</label>
 			<textarea type="text" name="riscoAvaliacao" class="textInput" required></textarea>
-		
+
 			<label for="name">Unidades</label>
 			<select name="unidadeRiscoFK" class="selection" requireds>
 				<option selected disabled>Selecione uma unidade</option>
