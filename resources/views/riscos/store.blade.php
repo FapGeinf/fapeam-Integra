@@ -63,11 +63,11 @@
 			statusMonitoramento.placeholder = "Status do Monitoramento";
 			statusMonitoramento.classList = "textInput";
 
-            let execucaoMonitoramento = document.createElement('input');
-            execucaoMonitoramento.setAttribute('type','text');
-            execucaoMonitoramento.setAttribute('name',`monitoramentos[${cont}][execucaoMonitoramento]`);
-            execucaoMonitoramento.setAttribute('placeholder','Execução do Monitoramento');
-            execucaoMonitoramento.setAttribute('class','textInput');
+      let execucaoMonitoramento = document.createElement('input');
+      execucaoMonitoramento.setAttribute('type','text');
+      execucaoMonitoramento.setAttribute('name',`monitoramentos[${cont}][execucaoMonitoramento]`);
+      execucaoMonitoramento.setAttribute('placeholder','Execução do Monitoramento');
+      execucaoMonitoramento.setAttribute('class','textInput');
 
 			const br = document.createElement('br');
 
