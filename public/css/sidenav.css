@@ -1,0 +1,98 @@
+.siderbar{
+  position: absolute;
+  width: 60px;
+  height: 100vh;
+  background: #fff;
+  overflow: hidden;
+  transition: 0.4s;
+}
+
+.siderbar:hover{
+  width: 300px;
+}
+
+.siderbar ul{
+  position: relative;
+  height: 100vh;
+}
+
+.siderbar ul li{
+  list-style: none;
+}
+
+.siderbar ul li:hover{
+  background: #f3f3f3;
+}
+.siderbar ul li a{
+  position: relative;
+  display: flex;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.siderbar ul li a .icon{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 60px;
+  height: 60px;
+  font-size: 1.3rem;
+  color: #333;
+}
+.siderbar ul li a .text{
+  position: relative;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  font-size: 0.9em;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.siderbar ul li.logo{
+  margin-bottom: 50px;
+}
+.siderbar ul li.logo:hover{
+  background: #fff;
+}
+.siderbar ul li.logo .ico{
+  font-size: 15em;
+}
+.siderbar ul li.logo .text{
+  font-size: 1.2em;
+  font-weight: 500;
+}
+.bottom{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+.bottom .imgBx{
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.bottom .imgBx img{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.container{
+  display: grid;
+  float: right;
+  margin-left: auto;
+ 
+}
+
+thead tr th {
+background-color: #08558c !important;
+color: #fff !important;
+}
+

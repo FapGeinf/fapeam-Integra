@@ -5,14 +5,11 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{{ asset('css/home.css')}}">
 	<title>Document</title>
-	<style>
-		table, tr,th, td{
-			border: solid 1px black;
-		}
-	</style>
 </head>
 <body>
+	
 		<a href="{{route('riscos.create')}}">Novo</a>
 		<table>
 			<tr>
@@ -34,3 +31,4 @@
 		</table>
 </body>
 </html>
+
