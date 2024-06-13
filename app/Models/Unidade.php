@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 
-class Unidades extends Model
+class Unidade extends Model
 {
     use HasFactory;
 
@@ -16,9 +16,9 @@ class Unidades extends Model
 
 	 public function unidadeTipo()
 	 {
-		    return $this->belongsTo(UnidadeTipos::class,'unidadeTipoFK');
+		    return $this->belongsTo(UnidadeTipo::class,'unidadeTipoFK');
 	 }
 	//  public function risco(){
-	// 		return $this->belongsToMany(Riscos::class);
+	// 		return $this->belongsToMany(Risco::class);
 	//  }
 }

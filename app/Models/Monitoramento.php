@@ -13,6 +13,6 @@ class Monitoramento extends Model
 
     public function risco()
     {
-           return $this->belongsTo(Riscos::class,'id','riscoFK');
+           return $this->belongsTo(Risco::class,'id','riscoFK');
     }
 }

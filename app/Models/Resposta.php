@@ -18,6 +18,6 @@ class Resposta extends Model
 
     public function risco()
     {
-          return $this->belongsTo(Riscos::class,'id','respostaRiscoFK');
+          return $this->belongsTo(Risco::class,'id','respostaRiscoFK');
     }
 }

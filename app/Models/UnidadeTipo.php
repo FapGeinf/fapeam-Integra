@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UnidadeTipos extends Model
+class UnidadeTipo extends Model
 {
     use HasFactory;
 
@@ -13,6 +13,6 @@ class UnidadeTipos extends Model
 
     public function unidades()
     {
-          return $this->hasMany(Unidades::class);
+          return $this->hasMany(Unidade::class);
     }
 }

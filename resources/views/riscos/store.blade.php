@@ -1,31 +1,28 @@
+@extends('layouts.app')
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<style>
-		/* *{
-			border: solid 1px red;
-		} */
-		body{
-			/* border: solid 1px red; */
-			display: flex;
-			justify-content: center;
-			align-items: center;
-		}
+
 		.form_risco{
-			width: 50%;
+			border: solid 1px greenyellow;
+			width: 100%;
+			position: absolute;
 			display: flex;
-			justify-content: center;
 			align-items: center;
+			justify-content: center;
 		}
 		.form_create{
+			border: solid 1px red;
 			display: flex;
 			align-items: center;
 			flex-direction: column;
 			margin: 10px;
 			padding: 10px;
-			width: 75%;
+			width: 20%;
 		}
 		.textInput{
 			width: 100%;
@@ -98,7 +95,7 @@
 			<label for="name">Avaliação</label>
 			<textarea type="text" name="riscoAvaliacao" class="textInput" required></textarea>
 
-			<label for="name">Unidades</label>
+			<label for="name">Unidade</label>
 			<select name="unidadeRiscoFK" class="selection" requireds>
 				<option selected disabled>Selecione uma unidade</option>
 				@foreach($unidades as $unidade )
@@ -115,3 +112,5 @@
 
 </body>
 </html>
+
+@endsection
