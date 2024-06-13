@@ -75,7 +75,7 @@
 			let monitoramentosDiv = document.getElementById('formCreate');
 			monitoramentosDiv.appendChild(controleSugerido);
 			monitoramentosDiv.appendChild(statusMonitoramento);
-            monitoramentosDiv.appendChild(execucaoMonitoramento);
+      monitoramentosDiv.appendChild(execucaoMonitoramento);
 			cont++;
 		}
 

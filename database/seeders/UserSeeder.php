@@ -4,7 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\User
+use App\Models\User;
+use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
 {
@@ -19,8 +20,9 @@ class UserSeeder extends Seeder
 					'name' => 'ROOT USER',
 					'email' => 'root_user@email.com',
 					'email_verified_at' => now(),
-					'unidadeIdFk' => '1',
-					'password' => '',
+					'cpf' => '00000000000',
+					'unidadeIdFK' => '1',
+					'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
 					'remember_token' => Str::random(10),
 				]);
     }
