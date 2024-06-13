@@ -9,11 +9,11 @@ use App\Models\Unidades;
 
 class RiscoController extends Controller
 {
-    public function home()
+    public function index()
     {
 				$riscos = Riscos::all();
 				$unidades = Unidades::all();
-        return view('riscos.home', ['riscos' => $riscos, 'unidades' => $unidades]);
+        return view('riscos.index', ['riscos' => $riscos, 'unidades' => $unidades]);
     }
 
     public function create()
@@ -44,7 +44,7 @@ class RiscoController extends Controller
             if (!$risco) {
                 return redirect()->back()->with('error', 'Houve um erro ao processar a criação de um risco');
             } else {
-                return redirect()->route('riscos.home');
+                return redirect()->route('riscos.index');
             }
         } catch (\Exception $e) {
 						dd($e);
@@ -101,4 +101,8 @@ class RiscoController extends Controller
 
            return redirect()->back()->with('success','Risco Deletado com sucesso');
     }
+
+		public function __construct(){
+			$this->middleware('auth');
+		}
 }
