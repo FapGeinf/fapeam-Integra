@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use App\Models\Unidades;
+use App\Models\Unidade;
 
 class User extends Authenticatable
 {
@@ -47,6 +47,6 @@ class User extends Authenticatable
 
     public function unidade()
     {
-           return $this->belongsTo(Unidades::class,'unidadeIdFK');
+           return $this->belongsTo(Unidade::class,'unidadeIdFK');
     }
 }

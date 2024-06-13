@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\UnidadeTipos;
+use App\Models\UnidadeTipo;
 
 class UnidadeTipoSeeder extends Seeder
 {
@@ -15,7 +15,7 @@ class UnidadeTipoSeeder extends Seeder
      */
     public function run()
     {
-        UnidadeTipos::factory()->create([
+        UnidadeTipo::factory()->create([
 					'unidadeTipoNome' => 'Unidade Teste',
 				]);
     }

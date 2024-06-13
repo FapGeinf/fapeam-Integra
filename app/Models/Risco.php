@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Unidades;
+use App\Models\Unidade;
 
-class Riscos extends Model
+class Risco extends Model
 {
     use HasFactory;
 		protected $fillable = [
@@ -19,7 +19,7 @@ class Riscos extends Model
 	
 	public function unidade()
 	{
-		   return $this->belongsTo(Unidades::class, 'unidadeRiscoFK');
+		   return $this->belongsTo(Unidade::class, 'unidadeRiscoFK');
 	}
 
 	public function monitoramentos()

@@ -95,7 +95,7 @@
 			<label for="name">Avaliação</label>
 			<textarea type="text" name="riscoAvaliacao" class="textInput" required></textarea>
 
-			<label for="name">Unidades</label>
+			<label for="name">Unidade</label>
 			<select name="unidadeRiscoFK" class="selection" requireds>
 				<option selected disabled>Selecione uma unidade</option>
 				@foreach($unidades as $unidade )
