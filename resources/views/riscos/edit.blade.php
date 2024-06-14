@@ -21,14 +21,17 @@
             justify-content: center; /* Centraliza horizontalmente */
             align-items: center; /* Centraliza verticalmente */
             height: 100vh; /* Altura total da viewport */
+            padding: 0 10px; /* Adiciona espaçamento à esquerda e à direita */
         }
+
 
         .form_create {
             background-color: #fff;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            width: 400px;
+            width: 100%; /* Largura total do contêiner pai */
+            max-width: 400px; /* Largura máxima do formulário */
         }
 
         .form_create label {
@@ -93,10 +96,18 @@
             cursor: pointer;
             font-size: 12px;
             margin-left: 5px;
+            position: absolute;
+            top: 5px;
+            right: 5px;
         }
 
         .remove-monitoramento-btn:hover {
             background-color: #c82333;
+        }
+        @media screen and (max-width: 480px) {
+            .form_create {
+                padding: 20px 10px;
+            }
         }
     </style>
 </head>
@@ -128,13 +139,26 @@
                     @endforeach
                 </select>
 
+                {{-- Monitoramentos existentes --}}
+                @foreach ($risco->monitoramentos as $monitoramento)
+                    <div class="monitoramento">
+                        <textarea type="text" name="monitoramentos[{{ $monitoramento->id }}][monitoramentoControleSugerido]" class="textInput" required>{{ $monitoramento->monitoramentoControleSugerido }}</textarea>
+                        <textarea type="text" name="monitoramentos[{{ $monitoramento->id }}][statusMonitoramento]" class="textInput" required>{{ $monitoramento->statusMonitoramento }}</textarea>
+                        <textarea type="text" name="monitoramentos[{{ $monitoramento->id }}][execucaoMonitoramento]" class="textInput" required>{{ $monitoramento->execucaoMonitoramento }}</textarea>
+
+                        {{-- Botão para remover o monitoramento existente --}}
+                        <button type="button" class="remove-monitoramento-btn">Remover</button>
+                    </div>
+                @endforeach
+
                 <div class="add-monitoramento-btn">
                     <i class="fas fa-plus"></i>
                     <span>Adicionar Monitoramento</span>
                 </div>
 
+
                 <div id="monitoramentosDiv">
-                    {{-- Monitoramentos adicionados --}}
+
                 </div>
 
                 <button type="submit">Salvar</button>
@@ -143,7 +167,7 @@
     </div>
 
     <script>
-        let cont = 0;
+        let cont = {{ count($risco->monitoramentos) }};
 
         document.querySelector('.add-monitoramento-btn').addEventListener('click', addMonitoramentos);
 
@@ -176,16 +200,14 @@
             monitoramentoDiv.appendChild(execucaoMonitoramento);
 
             // Adiciona botão de remoção para monitoramentos adicionais
-            if (cont > 0) {
-                let removeBtn = document.createElement('button');
-                removeBtn.type = 'button';
-                removeBtn.classList.add('remove-monitoramento-btn');
-                removeBtn.textContent = 'Remover';
-                removeBtn.addEventListener('click', () => {
-                    monitoramentoDiv.remove();
-                });
-                monitoramentoDiv.appendChild(removeBtn);
-            }
+            let removeBtn = document.createElement('button');
+            removeBtn.type = 'button';
+            removeBtn.classList.add('remove-monitoramento-btn');
+            removeBtn.textContent = 'Remover';
+            removeBtn.addEventListener('click', () => {
+                monitoramentoDiv.remove();
+            });
+            monitoramentoDiv.appendChild(removeBtn);
 
             document.getElementById('monitoramentosDiv').appendChild(monitoramentoDiv);
             cont++;
