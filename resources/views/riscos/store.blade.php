@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 @section('content')
 <!DOCTYPE html>
 <html lang="en">
@@ -10,38 +11,6 @@
 
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 	
-	<script>
-		let cont = 0;
-
-		function addMonitoramentos(){
-			let controleSugerido = document.createElement('input');
-			controleSugerido.setAttribute('type','text');
-			controleSugerido.setAttribute(`name`,`monitoramentos[${cont}][monitoramentoControleSugerido]`);
-			controleSugerido.setAttribute('placeholder','Monitoramento');
-			controleSugerido.setAttribute('class','textInput');
-
-			let statusMonitoramento = document.createElement('input');
-			statusMonitoramento.type = `text`;
-			statusMonitoramento.name = `monitoramentos[${cont}][statusMonitoramento]`;
-			statusMonitoramento.placeholder = "Status do Monitoramento";
-			statusMonitoramento.classList = "textInput";
-
-      let execucaoMonitoramento = document.createElement('input');
-      execucaoMonitoramento.setAttribute('type','text');
-      execucaoMonitoramento.setAttribute('name',`monitoramentos[${cont}][execucaoMonitoramento]`);
-      execucaoMonitoramento.setAttribute('placeholder','Execução do Monitoramento');
-      execucaoMonitoramento.setAttribute('class','textInput');
-
-			const br = document.createElement('br');
-
-			let monitoramentosDiv = document.getElementById('formCreate');
-			monitoramentosDiv.appendChild(controleSugerido);
-			monitoramentosDiv.appendChild(statusMonitoramento);
-      monitoramentosDiv.appendChild(execucaoMonitoramento);
-			cont++;
-		}
-
-	</script>
 	<title>Document</title>
 </head>
 <body>
@@ -60,15 +29,13 @@
           <div class="row g-3">
             <div class="col-sm-12 col-md-8 selectUnidade">
 
-			<label for="name">Unidade</label>
-			<select name="unidadeRiscoFK" class="selection" requireds>
-				<option selected disabled>Selecione uma unidade</option>
-				@foreach($unidades as $unidade )
-					<option value="{{$unidade->id}}">{{$unidade->unidadeNome}}</option>
-				@endforeach
-			</select>
-			<div id="monitoramentosDiv" class="monitoramento"></div>
-			<input type="button" onclick="addMonitoramentos()" value="Adicionar Monitoramento"></input>
+            <label for="unidadeId">Unidade</label>
+            <select name="unidadeId" class="selection" required>
+                <option selected disabled>Selecione uma unidade</option>
+                @foreach($unidades as $unidade)
+                    <option value="{{ $unidade->id }}">{{ $unidade->unidadeNome }}</option>
+                @endforeach
+            </select>
 
 							
             </div>
@@ -176,7 +143,44 @@
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
+            <div id="monitoramentosDiv" class="monitoramento"></div>
+            <input type="button" onclick="addMonitoramentos()" value="Adicionar Monitoramento">
+            <button type="submit">Salvar</button>
+        </form>
+    </div>
+
+    <script>
+        let cont = 0;
+
+        function addMonitoramentos() {
+            let controleSugerido = document.createElement('input');
+            controleSugerido.type = 'text';
+            controleSugerido.name = `monitoramentos[${cont}][monitoramentoControleSugerido]`;
+            controleSugerido.placeholder = 'Monitoramento';
+            controleSugerido.classList = 'textInput';
+            controleSugerido.value = ''; // Defina o valor padrão aqui se necessário
+
+            let statusMonitoramento = document.createElement('input');
+            statusMonitoramento.type = 'text';
+            statusMonitoramento.name = `monitoramentos[${cont}][statusMonitoramento]`;
+            statusMonitoramento.placeholder = 'Status do Monitoramento';
+            statusMonitoramento.classList = 'textInput';
+            statusMonitoramento.value = ''; // Defina o valor padrão aqui se necessário
+
+            let execucaoMonitoramento = document.createElement('input');
+            execucaoMonitoramento.type = 'text';
+            execucaoMonitoramento.name = `monitoramentos[${cont}][execucaoMonitoramento]`;
+            execucaoMonitoramento.placeholder = 'Execução do Monitoramento';
+            execucaoMonitoramento.classList = 'textInput';
+            execucaoMonitoramento.value = ''; // Defina o valor padrão aqui se necessário
+
+            let monitoramentosDiv = document.getElementById('monitoramentosDiv');
+            monitoramentosDiv.appendChild(controleSugerido);
+            monitoramentosDiv.appendChild(statusMonitoramento);
+            monitoramentosDiv.appendChild(execucaoMonitoramento);
+            cont++;
+        }
+    </script>
 </body>
 </html>
-
 @endsection
