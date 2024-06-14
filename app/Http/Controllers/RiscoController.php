@@ -77,11 +77,15 @@ class RiscoController extends Controller
 
         try {
             $request->validate([
-                'riscoEvento' => 'required',
-                'riscoCausa' => 'required',
-                'riscoConsequencia' => 'required',
-                'riscoAvaliacao' => 'required',
-                'unidadeRiscoFK' => 'required'
+                'riscoEvento' => 'required|string|max:255',
+                'riscoCausa' => 'required|string|max:255',
+                'riscoConsequencia' => 'required|string|max:255',
+                'riscoAvaliacao' => 'required|string|max:255',
+                'unidadeId' => 'required|exists:unidades,id',
+                'monitoramentos' => 'required|array|min:1',
+                'monitoramentos.*.monitoramentoControleSugerido' => 'required|string|max:255',
+                'monitoramentos.*.statusMonitoramento' => 'required|string|max:255',
+                'monitoramentos.*.execucaoMonitoramento' => 'required|string|max:255'
             ]);
 
             $atualizaRisco =  $risco->update([
@@ -89,15 +93,28 @@ class RiscoController extends Controller
                 'riscoCausa' => $request->riscoCausa,
                 'riscoConsequencia' => $request->riscoConsequencia,
                 'riscoAvaliacao' => $request->riscoAvaliacao,
+                'unidadeId' => $request->unidadeId,
             ]);
 
             if (!$atualizaRisco) {
-                return redirect()->back()->with('errors', 'Houve um erro no processo de edição:');
+                return redirect()->back()->withErrors(['errors' => 'Preencha os campos corretamente ou preencha os campos vazios']);
             } else {
-                return redirect()->route('riscos.show')->with('success', 'Risco editado com sucesso');
+                if (is_array($request->monitoramentos)) {
+                    foreach ($request->monitoramentos as $monitoramentoData) {
+                        $monitoramento = Monitoramento::findorFail($monitoramentoData['id']);
+                        $monitoramento->update([
+                            'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
+                            'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
+                            'execucaoMonitoramento' => $monitoramentoData['execucaoMonitoramento'],
+                            'riscoFK' => $risco->id
+                        ]);
+                    }
+                }
             }
+
+            return redirect()->route('riscos.index')->with(['success' => 'Riscos e monitoramentos atualizados com sucesso']);
         } catch (\Exception $e) {
-            return redirect()->back()->with('errors', $e->getMessage());
+            return redirect()->back()->withErrors(['errrors' => $e->getMessage()]);
         }
     }
 
@@ -108,10 +125,10 @@ class RiscoController extends Controller
         $deleteRisco = $risco->delete();
 
         if (!$deleteRisco) {
-            return redirect()->back()->with('errors', 'Erro ao deletar o risco');
+            return redirect()->back()->withErrors(['errors' => 'Houve um erro ao deletar o risco']);
         }
 
-        return redirect()->back()->with('success', 'Risco Deletado com sucesso');
+        return redirect()->back()->with(['success' => 'Risco Deletado com sucesso']);
     }
 
     public function __construct()
