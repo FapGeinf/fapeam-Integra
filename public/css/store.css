@@ -42,74 +42,7 @@
 		} */
 
     @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
-
-    body {
-      font-family: "Roboto", sans-serif;
-      font-weight: 400;
-      font-style: normal;
-      /* background: #002f62; */
-    }
     
-    body.night-mode {
-      background-color: #111111;
-      color: #fff;
-    }
-    
-    .night-mode nav.menu-lateral {
-      background-color: #2d2f31;
-    }
-    
-    .night-mode .navbar {
-      background-color: #1a1a1a;
-    }
-    
-    .night-mode .box-shadow {
-      background-color: #2d2f31;
-    }
-    
-    /* .night-mode input {
-      background-color: #eeeeee !important;
-    }
-    
-    .night-mode textarea,
-      input,
-      select {
-      background-color: #e1dfdf !important;
-    }
-    
-    .night-mode .bootstrap-select > .dropdown-toggle.bs-placeholder {
-      background-color: #e1dfdf !important;
-    } */
-    
-    .night-mode input::placeholder {
-      color: #000;
-    }
-    
-    .night-mode .bi-x-circle-fill {
-      color: #fff;
-    }
-    
-    .night-mode .bi-x-circle-fill:hover {
-      color: red;
-    }
-    
-    .night-mode .bi-plus-circle-fill {
-      color: #fff;
-    }
-    
-    .night-mode .bi-plus-circle-fill:hover {
-      color: #0a7baf;
-    }
-    
-    .night-mode .btnAdd {
-      background-color: #667279;
-    }
-    
-    .night-mode .btnSub {
-      background-color: #667279;
-    }
-    
-    /* MODO NOTURNO FIM */
     
     /* STORE*/
     
@@ -137,23 +70,23 @@
       padding-bottom: .2rem;
     }
     
-    label.labelSituacao {
+    /* label.labelSituacao {
       margin-top: 1rem;
-    }
+    } */
     
     .cke_top,
     .cke_bottom {
       background: #f8f9fa;
     }
     
-    .fields {
+    /* .fields {
       display: flex;
       justify-content: space-between;
       margin-top: 1rem;
       padding-bottom: 0px !important;
-    }
+    } */
     
-    .tableFields .fields button {
+    /* .tableFields .fields button {
       border: none;
       padding: 0;
       margin: 0;
@@ -162,7 +95,7 @@
     .dangerButtons {
       margin: 0;
       padding: 0;
-    }
+    } */
     
     .headerInfo {
       display: flex;
@@ -171,9 +104,9 @@
       border-bottom: 1px solid #c8c8c8;
     }
     
-    .anexoOptions {
+    /* .anexoOptions {
       padding-top: 1rem;
-      /* margin-bottom: .3rem; */
+     
       display: flex;
       justify-content: space-between;
     }
@@ -187,9 +120,9 @@
       padding: 0;
       margin: 0;
       background-color: #f8fafc;
-    }
+    } */
     
-    .icons {
+    /* .icons {
       display: flex;
     }
     
@@ -255,7 +188,7 @@
     
     .col-situacao {
       margin-top: 1rem;
-    }
+    } */
     
     .selectpicker {
       width: 100%;
@@ -265,7 +198,7 @@
       cursor: pointer;
     }
     
-    .bootstrap-select>.dropdown-toggle.bs-placeholder {
+    /* .bootstrap-select>.dropdown-toggle.bs-placeholder {
       color: #000 !important;
       width: 100%;
       outline: none;
@@ -299,7 +232,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-    }
+    } */
     
     .btnAdd {
       /* display: flex; */
