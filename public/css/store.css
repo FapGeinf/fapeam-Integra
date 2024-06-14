@@ -1,0 +1,645 @@
+/* *{
+			border: solid 1px red;
+		} */
+		body{
+      font-family: Arial, Helvetica, sans-serif !important;
+			/* border: solid 1px red; */
+			/* display: flex;
+			justify-content: center;
+			align-items: center; */
+		}
+		/* .form_risco{
+			width: 50%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.form_create{
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+			margin: 10px;
+			padding: 10px;
+			width: 75%;
+		}
+		.textInput{
+			width: 100%;
+			height: 10%;
+		}
+		.selection{
+			margin: 10px;
+		}
+		@media screen and (max-width: 900px) {
+			.form_risco{
+				width: 100%;
+			}
+			.form_create{
+				width: 75%;
+			}
+			.textInput{
+				width: 100%;
+			}
+		} */
+
+    @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+    body {
+      font-family: "Roboto", sans-serif;
+      font-weight: 400;
+      font-style: normal;
+      /* background: #002f62; */
+    }
+    
+    body.night-mode {
+      background-color: #111111;
+      color: #fff;
+    }
+    
+    .night-mode nav.menu-lateral {
+      background-color: #2d2f31;
+    }
+    
+    .night-mode .navbar {
+      background-color: #1a1a1a;
+    }
+    
+    .night-mode .box-shadow {
+      background-color: #2d2f31;
+    }
+    
+    /* .night-mode input {
+      background-color: #eeeeee !important;
+    }
+    
+    .night-mode textarea,
+      input,
+      select {
+      background-color: #e1dfdf !important;
+    }
+    
+    .night-mode .bootstrap-select > .dropdown-toggle.bs-placeholder {
+      background-color: #e1dfdf !important;
+    } */
+    
+    .night-mode input::placeholder {
+      color: #000;
+    }
+    
+    .night-mode .bi-x-circle-fill {
+      color: #fff;
+    }
+    
+    .night-mode .bi-x-circle-fill:hover {
+      color: red;
+    }
+    
+    .night-mode .bi-plus-circle-fill {
+      color: #fff;
+    }
+    
+    .night-mode .bi-plus-circle-fill:hover {
+      color: #0a7baf;
+    }
+    
+    .night-mode .btnAdd {
+      background-color: #667279;
+    }
+    
+    .night-mode .btnSub {
+      background-color: #667279;
+    }
+    
+    /* MODO NOTURNO FIM */
+    
+    /* STORE*/
+    
+    
+    
+    .box-shadow {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+      padding: 15px;
+      background-color: #f8fafc;
+    }
+    
+    .boxPattern {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+      padding: 15px;
+      background-color: #f8fafc;
+      margin: 25px -19px 0 -19px;
+    }
+    
+    .container {
+      align-items: center;
+      flex-direction: column;
+    }
+    
+    label {
+      padding-bottom: .2rem;
+    }
+    
+    label.labelSituacao {
+      margin-top: 1rem;
+    }
+    
+    .cke_top,
+    .cke_bottom {
+      background: #f8f9fa;
+    }
+    
+    .fields {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1rem;
+      padding-bottom: 0px !important;
+    }
+    
+    .tableFields .fields button {
+      border: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .dangerButtons {
+      margin: 0;
+      padding: 0;
+    }
+    
+    .headerInfo {
+      display: flex;
+      margin-bottom: 1rem;
+      justify-content: space-between;
+      border-bottom: 1px solid #c8c8c8;
+    }
+    
+    .anexoOptions {
+      padding-top: 1rem;
+      /* margin-bottom: .3rem; */
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .inputAnexo {
+      margin-bottom: 1rem;
+    }
+    
+    .anexoOptions button {
+      border: none;
+      padding: 0;
+      margin: 0;
+      background-color: #f8fafc;
+    }
+    
+    .icons {
+      display: flex;
+    }
+    
+    .icons i {
+      font-size: 20px;
+      cursor: pointer;
+    }
+    
+    .bi {
+      font-size: 16px;
+    }
+    
+    .hashtag {
+      font-size: 1em;
+    }
+    
+    .bi-question-circle {
+      margin-right: 3px;
+      vertical-align: middle;
+      color: #777;
+    }
+    
+    .num-const,
+    .rec-str {
+      margin-right: 2px;
+    }
+    
+    .rec-i {
+      font-size: 13px;
+    }
+    
+    .bi-x-square-fill {
+      color: rgb(202, 0, 0);
+    }
+    
+    .bi-x-circle-fill {
+      color: rgb(202, 0, 0);
+    }
+    
+    .bi-square {
+      margin-left: 3px;
+    }
+    
+    .bi-plus-square-fill {
+      margin-top: 0px;
+      color: #777;
+    }
+    
+    .bi-plus-circle-fill {
+      color: #0a7baf;
+    }
+    
+    .ask-recomendacao {
+      margin-right: 3px;
+      vertical-align: 0;
+    }
+    
+    .add_recomendacao {
+      display: flex;
+      margin-top: 0px;
+      justify-content: end;
+    }
+    
+    .col-situacao {
+      margin-top: 1rem;
+    }
+    
+    .selectpicker {
+      width: 100%;
+      background-color: #e5e5e58e;
+      outline: none;
+      transition: .2s;
+      cursor: pointer;
+    }
+    
+    .bootstrap-select>.dropdown-toggle.bs-placeholder {
+      color: #000 !important;
+      width: 100%;
+      outline: none;
+      padding: 0.5rem 1rem;
+      transition: .2s;
+      cursor: pointer;
+    }
+    
+    .bootstrap-select>.dropdown-toggle {
+      border: 1px solid #b9b9b98e;
+      color: #000 !important;
+      width: 100%;
+      outline: none;
+      padding: 0.4rem 1rem !important;
+      transition: .2s;
+      cursor: pointer;
+      border-radius: 0px;
+    }
+    
+    .bootstrap-select>.dropdown-toggle.bs-placeholder {
+      background-color: #fff !important;
+    }
+    
+    #dataImplementacaoSetor,
+    #dataLimite {
+      cursor: pointer;
+      color: #474747;
+    }
+    
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    .btnAdd {
+      /* display: flex; */
+      /* margin: .5rem 0 .5rem auto; */
+      /* align-items: center; */
+      /* justify-content: center; */
+      background-color: #1a52b9;
+      border-radius: 5px;
+      color: #fff;
+      border: none;
+      outline: none;
+      padding: 0.4rem 0.6rem;
+      transition: .3s;
+    }
+    
+    .btnAdd:hover {
+      background-color: #2464da;
+    }
+    
+    .btnAdd:active {
+      opacity: 0.8;
+    }
+    
+    .bi-file-earmark-plus-fill {
+      margin-right: 3px;
+    }
+    
+    .bi-check-circle-fill {
+      margin-right: 4px;
+    }
+    
+    .btnSub {
+      display: flex;
+      margin:auto;
+      padding-left: 2px;
+      align-items: center;
+      justify-content: center;
+      background-color: #34a663;
+      border-radius: 5px;
+      color: #fff;
+      border: none;
+      outline: none;
+      padding: 0.5rem 0.7rem;
+      transition: .3s;
+    }
+    
+    .btnSub:hover {
+      background-color: #27ae60;
+    }
+    
+    form [type='submit'] {
+      margin-top: 2rem;
+    }
+    
+    .btn-success {
+      margin-right: 10px;
+    }
+    
+    .dataLimite input {
+      height: 50px;
+      width: 100%;
+      border: 1px solid #b9b9b98e;
+      outline: none;
+      padding: 0 1rem;
+      margin-bottom: 6px;
+      transition: .2s;
+      cursor: pointer;
+    }
+    
+    #btn:active {
+      opacity: 0.5;
+    }
+    
+    textarea,
+    input,
+    select {
+      border-radius: 0px !important;
+      background-color: #fff !important;
+    }
+    
+    .newFieldRelatorio {
+      /* margin-bottom: 1rem; */
+    }
+    
+    .dateTime input {
+      border-color: #d8d8d8;
+      /*padding: .52rem .65rem; */
+    }
+    
+    .importantBtn {
+      display: flex;
+      margin-top: 1.5rem;
+      /* flex-direction: column; */
+      justify-content: center;
+    }
+    
+    .border {
+      margin: 0 auto;
+      padding: 0px;
+      width: 100%;
+      border: 1px solid #c8c8c8;
+    }
+    
+    .fileAnexo {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .modal.show .modal-dialog {
+      /* margin-top: 10rem; */
+      }
+    
+    .modal-body {
+      padding: 3rem;
+      overflow-y: auto;
+      max-height: 600px;
+    }
+    
+    /* JQUERY */
+    
+    #dynamic_field {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+    
+    #dynamic_field {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+    
+    .tableFields {
+      width: 100%;
+    }
+    
+    .codConstCreateField {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+    
+    .constCreateField {
+      height: 9em;
+    }
+    
+    .recTextField {
+      width: 100%;
+      height: 9em;
+    }
+    
+    .tableForm {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .recInsert {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    
+    .recFieldTable {
+      width: 100%;
+    }
+    
+    /*css da pagina de edição*/
+    .mainShow {
+      margin-top: 3vh !important;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-top: 15px;
+    }
+    
+    .editReport {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    
+    .showContents {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50%;
+      background-color: #fff;
+      padding: 20px;
+      flex-direction: column;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+    }
+    
+    .contentEdit {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-top: 15px;
+      padding-bottom: 10px;
+      flex-direction: column;
+    }
+    
+    /* 
+    .form-control {
+      display: block;
+      width: 100%;
+      padding: 0.375rem 0.75rem;
+      font-size: 0.9rem;
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--bs-body-color);
+      appearance: none;
+      background-color: var(--bs-body-bg);
+      background-clip: padding-box;
+      border: var(--bs-border-width) solid var(--bs-border-color);
+      border-radius: var(--bs-border-radius);
+    }*/
+    
+    .contentEdit input {
+      padding-right: 5rem;
+    }
+    
+    .btnEditar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #007bff;
+      color: #fff;
+      margin-top: 40px;
+      padding: 10px 15px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      margin-left: 25%;
+      width: 50%;
+    }
+    
+    /* MODAL INÍCIO */
+    
+    .close {
+      border: none;
+      background: #f8fafc;
+    }
+    
+    .bi-x-circle {
+      font-size: 17px;
+      transition: 0.1s;
+    }
+    
+    .bi-x-circle:hover {
+      color: #808080;
+    }
+    
+    .bi-x-circle:focus {
+      color: #000;
+    }
+    
+    .modal-header {
+      padding-left: 15px;
+      padding-right: 15px;
+      padding-top: 10px;
+      padding-bottom: 6px;
+    }
+    
+    .modal-footer {
+      /* padding-left: 15px; */
+      /* padding-right: 10px; */
+      padding-top: 8px;
+      padding-bottom: 9px;
+      justify-content: center;
+    }
+    
+    /* MODAL FIM */
+    
+    @media (min-width: 576px) {
+      .modal-dialog {
+        max-width: 35%;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .labelUnidades {
+        margin-top: 0 !important;
+      }
+    }
+    
+    @media screen and (min-width: 1024px) {
+      .newFieldRelatorio {
+        margin-bottom: 1rem;
+      }
+    }
+    
+    @media (max-width: 900px) {
+      .create {
+        width: 90%;
+      }
+    
+      .labelUnidades {
+        margin-top: 1rem;
+      }
+    }
+    
+    @media (max-width: 766px) {
+      .newFieldAno {
+        margin-top: 0;
+      }
+    
+      .inputAnexo {
+        margin-bottom: 0;
+      }
+    
+      .divUnidades {
+        margin-top: 0;
+      }
+    
+      .fileAnexo {
+        margin-bottom: 0;
+      }
+    }
+    
+    /* INSERT CONST CSS */
+    .recButtonSpaceBtwn {
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .recButtonSpaceBtwn2 {
+      padding-top: 1rem;
+    }
+    
+    .btn_remove_rec_insert {
+      padding: 0;
+    }
+
+    /*  */
+    .selectUnidade {
+      display: flex;
+      flex-direction: column;
+    }
+
+     .selectUnidade select {
+      padding: 9px;
+      cursor: pointer;
+      border: 1px solid #ccc;
+    }
