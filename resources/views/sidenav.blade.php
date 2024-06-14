@@ -42,24 +42,24 @@
 
 		<a class="navbar-brand {{ Request::path() === '/' ? 'active' : '' }}" href="">
 			<div class="logo">
-				<img id="logoMin" src="" style="height: 25%; object-fit: cover;">
-				<img id="logoMax" src="" style="display: none;" class="logoImg" alt="Logo">
+				<img id="logoMin" src="{{ asset('img/logo-lupa-no-background2.png') }}" style="height: 27%; object-fit: cover;">
+				<img id="logoMax" src="{{ asset('img/logo-cortada.png')}}" style="display: none;" class="logoImg" alt="Logo">
 			</div>
 		</a>
 
-		<ul>
+		<ul class="ulList">
 			<li class="item-menu">
 				<a href="" class="{{ Request::path() === '/' ? 'active' : '' }}">
-					<i class="bx bxs-file-find icon"></i>
-					<span class="txt-link">Achados</span>
+					<i class="bx bi-house icon"></i>
+					<span class="txt-link">Home</span>
 				</a>
 			</li>
 
 			<li class="item-menu">
 				<!--Precisa ser adicionada uma rota-->
 				<a href="" class="{{ Request::path() === 'home' ? 'active' : '' }}">
-					<i class='bx bxs-calendar-check icon'></i>
-					<span class="txt-link">Implementadas</span>
+					<i class='bx bi-file-text icon'></i>
+					<span class="txt-link">Relatórios</span>
 				</a>
 
 
