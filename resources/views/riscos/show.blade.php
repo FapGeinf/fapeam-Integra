@@ -8,6 +8,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Riscos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Cor de fundo do corpo */
+        }
+
+        .container-fluid{
+            position: relative;
+            top: 120px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .box-shadow {
+            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15); /* Adiciona sombra à caixa */
+            border-radius: .25rem; /* Borda arredondada */
+            background-color: #fff; /* Cor de fundo da caixa */
+            padding: 20px; /* Espaçamento interno */
+            margin-bottom: 30px; /* Espaçamento abaixo da caixa */
+        }
+
+        .table th,
+        .table td {
+            vertical-align: middle; /* Alinha verticalmente o conteúdo da célula */
+        }
+
+        .text-center {
+            text-align: center; /* Alinha o texto no centro */
+        }
+
+        .text-light {
+            color: #f8f9fa !important; /* Cor do texto claro */
+        }
+
+        .bg-dark {
+            background-color: #343a40 !important; /* Cor de fundo escura */
+        }
+
+        .mb-4 {
+            margin-bottom: 1.5rem !important; /* Espaçamento abaixo de 1.5rem */
+        }
+    </style>
 </head>
 <body>
     <div class="container-fluid pt-4">
@@ -32,7 +73,7 @@
                 </tbody>
             </table>
             <h2 class="text-center mb-4">Monitoramentos</h2>
-            <table class="table table-bordered"> <!-- Adiciona uma classe mb-4 para criar espaço abaixo da tabela -->
+            <table class="table table-bordered mb-4">
                 <thead>
                     <tr>
                         <th scope="col" class="text-center text-light bg-dark">Controle Sugerido</th>
