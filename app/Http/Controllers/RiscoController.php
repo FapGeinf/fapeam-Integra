@@ -18,6 +18,12 @@ class RiscoController extends Controller
         return view('riscos.index', ['riscos' => $riscos, 'unidades' => $unidades]);
     }
 
+    public function show($id)
+    {
+           $risco = Risco::findorFail($id);
+           return view('riscos.show',['risco' => $risco]);
+    }
+
     public function create()
     {
         $unidades = Unidade::all();
