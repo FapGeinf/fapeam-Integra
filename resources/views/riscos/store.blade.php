@@ -5,43 +5,6 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<style>
-
-		.form_risco{
-			border: solid 1px greenyellow;
-			width: 100%;
-			position: absolute;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-		}
-		.form_create{
-			display: flex;
-			align-items: center;
-			flex-direction: column;
-			margin: 10px;
-			padding: 10px;
-			width: 20%;
-		}
-		.textInput{
-			width: 100%;
-			height: 10%;
-		}
-		.selection{
-			margin: 10px;
-		}
-		@media screen and (max-width: 900px) {
-			.form_risco{
-				width: 100%;
-			}
-			.form_create{
-				width: 75%;
-			}
-			.textInput{
-				width: 100%;
-			}
-		}
-		</style>
 	<script src="/ckeditor/ckeditor.js" ></script>
 	{{-- <script src="//cdn.ckeditor.com/4.18.0/basic/ckeditor.js"></script> --}}
 
