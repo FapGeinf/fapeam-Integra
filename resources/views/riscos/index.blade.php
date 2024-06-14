@@ -27,6 +27,7 @@
 					<td>{{$risco->riscoConsequencia}}</td>
 					<td>{{$risco->riscoAvaliacao}}</td>
 					<td>{{$risco->unidade->unidadeNome}}</td>
+                    <td><a href="{{ route('riscos.show', $risco->id) }}">Detalhes</a></td>
 				</tr>
 			@endforeach
 		</table>

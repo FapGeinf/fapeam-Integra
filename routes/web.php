@@ -24,6 +24,10 @@ Route::get('/', function (){
 Route::get('/index', [RiscoController::class, 'index'])->name('riscos.index');
 Route::get('/risco/novo', [RiscoController::class,'create'])->name('riscos.create');
 Route::post('/risco/criar', [RiscoController::class, 'store'])->name('riscos.store');
+Route::get('/riscos/show/{id}', [RiscoController::class, 'show'])->name('riscos.show');
+Route::get('/riscos/{id}/edit', [RiscoController::class, 'edit'])->name('riscos.edit');
+Route::put('/riscos/{id}', [RiscoController::class, 'update'])->name('riscos.update');
+
 Auth::routes();
 
 Route::get('/home', function(){
