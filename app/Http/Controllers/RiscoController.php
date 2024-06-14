@@ -114,7 +114,7 @@ class RiscoController extends Controller
 
             return redirect()->route('riscos.index')->with(['success' => 'Riscos e monitoramentos atualizados com sucesso']);
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['errrors' => $e->getMessage()]);
+            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
         }
     }
 
