@@ -47,7 +47,6 @@ class RiscoController extends Controller
                 'unidadeId' => $request->unidadeId,
                 'userIdRisco' => auth()->id()
             ]);
-            dd($request->all());
 
 
             // Criação dos monitoramentos associados ao risco

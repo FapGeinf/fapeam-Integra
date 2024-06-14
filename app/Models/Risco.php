@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,7 +19,7 @@ class Risco extends Model
         'riscoConsequencia',
         'riscoAvaliacao',
         'userIdRisco',
-        'unidadeId' // Adicionando unidadeId aos campos preenchíveis
+        'unidadeId'
     ];
 
     public function user()
@@ -28,8 +29,9 @@ class Risco extends Model
 
     public function monitoramentos()
     {
-        return $this->hasMany(Monitoramento::class);
+        return $this->hasMany(Monitoramento::class, 'riscoFK', 'id');
     }
+
 
     public function respostas()
     {

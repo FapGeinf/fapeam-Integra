@@ -9,10 +9,10 @@ class Monitoramento extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['monitoramentoControleSugerido','statusMonitoramento','execucaoMonitoramento','riscoFK'];
+    protected $fillable = ['monitoramentoControleSugerido', 'statusMonitoramento', 'execucaoMonitoramento', 'riscoFK'];
 
     public function risco()
     {
-           return $this->belongsTo(Risco::class,'id','riscoFK');
+        return $this->belongsTo(Risco::class, 'riscoFK');
     }
 }
