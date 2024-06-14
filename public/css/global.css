@@ -1,0 +1,343 @@
+/*css do layout App */
+*{
+	border: red solid 1px;
+}
+.login-page .py-4 {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.login-page .appContent {
+  margin-left: 0;
+  transition: margin-left 0.4s;
+}
+
+/* FONT STYLE */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+#relatoriosTable, #appSidenav {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.flex-container {
+  margin-top: 0.5rem !important;
+}
+
+/* FONTE STYLE */
+
+.bottom {
+  position: absolute;
+  top: 95%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.item-menu {
+  position: relative;
+}
+
+.navbar {
+  background-color: #1e3054;
+  height: 36px;
+  position: fixed !important;
+  width: 100%;
+  z-index: 1;
+  flex-wrap: nowrap !important;
+}
+
+.logoNavImg {
+  transition: .1s;
+}
+
+.logoNavImg:hover {
+  opacity: .6;
+}
+
+a.navbar-brand:nth-child(1) {
+  margin-left: .5rem;
+  margin-right: 0;
+  }
+
+.container-fluid {
+  justify-content: center !important;
+}
+
+.container-fluid img:hover {
+  opacity: .6;
+}
+
+.bi-escape {
+  text-decoration: none;
+}
+
+.appName {
+  color: rgb(255, 255, 255) !important;
+  transition: .1s;
+  font-size: 14px;
+  padding-left: 5px;
+}
+
+.appName:hover {
+  opacity: .6;
+}
+
+.userSpan {
+  margin-right: 3px;
+}
+
+.userName {
+  display: ruby;
+}
+
+.split {
+  margin-left: .5rem;
+  margin-right: .5rem;
+}
+
+.unitySpan {
+  margin-right: 3px;
+}
+
+.acessUnity {
+  display: flex;
+}
+
+.topnav {
+  width: 9%;
+  transition: .2s;
+}
+
+.topnav:hover {
+  opacity: .6;
+}
+
+#navbarDropdown {
+  /* color: white !important; */
+  display: flex;
+  font-size: 0.8rem;
+  cursor: default;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.nav-item {
+  color: #fff;
+  margin-right: .5rem;
+  white-space: nowrap;
+}
+
+.barExit {
+  color: #fff;
+  cursor: default;
+  margin-right: .5rem;
+}
+
+.exit {
+  color: #fff;
+  margin-right: 5px;
+  cursor: default;
+}
+
+a.btnSair {
+  color: #fff;
+  text-decoration: none;
+}
+
+.nav-item i {
+  color: #fff;
+}
+
+.nav-item {
+  transition: .1s;
+}
+
+.nav-item:hover {
+  opacity: .6;
+}
+
+.appContent {
+  margin-left: 3rem;
+  transition: margin-left 0.4s;
+}
+
+.mainShow {
+  margin-top: 5vh;
+}
+
+.mainHomePage {
+  margin-top: 5vh;
+}
+
+/* INÍCIO CSS SIDENAV */
+.sidenavImg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 4rem;
+  cursor: pointer;
+}
+
+.sidenavImg img {
+  width: 75%;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+
+#logoMin {
+  transition: .4s;
+  cursor: pointer;
+}
+
+#logoMin:hover {
+  opacity: .6;
+}
+
+#logoMax {
+  width: 100%;
+  cursor: pointer;
+  transition: .4s;
+}
+
+#logoMax:hover {
+  opacity: .6;
+}
+
+nav.menu-lateral {
+  font-family: "Lato", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
+  width: 3rem;
+  position: fixed;
+  float: left;
+  background-color: #171a35;
+  overflow: hidden;
+  transition: 0.4s;
+  margin: 0;
+  padding: .4rem;
+  height: 100vh;
+}
+
+.btn-expandir {
+  display: flex;
+  justify-content: end;
+  width: 100%;
+  padding-right: 6px;
+  margin-top: 3em;
+}
+
+.btn-expandir i {
+  color: #fff;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+.menu-lateral ul li {
+  position: relative;
+  list-style-type: none;
+  margin: 0.8rem auto;
+}
+
+.icon {
+  font-size: 1.3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 0.5rem;
+}
+
+ol, ul {
+  height: 100%;
+  padding-left: 0rem;
+}
+
+ul li.item-menu {
+  transition: 0.4s;
+}
+
+ul li.item-menu:hover {
+  opacity: .5;
+}
+
+ul li.item-menu:active {
+  opacity: .8;
+}
+
+ul li.item-menu a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  line-height: 1.5rem;
+}
+
+.txt-link {
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+ul li.item-menu a .txt-link {
+  margin-left: 1rem;
+  transition: .8s;
+}
+
+nav.menu-lateral.expand .txt-link {
+  margin-left: 2rem;
+}
+
+ul li.item-menu a .icon i {
+  font-size: 1.5rem;
+}
+
+ul li.item-menu.btn-sair {
+  position: absolute;
+  margin-top: 3rem;
+  width: 100%;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+/* FIM CSS SIDENAV */
+
+/* FOOTER */
+
+footer.footerBar {
+  border-top: 1px solid #ddd;
+  background-color: rgb(253, 253, 253) !important;
+  position: fixed !important;
+  bottom: 0;
+  width: 100%;
+}
+
+.footerText {
+  cursor: default;
+}
+
+/* FIM FOOTER */
