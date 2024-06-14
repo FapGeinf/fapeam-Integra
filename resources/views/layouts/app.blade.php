@@ -76,10 +76,10 @@
             </div>
         </nav>
 
-				
-					@include('sidenav')
+					@if (!Auth::guest())
+						@include('sidenav')
+					@endif
 	
-
         <main class="py-4">
             @yield('content')
         </main>

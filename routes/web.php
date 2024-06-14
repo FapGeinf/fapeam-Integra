@@ -26,6 +26,8 @@ Route::get('/risco/novo', [RiscoController::class,'create'])->name('riscos.creat
 Route::post('/risco/criar', [RiscoController::class, 'store'])->name('riscos.store');
 Auth::routes();
 
-
+Route::get('/home', function(){
+	return redirect()->route('riscos.index');
+});
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
