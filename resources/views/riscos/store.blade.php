@@ -1,9 +1,47 @@
+@extends('layouts.app')
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="{{ asset('css/store.css') }}">
+	<style>
+
+		.form_risco{
+			border: solid 1px greenyellow;
+			width: 100%;
+			position: absolute;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		.form_create{
+			border: solid 1px red;
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+			margin: 10px;
+			padding: 10px;
+			width: 20%;
+		}
+		.textInput{
+			width: 100%;
+			height: 10%;
+		}
+		.selection{
+			margin: 10px;
+		}
+		@media screen and (max-width: 900px) {
+			.form_risco{
+				width: 100%;
+			}
+			.form_create{
+				width: 75%;
+			}
+			.textInput{
+				width: 100%;
+			}
+		}
 
 	<script src="/ckeditor/ckeditor.js" ></script>
 	{{-- <script src="//cdn.ckeditor.com/4.18.0/basic/ckeditor.js"></script> --}}
@@ -37,7 +75,7 @@
 			let monitoramentosDiv = document.getElementById('formCreate');
 			monitoramentosDiv.appendChild(controleSugerido);
 			monitoramentosDiv.appendChild(statusMonitoramento);
-			monitoramentosDiv.appendChild(execucaoMonitoramento);
+      monitoramentosDiv.appendChild(execucaoMonitoramento);
 			cont++;
 		}
 
@@ -60,17 +98,15 @@
           <div class="row g-3">
             <div class="col-sm-12 col-md-8 selectUnidade">
 
-							<!-- CODIGO ABAIXO FUNCIONANDO -->
-              <!-- <label for="name">Unidade:</label>
-              <input type="text" class="form-control" id="" name="" placeholder="Gerência de Informática/GEINF" required> -->
-							
-							<label for="name">Unidade:</label>
-							<select name="unidadeRiscoFK" class="selection" requireds>
-								<option selected disabled>Selecione uma unidade</option>
-								@foreach($unidades as $unidade )
-									<option value="{{$unidade->id}}">{{$unidade->unidadeNome}}</option>
-								@endforeach
-							</select>
+			<label for="name">Unidade</label>
+			<select name="unidadeRiscoFK" class="selection" requireds>
+				<option selected disabled>Selecione uma unidade</option>
+				@foreach($unidades as $unidade )
+					<option value="{{$unidade->id}}">{{$unidade->unidadeNome}}</option>
+				@endforeach
+			</select>
+			<div id="monitoramentosDiv" class="monitoramento"></div>
+			<input type="button" onclick="addMonitoramentos()" value="Adicionar Monitoramento"></input>
 
 							
             </div>
@@ -180,3 +216,5 @@
 
 </body>
 </html>
+
+@endsection

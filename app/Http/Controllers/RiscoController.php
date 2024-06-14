@@ -4,21 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use app\Http\Middleware\VerifyCsrfToken;
-use App\Models\Riscos;
-use App\Models\Unidades;
+use App\Models\Risco;
+use App\Models\Unidade;
 
 class RiscoController extends Controller
 {
-    public function home()
+    public function index()
     {
-				$riscos = Riscos::all();
-				$unidades = Unidades::all();
-        return view('riscos.home', ['riscos' => $riscos, 'unidades' => $unidades]);
+				$riscos = Risco::all();
+				$unidades = Unidade::all();
+        return view('riscos.index', ['riscos' => $riscos, 'unidades' => $unidades]);
     }
 
     public function create()
     {
-        $unidades = Unidades::all();
+        $unidades = Unidade::all();
         return view('riscos.store', ['unidades' => $unidades]);
     }
 
@@ -34,7 +34,7 @@ class RiscoController extends Controller
           ]);
 					try {
 						// dd($request->unidadeRiscoFk);
-            $risco = Riscos::create([
+            $risco = Risco::create([
                 'riscoEvento' => $request->riscoEvento,
                 'riscoCausa' => $request->riscoCausa,
                 'riscoConsequencia' => $request->riscoConsequencia,
@@ -44,7 +44,7 @@ class RiscoController extends Controller
             if (!$risco) {
                 return redirect()->back()->with('error', 'Houve um erro ao processar a criação de um risco');
             } else {
-                return redirect()->route('riscos.home');
+                return redirect()->route('riscos.index');
             }
         } catch (\Exception $e) {
 						dd($e);
@@ -54,13 +54,13 @@ class RiscoController extends Controller
 
     public function edit()
     {
-        $unidades = Unidades::all();
+        $unidades = Unidade::all();
         return view('riscos.edit', ['unidades' => $unidades]);
     }
 
     public function update(Request $request, $id)
     {
-        $risco = Riscos::findorFail($id);
+        $risco = Risco::findorFail($id);
 
         try {
             $request->validate([
@@ -91,7 +91,7 @@ class RiscoController extends Controller
 
     public function delete($id)
     {
-           $risco = Riscos::findorFail($id);
+           $risco = Risco::findorFail($id);
 
            $deleteRisco = $risco->delete();
 
@@ -101,4 +101,8 @@ class RiscoController extends Controller
 
            return redirect()->back()->with('success','Risco Deletado com sucesso');
     }
+
+		public function __construct(){
+			$this->middleware('auth');
+		}
 }

@@ -18,9 +18,12 @@ Route::get('/welcome', function () {
     return view('welcome');
 });
 Route::get('/', function (){
-	return redirect()->route('riscos.home');
+	return redirect()->route('riscos.index');
 });
 
-Route::get('/home', [RiscoController::class, 'home'])->name('riscos.home');
+Route::get('/index', [RiscoController::class, 'index'])->name('riscos.index');
 Route::get('/risco/novo', [RiscoController::class,'create'])->name('riscos.create');
 Route::post('/risco/criar', [RiscoController::class, 'store'])->name('riscos.store');
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
