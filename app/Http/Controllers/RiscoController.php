@@ -60,8 +60,8 @@ class RiscoController extends Controller
 
     public function update(Request $request, $id)
     {
+			dd($request->all());
         $risco = Risco::findorFail($id);
-
         try {
             $request->validate([
                 'riscoEvento' => 'required',
