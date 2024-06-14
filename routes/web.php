@@ -27,6 +27,8 @@ Route::post('/risco/criar', [RiscoController::class, 'store'])->name('riscos.sto
 Route::get('/riscos/show/{id}', [RiscoController::class, 'show'])->name('riscos.show');
 Route::get('/riscos/{id}/edit', [RiscoController::class, 'edit'])->name('riscos.edit');
 Route::put('/riscos/{id}', [RiscoController::class, 'update'])->name('riscos.update');
+Route::post('/riscos/{id}/respostas', [RiscoController::class, 'storeResposta'])->name('riscos.storeResposta');
+Route::delete('/riscos/monitoramentos/{id}',[RiscoController::class,'deleteMonitoramento'])->name('riscos.deleteMonitoramento');
 
 Auth::routes();
 

@@ -20,10 +20,9 @@
             display: flex;
             justify-content: center; /* Centraliza horizontalmente */
             align-items: center; /* Centraliza verticalmente */
-            height: 100vh; /* Altura total da viewport */
+            min-height: 100vh; /* Altura mínima total da viewport */
             padding: 0 10px; /* Adiciona espaçamento à esquerda e à direita */
         }
-
 
         .form_create {
             background-color: #fff;
@@ -31,7 +30,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
             width: 100%; /* Largura total do contêiner pai */
-            max-width: 400px; /* Largura máxima do formulário */
+            max-width: 600px; /* Largura máxima do formulário */
         }
 
         .form_create label {
@@ -96,14 +95,32 @@
             cursor: pointer;
             font-size: 12px;
             margin-left: 5px;
-            position: absolute;
+            position: relative;
             top: 5px;
-            right: 5px;
         }
 
         .remove-monitoramento-btn:hover {
             background-color: #c82333;
         }
+
+        /* Estilo para a numeração dos monitoramentos */
+        .numeration {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        /* Estilo para cada monitoramento */
+        .monitoramento {
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        /* Estilo para o botão de adicionar monitoramento */
+        .add-monitoramento-btn {
+            margin-top: 15px;
+            margin-bottom: 30px;
+        }
+
         @media screen and (max-width: 480px) {
             .form_create {
                 padding: 20px 10px;
@@ -140,33 +157,39 @@
                 </select>
 
                 {{-- Monitoramentos existentes --}}
-                @foreach ($risco->monitoramentos as $monitoramento)
+                @foreach ($risco->monitoramentos as $key => $monitoramento)
                     <div class="monitoramento">
+                        <span class="numeration">Monitoramento Nº {{ $key + 1 }}</span>
                         <textarea type="text" name="monitoramentos[{{ $monitoramento->id }}][monitoramentoControleSugerido]" class="textInput" required>{{ $monitoramento->monitoramentoControleSugerido }}</textarea>
                         <textarea type="text" name="monitoramentos[{{ $monitoramento->id }}][statusMonitoramento]" class="textInput" required>{{ $monitoramento->statusMonitoramento }}</textarea>
                         <textarea type="text" name="monitoramentos[{{ $monitoramento->id }}][execucaoMonitoramento]" class="textInput" required>{{ $monitoramento->execucaoMonitoramento }}</textarea>
 
-                        {{-- Botão para remover o monitoramento existente --}}
+                        {{-- Botão para remover monitoramento --}}
                         <button type="button" class="remove-monitoramento-btn">Remover</button>
                     </div>
                 @endforeach
 
+                <!-- Div para adicionar monitoramentos -->
+                <div id="monitoramentosDiv"></div>
+
+                <!-- Botão para adicionar monitoramento -->
                 <div class="add-monitoramento-btn">
                     <i class="fas fa-plus"></i>
                     <span>Adicionar Monitoramento</span>
                 </div>
 
-
-                <div id="monitoramentosDiv">
-
-                </div>
-
+                <!-- Botão para salvar o formulário -->
                 <button type="submit">Salvar</button>
+
+
             </form>
         </div>
     </div>
 
+
+
     <script>
+
         let cont = {{ count($risco->monitoramentos) }};
 
         document.querySelector('.add-monitoramento-btn').addEventListener('click', addMonitoramentos);
@@ -174,6 +197,11 @@
         function addMonitoramentos() {
             let monitoramentoDiv = document.createElement('div');
             monitoramentoDiv.classList.add('monitoramento');
+
+            let numeration = document.createElement('span');
+            numeration.classList.add('numeration');
+            numeration.textContent = `Monitoramento Nº ${cont + 1}.`;
+            monitoramentoDiv.appendChild(numeration);
 
             let controleSugerido = document.createElement('textarea');
             controleSugerido.type = 'text';
@@ -199,7 +227,6 @@
             execucaoMonitoramento.required = true;
             monitoramentoDiv.appendChild(execucaoMonitoramento);
 
-            // Adiciona botão de remoção para monitoramentos adicionais
             let removeBtn = document.createElement('button');
             removeBtn.type = 'button';
             removeBtn.classList.add('remove-monitoramento-btn');
@@ -213,6 +240,7 @@
             cont++;
         }
     </script>
+
 </body>
 </html>
 @endsection

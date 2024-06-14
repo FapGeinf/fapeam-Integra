@@ -9,15 +9,16 @@ class Resposta extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['respostaRisco','respostaRiscoFk','user_id'];
+    protected $fillable = ['respostaRisco', 'respostaRiscoFK', 'user_id'];
 
     public function user()
     {
-           return $this->belongsTo(User::class,'user_id','id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function risco()
     {
-          return $this->belongsTo(Risco::class,'respostaRiscoFK','id');
+        return $this->belongsTo(Risco::class, 'respostaRiscoFK', 'id');
     }
 }
+

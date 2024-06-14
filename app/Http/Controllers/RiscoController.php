@@ -7,6 +7,7 @@ use app\Http\Middleware\VerifyCsrfToken;
 use App\Models\Risco;
 use App\Models\Unidade;
 use App\Models\Monitoramento;
+use App\Models\Resposta;
 use Illuminate\Support\Facades\Log;
 
 class RiscoController extends Controller
@@ -20,10 +21,11 @@ class RiscoController extends Controller
 
     public function show($id)
     {
-        $risco = Risco::findorFail($id);
-        return view('riscos.show', ['risco' => $risco]);
+        $risco = Risco::with('respostas')->findOrFail($id);
+        $respostas = Resposta::where('respostaRiscoFK', $risco->id)->get();
+        $monitoramentos = Monitoramento::where('riscoFK', $risco->id)->get();
+        return view('riscos.show', ['risco' => $risco, 'respostas' => $respostas, 'monitoramentos' => $monitoramentos]);
     }
-
     public function create()
     {
         $unidades = Unidade::all();
@@ -73,9 +75,9 @@ class RiscoController extends Controller
 
     public function edit($id)
     {
-          $unidades = Unidade::all();
-          $risco = Risco::findorFail($id);
-          return view('riscos.edit',['risco' => $risco, 'unidades' => $unidades]);
+        $unidades = Unidade::all();
+        $risco = Risco::findorFail($id);
+        return view('riscos.edit', ['risco' => $risco, 'unidades' => $unidades]);
     }
 
     public function update(Request $request, $id)
@@ -141,6 +143,50 @@ class RiscoController extends Controller
         }
 
         return redirect()->back()->with(['success' => 'Risco Deletado com sucesso']);
+    }
+
+    public function deleteMonitoramento($id)
+    {
+        $monitoramento = Monitoramento::findOrFail($id);
+
+        try {
+            $deleteMonitoramento = $monitoramento->delete();
+
+            if (!$deleteMonitoramento) {
+                return redirect()->back()->withErrors(['errors' => 'Houve um erro ao deletar o monitoramento']);
+            }
+
+            return redirect()->back()->with(['success' => 'Monitoramento deletado com sucesso']);
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
+        }
+    }
+
+
+
+    public function storeResposta(Request $request, $id)
+    {
+        $risco = Risco::findOrFail($id);
+
+        try {
+            $request->validate([
+                'respostas' => 'required|array|min:1',
+                'respostas.*.respostaRisco' => 'required|string|max:255',
+            ]);
+
+            if (is_array($request->respostas)) {
+                foreach ($request->respostas as $respostaData) {
+                    Resposta::create([
+                        'respostaRisco' => $respostaData['respostaRisco'],
+                        'respostaRiscoFK' => $risco->id,
+                        'user_id' => auth()->id()
+                    ]);
+                }
+            }
+            return redirect()->route('riscos.show', $id)->with('success', 'Respostas adicionadas com sucesso');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
+        }
     }
 
     public function __construct()
