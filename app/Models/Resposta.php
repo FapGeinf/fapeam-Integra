@@ -13,11 +13,11 @@ class Resposta extends Model
 
     public function user()
     {
-           return $this->belongsTo(User::class,'id','user_id');
+           return $this->belongsTo(User::class,'user_id','id');
     }
 
     public function risco()
     {
-          return $this->belongsTo(Risco::class,'id','respostaRiscoFK');
+          return $this->belongsTo(Risco::class,'respostaRiscoFK','id');
     }
 }
