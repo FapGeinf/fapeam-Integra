@@ -20,8 +20,8 @@ class RiscoController extends Controller
 
     public function show($id)
     {
-           $risco = Risco::findorFail($id);
-           return view('riscos.show',['risco' => $risco]);
+        $risco = Risco::findorFail($id);
+        return view('riscos.show', ['risco' => $risco]);
     }
 
     public function create()
@@ -71,15 +71,16 @@ class RiscoController extends Controller
         }
     }
 
-    public function edit()
+    public function edit($id)
     {
-        $unidades = Unidade::all();
-        return view('riscos.edit', ['unidades' => $unidades]);
+          $unidades = Unidade::all();
+          $risco = Risco::findorFail($id);
+          return view('riscos.edit',['risco' => $risco, 'unidades' => $unidades]);
     }
 
     public function update(Request $request, $id)
     {
-        $risco = Risco::findorFail($id);
+        $risco = Risco::findOrFail($id);
 
         try {
             $request->validate([
@@ -88,13 +89,13 @@ class RiscoController extends Controller
                 'riscoConsequencia' => 'required|string|max:255',
                 'riscoAvaliacao' => 'required|string|max:255',
                 'unidadeId' => 'required|exists:unidades,id',
-                'monitoramentos' => 'required|array|min:1',
+                'monitoramentos' => 'nullable|array',
                 'monitoramentos.*.monitoramentoControleSugerido' => 'required|string|max:255',
                 'monitoramentos.*.statusMonitoramento' => 'required|string|max:255',
                 'monitoramentos.*.execucaoMonitoramento' => 'required|string|max:255'
             ]);
 
-            $atualizaRisco =  $risco->update([
+            $risco->update([
                 'riscoEvento' => $request->riscoEvento,
                 'riscoCausa' => $request->riscoCausa,
                 'riscoConsequencia' => $request->riscoConsequencia,
@@ -102,13 +103,18 @@ class RiscoController extends Controller
                 'unidadeId' => $request->unidadeId,
             ]);
 
-            if (!$atualizaRisco) {
-                return redirect()->back()->withErrors(['errors' => 'Preencha os campos corretamente ou preencha os campos vazios']);
-            } else {
-                if (is_array($request->monitoramentos)) {
-                    foreach ($request->monitoramentos as $monitoramentoData) {
-                        $monitoramento = Monitoramento::findorFail($monitoramentoData['id']);
+            if ($request->has('monitoramentos')) {
+                foreach ($request->monitoramentos as $monitoramentoData) {
+                    if (isset($monitoramentoData['id'])) {
+                        $monitoramento = Monitoramento::findOrFail($monitoramentoData['id']);
                         $monitoramento->update([
+                            'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
+                            'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
+                            'execucaoMonitoramento' => $monitoramentoData['execucaoMonitoramento'],
+                            'riscoFK' => $risco->id
+                        ]);
+                    } else {
+                        Monitoramento::create([
                             'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
                             'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
                             'execucaoMonitoramento' => $monitoramentoData['execucaoMonitoramento'],

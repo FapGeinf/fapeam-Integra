@@ -91,6 +91,9 @@
                     @endforeach
                 </tbody>
             </table>
+            <div class="text-center">
+                <a href="{{ route('riscos.edit', $risco->id) }}" class="btn btn-primary">Editar</a>
+            </div>
         </div>
     </div>
 </body>
