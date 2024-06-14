@@ -1,0 +1,123 @@
+@import url(https://fonts.googleapis.com/css?family=Rokkitt);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700);
+@import url(https://fonts.googleapis.com/css?family=Roboto+Slab:700,400);
+@import url(https://fonts.googleapis.com/css?family=Lobster);
+
+body {
+  background: url('/img/tela-2.png') no-repeat center center fixed;
+  background-size: cover;
+  margin: 0 auto;
+  width: 66%;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.mainContainer {
+  width: 66%;
+  min-width: 800px;
+  position: absolute;
+  top: 20%;
+  margin-left: 6%;
+}
+
+.secContainer {
+  float: right;
+  width: 49%;
+  margin-left: 1%;
+}
+
+.loginTitle {
+  font-size: 25px;
+  padding: 3px;
+  padding-left: 1rem;
+  padding-bottom: 8px;
+  margin-bottom: 4rem;
+  border-radius: 8px;
+  background-color: #e5e5e5;
+}
+
+.login {
+  margin-right: 0;
+  border: 1px solid pink;
+  
+}
+
+.login-content {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  padding: 5px;
+}
+
+.inputImp {
+  width: 60%;
+  margin-bottom: 2rem;
+}
+
+.input-icon {
+  position: relative;
+}
+
+.input-icon i {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px;
+  color: #ccc;
+}
+
+.input-icon input {
+  padding-left: 30px;
+}
+
+.loginButton {
+  display: flex;
+  text-align: center;
+  width: 100%;
+}
+
+.loginButton input {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.helpButtons {
+  display: flex;
+  flex-direction: column;
+}
+
+
+@media only screen and (max-width: 1200px) {
+  .container {
+    width: 100%;
+    min-width: 0;
+    margin-left: 0;
+  }
+  .span-6 {
+    width: 100%;
+    margin: 0;
+  }
+  .login {
+    width: 50%;
+    margin: 0 auto; /* Centraliza a div 'login' */
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .login {
+    width: 70%;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .login {
+    width: 90%;
+  }
+}
+
+/* Certifique-se de que a imagem de fundo permaneça inalterada */
+body {
+  background-size: cover; /* Isso mantém a imagem de fundo cobrindo toda a área sem alterar seu tamanho */
+}
