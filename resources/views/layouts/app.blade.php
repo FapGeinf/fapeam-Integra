@@ -64,13 +64,18 @@
     @endif
     </nav>
 
-		@if(!Auth::guest())
-		@include('sidenav')
-		@endif
+
+    <div>
+      @if(!Auth::guest())
+		    @include('sidenav')
+		  @endif
+    </div>
     @endif <!-- Adicione esta linha -->
 
 		<main class="py-4 appContent">
-			@yield('content')
+			<section class="conteudo">
+              @yield('content')
+      </section>
 		</main>
 	</div>
 </body>
