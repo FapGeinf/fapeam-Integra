@@ -10,10 +10,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #f8f9fa; /* Cor de fundo do corpo */
+            background-color: #f8f9fa;
         }
 
-        .container-fluid{
+        .container-fluid {
             position: relative;
             top: 120px;
             display: flex;
@@ -21,32 +21,36 @@
         }
 
         .box-shadow {
-            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15); /* Adiciona sombra à caixa */
-            border-radius: .25rem; /* Borda arredondada */
-            background-color: #fff; /* Cor de fundo da caixa */
-            padding: 20px; /* Espaçamento interno */
-            margin-bottom: 30px; /* Espaçamento abaixo da caixa */
+            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+            border-radius: .25rem;
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 30px;
         }
 
         .table th,
         .table td {
-            vertical-align: middle; /* Alinha verticalmente o conteúdo da célula */
+            vertical-align: middle;
         }
 
         .text-center {
-            text-align: center; /* Alinha o texto no centro */
+            text-align: center;
         }
 
         .text-light {
-            color: #f8f9fa !important; /* Cor do texto claro */
+            color: #f8f9fa !important;
         }
 
         .bg-dark {
-            background-color: #343a40 !important; /* Cor de fundo escura */
+            background-color: #343a40 !important;
         }
 
         .mb-4 {
-            margin-bottom: 1.5rem !important; /* Espaçamento abaixo de 1.5rem */
+            margin-bottom: 1.5rem !important;
+        }
+
+        .resposta {
+            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -83,19 +87,99 @@
                 </thead>
                 <tbody>
                     @foreach ($risco->monitoramentos as $monitoramento)
-                    <tr>
-                        <td class="text-center">{{ $monitoramento->monitoramentoControleSugerido }}</td>
-                        <td class="text-center">{{ $monitoramento->statusMonitoramento }}</td>
-                        <td class="text-center">{{ $monitoramento->execucaoMonitoramento }}</td>
-                    </tr>
+                        <tr>
+                            <td class="text-center">{{ $monitoramento->monitoramentoControleSugerido }}</td>
+                            <td class="text-center">{{ $monitoramento->statusMonitoramento }}</td>
+                            <td class="text-center">{{ $monitoramento->execucaoMonitoramento }}</td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>
-            <div class="text-center">
+            <div class="text-center mb-4">
                 <a href="{{ route('riscos.edit', $risco->id) }}" class="btn btn-primary">Editar</a>
+                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#respostaModal">Adicionar Resposta</button>
+            </div>
+            <h2 class="text-center mb-4">Respostas</h2>
+            <div id="respostasDiv" class="mb-4">
+                @if($respostas->count() > 0)
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="text-center text-light bg-dark">Nº</th>
+                                <th scope="col" class="text-center text-light bg-dark">Resposta</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($respostas as $key => $resposta)
+                                <tr>
+                                    <td class="text-center">{{ $key + 1 }}</td>
+                                    <td>{{ $resposta->respostaRisco }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @else
+                    <p class="text-center">Não há respostas disponíveis para este risco.</p>
+                @endif
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="respostaModal" tabindex="-1" aria-labelledby="respostaModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="respostaModalLabel">Adicionar Resposta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('riscos.storeResposta', ['id' => $risco->id]) }}" method="POST">
+                        @csrf
+                        <div id="respostasFields">
+                            <div class="mb-3">
+                                <label for="respostas[0][respostaRisco]" class="form-label">Resposta 1</label>
+                                <input type="text" class="form-control" name="respostas[0][respostaRisco]" required>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-secondary mb-3" onclick="addRespostaField()">Adicionar Campo</button>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let respostaCount = 1;
+
+        function addRespostaField() {
+            let respostasFields = document.getElementById('respostasFields');
+
+            let fieldGroup = document.createElement('div');
+            fieldGroup.classList.add('mb-3');
+
+            let label = document.createElement('label');
+            label.for = `respostas[${respostaCount}][respostaRisco]`;
+            label.classList.add('form-label');
+            label.innerText = `Resposta ${respostaCount + 1}`;
+
+            let input = document.createElement('input');
+            input.type = 'text';
+            input.classList.add('form-control');
+            input.name = `respostas[${respostaCount}][respostaRisco]`;
+            input.required = true;
+
+            fieldGroup.appendChild(label);
+            fieldGroup.appendChild(input);
+            respostasFields.appendChild(fieldGroup);
+
+            respostaCount++;
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
 @endsection
