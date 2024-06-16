@@ -33,10 +33,10 @@
           @csrf
 
         <div class="input-icon">
-          <input id="userCpf" class="inputImp @error('userCpf') is-invalid @enderror" name="userCpf" value="{{ old('userCpf') }}" placeholder="Email ou CPF">
+          <input id="email" class="inputImp @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="Insira seu Email" required autocomplete="email" autofocus>
           <i class="fas fa-user"></i>
 
-          @error('userCpf')
+          @error('email')
           <span class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>
           </span>
