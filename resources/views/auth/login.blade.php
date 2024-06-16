@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('content')
 
+@section('title') {{'Login'}} @endsection
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
