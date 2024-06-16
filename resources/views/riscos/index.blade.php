@@ -77,6 +77,15 @@
                   <td>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</td>
                 </tr>
 
+                <tr>
+                  <td>2024</td>
+                  <td>PRESIDÊNCIA</td>
+                  <td>João Batista</td>
+                  <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</td>
+                  <td style="color: green; font-weight:bold;">Média</td>
+                  <td>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</td>
+                  <td>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</td>
+                </tr>
 
                 </tbody>
               </table>
