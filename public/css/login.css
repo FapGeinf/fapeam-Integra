@@ -60,10 +60,10 @@ input {
 .inputImp {
   width: 100%;
   border: none;
-  padding: 6px;
+  padding: 8px;
   border: 1px solid #ccc;
   border-radius: 8px;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .inputSenha {
@@ -84,7 +84,7 @@ input {
   position: absolute;
   top: 0;
   left: 0;
-  padding: 11px;
+  padding: 12px;
   color: #ccc;
 }
 
