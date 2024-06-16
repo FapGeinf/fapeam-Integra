@@ -14,7 +14,7 @@
 <body>
     
 <div class="mainContainer">
-  <div class="secContainer">
+  <div class="">
     
   </div>
 
@@ -34,23 +34,33 @@
         </div>
         
         <div class="input-icon">
-          <input class="inputImp" type="password" id="password" placeholder="Senha">
+          <input class="inputImp inputSenha" type="password" id="password" placeholder="Senha">
           <i class="fas fa-lock"></i>
         </div>
+
+        <span>
+          <input type="checkbox" id="remember_me" name="remember_me" value="remember_me">
+          <label for="remember_me" class="rememberMe">Lembrar-me</label>
+        </span>
         
       </div>
 
       <div class="loginButton">
-        <input class="" type="submit" value="Entrar">
+        <input class="inputLogin" type="submit" value="Entrar">
       </div>
       
 
-      <div class="helpButtons">
-        <a href="#">Esqueceu sua senha?</a>
-        
+      <div class="loginFooter">
+        <div class="helpButtons">
+          <a href="#">Esqueceu a senha?</a>
+          <a href="#">Primeiro acesso</a>
+        </div> 
       </div>
-      <span>Primeiro acesso? </span><a href="#">Abra um chamado</a>
       
+      <div class="footerLogo">
+        <span>&copy;2024 FAPEAM</span>
+      </div>
+  
     </div>
   </div>
 </div>
