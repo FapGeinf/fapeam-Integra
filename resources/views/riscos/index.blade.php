@@ -72,7 +72,7 @@
                   <td>Gerência de Informática - GEINF</td>
                   <td>Felipe Andrey</td>
                   <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</td>
-                  <td style="color: green; font-weight:bold;">Média</td>
+                  <td style="color: green; font-weight:bold;">Baixo</td>
                   <td>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</td>
                   <td>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</td>
                 </tr>
@@ -82,7 +82,7 @@
                   <td>PRESIDÊNCIA</td>
                   <td>João Batista</td>
                   <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</td>
-                  <td style="color: green; font-weight:bold;">Média</td>
+                  <td style="color: green; font-weight:bold;">Baixo</td>
                   <td>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</td>
                   <td>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</td>
                 </tr>
@@ -99,6 +99,17 @@
     </div>
     
   </div>
+
+  
+  <footer class="rodape">
+    <div class="py-3 ms-3 me-3">
+      <div class="riskLevelDiv">
+        <span>Nível de Risco:</span>
+        <span class="riskLevel1">Baixo</span>
+        <span class="riskLevel2">Médio</span>
+        <span class="riskLevel3">Alto</span>
+    </div>
+  </footer>
 	
   
   
