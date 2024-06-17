@@ -52,7 +52,7 @@ body {
 }
 
 .userTopNav {
-  margin-left: 8px;
+  /* margin-left: 8px; */
 }
 
 .userTopNav,
@@ -132,7 +132,7 @@ a.navbar-brand:nth-child(1) {
   display: flex;
   font-size: 0.8rem;
   cursor: default;
-  align-items: center;
+  align-items: baseline;
   white-space: nowrap;
   flex-direction: column;
 }
