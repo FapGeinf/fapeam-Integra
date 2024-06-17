@@ -29,7 +29,7 @@
         </a>
         @endif
         
-      <div class="container-fluid">
+      <div class="">
         @if(Auth::check())
         <div id="navbarDropdown">
             <div>
