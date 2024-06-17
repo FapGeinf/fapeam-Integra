@@ -57,7 +57,7 @@
                 </tr>
                 @endforeach
 
-                <tr>
+                {{-- <tr>
                   <td>2024</td>
                   <td>Unidade de Controle Interno - UCI</td>
                   <td>Luis Felipe dos Santos</td>
@@ -85,7 +85,7 @@
                   <td style="color: green; font-weight:bold;">Baixo</td>
                   <td>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</td>
                   <td>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</td>
-                </tr>
+                </tr> --}}
 
                 </tbody>
               </table>
