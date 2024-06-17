@@ -6,16 +6,26 @@ use Illuminate\Http\Request;
 use app\Http\Middleware\VerifyCsrfToken;
 use App\Models\Risco;
 use App\Models\Unidade;
+use App\Models\Monitoramento;
+use App\Models\Resposta;
+use Illuminate\Support\Facades\Log;
 
 class RiscoController extends Controller
 {
     public function index()
     {
-				$riscos = Risco::all();
-				$unidades = Unidade::all();
+        $riscos = Risco::all();
+        $unidades = Unidade::all();
         return view('riscos.index', ['riscos' => $riscos, 'unidades' => $unidades]);
     }
 
+    public function show($id)
+    {
+        $risco = Risco::with('respostas')->findOrFail($id);
+        $respostas = Resposta::where('respostaRiscoFK', $risco->id)->get();
+        $monitoramentos = Monitoramento::where('riscoFK', $risco->id)->get();
+        return view('riscos.show', ['risco' => $risco, 'respostas' => $respostas, 'monitoramentos' => $monitoramentos]);
+    }
     public function create()
     {
         $unidades = Unidade::all();
@@ -23,86 +33,173 @@ class RiscoController extends Controller
     }
 
     public function store(Request $request)
-    {			
-					// dd($request->all());
-					$request->validate([
-            'riscoEvento' => 'required',
-            'riscoCausa' => 'required',
-            'riscoConsequencia' => 'required',
-            'riscoAvaliacao' => 'required',
-            'unidadeRiscoFK' => 'required'
-          ]);
-					try {
-						// dd($request->unidadeRiscoFk);
+    {
+        try {
+            $request->validate([
+                'riscoEvento' => 'required|string|max:255',
+                'riscoCausa' => 'required|string|max:255',
+                'riscoConsequencia' => 'required|string|max:255',
+                'riscoAvaliacao' => 'required|string|max:255',
+                'unidadeId' => 'required|exists:unidades,id',
+                'monitoramentos' => 'required|array|min:1',
+                'monitoramentos.*.monitoramentoControleSugerido' => 'required|string|max:255',
+                'monitoramentos.*.statusMonitoramento' => 'required|string|max:255',
+                'monitoramentos.*.execucaoMonitoramento' => 'required|string|max:255'
+            ]);
+
             $risco = Risco::create([
                 'riscoEvento' => $request->riscoEvento,
                 'riscoCausa' => $request->riscoCausa,
                 'riscoConsequencia' => $request->riscoConsequencia,
                 'riscoAvaliacao' => $request->riscoAvaliacao,
-                'unidadeRiscoFK' => $request->unidadeRiscoFK
+                'unidadeId' => $request->unidadeId,
+                'userIdRisco' => auth()->id()
             ]);
-            if (!$risco) {
-                return redirect()->back()->with('error', 'Houve um erro ao processar a criação de um risco');
-            } else {
-                return redirect()->route('riscos.index');
+
+
+            // Criação dos monitoramentos associados ao risco
+            foreach ($request->monitoramentos as $monitoramentoData) {
+                Monitoramento::create([
+                    'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
+                    'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
+                    'execucaoMonitoramento' => $monitoramentoData['execucaoMonitoramento'],
+                    'riscoFK' => $risco->id
+                ]);
             }
+
+            return redirect()->route('riscos.index')->with('success', 'Risco criado com sucesso!');
         } catch (\Exception $e) {
-						dd($e);
-            return redirect()->back()->with('error', $e->getMessage());
+            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
         }
     }
 
-    public function edit()
+    public function edit($id)
     {
         $unidades = Unidade::all();
-        return view('riscos.edit', ['unidades' => $unidades]);
+        $risco = Risco::findorFail($id);
+        return view('riscos.edit', ['risco' => $risco, 'unidades' => $unidades]);
     }
 
     public function update(Request $request, $id)
     {
-			dd($request->all());
-        $risco = Risco::findorFail($id);
+        $risco = Risco::findOrFail($id);
+
         try {
             $request->validate([
-                'riscoEvento' => 'required',
-                'riscoCausa' => 'required',
-                'riscoConsequencia' => 'required',
-                'riscoAvaliacao' => 'required',
-                'unidadeRiscoFK' => 'required'
+                'riscoEvento' => 'required|string|max:255',
+                'riscoCausa' => 'required|string|max:255',
+                'riscoConsequencia' => 'required|string|max:255',
+                'riscoAvaliacao' => 'required|string|max:255',
+                'unidadeId' => 'required|exists:unidades,id',
+                'monitoramentos' => 'nullable|array',
+                'monitoramentos.*.monitoramentoControleSugerido' => 'required|string|max:255',
+                'monitoramentos.*.statusMonitoramento' => 'required|string|max:255',
+                'monitoramentos.*.execucaoMonitoramento' => 'required|string|max:255'
             ]);
 
-            $atualizaRisco =  $risco->update([
+            $risco->update([
                 'riscoEvento' => $request->riscoEvento,
                 'riscoCausa' => $request->riscoCausa,
                 'riscoConsequencia' => $request->riscoConsequencia,
                 'riscoAvaliacao' => $request->riscoAvaliacao,
+                'unidadeId' => $request->unidadeId,
             ]);
 
-            if(!$atualizaRisco){
-                return redirect()->back()->with('errors','Houve um erro no processo de edição:');
-            }else{
-                return redirect()->route('riscos.show')->with('success','Risco editado com sucesso');
+            if ($request->has('monitoramentos')) {
+                foreach ($request->monitoramentos as $monitoramentoData) {
+                    if (isset($monitoramentoData['id'])) {
+                        $monitoramento = Monitoramento::findOrFail($monitoramentoData['id']);
+                        $monitoramento->update([
+                            'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
+                            'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
+                            'execucaoMonitoramento' => $monitoramentoData['execucaoMonitoramento'],
+                            'riscoFK' => $risco->id
+                        ]);
+                    } else {
+                        Monitoramento::create([
+                            'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
+                            'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
+                            'execucaoMonitoramento' => $monitoramentoData['execucaoMonitoramento'],
+                            'riscoFK' => $risco->id
+                        ]);
+                    }
+                }
             }
 
+            return redirect()->route('riscos.index')->with(['success' => 'Riscos e monitoramentos atualizados com sucesso']);
         } catch (\Exception $e) {
-            return redirect()->back()->with('errors',$e->getMessage());
+            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
         }
     }
 
     public function delete($id)
     {
-           $risco = Risco::findorFail($id);
+        $risco = Risco::findorFail($id);
 
-           $deleteRisco = $risco->delete();
+        $deleteRisco = $risco->delete();
 
-           if(!$deleteRisco){
-              return redirect()->back()->with('errors','Erro ao deletar o risco');
-           }
+        if (!$deleteRisco) {
+            return redirect()->back()->withErrors(['errors' => 'Houve um erro ao deletar o risco']);
+        }
 
-           return redirect()->back()->with('success','Risco Deletado com sucesso');
+        return redirect()->back()->with(['success' => 'Risco Deletado com sucesso']);
     }
 
-		public function __construct(){
-			$this->middleware('auth');
-		}
+    public function deleteMonitoramento($id)
+    {
+        $monitoramento = Monitoramento::findOrFail($id);
+
+        try {
+            $deleteMonitoramento = $monitoramento->delete();
+
+            if (!$deleteMonitoramento) {
+                return redirect()->back()->withErrors(['errors' => 'Houve um erro ao deletar o monitoramento']);
+            }
+
+            return redirect()->back()->with(['success' => 'Monitoramento deletado com sucesso']);
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
+        }
+    }
+
+
+
+    public function storeResposta(Request $request, $id)
+    {
+        $risco = Risco::findOrFail($id);
+
+        try {
+            $request->validate([
+                'respostas' => 'required|array|min:1',
+                'respostas.*.respostaRisco' => 'required|string|max:255',
+            ]);
+
+            if (is_array($request->respostas)) {
+                foreach ($request->respostas as $respostaData) {
+                    Resposta::create([
+                        'respostaRisco' => $respostaData['respostaRisco'],
+                        'respostaRiscoFK' => $risco->id,
+                        'user_id' => auth()->id()
+                    ]);
+                }
+            }
+            return redirect()->route('riscos.respostas', $id)->with('success', 'Respostas adicionadas com sucesso');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
+        }
+    }
+
+    public function respostas($id)
+    {
+           $risco = Risco::with('respostas')->findorFail($id);
+           $respostas = Resposta::where('respostaRiscoFK', $risco->id)->get();
+           return view('riscos.respostas', ['risco' => $risco, 'respostas' => $respostas]);
+    }
+
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('checkAccess');
+    }
 }

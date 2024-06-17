@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 @section('content')
 <!DOCTYPE html>
 <html lang="en">
@@ -10,49 +11,17 @@
 	{{-- <script src="//cdn.ckeditor.com/4.18.0/basic/ckeditor.js"></script> --}}
 
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-	
-	<script>
-		let cont = 0;
 
-		function addMonitoramentos(){
-			let controleSugerido = document.createElement('input');
-			controleSugerido.setAttribute('type','text');
-			controleSugerido.setAttribute(`name`,`monitoramentos[${cont}][monitoramentoControleSugerido]`);
-			controleSugerido.setAttribute('placeholder','Monitoramento');
-			controleSugerido.setAttribute('class','textInput');
-
-			let statusMonitoramento = document.createElement('input');
-			statusMonitoramento.type = `text`;
-			statusMonitoramento.name = `monitoramentos[${cont}][statusMonitoramento]`;
-			statusMonitoramento.placeholder = "Status do Monitoramento";
-			statusMonitoramento.classList = "textInput";
-
-      let execucaoMonitoramento = document.createElement('input');
-      execucaoMonitoramento.setAttribute('type','text');
-      execucaoMonitoramento.setAttribute('name',`monitoramentos[${cont}][execucaoMonitoramento]`);
-      execucaoMonitoramento.setAttribute('placeholder','Execução do Monitoramento');
-      execucaoMonitoramento.setAttribute('class','textInput');
-
-			const br = document.createElement('br');
-
-			let monitoramentosDiv = document.getElementById('formCreate');
-			monitoramentosDiv.appendChild(controleSugerido);
-			monitoramentosDiv.appendChild(statusMonitoramento);
-      monitoramentosDiv.appendChild(execucaoMonitoramento);
-			cont++;
-		}
-
-	</script>
 	<title>Document</title>
 </head>
 <body>
-	
+
 
 	<div class="container-xxl d-flex justify-content-center pt-5">
 		<div class="col-12 col-md-8 col-lg-7 box-shadow pb-5">
 
       <div class="headerInfo">
-        <h4>Text Placeholder</h4>
+        <h4>Riscos Inerentes</h4>
       </div>
 
       <div class="row p-1 boxForm"><!-- boxForm start -->
@@ -61,17 +30,15 @@
           <div class="row g-3">
             <div class="col-sm-12 col-md-8 selectUnidade">
 
-						<label for="name">Unidade</label>
-						<select name="unidadeRiscoFK" class="selection" requireds>
-							<option selected disabled>Selecione uma unidade</option>
-							@foreach($unidades as $unidade )
-								<option value="{{$unidade->id}}">{{$unidade->unidadeNome}}</option>
-							@endforeach
-						</select>
-						{{-- <div id="monitoramentosDiv" class="monitoramento"></div>
-						<input type="button" onclick="addMonitoramentos()" value="Adicionar Monitoramento"></input> --}}
+            <label for="unidadeId">Unidade</label>
+            <select name="unidadeId" class="selection" required>
+                <option selected disabled>Selecione uma unidade</option>
+                @foreach($unidades as $unidade)
+                    <option value="{{ $unidade->id }}">{{ $unidade->unidadeNome }}</option>
+                @endforeach
+            </select>
 
-							
+
             </div>
 
             <div class="col-sm-12 col-md-4">
@@ -82,7 +49,7 @@
             <div class="col-sm-12 col-md-8">
               <label class="dataLim" for="name">Responsável:</label>
               <div class="dateTime">
-                <input type="text" name="" id="" class="textInput form-control" placeholder="Fulano da Silva Pompeo">
+                <input type="text" name="" id="" class="textInput form-control" placeholder=" Ex: Fulano da Silva Pompeo">
               </div>
             </div>
 					</div>
@@ -93,7 +60,7 @@
 							<textarea type="text" name="riscoEvento" class="textInput" required></textarea>
 						</div>
 					</div>
-					
+
 					<div class="row g-3 mt-1">
 						<div class="col-sm-12 col-md-8">
 							<label for="name">Causa do Risco:</label>
@@ -111,8 +78,8 @@
 					<div class="row g-3 mt-1">
 						<div class="col-sm-12 col-md-8">
 							<label for="name">Avaliação:</label>
-							<input type="text" name="riscoAvaliacao" class="textInput form-control" placeholder="Aprovado/ Negado" required>
-							
+							<input type="number" name="riscoAvaliacao" class="textInput form-control" placeholder="1 a 10" required>
+
 						</div>
 					</div>
 
@@ -177,7 +144,42 @@
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
+
+        </form>
+    </div>
+
+    <script>
+        let cont = 0;
+
+        function addMonitoramentos() {
+            let controleSugerido = document.createElement('input');
+            controleSugerido.type = 'text';
+            controleSugerido.name = `monitoramentos[${cont}][monitoramentoControleSugerido]`;
+            controleSugerido.placeholder = 'Monitoramento';
+            controleSugerido.classList = 'textInput';
+            controleSugerido.value = ''; // Defina o valor padrão aqui se necessário
+
+            let statusMonitoramento = document.createElement('input');
+            statusMonitoramento.type = 'text';
+            statusMonitoramento.name = `monitoramentos[${cont}][statusMonitoramento]`;
+            statusMonitoramento.placeholder = 'Status do Monitoramento';
+            statusMonitoramento.classList = 'textInput';
+            statusMonitoramento.value = ''; // Defina o valor padrão aqui se necessário
+
+            let execucaoMonitoramento = document.createElement('input');
+            execucaoMonitoramento.type = 'text';
+            execucaoMonitoramento.name = `monitoramentos[${cont}][execucaoMonitoramento]`;
+            execucaoMonitoramento.placeholder = 'Execução do Monitoramento';
+            execucaoMonitoramento.classList = 'textInput';
+            execucaoMonitoramento.value = ''; // Defina o valor padrão aqui se necessário
+
+            let monitoramentosDiv = document.getElementById('monitoramentosDiv');
+            monitoramentosDiv.appendChild(controleSugerido);
+            monitoramentosDiv.appendChild(statusMonitoramento);
+            monitoramentosDiv.appendChild(execucaoMonitoramento);
+            cont++;
+        }
+    </script>
 </body>
 </html>
-
 @endsection

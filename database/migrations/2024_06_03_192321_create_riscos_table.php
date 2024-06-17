@@ -19,8 +19,10 @@ return new class extends Migration
             $table->string('riscoCausa');
             $table->string('riscoConsequencia');
             $table->integer('riscoAvaliacao');
-            $table->unsignedBigInteger('unidadeRiscoFK');
-            $table->foreign('unidadeRiscoFk')->references('id')->on('unidades');
+            $table->unsignedBigInteger('userIdRisco');
+            $table->foreign('userIdRisco')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('unidadeId');
+            $table->foreign('unidadeId')->references('id')->on('unidades')->onDelete('cascade');
             $table->timestamps();
             //Quando criado o campo unidade, referenciar a unidade aqui
         });

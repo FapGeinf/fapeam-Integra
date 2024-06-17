@@ -22,7 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-				'cpf',
+        'cpf',
         'unidadeIdFK'
     ];
 
@@ -47,6 +47,11 @@ class User extends Authenticatable
 
     public function unidade()
     {
-           return $this->belongsTo(Unidade::class,'unidadeIdFK');
+        return $this->belongsTo(Unidade::class, 'unidadeIdFK');
+    }
+
+    public function riscos()
+    {
+        return $this->hasMany(Risco::class, 'userIdRisco');
     }
 }

@@ -176,7 +176,10 @@ a.btnSair {
   margin-left: 3rem;
   transition: margin-left 0.4s;
 }
-
+.conteudo{
+  margin-top: 1rem;
+  padding-left: 1px;
+}
 .mainShow {
   margin-top: 5vh;
 }
