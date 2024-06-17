@@ -87,6 +87,7 @@
                         <th scope="col" class="text-center text-light bg-dark">Controle Sugerido</th>
                         <th scope="col" class="text-center text-light bg-dark">Status</th>
                         <th scope="col" class="text-center text-light bg-dark">Execução</th>
+                        <th scope="col" class="text-center text-light bg-dark">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -95,6 +96,7 @@
                             <td class="text-center">{!! $monitoramento->monitoramentoControleSugerido !!}</td>
                             <td class="text-center">{!! $monitoramento->statusMonitoramento !!}</td>
                             <td class="text-center">{!! $monitoramento->execucaoMonitoramento !!}</td>
+                            <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-exclusao">Excluir</button></td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -131,7 +133,6 @@
         </div>
     </div>
 
-    <!-- Modal -->
     <div class="modal fade" id="respostaModal" tabindex="-1" aria-labelledby="respostaModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -148,14 +149,35 @@
                                 <input type="text" class="form-control" name="respostas[0][respostaRisco]" required>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-secondary mb-3" onclick="addRespostaField()">Adicionar Campo</button>
-                        <button type="submit" class="btn btn-primary">Salvar</button>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="button" class="btn btn-secondary me-md-2 mb-2" onclick="addRespostaField()">Adicionar Campo</button>
+                            <button type="submit" class="btn btn-primary mb-2">Salvar</button>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
+    <div class="modal fade" id="modal-exclusao">
+        <div class="modal-dialog">
+             <div class="modal-content">
+                 <div class="modal-header">
+                     <h4 class="modal-title">Aviso</h4>
+                 </div>
+                 <div class="modal-body">
+                     <p>Tem certeza que deseja apagar este monitoramento?</p>
+                 </div>
+                 <div class="modal-footer">
+                    <form action="{{route('riscos.deleteMonitoramento', $monitoramento->id)}}" method="POST">
+                          @method('DELETE')
+                          @csrf
+                          <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Apagar</button>
+                    </form>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                 </div>
+             </div>
+         </div>
+     </div>
     <script>
         let respostaCount = 1;
 
