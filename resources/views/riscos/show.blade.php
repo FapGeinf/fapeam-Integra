@@ -146,12 +146,12 @@
                     <form action="{{ route('riscos.storeResposta', ['id' => $risco->id]) }}" method="POST">
                         @csrf
                         <div id="respostasFields">
-                            <div class="mb-3">
+                            <div class="mb-4 resposta" style="margin-top: 10px;">
                                 <label for="respostas[0][respostaRisco]" class="form-label">Resposta 1</label>
                                 <input type="text" class="form-control" name="respostas[0][respostaRisco]" required>
                             </div>
                         </div>
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end" id="botoesExcluir">
                             <button type="button" class="btn btn-secondary me-md-2 mb-2" onclick="addRespostaField()">Adicionar Campo</button>
                             <button type="submit" class="btn btn-primary mb-2">Salvar</button>
                         </div>
@@ -160,6 +160,8 @@
             </div>
         </div>
     </div>
+
+
     <div class="modal fade" id="modal-exclusao">
         <div class="modal-dialog">
              <div class="modal-content">
@@ -200,11 +202,28 @@
             input.name = `respostas[${respostaCount}][respostaRisco]`;
             input.required = true;
 
+            let deleteButton = document.createElement('button');
+            deleteButton.type = 'button';
+            deleteButton.classList.add('btn', 'btn-danger', 'btn-sm');
+            deleteButton.innerText = 'Excluir Campo';
+            deleteButton.onclick = function() {
+                removeRespostaField(fieldGroup);
+            };
+
             fieldGroup.appendChild(label);
             fieldGroup.appendChild(input);
+            fieldGroup.appendChild(deleteButton);
             respostasFields.appendChild(fieldGroup);
 
             respostaCount++;
+        }
+
+        function removeRespostaField(fieldGroup) {
+                fieldGroup.remove();
+                respostaCount--;
+                if (respostaCount === 1) {
+                    document.querySelector('.resposta .btn-danger').remove();
+                }
         }
     </script>
 
