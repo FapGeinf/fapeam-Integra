@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="{{asset('css/global.css')}}">
 	<!-- CSRF Token -->
 	<meta name="csrf-token" content="{{ csrf_token() }}">
-	<title>{{ config('app.name', 'SGR') }} | @yield('title')</title>
+	<title>{{ config('', 'Integra') }} - @yield('title')</title>
 	<!-- Fonts -->
 	<link rel="dns-prefetch" href="//fonts.bunny.net">
 	<link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">

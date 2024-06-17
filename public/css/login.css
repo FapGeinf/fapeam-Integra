@@ -1,0 +1,327 @@
+@import url(https://fonts.googleapis.com/css?family=Rokkitt);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700);
+@import url(https://fonts.googleapis.com/css?family=Roboto+Slab:700,400);
+@import url(https://fonts.googleapis.com/css?family=Lobster);
+
+body {
+  background: url('/img/tela-2.png') no-repeat center center fixed;
+  background-size: cover;
+  margin: 0 auto;
+  width: 66%;
+  font-family: 'Open Sans', sans-serif;
+
+
+}
+
+.mainContainer {
+  /* width: 66%; */
+  width: 55%;
+  min-width: 800px;
+  position: absolute;
+  top: 20%;
+  /* margin-left: 6%; */
+  margin-left: 15%;
+
+  
+}
+
+.secContainer {
+  position: relative;
+  float: right;
+  width: 49%;
+  margin-left: 1%;
+}
+
+.loginTitle {
+  font-size: 25px;
+  padding: 3px;
+  padding-left: 1rem;
+  padding-bottom: 8px;
+  margin-bottom: 3rem;
+  border-radius: 8px;
+  background-color: #e5e5e5;
+}
+
+.login {
+  margin-right: 0;
+  /* border: 1px solid pink; */
+  
+}
+
+.login-content {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  padding: 5px;
+}
+
+.inputImp {
+  width: 100%;
+  border: none;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.inputSenha {
+  margin-bottom: 8px;
+}
+
+.rememberMe {
+  cursor: pointer;
+  color: #444444;
+  font-weight: bold;
+}
+
+.input-icon {
+  position: relative;
+}
+
+.input-icon i {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 12px;
+  color: #ccc;
+}
+
+.input-icon input {
+  padding-left: 35px;
+}
+
+.loginButton {
+  display: flex;
+  text-align: center;
+  width: 100%;
+}
+
+.loginButton input {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 4rem;
+}
+
+.inputLogin {
+  color: #fff;
+  font-size: 17px;
+  background-color: #428ccf;
+  width: 40%;
+  border: none;
+  border-radius: 8px;
+  margin-top: 2.5rem;
+  transition: .2s;
+}
+
+.inputLogin:hover {
+  background-color: #3974ab;
+}
+
+.inputLogin:focus {
+  opacity: 0.8;
+}
+
+.loginFooter {
+  background-color: #e5e5e5;
+  border-radius: 8px;
+}
+
+.helpButtons {
+  display: flex;
+  padding: 3px;
+  padding-left: 14px;
+  flex-direction: column;
+}
+
+.helpButtons a {
+  color: #000;
+  text-decoration: underline;
+  transition: .2s;
+}
+
+.helpButtons a:hover {
+  opacity: .8;
+}
+
+.footerLogo {
+  color: #717171;
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  margin-top: 10rem;
+
+}
+
+@media only screen and (max-width: 1450px) {
+  .mainContainer {
+    position: static;
+  }
+
+  .secContainer {
+    float: none;
+    width: 49%;
+    margin-top: 8.5rem;
+    margin-left: auto;
+    margin-right: 0;
+  }
+
+  .login {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media only screen and (max-width: 1320px) {
+  .mainContainer {
+    position: static;
+  }
+
+  .secContainer {
+    float: none;
+    width: 49%;
+    margin-top: 8.5rem;
+    margin-left: auto;
+    margin-right: 3rem;
+  }
+
+  .login {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media only screen and (max-width: 1170px) {
+  .mainContainer {
+    position: static;
+  }
+
+  .secContainer {
+    float: none;
+    width: 49%;
+    margin-top: 8.5rem;
+    margin-left: auto;
+    margin-right: 5rem;
+  }
+
+  .login {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media only screen and (max-width: 1170px) {
+  .mainContainer {
+    position: static;
+  }
+
+  .secContainer {
+    float: none;
+    width: 49%;
+    margin-top: 8.5rem;
+    margin-left: auto;
+    margin-right: 7rem;
+  }
+
+  .login {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media only screen and (max-width: 1050px) {
+  .mainContainer {
+    position: static;
+  }
+
+  .secContainer {
+    float: none;
+    width: 49%;
+    margin-top: 8.5rem;
+    margin-left: auto;
+    margin-right: 9rem;
+  }
+
+  .login {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media only screen and (max-width: 1020px) {
+  .mainContainer {
+    position: static;
+  }
+
+  .secContainer {
+    float: none;
+    width: 49%;
+    margin-top: 8.5rem;
+    margin-left: auto;
+    margin-right: 10rem;
+  }
+
+  .login {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media only screen and (max-width: 950px) {
+  .mainContainer {
+    position: static;
+  }
+
+  .secContainer {
+    float: none;
+    width: 49%;
+    margin-top: 8.5rem;
+    margin-left: auto;
+    margin-right: 12rem;
+  }
+
+  .login {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .mainContainer {
+    position: static;
+  }
+
+  .secContainer {
+    float: none;
+    width: 49%;
+    margin-top: 8.5rem;
+    margin-left: auto;
+    margin-right: 13rem;
+  }
+
+  .login {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .mainContainer {
+    position: static;
+  }
+
+  .secContainer {
+    float: none;
+    width: 49%;
+    margin-top: 8.5rem;
+    margin-left: auto;
+    margin-right: 16.5rem;
+  }
+
+  .login {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

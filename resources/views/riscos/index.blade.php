@@ -1,8 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+
+@section('title') {{'Página Inicial'}} @endsection
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,7 +24,7 @@
 </head>
 <body>
 	@if(session('error'))
-		<script>alert('{{ session('error') }}');</script>
+		<script>alert('{{ session('error')}}');</script>
 	@endif
 	<br>
 	@if (Auth::user()->unidade->unidadeTipoFK == 1)
