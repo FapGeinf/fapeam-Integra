@@ -107,9 +107,9 @@
                 @if (Auth::user()->unidade->unidadeTipoFK == 1)
                     <a href="{{ route('riscos.edit', $risco->id) }}" class="btn btn-primary">Editar</a>
                 @endif
-                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#respostaModal">Adicionar Resposta</button>
+                <a href="{{ route('riscos.respostas', ['id' => $risco->id]) }}" class="btn btn-secondary">Ver Respostas</a>
             </div>
-            <h2 class="text-center mb-4">Respostas</h2>
+            {{-- <h2 class="text-center mb-4">Respostas</h2>
             <div id="respostasDiv" class="mb-4">
                 @if($respostas->count() > 0)
                     <table class="table table-bordered">
@@ -159,7 +159,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
 
     <div class="modal fade" id="modal-exclusao">
@@ -182,7 +182,7 @@
              </div>
          </div>
      </div>
-    <script>
+    {{-- <script>
         let respostaCount = 1;
 
         function addRespostaField() {
@@ -225,7 +225,7 @@
                     document.querySelector('.resposta .btn-danger').remove();
                 }
         }
-    </script>
+    </script> --}}
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>

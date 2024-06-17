@@ -24,14 +24,14 @@ class CheckAccess
 
 
         $permissions = [
-            '1' => ['index','show','create','store','edit','update','delete','deleteMonitoramento','storeResposta'],
+            '1' => ['index','show','create','store','edit','update','delete','deleteMonitoramento','storeResposta','respostas'],
             '2' => ['index','show','storeResposta']
         ];
         // dd(in_array($routeName, $permissions[$access]));
         if (!in_array($routeName, $permissions[$access])) {
             Log::info('Access level: ' . $access);
             Log::info('Route Name: ' . $routeName);
-    
+
             if (!$request->headers->has('referer') || !$request->isMethod('get')) {
                 session()->flash('error', 'Você não tem acesso a esta funcionalidade.');
             }
