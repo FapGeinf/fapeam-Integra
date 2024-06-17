@@ -1,5 +1,5 @@
 table, tr,th, td{
-  border: solid 1px black !important;
+  border: 1px solid black !important;
 }
 @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
@@ -8,22 +8,32 @@ table, tr,th, td{
   padding: 9px 8px !important;
 }
 
-.buttonNewRisk {
-  margin-left: 10px;
+.divContainer {
   margin-top: 1rem;
-  margin-bottom: 1rem;
+}
+
+.divContainer label {
+  margin-left: 10px;
+}
+
+.buttonNewRisk {
+  display: flex;
+  /* margin-left: 10px; */
+  /* margin-top: 1rem; */
+  /* margin-bottom: 1rem; */
 }
 
 .buttonNewRisk a {
   color: #fff;
-  padding: 7px;
+  font-weight: bold;
+  padding: 5px;
   text-decoration: none;
   border-radius: 3px;
   background-color: #0c72bb;
 }
 
 .buttonNewRisk a:hover {
-  text-decoration: underline;
+  /* text-decoration: underline; */
   background-color: rgb(18, 82, 128);
 }
 
@@ -31,6 +41,23 @@ table, tr,th, td{
   opacity: .8;
 }
 
+.divSearchAndEntries {
+  line-height: 0px;
+  /* margin-right: 1rem; */
+}
+
+.dataTables_filter {
+  margin-bottom: 1.5rem;
+}
+
+.dataTables_wrapper .dataTables_length select {
+  cursor: pointer;
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  padding: 5px;
+  background-color: #f1f1f1 !important;
+  padding: 4px;
+}
   
 thead tr th {
   background-color: #549f93 !important;
@@ -212,7 +239,7 @@ p {
 }
 
 .main-datatable .cust-datatable>thead>tr>th {
-  border-bottom-width: 0;
+  /* border-bottom-width: 0; */
   color: #443f3f;
   font-weight: 600;
   padding: 16px 15px;
@@ -288,7 +315,7 @@ p {
   border-bottom: 1px solid #000;
   display: flex;
   justify-content: center;
-  background-color: #f5f5f5;
+  background-color: #f1f1f1;
 }
 
 .riskLevelDiv {
@@ -298,7 +325,7 @@ p {
 .riskLevel1 {
  color: green;
  font-weight: bold;
- margin-left: 2rem;
+ margin-left: .5rem;
  margin-right: 2rem;
 }
 
