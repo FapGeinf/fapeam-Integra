@@ -11,17 +11,17 @@
 	{{-- <script src="//cdn.ckeditor.com/4.18.0/basic/ckeditor.js"></script> --}}
 
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-	
+
 	<title>Document</title>
 </head>
 <body>
-	
+
 
 	<div class="container-xxl d-flex justify-content-center pt-5">
 		<div class="col-12 col-md-8 col-lg-7 box-shadow pb-5">
 
       <div class="headerInfo">
-        <h4>Text Placeholder</h4>
+        <h4>Riscos Inerentes</h4>
       </div>
 
       <div class="row p-1 boxForm"><!-- boxForm start -->
@@ -38,7 +38,7 @@
                 @endforeach
             </select>
 
-							
+
             </div>
 
             <div class="col-sm-12 col-md-4">
@@ -49,7 +49,7 @@
             <div class="col-sm-12 col-md-8">
               <label class="dataLim" for="name">Responsável:</label>
               <div class="dateTime">
-                <input type="text" name="" id="" class="textInput form-control" placeholder="Fulano da Silva Pompeo">
+                <input type="text" name="" id="" class="textInput form-control" placeholder=" Ex: Fulano da Silva Pompeo">
               </div>
             </div>
 					</div>
@@ -60,7 +60,7 @@
 							<textarea type="text" name="riscoEvento" class="textInput" required></textarea>
 						</div>
 					</div>
-					
+
 					<div class="row g-3 mt-1">
 						<div class="col-sm-12 col-md-8">
 							<label for="name">Causa do Risco:</label>
@@ -78,8 +78,8 @@
 					<div class="row g-3 mt-1">
 						<div class="col-sm-12 col-md-8">
 							<label for="name">Avaliação:</label>
-							<input type="text" name="riscoAvaliacao" class="textInput form-control" placeholder="Aprovado/ Negado" required>
-							
+							<input type="number" name="riscoAvaliacao" class="textInput form-control" placeholder="1 a 10" required>
+
 						</div>
 					</div>
 
@@ -144,9 +144,7 @@
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-            <div id="monitoramentosDiv" class="monitoramento"></div>
-            <input type="button" onclick="addMonitoramentos()" value="Adicionar Monitoramento">
-            <button type="submit">Salvar</button>
+
         </form>
     </div>
 

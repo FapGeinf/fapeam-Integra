@@ -183,11 +183,19 @@ class RiscoController extends Controller
                     ]);
                 }
             }
-            return redirect()->route('riscos.show', $id)->with('success', 'Respostas adicionadas com sucesso');
+            return redirect()->route('riscos.respostas', $id)->with('success', 'Respostas adicionadas com sucesso');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
         }
     }
+
+    public function respostas($id)
+    {
+           $risco = Risco::with('respostas')->findorFail($id);
+           $respostas = Resposta::where('respostaRiscoFK', $risco->id)->get();
+           return view('riscos.respostas', ['risco' => $risco, 'respostas' => $respostas]);
+    }
+
 
     public function __construct()
     {
