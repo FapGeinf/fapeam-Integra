@@ -16,7 +16,10 @@ class UnidadeTipoSeeder extends Seeder
     public function run()
     {
         UnidadeTipo::factory()->create([
-					'unidadeTipoNome' => 'Unidade Teste',
-				]);
+					'unidadeTipoNome' => 'Comissão',
+		]);
+        UnidadeTipo::factory()->create([
+					'unidadeTipoNome' => 'Setor',
+		]);
     }
 }

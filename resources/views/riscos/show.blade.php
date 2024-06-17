@@ -55,9 +55,13 @@
     </style>
 </head>
 <body>
+    @if(session('error'))
+        <script>alert('{{ session('error') }}');</script>
+    @endif
+
     <div class="container-fluid pt-4">
         <div class="box-shadow">
-            <h1 class="text-center mb-4">Risco Detalhado</h1>
+            <h4 class="text-center mb-4">Detalhamento Risco Inerente</h4>
             <table class="table table-bordered mb-4">
                 <thead>
                     <tr>
@@ -69,14 +73,14 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="text-center">{{ $risco->riscoEvento }}</td>
-                        <td class="text-center">{{ $risco->riscoCausa }}</td>
-                        <td class="text-center">{{ $risco->riscoConsequencia }}</td>
+                        <td class="text-center">{!! $risco->riscoEvento !!}</td>
+                        <td class="text-center">{!! $risco->riscoCausa !!}</td>
+                        <td class="text-center">{!! $risco->riscoConsequencia !!}</td>
                         <td class="text-center">{{ $risco->riscoAvaliacao }}</td>
                     </tr>
                 </tbody>
             </table>
-            <h2 class="text-center mb-4">Monitoramentos</h2>
+            <h5 class="text-center mb-4">Plano de ação</h5>
             <table class="table table-bordered mb-4">
                 <thead>
                     <tr>
@@ -88,15 +92,17 @@
                 <tbody>
                     @foreach ($risco->monitoramentos as $monitoramento)
                         <tr>
-                            <td class="text-center">{{ $monitoramento->monitoramentoControleSugerido }}</td>
-                            <td class="text-center">{{ $monitoramento->statusMonitoramento }}</td>
-                            <td class="text-center">{{ $monitoramento->execucaoMonitoramento }}</td>
+                            <td class="text-center">{!! $monitoramento->monitoramentoControleSugerido !!}</td>
+                            <td class="text-center">{!! $monitoramento->statusMonitoramento !!}</td>
+                            <td class="text-center">{!! $monitoramento->execucaoMonitoramento !!}</td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
             <div class="text-center mb-4">
-                <a href="{{ route('riscos.edit', $risco->id) }}" class="btn btn-primary">Editar</a>
+                @if (Auth::user()->unidade->unidadeTipoFK == 1)
+                    <a href="{{ route('riscos.edit', $risco->id) }}" class="btn btn-primary">Editar</a>
+                @endif
                 <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#respostaModal">Adicionar Resposta</button>
             </div>
             <h2 class="text-center mb-4">Respostas</h2>
@@ -113,7 +119,7 @@
                             @foreach ($respostas as $key => $resposta)
                                 <tr>
                                     <td class="text-center">{{ $key + 1 }}</td>
-                                    <td>{{ $resposta->respostaRisco }}</td>
+                                    <td>{!! $resposta->respostaRisco !!}</td>
                                 </tr>
                             @endforeach
                         </tbody>

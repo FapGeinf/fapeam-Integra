@@ -129,6 +129,9 @@
     </style>
 </head>
 <body>
+    @if(session('error'))
+        <script>alert('{{ session('error') }}');</script>
+    @endif
     <div class="form-wrapper">
         <div class="form_create">
             <h2 style="text-align: center; margin-bottom: 20px;">Formulário de Risco</h2>

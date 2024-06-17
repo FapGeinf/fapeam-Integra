@@ -21,8 +21,13 @@
 	</style>
 </head>
 <body>
-	
-	<a href="{{route('riscos.create')}}" class="btn btn-primary mb-3">Novo</a>
+	@if(session('error'))
+		<script>alert('{{ session('error') }}');</script>
+	@endif
+	<br>
+	@if (Auth::user()->unidade->unidadeTipoFK == 1)
+		<a href="{{route('riscos.create')}}" class="btn btn-primary mb-3">Novo</a>
+	@endif
 	<table id="tableHome" class="table table-striped table-bordered ">
 		<thead class="thead-dark">
 			<tr>
