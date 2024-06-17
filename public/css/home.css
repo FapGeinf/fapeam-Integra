@@ -95,29 +95,29 @@ thead tr th {
   text-align: center;
 }
 
-#relatoriosTable_filter {
+/* #relatoriosTable_filter {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  }
+  } */
 /* FILTRO DE PESQUISA FIM */
 
-#relatoriosTable tbody tr:hover td {
+#tableHome tbody tr:hover td {
   background-color: #ececec !important;
 }
 
-#relatoriosTable tbody tr:nth-child(even) td {
+#tableHome tbody tr:nth-child(even) td {
   background-color: #fff;
   cursor: pointer;
 }
 
-#relatoriosTable tbody tr:nth-child(odd) td {
+#tableHome tbody tr:nth-child(odd) td {
   background-color: #f3f3f3;
   cursor: pointer;
 }
 
 /* HOVER CUSTOM INÍCIO */
-#relatoriosTable tbody tr {
+#tableHome tbody tr {
   transition: transform 0.3s ease;
 }
 
