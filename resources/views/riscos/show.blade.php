@@ -96,7 +96,9 @@
                             <td class="text-center">{!! $monitoramento->monitoramentoControleSugerido !!}</td>
                             <td class="text-center">{!! $monitoramento->statusMonitoramento !!}</td>
                             <td class="text-center">{!! $monitoramento->execucaoMonitoramento !!}</td>
+                            @if(count($monitoramentos)>1)
                             <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-exclusao">Excluir</button></td>
+                            @endif
                         </tr>
                     @endforeach
                 </tbody>
