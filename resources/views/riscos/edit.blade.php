@@ -61,17 +61,40 @@
         }
 
         .form_create button {
-            background-color: #007bff;
-            color: #fff;
             border: none;
             border-radius: 4px;
             padding: 10px 20px;
             cursor: pointer;
             font-size: 16px;
+            margin-right: 10px; /* Adiciona margem à direita */
+            transition: background-color 0.3s;
         }
 
-        .form_create button:hover {
+        .form_create button.add-btn {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .form_create button.add-btn:hover {
             background-color: #0056b3;
+        }
+
+        .form_create button.close-btn {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .form_create button.close-btn:hover {
+            background-color: #c82333;
+        }
+
+        .form_create button.submit-btn {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .form_create button.submit-btn:hover {
+            background-color: #218838;
         }
 
         .add-monitoramento-btn {
@@ -84,23 +107,6 @@
         .add-monitoramento-btn i {
             margin-right: 5px;
             color: #007bff;
-        }
-
-        .remove-monitoramento-btn {
-            background-color: #dc3545;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            padding: 5px 10px;
-            cursor: pointer;
-            font-size: 12px;
-            margin-left: 5px;
-            position: relative;
-            top: 5px;
-        }
-
-        .remove-monitoramento-btn:hover {
-            background-color: #c82333;
         }
 
         /* Estilo para a numeração dos monitoramentos */
@@ -159,31 +165,15 @@
                     @endforeach
                 </select>
 
-                {{-- Monitoramentos existentes --}}
-                @foreach ($risco->monitoramentos as $key => $monitoramento)
-                    <div class="monitoramento">
-                        <span class="numeration">Monitoramento Nº {{ $key + 1 }}</span>
-                        <textarea type="text" name="monitoramentos[{{ $monitoramento->id }}][monitoramentoControleSugerido]" class="textInput" required>{{ $monitoramento->monitoramentoControleSugerido }}</textarea>
-                        <textarea type="text" name="monitoramentos[{{ $monitoramento->id }}][statusMonitoramento]" class="textInput" required>{{ $monitoramento->statusMonitoramento }}</textarea>
-                        <textarea type="text" name="monitoramentos[{{ $monitoramento->id }}][execucaoMonitoramento]" class="textInput" required>{{ $monitoramento->execucaoMonitoramento }}</textarea>
-
-                        {{-- Botão para remover monitoramento --}}
-                        <button type="button" class="remove-monitoramento-btn">Remover</button>
-                    </div>
-                @endforeach
-
-                <!-- Div para adicionar monitoramentos -->
-                <div id="monitoramentosDiv"></div>
-
-                <!-- Botão para adicionar monitoramento -->
-                <div class="add-monitoramento-btn">
-                    <i class="fas fa-plus"></i>
-                    <span>Adicionar Monitoramento</span>
+                <div>
+                    <span>Monitoramentos adicionados: </span>
+                    <span id="monitoramentoCounter">{{ count($risco->monitoramentos) }}</span>
                 </div>
 
-                <!-- Botão para salvar o formulário -->
-                <button type="submit">Salvar</button>
-
+                <div id="monitoramentosDiv" class="monitoramento"></div>
+                <button type="button" class="add-btn" onclick="addMonitoramentos()">Adicionar Monitoramento</button>
+                <button type="button" class="close-btn" onclick="fecharFormulario()">Fechar</button>
+                <button type="submit" class="submit-btn">Salvar</button>
 
             </form>
         </div>
@@ -193,55 +183,59 @@
 
     <script>
 
-        let cont = {{ count($risco->monitoramentos) }};
+          let cont = {{ count($risco->monitoramentos) }};
 
-        document.querySelector('.add-monitoramento-btn').addEventListener('click', addMonitoramentos);
+          let monitoramentoCounter = document.getElementById('monitoramentoCounter');
 
-        function addMonitoramentos() {
-            let monitoramentoDiv = document.createElement('div');
-            monitoramentoDiv.classList.add('monitoramento');
+          function updateCounter() {
+             monitoramentoCounter.textContent = cont;
+          }
 
-            let numeration = document.createElement('span');
-            numeration.classList.add('numeration');
-            numeration.textContent = `Monitoramento Nº ${cont + 1}.`;
-            monitoramentoDiv.appendChild(numeration);
-
-            let controleSugerido = document.createElement('textarea');
+          function addMonitoramentos() {
+            let controleSugerido = document.createElement('input');
             controleSugerido.type = 'text';
             controleSugerido.name = `monitoramentos[${cont}][monitoramentoControleSugerido]`;
             controleSugerido.placeholder = 'Monitoramento';
-            controleSugerido.classList.add('textInput');
-            controleSugerido.required = true;
-            monitoramentoDiv.appendChild(controleSugerido);
+            controleSugerido.classList = 'textInput';
+            controleSugerido.value = ''; // Defina o valor padrão aqui se necessário
 
-            let statusMonitoramento = document.createElement('textarea');
+            let statusMonitoramento = document.createElement('input');
             statusMonitoramento.type = 'text';
             statusMonitoramento.name = `monitoramentos[${cont}][statusMonitoramento]`;
             statusMonitoramento.placeholder = 'Status do Monitoramento';
-            statusMonitoramento.classList.add('textInput');
-            statusMonitoramento.required = true;
-            monitoramentoDiv.appendChild(statusMonitoramento);
+            statusMonitoramento.classList = 'textInput';
+            statusMonitoramento.value = ''; // Defina o valor padrão aqui se necessário
 
-            let execucaoMonitoramento = document.createElement('textarea');
+            let execucaoMonitoramento = document.createElement('input');
             execucaoMonitoramento.type = 'text';
             execucaoMonitoramento.name = `monitoramentos[${cont}][execucaoMonitoramento]`;
             execucaoMonitoramento.placeholder = 'Execução do Monitoramento';
-            execucaoMonitoramento.classList.add('textInput');
-            execucaoMonitoramento.required = true;
-            monitoramentoDiv.appendChild(execucaoMonitoramento);
+            execucaoMonitoramento.classList = 'textInput';
+            execucaoMonitoramento.value = '';
 
-            let removeBtn = document.createElement('button');
-            removeBtn.type = 'button';
-            removeBtn.classList.add('remove-monitoramento-btn');
-            removeBtn.textContent = 'Remover';
-            removeBtn.addEventListener('click', () => {
-                monitoramentoDiv.remove();
-            });
-            monitoramentoDiv.appendChild(removeBtn);
+            let monitoramentosDiv = document.getElementById('monitoramentosDiv');
+            monitoramentosDiv.appendChild(controleSugerido);
+            monitoramentosDiv.appendChild(statusMonitoramento);
+            monitoramentosDiv.appendChild(execucaoMonitoramento);
 
+            let monitoramentoDiv = document.createElement('div');
+            monitoramentoDiv.classList.add('monitoramento');
+            let numeration = document.createElement('span');
+            numeration.classList.add('numeration');
+            numeration.textContent = `Monitoramento Nº ${cont + 1}`;
+            monitoramentoDiv.appendChild(numeration);
             document.getElementById('monitoramentosDiv').appendChild(monitoramentoDiv);
             cont++;
+            updateCounter();
         }
+
+        function fecharFormulario() {
+            document.getElementById('monitoramentosDiv').innerHTML = ''; // Limpa o conteúdo dos monitoramentos
+            cont = 0; // Reseta o contador
+            updateCounter(); // Atual
+        }
+
+        updateCounter();
     </script>
 
 </body>
