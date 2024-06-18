@@ -42,8 +42,8 @@
 
 		<a class="navbar-brand {{ Request::path() === '/' ? 'active' : '' }}" href="">
 			<div class="logo">
-				<img id="logoMin" src="{{ asset('img/logo-lupa-no-background2.png') }}" style="height: 27%; object-fit: cover;">
-				<img id="logoMax" src="{{ asset('img/logo-cortada.png')}}" style="display: none;" class="logoImg" alt="Logo">
+				<img id="logoMin" src="{{ asset('img/logo-lupa-no-background3.png') }}" style="height: 27%; object-fit: cover;">
+				<img class="logoMax" id="logoMax" src="{{ asset('img/logoMax.png')}}" style="display: none;" class="logoImg" alt="Logo">
 			</div>
 		</a>
 

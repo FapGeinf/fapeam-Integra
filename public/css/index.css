@@ -37,6 +37,8 @@ table, tr,th, td {
   color: #fff;
   font-weight: bold;
   padding: 5px;
+  transition: .2s;
+  padding-right: 8px;
   text-decoration: none;
   border-radius: 3px;
   background-color: #0c72bb;

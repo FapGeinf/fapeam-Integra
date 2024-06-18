@@ -19,12 +19,6 @@ body {
   font-style: normal;
 }
 
-#relatoriosTable, #appSidenav {
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
 .flex-container {
   margin-top: 0.5rem !important;
 }
@@ -69,14 +63,10 @@ body {
 }
 
 a.navbar-brand:nth-child(1) {
-  margin-left: .7rem;
+  margin-left: .9rem;
   margin-right: 0;
   line-height: 0px;
   }
-
-.container-fluid {
-  /* justify-content: center !important; */
-}
 
 .container-fluid img:hover {
   opacity: .6;
@@ -132,9 +122,12 @@ a.navbar-brand:nth-child(1) {
   display: flex;
   font-size: 0.8rem;
   cursor: default;
-  align-items: baseline;
-  white-space: nowrap;
+  /* align-items: baseline;
+  white-space: nowrap; */
   flex-direction: column;
+  position: absolute;
+  left: 50px;
+  top: 2px;
 }
 
 .nav-item {
@@ -208,6 +201,8 @@ a.btnSair {
   height: 100px;
 }
 
+
+
 #logoMin {
   transition: .4s;
   cursor: pointer;
@@ -225,6 +220,10 @@ a.btnSair {
 
 #logoMax:hover {
   opacity: .6;
+}
+
+.logoMax {
+  width: 70% !important;
 }
 
 nav.menu-lateral {
@@ -340,19 +339,3 @@ ul li.item-menu.btn-sair {
 }
 
 /* FIM CSS SIDENAV */
-
-/* FOOTER */
-
-footer.footerBar {
-  border-top: 1px solid #ddd;
-  background-color: rgb(253, 253, 253) !important;
-  position: fixed !important;
-  bottom: 0;
-  width: 100%;
-}
-
-.footerText {
-  cursor: default;
-}
-
-/* FIM FOOTER */
