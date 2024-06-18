@@ -43,7 +43,7 @@
 			<span style="font-size:30px;cursor:pointer" class="openSideNavButton" onclick="toggleNav()"><i class="bi bi-list" id="btn-expand"></i></span>
 		</div>
 
-		<a class="navbar-brand {{ Request::path() === '/' ? 'active' : '' }}" href="">
+		<a class="navbar-brand {{ Request::path() === '/' ? 'active' : '' }}" href="{{route('riscos.index')}}">
 			<div class="logo">
 				<img id="logoMin" src="{{ asset('img/logo-lupa-no-background3.png') }}" style="height: 27%; object-fit: cover;">
 				<img class="logoMax" id="logoMax" src="{{ asset('img/logo-lupa-no-background5.png')}}" style="display: none;" class="logoImg" alt="Logo">
@@ -52,7 +52,7 @@
 
 		<ul class="ulList">
 			<li class="item-menu">
-				<a href="" class="{{ Request::path() === '/' ? 'active' : '' }}">
+				<a href="{{route('riscos.index')}}" class="{{ Request::path() === '/' ? 'active' : '' }}">
 					<i class="bx bi-house icon"></i>
 					<span class="txt-link">Home</span>
 				</a>

@@ -75,8 +75,8 @@
 
       <div class="loginFooter">
         <div class="helpButtons">
-          <a href="#">Esqueceu a senha?</a>
-          <a href="#">Primeiro acesso</a>
+          <a href="http://10.10.3.252/glpi/">Esqueceu a senha?</a>
+          <a href="http://10.10.3.252/glpi/">Primeiro Acesso?</a>
         </div> 
       </div>
       
