@@ -339,17 +339,3 @@ p {
   color: red;
   font-weight: bold;
 }
-.risco-baixo {
-    background-color: green;
-    color: white;
-}
-
-.risco-medio {
-    background-color: yellow;
-    color: black;
-}
-
-.risco-alto {
-    background-color: red;
-    color: white;
-}

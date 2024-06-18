@@ -154,8 +154,21 @@
                 <label for="riscoConsequencia">Consequência</label>
                 <textarea type="text" name="riscoConsequencia" class="textInput" required>{{ $risco->riscoConsequencia ?? old('riscoConsequencia') }}</textarea>
 
-                <label for="riscoAvaliacao">Avaliação</label>
-                <input type="number" name="riscoAvaliacao" class="textInput" value="{{ $risco->riscoAvaliacao ?? old('riscoAvaliacao') }}" required>
+                <label for="probabilidade_risco">Probabilidade do Risco</label>
+                <select name="probabilidade_risco" required>
+                    <option value="" disabled selected>Selecione a probabilidade</option>
+                    <option value="1" {{ $risco->probabilidade_risco == 1 ? 'selected' : '' }}>Baixa</option>
+                    <option value="3" {{ $risco->probabilidade_risco == 2 ? 'selected' : '' }}>Média</option>
+                    <option value="5" {{ $risco->probabilidade_risco == 3 ? 'selected' : '' }}>Alta</option>
+                </select>
+
+                <label for="impacto_risco">Impacto do Risco</label>
+                <select name="impacto_risco" required>
+                    <option value="" disabled selected>Selecione o impacto</option>
+                    <option value="1" {{ $risco->impacto_risco == 1 ? 'selected' : '' }}>Baixo</option>
+                    <option value="3" {{ $risco->impacto_risco == 2 ? 'selected' : '' }}>Médio</option>
+                    <option value="5" {{ $risco->impacto_risco == 3 ? 'selected' : '' }}>Alto</option>
+                </select>
 
                 <label for="unidadeId">Unidade</label>
                 <select name="unidadeId" required>
