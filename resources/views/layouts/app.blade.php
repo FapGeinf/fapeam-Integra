@@ -5,7 +5,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="shortcut icon" href="{{ asset('img/logo-lupa-no-background3.png') }}">
   <link rel="stylesheet" href="{{asset('css/global.css')}}">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
+  rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<title>{{ config('', 'INTEGRA') }} - @yield('title')</title>
 	@vite(['resources/sass/app.scss', 'resources/js/app.js'])

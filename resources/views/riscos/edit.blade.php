@@ -9,13 +9,6 @@
     <title>Formulário de Risco</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
-            margin: 0;
-            padding: 0;
-        }
-
         .form-wrapper {
             display: flex;
             justify-content: center; /* Centraliza horizontalmente */
@@ -237,6 +230,8 @@
 
         updateCounter();
     </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 
 </body>
 </html>
