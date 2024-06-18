@@ -14,6 +14,20 @@
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+    <style>
+    .risco-baixo {
+        color: green; /* Ou a cor que você deseja */
+    }
+
+    .risco-medio {
+        color: orange; /* Ou a cor que você deseja */
+    }
+
+    .risco-alto {
+        color: red; /* Ou a cor que você deseja */
+    }
+
+    </style>
 </head>
 <body>
 	<div class="container-fluid p-30">
@@ -40,15 +54,26 @@
 						</tr>
 					</thead>
 					<tbody>
-						@foreach ($riscos as $risco)
-							<tr style="cursor: pointer;" onclick="window.location='{{ route('riscos.show', $risco->id) }}';">
-								<td>{{$risco->unidade->unidadeNome}}</td>
-								<td>{!!$risco->riscoEvento!!}</td>
-								<td>{!!$risco->riscoCausa!!}</td>
-								<td>{!!$risco->riscoConsequencia!!}</td>
-								<td>{{ $risco->riscoAvaliacao }}</td>
-							</tr>
-						@endforeach
+                    @foreach ($riscos as $risco)
+                        @php
+                            $classe_risco = '';
+
+                            if ($risco->riscoAvaliacao <= 3) {
+                                $classe_risco = 'risco-baixo';
+                            } elseif ($risco->riscoAvaliacao > 3 && $risco->riscoAvaliacao <= 14) {
+                                $classe_risco = 'risco-medio';
+                            } else {
+                                $classe_risco = 'risco-alto';
+                            }
+                        @endphp
+                        <tr style="cursor: pointer;" onclick="window.location='{{ route('riscos.show', $risco->id) }}';">
+                            <td>{{ $risco->unidade->unidadeNome }}</td>
+                            <td>{!! $risco->riscoEvento !!}</td>
+                            <td>{!! $risco->riscoCausa !!}</td>
+                            <td>{!! $risco->riscoConsequencia !!}</td>
+                            <td><span class="{{ $classe_risco }}">{{ $risco->riscoAvaliacao }}</span></td>
+                        </tr>
+                    @endforeach
 					</tbody>
 				</table>
 			</div>

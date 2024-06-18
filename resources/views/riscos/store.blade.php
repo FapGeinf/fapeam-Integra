@@ -10,22 +10,6 @@
     <link rel="stylesheet" href="{{ asset('css/store.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Document</title>
-    <style>
-        .risco-baixo {
-            background-color: green;
-            color: white;
-        }
-
-        .risco-medio {
-            background-color: yellow;
-            color: black;
-        }
-
-        .risco-alto {
-            background-color: red;
-            color: white;
-        }
-    </style>
 </head>
 <body>
     <div class="container-xxl d-flex justify-content-center pt-5">
