@@ -5,6 +5,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 	<link rel="stylesheet" href="{{asset('css/global.css')}}">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
 	<script defer>
@@ -43,7 +46,7 @@
 		<a class="navbar-brand {{ Request::path() === '/' ? 'active' : '' }}" href="">
 			<div class="logo">
 				<img id="logoMin" src="{{ asset('img/logo-lupa-no-background3.png') }}" style="height: 27%; object-fit: cover;">
-				<img class="logoMax" id="logoMax" src="{{ asset('img/logoMax.png')}}" style="display: none;" class="logoImg" alt="Logo">
+				<img class="logoMax" id="logoMax" src="{{ asset('img/logo-lupa-no-background5.png')}}" style="display: none;" class="logoImg" alt="Logo">
 			</div>
 		</a>
 

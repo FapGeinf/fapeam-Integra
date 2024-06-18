@@ -3,8 +3,9 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="shortcut icon" href="{{ asset('/favicon.png') }}">
+  <link rel="shortcut icon" href="{{ asset('img/logo-lupa-no-background3.png') }}">
   <link rel="stylesheet" href="{{asset('css/global.css')}}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<title>{{ config('', 'INTEGRA') }} - @yield('title')</title>
 	@vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -16,7 +17,7 @@
     <nav class="navbar">
       @if(Auth::check())
         <a class="navbar-brand {{ Request::path() === '/' ? 'active' : '' }}" href="">
-          <img src="/img/logo-lupa-no-background3.png" alt="logo" width="21" height="20" class="logoNavImg d-inline-block align-text-top">
+          <img src="/img/logo-lupa-no-background.png" alt="logo" width="21" height="20" class="logoNavImg d-inline-block align-text-top">
         </a>
         @endif
         
@@ -64,6 +65,8 @@
       </section>
 		</main>
 	</div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 </body>
 
 </html>
