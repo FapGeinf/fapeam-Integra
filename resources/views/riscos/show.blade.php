@@ -1,125 +1,82 @@
 @extends('layouts.app')
-
 @section('content')
+
+@section('title') {{'Detalhes do Risco'}} @endsection
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Riscos</title>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <style>
-
-        .poppins-regular {
-        font-family: "Poppins", sans-serif;
-        font-weight: 400;
-        font-style: normal;
-        }
-
-
-        body {
-        font-family: "Poppins", sans-serif;
-        font-weight: 400;
-        font-style: normal;
-        }
-       
-
-        .container-fluid {
-            position: relative;
-            top: 120px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .box-shadow {
-            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
-            border-radius: .25rem;
-            background-color: #fff;
-            padding: 20px;
-            margin-bottom: 30px;
-        }
-
-        .table th,
-        .table td {
-            vertical-align: middle;
-        }
-
-        .text-center {
-            text-align: center;
-        }
-
-        .text-light {
-            color: #f8f9fa !important;
-        }
-
-        .bg-dark {
-            background-color: #343a40 !important;
-        }
-
-        .mb-4 {
-            margin-bottom: 1.5rem !important;
-        }
-
-        .resposta {
-            margin-bottom: 10px;
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Riscos</title>
+  <link rel="stylesheet" href="{{asset('css/show.css')}}">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 <body>
-    @if(session('error'))
-        <script>alert('{{ session('error') }}');</script>
-    @endif
+  @if(session('error'))
+    <script>alert('{{ session('error') }}');</script>
+  @endif
 
-    <div class="container-fluid pt-4">
-        <div class="box-shadow">
-            <h4 class="text-center mb-4">Detalhamento Risco Inerente</h4>
-            <table class="table table-bordered mb-4">
-                <thead>
-                    <tr>
-                        <th scope="col" class="text-center text-light bg-dark">Evento</th>
-                        <th scope="col" class="text-center text-light bg-dark">Causa</th>
-                        <th scope="col" class="text-center text-light bg-dark">Consequência</th>
-                        <th scope="col" class="text-center text-light bg-dark">Avaliação</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="text-center">{!! $risco->riscoEvento !!}</td>
-                        <td class="text-center">{!! $risco->riscoCausa !!}</td>
-                        <td class="text-center">{!! $risco->riscoConsequencia !!}</td>
-                        <td class="text-center">{{ $risco->riscoAvaliacao }}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <h5 class="text-center mb-4">Plano de ação</h5>
-            <table class="table table-bordered mb-4">
-                <thead>
-                    <tr>
-                        <th scope="col" class="text-center text-light bg-dark">Controle Sugerido</th>
-                        <th scope="col" class="text-center text-light bg-dark">Status</th>
-                        <th scope="col" class="text-center text-light bg-dark">Execução</th>
-                        <th scope="col" class="text-center text-light bg-dark">Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($risco->monitoramentos as $monitoramento)
-                        <tr>
-                            <td class="text-center">{!! $monitoramento->monitoramentoControleSugerido !!}</td>
-                            <td class="text-center">{!! $monitoramento->statusMonitoramento !!}</td>
-                            <td class="text-center">{!! $monitoramento->execucaoMonitoramento !!}</td>
-                            @if(count($monitoramentos)>1)
-                            <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-exclusao">Excluir</button></td>
-                            @endif
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            <div class="text-center mb-4">
-                @if (Auth::user()->unidade->unidadeTipoFK == 1)
-                    <a href="{{ route('riscos.edit', $risco->id) }}" class="btn btn-primary">Editar</a>
+  <div class="container-fluid p-30">
+    <div class="col-12 box-shadow">
+      <h5 class="text-center mb-2">Detalhamento Risco Inerente</h5>
+
+      <div class="">
+        <table class="table table-bordered mb-4">
+        <thead>
+          <tr>
+            <th scope="col" class="text-center text-light tBorder">Evento</th>
+            <th scope="col" class="text-center text-light tBorder">Causa</th>
+            <th scope="col" class="text-center text-light tBorder">Consequência</th>
+            <th scope="col" class="text-center text-light">Avaliação</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td class="text-center pb-5 tBorder">{!! $risco->riscoEvento !!}</td>
+            <td class="text-center pb-5 tBorder">{!! $risco->riscoCausa !!}</td>
+            <td class="text-center pb-5 tBorder">{!! $risco->riscoConsequencia !!}</td>
+            <td class="text-center pb-5">{{ $risco->riscoAvaliacao }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+        <h5 class="text-center mb-2">Plano de ação</h5>
+        <table class="table table-bordered mb-4">
+          <thead>
+            <tr>
+              <th scope="col" class="text-center text-light tBorder">Controle Sugerido</th>
+              <th scope="col" class="text-center text-light tBorder">Status</th>
+              <th scope="col" class="text-center text-light">Execução</th>
+              {{-- <th scope="col" class="text-center text-light bg-dark">Ações</th> --}}
+            </tr>
+          </thead>
+
+          <tbody>
+            @foreach ($risco->monitoramentos as $monitoramento)
+              <tr>
+                <td class="text-center pb-5 tBorder">{!! $monitoramento->monitoramentoControleSugerido !!}</td>
+                <td class="text-center pb-5 tBorder">{!! $monitoramento->statusMonitoramento !!}</td>
+                <td class="text-center pb-5">{!! $monitoramento->execucaoMonitoramento !!}</td>
+                @if(count($monitoramentos)>1)
+                  <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-exclusao">Excluir</button></td>
                 @endif
-                <a href="{{ route('riscos.respostas', ['id' => $risco->id]) }}" class="btn btn-secondary">Ver Respostas</a>
-            </div>
+              </tr>
+            @endforeach
+          </tbody>
+        </table>
+
+        <div class="text-center mb-4">
+          @if (Auth::user()->unidade->unidadeTipoFK == 1)
+            <a href="{{ route('riscos.edit', $risco->id) }}" class="edit-btn">Editar</a>
+          @endif
+          <a href="{{ route('riscos.respostas', ['id' => $risco->id]) }}" class="reply-btn">Ver Respostas</a>
+        </div>
+      </div>
+      
+
+      </div>
+    </div>
             {{-- <h2 class="text-center mb-4">Respostas</h2>
             <div id="respostasDiv" class="mb-4">
                 @if($respostas->count() > 0)
@@ -143,8 +100,7 @@
                     <p class="text-center">Não há respostas disponíveis para este risco.</p>
                 @endif
             </div>
-        </div>
-    </div>
+        
 
     <div class="modal fade" id="respostaModal" tabindex="-1" aria-labelledby="respostaModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -238,8 +194,8 @@
         }
     </script> --}}
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
 @endsection
