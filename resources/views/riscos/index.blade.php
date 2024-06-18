@@ -29,7 +29,7 @@
 					@endif
 				</div>
 			</div>
-			
+
 			<div class="container-fluid">
 				<table id="tableHome" class="table cust-datatable">
 					<thead class="">
@@ -48,7 +48,18 @@
 								<td>{!!$risco->riscoEvento!!}</td>
 								<td>{!!$risco->riscoCausa!!}</td>
 								<td>{!!$risco->riscoConsequencia!!}</td>
-								<td>{{$risco->riscoAvaliacao}}</td>
+                                @php
+                                    $classe_risco = '';
+
+                                    if ($risco->riscoAvaliacao <= 3) {
+                                        $classe_risco = 'risco-baixo';
+                                    } elseif ($risco->riscoAvaliacao > 3 && $risco->riscoAvaliacao <= 14) {
+                                        $classe_risco = 'risco-medio';
+                                    } else {
+                                        $classe_risco = 'risco-alto';
+                                    }
+                                @endphp
+								 <td class="{{ $classe_risco }}">{{ $risco->riscoAvaliacao }}</td>
 							</tr>
 						@endforeach
 					</tbody>
@@ -65,7 +76,7 @@
 				<span class="riskLevel3">Alto</span>
 			</div>
 		</footer>
-				
+
 
 
 		<script>
@@ -83,7 +94,7 @@ $(document).ready(function(){
 						next: "Próximo",
 						previous: "Anterior"
 						}
-						
+
         },
         initComplete: function(){
             // Cria um contêiner para alinhar os elementos na mesma linha
@@ -108,7 +119,7 @@ $(document).ready(function(){
         // Garante que os elementos permaneçam alinhados após a recriação da tabela
         if (!$(".divContainer").length) {
             var divContainer = $('<div class="divContainer" style="display: flex; justify-content: space-between;"></div>');
-            
+
             var divButtonNewRisk = $('<div class="divButtonNewRisk"></div>');
             divButtonNewRisk.append($('#newRiskButtonDiv'));
             divContainer.append(divButtonNewRisk);
@@ -124,8 +135,8 @@ $(document).ready(function(){
 
 
 		</script>
-		
-		
+
+
 
 
 
