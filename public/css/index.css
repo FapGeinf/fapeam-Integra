@@ -8,6 +8,10 @@ table, tr,th, td {
   border-right: 0px;
 }
 
+#thUnidade {
+  width: 350px;
+}
+
 #thAvaliacao {
   border-right: 1px solid #000;
 }
@@ -15,7 +19,6 @@ table, tr,th, td {
 #tdAvaliacao {
   border-right: 1px solid #000;
   border-color: #000;
-
 }
 
 .divContainer {

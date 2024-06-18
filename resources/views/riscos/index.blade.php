@@ -33,7 +33,7 @@
 					<table id="tableHome" class="table cust-datatable">
 						<thead class="">
 							<tr>
-								<th>Unidade</th>
+								<th id="thUnidade">Unidade</th>
 								<th>Evento de Risco</th>
 								<th>Causa</th>
 								<th>Consequência</th>
