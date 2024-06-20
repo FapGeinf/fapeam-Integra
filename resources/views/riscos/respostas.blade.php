@@ -1,11 +1,48 @@
 @extends('layouts.app')
 
+@section('title') {{'Detalhes da Resposta'}} @endsection
+
+<head>
+    <link rel="stylesheet" href="{{asset('css/show.css')}}">
+</head>
+
 @section('content')
+
+<div class="container-fluid p-30">
+    <div class="col-12 box-shadow">
+
+        <h4 class="text-center mb-3">Detalhes da Resposta</h4>
+
+        <hr class="line">
+
+        <div class="">
+            @if($respostas->count() > 0)
+            <table class="table table-bordered">
+                
+                <tr>
+                    <th scope="col" class="text-center thNumber">Número</th>
+                    <th scope="col" class="text-center thReply">Resposta do Risco: {{ $risco->id}}</th>
+                </tr>
+
+                @foreach ($respostas as $key => $resposta)
+                <tr>
+                    <td class="text-center tdNumber">{!! $key + 1 !!}</td>
+                    <td class="text-center tdReply">{!! $resposta->respostaRisco !!}</td>
+                </tr>
+                @endforeach
+            </table>
+            @else
+            <p class="text-center">Não há respostas disponíveis para este risco.</p>
+            @endif
+        </div>
+    </div>
+</div>
+
 <div class="container mt-4">
     <button type="button" class="btn btn-secondary mt-4" data-bs-toggle="modal" data-bs-target="#respostaModal">Adicionar Resposta</button>
 </div>
 
-<h2 class="text-center mb-4">Respostas do Risco: {{ $risco->id }}</h2>
+{{-- <h2 class="text-center mb-4">Respostas do Risco: {{ $risco->id }}</h2>
 <div id="respostasDiv" class="mb-4">
     <div class="table-responsive-md">
         @if($respostas->count() > 0)
@@ -19,7 +56,7 @@
             <tbody>
                 @foreach ($respostas as $key => $resposta)
                 <tr>
-                    <td class="text-center">{{ $key + 1 }}</td>
+                    <td class="text-center">{!! $key + 1 !!}</td>
                     <td>{!! $resposta->respostaRisco !!}</td>
                 </tr>
                 @endforeach
@@ -29,7 +66,7 @@
         <p class="text-center">Não há respostas disponíveis para este risco.</p>
         @endif
     </div>
-</div>
+</div> --}}
 
 
 <div class="modal fade" id="respostaModal" tabindex="-1" aria-labelledby="respostaModalLabel" aria-hidden="true">
@@ -81,7 +118,7 @@
         let deleteButton = document.createElement('button');
         deleteButton.type = 'button';
         deleteButton.classList.add('btn', 'btn-danger', 'btn-sm');
-        deleteButton.innerText = 'Excluir Campo';
+        deleteButton.innerText = 'Excluir Resposta';
         deleteButton.onclick = function () {
             removeRespostaField(fieldGroup);
         };
