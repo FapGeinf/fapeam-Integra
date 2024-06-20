@@ -43,11 +43,11 @@
 						<tbody>
 							@foreach ($riscos as $risco)
 								<tr style="cursor: pointer;" onclick="window.location='{{ route('riscos.show', $risco->id) }}';">
-									<td>{{$risco->unidade->unidadeNome}}</td>
+									<td>{!! $risco->unidade->unidadeNome !!}</td>
 									<td>{!!$risco->riscoEvento!!}</td>
 									<td>{!!$risco->riscoCausa!!}</td>
 									<td>{!!$risco->riscoConsequencia!!}</td>
-									<td id="tdAvaliacao">{{$risco->riscoAvaliacao}}</td>
+									<td id="tdAvaliacao">{!! $risco->riscoAvaliacao !!}</td>
 								</tr>
 							@endforeach
 						</tbody>
