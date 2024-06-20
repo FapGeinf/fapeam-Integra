@@ -95,3 +95,22 @@ a.reply-btn:hover {
   background-color: #218838;
 }
 
+/* PÁGINA DE RESPOSTAS */
+
+.thNumber,
+.thReply {
+  background-color: #f3f3f3 !important;
+}
+
+.tdNumber,
+.tdReply {
+  background-color: #fff !important;
+}
+
+.line {
+  display: flex;
+  width: 10%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 3rem;
+}
