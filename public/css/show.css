@@ -10,13 +10,6 @@ font-weight: 400;
 font-style: normal;
 }
 
-/* .container-fluid {
-  position: relative;
-  top: 120px;
-  display: flex;
-  justify-content: center;
-} */
-
 .box-shadow {
   box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
   border-radius: .25rem;
@@ -35,7 +28,7 @@ font-style: normal;
 }
 
 .table td {
-  background-color: #ececec;
+  background-color: #f7f7f7;
 }
 
 .table .tBorder {
