@@ -36,7 +36,7 @@
             <td class="text-center pb-5 tBorder">{!! $risco->riscoEvento !!}</td>
             <td class="text-center pb-5 tBorder">{!! $risco->riscoCausa !!}</td>
             <td class="text-center pb-5 tBorder">{!! $risco->riscoConsequencia !!}</td>
-            <td class="text-center pb-5">{{ $risco->riscoAvaliacao }}</td>
+            <td class="text-center pb-5">{!! $risco->riscoAvaliacao !!}</td>
           </tr>
         </tbody>
       </table>
