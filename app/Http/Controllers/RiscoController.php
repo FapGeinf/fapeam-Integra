@@ -39,7 +39,8 @@ class RiscoController extends Controller
                 'riscoEvento' => 'required|string|max:255',
                 'riscoCausa' => 'required|string|max:255',
                 'riscoConsequencia' => 'required|string|max:255',
-                'riscoAvaliacao' => 'required|string|max:255',
+                'probabilidade_risco' => 'required|integer|min:1',
+                'impacto_risco' => 'required|integer|min:1',
                 'unidadeId' => 'required|exists:unidades,id',
                 'monitoramentos' => 'required|array|min:1',
                 'monitoramentos.*.monitoramentoControleSugerido' => 'required|string|max:255',
@@ -47,17 +48,19 @@ class RiscoController extends Controller
                 'monitoramentos.*.execucaoMonitoramento' => 'required|string|max:255'
             ]);
 
+            $riscoAvaliacao = (int) ($request->probabilidade_risco * $request->impacto_risco);
+
             $risco = Risco::create([
                 'riscoEvento' => $request->riscoEvento,
                 'riscoCausa' => $request->riscoCausa,
                 'riscoConsequencia' => $request->riscoConsequencia,
-                'riscoAvaliacao' => $request->riscoAvaliacao,
+                'probabilidade_risco' => $request->probabilidade_risco, // Certifique-se de usar o nome correto aqui
+                'impacto_risco' => $request->impacto_risco,
+                'riscoAvaliacao' => $riscoAvaliacao,
                 'unidadeId' => $request->unidadeId,
                 'userIdRisco' => auth()->id()
             ]);
 
-
-            // Criação dos monitoramentos associados ao risco
             foreach ($request->monitoramentos as $monitoramentoData) {
                 Monitoramento::create([
                     'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
@@ -69,9 +72,10 @@ class RiscoController extends Controller
 
             return redirect()->route('riscos.index')->with('success', 'Risco criado com sucesso!');
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
+            return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao criar o risco. Por favor, tente novamente.']);
         }
     }
+
 
     public function edit($id)
     {
