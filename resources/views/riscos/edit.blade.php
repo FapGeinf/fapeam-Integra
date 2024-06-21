@@ -30,17 +30,39 @@
         @csrf
         @method('PUT')
         <input type="hidden" name="risco_id" value="{{ $risco->id }}">
+
         <label id="first" for="riscoEvento">Evento:</label>
-        <textarea type="text" name="riscoEvento" class="textInput" required>{{ $risco->riscoEvento ?? old('riscoEvento') }}</textarea>
+        <textarea name="riscoEvento" class="textInput" required>{{ $risco->riscoEvento ?? old('riscoEvento') }}</textarea>
 
         <label for="riscoCausa">Causa:</label>
-        <textarea type="text" name="riscoCausa" class="textInput" required>{{ $risco->riscoCausa ?? old('riscoCausa') }}</textarea>
+        <textarea name="riscoCausa" class="textInput" required>{{ $risco->riscoCausa ?? old('riscoCausa') }}</textarea>
 
         <label for="riscoConsequencia">Consequência:</label>
-        <textarea type="text" name="riscoConsequencia" class="textInput" required>{{ $risco->riscoConsequencia ?? old('riscoConsequencia') }}</textarea>
+        <textarea name="riscoConsequencia" class="textInput" required>{{ $risco->riscoConsequencia ?? old('riscoConsequencia') }}</textarea>
 
-        <label for="riscoAvaliacao">Avaliação:</label>
-        <input type="number" name="riscoAvaliacao" class="textInput" value="{{ $risco->riscoAvaliacao ?? old('riscoAvaliacao') }}" required>
+        <div class="row g-3 mt-1">
+          <div class="col-sm-12 col-md-8">
+              <label for="probabilidade_risco">Probabilidade de Risco:</label>
+              <select name="probabilidade_risco" id="probabilidade_risco" required onchange="calculateRiscoAvaliacao()">
+                  <option value="1" {{ $risco->probabilidade_risco == 1 ? 'selected' : '' }}>Baixo</option>
+                  <option value="3" {{ $risco->probabilidade_risco == 3 ? 'selected' : '' }}>Médio</option>
+                  <option value="5" {{ $risco->probabilidade_risco == 5 ? 'selected' : '' }}>Alto</option>
+              </select>
+          </div>
+        </div>
+
+        <div class="row g-3 mt-1">
+          <div class="col-sm-12 col-md-8">
+              <label for="impacto_risco">Impacto do Risco:</label>
+              <select name="impacto_risco" id="impacto_risco" required onchange="calculateRiscoAvaliacao()">
+                  <option value="1" {{ $risco->impacto_risco == 1 ? 'selected' : '' }}>Baixo</option>
+                  <option value="3" {{ $risco->impacto_risco == 3 ? 'selected' : '' }}>Médio</option>
+                  <option value="5" {{ $risco->impacto_risco == 5 ? 'selected' : '' }}>Alto</option>
+              </select>
+          </div>
+        </div>
+
+        <input type="hidden" name="riscoAvaliacao" id="riscoAvaliacao" value="{{ $risco->riscoAvaliacao }}">
 
         <label for="unidadeId">Unidade:</label>
         <select name="unidadeId" required>
@@ -57,20 +79,29 @@
           <span id="monitoramentoCounter">{{ count($risco->monitoramentos) }}</span>
         </div>
 
-        <div id="monitoramentosDiv" class="monitoramento"></div>
+        <div id="monitoramentosDiv" class="monitoramento">
+          @foreach ($risco->monitoramentos as $index => $monitoramento)
+            <div class="monitoramento">
+              <span class="numeration">Monitoramento Nº {{ $index + 1 }}</span>
+              <textarea name="monitoramentos[{{ $index }}][monitoramentoControleSugerido]" class="textInput" id="monitoramentoControleSugerido{{ $index }}">{{ $monitoramento->monitoramentoControleSugerido }}</textarea>
+              <input type="text" name="monitoramentos[{{ $index }}][statusMonitoramento]" class="textInput" placeholder="Status do Monitoramento" value="{{ $monitoramento->statusMonitoramento }}">
+              <input type="text" name="monitoramentos[{{ $index }}][execucaoMonitoramento]" class="textInput" placeholder="Execução do Monitoramento" value="{{ $monitoramento->execucaoMonitoramento }}">
+            </div>
+          @endforeach
+        </div>
 
         <div class="buttons">
           <button type="button" class="add-btn" onclick="addMonitoramentos()">Adicionar Monitoramento</button>
-          <button type="button" class="close-btn" onclick="fecharFormulario()">Fechar</button>  
+          <button type="button" class="close-btn" onclick="fecharFormulario()">Fechar</button>
         </div>
 
         <hr id="hr3">
-        
+
         <span id="tip">
           <i class="bi bi-exclamation-circle-fill"></i>
           Dica: Revise sua edição antes de salvar
         </span>
-        
+
         <div id="btnSave">
           <button type="submit" class="submit-btn">Salvar Edição</button>
         </div>
@@ -79,8 +110,6 @@
 
     </div>
   </div>
-
-
 
   <script>
     let cont = {{ count($risco->monitoramentos) }};
@@ -91,59 +120,69 @@
     }
 
     function addMonitoramentos() {
-      let controleSugerido = document.createElement('input');
-      controleSugerido.type = 'text';
+      let monitoramentosDiv = document.getElementById('monitoramentosDiv');
+
+      let monitoramentoDiv = document.createElement('div');
+      monitoramentoDiv.classList.add('monitoramento');
+
+      let numeration = document.createElement('span');
+      numeration.classList.add('numeration');
+      numeration.textContent = `Monitoramento Nº ${cont + 1}`;
+      monitoramentoDiv.appendChild(numeration);
+
+      let controleSugerido = document.createElement('textarea');
       controleSugerido.name = `monitoramentos[${cont}][monitoramentoControleSugerido]`;
       controleSugerido.placeholder = 'Monitoramento';
-      controleSugerido.classList = 'textInput';
-      controleSugerido.value = ''; // Defina o valor padrão aqui se necessário
+      controleSugerido.classList.add('textInput');
+      controleSugerido.id = `monitoramentoControleSugerido${cont}`;
 
       let statusMonitoramento = document.createElement('input');
       statusMonitoramento.type = 'text';
       statusMonitoramento.name = `monitoramentos[${cont}][statusMonitoramento]`;
       statusMonitoramento.placeholder = 'Status do Monitoramento';
-      statusMonitoramento.classList = 'textInput';
-      statusMonitoramento.value = ''; // Defina o valor padrão aqui se necessário
+      statusMonitoramento.classList.add('textInput');
 
       let execucaoMonitoramento = document.createElement('input');
       execucaoMonitoramento.type = 'text';
       execucaoMonitoramento.name = `monitoramentos[${cont}][execucaoMonitoramento]`;
       execucaoMonitoramento.placeholder = 'Execução do Monitoramento';
-      execucaoMonitoramento.classList = 'textInput';
-      execucaoMonitoramento.value = '';
+      execucaoMonitoramento.classList.add('textInput');
 
-      let monitoramentosDiv = document.getElementById('monitoramentosDiv');
-      monitoramentosDiv.appendChild(controleSugerido);
-      monitoramentosDiv.appendChild(statusMonitoramento);
-      monitoramentosDiv.appendChild(execucaoMonitoramento);
+      monitoramentoDiv.appendChild(controleSugerido);
+      monitoramentoDiv.appendChild(statusMonitoramento);
+      monitoramentoDiv.appendChild(execucaoMonitoramento);
 
-      let monitoramentoDiv = document.createElement('div');
-      monitoramentoDiv.classList.add('monitoramento');
-      let numeration = document.createElement('span');
-      numeration.classList.add('numeration');
-      numeration.textContent = `Monitoramento Nº ${cont + 1}`;
-      monitoramentoDiv.appendChild(numeration);
-      document.getElementById('monitoramentosDiv').appendChild(monitoramentoDiv);
+      monitoramentosDiv.appendChild(monitoramentoDiv);
+
+      CKEDITOR.replace(`monitoramentoControleSugerido${cont}`);
       cont++;
       updateCounter();
     }
 
     function fecharFormulario() {
-      document.getElementById('monitoramentosDiv').innerHTML = ''; // Limpa o conteúdo dos monitoramentos
-      cont = 0; // Reseta o contador
-      updateCounter(); // Atual
+      document.getElementById('monitoramentosDiv').innerHTML = '';
+      cont = 0;
+      updateCounter();
     }
+
     updateCounter();
+
+    function calculateRiscoAvaliacao() {
+      const probabilidade = document.getElementById('probabilidade_risco').value;
+      const impacto = document.getElementById('impacto_risco').value;
+      const avaliacao = probabilidade * impacto;
+      document.getElementById('riscoAvaliacao').value = avaliacao;
+    }
+
+    CKEDITOR.replace('riscoEvento');
+    CKEDITOR.replace('riscoCausa');
+    CKEDITOR.replace('riscoConsequencia');
+    @foreach ($risco->monitoramentos as $index => $monitoramento)
+      CKEDITOR.replace(`monitoramentoControleSugerido${index}`);
+    @endforeach
   </script>
 
-<script>
-  CKEDITOR.replace('riscoEvento');
-  CKEDITOR.replace('riscoCausa');
-  CKEDITOR.replace('riscoConsequencia');
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 @endsection
