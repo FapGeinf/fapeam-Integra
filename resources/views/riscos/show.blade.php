@@ -48,7 +48,9 @@
               <th scope="col" class="text-center text-light tBorder">Controle Sugerido</th>
               <th scope="col" class="text-center text-light tBorder">Status</th>
               <th scope="col" class="text-center text-light">Execução</th>
-              {{-- <th scope="col" class="text-center text-light bg-dark">Ações</th> --}}
+              @if(count($monitoramentos)>1)
+              <th scope="col" class="text-center text-light">Ações</th>
+              @endif
             </tr>
           </thead>
 
@@ -59,7 +61,7 @@
                 <td class="text-center pb-5 tBorder">{!! $monitoramento->statusMonitoramento !!}</td>
                 <td class="text-center pb-5">{!! $monitoramento->execucaoMonitoramento !!}</td>
                 @if(count($monitoramentos)>1)
-                  <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-exclusao">Excluir</button></td>
+                  <td class=" text-center"><button type="button" class="btn btn-sm btn-danger " data-bs-toggle="modal" data-bs-target="#modal-exclusao">Excluir</button></td>
                 @endif
               </tr>
             @endforeach

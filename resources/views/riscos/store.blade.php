@@ -90,48 +90,42 @@
 		CKEDITOR.replace('riscoEvento');
 		CKEDITOR.replace('riscoCausa');
 		CKEDITOR.replace('riscoConsequencia');
-		// CKEDITOR.replace('riscoAvaliacao');
 	</script>
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
-
-        </form>
-    </div>
 
     <script>
         let cont = 0;
 
         function addMonitoramentos() {
-            let controleSugerido = document.createElement('input');
-            controleSugerido.type = 'text';
+            let monitoramentosDiv = document.getElementById('monitoramentosDiv');
+
+            let controleSugerido = document.createElement('textarea');
             controleSugerido.name = `monitoramentos[${cont}][monitoramentoControleSugerido]`;
             controleSugerido.placeholder = 'Monitoramento';
             controleSugerido.classList = 'textInput';
-            controleSugerido.value = ''; // Defina o valor padrão aqui se necessário
+            controleSugerido.id = `monitoramentoControleSugerido${cont}`;
 
             let statusMonitoramento = document.createElement('input');
             statusMonitoramento.type = 'text';
             statusMonitoramento.name = `monitoramentos[${cont}][statusMonitoramento]`;
             statusMonitoramento.placeholder = 'Status do Monitoramento';
             statusMonitoramento.classList = 'textInput';
-            statusMonitoramento.value = ''; // Defina o valor padrão aqui se necessário
 
             let execucaoMonitoramento = document.createElement('input');
             execucaoMonitoramento.type = 'text';
             execucaoMonitoramento.name = `monitoramentos[${cont}][execucaoMonitoramento]`;
             execucaoMonitoramento.placeholder = 'Execução do Monitoramento';
             execucaoMonitoramento.classList = 'textInput';
-            execucaoMonitoramento.value = ''; // Defina o valor padrão aqui se necessário
 
-            let monitoramentosDiv = document.getElementById('monitoramentosDiv');
             monitoramentosDiv.appendChild(controleSugerido);
             monitoramentosDiv.appendChild(statusMonitoramento);
             monitoramentosDiv.appendChild(execucaoMonitoramento);
+
+            CKEDITOR.replace(`monitoramentoControleSugerido${cont}`);
             cont++;
         }
     </script>
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
 @endsection
