@@ -69,16 +69,33 @@
 					</div>
 
 					<div class="row g-3 mt-1">
-						<div class="col-sm-12 col-md-8">
-							<label for="name">Avaliação:</label>
-							<input type="number" name="riscoAvaliacao" class="textInput form-control" placeholder="1 a 10" required>
+                        <div class="col-sm-12 col-md-8">
+                            <label for="probabilidade_risco">Probabilidade de Risco:</label>
+                            <select name="probabilidade_risco" id="probabilidade_risco" required onchange="calculateRiscoAvaliacao()">
+                                <option value="1">Baixo</option>
+                                <option value="3">Médio</option>
+                                <option value="5">Alto</option>
+                            </select>
+                        </div>
+                    </div>
 
-						</div>
-					</div>
+                    <div class="row g-3 mt-1">
+                        <div class="col-sm-12 col-md-8">
+                            <label for="impacto_risco">Impacto do Risco:</label>
+                            <select name="impacto_risco" id="impacto_risco" required onchange="calculateRiscoAvaliacao()">
+                                <option value="1">Baixo</option>
+                                <option value="3">Médio</option>
+                                <option value="5">Alto</option>
+                            </select>
+                        </div>
+                    </div>
 
-					<div id="monitoramentosDiv" class="monitoramento"></div>
+                    <input type="hidden" name="riscoAvaliacao" id="riscoAvaliacao">
+
+
+
+				<div id="monitoramentosDiv" class="monitoramento"></div>
 				<input type="button" onclick="addMonitoramentos()" value="Adicionar Monitoramento"></input>
-
 				<input type="submit" value="Salvar">
 
         </form>
@@ -125,6 +142,14 @@
             CKEDITOR.replace(`monitoramentoControleSugerido${cont}`);
             cont++;
         }
+
+        function calculateRiscoAvaliacao() {
+            const probabilidade = document.getElementById('probabilidade_risco').value;
+            const impacto = document.getElementById('impacto_risco').value;
+            const avaliacao = probabilidade * impacto;
+            document.getElementById('riscoAvaliacao').value = avaliacao;
+        }
+
     </script>
 </body>
 </html>
