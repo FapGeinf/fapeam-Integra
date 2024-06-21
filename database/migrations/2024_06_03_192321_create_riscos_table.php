@@ -18,8 +18,6 @@ return new class extends Migration
             $table->string('riscoEvento');
             $table->string('riscoCausa');
             $table->string('riscoConsequencia');
-            $table->integer('probabilidade_risco');
-            $table->integer('impacto_risco');
             $table->integer('riscoAvaliacao');
             $table->unsignedBigInteger('userIdRisco');
             $table->foreign('userIdRisco')->references('id')->on('users')->onDelete('cascade');

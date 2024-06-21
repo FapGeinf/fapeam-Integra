@@ -31,6 +31,7 @@ class RiscoController extends Controller
         $unidades = Unidade::all();
         return view('riscos.store', ['unidades' => $unidades]);
     }
+
     public function store(Request $request)
     {
         try {
@@ -38,8 +39,7 @@ class RiscoController extends Controller
                 'riscoEvento' => 'required|string|max:255',
                 'riscoCausa' => 'required|string|max:255',
                 'riscoConsequencia' => 'required|string|max:255',
-                'probabilidade_risco' => 'required|integer|min:1',
-                'impacto_risco' => 'required|integer|min:1',
+                'riscoAvaliacao' => 'required|string|max:255',
                 'unidadeId' => 'required|exists:unidades,id',
                 'monitoramentos' => 'required|array|min:1',
                 'monitoramentos.*.monitoramentoControleSugerido' => 'required|string|max:255',
@@ -47,19 +47,17 @@ class RiscoController extends Controller
                 'monitoramentos.*.execucaoMonitoramento' => 'required|string|max:255'
             ]);
 
-            $riscoAvaliacao = (int) ($request->probabilidade_risco * $request->impacto_risco);
-
             $risco = Risco::create([
                 'riscoEvento' => $request->riscoEvento,
                 'riscoCausa' => $request->riscoCausa,
                 'riscoConsequencia' => $request->riscoConsequencia,
-                'probabilidade_risco' => $request->probabilidade_risco,
-                'impacto_risco' => $request->impacto_risco,
-                'riscoAvaliacao' => $riscoAvaliacao,
+                'riscoAvaliacao' => $request->riscoAvaliacao,
                 'unidadeId' => $request->unidadeId,
                 'userIdRisco' => auth()->id()
             ]);
 
+
+            // Criação dos monitoramentos associados ao risco
             foreach ($request->monitoramentos as $monitoramentoData) {
                 Monitoramento::create([
                     'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
@@ -71,14 +69,14 @@ class RiscoController extends Controller
 
             return redirect()->route('riscos.index')->with('success', 'Risco criado com sucesso!');
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao criar o risco. Por favor, tente novamente.']);
+            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
         }
     }
 
     public function edit($id)
     {
         $unidades = Unidade::all();
-        $risco = Risco::findOrFail($id);
+        $risco = Risco::findorFail($id);
         return view('riscos.edit', ['risco' => $risco, 'unidades' => $unidades]);
     }
 
@@ -91,8 +89,7 @@ class RiscoController extends Controller
                 'riscoEvento' => 'required|string|max:255',
                 'riscoCausa' => 'required|string|max:255',
                 'riscoConsequencia' => 'required|string|max:255',
-                'probabilidade_risco' => 'required|integer|min:1',
-                'impacto_risco' => 'required|integer|min:1',
+                'riscoAvaliacao' => 'required|string|max:255',
                 'unidadeId' => 'required|exists:unidades,id',
                 'monitoramentos' => 'nullable|array',
                 'monitoramentos.*.monitoramentoControleSugerido' => 'required|string|max:255',
@@ -100,15 +97,11 @@ class RiscoController extends Controller
                 'monitoramentos.*.execucaoMonitoramento' => 'required|string|max:255'
             ]);
 
-            $riscoAvaliacao = (int) ($request->probabilidade_risco * $request->impacto_risco);
-
             $risco->update([
                 'riscoEvento' => $request->riscoEvento,
                 'riscoCausa' => $request->riscoCausa,
                 'riscoConsequencia' => $request->riscoConsequencia,
-                'probabilidade_risco' => $request->probabilidade_risco,
-                'impacto_risco' => $request->impacto_risco,
-                'riscoAvaliacao' => $riscoAvaliacao,
+                'riscoAvaliacao' => $request->riscoAvaliacao,
                 'unidadeId' => $request->unidadeId,
             ]);
 
@@ -135,7 +128,7 @@ class RiscoController extends Controller
 
             return redirect()->route('riscos.index')->with(['success' => 'Riscos e monitoramentos atualizados com sucesso']);
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao atualizar o risco. Por favor, tente novamente.']);
+            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
         }
     }
 

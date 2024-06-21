@@ -75,49 +75,13 @@
 						</div>
 					</div>
 
-
 					<div class="row g-3 mt-1">
 						<div class="col-sm-12 col-md-8">
-							<label for="name">Probabilidade de Risco:</label>
-							<select name="probabilidade_risco" id="probabilidade_risco">
-                                    <option value="1">Baixo</option>
-                                    <option value="3">Médio</option>
-                                    <option value="5">Alto</option>
-                            </select>
+							<label for="name">Avaliação:</label>
+							<input type="number" name="riscoAvaliacao" class="textInput form-control" placeholder="1 a 10" required>
+
 						</div>
 					</div>
-
-                    <div class="row g-3 mt-1">
-						<div class="col-sm-12 col-md-8">
-							<label for="impacto_risco">Impacto do Risco:</label>
-							<select name="impacto_risco" id="impacto_risco">
-                                    <option value="1">Baixo</option>
-                                    <option value="3">Médio</option>
-                                    <option value="5">Alto</option>
-                            </select>
-						</div>
-					</div>
-
-					@php
-                        $classe_risco = '';
-
-                        if ($risco->riscoAvaliacao <= 3) {
-                            $classe_risco = 'risco-baixo';
-                        } elseif ($risco->riscoAvaliacao > 3 && $risco->riscoAvaliacao <= 14) {
-                            $classe_risco = 'risco-medio';
-                        } else {
-                            $classe_risco = 'risco-alto';
-                        }
-                    @endphp
-
-                    <div class="row g-3 mt-1">
-                        <div class="col-sm-12 col-md-8">
-                            <label for="name">Avaliação:</label>
-                            <div class="{{ $classe_risco }}">
-                                Risco calculado: {{ $risco->riscoAvaliacao }}
-                            </div>
-                        </div>
-                    </div>
 
 					{{-- <div class="row g-3 mt-1">
 						<div class="col-sm-12 col-md-8">
