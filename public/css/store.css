@@ -42,154 +42,154 @@
 		} */
 
     @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
-    
-    
+
+
     /* STORE*/
-    
-    
-    
+
+
+
     .box-shadow {
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
       padding: 15px;
       background-color: #f8fafc;
     }
-    
+
     .boxPattern {
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
       padding: 15px;
       background-color: #f8fafc;
       margin: 25px -19px 0 -19px;
     }
-    
+
     .container {
       align-items: center;
       flex-direction: column;
     }
-    
+
     label {
       padding-bottom: .2rem;
     }
-    
+
     /* label.labelSituacao {
       margin-top: 1rem;
     } */
-    
+
     .cke_top,
     .cke_bottom {
       background: #f8f9fa;
     }
-    
+
     /* .fields {
       display: flex;
       justify-content: space-between;
       margin-top: 1rem;
       padding-bottom: 0px !important;
     } */
-    
+
     /* .tableFields .fields button {
       border: none;
       padding: 0;
       margin: 0;
     }
-    
+
     .dangerButtons {
       margin: 0;
       padding: 0;
     } */
-    
+
     .headerInfo {
       display: flex;
       margin-bottom: 1rem;
       justify-content: space-between;
       border-bottom: 1px solid #c8c8c8;
     }
-    
+
     /* .anexoOptions {
       padding-top: 1rem;
-     
+
       display: flex;
       justify-content: space-between;
     }
-    
+
     .inputAnexo {
       margin-bottom: 1rem;
     }
-    
+
     .anexoOptions button {
       border: none;
       padding: 0;
       margin: 0;
       background-color: #f8fafc;
     } */
-    
+
     /* .icons {
       display: flex;
     }
-    
+
     .icons i {
       font-size: 20px;
       cursor: pointer;
     }
-    
+
     .bi {
       font-size: 16px;
     }
-    
+
     .hashtag {
       font-size: 1em;
     }
-    
+
     .bi-question-circle {
       margin-right: 3px;
       vertical-align: middle;
       color: #777;
     }
-    
+
     .num-const,
     .rec-str {
       margin-right: 2px;
     }
-    
+
     .rec-i {
       font-size: 13px;
     }
-    
+
     .bi-x-square-fill {
       color: rgb(202, 0, 0);
     }
-    
+
     .bi-x-circle-fill {
       color: rgb(202, 0, 0);
     }
-    
+
     .bi-square {
       margin-left: 3px;
     }
-    
+
     .bi-plus-square-fill {
       margin-top: 0px;
       color: #777;
     }
-    
+
     .bi-plus-circle-fill {
       color: #0a7baf;
     }
-    
+
     .ask-recomendacao {
       margin-right: 3px;
       vertical-align: 0;
     }
-    
+
     .add_recomendacao {
       display: flex;
       margin-top: 0px;
       justify-content: end;
     }
-    
+
     .col-situacao {
       margin-top: 1rem;
     } */
-    
+
     .selectpicker {
       width: 100%;
       background-color: #e5e5e58e;
@@ -197,7 +197,7 @@
       transition: .2s;
       cursor: pointer;
     }
-    
+
     /* .bootstrap-select>.dropdown-toggle.bs-placeholder {
       color: #000 !important;
       width: 100%;
@@ -206,7 +206,7 @@
       transition: .2s;
       cursor: pointer;
     }
-    
+
     .bootstrap-select>.dropdown-toggle {
       border: 1px solid #b9b9b98e;
       color: #000 !important;
@@ -217,23 +217,23 @@
       cursor: pointer;
       border-radius: 0px;
     }
-    
+
     .bootstrap-select>.dropdown-toggle.bs-placeholder {
       background-color: #fff !important;
     }
-    
+
     #dataImplementacaoSetor,
     #dataLimite {
       cursor: pointer;
       color: #474747;
     }
-    
+
     .buttons {
       display: flex;
       flex-direction: column;
       justify-content: center;
     } */
-    
+
     .btnAdd {
       /* display: flex; */
       /* margin: .5rem 0 .5rem auto; */
@@ -247,23 +247,23 @@
       padding: 0.4rem 0.6rem;
       transition: .3s;
     }
-    
+
     .btnAdd:hover {
       background-color: #2464da;
     }
-    
+
     .btnAdd:active {
       opacity: 0.8;
     }
-    
+
     .bi-file-earmark-plus-fill {
       margin-right: 3px;
     }
-    
+
     .bi-check-circle-fill {
       margin-right: 4px;
     }
-    
+
     .btnSub {
       display: flex;
       margin:auto;
@@ -278,19 +278,19 @@
       padding: 0.5rem 0.7rem;
       transition: .3s;
     }
-    
+
     .btnSub:hover {
       background-color: #27ae60;
     }
-    
+
     form [type='submit'] {
       margin-top: 2rem;
     }
-    
+
     .btn-success {
       margin-right: 10px;
     }
-    
+
     .dataLimite input {
       height: 50px;
       width: 100%;
@@ -301,103 +301,103 @@
       transition: .2s;
       cursor: pointer;
     }
-    
+
     #btn:active {
       opacity: 0.5;
     }
-    
+
     textarea,
     input,
     select {
       border-radius: 0px !important;
       background-color: #fff !important;
     }
-    
+
     .newFieldRelatorio {
       /* margin-bottom: 1rem; */
     }
-    
+
     .dateTime input {
       border-color: #d8d8d8;
       /*padding: .52rem .65rem; */
     }
-    
+
     .importantBtn {
       display: flex;
       margin-top: 1.5rem;
       /* flex-direction: column; */
       justify-content: center;
     }
-    
+
     .border {
       margin: 0 auto;
       padding: 0px;
       width: 100%;
       border: 1px solid #c8c8c8;
     }
-    
+
     .fileAnexo {
       margin-top: 1rem;
       margin-bottom: 1rem;
     }
-    
+
     .modal.show .modal-dialog {
       /* margin-top: 10rem; */
       }
-    
+
     .modal-body {
       padding: 3rem;
       overflow-y: auto;
       max-height: 600px;
     }
-    
+
     /* JQUERY */
-    
+
     #dynamic_field {
       display: flex;
       flex-direction: column;
       width: 100%;
     }
-    
+
     #dynamic_field {
       display: flex;
       flex-direction: column;
       width: 100%;
     }
-    
+
     .tableFields {
       width: 100%;
     }
-    
+
     .codConstCreateField {
       width: 100%;
       margin-bottom: 1rem;
     }
-    
+
     .constCreateField {
       height: 9em;
     }
-    
+
     .recTextField {
       width: 100%;
       height: 9em;
     }
-    
+
     .tableForm {
       display: flex;
       flex-direction: column;
     }
-    
+
     .recInsert {
       display: flex;
       flex-direction: column;
     }
-    
-    
+
+
     .recFieldTable {
       width: 100%;
     }
-    
+
     /*css da pagina de edição*/
     .mainShow {
       margin-top: 3vh !important;
@@ -406,12 +406,12 @@
       align-items: center;
       padding-top: 15px;
     }
-    
+
     .editReport {
       text-align: center;
       margin-bottom: 10px;
     }
-    
+
     .showContents {
       display: flex;
       align-items: center;
@@ -423,7 +423,7 @@
       border-radius: 10px;
       box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
     }
-    
+
     .contentEdit {
       display: flex;
       justify-content: center;
@@ -432,8 +432,8 @@
       padding-bottom: 10px;
       flex-direction: column;
     }
-    
-    /* 
+
+    /*
     .form-control {
       display: block;
       width: 100%;
@@ -448,11 +448,11 @@
       border: var(--bs-border-width) solid var(--bs-border-color);
       border-radius: var(--bs-border-radius);
     }*/
-    
+
     .contentEdit input {
       padding-right: 5rem;
     }
-    
+
     .btnEditar {
       display: flex;
       justify-content: center;
@@ -467,34 +467,34 @@
       margin-left: 25%;
       width: 50%;
     }
-    
+
     /* MODAL INÍCIO */
-    
+
     .close {
       border: none;
       background: #f8fafc;
     }
-    
+
     .bi-x-circle {
       font-size: 17px;
       transition: 0.1s;
     }
-    
+
     .bi-x-circle:hover {
       color: #808080;
     }
-    
+
     .bi-x-circle:focus {
       color: #000;
     }
-    
+
     .modal-header {
       padding-left: 15px;
       padding-right: 15px;
       padding-top: 10px;
       padding-bottom: 6px;
     }
-    
+
     .modal-footer {
       /* padding-left: 15px; */
       /* padding-right: 10px; */
@@ -502,65 +502,65 @@
       padding-bottom: 9px;
       justify-content: center;
     }
-    
+
     /* MODAL FIM */
-    
+
     @media (min-width: 576px) {
       .modal-dialog {
         max-width: 35%;
       }
     }
-    
+
     @media (min-width: 768px) {
       .labelUnidades {
         margin-top: 0 !important;
       }
     }
-    
+
     @media screen and (min-width: 1024px) {
       .newFieldRelatorio {
         margin-bottom: 1rem;
       }
     }
-    
+
     @media (max-width: 900px) {
       .create {
         width: 90%;
       }
-    
+
       .labelUnidades {
         margin-top: 1rem;
       }
     }
-    
+
     @media (max-width: 766px) {
       .newFieldAno {
         margin-top: 0;
       }
-    
+
       .inputAnexo {
         margin-bottom: 0;
       }
-    
+
       .divUnidades {
         margin-top: 0;
       }
-    
+
       .fileAnexo {
         margin-bottom: 0;
       }
     }
-    
+
     /* INSERT CONST CSS */
     .recButtonSpaceBtwn {
       display: flex;
       justify-content: space-between;
     }
-    
+
     .recButtonSpaceBtwn2 {
       padding-top: 1rem;
     }
-    
+
     .btn_remove_rec_insert {
       padding: 0;
     }
@@ -575,4 +575,19 @@
       padding: 9px;
       cursor: pointer;
       border: 1px solid #ccc;
+    }
+
+    .risco-baixo {
+        background-color: green;
+        color: white;
+    }
+
+    .risco-medio {
+        background-color: yellow;
+        color: black;
+    }
+
+    .risco-alto {
+        background-color: red;
+        color: white;
     }
