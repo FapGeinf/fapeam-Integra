@@ -14,10 +14,27 @@ class RiscoController extends Controller
 {
     public function index()
     {
-        $riscos = Risco::all();
-        $unidades = Unidade::all();
-        return view('riscos.index', ['riscos' => $riscos, 'unidades' => $unidades]);
+        try {
+            $riscos = Risco::all();
+            $unidades = Unidade::all();
+
+            // Carregar os monitoramentos por risco
+            $monitoramentosPorRisco = [];
+            foreach ($riscos as $risco) {
+                $monitoramentosPorRisco[$risco->id] = $risco->monitoramentos;
+            }
+
+            return view('riscos.index', [
+                'riscos' => $riscos,
+                'unidades' => $unidades,
+                'monitoramentosPorRisco' => $monitoramentosPorRisco // Passando os monitoramentos por risco para a view
+            ]);
+
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao carregar os riscos. Por favor, tente novamente.']);
+        }
     }
+
 
     public function show($id)
     {
@@ -39,13 +56,16 @@ class RiscoController extends Controller
                 'riscoEvento' => 'required|string|max:255',
                 'riscoCausa' => 'required|string|max:255',
                 'riscoConsequencia' => 'required|string|max:255',
+                'riscoAno' => 'required',
                 'probabilidade_risco' => 'required|integer|min:1',
                 'impacto_risco' => 'required|integer|min:1',
                 'unidadeId' => 'required|exists:unidades,id',
                 'monitoramentos' => 'required|array|min:1',
                 'monitoramentos.*.monitoramentoControleSugerido' => 'required|string|max:255',
                 'monitoramentos.*.statusMonitoramento' => 'required|string|max:255',
-                'monitoramentos.*.execucaoMonitoramento' => 'required|string|max:255'
+                'monitoramentos.*.execucaoMonitoramento' => 'required|string|max:255',
+                'monitoramentos.*.inicioMonitoramento' => 'required',
+                'monitoramentos.*.fimMonitoramento' => 'nullable'
             ]);
 
             $riscoAvaliacao = (int) ($request->probabilidade_risco * $request->impacto_risco);
@@ -58,6 +78,7 @@ class RiscoController extends Controller
                 'impacto_risco' => $request->impacto_risco,
                 'riscoAvaliacao' => $riscoAvaliacao,
                 'unidadeId' => $request->unidadeId,
+                'riscoAno' => $request->riscoAno,
                 'userIdRisco' => auth()->id()
             ]);
 
@@ -66,6 +87,8 @@ class RiscoController extends Controller
                     'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
                     'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
                     'execucaoMonitoramento' => $monitoramentoData['execucaoMonitoramento'],
+                    'inicioMonitoramento' => $monitoramentoData['inicioMonitoramento'],
+                    'fimMonitoramento' => $monitoramentoData['fimMonitoramento'] ?? null,
                     'riscoFK' => $risco->id
                 ]);
             }

@@ -36,7 +36,7 @@
 
             <div class="col-sm-12 col-md-4">
               <label for="name">Insira o Ano:</label>
-              <input type="date" id="" name="" class="form-control">
+              <input type="text" id="riscoAno" name="riscoAno" class="form-control">
             </div>
 
             <div class="col-sm-12 col-md-8">
@@ -135,9 +135,21 @@
             execucaoMonitoramento.placeholder = 'Execução do Monitoramento';
             execucaoMonitoramento.classList = 'textInput';
 
+            let inicioMonitoramento = document.createElement('input');
+            inicioMonitoramento.type = 'date';
+            inicioMonitoramento.name = `monitoramentos[${cont}][inicioMonitoramento]`;
+            inicioMonitoramento.classList = 'textInput';
+
+            let fimMonitoramento = document.createElement('input');
+            fimMonitoramento.type = 'date';
+            fimMonitoramento.name = `monitoramentos[${cont}][fimMonitoramento]`;
+            fimMonitoramento.classList = 'textInput';
+
             monitoramentosDiv.appendChild(controleSugerido);
             monitoramentosDiv.appendChild(statusMonitoramento);
             monitoramentosDiv.appendChild(execucaoMonitoramento);
+            monitoramentosDiv.appendChild(inicioMonitoramento);
+            monitoramentosDiv.appendChild(fimMonitoramento);
 
             CKEDITOR.replace(`monitoramentoControleSugerido${cont}`);
             cont++;

@@ -28,31 +28,35 @@
 					@endif
 				</div>
 			</div>
-			
-				<div class="container-fluid">
-					<table id="tableHome" class="table cust-datatable">
-						<thead class="">
-							<tr>
-								<th id="thUnidade">Unidade</th>
-								<th>Evento de Risco</th>
-								<th>Causa</th>
-								<th>Consequência</th>
-								<th id="thAvaliacao">Avaliação</th>
-							</tr>
-						</thead>
-						<tbody>
-							@foreach ($riscos as $risco)
-								<tr style="cursor: pointer;" onclick="window.location='{{ route('riscos.show', $risco->id) }}';">
-									<td>{!! $risco->unidade->unidadeNome !!}</td>
-									<td>{!!$risco->riscoEvento!!}</td>
-									<td>{!!$risco->riscoCausa!!}</td>
-									<td>{!!$risco->riscoConsequencia!!}</td>
-									<td id="tdAvaliacao">{!! $risco->riscoAvaliacao !!}</td>
-								</tr>
-							@endforeach
-						</tbody>
-					</table>
-				</div>
+            <div class="container-fluid">
+                <table id="tableHome" class="table cust-datatable">
+                    <thead>
+                        <tr>
+                            <th>Unidade</th>
+                            <th>Evento de Risco</th>
+                            <th>Causa</th>
+                            <th>Consequência</th>
+                            <th>Avaliação</th>
+                            <th>Data de Monitoramento</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($riscos as $risco)
+                            @foreach ($monitoramentosPorRisco[$risco->id] as $monitoramento)
+                                <tr style="cursor: pointer;" onclick="window.location='{{ route('riscos.show', $risco->id) }}';">
+                                    <td>{!! $risco->unidade->unidadeNome !!}</td>
+                                    <td>{!! $risco->riscoEvento !!}</td>
+                                    <td>{!! $risco->riscoCausa !!}</td>
+                                    <td>{!! $risco->riscoConsequencia !!}</td>
+                                    <td>{!! $risco->riscoAvaliacao !!}</td>
+                                    <td>{{ \Carbon\Carbon::parse($monitoramento->inicioMonitoramento)->format('d/m/Y') }} - {{ $monitoramento->fimMonitoramento ? \Carbon\Carbon::parse($monitoramento->fimMonitoramento)->format('d/m/Y') : 'Contínuo' }}</td>
+                                </tr>
+                            @endforeach
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+
 			</div>
 		</div>
 
@@ -64,7 +68,7 @@
 				<span class="riskLevel3">Alto</span>
 			</div>
 		</footer>
-				
+
 		<script>
 			$(document).ready(function(){
 				var table = $('#tableHome').DataTable({
@@ -105,7 +109,7 @@
 					// MANTÉM OS ELEMENTOS ALINHADO A CADA REFRESH
 					if (!$(".divContainer").length) {
 						var divContainer = $('<div class="divContainer" style="display: flex; justify-content: space-between;"></div>');
-						
+
 						var divButtonNewRisk = $('<div class="divButtonNewRisk"></div>');
 						divButtonNewRisk.append($('#newRiskButtonDiv'));
 						divContainer.append(divButtonNewRisk);
@@ -119,7 +123,7 @@
 				});
 			});
 		</script>
-		
+
 </body>
 </html>
 @endsection

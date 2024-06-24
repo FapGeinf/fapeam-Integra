@@ -21,7 +21,8 @@ class Risco extends Model
         'impacto_risco',
         'riscoAvaliacao',
         'userIdRisco',
-        'unidadeId'
+        'unidadeId',
+        'riscoAno'
     ];
 
     public function user()

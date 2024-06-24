@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('monitoramentoControleSugerido');
             $table->string('statusMonitoramento');
             $table->string('execucaoMonitoramento');
+            $table->date('inicioMonitoramento');
+            $table->date('fimMonitoramento')->nullable();
             $table->unsignedBigInteger('riscoFK');
             $table->foreign('riscoFK')->references('id')->on('riscos')->onDelete('cascade');
             $table->timestamps();
