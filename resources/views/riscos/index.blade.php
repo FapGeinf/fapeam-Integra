@@ -78,7 +78,7 @@
 							search: "Procurar:",
 							lengthMenu: "Relatórios: _MENU_",
 							info: 'Mostrando página _PAGE_ de _PAGES_',
-							infoEmpty: 'Sem relatórios disponíveis para visualização',
+							infoEmpty: 'Sem relatórios de risco disponíveis para visualização',
 							infoFiltered: '(Filtrados do total de _MAX_ relatórios)',
 							zeroRecords: 'Nada encontrado. Se achar que isso é um erro, contate o suporte.',
 							paginate: {
