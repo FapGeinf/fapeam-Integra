@@ -28,34 +28,35 @@
 					@endif
 				</div>
 			</div>
-            <div class="container-fluid">
-                <table id="tableHome" class="table cust-datatable">
-                    <thead>
-                        <tr>
-                            <th>Unidade</th>
-                            <th>Evento de Risco</th>
-                            <th>Causa</th>
-                            <th>Consequência</th>
-                            <th>Avaliação</th>
-                            <th>Data de Monitoramento</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($riscos as $risco)
-                            @foreach ($monitoramentosPorRisco[$risco->id] as $monitoramento)
-                                <tr style="cursor: pointer;" onclick="window.location='{{ route('riscos.show', $risco->id) }}';">
-                                    <td>{!! $risco->unidade->unidadeNome !!}</td>
-                                    <td>{!! $risco->riscoEvento !!}</td>
-                                    <td>{!! $risco->riscoCausa !!}</td>
-                                    <td>{!! $risco->riscoConsequencia !!}</td>
-                                    <td>{!! $risco->riscoAvaliacao !!}</td>
-                                    <td>{{ \Carbon\Carbon::parse($monitoramento->inicioMonitoramento)->format('d/m/Y') }} - {{ $monitoramento->fimMonitoramento ? \Carbon\Carbon::parse($monitoramento->fimMonitoramento)->format('d/m/Y') : 'Contínuo' }}</td>
-                                </tr>
-                            @endforeach
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+				<div class="container-fluid">
+					<table id="tableHome" class="table cust-datatable">
+						<thead>
+							<tr>
+								<th>Unidade</th>
+								<th style="white-space: nowrap;">Evento de Risco</th>
+								<th>Causa</th>
+								<th>Consequência</th>
+								<th style="width: 105px;">Avaliação</th>
+								<th style="white-space: nowrap;">Data Monitoramento</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							@foreach ($riscos as $risco)
+								@foreach ($monitoramentosPorRisco[$risco->id] as $monitoramento)
+									<tr style="cursor: pointer;" onclick="window.location='{{ route('riscos.show', $risco->id) }}';">
+										<td>{!! $risco->unidade->unidadeNome !!}</td>
+										<td>{!! $risco->riscoEvento !!}</td>
+										<td>{!! $risco->riscoCausa !!}</td>
+										<td>{!! $risco->riscoConsequencia !!}</td>
+										<td>{!! $risco->riscoAvaliacao !!}</td>
+										<td style="white-space: nowrap;">{{ \Carbon\Carbon::parse($monitoramento->inicioMonitoramento)->format('d/m/Y') }} - {{ $monitoramento->fimMonitoramento ? \Carbon\Carbon::parse($monitoramento->fimMonitoramento)->format('d/m/Y') : 'Contínuo' }}</td>
+									</tr>
+								@endforeach
+							@endforeach
+						</tbody>
+					</table>
+				</div>
 
 			</div>
 		</div>
@@ -79,7 +80,7 @@
 							info: 'Mostrando página _PAGE_ de _PAGES_',
 							infoEmpty: 'Sem relatórios disponíveis para visualização',
 							infoFiltered: '(Filtrados do total de _MAX_ relatórios)',
-							zeroRecords: 'Nada encontrado. Se achar que isso foi um erro, contate o suporte.',
+							zeroRecords: 'Nada encontrado. Se achar que isso é um erro, contate o suporte.',
 							paginate: {
 							next: "Próximo",
 							previous: "Anterior"
