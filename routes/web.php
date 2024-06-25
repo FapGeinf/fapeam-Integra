@@ -30,6 +30,8 @@ Route::put('/riscos/{id}', [RiscoController::class, 'update'])->name('riscos.upd
 Route::post('/riscos/{id}/respostas', [RiscoController::class, 'storeResposta'])->name('riscos.storeResposta');
 Route::delete('/riscos/monitoramentos/{id}',[RiscoController::class,'deleteMonitoramento'])->name('riscos.deleteMonitoramento');
 Route::get('/riscos/respostas/{id}', [RiscoController::class, 'respostas'])->name('riscos.respostas');
+Route::get('/riscos/{id}/edit-monitoramentos', [RiscoController::class, 'editMonitoramentos'])->name('riscos.edit-monitoramentos');
+Route::put('/riscos/{id}/update-monitoramentos', [RiscoController::class, 'updateMonitoramentos'])->name('riscos.update-monitoramentos');
 
 
 Auth::routes();

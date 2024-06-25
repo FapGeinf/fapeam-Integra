@@ -11,7 +11,7 @@
   <title>Formulário de Risco</title>
   <link rel="stylesheet" href="{{asset('css/edit.css')}}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <script src="/ckeditor/ckeditor.js" ></script>
+  <script src="/ckeditor/ckeditor.js"></script>
 </head>
 
 <body>
@@ -39,6 +39,11 @@
 
         <label for="riscoConsequencia">Consequência:</label>
         <textarea name="riscoConsequencia" class="textInput" required>{{ $risco->riscoConsequencia ?? old('riscoConsequencia') }}</textarea>
+
+        <div class="col-sm-12 col-md-4">
+            <label for="name">Insira o Ano:</label>
+            <input type="text" id="riscoAno" name="riscoAno" class="form-control" value="{{$risco->riscoAno}}">
+        </div>
 
         <div class="row g-3 mt-1">
           <div class="col-sm-12 col-md-8">
@@ -72,22 +77,16 @@
           @endforeach
         </select>
 
-        <hr id="hr2">
+        {{-- <hr id="hr2">
 
         <div>
           <span>Monitoramentos adicionados: </span>
           <span id="monitoramentoCounter">{{ count($risco->monitoramentos) }}</span>
         </div>
 
+
         <div id="monitoramentosDiv" class="monitoramento">
-          @foreach ($risco->monitoramentos as $index => $monitoramento)
-            <div class="monitoramento">
-              <span class="numeration">Monitoramento Nº {{ $index + 1 }}</span>
-              <textarea name="monitoramentos[{{ $index }}][monitoramentoControleSugerido]" class="textInput" id="monitoramentoControleSugerido{{ $index }}">{{ $monitoramento->monitoramentoControleSugerido }}</textarea>
-              <input type="text" name="monitoramentos[{{ $index }}][statusMonitoramento]" class="textInput" placeholder="Status do Monitoramento" value="{{ $monitoramento->statusMonitoramento }}">
-              <input type="text" name="monitoramentos[{{ $index }}][execucaoMonitoramento]" class="textInput" placeholder="Execução do Monitoramento" value="{{ $monitoramento->execucaoMonitoramento }}">
-            </div>
-          @endforeach
+
         </div>
 
         <div class="buttons">
@@ -100,7 +99,11 @@
         <span id="tip">
           <i class="bi bi-exclamation-circle-fill"></i>
           Dica: Revise sua edição antes de salvar
-        </span>
+        </span> --}}
+
+        <div class="mt-3 text-center mb-3">
+            <a href="{{ route('riscos.edit-monitoramentos', ['id' => $risco->id]) }}" class="btn btn-primary">Editar Monitoramentos</a>
+        </div>
 
         <div id="btnSave">
           <button type="submit" class="submit-btn">Salvar Edição</button>
@@ -112,60 +115,72 @@
   </div>
 
   <script>
-    let cont = {{ count($risco->monitoramentos) }};
-    let monitoramentoCounter = document.getElementById('monitoramentoCounter');
+    // let cont = {{ count($risco->monitoramentos) }};
+    // let monitoramentoCounter = document.getElementById('monitoramentoCounter');
 
-    function updateCounter() {
-      monitoramentoCounter.textContent = cont;
-    }
+    // function updateCounter() {
+    //   monitoramentoCounter.textContent = cont;
+    // }
 
-    function addMonitoramentos() {
-      let monitoramentosDiv = document.getElementById('monitoramentosDiv');
+    // function addMonitoramentos() {
+    //   let monitoramentosDiv = document.getElementById('monitoramentosDiv');
 
-      let monitoramentoDiv = document.createElement('div');
-      monitoramentoDiv.classList.add('monitoramento');
+    //   let monitoramentoDiv = document.createElement('div');
+    //   monitoramentoDiv.classList.add('monitoramento');
 
-      let numeration = document.createElement('span');
-      numeration.classList.add('numeration');
-      numeration.textContent = `Monitoramento Nº ${cont + 1}`;
-      monitoramentoDiv.appendChild(numeration);
+    //   let numeration = document.createElement('span');
+    //   numeration.classList.add('numeration');
+    //   numeration.textContent = `Monitoramento Nº ${cont + 1}`;
+    //   monitoramentoDiv.appendChild(numeration);
 
-      let controleSugerido = document.createElement('textarea');
-      controleSugerido.name = `monitoramentos[${cont}][monitoramentoControleSugerido]`;
-      controleSugerido.placeholder = 'Monitoramento';
-      controleSugerido.classList.add('textInput');
-      controleSugerido.id = `monitoramentoControleSugerido${cont}`;
+    //   let controleSugerido = document.createElement('textarea');
+    //   controleSugerido.name = `monitoramentos[${cont}][monitoramentoControleSugerido]`;
+    //   controleSugerido.placeholder = 'Monitoramento';
+    //   controleSugerido.classList.add('textInput');
+    //   controleSugerido.id = `monitoramentoControleSugerido${cont}`;
 
-      let statusMonitoramento = document.createElement('input');
-      statusMonitoramento.type = 'text';
-      statusMonitoramento.name = `monitoramentos[${cont}][statusMonitoramento]`;
-      statusMonitoramento.placeholder = 'Status do Monitoramento';
-      statusMonitoramento.classList.add('textInput');
+    //   let statusMonitoramento = document.createElement('input');
+    //   statusMonitoramento.type = 'text';
+    //   statusMonitoramento.name = `monitoramentos[${cont}][statusMonitoramento]`;
+    //   statusMonitoramento.placeholder = 'Status do Monitoramento';
+    //   statusMonitoramento.classList.add('textInput');
 
-      let execucaoMonitoramento = document.createElement('input');
-      execucaoMonitoramento.type = 'text';
-      execucaoMonitoramento.name = `monitoramentos[${cont}][execucaoMonitoramento]`;
-      execucaoMonitoramento.placeholder = 'Execução do Monitoramento';
-      execucaoMonitoramento.classList.add('textInput');
+    //   let execucaoMonitoramento = document.createElement('input');
+    //   execucaoMonitoramento.type = 'text';
+    //   execucaoMonitoramento.name = `monitoramentos[${cont}][execucaoMonitoramento]`;
+    //   execucaoMonitoramento.placeholder = 'Execução do Monitoramento';
+    //   execucaoMonitoramento.classList.add('textInput');
 
-      monitoramentoDiv.appendChild(controleSugerido);
-      monitoramentoDiv.appendChild(statusMonitoramento);
-      monitoramentoDiv.appendChild(execucaoMonitoramento);
+    //   let inicioMonitoramento = document.createElement('input');
+    //   inicioMonitoramento.type = 'date';
+    //   inicioMonitoramento.name = `monitoramentos[${cont}][inicioMonitoramento]`;
+    //   inicioMonitoramento.classList.add('textInput');
 
-      monitoramentosDiv.appendChild(monitoramentoDiv);
+    //   let fimMonitoramento = document.createElement('input');
+    //   fimMonitoramento.type = 'date';
+    //   fimMonitoramento.name = `monitoramentos[${cont}][fimMonitoramento]`;
+    //   fimMonitoramento.classList.add('textInput');
 
-      CKEDITOR.replace(`monitoramentoControleSugerido${cont}`);
-      cont++;
-      updateCounter();
-    }
+    //   monitoramentoDiv.appendChild(controleSugerido);
+    //   monitoramentoDiv.appendChild(statusMonitoramento);
+    //   monitoramentoDiv.appendChild(execucaoMonitoramento);
+    //   monitoramentoDiv.appendChild(inicioMonitoramento);
+    //   monitoramentoDiv.appendChild(fimMonitoramento);
 
-    function fecharFormulario() {
-      document.getElementById('monitoramentosDiv').innerHTML = '';
-      cont = 0;
-      updateCounter();
-    }
+    //   monitoramentosDiv.appendChild(monitoramentoDiv);
 
-    updateCounter();
+    //   CKEDITOR.replace(`monitoramentoControleSugerido${cont}`);
+    //   cont++;
+    //   updateCounter();
+    // }
+
+    // function fecharFormulario() {
+    //   document.getElementById('monitoramentosDiv').innerHTML = '';
+    //   cont = 0;
+    //   updateCounter();
+    // }
+
+    // updateCounter();
 
     function calculateRiscoAvaliacao() {
       const probabilidade = document.getElementById('probabilidade_risco').value;
@@ -177,9 +192,9 @@
     CKEDITOR.replace('riscoEvento');
     CKEDITOR.replace('riscoCausa');
     CKEDITOR.replace('riscoConsequencia');
-    @foreach ($risco->monitoramentos as $index => $monitoramento)
-      CKEDITOR.replace(`monitoramentoControleSugerido${index}`);
-    @endforeach
+    // @foreach ($risco->monitoramentos as $index => $monitoramento)
+    //   CKEDITOR.replace(`monitoramentoControleSugerido${index}`);
+    // @endforeach
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

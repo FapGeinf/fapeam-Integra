@@ -29,7 +29,6 @@ class RiscoController extends Controller
                 'unidades' => $unidades,
                 'monitoramentosPorRisco' => $monitoramentosPorRisco // Passando os monitoramentos por risco para a view
             ]);
-
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao carregar os riscos. Por favor, tente novamente.']);
         }
@@ -119,10 +118,6 @@ class RiscoController extends Controller
                 'probabilidade_risco' => 'required|integer|min:1|max:5',
                 'impacto_risco' => 'required|integer|min:1|max:5',
                 'unidadeId' => 'required|exists:unidades,id',
-                'monitoramentos' => 'nullable|array',
-                'monitoramentos.*.monitoramentoControleSugerido' => 'required|string|max:255',
-                'monitoramentos.*.statusMonitoramento' => 'required|string|max:255',
-                'monitoramentos.*.execucaoMonitoramento' => 'required|string|max:255'
             ]);
 
             $riscoAvaliacao = (int) ($request->probabilidade_risco * $request->impacto_risco);
@@ -134,35 +129,81 @@ class RiscoController extends Controller
                 'probabilidade_risco' => $request->probabilidade_risco,
                 'impacto_risco' => $request->impacto_risco,
                 'riscoAvaliacao' => $riscoAvaliacao,
+                'riscoAno' => $request->riscoAno,
                 'unidadeId' => $request->unidadeId,
             ]);
 
-            if ($request->has('monitoramentos')) {
-                foreach ($request->monitoramentos as $monitoramentoData) {
-                    if (isset($monitoramentoData['id'])) {
-                        $monitoramento = Monitoramento::findOrFail($monitoramentoData['id']);
+            return redirect()->route('riscos.show', ['id' => $risco->id])->with('success', 'Risco editado com sucesso');
+        } catch (\Exception $e) {
+            throw new \Exception('Ocorreu um erro ao atualizar o risco.');
+        }
+    }
+
+    public function editMonitoramentos($id)
+    {
+        $risco = Risco::findOrFail($id);
+        return view('riscos.monitoramentos', compact('risco'));
+    }
+
+    public function updateMonitoramentos(Request $request, $id)
+    {
+        $risco = Risco::findOrFail($id);
+
+        try {
+            $request->validate([
+                'monitoramentos' => 'required|array',
+                'monitoramentos.*.id' => 'nullable|exists:monitoramentos,id',
+                'monitoramentos.*.monitoramentoControleSugerido' => 'required|string|max:255',
+                'monitoramentos.*.statusMonitoramento' => 'required|string|max:255',
+                'monitoramentos.*.execucaoMonitoramento' => 'required|string|max:255',
+                'monitoramentos.*.inicioMonitoramento' => 'required|date',
+                'monitoramentos.*.fimMonitoramento' => 'nullable|date'
+            ]);
+
+            $existingMonitoramentos = $risco->monitoramentos->keyBy('id');
+
+            foreach ($request->monitoramentos as $monitoramentoData) {
+                if (isset($monitoramentoData['id'])) {
+                    // Update existing monitoramento if it belongs to the current risk
+                    if ($existingMonitoramentos->has($monitoramentoData['id'])) {
+                        $monitoramento = $existingMonitoramentos->get($monitoramentoData['id']);
                         $monitoramento->update([
                             'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
                             'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
                             'execucaoMonitoramento' => $monitoramentoData['execucaoMonitoramento'],
-                            'riscoFK' => $risco->id
+                            'inicioMonitoramento' => $monitoramentoData['inicioMonitoramento'],
+                            'fimMonitoramento' => $monitoramentoData['fimMonitoramento'] ?? null,
                         ]);
+                        // Remove the updated monitoramento from the existing list
+                        unset($existingMonitoramentos[$monitoramentoData['id']]);
                     } else {
-                        Monitoramento::create([
-                            'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
-                            'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
-                            'execucaoMonitoramento' => $monitoramentoData['execucaoMonitoramento'],
-                            'riscoFK' => $risco->id
-                        ]);
+                        throw new \Exception('Monitoramento não encontrado para atualização.');
                     }
+                } else {
+                    // Create new monitoramento
+                    Monitoramento::create([
+                        'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
+                        'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
+                        'execucaoMonitoramento' => $monitoramentoData['execucaoMonitoramento'],
+                        'inicioMonitoramento' => $monitoramentoData['inicioMonitoramento'],
+                        'fimMonitoramento' => $monitoramentoData['fimMonitoramento'] ?? null,
+                        'riscoFK' => $risco->id
+                    ]);
                 }
             }
 
-            return redirect()->route('riscos.index')->with(['success' => 'Riscos e monitoramentos atualizados com sucesso']);
+            // Delete any remaining monitoramentos in $existingMonitoramentos (optional step)
+            foreach ($existingMonitoramentos as $monitoramento) {
+                $monitoramento->delete();
+            }
+
+            return redirect()->route('riscos.show', ['id' => $risco->id])->with('success', 'Monitoramentos editados com sucesso');
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao atualizar o risco. Por favor, tente novamente.']);
+            throw new \Exception('Ocorreu um erro ao atualizar os monitoramentos do risco: ' . $e->getMessage());
         }
     }
+
+
 
     public function delete($id)
     {
@@ -223,9 +264,9 @@ class RiscoController extends Controller
 
     public function respostas($id)
     {
-           $risco = Risco::with('respostas')->findorFail($id);
-           $respostas = Resposta::where('respostaRiscoFK', $risco->id)->get();
-           return view('riscos.respostas', ['risco' => $risco, 'respostas' => $respostas]);
+        $risco = Risco::with('respostas')->findorFail($id);
+        $respostas = Resposta::where('respostaRiscoFK', $risco->id)->get();
+        return view('riscos.respostas', ['risco' => $risco, 'respostas' => $respostas]);
     }
 
 

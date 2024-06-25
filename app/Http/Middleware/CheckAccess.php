@@ -24,7 +24,7 @@ class CheckAccess
 
 
         $permissions = [
-            '1' => ['index','show','create','store','edit','update','delete','deleteMonitoramento','storeResposta','respostas'],
+            '1' => ['index','show','create','store','edit','update','delete','deleteMonitoramento','storeResposta','respostas','edit-monitoramentos','update-monitoramentos'],
             '2' => ['index','show','storeResposta']
         ];
         // dd(in_array($routeName, $permissions[$access]));
