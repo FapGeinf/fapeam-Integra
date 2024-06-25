@@ -30,6 +30,13 @@ hr {
   width: 43%;
 }
 
+#hr4 {
+  width: 36%;
+  margin-top: 2rem;
+  margin-bottom: 0;
+  
+}
+
 #tip {
   color: #555555;
   display: flex;
@@ -47,10 +54,6 @@ hr {
 /* EDITOR DE TEXTO */
 .cke_top {
   background: #f7f7f7;
-}
-
-select {
-  cursor: not-allowed;
 }
 
 .buttons {
@@ -71,11 +74,11 @@ select {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
   width: 100%; /* Largura total do contêiner pai */
-  max-width: 600px; /* Largura máxima do formulário */
+  max-width: 700px; /* Largura máxima do formulário */
 }
 
 .form_create label {
-  font-weight: bold;
+  /* font-weight: bold; */
   /* margin-bottom: 2px; */
 }
 
@@ -88,17 +91,16 @@ select {
   box-sizing: border-box;
 }
 
-.form_create select {
+.form_create select, .dataValue {
   width: 100%;
   padding: 8px;
-  margin-bottom: 10px;
+  background-color: #f8fafc;
   border: 1px solid #ccc;
   border-radius: 4px;
-  box-sizing: border-box;
-  appearance: none;
-  background-image: url('data:image/svg+xml;utf8,<svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
-  background-repeat: no-repeat;
-  background-position: calc(100% - 10px) center;
+}
+
+.form_create select {
+  cursor: pointer;
 }
 
 .form_create button {
@@ -171,5 +173,11 @@ select {
 @media screen and (max-width: 480px) {
   .form_create {
     padding: 20px 10px;
+  }
+}
+
+@media (min-width: 300px) {
+  .mQuery {
+    margin-top: 0;
   }
 }
