@@ -14,7 +14,7 @@
       
       @if (session('error'))
         <script>
-          alert('{{ session(' error ') }}');
+          alert('{{ session('error') }}');
         </script>
       @endif
 
@@ -38,10 +38,10 @@
             </textarea>
 
             <label>Status do Monitoramento:</label>
-            <input type="text" name="monitoramentos[{{ $index }}][statusMonitoramento]" placeholder="Status do Monitoramento" class="textInput" value="{{ $monitoramento->statusMonitoramento }}">
+            <textarea name="monitoramentos[{{ $index }}][statusMonitoramento]" placeholder="Status do Monitoramento" class="textInput" id="statusMonitoramento{{ $index }}">{{ $monitoramento->statusMonitoramento }}</textarea>
 
             <label>Execução do Monitoramento:</label>
-            <input type="text" name="monitoramentos[{{ $index }}][execucaoMonitoramento]" placeholder="Execução do Monitoramento" class="textInput" value="{{ $monitoramento->execucaoMonitoramento }}">
+            <textarea name="monitoramentos[{{ $index }}][execucaoMonitoramento]" placeholder="Execução do Monitoramento" class="textInput" id="execucaoMonitoramento{{ $index }}">{{ $monitoramento->execucaoMonitoramento }}</textarea>
 
             <div class="row g-3">
               <div class="col-sm-12 col-md-6">
@@ -54,13 +54,12 @@
                 <input type="date" name="monitoramentos[{{ $index }}][fimMonitoramento]" class="textInput dateInput" value="{{ $monitoramento->fimMonitoramento }}">
               </div>
             </div>
-
           </div>
 
           <script>
             CKEDITOR.replace(`monitoramentoControleSugerido{{ $index }}`);
-            CKEDITOR.replace(`monitoramentos[{{ $index }}][statusMonitoramento]`)
-            CKEDITOR.replace(`monitoramentos[{{ $index }}][execucaoMonitoramento]`)
+            CKEDITOR.replace(`statusMonitoramento{{ $index }}`);
+            CKEDITOR.replace(`execucaoMonitoramento{{ $index }}`);
           </script>
         @endforeach
 
@@ -111,36 +110,61 @@
     controleSugerido.classList.add('textInput');
     controleSugerido.id = `monitoramentoControleSugerido${cont}`;
 
-    let statusMonitoramento = document.createElement('input');
-    statusMonitoramento.type = 'text';
+    let statusMonitoramentoLabel = document.createElement('label');
+    statusMonitoramentoLabel.textContent = 'Status do Monitoramento:';
+    let statusMonitoramento = document.createElement('textarea');
     statusMonitoramento.name = `monitoramentos[${cont}][statusMonitoramento]`;
     statusMonitoramento.placeholder = 'Status do Monitoramento';
     statusMonitoramento.classList.add('textInput');
+    statusMonitoramento.id = `statusMonitoramento${cont}`;
 
-    let execucaoMonitoramento = document.createElement('input');
-    execucaoMonitoramento.type = 'text';
+    let execucaoMonitoramentoLabel = document.createElement('label');
+    execucaoMonitoramentoLabel.textContent = 'Execução do Monitoramento:';
+    let execucaoMonitoramento = document.createElement('textarea');
     execucaoMonitoramento.name = `monitoramentos[${cont}][execucaoMonitoramento]`;
     execucaoMonitoramento.placeholder = 'Execução do Monitoramento';
     execucaoMonitoramento.classList.add('textInput');
+    execucaoMonitoramento.id = `execucaoMonitoramento${cont}`;
 
+    let rowDiv = document.createElement('div');
+    rowDiv.classList.add('row', 'g-3');
+
+    let colDiv1 = document.createElement('div');
+    colDiv1.classList.add('col-sm-12', 'col-md-6');
+    let inicioMonitoramentoLabel = document.createElement('label');
+    inicioMonitoramentoLabel.textContent = 'Início do Monitoramento:';
     let inicioMonitoramento = document.createElement('input');
     inicioMonitoramento.type = 'date';
     inicioMonitoramento.name = `monitoramentos[${cont}][inicioMonitoramento]`;
-    inicioMonitoramento.classList.add('textInput');
+    inicioMonitoramento.classList.add('textInput', 'dateInput');
+    colDiv1.appendChild(inicioMonitoramentoLabel);
+    colDiv1.appendChild(inicioMonitoramento);
 
+    let colDiv2 = document.createElement('div');
+    colDiv2.classList.add('col-sm-12', 'col-md-6', 'mQuery2');
+    let fimMonitoramentoLabel = document.createElement('label');
+    fimMonitoramentoLabel.textContent = 'Fim do Monitoramento:';
     let fimMonitoramento = document.createElement('input');
     fimMonitoramento.type = 'date';
     fimMonitoramento.name = `monitoramentos[${cont}][fimMonitoramento]`;
-    fimMonitoramento.classList.add('textInput');
+    fimMonitoramento.classList.add('textInput', 'dateInput');
+    colDiv2.appendChild(fimMonitoramentoLabel);
+    colDiv2.appendChild(fimMonitoramento);
+
+    rowDiv.appendChild(colDiv1);
+    rowDiv.appendChild(colDiv2);
 
     monitoramentoDiv.appendChild(controleSugerido);
+    monitoramentoDiv.appendChild(statusMonitoramentoLabel);
     monitoramentoDiv.appendChild(statusMonitoramento);
+    monitoramentoDiv.appendChild(execucaoMonitoramentoLabel);
     monitoramentoDiv.appendChild(execucaoMonitoramento);
-    monitoramentoDiv.appendChild(inicioMonitoramento);
-    monitoramentoDiv.appendChild(fimMonitoramento);
+    monitoramentoDiv.appendChild(rowDiv);
     monitoramentosDiv.appendChild(monitoramentoDiv);
 
     CKEDITOR.replace(`monitoramentoControleSugerido${cont}`);
+    CKEDITOR.replace(`statusMonitoramento${cont}`);
+    CKEDITOR.replace(`execucaoMonitoramento${cont}`);
     cont++;
     updateCounter();
   }
@@ -158,6 +182,8 @@
 
   @foreach($risco->monitoramentos as $index => $monitoramento)
     CKEDITOR.replace(`monitoramentoControleSugerido{{ $index }}`);
+    CKEDITOR.replace(`statusMonitoramento{{ $index }}`);
+    CKEDITOR.replace(`execucaoMonitoramento{{ $index }}`);
   @endforeach
 
 </script>
