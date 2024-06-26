@@ -37,7 +37,7 @@
 								<th>Causa</th>
 								<th>Consequência</th>
 								<th style="width: 105px;">Avaliação</th>
-								<th style="white-space: nowrap;">Data Monitoramento</th>
+								<th style="white-space: nowrap; width: 280px;">Data Monitoramento</th>
 							</tr>
 						</thead>
 
@@ -107,6 +107,7 @@
 				});
 
 				table.on('draw', function(){
+					
 					// MANTÉM OS ELEMENTOS ALINHADO A CADA REFRESH
 					if (!$(".divContainer").length) {
 						var divContainer = $('<div class="divContainer" style="display: flex; justify-content: space-between;"></div>');
