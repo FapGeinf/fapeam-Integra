@@ -181,3 +181,21 @@ hr {
     margin-top: 0;
   }
 }
+
+/* MONITORAMENTOS */
+
+.dateInput {
+  background-color: #f8fafc;
+}
+
+@media (min-width: 300px) {
+  .mQuery2 {
+    margin-top: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .mQuery2 {
+    margin-top: 1rem;
+  }
+}

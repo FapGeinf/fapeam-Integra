@@ -1,14 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
+
+@section('title') {{'Editar Monitoramentos'}} @endsection
 <head>
   <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
+  <script src="/ckeditor/ckeditor.js"></script>
 </head>
 
   <div class="form-wrapper pt-4">
     <div class="form_create">
-      <h3 style="text-align: center; margin-bottom: 20px;"> Formulário de Monitoramentos</h3>
-
+      <h3 style="text-align: center; margin-bottom: 10px;"> Formulário de Monitoramentos</h3>
+      
       @if (session('error'))
         <script>
           alert('{{ session(' error ') }}');
@@ -19,10 +22,12 @@
         @csrf
         @method('PUT')
 
-        <div class="mt-3">
-          <span class="text-center">Monitoramentos adicionados: </span>
+        <div class="text-center">
+          <span>Monitoramentos adicionados: </span>
           <span id="monitoramentoCounter">{{ count($risco->monitoramentos) }}</span>
         </div>
+
+        <hr>
 
         @foreach($risco->monitoramentos as $index => $monitoramento)
           <div class="monitoramento">
@@ -32,17 +37,30 @@
               {{ $monitoramento->monitoramentoControleSugerido }}
             </textarea>
 
+            <label>Status do Monitoramento:</label>
             <input type="text" name="monitoramentos[{{ $index }}][statusMonitoramento]" placeholder="Status do Monitoramento" class="textInput" value="{{ $monitoramento->statusMonitoramento }}">
 
+            <label>Execução do Monitoramento:</label>
             <input type="text" name="monitoramentos[{{ $index }}][execucaoMonitoramento]" placeholder="Execução do Monitoramento" class="textInput" value="{{ $monitoramento->execucaoMonitoramento }}">
 
-            <input type="date" name="monitoramentos[{{ $index }}][inicioMonitoramento]" class="textInput" value="{{ $monitoramento->inicioMonitoramento }}">
+            <div class="row g-3">
+              <div class="col-sm-12 col-md-6">
+                <label>Início do Monitoramento:</label>
+                <input type="date" name="monitoramentos[{{ $index }}][inicioMonitoramento]" class="textInput dateInput" value="{{ $monitoramento->inicioMonitoramento }}">
+              </div>
 
-            <input type="date" name="monitoramentos[{{ $index }}][fimMonitoramento]" class="textInput" value="{{ $monitoramento->fimMonitoramento }}">
+              <div class="col-sm-12 col-md-6 mQuery2">
+                <label>Fim do Monitoramento:</label>
+                <input type="date" name="monitoramentos[{{ $index }}][fimMonitoramento]" class="textInput dateInput" value="{{ $monitoramento->fimMonitoramento }}">
+              </div>
+            </div>
+
           </div>
 
           <script>
             CKEDITOR.replace(`monitoramentoControleSugerido{{ $index }}`);
+            CKEDITOR.replace(`monitoramentos[{{ $index }}][statusMonitoramento]`)
+            CKEDITOR.replace(`monitoramentos[{{ $index }}][execucaoMonitoramento]`)
           </script>
         @endforeach
 
