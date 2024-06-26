@@ -3,12 +3,14 @@
 @section('content')
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="/ckeditor/ckeditor.js"></script>
     <link rel="stylesheet" href="{{ asset('css/store.css') }}">
 </head>
+
 <body>
     <div class="container-xxl d-flex justify-content-center pt-5">
         <div class="col-12 col-md-8 col-lg-7 box-shadow pb-5">
@@ -17,7 +19,8 @@
                 <h4>Riscos Inerentes</h4>
             </div>
 
-            <div class="row p-1 boxForm"><!-- boxForm start -->
+            <div class="row p-1 boxForm">
+                <!-- boxForm start -->
                 <form action="{{ route('riscos.store') }}" method="post" class="form_create" id="formCreate">
                     @csrf
                     <div class="row g-3">
@@ -27,7 +30,7 @@
                             <select name="unidadeId" class="selection" required>
                                 <option selected disabled>Selecione uma unidade</option>
                                 @foreach($unidades as $unidade)
-                                    <option value="{{ $unidade->id }}">{{ $unidade->unidadeNome }}</option>
+                                <option value="{{ $unidade->id }}">{{ $unidade->unidadeNome }}</option>
                                 @endforeach
                             </select>
 
@@ -42,7 +45,7 @@
                             <label class="dataLim" for="name">Responsável:</label>
                             <div class="dateTime">
                                 <input type="text" name="" id="" class="textInput form-control"
-                                       placeholder=" Ex: Fulano da Silva Pompeo">
+                                    placeholder=" Ex: Fulano da Silva Pompeo">
                             </div>
                         </div>
                     </div>
@@ -72,7 +75,7 @@
                         <div class="col-sm-12 col-md-8">
                             <label for="probabilidade_risco">Probabilidade de Risco:</label>
                             <select name="probabilidade_risco" id="probabilidade_risco" required
-                                    onchange="calculateRiscoAvaliacao()">
+                                onchange="calculateRiscoAvaliacao()">
                                 <option value="1">Baixo</option>
                                 <option value="3">Médio</option>
                                 <option value="5">Alto</option>
@@ -83,7 +86,8 @@
                     <div class="row g-3 mt-1">
                         <div class="col-sm-12 col-md-8">
                             <label for="impacto_risco">Impacto do Risco:</label>
-                            <select name="impacto_risco" id="impacto_risco" required onchange="calculateRiscoAvaliacao()">
+                            <select name="impacto_risco" id="impacto_risco" required
+                                onchange="calculateRiscoAvaliacao()">
                                 <option value="1">Baixo</option>
                                 <option value="3">Médio</option>
                                 <option value="5">Alto</option>
@@ -97,7 +101,7 @@
                     <input type="button" onclick="addMonitoramentos()" value="Adicionar Monitoramento">
                     <input type="submit" value="Salvar">
 
-                    <input type="hidden" id="isContinuoHidden" name="isContinuo" value="">
+                    <input type="hidden" id="isContinuoHidden" name="isContinuo" value="false">
 
                 </form>
             </div><!-- boxForm end -->
@@ -111,8 +115,8 @@
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
     <script>
         let cont = 0;
 
@@ -151,6 +155,7 @@
             isContinuoHidden.type = 'hidden';
             isContinuoHidden.name = `monitoramentos[${cont}][isContinuo]`;
             isContinuoHidden.id = `isContinuo${cont}`;
+            isContinuoHidden.value = 'false'; // Inicialmente definido como false
 
             monitoramentosDiv.appendChild(controleSugerido);
             monitoramentosDiv.appendChild(statusMonitoramento);
@@ -174,8 +179,9 @@
             const avaliacao = probabilidade * impacto;
             document.getElementById('riscoAvaliacao').value = avaliacao;
         }
-
     </script>
+
 </body>
+
 </html>
 @endsection
