@@ -102,21 +102,14 @@
           <i class="bi bi-exclamation-circle-fill"></i>
           Dica: Revise sua edição antes de salvar
         </span> 
-
-        
-
         <div class="mt-3 text-center mb-3">
-            <a href="{{ route('riscos.edit-monitoramentos', ['id' => $risco->id]) }}" class="btn btn-primary">Editar Monitoramentos</a>
+          <a href="{{ route('riscos.edit-monitoramentos', ['id' => $risco->id]) }}" class="btn btn-primary">Editar Monitoramentos</a>
         </div>
-
-        
 
         <div id="btnSave">
           <button type="submit" class="submit-btn">Salvar Edição</button>
         </div>
-
       </form>
-
     </div>
   </div>
 
