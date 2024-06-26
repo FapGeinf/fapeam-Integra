@@ -2,89 +2,93 @@
 
 @section('content')
 
-@section('title') {{'Editar Monitoramentos'}} @endsection
+@section('title') {{ 'Editar Monitoramentos' }} @endsection
+
 <head>
   <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
   <script src="/ckeditor/ckeditor.js"></script>
 </head>
 
-  <div class="form-wrapper pt-4">
-    <div class="form_create">
-      <h3 style="text-align: center; margin-bottom: 10px;"> Formulário de Monitoramentos</h3>
-      
-      @if (session('error'))
-        <script>
-          alert('{{ session('error') }}');
-        </script>
-      @endif
+<div class="form-wrapper pt-4">
+  <div class="form_create">
+    <h3 style="text-align: center; margin-bottom: 10px;"> Formulário de Monitoramentos</h3>
 
-      <form action="{{ route('riscos.update-monitoramentos', ['id' => $risco->id]) }}" method="POST" id="formCreate">
-        @csrf
-        @method('PUT')
+    @if (session('error'))
+      <script>
+        alert('{{ session('error') }}');
+      </script>
+    @endif
 
-        <div class="text-center">
-          <span>Monitoramentos adicionados: </span>
-          <span id="monitoramentoCounter">{{ count($risco->monitoramentos) }}</span>
-        </div>
+    <form action="{{ route('riscos.update-monitoramentos', ['id' => $risco->id]) }}" method="POST" id="formCreate">
+      @csrf
+      @method('PUT')
 
-        <hr>
+      <div class="text-center">
+        <span>Monitoramentos adicionados: </span>
+        <span id="monitoramentoCounter">{{ count($risco->monitoramentos) }}</span>
+      </div>
 
-        @foreach($risco->monitoramentos as $index => $monitoramento)
-          <div class="monitoramento">
-            <span class="numeration">Monitoramento Nº {{ $index + 1 }}</span>
+      <hr>
 
-            <textarea name="monitoramentos[{{ $index }}][monitoramentoControleSugerido]" placeholder="Monitoramento" class="textInput" id="monitoramentoControleSugerido{{ $index }}">
-              {{ $monitoramento->monitoramentoControleSugerido }}
-            </textarea>
+      @foreach($risco->monitoramentos as $index => $monitoramento)
+        <div class="monitoramento">
+          <span class="numeration">Monitoramento Nº {{ $index + 1 }}</span>
 
-            <label>Status do Monitoramento:</label>
-            <textarea name="monitoramentos[{{ $index }}][statusMonitoramento]" placeholder="Status do Monitoramento" class="textInput" id="statusMonitoramento{{ $index }}">{{ $monitoramento->statusMonitoramento }}</textarea>
+          <textarea name="monitoramentos[{{ $index }}][monitoramentoControleSugerido]" placeholder="Monitoramento" class="textInput" id="monitoramentoControleSugerido{{ $index }}">
+            {{ $monitoramento->monitoramentoControleSugerido }}
+          </textarea>
 
-            <label>Execução do Monitoramento:</label>
-            <textarea name="monitoramentos[{{ $index }}][execucaoMonitoramento]" placeholder="Execução do Monitoramento" class="textInput" id="execucaoMonitoramento{{ $index }}">{{ $monitoramento->execucaoMonitoramento }}</textarea>
+          <label>Status do Monitoramento:</label>
+          <textarea name="monitoramentos[{{ $index }}][statusMonitoramento]" placeholder="Status do Monitoramento" class="textInput" id="statusMonitoramento{{ $index }}">{{ $monitoramento->statusMonitoramento }}</textarea>
 
-            <div class="row g-3">
-              <div class="col-sm-12 col-md-6">
-                <label>Início do Monitoramento:</label>
-                <input type="date" name="monitoramentos[{{ $index }}][inicioMonitoramento]" class="textInput dateInput" value="{{ $monitoramento->inicioMonitoramento }}">
-              </div>
+          <label>Execução do Monitoramento:</label>
+          <textarea name="monitoramentos[{{ $index }}][execucaoMonitoramento]" placeholder="Execução do Monitoramento" class="textInput" id="execucaoMonitoramento{{ $index }}">{{ $monitoramento->execucaoMonitoramento }}</textarea>
 
-              <div class="col-sm-12 col-md-6 mQuery2">
-                <label>Fim do Monitoramento:</label>
-                <input type="date" name="monitoramentos[{{ $index }}][fimMonitoramento]" class="textInput dateInput" value="{{ $monitoramento->fimMonitoramento }}">
-              </div>
+          <div class="row g-3">
+            <div class="col-sm-12 col-md-6">
+              <label>Início do Monitoramento:</label>
+              <input type="date" name="monitoramentos[{{ $index }}][inicioMonitoramento]" class="textInput dateInput" value="{{ $monitoramento->inicioMonitoramento }}">
+            </div>
+
+            <div class="col-sm-12 col-md-6 mQuery2">
+              <label>Fim do Monitoramento:</label>
+              <input type="date" name="monitoramentos[{{ $index }}][fimMonitoramento]" class="textInput dateInput" value="{{ $monitoramento->fimMonitoramento }}">
             </div>
           </div>
 
-          <script>
-            CKEDITOR.replace(`monitoramentoControleSugerido{{ $index }}`);
-            CKEDITOR.replace(`statusMonitoramento{{ $index }}`);
-            CKEDITOR.replace(`execucaoMonitoramento{{ $index }}`);
-          </script>
-        @endforeach
-
-        <div id="monitoramentosDiv" class="monitoramento">
-            <!-- Aqui serão adicionados os monitoramentos dinamicamente -->
+          <!-- Adicionar campo hidden para isContinuo -->
+          <input type="hidden" name="monitoramentos[{{ $index }}][isContinuo]" id="isContinuo{{ $index }}" value="{{ ($monitoramento->fimMonitoramento) ? 'true' : 'false' }}">
         </div>
 
-        <div class="buttons">
-          <button type="button" class="add-btn" onclick="addMonitoramento()">Adicionar Monitoramento</button>
-          <button type="button" class="close-btn" onclick="fecharFormulario()">Fechar</button>
-        </div>
+        <script>
+          CKEDITOR.replace(`monitoramentoControleSugerido{{ $index }}`);
+          CKEDITOR.replace(`statusMonitoramento{{ $index }}`);
+          CKEDITOR.replace(`execucaoMonitoramento{{ $index }}`);
+        </script>
+      @endforeach
 
-        <hr id="hr3">
+      <div id="monitoramentosDiv" class="monitoramento">
+          <!-- Aqui serão adicionados os monitoramentos dinamicamente -->
+      </div>
 
-        <span id="tip">
-          <i class="bi bi-exclamation-circle-fill"></i>
-          Dica: Revise sua edição antes de salvar
-        </span>
+      <div class="buttons">
+        <button type="button" class="add-btn" onclick="addMonitoramento()">Adicionar Monitoramento</button>
+        <button type="button" class="close-btn" onclick="fecharFormulario()">Fechar</button>
+      </div>
 
-        <div id="btnSave">
-          <button type="submit" class="submit-btn">Salvar Edição</button>
-        </div>
-      </form>
-    </div>
+      <hr id="hr3">
+
+      <span id="tip">
+        <i class="bi bi-exclamation-circle-fill"></i>
+        Dica: Revise sua edição antes de salvar
+      </span>
+
+      <div id="btnSave">
+        <button type="submit" class="submit-btn">Salvar Edição</button>
+      </div>
+    </form>
   </div>
+</div>
 
 <script>
   let cont = {{ count($risco->monitoramentos) }};
@@ -154,6 +158,13 @@
     rowDiv.appendChild(colDiv1);
     rowDiv.appendChild(colDiv2);
 
+    // Adicionar campo hidden para isContinuo
+    let isContinuoHidden = document.createElement('input');
+    isContinuoHidden.type = 'hidden';
+    isContinuoHidden.name = `monitoramentos[${cont}][isContinuo]`;
+    isContinuoHidden.id = `isContinuo${cont}`;
+    monitoramentoDiv.appendChild(isContinuoHidden);
+
     monitoramentoDiv.appendChild(controleSugerido);
     monitoramentoDiv.appendChild(statusMonitoramentoLabel);
     monitoramentoDiv.appendChild(statusMonitoramento);
@@ -165,6 +176,7 @@
     CKEDITOR.replace(`monitoramentoControleSugerido${cont}`);
     CKEDITOR.replace(`statusMonitoramento${cont}`);
     CKEDITOR.replace(`execucaoMonitoramento${cont}`);
+
     cont++;
     updateCounter();
   }
