@@ -20,7 +20,7 @@
     <nav class="navbar">
       @if(Auth::check())
         <a class="navbar-brand {{ Request::path() === '/' ? 'active' : '' }}" href="{{route('riscos.index')}}">
-          <img src="/img/logo-lupa-no-background.png" alt="logo" width="21" height="20" class="logoNavImg d-inline-block align-text-top">
+          <img src="/img/logo-lupa-no-background3.png" alt="logo" width="21" height="20" class="logoNavImg d-inline-block align-text-top">
         </a>
         @endif
         
