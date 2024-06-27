@@ -52,6 +52,7 @@ class RiscoController extends Controller
     {
         try {
             $request->validate([
+								'riscoNum' => 'required',
                 'riscoEvento' => 'required|string|max:255',
                 'riscoCausa' => 'required|string|max:255',
                 'riscoConsequencia' => 'required|string|max:255',
@@ -70,6 +71,7 @@ class RiscoController extends Controller
             $riscoAvaliacao = (int) ($request->probabilidade_risco * $request->impacto_risco);
 
             $risco = Risco::create([
+								'riscoNum' => $request->riscoNum,
                 'riscoEvento' => $request->riscoEvento,
                 'riscoCausa' => $request->riscoCausa,
                 'riscoConsequencia' => $request->riscoConsequencia,
@@ -112,6 +114,7 @@ class RiscoController extends Controller
 
         try {
             $request->validate([
+								'riscoNum' => 'required',
                 'riscoEvento' => 'required|string|max:255',
                 'riscoCausa' => 'required|string|max:255',
                 'riscoConsequencia' => 'required|string|max:255',
@@ -123,6 +126,7 @@ class RiscoController extends Controller
             $riscoAvaliacao = (int) ($request->probabilidade_risco * $request->impacto_risco);
 
             $risco->update([
+								'riscoNum' => $request->riscoNum,
                 'riscoEvento' => $request->riscoEvento,
                 'riscoCausa' => $request->riscoCausa,
                 'riscoConsequencia' => $request->riscoConsequencia,

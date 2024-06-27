@@ -19,7 +19,7 @@
 		<div class="col-12 main-datatable">
 			<div class="divButtonNewRisk">
 				@if(session('error'))
-				<script>alert('{{ session('error') }}');</script>
+					<script>alert('{{ session('error') }}')</script>
 				@endif
 
 				<div id="newRiskButtonDiv" class="buttonNewRisk">
@@ -32,6 +32,7 @@
 					<table id="tableHome" class="table cust-datatable">
 						<thead>
 							<tr>
+								<th>N° Risco</th>
 								<th>Unidade</th>
 								<th style="white-space: nowrap;">Evento de Risco</th>
 								<th>Causa</th>
@@ -45,6 +46,7 @@
 							@foreach ($riscos as $risco)
 								@foreach ($monitoramentosPorRisco[$risco->id] as $monitoramento)
 									<tr style="cursor: pointer;" onclick="window.location='{{ route('riscos.show', $risco->id) }}';">
+										<td>{{$risco->riscoNum}}</td>
 										<td>{!! $risco->unidade->unidadeNome !!}</td>
 										<td>{!! $risco->riscoEvento !!}</td>
 										<td>{!! $risco->riscoCausa !!}</td>

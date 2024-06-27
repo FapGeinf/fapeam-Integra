@@ -26,11 +26,19 @@
                     <div class="row g-3">
                         <div class="col-sm-12 col-md-8 selectUnidade">
 
+	
+                        <div class="col-sm-12 col-md-8">
+                            <label class="dataLim" for="riscoNum">Numero do Risco:</label>
+                            <div class="dateTime">
+                                <input type="text" name="riscoNum" id="" class="textInput form-control" placeholder="N° do Risco">
+                            </div>
+                        </div>
+
                             <label for="unidadeId">Unidade</label>
                             <select name="unidadeId" class="selection" required>
                                 <option selected disabled>Selecione uma unidade</option>
                                 @foreach($unidades as $unidade)
-                                <option value="{{ $unidade->id }}">{{ $unidade->unidadeNome }}</option>
+                                	<option value="{{ $unidade->id }}">{{ $unidade->unidadeNome }}</option>
                                 @endforeach
                             </select>
 

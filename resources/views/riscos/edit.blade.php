@@ -31,6 +31,11 @@
         @method('PUT')
         <input type="hidden" name="risco_id" value="{{ $risco->id }}">
 
+				<div class="col-sm-12 col-md-4 mQuery">
+            <label for="name">Insira o Numero do Risco:</label>
+            <input type="text" id="riscoNum" name="riscoNum" class="form-control dataValue" value="{{$risco->riscoNum}}">
+        </div>
+
         <label id="first" for="riscoEvento">Evento:</label>
         <textarea name="riscoEvento" class="textInput" required>{{ $risco->riscoEvento ?? old('riscoEvento') }}</textarea>
 

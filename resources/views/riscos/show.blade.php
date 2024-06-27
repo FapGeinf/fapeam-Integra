@@ -27,8 +27,9 @@
       <div class="">
         <table class="table table-bordered mb-4">
           <thead>
-            <tr>
-              <th scope="col" class="text-center text-light tBorder">Evento</th>
+						<tr>
+							<th scope="col" class="text-center text-light tBorder">N° Risco</th>
+							<th scope="col" class="text-center text-light tBorder">Evento</th>
               <th scope="col" class="text-center text-light tBorder">Causa</th>
               <th scope="col" class="text-center text-light tBorder">Consequência</th>
               <th scope="col" class="text-center text-light">Avaliação</th>
@@ -37,6 +38,7 @@
 
           <tbody>
             <tr>
+              <td class="text-center pb-5 tBorder">{!! $risco->riscoNum !!}</td>
               <td class="text-center pb-5 tBorder">{!! $risco->riscoEvento !!}</td>
               <td class="text-center pb-5 tBorder">{!! $risco->riscoCausa !!}</td>
               <td class="text-center pb-5 tBorder">{!! $risco->riscoConsequencia !!}</td>
