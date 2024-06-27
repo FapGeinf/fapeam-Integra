@@ -26,7 +26,7 @@
                     <div class="row g-3">
                         <div class="col-sm-12 col-md-8 selectUnidade">
 
-	
+
                         <div class="col-sm-12 col-md-8">
                             <label class="dataLim" for="riscoNum">Numero do Risco:</label>
                             <div class="dateTime">
@@ -52,8 +52,7 @@
                         <div class="col-sm-12 col-md-8">
                             <label class="dataLim" for="name">Responsável:</label>
                             <div class="dateTime">
-                                <input type="text" name="" id="" class="textInput form-control"
-                                    placeholder=" Ex: Fulano da Silva Pompeo">
+                                <input type="text" name="responsavelRisco" id="responsavelRisco" class="textInput form-control">
                             </div>
                         </div>
                     </div>
@@ -137,11 +136,23 @@
             controleSugerido.classList = 'textInput';
             controleSugerido.id = `monitoramentoControleSugerido${cont}`;
 
-            let statusMonitoramento = document.createElement('input');
-            statusMonitoramento.type = 'text';
+            let statusMonitoramento = document.createElement('select');
             statusMonitoramento.name = `monitoramentos[${cont}][statusMonitoramento]`;
-            statusMonitoramento.placeholder = 'Status do Monitoramento';
             statusMonitoramento.classList = 'textInput';
+
+            let options = [
+                { value: "NÃO IMPLEMENTADA", text: "NÃO IMPLEMENTADA" },
+                { value: "EM IMPLEMENTAÇÃO", text: "EM IMPLEMENTAÇÃO" },
+                { value: "IMPLEMENTADA PARCIALMENTE", text: "IMPLEMENTADA PARCIALMENTE" },
+                { value: "IMPLEMENTADA", text: "IMPLEMENTADA" }
+            ];
+
+            options.forEach(function(optionData) {
+                let option = document.createElement('option');
+                option.value = optionData.value;
+                option.text = optionData.text;
+                statusMonitoramento.appendChild(option);
+            });
 
             let execucaoMonitoramento = document.createElement('input');
             execucaoMonitoramento.type = 'text';
@@ -173,7 +184,7 @@
             monitoramentosDiv.appendChild(isContinuoHidden);
 
             fimMonitoramento.addEventListener('change', function() {
-                let isContinuoValue = (this.value !== '') ? 'true' : 'false';
+                let isContinuoValue = (this.value !== '') ? 'false' : 'true';
                 document.getElementById(`isContinuo${cont}`).value = isContinuoValue;
             });
 
@@ -187,6 +198,7 @@
             const avaliacao = probabilidade * impacto;
             document.getElementById('riscoAvaliacao').value = avaliacao;
         }
+
     </script>
 
 </body>

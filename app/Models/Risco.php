@@ -14,7 +14,8 @@ class Risco extends Model
     use HasFactory;
 
     protected $fillable = [
-				'riscoNum',			
+		'riscoNum',
+        'responsavelRisco',
         'riscoEvento',
         'riscoCausa',
         'riscoConsequencia',

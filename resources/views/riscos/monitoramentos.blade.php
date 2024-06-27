@@ -39,7 +39,12 @@
           </textarea>
 
           <label>Status do Monitoramento:</label>
-          <textarea name="monitoramentos[{{ $index }}][statusMonitoramento]" placeholder="Status do Monitoramento" class="textInput" id="statusMonitoramento{{ $index }}">{{ $monitoramento->statusMonitoramento }}</textarea>
+          <select name="monitoramentos[{{ $index }}][statusMonitoramento]" class="textInput" id="statusMonitoramento{{ $index }}">
+            <option value="NÃO IMPLEMENTADA" {{ $monitoramento->statusMonitoramento == 'NÃO IMPLEMENTADA' ? 'selected' : '' }}>NÃO IMPLEMENTADA</option>
+            <option value="EM IMPLEMENTAÇÃO" {{ $monitoramento->statusMonitoramento == 'EM IMPLEMENTAÇÃO' ? 'selected' : '' }}>EM IMPLEMENTAÇÃO</option>
+            <option value="IMPLEMENTADA PARCIALMENTE" {{ $monitoramento->statusMonitoramento == 'IMPLEMENTADA PARCIALMENTE' ? 'selected' : '' }}>IMPLEMENTADA PARCIALMENTE</option>
+            <option value="IMPLEMENTADA" {{ $monitoramento->statusMonitoramento == 'IMPLEMENTADA' ? 'selected' : '' }}>IMPLEMENTADA</option>
+          </select>
 
           <label>Execução do Monitoramento:</label>
           <textarea name="monitoramentos[{{ $index }}][execucaoMonitoramento]" placeholder="Execução do Monitoramento" class="textInput" id="execucaoMonitoramento{{ $index }}">{{ $monitoramento->execucaoMonitoramento }}</textarea>
@@ -62,7 +67,6 @@
 
         <script>
           CKEDITOR.replace(`monitoramentoControleSugerido{{ $index }}`);
-          CKEDITOR.replace(`statusMonitoramento{{ $index }}`);
           CKEDITOR.replace(`execucaoMonitoramento{{ $index }}`);
         </script>
       @endforeach
@@ -116,11 +120,24 @@
 
     let statusMonitoramentoLabel = document.createElement('label');
     statusMonitoramentoLabel.textContent = 'Status do Monitoramento:';
-    let statusMonitoramento = document.createElement('textarea');
+    let statusMonitoramento = document.createElement('select');
     statusMonitoramento.name = `monitoramentos[${cont}][statusMonitoramento]`;
-    statusMonitoramento.placeholder = 'Status do Monitoramento';
     statusMonitoramento.classList.add('textInput');
     statusMonitoramento.id = `statusMonitoramento${cont}`;
+
+    let options = [
+        { value: "NÃO IMPLEMENTADA", text: "NÃO IMPLEMENTADA" },
+        { value: "EM IMPLEMENTAÇÃO", text: "EM IMPLEMENTAÇÃO" },
+        { value: "IMPLEMENTADA PARCIALMENTE", text: "IMPLEMENTADA PARCIALMENTE" },
+        { value: "IMPLEMENTADA", text: "IMPLEMENTADA" }
+    ];
+
+    options.forEach(function(optionData) {
+        let option = document.createElement('option');
+        option.value = optionData.value;
+        option.text = optionData.text;
+        statusMonitoramento.appendChild(option);
+    });
 
     let execucaoMonitoramentoLabel = document.createElement('label');
     execucaoMonitoramentoLabel.textContent = 'Execução do Monitoramento:';
@@ -174,7 +191,6 @@
     monitoramentosDiv.appendChild(monitoramentoDiv);
 
     CKEDITOR.replace(`monitoramentoControleSugerido${cont}`);
-    CKEDITOR.replace(`statusMonitoramento${cont}`);
     CKEDITOR.replace(`execucaoMonitoramento${cont}`);
 
     cont++;
@@ -194,7 +210,6 @@
 
   @foreach($risco->monitoramentos as $index => $monitoramento)
     CKEDITOR.replace(`monitoramentoControleSugerido{{ $index }}`);
-    CKEDITOR.replace(`statusMonitoramento{{ $index }}`);
     CKEDITOR.replace(`execucaoMonitoramento{{ $index }}`);
   @endforeach
 
