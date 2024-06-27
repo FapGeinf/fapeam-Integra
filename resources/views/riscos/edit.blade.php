@@ -41,12 +41,12 @@
         <textarea name="riscoConsequencia" class="textInput" required>{{ $risco->riscoConsequencia ?? old('riscoConsequencia') }}</textarea>
 
         <div class="row g-3 mt-1">
-          <div class="col-sm-12 col-md-4 mQuery">
+          <div class="col-sm-4 col-md-4 mQuery">
             <label for="name">Insira o Ano:</label>
             <input type="text" id="riscoAno" name="riscoAno" class="form-control dataValue" value="{{$risco->riscoAno}}">
           </div>
 
-          <div class="col-sm-12 col-md-8 mQuery">
+          <div class="col-sm-8 col-md-8 mQuery">
             <label for="probabilidade_risco">Probabilidade de Risco:</label>
             <select name="probabilidade_risco" id="probabilidade_risco" required onchange="calculateRiscoAvaliacao()">
               <option value="1" {{ $risco->probabilidade_risco == 1 ? 'selected' : '' }}>Baixo</option>
@@ -57,7 +57,7 @@
         </div>
 
         <div class="row g-3 mt-1">
-          <div class="col-sm-12 col-md-8 mQuery">
+          <div class="col-sm-8 col-md-8 mQuery">
           <label for="unidadeId">Unidade:</label>
           <select name="unidadeId" required>
             <option selected disabled>Selecione uma unidade</option>
@@ -69,7 +69,7 @@
 
           <input type="hidden" name="riscoAvaliacao" id="riscoAvaliacao" value="{{ $risco->riscoAvaliacao }}">
           
-          <div class="col-sm-12 col-md-4 mQuery">
+          <div class="col-sm-4 col-md-4 mQuery">
             <label style="white-space: nowrap" for="impacto_risco">Impacto do Risco:</label>
             <select name="impacto_risco" id="impacto_risco" required onchange="calculateRiscoAvaliacao()">
               <option value="1" {{ $risco->impacto_risco == 1 ? 'selected' : '' }}>Baixo</option>

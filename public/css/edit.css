@@ -190,7 +190,7 @@ hr {
 
 @media (min-width: 300px) {
   .mQuery2 {
-    margin-top: 0;
+    margin-top: 1rem;
   }
 }
 
@@ -198,4 +198,69 @@ hr {
   .mQuery2 {
     margin-top: 1rem;
   }
+}
+
+/* BOTÕES GERAIS */
+.blue-btn,
+.green-btn {
+  border: none;
+  text-decoration: none;
+  border-radius: 4px;
+  padding: 7px 14px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-right: 10px;
+  transition: background-color 0.3s;
+}
+
+
+.blue-btn {
+  background-color: #0056b3;
+  color: #fff;
+}
+
+.blue-btn:hover {
+  background-color: #0062ca;
+}
+
+.green-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+.green-btn:hover {
+  background-color: #218838;
+}
+
+/* LINKS QUE SÃO BOTÕES */
+
+a.edit-btn,
+a.reply-btn {
+  border: none;
+  text-decoration: none;
+  border-radius: 4px;
+  padding: 7px 14px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-right: 10px;
+  transition: background-color 0.3s;
+}
+
+
+a.edit-btn {
+  background-color: #0056b3;
+  color: #fff;
+}
+
+a.edit-btn:hover {
+  background-color: #0062ca;
+}
+
+a.reply-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+a.reply-btn:hover {
+  background-color: #218838;
 }

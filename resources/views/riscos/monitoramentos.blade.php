@@ -44,12 +44,12 @@
             <textarea name="monitoramentos[{{ $index }}][execucaoMonitoramento]" placeholder="Execução do Monitoramento" class="textInput" id="execucaoMonitoramento{{ $index }}">{{ $monitoramento->execucaoMonitoramento }}</textarea>
 
             <div class="row g-3">
-              <div class="col-sm-12 col-md-6">
+              <div class="col-sm-6 col-md-6">
                 <label>Início do Monitoramento:</label>
                 <input type="date" name="monitoramentos[{{ $index }}][inicioMonitoramento]" class="textInput dateInput" value="{{ $monitoramento->inicioMonitoramento }}">
               </div>
 
-              <div class="col-sm-12 col-md-6 mQuery2">
+              <div class="col-sm-6 col-md-6 mQuery2">
                 <label>Fim do Monitoramento:</label>
                 <input type="date" name="monitoramentos[{{ $index }}][fimMonitoramento]" class="textInput dateInput" value="{{ $monitoramento->fimMonitoramento }}">
               </div>

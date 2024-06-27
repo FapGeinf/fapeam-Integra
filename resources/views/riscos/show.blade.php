@@ -28,10 +28,10 @@
         <table class="table table-bordered mb-4">
           <thead>
             <tr>
-              <th scope="col" class="text-center text-light tBorder">Evento</th>
-              <th scope="col" class="text-center text-light tBorder">Causa</th>
-              <th scope="col" class="text-center text-light tBorder">Consequência</th>
-              <th scope="col" class="text-center text-light">Avaliação</th>
+              <th scope="col" class="text-center text-light tBorder">Evento:</th>
+              <th scope="col" class="text-center text-light tBorder">Causa:</th>
+              <th scope="col" class="text-center text-light tBorder">Consequência:</th>
+              <th scope="col" class="text-center text-light">Avaliação:</th>
             </tr>
           </thead>
 
@@ -49,9 +49,9 @@
         <table class="table table-bordered mb-4">
           <thead>
             <tr>
-              <th scope="col" class="text-center text-light tBorder">Controle Sugerido</th>
-              <th scope="col" class="text-center text-light tBorder">Status</th>
-              <th scope="col" class="text-center text-light">Execução</th>
+              <th scope="col" class="text-center text-light tBorder">Controle Sugerido:</th>
+              <th scope="col" class="text-center text-light tBorder">Status:</th>
+              <th scope="col" class="text-center text-light">Execução:</th>
               @if(count($monitoramentos)>1)
               <th scope="col" class="text-center text-light">Ações</th>
               @endif
