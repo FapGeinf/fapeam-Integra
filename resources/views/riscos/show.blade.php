@@ -28,6 +28,7 @@
         <table class="table table-bordered mb-4">
           <thead>
             <tr>
+              <th scope="col" class="text-center text-light tBorder">N° Risco</th>
               <th scope="col" class="text-center text-light tBorder">Evento:</th>
               <th scope="col" class="text-center text-light tBorder">Causa:</th>
               <th scope="col" class="text-center text-light tBorder">Consequência:</th>
@@ -37,6 +38,7 @@
 
           <tbody>
             <tr>
+              <td class="text-center pb-5 tBorder">{!! $risco->riscoNum !!}</td>
               <td class="text-center pb-5 tBorder">{!! $risco->riscoEvento !!}</td>
               <td class="text-center pb-5 tBorder">{!! $risco->riscoCausa !!}</td>
               <td class="text-center pb-5 tBorder">{!! $risco->riscoConsequencia !!}</td>
@@ -52,24 +54,29 @@
               <th scope="col" class="text-center text-light tBorder">Controle Sugerido:</th>
               <th scope="col" class="text-center text-light tBorder">Status:</th>
               <th scope="col" class="text-center text-light">Execução:</th>
+              <th scope="col" class="text-center text-light">Data:</th>
               @if(count($monitoramentos)>1)
-              <th scope="col" class="text-center text-light">Ações</th>
+              <th scope="col" class="text-center text-light">Ações:</th>
               @endif
             </tr>
           </thead>
 
           <tbody>
             @foreach ($risco->monitoramentos as $monitoramento)
-              <tr>
-                <td class="text-center pb-5 tBorder">{!! $monitoramento->monitoramentoControleSugerido !!}
-                </td>
+            <tr>
+                <td class="text-center pb-5 tBorder">{!! $monitoramento->monitoramentoControleSugerido !!}</td>
                 <td class="text-center pb-5 tBorder">{!! $monitoramento->statusMonitoramento !!}</td>
                 <td class="text-center pb-5">{!! $monitoramento->execucaoMonitoramento !!}</td>
-                @if(count($risco->monitoramentos) > 1)
-                <td class=" text-center">
-                  <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modal-exclusao-{{ $monitoramento->id }}">Excluir</button>
+                <td class="text-center pb-5">
+                    {{ \Carbon\Carbon::parse($monitoramento->inicioMonitoramento)->format('d/m/Y') }} -
+                    {{ $monitoramento->fimMonitoramento ? \Carbon\Carbon::parse($monitoramento->fimMonitoramento)->format('d/m/Y') : 'Contínuo' }}
                 </td>
+                @if(count($risco->monitoramentos) > 1)
+                    <td class="text-center">
+                        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modal-exclusao-{{ $monitoramento->id }}">Excluir</button>
+                    </td>
                 @endif
+            </tr>
               </tr>
 
               <div class="modal fade" id="modal-exclusao-{{ $monitoramento->id }}">

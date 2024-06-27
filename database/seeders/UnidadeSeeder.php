@@ -16,14 +16,14 @@ class UnidadeSeeder extends Seeder
     public function run()
     {
         Unidade::factory()->create([
-					'unidadeNome' => 'Comissão do Programa de Integridade',
-					'unidadeEmail' => 'comissão@email.com',
+					'unidadeNome' => 'Subcomissão do Programa de Integridade',
+					'unidadeEmail' => 'subcomissão@email.com',
 					'unidadeTipoFK' => '1'
 		]);
         Unidade::factory()->create([
 					'unidadeNome' => 'GEINF',
 					'unidadeEmail' => 'geinf@email.com',
-					'unidadeTipoFK' => '1'
+					'unidadeTipoFK' => '2'
 		]);
 
     }

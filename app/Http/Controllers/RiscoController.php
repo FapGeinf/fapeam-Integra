@@ -18,16 +18,9 @@ class RiscoController extends Controller
             $riscos = Risco::all();
             $unidades = Unidade::all();
 
-            // Carregar os monitoramentos por risco
-            $monitoramentosPorRisco = [];
-            foreach ($riscos as $risco) {
-                $monitoramentosPorRisco[$risco->id] = $risco->monitoramentos;
-            }
-
             return view('riscos.index', [
                 'riscos' => $riscos,
                 'unidades' => $unidades,
-                'monitoramentosPorRisco' => $monitoramentosPorRisco // Passando os monitoramentos por risco para a view
             ]);
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao carregar os riscos. Por favor, tente novamente.']);
@@ -52,6 +45,8 @@ class RiscoController extends Controller
     {
         try {
             $request->validate([
+				'riscoNum' => 'required',
+                'responsavelRisco' => 'required',
                 'riscoEvento' => 'required|string|max:255',
                 'riscoCausa' => 'required|string|max:255',
                 'riscoConsequencia' => 'required|string|max:255',
@@ -70,6 +65,8 @@ class RiscoController extends Controller
             $riscoAvaliacao = (int) ($request->probabilidade_risco * $request->impacto_risco);
 
             $risco = Risco::create([
+				'riscoNum' => $request->riscoNum,
+                'responsavelRisco' => $request->responsavelRisco,
                 'riscoEvento' => $request->riscoEvento,
                 'riscoCausa' => $request->riscoCausa,
                 'riscoConsequencia' => $request->riscoConsequencia,
@@ -112,6 +109,7 @@ class RiscoController extends Controller
 
         try {
             $request->validate([
+				'riscoNum' => 'required',
                 'riscoEvento' => 'required|string|max:255',
                 'riscoCausa' => 'required|string|max:255',
                 'riscoConsequencia' => 'required|string|max:255',
@@ -123,6 +121,7 @@ class RiscoController extends Controller
             $riscoAvaliacao = (int) ($request->probabilidade_risco * $request->impacto_risco);
 
             $risco->update([
+				'riscoNum' => $request->riscoNum,
                 'riscoEvento' => $request->riscoEvento,
                 'riscoCausa' => $request->riscoCausa,
                 'riscoConsequencia' => $request->riscoConsequencia,

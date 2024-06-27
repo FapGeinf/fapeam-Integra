@@ -27,7 +27,19 @@
                 @csrf
 
                 <div class="row g-3">
-                    <div class="col-sm-8 col-md-8 selectUnidade">
+                    <div class="col-sm-4 col-md-3">
+                        <label class="dataLim" for="riscoNum">N° do Risco:</label>
+                        <div class="dateTime">
+                            <input type="text" name="riscoNum" id="" class="textInput form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4 col-md-3">
+                        <label for="riscoAno">Insira o Ano:</label>
+                        <input type="text" id="riscoAno" name="riscoAno" class="form-control dataValue">
+                    </div>
+
+                    <div class="col-sm-4 col-md-6 selectUnidade">
                         <label for="unidadeId">Unidade:</label>
                         <select name="unidadeId" class="" required>
                             <option selected disabled>Selecione uma unidade</option>
@@ -36,15 +48,10 @@
                             @endforeach
                         </select>
                     </div>
-
-                    <div class="col-sm-4 col-md-4">
-                        <label for="riscoAno">Insira o Ano:</label>
-                        <input type="text" id="riscoAno" name="riscoAno" class="form-control dataValue">
-                    </div>
                 </div>
 
                 <label class="dataLim" for="responsavel">Responsável:</label>
-                <input type="text" name="responsavel" id="responsavel" class="textInput form-control"
+                <input type="text" name="responsavelRisco" id="responsavel" class="textInput form-control"
                     placeholder="Ex: Fulano da Silva Pompeo">
 
                 <label for="riscoEvento">Evento de Risco Inerente:</label>
@@ -79,46 +86,17 @@
 
                 <input type="hidden" name="riscoAvaliacao" id="riscoAvaliacao">
 
-                <div id="monitoramentosDiv" class="monitoramento">
-                    {{-- O BUG QUE NAO DEIXA SALVAR ESTA AQUI DENTRO  --}}
-                    {{-- <h3 style="text-align: center; margin-top:40px">Monitoramentos</h3>
-                    <hr>
-
-                    <div id="monitoramento1">
-                        <label>Monitoramento N° 1</label>
-                        <textarea name="monitoramentos[0][monitoramentoControleSugerido]" placeholder="Monitoramento"
-                            class="textInput" id="monitoramentoControleSugerido0"></textarea>
-
-                        <label>Status do Monitoramento:</label>
-                        <input type="text" name="monitoramentos[0][statusMonitoramento]"
-                            placeholder="Status do Monitoramento" class="textInput">
-
-                        <label>Execução do Monitoramento:</label>
-                        <input type="text" name="monitoramentos[0][execucaoMonitoramento]"
-                            placeholder="Execução do Monitoramento" class="textInput">
-
-                        <div class="row g-3">
-                            <div class="col-sm-6 col-md-6">
-                                <label>Início do Monitoramento:</label>
-                                <input type="date" name="monitoramentos[0][inicioMonitoramento]"
-                                    class="textInput dateInput">
-                            </div>
-                            <div class="col-sm-6 col-md-6">
-                                <label>Fim do Monitoramento:</label>
-                                <input type="date" name="monitoramentos[0][fimMonitoramento]"
-                                    class="textInput dateInput">
-                            </div>
-                        </div>
-                    </div> --}}
-                </div>
+                <div id="monitoramentosDiv" class="monitoramento"></div>
 
                 <hr>
 
-                <div class="text-center">
-                    <button type="button" class="blue-btn" onclick="addMonitoramentos()">Adicionar Monitoramento</button>
-                    <input type="submit" class="green-btn" value="Salvar">
+                <div class="mt-3 text-end">
+                  <input type="button" onclick="addMonitoramentos()" value="Adicionar Monitoramento" class="blue-btn">
+                  <input type="submit" value="Salvar" class="green-btn">  
                 </div>
+                
 
+                <input type="hidden" id="isContinuoHidden" name="isContinuo" value="false">
             </form>
         </div>
     </div>
@@ -145,10 +123,6 @@
             let divControleSugerido = document.createElement('div');
             divControleSugerido.classList = 'form-group';
             novoMonitoramento.appendChild(divControleSugerido);
-            
-            // let labelControleSugerido = document.createElement('label');
-            // labelControleSugerido.textContent = 'Monitoramento:';
-            // divControleSugerido.appendChild(labelControleSugerido);
 
             let controleSugerido = document.createElement('textarea');
             controleSugerido.name = `monitoramentos[${cont}][monitoramentoControleSugerido]`;
@@ -167,14 +141,25 @@
             labelStatusMonitoramento.textContent = 'Status do Monitoramento:';
             divStatusMonitoramento.appendChild(labelStatusMonitoramento);
 
-            let statusMonitoramento = document.createElement('textarea');
+            let statusMonitoramento = document.createElement('select');
             statusMonitoramento.name = `monitoramentos[${cont}][statusMonitoramento]`;
-            statusMonitoramento.placeholder = 'Status do Monitoramento';
-            statusMonitoramento.classList = 'form-control textInput';
-            statusMonitoramento.id = `statusMonitoramento${cont}`;
-            divStatusMonitoramento.appendChild(statusMonitoramento);
+            statusMonitoramento.classList = 'textInput';
 
-            CKEDITOR.replace(`statusMonitoramento${cont}`);
+            let options = [
+                { value: "NÃO IMPLEMENTADA", text: "NÃO IMPLEMENTADA" },
+                { value: "EM IMPLEMENTAÇÃO", text: "EM IMPLEMENTAÇÃO" },
+                { value: "IMPLEMENTADA PARCIALMENTE", text: "IMPLEMENTADA PARCIALMENTE" },
+                { value: "IMPLEMENTADA", text: "IMPLEMENTADA" }
+            ];
+
+            options.forEach(function(optionData) {
+                let option = document.createElement('option');
+                option.value = optionData.value;
+                option.text = optionData.text;
+                statusMonitoramento.appendChild(option);
+            });
+
+            divStatusMonitoramento.appendChild(statusMonitoramento);
 
             let divExecucaoMonitoramento = document.createElement('div');
             divExecucaoMonitoramento.classList = 'form-group';
@@ -184,14 +169,12 @@
             labelExecucaoMonitoramento.textContent = 'Execução do Monitoramento:';
             divExecucaoMonitoramento.appendChild(labelExecucaoMonitoramento);
 
-            let execucaoMonitoramento = document.createElement('textarea');
+            let execucaoMonitoramento = document.createElement('input');
+            execucaoMonitoramento.type = 'text';
             execucaoMonitoramento.name = `monitoramentos[${cont}][execucaoMonitoramento]`;
             execucaoMonitoramento.placeholder = 'Execução do Monitoramento';
             execucaoMonitoramento.classList = 'form-control textInput';
-            execucaoMonitoramento.id = `execucaoMonitoramento${cont}`;
             divExecucaoMonitoramento.appendChild(execucaoMonitoramento);
-
-            CKEDITOR.replace(`execucaoMonitoramento${cont}`);
 
             let divRow = document.createElement('div');
             divRow.classList = 'row g-3';
@@ -225,6 +208,18 @@
             inputFimMonitoramento.classList = 'form-control textInput dateInput';
             divFimMonitoramento.appendChild(inputFimMonitoramento);
 
+            inputFimMonitoramento.addEventListener('change', function() {
+                let isContinuoValue = (this.value !== '') ? 'false' : 'true';
+                document.getElementById(`isContinuo${cont}`).value = isContinuoValue;
+            });
+
+            let isContinuoHidden = document.createElement('input');
+            isContinuoHidden.type = 'hidden';
+            isContinuoHidden.name = `monitoramentos[${cont}][isContinuo]`;
+            isContinuoHidden.id = `isContinuo${cont}`;
+            isContinuoHidden.value = 'false';
+            novoMonitoramento.appendChild(isContinuoHidden);
+
             cont++;
         }
 
@@ -244,3 +239,4 @@
 
 </html>
 @endsection
+

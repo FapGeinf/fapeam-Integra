@@ -31,6 +31,16 @@
         @method('PUT')
         <input type="hidden" name="risco_id" value="{{ $risco->id }}">
 
+		<div class="col-sm-12 col-md-4 mQuery">
+            <label for="name">Numero do Risco:</label>
+            <input type="text" id="riscoNum" name="riscoNum" class="form-control dataValue" value="{{$risco->riscoNum}}">
+        </div>
+
+        <div class="col-sm-12 col-md-4 mQuery">
+            <label for="name">Responsável do Risco:</label>
+            <input type="text" id="responsavelRisco" name="responsavelRisco" class="form-control dataValue" value="{{$risco->responsavelRisco ?? old('responsavelRisco')}}">
+        </div>
+
         <label id="first" for="riscoEvento">Evento:</label>
         <textarea name="riscoEvento" class="textInput" required>{{ $risco->riscoEvento ?? old('riscoEvento') }}</textarea>
 
@@ -96,12 +106,12 @@
           <button type="button" class="close-btn" onclick="fecharFormulario()">Fechar</button>
         </div>--}}
 
-        <hr id="hr4"> 
+        <hr id="hr4">
 
         <span id="tip">
           <i class="bi bi-exclamation-circle-fill"></i>
           Dica: Revise sua edição antes de salvar
-        </span> 
+        </span>
         <div class="mt-3 text-center mb-3">
           <a href="{{ route('riscos.edit-monitoramentos', ['id' => $risco->id]) }}" class="btn btn-primary">Editar Monitoramentos</a>
         </div>
