@@ -31,15 +31,18 @@
         @method('PUT')
         <input type="hidden" name="risco_id" value="{{ $risco->id }}">
 
-		<div class="col-sm-12 col-md-4 mQuery">
-            <label for="name">Numero do Risco:</label>
+        <div class="row g-3 mb-3">
+          <div class="col-sm-4 col-md-4 mQuery">
+            <label for="name">N° Risco:</label>
             <input type="text" id="riscoNum" name="riscoNum" class="form-control dataValue" value="{{$risco->riscoNum}}">
-        </div>
+          </div>
 
-        <div class="col-sm-12 col-md-4 mQuery">
+          <div class="col-sm-8 col-md-8 mQuery">
             <label for="name">Responsável do Risco:</label>
             <input type="text" id="responsavelRisco" name="responsavelRisco" class="form-control dataValue" value="{{$risco->responsavelRisco ?? old('responsavelRisco')}}">
+          </div>
         </div>
+		    
 
         <label id="first" for="riscoEvento">Evento:</label>
         <textarea name="riscoEvento" class="textInput" required>{{ $risco->riscoEvento ?? old('riscoEvento') }}</textarea>
@@ -89,23 +92,6 @@
           </div>
         </div>
 
-        {{-- <hr id="hr2">
-
-        <div>
-          <span>Monitoramentos adicionados: </span>
-          <span id="monitoramentoCounter">{{ count($risco->monitoramentos) }}</span>
-        </div>
-
-
-        <div id="monitoramentosDiv" class="monitoramento">
-
-        </div>
-
-        <div class="buttons">
-          <button type="button" class="add-btn" onclick="addMonitoramentos()">Adicionar Monitoramento</button>
-          <button type="button" class="close-btn" onclick="fecharFormulario()">Fechar</button>
-        </div>--}}
-
         <hr id="hr4">
 
         <span id="tip">
@@ -124,73 +110,6 @@
   </div>
 
   <script>
-    // let cont = {{ count($risco->monitoramentos) }};
-    // let monitoramentoCounter = document.getElementById('monitoramentoCounter');
-
-    // function updateCounter() {
-    //   monitoramentoCounter.textContent = cont;
-    // }
-
-    // function addMonitoramentos() {
-    //   let monitoramentosDiv = document.getElementById('monitoramentosDiv');
-
-    //   let monitoramentoDiv = document.createElement('div');
-    //   monitoramentoDiv.classList.add('monitoramento');
-
-    //   let numeration = document.createElement('span');
-    //   numeration.classList.add('numeration');
-    //   numeration.textContent = `Monitoramento Nº ${cont + 1}`;
-    //   monitoramentoDiv.appendChild(numeration);
-
-    //   let controleSugerido = document.createElement('textarea');
-    //   controleSugerido.name = `monitoramentos[${cont}][monitoramentoControleSugerido]`;
-    //   controleSugerido.placeholder = 'Monitoramento';
-    //   controleSugerido.classList.add('textInput');
-    //   controleSugerido.id = `monitoramentoControleSugerido${cont}`;
-
-    //   let statusMonitoramento = document.createElement('input');
-    //   statusMonitoramento.type = 'text';
-    //   statusMonitoramento.name = `monitoramentos[${cont}][statusMonitoramento]`;
-    //   statusMonitoramento.placeholder = 'Status do Monitoramento';
-    //   statusMonitoramento.classList.add('textInput');
-
-    //   let execucaoMonitoramento = document.createElement('input');
-    //   execucaoMonitoramento.type = 'text';
-    //   execucaoMonitoramento.name = `monitoramentos[${cont}][execucaoMonitoramento]`;
-    //   execucaoMonitoramento.placeholder = 'Execução do Monitoramento';
-    //   execucaoMonitoramento.classList.add('textInput');
-
-    //   let inicioMonitoramento = document.createElement('input');
-    //   inicioMonitoramento.type = 'date';
-    //   inicioMonitoramento.name = `monitoramentos[${cont}][inicioMonitoramento]`;
-    //   inicioMonitoramento.classList.add('textInput');
-
-    //   let fimMonitoramento = document.createElement('input');
-    //   fimMonitoramento.type = 'date';
-    //   fimMonitoramento.name = `monitoramentos[${cont}][fimMonitoramento]`;
-    //   fimMonitoramento.classList.add('textInput');
-
-    //   monitoramentoDiv.appendChild(controleSugerido);
-    //   monitoramentoDiv.appendChild(statusMonitoramento);
-    //   monitoramentoDiv.appendChild(execucaoMonitoramento);
-    //   monitoramentoDiv.appendChild(inicioMonitoramento);
-    //   monitoramentoDiv.appendChild(fimMonitoramento);
-
-    //   monitoramentosDiv.appendChild(monitoramentoDiv);
-
-    //   CKEDITOR.replace(`monitoramentoControleSugerido${cont}`);
-    //   cont++;
-    //   updateCounter();
-    // }
-
-    // function fecharFormulario() {
-    //   document.getElementById('monitoramentosDiv').innerHTML = '';
-    //   cont = 0;
-    //   updateCounter();
-    // }
-
-    // updateCounter();
-
     function calculateRiscoAvaliacao() {
       const probabilidade = document.getElementById('probabilidade_risco').value;
       const impacto = document.getElementById('impacto_risco').value;
@@ -201,9 +120,6 @@
     CKEDITOR.replace('riscoEvento');
     CKEDITOR.replace('riscoCausa');
     CKEDITOR.replace('riscoConsequencia');
-    // @foreach ($risco->monitoramentos as $index => $monitoramento)
-    //   CKEDITOR.replace(`monitoramentoControleSugerido${index}`);
-    // @endforeach
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
