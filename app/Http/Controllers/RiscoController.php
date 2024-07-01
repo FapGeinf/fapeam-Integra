@@ -70,7 +70,7 @@ class RiscoController extends Controller
                 'riscoEvento' => $request->riscoEvento,
                 'riscoCausa' => $request->riscoCausa,
                 'riscoConsequencia' => $request->riscoConsequencia,
-                'probabilidade_risco' => $request->probabilidade_risco, // Certifique-se de usar o nome correto aqui
+                'probabilidade_risco' => $request->probabilidade_risco,
                 'impacto_risco' => $request->impacto_risco,
                 'riscoAvaliacao' => $riscoAvaliacao,
                 'unidadeId' => $request->unidadeId,
@@ -163,7 +163,6 @@ class RiscoController extends Controller
 
             foreach ($request->monitoramentos as $monitoramentoData) {
                 if (isset($monitoramentoData['id'])) {
-                    // Update existing monitoramento if it belongs to the current risk
                     if ($existingMonitoramentos->has($monitoramentoData['id'])) {
                         $monitoramento = $existingMonitoramentos->get($monitoramentoData['id']);
                         $monitoramento->update([
@@ -173,13 +172,11 @@ class RiscoController extends Controller
                             'inicioMonitoramento' => $monitoramentoData['inicioMonitoramento'],
                             'fimMonitoramento' => $monitoramentoData['fimMonitoramento'] ?? null,
                         ]);
-                        // Remove the updated monitoramento from the existing list
                         unset($existingMonitoramentos[$monitoramentoData['id']]);
                     } else {
                         throw new \Exception('Monitoramento não encontrado para atualização.');
                     }
                 } else {
-                    // Create new monitoramento
                     Monitoramento::create([
                         'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
                         'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
@@ -191,7 +188,6 @@ class RiscoController extends Controller
                 }
             }
 
-            // Delete any remaining monitoramentos in $existingMonitoramentos (optional step)
             foreach ($existingMonitoramentos as $monitoramento) {
                 $monitoramento->delete();
             }
