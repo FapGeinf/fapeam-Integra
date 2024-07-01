@@ -8,6 +8,8 @@ use App\Models\Risco;
 use App\Models\Unidade;
 use App\Models\Monitoramento;
 use App\Models\Resposta;
+use App\Models\Prazo;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
 
 class RiscoController extends Controller
@@ -17,10 +19,12 @@ class RiscoController extends Controller
         try {
             $riscos = Risco::all();
             $unidades = Unidade::all();
+            $prazo = Prazo::latest()->first();
 
             return view('riscos.index', [
                 'riscos' => $riscos,
                 'unidades' => $unidades,
+                'prazo' => $prazo ? $prazo->data : null,
             ]);
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao carregar os riscos. Por favor, tente novamente.']);
@@ -262,6 +266,29 @@ class RiscoController extends Controller
         $risco = Risco::with('respostas')->findorFail($id);
         $respostas = Resposta::where('respostaRiscoFK', $risco->id)->get();
         return view('riscos.respostas', ['risco' => $risco, 'respostas' => $respostas]);
+    }
+
+    public function insertPrazo(Request $request)
+    {
+          try{
+
+             $request->validate([
+                 'data' => 'required|date'
+             ]);
+
+             $novoPrazo = Prazo::create([
+                'data' => $request->data
+             ]);
+
+             if(!$novoPrazo){
+                return redirect()->back()->with('error','Erro ao inserir um Prazo');
+             }
+
+             return redirect()->back()->with('success','Prazo Inserido com sucesso');
+
+          }catch(\Exception $e){
+            return redirect()->back()->with('error', 'Um erro ocorreu : ' . $e->getMessage());
+          }
     }
 
 
