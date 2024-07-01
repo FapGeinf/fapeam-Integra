@@ -4,6 +4,10 @@
   font-style: normal;
 }
 
+table, tr,th, td {
+  border: 1px solid #b0b0b0;
+}
+
 body {
 font-family: "Poppins", sans-serif;
 font-weight: 400;
@@ -119,12 +123,13 @@ a.reply-btn:hover {
 
 .thNumber,
 .thReply {
-  background-color: #f3f3f3 !important;
+  color: #fff !important;
+  background-color: #549f93 !important;
 }
 
 .tdNumber,
 .tdReply {
-  background-color: #fff !important;
+  background-color: #f2f2f2 !important;
 }
 
 .line {

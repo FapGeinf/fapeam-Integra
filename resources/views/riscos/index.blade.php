@@ -33,12 +33,12 @@
 						<thead>
 							<tr>
 								<th>N° Risco</th>
-                                <th>Responsável</th>
+								<th>Responsável</th>
 								<th>Unidade</th>
 								<th style="white-space: nowrap;">Evento de Risco</th>
 								<th>Causa</th>
 								<th>Consequência</th>
-								<th style="width: 105px;">Avaliação</th>
+								<th style="width: 170px;">Avaliação</th>
 							</tr>
 						</thead>
 
@@ -46,7 +46,7 @@
 							@foreach ($riscos as $risco)
 									<tr style="cursor: pointer;" onclick="window.location='{{ route('riscos.show', $risco->id) }}';">
 										<td>{{$risco->riscoNum}}</td>
-                                        <td>{!!$risco->responsavelRisco!!}</td>
+										<td>{!!$risco->responsavelRisco!!}</td>
 										<td>{!! $risco->unidade->unidadeNome !!}</td>
 										<td>{!! $risco->riscoEvento !!}</td>
 										<td>{!! $risco->riscoCausa !!}</td>

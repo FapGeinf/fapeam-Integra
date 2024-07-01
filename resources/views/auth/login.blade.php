@@ -24,11 +24,10 @@
   <div class="secContainer">
     
     <div class="login">
-      <div class="loginTitle">
-        <span>Login</span>
+      <div class="logoLogin">
+        <img src="img/logoDecon.png" alt="">
       </div>
       
-
       <div class="login-content">
         <form method="POST" action="{{ route('login') }}">
           @csrf
@@ -55,8 +54,8 @@
             @enderror
           </div>
 
-          <span>
-            <input type="checkbox" id="" name="remember_me" value="remember_me">
+          <div class="rememberMeDiv">
+            <input type="checkbox" id="" name="remember_me" value="remember_me" style="margin-right: 3px">
             <label for="remember_me" class="rememberMe">Lembrar-me</label>
           </span>
         </div>

@@ -2,7 +2,11 @@
   font-family: "Poppins", sans-serif;
   font-weight: 400;
   font-style: normal;
-  }
+}
+
+table, tr,th, td {
+  border: 1px solid #b0b0b0;
+}
 
 body {
 font-family: "Poppins", sans-serif;
@@ -28,7 +32,7 @@ font-style: normal;
 }
 
 .table td {
-  background-color: #f3f3f3;
+  background-color: #f2f2f2;
 }
 
 .table .tBorder {

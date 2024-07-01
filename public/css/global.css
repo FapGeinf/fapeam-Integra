@@ -9,6 +9,11 @@
   transition: margin-left 0.4s;
 }
 
+.iconPerson {
+  color: #fff;
+  font-size: 22px;
+}
+
 /* FONT STYLE */
 
 .poppins-regular {
@@ -202,8 +207,6 @@ a.btnSair {
   height: 100px;
 }
 
-
-
 #logoMin {
   transition: .4s;
   cursor: pointer;
@@ -224,7 +227,7 @@ a.btnSair {
 }
 
 .logoMax {
-  width: 70% !important;
+  width: 100% !important;
 }
 
 nav.menu-lateral {
