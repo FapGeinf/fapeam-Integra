@@ -1,7 +1,4 @@
-
-
-    
-    /* STORE*/
+  /* STORE*/
 
     .poppins-regular {
       font-family: "Poppins", sans-serif;
@@ -9,14 +6,11 @@
       font-style: normal;
     }
     
-    
     body {
       font-family: "Poppins", sans-serif;
       font-weight: 400;
       font-style: normal;
     }
-    
-    
     
     .box-shadow {
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);

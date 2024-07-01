@@ -33,28 +33,26 @@
 						<thead>
 							<tr>
 								<th>N° Risco</th>
+                                <th>Responsável</th>
 								<th>Unidade</th>
 								<th style="white-space: nowrap;">Evento de Risco</th>
 								<th>Causa</th>
 								<th>Consequência</th>
 								<th style="width: 105px;">Avaliação</th>
-								<th style="white-space: nowrap; width: 280px;">Data Monitoramento</th>
 							</tr>
 						</thead>
 
 						<tbody>
 							@foreach ($riscos as $risco)
-								@foreach ($monitoramentosPorRisco[$risco->id] as $monitoramento)
 									<tr style="cursor: pointer;" onclick="window.location='{{ route('riscos.show', $risco->id) }}';">
 										<td>{{$risco->riscoNum}}</td>
+                                        <td>{!!$risco->responsavelRisco!!}</td>
 										<td>{!! $risco->unidade->unidadeNome !!}</td>
 										<td>{!! $risco->riscoEvento !!}</td>
 										<td>{!! $risco->riscoCausa !!}</td>
 										<td>{!! $risco->riscoConsequencia !!}</td>
 										<td>{!! $risco->riscoAvaliacao !!}</td>
-										<td style="white-space: nowrap;">{{ \Carbon\Carbon::parse($monitoramento->inicioMonitoramento)->format('d/m/Y') }} - {{ $monitoramento->fimMonitoramento ? \Carbon\Carbon::parse($monitoramento->fimMonitoramento)->format('d/m/Y') : 'Contínuo' }}</td>
 									</tr>
-								@endforeach
 							@endforeach
 						</tbody>
 					</table>
@@ -109,7 +107,7 @@
 				});
 
 				table.on('draw', function(){
-					
+
 					// MANTÉM OS ELEMENTOS ALINHADO A CADA REFRESH
 					if (!$(".divContainer").length) {
 						var divContainer = $('<div class="divContainer" style="display: flex; justify-content: space-between;"></div>');
