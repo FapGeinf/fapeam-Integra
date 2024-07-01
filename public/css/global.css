@@ -123,6 +123,12 @@ a.navbar-brand:nth-child(1) {
   opacity: .6;
 }
 
+.active-icon {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+
 #navbarDropdown {
   color: #fff;
   display: flex;

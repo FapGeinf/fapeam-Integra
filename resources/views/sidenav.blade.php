@@ -52,8 +52,8 @@
 
 		<ul class="ulList">
 			<li class="item-menu">
-				<a href="{{route('riscos.index')}}" class="{{ Request::path() === '/' ? 'active' : '' }}" style="margin-top: 2rem;">
-					<i class="bx bi-house icon"></i>
+				<a href="{{route('riscos.index')}}" class="{{ Request::routeIs('riscos.index') ? 'active' : '' }}" style="margin-top: 2rem;">
+					<i class="bx bi-house icon {{ Request::routeIs('riscos.index') ? 'active-icon' : '' }}"></i>
 					<span class="txt-link">Home</span>
 				</a>
 			</li>
