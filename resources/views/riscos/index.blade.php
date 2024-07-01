@@ -25,6 +25,9 @@
 				<div id="newRiskButtonDiv" class="buttonNewRisk">
 					@if (Auth::user()->unidade->unidadeTipoFK == 1)
 						<a href="{{route('riscos.create')}}" class=""><i class="bi bi-plus-lg"></i> Novo Risco</a>
+                        <button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#prazoModal">
+                            <i class="bi bi-plus-lg"></i> inserir Prazo
+                        </button>
 					@endif
 				</div>
 			</div>
@@ -69,6 +72,27 @@
 				<span class="riskLevel3">Alto</span>
 			</div>
 		</footer>
+
+        <div class="modal fade" id="prazoModal" tabindex="-1" aria-labelledby="prazoModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="prazoModalLabel">Novo Prazo</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{route('riscos.prazo')}}" id="prazoForm" method="POST">
+                            @csrf
+                            <div class="mb-3">
+                                <label for="data" class="form-label">Data</label>
+                                <input type="date" class="form-control" id="data" name="data" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Salvar Prazo</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 		<script>
 			$(document).ready(function(){
