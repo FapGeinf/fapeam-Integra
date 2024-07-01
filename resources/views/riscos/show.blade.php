@@ -28,21 +28,21 @@
         <table class="table table-bordered mb-4">
           <thead>
             <tr>
-              <th scope="col" class="text-center text-light tBorder">N° Risco</th>
+              <th style="white-space: nowrap; width: 100px;" scope="col" class="text-center text-light tBorder">N° Risco</th>
               <th scope="col" class="text-center text-light tBorder">Evento:</th>
               <th scope="col" class="text-center text-light tBorder">Causa:</th>
               <th scope="col" class="text-center text-light tBorder">Consequência:</th>
-              <th scope="col" class="text-center text-light">Avaliação:</th>
+              <th style="width: 100px;" scope="col" class="text-center text-light">Avaliação:</th>
             </tr>
           </thead>
 
           <tbody>
             <tr>
-              <td class="text-center pb-5 tBorder">{!! $risco->riscoNum !!}</td>
-              <td class="text-center pb-5 tBorder">{!! $risco->riscoEvento !!}</td>
-              <td class="text-center pb-5 tBorder">{!! $risco->riscoCausa !!}</td>
-              <td class="text-center pb-5 tBorder">{!! $risco->riscoConsequencia !!}</td>
-              <td class="text-center pb-5">{!! $risco->riscoAvaliacao !!}</td>
+              <td class="text-center pb-3 tBorder">{!! $risco->riscoNum !!}</td>
+              <td class="text-center pb-3 tBorder">{!! $risco->riscoEvento !!}</td>
+              <td class="text-center pb-3 tBorder">{!! $risco->riscoCausa !!}</td>
+              <td class="text-center pb-3 tBorder">{!! $risco->riscoConsequencia !!}</td>
+              <td class="text-center pb-3">{!! $risco->riscoAvaliacao !!}</td>
             </tr>
           </tbody>
         </table>
@@ -64,17 +64,17 @@
           <tbody>
             @foreach ($risco->monitoramentos as $monitoramento)
             <tr>
-                <td class="text-center pb-5 tBorder">{!! $monitoramento->monitoramentoControleSugerido !!}</td>
-                <td class="text-center pb-5 tBorder">{!! $monitoramento->statusMonitoramento !!}</td>
-                <td class="text-center pb-5">{!! $monitoramento->execucaoMonitoramento !!}</td>
-                <td class="text-center pb-5">
-                    {{ \Carbon\Carbon::parse($monitoramento->inicioMonitoramento)->format('d/m/Y') }} -
-                    {{ $monitoramento->fimMonitoramento ? \Carbon\Carbon::parse($monitoramento->fimMonitoramento)->format('d/m/Y') : 'Contínuo' }}
+                <td class="text-center pb-3 tBorder">{!! $monitoramento->monitoramentoControleSugerido !!}</td>
+                <td style="white-space: nowrap;" class="text-center pb-3 tBorder">{!! $monitoramento->statusMonitoramento !!}</td>
+                <td class="text-center pb-3">{!! $monitoramento->execucaoMonitoramento !!}</td>
+                <td style="white-space: nowrap;" class="text-center pb-3">
+                  {{ \Carbon\Carbon::parse($monitoramento->inicioMonitoramento)->format('d/m/Y') }} -
+                  {{ $monitoramento->fimMonitoramento ? \Carbon\Carbon::parse($monitoramento->fimMonitoramento)->format('d/m/Y') : 'Contínuo' }}
                 </td>
                 @if(count($risco->monitoramentos) > 1)
-                    <td class="text-center">
-                        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modal-exclusao-{{ $monitoramento->id }}">Excluir</button>
-                    </td>
+                  <td class="text-center">
+                    <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modal-exclusao-{{ $monitoramento->id }}">Excluir</button>
+                  </td>
                 @endif
             </tr>
               </tr>
