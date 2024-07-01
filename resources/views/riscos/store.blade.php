@@ -12,6 +12,16 @@
 </head>
 
 <body>
+		<div class="error-message alertShow pt-4">
+    	@if($errors->any())
+      	<div class="alert alert-danger d-flex justify-content-center">
+        	@foreach ($errors->all() as $error )
+          	<span class="text-center">Houve um erro ao editar esse risco</span>
+        	@endforeach
+      	</div>
+    	@endif
+  	</div>
+
     <div class="container-xxl d-flex justify-content-center pt-5">
         <div class="col-12 col-md-8 col-lg-7 box-shadow pb-5">
 

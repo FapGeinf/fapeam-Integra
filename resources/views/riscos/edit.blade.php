@@ -19,6 +19,17 @@
     <script>alert('{{ session('error') }}');</script>
   @endif
 
+	<div class="error-message alertShow pt-4">
+    @if($errors->any())
+      <div class="alert alert-danger d-flex justify-content-center">
+        @foreach ($errors->all() as $error )
+          <span class="text-center">Houve um erro ao editar esse risco</span>
+        @endforeach
+      </div>
+    @endif
+  </div>
+
+
   <div class="form-wrapper pt-4">
     <div class="form_create">
       <h3 style="text-align: center; margin-bottom: 20px;">
