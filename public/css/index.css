@@ -191,7 +191,7 @@ p {
 
 .main-datatable .cust-datatable>tbody td {
   padding: 10px 15px 10px 18px;
-  color: #333232;
+  color: #000;
   font-size: 14px;
   font-weight: 500;
   word-break: break-word;
