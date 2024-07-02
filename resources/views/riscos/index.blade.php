@@ -39,13 +39,13 @@
 					<table id="tableHome" class="table cust-datatable">
 						<thead>
 							<tr>
-								<th>N° Risco</th>
+								<th style="width: 90px;">N° Risco</th>
 								<th>Responsável</th>
-								<th>Unidade</th>
+								<th style="width:90px;">Unidade</th>
 								<th style="white-space: nowrap;">Evento de Risco</th>
 								<th>Causa</th>
 								<th>Consequência</th>
-								<th style="width: 170px;">Avaliação</th>
+								<th style="width: 90px;">Avaliação</th>
 							</tr>
 						</thead>
 
@@ -53,11 +53,11 @@
 							@foreach ($riscos as $risco)
 									<tr style="cursor: pointer;" onclick="window.location='{{ route('riscos.show', $risco->id) }}';">
 										<td>{{$risco->riscoNum}}</td>
-										<td>{!!$risco->responsavelRisco!!}</td>
+										<td style="white-space: nowrap;">{!!$risco->responsavelRisco!!}</td>
 										<td>{!! $risco->unidade->unidadeNome !!}</td>
-										<td>{!! $risco->riscoEvento !!}</td>
-										<td>{!! $risco->riscoCausa !!}</td>
-										<td>{!! $risco->riscoConsequencia !!}</td>
+										<td>{!! Str::limit($risco->riscoEvento, 100) !!}</td>
+										<td>{!! Str::limit($risco->riscoCausa, 100) !!}</td>
+										<td>{!! Str::limit($risco->riscoConsequencia, 100) !!}</td>
 										<td>{!! $risco->riscoAvaliacao !!}</td>
 									</tr>
 							@endforeach
