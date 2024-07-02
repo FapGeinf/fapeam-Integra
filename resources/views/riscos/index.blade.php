@@ -59,7 +59,13 @@
                                     <td>{!! Str::limit($risco->riscoEvento, 100) !!}</td>
                                     <td>{!! Str::limit($risco->riscoCausa, 100) !!}</td>
                                     <td>{!! Str::limit($risco->riscoConsequencia, 100) !!}</td>
-                                    <td>{!! $risco->riscoAvaliacao !!}</td>
+                                    @if($risco->riscoAvaliacao<=3)
+                                    <td class = "bg-success">{!! $risco->riscoAvaliacao !!}</td>
+                                    @elseif ($risco->riscoAvaliacao <=14)
+                                    <td class = "bg-warning">{!! $risco->riscoAvaliacao !!}</td>
+                                    @else
+                                    <td class = "bg-danger">{!! $risco->riscoAvaliacao !!}</td>
+                                    @endif
                                     <td>{{ \Carbon\Carbon::parse($monitoramento->inicioMonitoramento)->format('d/m/Y') }}</td>
                                     <td>
                                         @if ($monitoramento->fimMonitoramento)
