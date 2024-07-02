@@ -17,7 +17,7 @@ class RiscoController extends Controller
     public function index()
     {
         try {
-            $riscos = Risco::all();
+            $riscos = Risco::with('monitoramentos')->get();
             $unidades = Unidade::all();
             $prazo = Prazo::latest()->first();
 

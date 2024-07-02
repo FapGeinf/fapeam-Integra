@@ -69,7 +69,6 @@
             </div>
           </div>
 
-          <!-- Adicionar campo hidden para isContinuo -->
         </div>
 
         <script>
