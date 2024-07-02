@@ -2,7 +2,7 @@
 
 @section('content')
 
-@section('title') {{ 'Editar Monitoramentos' }} @endsection
+@section('title', 'Editar Monitoramentos')
 
 <head>
   <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
@@ -11,7 +11,7 @@
 
 <div class="form-wrapper pt-4">
   <div class="form_create">
-    <h3 style="text-align: center; margin-bottom: 10px;"> Formulário de Monitoramentos</h3>
+    <h3 style="text-align: center; margin-bottom: 10px;">Formulário de Monitoramentos</h3>
 
     @if (session('error'))
       <script>
@@ -34,9 +34,7 @@
         <div class="monitoramento">
           <span class="numeration">Monitoramento Nº {{ $index + 1 }}</span>
 
-          <textarea name="monitoramentos[{{ $index }}][monitoramentoControleSugerido]" placeholder="Monitoramento" class="textInput" id="monitoramentoControleSugerido{{ $index }}">
-            {{ $monitoramento->monitoramentoControleSugerido }}
-          </textarea>
+          <textarea name="monitoramentos[{{ $index }}][monitoramentoControleSugerido]" placeholder="Monitoramento" class="textInput" id="monitoramentoControleSugerido{{ $index }}">{{ $monitoramento->monitoramentoControleSugerido }}</textarea>
 
           <label>Status do Monitoramento:</label>
           <select name="monitoramentos[{{ $index }}][statusMonitoramento]" class="textInput" id="statusMonitoramento{{ $index }}">
@@ -51,18 +49,27 @@
 
           <div class="row g-3">
             <div class="col-sm-12 col-md-6">
+              <label>Monitoramento Contínuo:</label>
+              <select name="monitoramentos[{{ $index }}][isContinuo]" class="form-select">
+                <option value="1" {{ $monitoramento->isContinuo == 1 ? 'selected' : '' }}>Sim</option>
+                <option value="0" {{ $monitoramento->isContinuo == 0 ? 'selected' : '' }}>Não</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row g-3">
+            <div class="col-sm-12 col-md-6">
               <label>Início do Monitoramento:</label>
               <input type="date" name="monitoramentos[{{ $index }}][inicioMonitoramento]" class="textInput dateInput" value="{{ $monitoramento->inicioMonitoramento }}">
             </div>
 
             <div class="col-sm-12 col-md-6 mQuery2">
               <label>Fim do Monitoramento:</label>
-              <input type="date" name="monitoramentos[{{ $index }}][fimMonitoramento]" class="textInput dateInput" value="{{ $monitoramento->fimMonitoramento }}">
+              <input type="date" name="monitoramentos[{{ $index }}][fimMonitoramento]" class="textInput dateInput" value="{{ $monitoramento->fimMonitoramento }}" {{ $monitoramento->isContinuo == 1 ? 'disabled' : '' }}>
             </div>
           </div>
 
           <!-- Adicionar campo hidden para isContinuo -->
-          <input type="hidden" name="monitoramentos[{{ $index }}][isContinuo]" id="isContinuo{{ $index }}" value="{{ ($monitoramento->fimMonitoramento) ? 'true' : 'false' }}">
         </div>
 
         <script>
@@ -126,17 +133,17 @@
     statusMonitoramento.id = `statusMonitoramento${cont}`;
 
     let options = [
-        { value: "NÃO IMPLEMENTADA", text: "NÃO IMPLEMENTADA" },
-        { value: "EM IMPLEMENTAÇÃO", text: "EM IMPLEMENTAÇÃO" },
-        { value: "IMPLEMENTADA PARCIALMENTE", text: "IMPLEMENTADA PARCIALMENTE" },
-        { value: "IMPLEMENTADA", text: "IMPLEMENTADA" }
+      { value: "NÃO IMPLEMENTADA", text: "NÃO IMPLEMENTADA" },
+      { value: "EM IMPLEMENTAÇÃO", text: "EM IMPLEMENTAÇÃO" },
+      { value: "IMPLEMENTADA PARCIALMENTE", text: "IMPLEMENTADA PARCIALMENTE" },
+      { value: "IMPLEMENTADA", text: "IMPLEMENTADA" }
     ];
 
     options.forEach(function(optionData) {
-        let option = document.createElement('option');
-        option.value = optionData.value;
-        option.text = optionData.text;
-        statusMonitoramento.appendChild(option);
+      let option = document.createElement('option');
+      option.value = optionData.value;
+      option.text = optionData.text;
+      statusMonitoramento.appendChild(option);
     });
 
     let execucaoMonitoramentoLabel = document.createElement('label');
@@ -169,18 +176,12 @@
     fimMonitoramento.type = 'date';
     fimMonitoramento.name = `monitoramentos[${cont}][fimMonitoramento]`;
     fimMonitoramento.classList.add('textInput', 'dateInput');
+    fimMonitoramento.disabled = true; // Inicialmente desabilitado
     colDiv2.appendChild(fimMonitoramentoLabel);
     colDiv2.appendChild(fimMonitoramento);
 
     rowDiv.appendChild(colDiv1);
     rowDiv.appendChild(colDiv2);
-
-    // Adicionar campo hidden para isContinuo
-    let isContinuoHidden = document.createElement('input');
-    isContinuoHidden.type = 'hidden';
-    isContinuoHidden.name = `monitoramentos[${cont}][isContinuo]`;
-    isContinuoHidden.id = `isContinuo${cont}`;
-    monitoramentoDiv.appendChild(isContinuoHidden);
 
     monitoramentoDiv.appendChild(controleSugerido);
     monitoramentoDiv.appendChild(statusMonitoramentoLabel);
@@ -188,6 +189,40 @@
     monitoramentoDiv.appendChild(execucaoMonitoramentoLabel);
     monitoramentoDiv.appendChild(execucaoMonitoramento);
     monitoramentoDiv.appendChild(rowDiv);
+
+    let divIsContinuo = document.createElement('div');
+    divIsContinuo.classList.add('form-group');
+    monitoramentoDiv.appendChild(divIsContinuo);
+
+    let labelIsContinuo = document.createElement('label');
+    labelIsContinuo.textContent = 'Monitoramento Contínuo:';
+    divIsContinuo.appendChild(labelIsContinuo);
+
+    let selectIsContinuo = document.createElement('select');
+    selectIsContinuo.name = `monitoramentos[${cont}][isContinuo]`;
+    selectIsContinuo.classList.add('form-select');
+
+    let optionSim = document.createElement('option');
+    optionSim.value = 1;
+    optionSim.textContent = 'Sim';
+    selectIsContinuo.appendChild(optionSim);
+
+    let optionNao = document.createElement('option');
+    optionNao.value = 0;
+    optionNao.textContent = 'Não';
+    selectIsContinuo.appendChild(optionNao);
+
+    selectIsContinuo.addEventListener('change', function() {
+      if (this.value == 1) {
+        fimMonitoramento.disabled = true;
+        fimMonitoramento.value = '';
+      } else {
+        fimMonitoramento.disabled = false;
+      }
+    });
+
+    divIsContinuo.appendChild(selectIsContinuo);
+
     monitoramentosDiv.appendChild(monitoramentoDiv);
 
     CKEDITOR.replace(`monitoramentoControleSugerido${cont}`);
@@ -212,6 +247,6 @@
     CKEDITOR.replace(`monitoramentoControleSugerido{{ $index }}`);
     CKEDITOR.replace(`execucaoMonitoramento{{ $index }}`);
   @endforeach
-
 </script>
+
 @endsection

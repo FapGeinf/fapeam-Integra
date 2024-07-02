@@ -37,7 +37,7 @@
 </div>
 
 
-{{-- 
+{{--
 <h2 class="text-center mb-4 mt-5">Respostas do Risco: {{ $risco->id }}</h2>
 <div id="respostasDiv" class="mb-4">
   <div class="table-responsive-md">
@@ -66,7 +66,7 @@
 </div> --}}
 
 <div class="modal fade" id="respostaModal" tabindex="-1" aria-labelledby="respostaModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="respostaModalLabel">Adicionar Resposta</h5>
@@ -113,7 +113,7 @@
 
     let deleteButton = document.createElement('button');
     deleteButton.type = 'button';
-    deleteButton.classList.add('btn', 'btn-danger', 'btn-sm', 'mt-1');
+    deleteButton.classList.add('btn', 'btn-danger', 'btn-sm', 'mt-2');
     deleteButton.innerText = 'Excluir Resposta';
     deleteButton.onclick = function () {
       removeRespostaField(fieldGroup);

@@ -25,11 +25,15 @@
 				<div id="newRiskButtonDiv" class="buttonNewRisk">
 					@if (Auth::user()->unidade->unidadeTipoFK == 1)
 						<a href="{{route('riscos.create')}}" class=""><i class="bi bi-plus-lg"></i> Novo Risco</a>
-                        <button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#prazoModal">
+                        <button type="button" class="btn btn-primary ml-2" data-bs-toggle="modal" data-bs-target="#prazoModal">
                             <i class="bi bi-plus-lg"></i> inserir Prazo
                         </button>
 					@endif
+                    <p class="btn btn-secondary" id="prazo">Prazo Final: {{ \Carbon\Carbon::parse($prazo)->format('d/m/Y') }}</p>
 				</div>
+
+
+
 			</div>
 				<div class="container-fluid">
 					<table id="tableHome" class="table cust-datatable">
@@ -74,7 +78,7 @@
 		</footer>
 
         <div class="modal fade" id="prazoModal" tabindex="-1" aria-labelledby="prazoModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="prazoModalLabel">Novo Prazo</h5>

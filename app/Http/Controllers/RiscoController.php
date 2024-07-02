@@ -89,6 +89,7 @@ class RiscoController extends Controller
                     'execucaoMonitoramento' => $monitoramentoData['execucaoMonitoramento'],
                     'inicioMonitoramento' => $monitoramentoData['inicioMonitoramento'],
                     'fimMonitoramento' => $monitoramentoData['fimMonitoramento'] ?? null,
+                    'isContinuo' => $monitoramentoData['isContinuo'],
                     'riscoFK' => $risco->id
                 ]);
             }
@@ -148,7 +149,7 @@ class RiscoController extends Controller
         return view('riscos.monitoramentos', compact('risco'));
     }
 
-    public function updateMonitoramentos(Request $request, $id)
+        public function updateMonitoramentos(Request $request, $id)
     {
         $risco = Risco::findOrFail($id);
 
@@ -160,7 +161,7 @@ class RiscoController extends Controller
                 'monitoramentos.*.statusMonitoramento' => 'required|string|max:255',
                 'monitoramentos.*.execucaoMonitoramento' => 'required|string|max:255',
                 'monitoramentos.*.inicioMonitoramento' => 'required|date',
-                'monitoramentos.*.fimMonitoramento' => 'nullable|date'
+                'monitoramentos.*.fimMonitoramento' => 'nullable|date',
             ]);
 
             $existingMonitoramentos = $risco->monitoramentos->keyBy('id');
@@ -169,29 +170,42 @@ class RiscoController extends Controller
                 if (isset($monitoramentoData['id'])) {
                     if ($existingMonitoramentos->has($monitoramentoData['id'])) {
                         $monitoramento = $existingMonitoramentos->get($monitoramentoData['id']);
+
+                        // Verifica se isContinuo é igual a 1 (Sim)
+                        if ($monitoramentoData['isContinuo'] == 1) {
+                            $monitoramentoData['fimMonitoramento'] = null; // Define fimMonitoramento como null
+                        }
+
                         $monitoramento->update([
                             'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
                             'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
                             'execucaoMonitoramento' => $monitoramentoData['execucaoMonitoramento'],
+                            'isContinuo' => $monitoramentoData['isContinuo'],
                             'inicioMonitoramento' => $monitoramentoData['inicioMonitoramento'],
-                            'fimMonitoramento' => $monitoramentoData['fimMonitoramento'] ?? null,
+                            'fimMonitoramento' => $monitoramentoData['fimMonitoramento'],
                         ]);
+
                         unset($existingMonitoramentos[$monitoramentoData['id']]);
                     } else {
                         throw new \Exception('Monitoramento não encontrado para atualização.');
                     }
                 } else {
-                    Monitoramento::create([
+                    // Cria um novo monitoramento
+                    $newMonitoramentoData = [
                         'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
                         'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
                         'execucaoMonitoramento' => $monitoramentoData['execucaoMonitoramento'],
+                        'isContinuo' => $monitoramentoData['isContinuo'],
                         'inicioMonitoramento' => $monitoramentoData['inicioMonitoramento'],
-                        'fimMonitoramento' => $monitoramentoData['fimMonitoramento'] ?? null,
+                        'fimMonitoramento' => $monitoramentoData['isContinuo'] == 1 ? null : $monitoramentoData['fimMonitoramento'], // Define fimMonitoramento como null se isContinuo for 1
                         'riscoFK' => $risco->id
-                    ]);
+                    ];
+
+                    Monitoramento::create($newMonitoramentoData);
                 }
             }
 
+            // Remove os monitoramentos restantes que não foram atualizados
             foreach ($existingMonitoramentos as $monitoramento) {
                 $monitoramento->delete();
             }
@@ -201,6 +215,8 @@ class RiscoController extends Controller
             throw new \Exception('Ocorreu um erro ao atualizar os monitoramentos do risco: ' . $e->getMessage());
         }
     }
+
+
 
 
 

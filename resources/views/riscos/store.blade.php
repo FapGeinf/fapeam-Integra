@@ -104,9 +104,9 @@
 
                 <div class="mt-3 text-end">
                   <input type="button" onclick="addMonitoramentos()" value="Adicionar Monitoramento" class="blue-btn">
-                  <input type="submit" value="Salvar" class="green-btn">  
+                  <input type="submit" value="Salvar" class="green-btn">
                 </div>
-                
+
 
                 <input type="hidden" id="isContinuoHidden" name="isContinuo" value="false">
             </form>
@@ -188,6 +188,31 @@
             execucaoMonitoramento.classList = 'form-control textInput';
             divExecucaoMonitoramento.appendChild(execucaoMonitoramento);
 
+            let divIsContinuo = document.createElement('div');
+            divIsContinuo.classList.add('form-group');
+            novoMonitoramento.appendChild(divIsContinuo);
+
+            let labelIsContinuo = document.createElement('label');
+            labelIsContinuo.textContent = 'Monitoramento Contínuo:';
+            divIsContinuo.appendChild(labelIsContinuo);
+
+            let selectIsContinuo = document.createElement('select');
+            selectIsContinuo.name = `monitoramentos[${cont}][isContinuo]`;
+            selectIsContinuo.classList.add('form-select');
+
+            let optionSim = document.createElement('option');
+            optionSim.value = 1;
+            optionSim.textContent = 'Sim';
+            selectIsContinuo.appendChild(optionSim);
+
+            let optionNao = document.createElement('option');
+            optionNao.value = 0;
+            optionNao.textContent = 'Não';
+            selectIsContinuo.appendChild(optionNao);
+
+            divIsContinuo.appendChild(selectIsContinuo);
+
+
             let divRow = document.createElement('div');
             divRow.classList = 'row g-3';
             novoMonitoramento.appendChild(divRow);
@@ -225,14 +250,17 @@
                 document.getElementById(`isContinuo${cont}`).value = isContinuoValue;
             });
 
-            let isContinuoHidden = document.createElement('input');
-            isContinuoHidden.type = 'hidden';
-            isContinuoHidden.name = `monitoramentos[${cont}][isContinuo]`;
-            isContinuoHidden.id = `isContinuo${cont}`;
-            isContinuoHidden.value = 'false';
-            novoMonitoramento.appendChild(isContinuoHidden);
-
             cont++;
+
+            selectIsContinuo.addEventListener('change', function() {
+                if (this.value == 1) { // Sim
+                    inputFimMonitoramento.value = '';
+                    inputFimMonitoramento.disabled = true;
+                } else { // Não
+                    inputFimMonitoramento.disabled = false;
+                }
+            });
+
         }
 
         function calculateRiscoAvaliacao() {
