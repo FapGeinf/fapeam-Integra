@@ -49,7 +49,7 @@ class RiscoController extends Controller
     {
         try {
             $request->validate([
-				'riscoNum' => 'required',
+                'riscoNum' => 'required',
                 'responsavelRisco' => 'required',
                 'riscoEvento' => 'required|string|max:9000',
                 'riscoCausa' => 'required|string|max:9000',
@@ -69,7 +69,7 @@ class RiscoController extends Controller
             $riscoAvaliacao = (int) ($request->probabilidade_risco * $request->impacto_risco);
 
             $risco = Risco::create([
-				'riscoNum' => $request->riscoNum,
+                'riscoNum' => $request->riscoNum,
                 'responsavelRisco' => $request->responsavelRisco,
                 'riscoEvento' => $request->riscoEvento,
                 'riscoCausa' => $request->riscoCausa,
@@ -114,7 +114,7 @@ class RiscoController extends Controller
 
         try {
             $request->validate([
-				'riscoNum' => 'required',
+                'riscoNum' => 'required',
                 'riscoEvento' => 'required|string|max:9000',
                 'riscoCausa' => 'required|string|max:9000',
                 'riscoConsequencia' => 'required|string|max:9000',
@@ -126,7 +126,7 @@ class RiscoController extends Controller
             $riscoAvaliacao = (int) ($request->probabilidade_risco * $request->impacto_risco);
 
             $risco->update([
-				'riscoNum' => $request->riscoNum,
+                'riscoNum' => $request->riscoNum,
                 'riscoEvento' => $request->riscoEvento,
                 'riscoCausa' => $request->riscoCausa,
                 'riscoConsequencia' => $request->riscoConsequencia,
@@ -149,7 +149,7 @@ class RiscoController extends Controller
         return view('riscos.monitoramentos', compact('risco'));
     }
 
-        public function updateMonitoramentos(Request $request, $id)
+    public function updateMonitoramentos(Request $request, $id)
     {
         $risco = Risco::findOrFail($id);
 
@@ -286,26 +286,31 @@ class RiscoController extends Controller
 
     public function insertPrazo(Request $request)
     {
-          try{
+        try {
+            $request->validate([
+                'data' => 'required|date'
+            ]);
 
-             $request->validate([
-                 'data' => 'required|date'
-             ]);
+            $prazoExistente = Prazo::first();
 
-             $novoPrazo = Prazo::create([
+            if ($prazoExistente) {
+                $prazoExistente->delete();
+            }
+
+            $novoPrazo = Prazo::create([
                 'data' => $request->data
-             ]);
+            ]);
 
-             if(!$novoPrazo){
-                return redirect()->back()->with('error','Erro ao inserir um Prazo');
-             }
+            if (!$novoPrazo) {
+                return redirect()->back()->with('error', 'Erro ao inserir um Prazo');
+            }
 
-             return redirect()->back()->with('success','Prazo Inserido com sucesso');
-
-          }catch(\Exception $e){
-            return redirect()->back()->with('error', 'Um erro ocorreu : ' . $e->getMessage());
-          }
+            return redirect()->back()->with('success', 'Prazo Inserido com sucesso');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Um erro ocorreu: ' . $e->getMessage());
+        }
     }
+
 
 
     public function __construct()
