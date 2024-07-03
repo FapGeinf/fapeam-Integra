@@ -51,17 +51,17 @@ class RiscoController extends Controller
             $request->validate([
 				'riscoNum' => 'required',
                 'responsavelRisco' => 'required',
-                'riscoEvento' => 'required|string|max:255',
-                'riscoCausa' => 'required|string|max:255',
-                'riscoConsequencia' => 'required|string|max:255',
+                'riscoEvento' => 'required|string|max:9000',
+                'riscoCausa' => 'required|string|max:9000',
+                'riscoConsequencia' => 'required|string|max:9000',
                 'riscoAno' => 'required',
                 'probabilidade_risco' => 'required|integer|min:1',
                 'impacto_risco' => 'required|integer|min:1',
                 'unidadeId' => 'required|exists:unidades,id',
                 'monitoramentos' => 'required|array|min:1',
-                'monitoramentos.*.monitoramentoControleSugerido' => 'required|string|max:255',
-                'monitoramentos.*.statusMonitoramento' => 'required|string|max:255',
-                'monitoramentos.*.execucaoMonitoramento' => 'required|string|max:255',
+                'monitoramentos.*.monitoramentoControleSugerido' => 'required|string|max:9000',
+                'monitoramentos.*.statusMonitoramento' => 'required|string',
+                'monitoramentos.*.execucaoMonitoramento' => 'required|string|max:9000',
                 'monitoramentos.*.inicioMonitoramento' => 'required',
                 'monitoramentos.*.fimMonitoramento' => 'nullable'
             ]);
@@ -115,9 +115,9 @@ class RiscoController extends Controller
         try {
             $request->validate([
 				'riscoNum' => 'required',
-                'riscoEvento' => 'required|string|max:255',
-                'riscoCausa' => 'required|string|max:255',
-                'riscoConsequencia' => 'required|string|max:255',
+                'riscoEvento' => 'required|string|max:9000',
+                'riscoCausa' => 'required|string|max:9000',
+                'riscoConsequencia' => 'required|string|max:9000',
                 'probabilidade_risco' => 'required|integer|min:1|max:5',
                 'impacto_risco' => 'required|integer|min:1|max:5',
                 'unidadeId' => 'required|exists:unidades,id',
@@ -157,9 +157,9 @@ class RiscoController extends Controller
             $request->validate([
                 'monitoramentos' => 'required|array',
                 'monitoramentos.*.id' => 'nullable|exists:monitoramentos,id',
-                'monitoramentos.*.monitoramentoControleSugerido' => 'required|string|max:255',
-                'monitoramentos.*.statusMonitoramento' => 'required|string|max:255',
-                'monitoramentos.*.execucaoMonitoramento' => 'required|string|max:255',
+                'monitoramentos.*.monitoramentoControleSugerido' => 'required|string|max:9000',
+                'monitoramentos.*.statusMonitoramento' => 'required|string|max:9000',
+                'monitoramentos.*.execucaoMonitoramento' => 'required|string|max:9000',
                 'monitoramentos.*.inicioMonitoramento' => 'required|date',
                 'monitoramentos.*.fimMonitoramento' => 'nullable|date',
             ]);
@@ -259,7 +259,7 @@ class RiscoController extends Controller
         try {
             $request->validate([
                 'respostas' => 'required|array|min:1',
-                'respostas.*.respostaRisco' => 'required|string|max:255',
+                'respostas.*.respostaRisco' => 'required|string|max:9000',
             ]);
 
             if (is_array($request->respostas)) {
