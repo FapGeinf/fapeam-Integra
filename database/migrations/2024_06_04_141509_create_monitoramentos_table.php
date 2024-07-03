@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('monitoramentos', function (Blueprint $table) {
             $table->id();
-            $table->string('monitoramentoControleSugerido');
+            $table->string('monitoramentoControleSugerido',4500);
             $table->string('statusMonitoramento');
-            $table->string('execucaoMonitoramento');
+            $table->string('execucaoMonitoramento',4500);
             $table->date('inicioMonitoramento');
             $table->date('fimMonitoramento')->nullable();
             $table->boolean('isContinuo')->nullable();

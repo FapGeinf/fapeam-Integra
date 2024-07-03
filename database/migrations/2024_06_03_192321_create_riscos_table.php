@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('riscoNum')->nullable();
             $table->string('responsavelRisco');
-            $table->string('riscoEvento');
-            $table->string('riscoCausa');
-            $table->string('riscoConsequencia');
+            $table->string('riscoEvento',4500);
+            $table->string('riscoCausa',4500);
+            $table->string('riscoConsequencia',4500);
             $table->integer('probabilidade_risco');
             $table->integer('impacto_risco');
             $table->integer('riscoAvaliacao');
