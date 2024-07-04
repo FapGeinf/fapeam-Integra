@@ -22,9 +22,9 @@
 				<script>alert('{{ session('error') }}')</script>
 			@endif
 			<div class="divPrazoGeral">
-				<div id="newRiskButtonDiv" class="blue-btn">
+				<div id="newRiskButtonDiv" class="green-btn">
 					@if (Auth::user()->unidade->unidadeTipoFK == 1)
-						<a href="{{route('riscos.create')}}" class="blue-btn"><i class="bi bi-plus-lg"></i> Novo Risco</a>
+						<a href="{{route('riscos.create')}}" class="green-btn"><i class="bi bi-plus-lg"></i> Novo Risco</a>
 					@endif
 				</div>
 
@@ -37,7 +37,7 @@
 
 				Hoje: <span id="spanRiskHoje">{{ $riscosAbertosHoje }}</span>
 				@if ($riscosAbertosHoje > 0)
-						<i class="bi bi-caret-up-fill" style="color: green"></i>
+						<i class="bi bi-caret-up-fill" style="color: #28a745"></i>
 				@else
 						<i class="bi bi-caret-down-fill" style="color: red"></i>
 				@endif

@@ -23,7 +23,7 @@ table, tr,th, td {
   justify-content: center;
   border-color : #b0b0b0;
   border-radius:  8px 0 0 0;
-  background-color: #2272b9;
+  background-color: #0056b3;
   padding: 3px;
 }
 
@@ -66,10 +66,16 @@ table, tr,th, td {
 }
 
 .warningRisks {
-  color: #000;
-  background-color: #0062ca;
+  color: #fff;
+  padding: 8px;
+  padding-top: 4px;
+  padding-bottom: 7px;
+  padding-left: 10px;
+  font-size: 17px;
   font-weight: bold;
-  font-size: 18px;
+  margin-left: 180px;
+  border-radius: 12px;
+  background-color: #0056b3;
 }
 
 #spanRisk {
@@ -133,7 +139,8 @@ table, tr,th, td {
   border: none;
   padding: 8px;
   border-radius: 4px;
-  background-color: #117a31;
+  transition: .2s;
+  background-color: #28a745;
 }
 
 .btnInserirPrazo:hover {
