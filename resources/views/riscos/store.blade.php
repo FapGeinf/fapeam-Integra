@@ -272,9 +272,11 @@
             selectIsContinuo.addEventListener('change', function() {
                 if (this.value == 1) {
                     inputFimMonitoramento.value = '';
-                    inputFimMonitoramento.disabled = true;
-                } else {
-                    inputFimMonitoramento.disabled = false;
+                    inputFimMonitoramento.hidden = true;
+                    labelFimMonitoramento.hidden = true;
+                } else if(this.value == 0) {
+                    labelFimMonitoramento.hidden = false;
+                    inputFimMonitoramento.hidden = false;
                 }
             });
 
