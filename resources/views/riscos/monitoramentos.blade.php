@@ -211,14 +211,21 @@
     optionNao.textContent = 'Não';
     selectIsContinuo.appendChild(optionNao);
 
+
+    let inputFimMonitoramento = fimMonitoramento;
+    let labelFimMonitoramento = fimMonitoramentoLabel;
+
     selectIsContinuo.addEventListener('change', function() {
-      if (this.value == 1) {
-        fimMonitoramento.disabled = true;
-        fimMonitoramento.value = '';
-      } else {
-        fimMonitoramento.disabled = false;
-      }
-    });
+            if (this.value == 1) {
+                    inputFimMonitoramento.value = '';
+                    inputFimMonitoramento.hidden = true;
+                    labelFimMonitoramento.hidden = true;
+            } else if(this.value == 0) {
+                    labelFimMonitoramento.hidden = false;
+                    inputFimMonitoramento.hidden = false;
+            }
+     });
+
 
     divIsContinuo.appendChild(selectIsContinuo);
 
@@ -246,6 +253,8 @@
     CKEDITOR.replace(`monitoramentoControleSugerido{{ $index }}`);
     CKEDITOR.replace(`execucaoMonitoramento{{ $index }}`);
   @endforeach
+
+
 </script>
 
 @endsection
