@@ -15,25 +15,31 @@
 </head>
 
 <body>
-		<div class="error-message alertShow pt-4">
-    	@if($errors->any())
-      	<div class="alert alert-danger d-flex justify-content-center">
-        	@foreach ($errors->all() as $error )
-             <p>{{$error}}</p>
-        	@endforeach
-      	</div>
-    	@endif
-  	</div>
+    <div class="error-message">
+        @if($errors->any())
+             <div class="alert alert-danger">
+                 <ul style="list-style-type:none;">
+                     @foreach ($errors->all() as $error )
+                         <li>{{$error}}</li>
+                     @endforeach
+                 </ul>
+             </div>
+         @endif
+     </div>
 
-    <div class="container-xxl d-flex justify-content-center pt-5">
-        <div class="col-12 col-md-8 col-lg-7 box-shadow pb-5">
+    {{-- <div class="container-xxl d-flex justify-content-center pt-5">
+        <div class="col-12 col-md-8 col-lg-7 box-shadow pb-5"> --}}
 
     <div class="form-wrapper pt-4">
         <div class="form_create">
             <h3 style="text-align: center; margin-bottom:20px;">
                 Novo Evento de Risco Inerente
             </h3>
-            <hr>
+            <hr class="hrStore">
+            <span class="tipWarning">
+                <i class="bi bi-exclamation-circle-fill"></i>
+                Aviso: <strong class="tipStrong">Todos</strong> os campos são obrigatórios
+              </span>
 
             <form action="{{ route('riscos.store') }}" method="post" id="formCreate">
                 @csrf
@@ -42,13 +48,13 @@
                     <div class="col-sm-4 col-md-3">
                         <label class="dataLim" for="riscoNum">N° do Risco:</label>
                         <div class="dateTime">
-                            <input type="text" name="riscoNum" id="" class="textInput form-control">
+                            <input type="text" name="riscoNum" id="" class="textInput form-control" placeholder="XXXX" required>
                         </div>
                     </div>
 
                     <div class="col-sm-4 col-md-3">
                         <label for="riscoAno">Insira o Ano:</label>
-                        <input type="text" id="riscoAno" name="riscoAno" class="form-control dataValue">
+                        <input type="text" id="riscoAno" name="riscoAno" class="form-control dataValue" placeholder="0000" required>
                     </div>
 
                     <div class="col-sm-4 col-md-6 selectUnidade">
@@ -63,8 +69,7 @@
                 </div>
 
                 <label class="dataLim" for="responsavel">Responsável:</label>
-                <input type="text" name="responsavelRisco" id="responsavel" class="textInput form-control"
-                    placeholder="Ex: Fulano da Silva Pompeo">
+                <input type="text" name="responsavelRisco" id="responsavel" class="textInput form-control" placeholder="Ex: Fulano da Silva Pompeo" required>
 
                 <label for="riscoEvento">Evento de Risco Inerente:</label>
                 <textarea id="riscoEvento" name="riscoEvento" class="textInput" required></textarea>
@@ -104,7 +109,7 @@
 
                 <div class="mt-3 text-end">
                   <input type="button" onclick="addMonitoramentos()" value="Adicionar Monitoramento" class="blue-btn">
-                  <input type="submit" value="Salvar" class="green-btn">
+                  <input type="submit" value="Salvar" class="green-btn green-btn-store">
                 </div>
 
 
@@ -201,7 +206,7 @@
             let execucaoMonitoramento = document.createElement('input');
             execucaoMonitoramento.type = 'text';
             execucaoMonitoramento.name = `monitoramentos[${cont}][execucaoMonitoramento]`;
-            execucaoMonitoramento.placeholder = 'Execução do Monitoramento';
+            execucaoMonitoramento.placeholder = '';
             execucaoMonitoramento.classList = 'form-control textInput';
             divExecucaoMonitoramento.appendChild(execucaoMonitoramento);
 

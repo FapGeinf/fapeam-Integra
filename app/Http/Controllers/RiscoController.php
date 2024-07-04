@@ -20,11 +20,18 @@ class RiscoController extends Controller
             $riscos = Risco::with('monitoramentos')->get();
             $unidades = Unidade::all();
             $prazo = Prazo::latest()->first();
+            // CONTADOR DE TODOS OS RISCOS
+            $riscosAbertos = $riscos->count();
+            // CONTA TODOS OS RISCOS DO DIA ATUAL
+            $riscosAbertosHoje = Risco::whereDate('created_at', \Carbon\Carbon::today())->count();
 
             return view('riscos.index', [
                 'riscos' => $riscos,
                 'unidades' => $unidades,
                 'prazo' => $prazo ? $prazo->data : null,
+                'riscosAbertos' => $riscosAbertos,
+                'riscosAbertosHoje' => $riscosAbertosHoje
+                
             ]);
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao carregar os riscos. Por favor, tente novamente.']);
