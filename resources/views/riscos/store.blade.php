@@ -19,7 +19,7 @@
     	@if($errors->any())
       	<div class="alert alert-danger d-flex justify-content-center">
         	@foreach ($errors->all() as $error )
-          	<span class="text-center">Houve um erro ao editar esse risco</span>
+             <p>{{$error}}</p>
         	@endforeach
       	</div>
     	@endif
@@ -110,6 +110,23 @@
 
                 <input type="hidden" id="isContinuoHidden" name="isContinuo" value="false">
             </form>
+        </div>
+    </div>
+
+    <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="alertModalLabel">Aviso</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Adicione pelo menos um monitoramento antes de enviar o formulário.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -253,10 +270,10 @@
             cont++;
 
             selectIsContinuo.addEventListener('change', function() {
-                if (this.value == 1) { // Sim
+                if (this.value == 1) {
                     inputFimMonitoramento.value = '';
                     inputFimMonitoramento.disabled = true;
-                } else { // Não
+                } else {
                     inputFimMonitoramento.disabled = false;
                 }
             });
@@ -269,6 +286,17 @@
             const avaliacao = probabilidade * impacto;
             document.getElementById('riscoAvaliacao').value = avaliacao;
         }
+
+        document.getElementById('formCreate').addEventListener('submit', function (event) {
+            let monitoramentosDiv = document.getElementById('monitoramentosDiv');
+            if (monitoramentosDiv.children.length === 0) {
+                event.preventDefault();
+                let alertModal = new bootstrap.Modal(document.getElementById('alertModal'));
+                alertModal.show();
+            }
+        });
+
+    </script>
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

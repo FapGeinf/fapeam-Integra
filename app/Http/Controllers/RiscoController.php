@@ -66,7 +66,16 @@ class RiscoController extends Controller
                 'monitoramentos.*.fimMonitoramento' => 'nullable'
             ]);
 
+
             $riscoAvaliacao = (int) ($request->probabilidade_risco * $request->impacto_risco);
+
+            $numriscoExistente = Risco::where('riscoNum', $request->riscoNum)
+            ->where('unidadeId', $request->unidadeId)
+            ->exists();
+
+            if ($numriscoExistente) {
+                return redirect()->back()->withErrors(['errors' => 'Número de risco já existe para essa unidade.']);
+            }
 
             $risco = Risco::create([
                 'riscoNum' => $request->riscoNum,
@@ -82,8 +91,10 @@ class RiscoController extends Controller
                 'userIdRisco' => auth()->id()
             ]);
 
+
+
             foreach ($request->monitoramentos as $monitoramentoData) {
-                Monitoramento::create([
+               $novoMonitoramento = Monitoramento::create([
                     'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
                     'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
                     'execucaoMonitoramento' => $monitoramentoData['execucaoMonitoramento'],
@@ -92,6 +103,10 @@ class RiscoController extends Controller
                     'isContinuo' => $monitoramentoData['isContinuo'],
                     'riscoFK' => $risco->id
                 ]);
+
+                if (!$novoMonitoramento) {
+                    return redirect()->back()->withErrors(['errors' => 'É necessário criar pelo menos um monitoramento.']);
+                }
             }
 
             return redirect()->route('riscos.index')->with('success', 'Risco criado com sucesso!');
@@ -124,6 +139,14 @@ class RiscoController extends Controller
             ]);
 
             $riscoAvaliacao = (int) ($request->probabilidade_risco * $request->impacto_risco);
+
+            $numriscoExistente = Risco::where('riscoNum', $request->riscoNum)
+            ->where('unidadeId', $request->unidadeId)
+            ->exists();
+
+            if ($numriscoExistente) {
+                return redirect()->back()->withErrors(['errors' => 'Número de risco já existe para essa unidade.']);
+            }
 
             $risco->update([
                 'riscoNum' => $request->riscoNum,
