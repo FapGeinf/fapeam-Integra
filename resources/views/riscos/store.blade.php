@@ -269,6 +269,7 @@
 
             cont++;
 
+            //evento pra controlar a exibição do input de data fimMonitoramento
             selectIsContinuo.addEventListener('change', function() {
                 if (this.value == 1) {
                     inputFimMonitoramento.value = '';
