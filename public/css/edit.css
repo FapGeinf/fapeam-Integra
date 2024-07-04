@@ -20,6 +20,11 @@ hr {
   width: 40%;
 }
 
+.hrStore {
+  padding: 0;
+  margin-bottom: 3px;
+}
+
 #hr2 {
   width: 70%;
   margin-bottom: 1rem;
@@ -54,6 +59,27 @@ hr {
 /* EDITOR DE TEXTO */
 .cke_top {
   background: #f8fafc;
+}
+
+.tipWarning {
+  margin: 0;
+  padding: 0;
+  color: #555555;
+  display: flex;
+  font-size: 11px;
+  font-style: italic;
+  justify-content: center;
+}
+
+.tipWarning i {
+  margin-right: 2px;
+  color: #bd4561;
+  line-height: 16px;
+}
+
+.tipStrong {
+  margin-left: 2px;
+  margin-right: 2px;
 }
 
 .buttons {
@@ -211,6 +237,10 @@ hr {
   font-size: 14px;
   margin-right: 10px;
   transition: background-color 0.3s;
+}
+
+.green-btn-store {
+  margin-right: 0;
 }
 
 
