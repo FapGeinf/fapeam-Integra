@@ -66,7 +66,7 @@
 						<tr>
 							<th style="width: 90px;">N° Risco</th>
 							<th>Responsável</th>
-							<th style="width: 90px;">Unidade</th>
+							<th style="white-space:nowrap;">Unidade</th>
 							<th style="white-space: nowrap;">Evento de Risco</th>
 							<th>Causa</th>
 							<th>Consequência</th>
@@ -82,16 +82,16 @@
 								<tr style="cursor: pointer;" onclick="window.location='{{ route('riscos.show', $risco->id) }}';">
 									<td>{{ $risco->riscoNum }}</td>
 									<td style="white-space: nowrap;">{!! $risco->responsavelRisco !!}</td>
-									<td>{!! $risco->unidade->unidadeNome !!}</td>
-									<td>{!! Str::limit($risco->riscoEvento, 100) !!}</td>
-									<td>{!! Str::limit($risco->riscoCausa, 100) !!}</td>
-									<td>{!! Str::limit($risco->riscoConsequencia, 100) !!}</td>
+									<td style="white-space: nowrap;">{!! $risco->unidade->unidadeNome !!}</td>
+									<td>{!! Str::limit($risco->riscoEvento, 80) !!}</td>
+									<td>{!! Str::limit($risco->riscoCausa, 80) !!}</td>
+									<td>{!! Str::limit($risco->riscoConsequencia, 80) !!}</td>
 									@if($risco->riscoAvaliacao<=3)
-									<td class = "bg-success">{!! $risco->riscoAvaliacao !!}</td>
+									<td class = "mode bg-baixo riscoAvaliacao">{!! $risco->riscoAvaliacao !!}</td>
 									@elseif ($risco->riscoAvaliacao <=14)
-									<td class = "bg-warning">{!! $risco->riscoAvaliacao !!}</td>
+									<td class = "mode bg-medio riscoAvaliacao">{!! $risco->riscoAvaliacao !!}</td>
 									@else
-									<td class = "bg-danger">{!! $risco->riscoAvaliacao !!}</td>
+									<td class = "mode bg-alto riscoAvaliacao">{!! $risco->riscoAvaliacao !!}</td>
 									@endif
 									<td>{{ \Carbon\Carbon::parse($monitoramento->inicioMonitoramento)->format('d/m/Y') }}</td>
 									<td>
@@ -113,9 +113,9 @@
 	<footer class="rodape">
 		<div class="riskLevelDiv">
 			<span>Nível de Risco (Avaliação):</span>
-			<span class="riskLevel1">Baixo</span>
-			<span class="riskLevel2">Médio</span>
-			<span class="riskLevel3">Alto</span>
+			<span class="mode riskLevel1">Baixo</span>
+			<span class="mode riskLevel2">Médio</span>
+			<span class="mode riskLevel3">Alto</span>
 		</div>
 	</footer>
 

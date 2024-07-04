@@ -15,7 +15,6 @@ table, tr,th, td {
 }
 
 .prazoGeral {
-  /* width: 10%; */
   color: #fff;
   line-height: 35px;
   margin-left: 10px;
@@ -97,7 +96,7 @@ table, tr,th, td {
 }
 
 .divContainer {
-  margin-top: .5rem;
+  margin-top: 1.5rem;
   margin-bottom: -.5rem;
 }
 
@@ -191,7 +190,7 @@ thead tr th {
   text-align: center;
 }
 
-#tableHome tbody tr:hover td {
+#tableHome tbody tr:hover td:not(.riscoAvaliacao) {
   background-color: #ececec !important;
 }
 
@@ -345,37 +344,72 @@ table.dataTable thead th, table.dataTable thead td {
 
 /* FOOTER */
 
+.mode {
+  padding: 4px 10px;
+  line-height: 13px;
+  color: #fff;
+  font-weight: 400;
+  border-radius: .3rem;
+  -webkit-border-radius: .3rem;
+  -moz-border-radius: .3rem;
+  -ms-border-radius: .3rem;
+  -o-border-radius: .3rem;
+  font-size: 11px;
+  letter-spacing: 0.4px;
+}
+
+.riskLevel1 {
+  color: #006b21;
+  background-color: #86e49d;
+}
+
+.riskLevel2 {
+  color: #24170c;
+  background-color: #ff851b;
+}
+
+.riskLevel3 {
+  color: #bb2440;
+  background-color: #d893a3;
+}
+
+.replied{
+  color: #70c8e6;
+  background-color: #125e8a;
+}
+
 .rodape {
+  cursor: default;
   position: fixed;
   bottom: 0;
   width: 100%;
   border-top: 1px solid #ccc;
-  /* border-bottom: 1px solid #000; */
   display: flex;
   justify-content: center;
   background-color: #fff;
+  padding-top: 3px;
+  padding-bottom: 4px;
 }
 
 .riskLevelDiv {
-  font-size: 15px;
+  cursor: default;
+  font-size: 12px;
 }
 
-.riskLevel1 {
- color: green;
- font-weight: bold;
- margin-left: .5rem;
- margin-right: 1rem;
+.bg-baixo {
+  color: #006b21 !important;
+  background-color: #86e49d !important;
 }
 
-.riskLevel2 {
-  color: #ff851b;
-  font-weight: bold;
-  margin-right: 1rem;
+.bg-medio {
+  color: #24170c !important;
+  background-color: #ff851b !important;
 }
 
-.riskLevel3 {
-  color: red;
-  font-weight: bold;
+.bg-alto {
+  color: #bb2440 !important;
+  background-color: #d893a3 !important;
 }
+
 
 /* END FOOTER */
