@@ -17,21 +17,31 @@ class RiscoController extends Controller
     public function index()
     {
         try {
-            $riscos = Risco::with('monitoramentos')->get();
-            $unidades = Unidade::all();
+            $user = auth()->user();
             $prazo = Prazo::latest()->first();
-            // CONTADOR DE TODOS OS RISCOS
+
+            if ($user->unidade->unidadeTipoFK == 1) {
+                // Caso o usuário seja de um tipo de unidade igual a 1
+                $riscos = Risco::all();
+                $monitoramentos = Monitoramento::all();
+            } else {
+                // Caso o usuário seja de um tipo de unidade diferente de 1
+                $riscos = Risco::where('unidadeId', $user->unidade->unidadeTipoFK)->get();
+                $monitoramentos = Monitoramento::whereIn('riscoFK', $riscos->pluck('id'))->get();
+            }
+
+            // Contagem de todos os riscos
             $riscosAbertos = $riscos->count();
-            // CONTA TODOS OS RISCOS DO DIA ATUAL
+
+            // Contagem de todos os riscos do dia atual
             $riscosAbertosHoje = Risco::whereDate('created_at', \Carbon\Carbon::today())->count();
 
             return view('riscos.index', [
                 'riscos' => $riscos,
-                'unidades' => $unidades,
+                'monitoramentos' => $monitoramentos,
                 'prazo' => $prazo ? $prazo->data : null,
                 'riscosAbertos' => $riscosAbertos,
-                'riscosAbertosHoje' => $riscosAbertosHoje
-                
+                'riscosAbertosHoje' => $riscosAbertosHoje,
             ]);
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao carregar os riscos. Por favor, tente novamente.']);
@@ -77,8 +87,8 @@ class RiscoController extends Controller
             $riscoAvaliacao = (int) ($request->probabilidade_risco * $request->impacto_risco);
 
             $numriscoExistente = Risco::where('riscoNum', $request->riscoNum)
-            ->where('unidadeId', $request->unidadeId)
-            ->exists();
+                ->where('unidadeId', $request->unidadeId)
+                ->exists();
 
             if ($numriscoExistente) {
                 return redirect()->back()->withErrors(['errors' => 'Número de risco já existe para essa unidade.']);
@@ -101,7 +111,7 @@ class RiscoController extends Controller
 
 
             foreach ($request->monitoramentos as $monitoramentoData) {
-               $novoMonitoramento = Monitoramento::create([
+                $novoMonitoramento = Monitoramento::create([
                     'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
                     'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
                     'execucaoMonitoramento' => $monitoramentoData['execucaoMonitoramento'],
@@ -148,8 +158,8 @@ class RiscoController extends Controller
             $riscoAvaliacao = (int) ($request->probabilidade_risco * $request->impacto_risco);
 
             $numriscoExistente = Risco::where('riscoNum', $request->riscoNum)
-            ->where('unidadeId', $request->unidadeId)
-            ->exists();
+                ->where('unidadeId', $request->unidadeId)
+                ->exists();
 
             if ($numriscoExistente) {
                 return redirect()->back()->withErrors(['errors' => 'Número de risco já existe para essa unidade.']);
