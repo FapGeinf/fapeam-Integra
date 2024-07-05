@@ -42,7 +42,16 @@
               <td class="text-center pb-3 tBorder">{!! $risco->riscoEvento !!}</td>
               <td class="text-center pb-3 tBorder">{!! $risco->riscoCausa !!}</td>
               <td class="text-center pb-3 tBorder">{!! $risco->riscoConsequencia !!}</td>
-              <td class="text-center pb-3">{!! $risco->riscoAvaliacao !!}</td>
+
+              @if($risco->riscoAvaliacao<=3)
+									<td class = "mode bg-baixo text-center riscoAvaliacao">{!! $risco->riscoAvaliacao !!}</td>
+									@elseif ($risco->riscoAvaliacao <=14)
+									<td class = "mode bg-medio text-center riscoAvaliacao">{!! $risco->riscoAvaliacao !!}</td>
+									@else
+									<td class = "mode bg-alto text-center riscoAvaliacao">{!! $risco->riscoAvaliacao !!}</td>
+              @endif
+
+              {{-- <td class="text-center pb-3">{!! $risco->riscoAvaliacao !!}</td> --}}
             </tr>
           </tbody>
         </table>
@@ -116,6 +125,15 @@
       </div>
     </div>
   </div>
+
+  <footer class="rodape">
+		<div class="riskLevelDiv">
+			<span>Nível de Risco (Avaliação):</span>
+			<span class="mode riskLevel1">Baixo</span>
+			<span class="mode riskLevel2">Médio</span>
+			<span class="mode riskLevel3">Alto</span>
+		</div>
+	</footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>

@@ -57,11 +57,11 @@
 									<td>{!! Str::limit($risco->riscoCausa, 80) !!}</td>
 									<td>{!! Str::limit($risco->riscoConsequencia, 80) !!}</td>
 									@if($risco->riscoAvaliacao<=3)
-									<td class = "mode bg-baixo riscoAvaliacao">{!! $risco->riscoAvaliacao !!}</td>
+									<td class = "bg-baixo riscoAvaliacao">{!! $risco->riscoAvaliacao !!}</td>
 									@elseif ($risco->riscoAvaliacao <=14)
-									<td class = "mode bg-medio riscoAvaliacao">{!! $risco->riscoAvaliacao !!}</td>
+									<td class = "bg-medio riscoAvaliacao">{!! $risco->riscoAvaliacao !!}</td>
 									@else
-									<td class = "mode bg-alto riscoAvaliacao">{!! $risco->riscoAvaliacao !!}</td>
+									<td class = "bg-alto riscoAvaliacao">{!! $risco->riscoAvaliacao !!}</td>
 									@endif
 									<td>{{ \Carbon\Carbon::parse($monitoramento->inicioMonitoramento)->format('d/m/Y') }}</td>
 									<td>

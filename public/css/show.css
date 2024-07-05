@@ -140,3 +140,70 @@ a.btn-add:hover {
   margin-right: auto;
   padding-bottom: 3rem;
 }
+
+.bg-baixo {
+  color: #00000000 !important;
+  background-color: #86e49d !important;
+}
+
+.bg-medio {
+  color: #00000000 !important;
+  background-color: #fde164 !important;
+}
+
+.bg-alto {
+  color: #00000000 !important;
+  background-color: #bb2440 !important;
+}
+
+.mode {
+  padding: 4px 10px;
+  line-height: 13px;
+  color: #fff;
+  font-weight: 400;
+  border-radius: .3rem;
+  -webkit-border-radius: .3rem;
+  -moz-border-radius: .3rem;
+  -ms-border-radius: .3rem;
+  -o-border-radius: .3rem;
+  font-size: 11px;
+  letter-spacing: 0.4px;
+}
+
+.riskLevel1 {
+  color: #006b21;
+  background-color: #86e49d;
+}
+
+.riskLevel2 {
+  color: #24170c;
+  background-color: #fde164;
+}
+
+.riskLevel3 {
+  color: #24170c;
+  background-color: #bb2440;
+}
+
+.replied{
+  color: #70c8e6;
+  background-color: #125e8a;
+}
+
+.rodape {
+  cursor: default;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  border-top: 1px solid #ccc;
+  display: flex;
+  justify-content: center;
+  background-color: #fff;
+  padding-top: 3px;
+  padding-bottom: 4px;
+}
+
+.riskLevelDiv {
+  cursor: default;
+  font-size: 12px;
+}

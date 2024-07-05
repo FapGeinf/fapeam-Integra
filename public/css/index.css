@@ -372,12 +372,12 @@ table.dataTable thead th, table.dataTable thead td {
 
 .riskLevel2 {
   color: #24170c;
-  background-color: #ff851b;
+  background-color: #fde164;
 }
 
 .riskLevel3 {
-  color: #bb2440;
-  background-color: #d893a3;
+  color: #24170c;
+  background-color: #bb2440;
 }
 
 .replied{
@@ -404,19 +404,17 @@ table.dataTable thead th, table.dataTable thead td {
 }
 
 .bg-baixo {
-  color: #006b21 !important;
+  color: #00000000 !important;
   background-color: #86e49d !important;
 }
 
 .bg-medio {
-  color: #24170c !important;
+  color: #00000000 !important;
   background-color: #fde164 !important;
 }
 
 .bg-alto {
-  color: #bb2440 !important;
-  background-color: #d893a3 !important;
+  color: #00000000 !important;
+  background-color: #bb2440 !important;
 }
-
-
 /* END FOOTER */
