@@ -50,7 +50,7 @@
 						@foreach ($riscos as $risco)
 							@foreach ($risco->monitoramentos as $monitoramento)
 								<tr style="cursor: pointer;" onclick="window.location='{{ route('riscos.show', $risco->id) }}';">
-									<td style="white-space:nowrap;">{{ $risco->riscoNum }}</td>
+									<td style="white-space:nowrap;">{{ $risco->id }}</td>
 									<td style="white-space: nowrap;">{!! $risco->responsavelRisco !!}</td>
 									<td style="word-wrap:break-word;">{!! $risco->unidade->unidadeNome !!}</td>
 									<td>{!! Str::limit($risco->riscoEvento, 80) !!}</td>
