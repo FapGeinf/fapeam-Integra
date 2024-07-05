@@ -43,13 +43,13 @@
               <td class="text-center pb-3 tBorder">{!! $risco->riscoCausa !!}</td>
               <td class="text-center pb-3 tBorder">{!! $risco->riscoConsequencia !!}</td>
 
-              @if($risco->riscoAvaliacao<=3)
-									<td class = "mode bg-baixo text-center riscoAvaliacao">{!! $risco->riscoAvaliacao !!}</td>
-									@elseif ($risco->riscoAvaliacao <=14)
-									<td class = "mode bg-medio text-center riscoAvaliacao">{!! $risco->riscoAvaliacao !!}</td>
-									@else
-									<td class = "mode bg-alto text-center riscoAvaliacao">{!! $risco->riscoAvaliacao !!}</td>
-              @endif
+              @if($risco->nivel_de_risco==1)
+                <td class = "mode bg-baixo riscoAvaliacao">{!! $risco->nivel_de_risco !!}</td>
+                  @elseif ($risco->nivel_de_risco == 2)
+                <td class = "mode bg-medio riscoAvaliacao">{!! $risco->nivel_de_risco !!}</td>
+                  @else
+                <td class = "mode bg-alto riscoAvaliacao">{!! $risco->nivel_de_risco !!}</td>
+							@endif
 
               {{-- <td class="text-center pb-3">{!! $risco->riscoAvaliacao !!}</td> --}}
             </tr>
