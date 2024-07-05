@@ -136,11 +136,13 @@ class RiscoController extends Controller
 
     public function update(Request $request, $id)
     {
-        $risco = Risco::findOrFail($id);
-
         try {
+            $risco = Risco::findOrFail($id);
+
+            // Verifica se o número de risco já existe para essa unidade, excluindo o próprio risco atual
             $numriscoExistente = Risco::where('riscoNum', $request->riscoNum)
                 ->where('unidadeId', $request->unidadeId)
+                ->where('id', '!=', $id)
                 ->exists();
 
             if ($numriscoExistente) {
@@ -159,7 +161,7 @@ class RiscoController extends Controller
 
             return redirect()->route('riscos.show', ['id' => $risco->id])->with('success', 'Risco editado com sucesso');
         } catch (\Exception $e) {
-            throw new \Exception('Ocorreu um erro ao atualizar o risco.');
+            return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao atualizar o risco. Detalhes: ' . $e->getMessage()]);
         }
     }
 
