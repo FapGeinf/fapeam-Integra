@@ -17,45 +17,15 @@
 
 	<div class="container-fluid p-30">
 
-		<div class="divButtonNewRisk">
-			@if(session('error'))
-				<script>alert('{{ session('error') }}')</script>
+		<div id="newRiskButtonDiv" class="d-flex">
+			@if (Auth::user()->unidade->unidadeTipoFK == 1)
+			<a href="{{route('riscos.create')}}" class="blue-btn me-2"><i class="bi bi-plus-lg"></i> Novo Risco</a>
+
+			<button type="button" class="green-btn me-2" data-bs-toggle="modal" data-bs-target="#prazoModal">
+				<i class="bi bi-plus-lg"></i> inserir Prazo
+			</button>
 			@endif
-			<div class="divPrazoGeral">
-				<div id="newRiskButtonDiv" class="green-btn">
-					@if (Auth::user()->unidade->unidadeTipoFK == 1)
-						<a href="{{route('riscos.create')}}" class="green-btn"><i class="bi bi-plus-lg"></i> Novo Risco</a>
-					@endif
-				</div>
-
-			<div></div>
-
-			<div class="warningRisks">
-				Riscos Abertos: <span id="spanRisk">{{ $riscosAbertos }} </span>
-
-				/
-
-				Hoje: <span id="spanRiskHoje">{{ $riscosAbertosHoje }}</span>
-				@if ($riscosAbertosHoje > 0)
-						<i class="bi bi-caret-up-fill" style="color: #28a745"></i>
-				@else
-						<i class="bi bi-caret-down-fill" style="color: red"></i>
-				@endif
-		</div>
-
-
-			<div>
-				<button type="button" class="btnInserirPrazo" data-bs-toggle="modal" data-bs-target="#prazoModal">
-					<i class="bi bi-calendar2-plus-fill"></i>
-				</button>
-
-				<p class="prazoGeral" id="prazo">
-					<span id="spanPrazoGeral">Prazo Final: {{ \Carbon\Carbon::parse($prazo)->format('d/m/Y') }}</span>
-				</p>
-			</div>
-		</div>
-
-
+				<p class="spanThatLooksLikeABtn" id="prazo">Prazo Final: {{ \Carbon\Carbon::parse($prazo)->format('d/m/Y') }}</p>
 		</div>
 
 		<div class="col-12 main-datatable">
@@ -71,8 +41,8 @@
 							<th>Causa</th>
 							<th>Consequência</th>
 							<th style="width: 90px;">Avaliação</th>
-							<th>Início Monitoramento</th>
-							<th>Fim Monitoramento</th>
+							<th style="word-wrap: break-word;">Início Monitoramento</th>
+							<th style="word-wrap: break-word;">Fim Monitoramento</th>
 						</tr>
 					</thead>
 
@@ -82,7 +52,7 @@
 								<tr style="cursor: pointer;" onclick="window.location='{{ route('riscos.show', $risco->id) }}';">
 									<td>{{ $risco->riscoNum }}</td>
 									<td style="white-space: nowrap;">{!! $risco->responsavelRisco !!}</td>
-									<td style="white-space: nowrap;">{!! $risco->unidade->unidadeNome !!}</td>
+									<td style="word-wrap:break-word;">{!! $risco->unidade->unidadeNome !!}</td>
 									<td>{!! Str::limit($risco->riscoEvento, 80) !!}</td>
 									<td>{!! Str::limit($risco->riscoCausa, 80) !!}</td>
 									<td>{!! Str::limit($risco->riscoConsequencia, 80) !!}</td>
