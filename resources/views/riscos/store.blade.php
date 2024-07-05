@@ -82,26 +82,13 @@
 
                 <div class="row g-3">
                     <div class="col-sm-6 col-md-6">
-                        <label for="probabilidade_risco">Probabilidade de Risco:</label>
-                        <select name="probabilidade_risco" id="probabilidade_risco" required
-                            onchange="calculateRiscoAvaliacao()">
+                        <label for="nivel_de_risco">Nivel de Risco:</label>
+                        <select name="nivel_de_risco" id="nivel_de_risco" required>
                             <option value="1">Baixo</option>
-                            <option value="3">Médio</option>
-                            <option value="5">Alto</option>
+                            <option value="2">Médio</option>
+                            <option value="3">Alto</option>
                         </select>
                     </div>
-
-                    <div class="col-sm-6 col-md-6">
-                        <label for="impacto_risco">Impacto do Risco:</label>
-                        <select name="impacto_risco" id="impacto_risco" required onchange="calculateRiscoAvaliacao()">
-                            <option value="1">Baixo</option>
-                            <option value="3">Médio</option>
-                            <option value="5">Alto</option>
-                        </select>
-                    </div>
-                </div>
-
-                <input type="hidden" name="riscoAvaliacao" id="riscoAvaliacao">
 
                 <div id="monitoramentosDiv" class="monitoramento"></div>
 
@@ -113,7 +100,6 @@
                 </div>
 
 
-                <input type="hidden" id="isContinuoHidden" name="isContinuo" value="false">
             </form>
         </div>
     </div>
@@ -288,13 +274,6 @@
 
         }
 
-        function calculateRiscoAvaliacao() {
-            const probabilidade = document.getElementById('probabilidade_risco').value;
-            const impacto = document.getElementById('impacto_risco').value;
-            const avaliacao = probabilidade * impacto;
-            document.getElementById('riscoAvaliacao').value = avaliacao;
-        }
-
         document.getElementById('formCreate').addEventListener('submit', function (event) {
             let monitoramentosDiv = document.getElementById('monitoramentosDiv');
             if (monitoramentosDiv.children.length === 0) {
@@ -304,7 +283,6 @@
             }
         });
 
-    </script>
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

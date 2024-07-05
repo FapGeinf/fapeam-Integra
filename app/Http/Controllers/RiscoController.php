@@ -72,8 +72,7 @@ class RiscoController extends Controller
                 'riscoCausa' => 'required|string|max:9000',
                 'riscoConsequencia' => 'required|string|max:9000',
                 'riscoAno' => 'required',
-                'probabilidade_risco' => 'required|integer|min:1',
-                'impacto_risco' => 'required|integer|min:1',
+                'nivel_de_risco' => 'required|integer',
                 'unidadeId' => 'required|exists:unidades,id',
                 'monitoramentos' => 'required|array|min:1',
                 'monitoramentos.*.monitoramentoControleSugerido' => 'required|string|max:9000',
@@ -82,9 +81,6 @@ class RiscoController extends Controller
                 'monitoramentos.*.inicioMonitoramento' => 'required',
                 'monitoramentos.*.fimMonitoramento' => 'nullable'
             ]);
-
-
-            $riscoAvaliacao = (int) ($request->probabilidade_risco * $request->impacto_risco);
 
             $numriscoExistente = Risco::where('riscoNum', $request->riscoNum)
                 ->where('unidadeId', $request->unidadeId)
@@ -100,9 +96,7 @@ class RiscoController extends Controller
                 'riscoEvento' => $request->riscoEvento,
                 'riscoCausa' => $request->riscoCausa,
                 'riscoConsequencia' => $request->riscoConsequencia,
-                'probabilidade_risco' => $request->probabilidade_risco,
-                'impacto_risco' => $request->impacto_risco,
-                'riscoAvaliacao' => $riscoAvaliacao,
+                'nivel_de_risco' => $request->nivel_de_risco,
                 'unidadeId' => $request->unidadeId,
                 'riscoAno' => $request->riscoAno,
                 'userIdRisco' => auth()->id()
@@ -145,18 +139,6 @@ class RiscoController extends Controller
         $risco = Risco::findOrFail($id);
 
         try {
-            $request->validate([
-                'riscoNum' => 'required',
-                'riscoEvento' => 'required|string|max:9000',
-                'riscoCausa' => 'required|string|max:9000',
-                'riscoConsequencia' => 'required|string|max:9000',
-                'probabilidade_risco' => 'required|integer|min:1|max:5',
-                'impacto_risco' => 'required|integer|min:1|max:5',
-                'unidadeId' => 'required|exists:unidades,id',
-            ]);
-
-            $riscoAvaliacao = (int) ($request->probabilidade_risco * $request->impacto_risco);
-
             $numriscoExistente = Risco::where('riscoNum', $request->riscoNum)
                 ->where('unidadeId', $request->unidadeId)
                 ->exists();
@@ -170,9 +152,7 @@ class RiscoController extends Controller
                 'riscoEvento' => $request->riscoEvento,
                 'riscoCausa' => $request->riscoCausa,
                 'riscoConsequencia' => $request->riscoConsequencia,
-                'probabilidade_risco' => $request->probabilidade_risco,
-                'impacto_risco' => $request->impacto_risco,
-                'riscoAvaliacao' => $riscoAvaliacao,
+                'nivel_de_risco' => $request->nivel_de_risco,
                 'riscoAno' => $request->riscoAno,
                 'unidadeId' => $request->unidadeId,
             ]);

@@ -53,7 +53,7 @@
             <input type="text" id="responsavelRisco" name="responsavelRisco" class="form-control dataValue" value="{{$risco->responsavelRisco ?? old('responsavelRisco')}}">
           </div>
         </div>
-		    
+
 
         <label id="first" for="riscoEvento">Evento:</label>
         <textarea name="riscoEvento" class="textInput" required>{{ $risco->riscoEvento ?? old('riscoEvento') }}</textarea>
@@ -70,15 +70,15 @@
             <input type="text" id="riscoAno" name="riscoAno" class="form-control dataValue" value="{{$risco->riscoAno}}">
           </div>
 
-          <div class="col-sm-8 col-md-8 mQuery">
-            <label for="probabilidade_risco">Probabilidade de Risco:</label>
-            <select name="probabilidade_risco" id="probabilidade_risco" required onchange="calculateRiscoAvaliacao()">
-              <option value="1" {{ $risco->probabilidade_risco == 1 ? 'selected' : '' }}>Baixo</option>
-              <option value="3" {{ $risco->probabilidade_risco == 3 ? 'selected' : '' }}>Médio</option>
-              <option value="5" {{ $risco->probabilidade_risco == 5 ? 'selected' : '' }}>Alto</option>
-            </select>
-          </div>
-        </div>
+          <div class="row g-3">
+            <div class="col-sm-6 col-md-6">
+                <label for="nivel_de_risco">Nivel de Risco:</label>
+                <select name="nivel_de_risco" id="nivel_de_risco" required>
+                    <option value="1">Baixo</option>
+                    <option value="2">Médio</option>
+                    <option value="3">Alto</option>
+                </select>
+            </div>
 
         <div class="row g-3 mt-1">
           <div class="col-sm-8 col-md-8 mQuery">
@@ -91,17 +91,8 @@
           </select>
           </div>
 
-          <input type="hidden" name="riscoAvaliacao" id="riscoAvaliacao" value="{{ $risco->riscoAvaliacao }}">
-          
-          <div class="col-sm-4 col-md-4 mQuery">
-            <label style="white-space: nowrap" for="impacto_risco">Impacto do Risco:</label>
-            <select name="impacto_risco" id="impacto_risco" required onchange="calculateRiscoAvaliacao()">
-              <option value="1" {{ $risco->impacto_risco == 1 ? 'selected' : '' }}>Baixo</option>
-              <option value="3" {{ $risco->impacto_risco == 3 ? 'selected' : '' }}>Médio</option>
-              <option value="5" {{ $risco->impacto_risco == 5 ? 'selected' : '' }}>Alto</option>
-            </select>
-          </div>
-        </div>
+
+
 
         <hr id="hr4">
 
@@ -121,12 +112,6 @@
   </div>
 
   <script>
-    function calculateRiscoAvaliacao() {
-      const probabilidade = document.getElementById('probabilidade_risco').value;
-      const impacto = document.getElementById('impacto_risco').value;
-      const avaliacao = probabilidade * impacto;
-      document.getElementById('riscoAvaliacao').value = avaliacao;
-    }
 
     CKEDITOR.replace('riscoEvento');
     CKEDITOR.replace('riscoCausa');

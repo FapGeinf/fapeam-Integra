@@ -19,9 +19,7 @@ class Risco extends Model
         'riscoEvento',
         'riscoCausa',
         'riscoConsequencia',
-        'probabilidade_risco',
-        'impacto_risco',
-        'riscoAvaliacao',
+        'nivel_de_risco',
         'userIdRisco',
         'unidadeId',
         'riscoAno'

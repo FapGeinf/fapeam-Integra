@@ -29,7 +29,7 @@
 				</div>
 
 			<div></div>
-	
+
 			<div class="warningRisks">
 				Riscos Abertos: <span id="spanRisk">{{ $riscosAbertos }} </span>
 
@@ -42,19 +42,19 @@
 						<i class="bi bi-caret-down-fill" style="color: red"></i>
 				@endif
 		</div>
-		
-			
+
+
 			<div>
 				<button type="button" class="btnInserirPrazo" data-bs-toggle="modal" data-bs-target="#prazoModal">
 					<i class="bi bi-calendar2-plus-fill"></i>
 				</button>
 
 				<p class="prazoGeral" id="prazo">
-					<span id="spanPrazoGeral">Prazo Final: {{ \Carbon\Carbon::parse($prazo)->format('d/m/Y') }}</span> 
+					<span id="spanPrazoGeral">Prazo Final: {{ \Carbon\Carbon::parse($prazo)->format('d/m/Y') }}</span>
 				</p>
 			</div>
 		</div>
-		
+
 
 		</div>
 
@@ -86,12 +86,12 @@
 									<td>{!! Str::limit($risco->riscoEvento, 80) !!}</td>
 									<td>{!! Str::limit($risco->riscoCausa, 80) !!}</td>
 									<td>{!! Str::limit($risco->riscoConsequencia, 80) !!}</td>
-									@if($risco->riscoAvaliacao<=3)
-									<td class = "mode bg-baixo riscoAvaliacao">{!! $risco->riscoAvaliacao !!}</td>
-									@elseif ($risco->riscoAvaliacao <=14)
-									<td class = "mode bg-medio riscoAvaliacao">{!! $risco->riscoAvaliacao !!}</td>
+									@if($risco->nivel_de_risco==1)
+									<td class = "mode bg-baixo riscoAvaliacao">{!! $risco->nivel_de_risco !!}</td>
+									@elseif ($risco->nivel_de_risco == 2)
+									<td class = "mode bg-medio riscoAvaliacao">{!! $risco->nivel_de_risco !!}</td>
 									@else
-									<td class = "mode bg-alto riscoAvaliacao">{!! $risco->riscoAvaliacao !!}</td>
+									<td class = "mode bg-alto riscoAvaliacao">{!! $risco->nivel_de_risco !!}</td>
 									@endif
 									<td>{{ \Carbon\Carbon::parse($monitoramento->inicioMonitoramento)->format('d/m/Y') }}</td>
 									<td>
