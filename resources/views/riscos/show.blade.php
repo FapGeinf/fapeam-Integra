@@ -38,7 +38,7 @@
 
           <tbody>
             <tr>
-              <td class="text-center pb-3 tBorder">{!! $risco->riscoNum !!}</td>
+              <td class="text-center pb-3 tBorder">{!! $risco->id !!}</td>
               <td class="text-center pb-3 tBorder">{!! $risco->riscoEvento !!}</td>
               <td class="text-center pb-3 tBorder">{!! $risco->riscoCausa !!}</td>
               <td class="text-center pb-3 tBorder">{!! $risco->riscoConsequencia !!}</td>
@@ -72,7 +72,6 @@
 
           <tbody>
             @foreach ($risco->monitoramentos as $monitoramento)
-            <tr>
                 <td class="text-center pb-3 tBorder">{!! $monitoramento->monitoramentoControleSugerido !!}</td>
                 <td style="white-space: nowrap;" class="text-center pb-3 tBorder">{!! $monitoramento->statusMonitoramento !!}</td>
                 <td class="text-center pb-3">{!! $monitoramento->execucaoMonitoramento !!}</td>

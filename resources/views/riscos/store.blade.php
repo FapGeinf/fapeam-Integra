@@ -46,18 +46,11 @@
 
                 <div class="row g-3">
                     <div class="col-sm-4 col-md-3">
-                        <label class="dataLim" for="riscoNum">N° do Risco:</label>
-                        <div class="dateTime">
-                            <input type="text" name="riscoNum" id="" class="textInput form-control" placeholder="XXXX" required>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-4 col-md-3">
                         <label for="riscoAno">Insira o Ano:</label>
                         <input type="text" id="riscoAno" name="riscoAno" class="form-control dataValue" placeholder="0000" required>
                     </div>
 
-                    <div class="col-sm-4 col-md-6 selectUnidade">
+                    <div class="col-sm-4 col-md-9 selectUnidade">
                         <label for="unidadeId">Unidade:</label>
                         <select name="unidadeId" class="" required>
                             <option selected disabled>Selecione uma unidade</option>

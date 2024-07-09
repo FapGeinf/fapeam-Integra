@@ -55,7 +55,7 @@
           <textarea name="monitoramentos[{{ $index }}][execucaoMonitoramento]" placeholder="Execução do Monitoramento" class="textInput" id="execucaoMonitoramento{{ $index }}">{{ $monitoramento->execucaoMonitoramento }}</textarea>
 
           <div class="row g-3">
-            <div class="col-sm-12 col-md-6">
+            <div class="col-sm-12 col-md-12">
               <label>Monitoramento Contínuo:</label>
               <select name="monitoramentos[{{ $index }}][isContinuo]" class="form-select" id="isContinuo{{ $index }}">
                 <option value="1" {{ $monitoramento->isContinuo == 1 ? 'selected' : '' }}>Sim</option>
