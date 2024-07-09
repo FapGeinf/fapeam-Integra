@@ -178,9 +178,10 @@ a.btnSair {
 }
 
 .appContent {
-  margin-left: 3rem;
+  margin-left: 10.5rem;
   transition: margin-left 0.4s;
 }
+
 .conteudo{
   margin-top: 1rem;
   padding-left: 1px;
