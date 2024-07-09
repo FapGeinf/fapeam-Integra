@@ -27,31 +27,28 @@
          @endif
      </div>
 
-    {{-- <div class="container-xxl d-flex justify-content-center pt-5">
-        <div class="col-12 col-md-8 col-lg-7 box-shadow pb-5"> --}}
-
     <div class="form-wrapper pt-4">
         <div class="form_create">
-            <h3 style="text-align: center; margin-bottom:20px;">
+            <h3 style="text-align: center; margin-bottom:5px;">
                 Novo Evento de Risco Inerente
             </h3>
-            <hr class="hrStore">
-            <span class="tipWarning">
-                <i class="bi bi-exclamation-circle-fill"></i>
-                Aviso: <strong class="tipStrong">Todos</strong> os campos são obrigatórios
-              </span>
+
+            <span class="tipWarning mb-3">
+                <span class="asteriscoTop">*</span>
+                    Campos obrigatórios
+            </span>
 
             <form action="{{ route('riscos.store') }}" method="post" id="formCreate">
                 @csrf
 
                 <div class="row g-3">
                     <div class="col-sm-4 col-md-3">
-                        <label for="riscoAno">Insira o Ano:</label>
+                        <label for="riscoAno">Insira o Ano:<span class="asterisco">*</span></label>
                         <input type="text" id="riscoAno" name="riscoAno" class="form-control dataValue" placeholder="0000" required>
                     </div>
 
                     <div class="col-sm-4 col-md-9 selectUnidade">
-                        <label for="unidadeId">Unidade:</label>
+                        <label for="unidadeId">Unidade:<span class="asterisco">*</span></label>
                         <select name="unidadeId" class="" required>
                             <option selected disabled>Selecione uma unidade</option>
                             @foreach($unidades as $unidade)
@@ -61,27 +58,30 @@
                     </div>
                 </div>
 
-                <label class="dataLim" for="responsavel">Responsável:</label>
+                <label class="dataLim" for="responsavel">Responsável:<span class="asterisco">*</span></label>
                 <input type="text" name="responsavelRisco" id="responsavel" class="textInput form-control" placeholder="Ex: Fulano da Silva Pompeo" required>
 
-                <label for="riscoEvento">Evento de Risco Inerente:</label>
+                <label for="riscoEvento">Evento de Risco Inerente:<span class="asterisco">*</span></label>
                 <textarea id="riscoEvento" name="riscoEvento" class="textInput" required></textarea>
 
-                <label for="riscoCausa">Causa do Risco:</label>
+                <label for="riscoCausa">Causa do Risco:<span class="asterisco">*</span></label>
                 <textarea id="riscoCausa" name="riscoCausa" class="textInput" required></textarea>
 
-                <label for="riscoConsequencia">Causa da Consequência:</label>
+                <label for="riscoConsequencia">Causa da Consequência:<span class="asterisco">*</span></label>
                 <textarea id="riscoConsequencia" name="riscoConsequencia" class="textInput" required></textarea>
 
                 <div class="row g-3">
                     <div class="col-sm-6 col-md-6">
-                        <label for="nivel_de_risco">Nivel de Risco:</label>
+                        <label for="nivel_de_risco">Nivel de Risco:<span class="asterisco">*</span></label>
                         <select name="nivel_de_risco" id="nivel_de_risco" required>
                             <option value="1">Baixo</option>
                             <option value="2">Médio</option>
                             <option value="3">Alto</option>
                         </select>
                     </div>
+                </div>
+
+
 
                 <div id="monitoramentosDiv" class="monitoramento"></div>
 
@@ -124,11 +124,25 @@
         function addMonitoramentos() {
             let monitoramentosDiv = document.getElementById('monitoramentosDiv');
 
+            // Criando um contêiner para o monitoramento e seus elementos associados
+            let monitoramentoContainer = document.createElement('div');
+            monitoramentoContainer.classList.add('monitoramento-container');
+
+            // Adicionando o trecho de código solicitado
+            let novoEventoTitulo = document.createElement('h4');
+            novoEventoTitulo.style.textAlign = 'center';
+            novoEventoTitulo.style.marginTop = '1rem';
+            novoEventoTitulo.textContent = 'Novo Monitoramento';
+            monitoramentoContainer.appendChild(novoEventoTitulo);
+
+            let hrMonitoramento = document.createElement('hr');
+            monitoramentoContainer.appendChild(hrMonitoramento);
+
             let novoMonitoramento = document.createElement('div');
             let monitoramentoId = `monitoramento${cont}`;
             novoMonitoramento.id = monitoramentoId;
             novoMonitoramento.classList.add('monitoramento');
-            monitoramentosDiv.appendChild(novoMonitoramento);
+            monitoramentoContainer.appendChild(novoMonitoramento);
 
             let label = document.createElement('label');
             label.textContent = `Monitoramento N° ${cont + 1}`;
@@ -153,9 +167,9 @@
             deleteText.classList.add('text-danger');
             deleteWrapper.appendChild(deleteText);
 
-            // Adicionando evento de clique para exclusão do monitoramento
+            // Adicionando evento de clique para exclusão do monitoramento e seus elementos associados
             deleteWrapper.addEventListener('click', function() {
-                monitoramentosDiv.removeChild(novoMonitoramento);
+                monitoramentosDiv.removeChild(monitoramentoContainer);
                 cont--; // Decrementa o contador ao excluir um monitoramento
             });
 
@@ -171,8 +185,6 @@
             controleSugerido.classList = 'form-control textInput';
             controleSugerido.id = `monitoramentoControleSugerido${cont}`;
             divControleSugerido.appendChild(controleSugerido);
-
-            CKEDITOR.replace(`monitoramentoControleSugerido${cont}`);
 
             let divStatusMonitoramento = document.createElement('div');
             divStatusMonitoramento.classList = 'form-group';
@@ -290,6 +302,11 @@
                 }
             });
 
+            monitoramentosDiv.appendChild(monitoramentoContainer);
+
+            // Inicializar CKEditor após adicionar o contêiner ao DOM
+            CKEDITOR.replace(`monitoramentoControleSugerido${cont}`);
+
             cont++;
         }
 
@@ -306,7 +323,6 @@
 
 
 
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
@@ -315,4 +331,3 @@
 
 </html>
 @endsection
-
