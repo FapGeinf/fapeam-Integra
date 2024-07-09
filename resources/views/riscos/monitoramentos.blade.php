@@ -13,11 +13,18 @@
   <div class="form_create">
     <h3 style="text-align: center; margin-bottom: 10px;">Formulário de Monitoramentos</h3>
 
-    @if (session('error'))
-      <script>
-        alert('{{ session('error') }}');
-      </script>
-    @endif
+    <div class="error-message">
+        @if($errors->any())
+             <div class="alert alert-danger">
+                 <ul style="list-style-type:none;">
+                     @foreach ($errors->all() as $error )
+                         <li>{{$error}}</li>
+                     @endforeach
+                 </ul>
+             </div>
+         @endif
+     </div>
+
 
     <form action="{{ route('riscos.update-monitoramentos', ['id' => $risco->id]) }}" method="POST" id="formCreate">
       @csrf
@@ -50,7 +57,7 @@
           <div class="row g-3">
             <div class="col-sm-12 col-md-6">
               <label>Monitoramento Contínuo:</label>
-              <select name="monitoramentos[{{ $index }}][isContinuo]" class="form-select">
+              <select name="monitoramentos[{{ $index }}][isContinuo]" class="form-select" id="isContinuo{{ $index }}">
                 <option value="1" {{ $monitoramento->isContinuo == 1 ? 'selected' : '' }}>Sim</option>
                 <option value="0" {{ $monitoramento->isContinuo == 0 ? 'selected' : '' }}>Não</option>
               </select>
@@ -63,9 +70,9 @@
               <input type="date" name="monitoramentos[{{ $index }}][inicioMonitoramento]" class="textInput dateInput" value="{{ $monitoramento->inicioMonitoramento }}">
             </div>
 
-            <div class="col-sm-12 col-md-6 mQuery2">
+            <div class="col-sm-12 col-md-6 mQuery2" id="fimMonitoramentoContainer{{ $index }}">
               <label>Fim do Monitoramento:</label>
-              <input type="date" name="monitoramentos[{{ $index }}][fimMonitoramento]" class="textInput dateInput" value="{{ $monitoramento->fimMonitoramento }}" {{ $monitoramento->isContinuo == 1 ? 'disabled' : '' }}>
+              <input type="date" name="monitoramentos[{{ $index }}][fimMonitoramento]" class="textInput dateInput" id="fimMonitoramento{{ $index }}" value="{{ $monitoramento->fimMonitoramento }}">
             </div>
           </div>
 
@@ -83,7 +90,7 @@
 
       <div class="buttons">
         <button type="button" class="add-btn" onclick="addMonitoramento()">Adicionar Monitoramento</button>
-        <button type="button" class="close-btn" onclick="fecharFormulario()">Fechar</button>
+        <button type="button" class="close-btn" onclick="fecharFormulario()">Excluir</button>
       </div>
 
       <hr id="hr3">
@@ -175,7 +182,6 @@
     fimMonitoramento.type = 'date';
     fimMonitoramento.name = `monitoramentos[${cont}][fimMonitoramento]`;
     fimMonitoramento.classList.add('textInput', 'dateInput');
-    fimMonitoramento.disabled = true; // Inicialmente desabilitado
     colDiv2.appendChild(fimMonitoramentoLabel);
     colDiv2.appendChild(fimMonitoramento);
 
@@ -200,32 +206,29 @@
     let selectIsContinuo = document.createElement('select');
     selectIsContinuo.name = `monitoramentos[${cont}][isContinuo]`;
     selectIsContinuo.classList.add('form-select');
-
-    let optionSim = document.createElement('option');
-    optionSim.value = 1;
-    optionSim.textContent = 'Sim';
-    selectIsContinuo.appendChild(optionSim);
+    selectIsContinuo.id = `isContinuo${cont}`;
 
     let optionNao = document.createElement('option');
     optionNao.value = 0;
     optionNao.textContent = 'Não';
     selectIsContinuo.appendChild(optionNao);
 
+    let optionSim = document.createElement('option');
+    optionSim.value = 1;
+    optionSim.textContent = 'Sim';
+    selectIsContinuo.appendChild(optionSim);
 
     let inputFimMonitoramento = fimMonitoramento;
     let labelFimMonitoramento = fimMonitoramentoLabel;
 
     selectIsContinuo.addEventListener('change', function() {
-            if (this.value == 1) {
-                    inputFimMonitoramento.value = '';
-                    inputFimMonitoramento.hidden = true;
-                    labelFimMonitoramento.hidden = true;
-            } else if(this.value == 0) {
-                    labelFimMonitoramento.hidden = false;
-                    inputFimMonitoramento.hidden = false;
-            }
-     });
-
+      if (this.value == 1) {
+        inputFimMonitoramento.value = '';
+        colDiv2.style.display = 'none';
+      } else {
+        colDiv2.style.display = 'block';
+      }
+    });
 
     divIsContinuo.appendChild(selectIsContinuo);
 
@@ -252,8 +255,19 @@
   @foreach($risco->monitoramentos as $index => $monitoramento)
     CKEDITOR.replace(`monitoramentoControleSugerido{{ $index }}`);
     CKEDITOR.replace(`execucaoMonitoramento{{ $index }}`);
-  @endforeach
 
+    let isContinuo{{ $index }} = document.getElementById(`isContinuo{{ $index }}`);
+    let fimMonitoramento{{ $index }} = document.getElementById(`fimMonitoramentoContainer{{ $index }}`);
+
+    isContinuo{{ $index }}.addEventListener('change', function() {
+      if (this.value == 1) {
+        fimMonitoramento{{ $index }}.style.display = 'none';
+      } else {
+        fimMonitoramento{{ $index }}.style.display = 'block';
+      }
+    });
+
+  @endforeach
 
 </script>
 
