@@ -10,7 +10,7 @@
 
 <body>
 	<nav class="menu-lateral" id="appSidenav">
-		<a class="navbar-brand {{ Request::path() === '/' ? 'active' : '' }}" href="{{route('riscos.index')}}">
+		<a class="navbar-brand">
 			<div class="logo">
 				<img id="" src="{{ asset('img/logoDeconWhite-nobg.png') }}" style="height: 47%;  object-fit: cover;">
 			</div>
