@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('riscos', function (Blueprint $table) {
             $table->id();
-            $table->string('riscoNum')->nullable();
             $table->string('responsavelRisco');
             $table->string('riscoEvento',4500);
             $table->string('riscoCausa',4500);

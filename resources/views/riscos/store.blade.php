@@ -32,7 +32,7 @@
             <h3 style="text-align: center; margin-bottom:5px;">
                 Novo Evento de Risco Inerente
             </h3>
-            
+
             <span class="tipWarning mb-3">
                 <span class="asteriscoTop">*</span>
                     Campos obrigatórios
@@ -43,18 +43,11 @@
 
                 <div class="row g-3">
                     <div class="col-sm-4 col-md-3">
-                        <label class="dataLim" for="riscoNum">N° do Risco:<span class="asterisco">*</span> </label>
-                        <div class="dateTime">
-                            <input type="text" name="riscoNum" id="" class="textInput form-control" placeholder="XXXX" required>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-4 col-md-3">
                         <label for="riscoAno">Insira o Ano:<span class="asterisco">*</span></label>
                         <input type="text" id="riscoAno" name="riscoAno" class="form-control dataValue" placeholder="0000" required>
                     </div>
 
-                    <div class="col-sm-4 col-md-6 selectUnidade">
+                    <div class="col-sm-4 col-md-9 selectUnidade">
                         <label for="unidadeId">Unidade:<span class="asterisco">*</span></label>
                         <select name="unidadeId" class="" required>
                             <option selected disabled>Selecione uma unidade</option>
@@ -88,7 +81,7 @@
                     </div>
                 </div>
 
-           
+
 
                 <div id="monitoramentosDiv" class="monitoramento"></div>
 
@@ -125,47 +118,47 @@
         CKEDITOR.replace('riscoEvento');
         CKEDITOR.replace('riscoCausa');
         CKEDITOR.replace('riscoConsequencia');
-    
+
         let cont = 0;
-    
+
         function addMonitoramentos() {
             let monitoramentosDiv = document.getElementById('monitoramentosDiv');
-    
+
             // Criando um contêiner para o monitoramento e seus elementos associados
             let monitoramentoContainer = document.createElement('div');
             monitoramentoContainer.classList.add('monitoramento-container');
-    
+
             // Adicionando o trecho de código solicitado
             let novoEventoTitulo = document.createElement('h4');
             novoEventoTitulo.style.textAlign = 'center';
             novoEventoTitulo.style.marginTop = '1rem';
             novoEventoTitulo.textContent = 'Novo Monitoramento';
             monitoramentoContainer.appendChild(novoEventoTitulo);
-    
+
             let hrMonitoramento = document.createElement('hr');
             monitoramentoContainer.appendChild(hrMonitoramento);
-    
+
             let novoMonitoramento = document.createElement('div');
             let monitoramentoId = `monitoramento${cont}`;
             novoMonitoramento.id = monitoramentoId;
             novoMonitoramento.classList.add('monitoramento');
             monitoramentoContainer.appendChild(novoMonitoramento);
-    
+
             let label = document.createElement('label');
             label.textContent = `Monitoramento N° ${cont + 1}`;
             novoMonitoramento.appendChild(label);
-    
+
             // Criando o contêiner flexível para ícone e texto "Excluir"
             let deleteWrapper = document.createElement('div');
             deleteWrapper.classList.add('d-flex', 'align-items-center');
-    
+
             // Ícone de exclusão
             let deleteIcon = document.createElement('i');
             deleteIcon.classList.add('bi', 'bi-x-circle', 'text-danger', 'me-2');
             deleteIcon.style.cursor = 'pointer';
             deleteIcon.title = 'Excluir';
             deleteWrapper.appendChild(deleteIcon);
-    
+
             // Texto "Excluir"
             let deleteText = document.createElement('span');
             deleteText.textContent = 'Excluir';
@@ -173,130 +166,130 @@
             deleteText.title = 'Excluir';
             deleteText.classList.add('text-danger');
             deleteWrapper.appendChild(deleteText);
-    
+
             // Adicionando evento de clique para exclusão do monitoramento e seus elementos associados
             deleteWrapper.addEventListener('click', function() {
                 monitoramentosDiv.removeChild(monitoramentoContainer);
                 cont--; // Decrementa o contador ao excluir um monitoramento
             });
-    
+
             label.appendChild(deleteWrapper);
-    
+
             let divControleSugerido = document.createElement('div');
             divControleSugerido.classList = 'form-group';
             novoMonitoramento.appendChild(divControleSugerido);
-    
+
             let controleSugerido = document.createElement('textarea');
             controleSugerido.name = `monitoramentos[${cont}][monitoramentoControleSugerido]`;
             controleSugerido.placeholder = 'Monitoramento';
             controleSugerido.classList = 'form-control textInput';
             controleSugerido.id = `monitoramentoControleSugerido${cont}`;
             divControleSugerido.appendChild(controleSugerido);
-    
+
             let divStatusMonitoramento = document.createElement('div');
             divStatusMonitoramento.classList = 'form-group';
             novoMonitoramento.appendChild(divStatusMonitoramento);
-    
+
             let labelStatusMonitoramento = document.createElement('label');
             labelStatusMonitoramento.textContent = 'Status do Monitoramento:';
             divStatusMonitoramento.appendChild(labelStatusMonitoramento);
-    
+
             let statusMonitoramento = document.createElement('select');
             statusMonitoramento.name = `monitoramentos[${cont}][statusMonitoramento]`;
             statusMonitoramento.classList = 'form-select';
-    
+
             let options = [
                 { value: "NÃO IMPLEMENTADA", text: "NÃO IMPLEMENTADA" },
                 { value: "EM IMPLEMENTAÇÃO", text: "EM IMPLEMENTAÇÃO" },
                 { value: "IMPLEMENTADA PARCIALMENTE", text: "IMPLEMENTADA PARCIALMENTE" },
                 { value: "IMPLEMENTADA", text: "IMPLEMENTADA" }
             ];
-    
+
             options.forEach(function(optionData) {
                 let option = document.createElement('option');
                 option.value = optionData.value;
                 option.textContent = optionData.text;
                 statusMonitoramento.appendChild(option);
             });
-    
+
             divStatusMonitoramento.appendChild(statusMonitoramento);
-    
+
             let divExecucaoMonitoramento = document.createElement('div');
             divExecucaoMonitoramento.classList = 'form-group';
             novoMonitoramento.appendChild(divExecucaoMonitoramento);
-    
+
             let labelExecucaoMonitoramento = document.createElement('label');
             labelExecucaoMonitoramento.textContent = 'Execução do Monitoramento:';
             divExecucaoMonitoramento.appendChild(labelExecucaoMonitoramento);
-    
+
             let execucaoMonitoramento = document.createElement('input');
             execucaoMonitoramento.type = 'text';
             execucaoMonitoramento.name = `monitoramentos[${cont}][execucaoMonitoramento]`;
             execucaoMonitoramento.placeholder = '';
             execucaoMonitoramento.classList = 'form-control textInput';
             divExecucaoMonitoramento.appendChild(execucaoMonitoramento);
-    
+
             let divIsContinuo = document.createElement('div');
             divIsContinuo.classList.add('form-group');
             novoMonitoramento.appendChild(divIsContinuo);
-    
+
             let labelIsContinuo = document.createElement('label');
             labelIsContinuo.textContent = 'Monitoramento Contínuo:';
             divIsContinuo.appendChild(labelIsContinuo);
-    
+
             let selectIsContinuo = document.createElement('select');
             selectIsContinuo.name = `monitoramentos[${cont}][isContinuo]`;
             selectIsContinuo.classList.add('form-select');
-    
+
             let optionNao = document.createElement('option');
             optionNao.value = 0;
             optionNao.textContent = 'Não';
             selectIsContinuo.appendChild(optionNao);
-    
+
             let optionSim = document.createElement('option');
             optionSim.value = 1;
             optionSim.textContent = 'Sim';
             selectIsContinuo.appendChild(optionSim);
-    
+
             divIsContinuo.appendChild(selectIsContinuo);
-    
+
             let divRow = document.createElement('div');
             divRow.classList = 'row g-3';
             novoMonitoramento.appendChild(divRow);
-    
+
             let divInicioMonitoramento = document.createElement('div');
             divInicioMonitoramento.classList = 'col-sm-6 col-md-6';
             divRow.appendChild(divInicioMonitoramento);
-    
+
             let labelInicioMonitoramento = document.createElement('label');
             labelInicioMonitoramento.textContent = 'Início do Monitoramento:';
             divInicioMonitoramento.appendChild(labelInicioMonitoramento);
-    
+
             let inputInicioMonitoramento = document.createElement('input');
             inputInicioMonitoramento.type = 'date';
             inputInicioMonitoramento.name = `monitoramentos[${cont}][inicioMonitoramento]`;
             inputInicioMonitoramento.classList = 'form-control textInput dateInput';
             divInicioMonitoramento.appendChild(inputInicioMonitoramento);
-    
+
             let divFimMonitoramento = document.createElement('div');
             divFimMonitoramento.classList = 'col-sm-6 col-md-6';
             divRow.appendChild(divFimMonitoramento);
-    
+
             let labelFimMonitoramento = document.createElement('label');
             labelFimMonitoramento.textContent = 'Fim do Monitoramento:';
             divFimMonitoramento.appendChild(labelFimMonitoramento);
-    
+
             let inputFimMonitoramento = document.createElement('input');
             inputFimMonitoramento.type = 'date';
             inputFimMonitoramento.name = `monitoramentos[${cont}][fimMonitoramento]`;
             inputFimMonitoramento.classList = 'form-control textInput dateInput';
             divFimMonitoramento.appendChild(inputFimMonitoramento);
-    
+
             inputFimMonitoramento.addEventListener('change', function() {
                 let isContinuoValue = (this.value !== '') ? 'false' : 'true';
                 document.getElementById(`isContinuo${cont}`).value = isContinuoValue;
             });
-    
+
             // Evento para controlar a exibição do input de data fimMonitoramento
             selectIsContinuo.addEventListener('change', function() {
                 if (this.value == 1) {
@@ -308,15 +301,15 @@
                     inputFimMonitoramento.hidden = false;
                 }
             });
-    
+
             monitoramentosDiv.appendChild(monitoramentoContainer);
-    
+
             // Inicializar CKEditor após adicionar o contêiner ao DOM
             CKEDITOR.replace(`monitoramentoControleSugerido${cont}`);
-    
+
             cont++;
         }
-    
+
         document.getElementById('formCreate').addEventListener('submit', function (event) {
             let monitoramentosDiv = document.getElementById('monitoramentosDiv');
             if (monitoramentosDiv.children.length === 0) {
@@ -325,10 +318,10 @@
                 alertModal.show();
             }
         });
-    
+
     </script>
-    
-    
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">

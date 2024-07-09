@@ -66,7 +66,6 @@ class RiscoController extends Controller
     {
         try {
             $validatedData = $request->validate([
-                'riscoNum' => 'required',
                 'responsavelRisco' => 'required',
                 'riscoEvento' => 'required|string|max:9000',
                 'riscoCausa' => 'required|string|max:9000',
@@ -82,18 +81,9 @@ class RiscoController extends Controller
                 'monitoramentos.*.fimMonitoramento' => 'nullable|date'
             ]);
 
-            // Verifica se o número de risco já existe para a unidade
-            $numriscoExistente = Risco::where('riscoNum', $validatedData['riscoNum'])
-                ->where('unidadeId', $validatedData['unidadeId'])
-                ->exists();
-
-            if ($numriscoExistente) {
-                return redirect()->back()->withErrors(['errors' => 'Número de risco já existe para essa unidade.']);
-            }
 
             // Cria um novo registro de risco
             $risco = Risco::create([
-                'riscoNum' => $validatedData['riscoNum'],
                 'responsavelRisco' => $validatedData['responsavelRisco'],
                 'riscoEvento' => $validatedData['riscoEvento'],
                 'riscoCausa' => $validatedData['riscoCausa'],
@@ -136,15 +126,6 @@ class RiscoController extends Controller
     {
         try {
             $risco = Risco::findOrFail($id);
-
-            $numRiscoExistente = Risco::where('riscoNum', $request->riscoNum)
-                ->where('unidadeId', $request->unidadeId)
-                ->where('id', '!=', $id)
-                ->exists();
-
-            if ($numRiscoExistente) {
-                return redirect()->back()->withErrors(['errors' => 'Número de risco já existe para essa unidade.']);
-            }
 
             $risco->update($request->all());
 
