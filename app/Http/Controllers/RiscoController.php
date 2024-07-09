@@ -65,7 +65,7 @@ class RiscoController extends Controller
     public function store(Request $request)
     {
         try {
-            $request->validate([
+            $validatedData = $request->validate([
                 'riscoNum' => 'required',
                 'responsavelRisco' => 'required',
                 'riscoEvento' => 'required|string|max:9000',
@@ -78,50 +78,48 @@ class RiscoController extends Controller
                 'monitoramentos.*.monitoramentoControleSugerido' => 'required|string|max:9000',
                 'monitoramentos.*.statusMonitoramento' => 'required|string',
                 'monitoramentos.*.execucaoMonitoramento' => 'required|string|max:9000',
-                'monitoramentos.*.inicioMonitoramento' => 'required',
-                'monitoramentos.*.fimMonitoramento' => 'nullable'
+                'monitoramentos.*.inicioMonitoramento' => 'required|date',
+                'monitoramentos.*.fimMonitoramento' => 'nullable|date'
             ]);
 
-            $numriscoExistente = Risco::where('riscoNum', $request->riscoNum)
-                ->where('unidadeId', $request->unidadeId)
+            // Verifica se o número de risco já existe para a unidade
+            $numriscoExistente = Risco::where('riscoNum', $validatedData['riscoNum'])
+                ->where('unidadeId', $validatedData['unidadeId'])
                 ->exists();
 
             if ($numriscoExistente) {
                 return redirect()->back()->withErrors(['errors' => 'Número de risco já existe para essa unidade.']);
             }
 
+            // Cria um novo registro de risco
             $risco = Risco::create([
-                'riscoNum' => $request->riscoNum,
-                'responsavelRisco' => $request->responsavelRisco,
-                'riscoEvento' => $request->riscoEvento,
-                'riscoCausa' => $request->riscoCausa,
-                'riscoConsequencia' => $request->riscoConsequencia,
-                'nivel_de_risco' => $request->nivel_de_risco,
-                'unidadeId' => $request->unidadeId,
-                'riscoAno' => $request->riscoAno,
+                'riscoNum' => $validatedData['riscoNum'],
+                'responsavelRisco' => $validatedData['responsavelRisco'],
+                'riscoEvento' => $validatedData['riscoEvento'],
+                'riscoCausa' => $validatedData['riscoCausa'],
+                'riscoConsequencia' => $validatedData['riscoConsequencia'],
+                'nivel_de_risco' => $validatedData['nivel_de_risco'],
+                'unidadeId' => $validatedData['unidadeId'],
+                'riscoAno' => $validatedData['riscoAno'],
                 'userIdRisco' => auth()->id()
             ]);
 
-
-
-            foreach ($request->monitoramentos as $monitoramentoData) {
-                $novoMonitoramento = Monitoramento::create([
+            // Cria monitoramentos associados ao risco
+            foreach ($validatedData['monitoramentos'] as $monitoramentoData) {
+                Monitoramento::create([
                     'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
                     'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
                     'execucaoMonitoramento' => $monitoramentoData['execucaoMonitoramento'],
                     'inicioMonitoramento' => $monitoramentoData['inicioMonitoramento'],
                     'fimMonitoramento' => $monitoramentoData['fimMonitoramento'] ?? null,
-                    'isContinuo' => $monitoramentoData['isContinuo'],
+                    'isContinuo' => $monitoramentoData['isContinuo'] ?? false,
                     'riscoFK' => $risco->id
                 ]);
-
-                if (!$novoMonitoramento) {
-                    return redirect()->back()->withErrors(['errors' => 'É necessário criar pelo menos um monitoramento.']);
-                }
             }
 
             return redirect()->route('riscos.index')->with('success', 'Risco criado com sucesso!');
         } catch (\Exception $e) {
+            Log::error('Erro ao criar risco: ' . $e->getMessage());
             return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao criar o risco. Por favor, tente novamente.']);
         }
     }
@@ -139,29 +137,20 @@ class RiscoController extends Controller
         try {
             $risco = Risco::findOrFail($id);
 
-            // Verifica se o número de risco já existe para essa unidade, excluindo o próprio risco atual
-            $numriscoExistente = Risco::where('riscoNum', $request->riscoNum)
+            $numRiscoExistente = Risco::where('riscoNum', $request->riscoNum)
                 ->where('unidadeId', $request->unidadeId)
                 ->where('id', '!=', $id)
                 ->exists();
 
-            if ($numriscoExistente) {
+            if ($numRiscoExistente) {
                 return redirect()->back()->withErrors(['errors' => 'Número de risco já existe para essa unidade.']);
             }
 
-            $risco->update([
-                'riscoNum' => $request->riscoNum,
-                'riscoEvento' => $request->riscoEvento,
-                'riscoCausa' => $request->riscoCausa,
-                'riscoConsequencia' => $request->riscoConsequencia,
-                'nivel_de_risco' => $request->nivel_de_risco,
-                'riscoAno' => $request->riscoAno,
-                'unidadeId' => $request->unidadeId,
-            ]);
+            $risco->update($request->all());
 
             return redirect()->route('riscos.show', ['id' => $risco->id])->with('success', 'Risco editado com sucesso');
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao atualizar o risco. Detalhes: ' . $e->getMessage()]);
+            return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao atualizar o risco.']);
         }
     }
 
@@ -184,6 +173,7 @@ class RiscoController extends Controller
                 'monitoramentos.*.execucaoMonitoramento' => 'required|string|max:9000',
                 'monitoramentos.*.inicioMonitoramento' => 'required|date',
                 'monitoramentos.*.fimMonitoramento' => 'nullable|date',
+                'monitoramentos.*.isContinuo' => 'required|boolean', // Adicionei validação para isContinuo
             ]);
 
             $existingMonitoramentos = $risco->monitoramentos->keyBy('id');
@@ -193,20 +183,17 @@ class RiscoController extends Controller
                     if ($existingMonitoramentos->has($monitoramentoData['id'])) {
                         $monitoramento = $existingMonitoramentos->get($monitoramentoData['id']);
 
-                        // Verifica se isContinuo é igual a 1 (Sim)
-                        if ($monitoramentoData['isContinuo'] == 1) {
-                            $monitoramentoData['fimMonitoramento'] = null; // Define fimMonitoramento como null
-                        }
-
+                        // Atualiza os dados do monitoramento existente
                         $monitoramento->update([
                             'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
                             'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
                             'execucaoMonitoramento' => $monitoramentoData['execucaoMonitoramento'],
                             'isContinuo' => $monitoramentoData['isContinuo'],
                             'inicioMonitoramento' => $monitoramentoData['inicioMonitoramento'],
-                            'fimMonitoramento' => $monitoramentoData['fimMonitoramento'],
+                            'fimMonitoramento' => $monitoramentoData['isContinuo'] ? null : $monitoramentoData['fimMonitoramento'],
                         ]);
 
+                        // Remove o monitoramento da lista de existentes
                         unset($existingMonitoramentos[$monitoramentoData['id']]);
                     } else {
                         throw new \Exception('Monitoramento não encontrado para atualização.');
@@ -219,22 +206,22 @@ class RiscoController extends Controller
                         'execucaoMonitoramento' => $monitoramentoData['execucaoMonitoramento'],
                         'isContinuo' => $monitoramentoData['isContinuo'],
                         'inicioMonitoramento' => $monitoramentoData['inicioMonitoramento'],
-                        'fimMonitoramento' => $monitoramentoData['isContinuo'] == 1 ? null : $monitoramentoData['fimMonitoramento'], // Define fimMonitoramento como null se isContinuo for 1
-                        'riscoFK' => $risco->id
+                        'fimMonitoramento' => $monitoramentoData['isContinuo'] ? null : $monitoramentoData['fimMonitoramento'],
+                        'riscoFK' => $risco->id,
                     ];
 
                     Monitoramento::create($newMonitoramentoData);
                 }
             }
 
-            // Remove os monitoramentos restantes que não foram atualizados
+            // Remove os monitoramentos que não foram atualizados ou criados
             foreach ($existingMonitoramentos as $monitoramento) {
                 $monitoramento->delete();
             }
 
             return redirect()->route('riscos.show', ['id' => $risco->id])->with('success', 'Monitoramentos editados com sucesso');
         } catch (\Exception $e) {
-            throw new \Exception('Ocorreu um erro ao atualizar os monitoramentos do risco: ' . $e->getMessage());
+            return redirect()->back()->withErrors(['errors' => 'Houve um erro ao atualizar ou adicionar monitoramentos']);
         }
     }
 

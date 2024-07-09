@@ -132,13 +132,41 @@
             let monitoramentosDiv = document.getElementById('monitoramentosDiv');
 
             let novoMonitoramento = document.createElement('div');
-            novoMonitoramento.id = `monitoramento${cont}`;
+            let monitoramentoId = `monitoramento${cont}`;
+            novoMonitoramento.id = monitoramentoId;
             novoMonitoramento.classList.add('monitoramento');
             monitoramentosDiv.appendChild(novoMonitoramento);
 
             let label = document.createElement('label');
             label.textContent = `Monitoramento N° ${cont + 1}`;
             novoMonitoramento.appendChild(label);
+
+            // Criando o contêiner flexível para ícone e texto "Excluir"
+            let deleteWrapper = document.createElement('div');
+            deleteWrapper.classList.add('d-flex', 'align-items-center');
+
+            // Ícone de exclusão
+            let deleteIcon = document.createElement('i');
+            deleteIcon.classList.add('bi', 'bi-x-circle', 'text-danger', 'me-2');
+            deleteIcon.style.cursor = 'pointer';
+            deleteIcon.title = 'Excluir';
+            deleteWrapper.appendChild(deleteIcon);
+
+            // Texto "Excluir"
+            let deleteText = document.createElement('span');
+            deleteText.textContent = 'Excluir';
+            deleteText.style.cursor = 'pointer';
+            deleteText.title = 'Excluir';
+            deleteText.classList.add('text-danger');
+            deleteWrapper.appendChild(deleteText);
+
+            // Adicionando evento de clique para exclusão do monitoramento
+            deleteWrapper.addEventListener('click', function() {
+                monitoramentosDiv.removeChild(novoMonitoramento);
+                cont--; // Decrementa o contador ao excluir um monitoramento
+            });
+
+            label.appendChild(deleteWrapper);
 
             let divControleSugerido = document.createElement('div');
             divControleSugerido.classList = 'form-group';
@@ -163,7 +191,7 @@
 
             let statusMonitoramento = document.createElement('select');
             statusMonitoramento.name = `monitoramentos[${cont}][statusMonitoramento]`;
-            statusMonitoramento.classList = 'textInput';
+            statusMonitoramento.classList = 'form-select';
 
             let options = [
                 { value: "NÃO IMPLEMENTADA", text: "NÃO IMPLEMENTADA" },
@@ -175,7 +203,7 @@
             options.forEach(function(optionData) {
                 let option = document.createElement('option');
                 option.value = optionData.value;
-                option.text = optionData.text;
+                option.textContent = optionData.text;
                 statusMonitoramento.appendChild(option);
             });
 
@@ -208,18 +236,17 @@
             selectIsContinuo.name = `monitoramentos[${cont}][isContinuo]`;
             selectIsContinuo.classList.add('form-select');
 
-            let optionSim = document.createElement('option');
-            optionSim.value = 1;
-            optionSim.textContent = 'Sim';
-            selectIsContinuo.appendChild(optionSim);
-
             let optionNao = document.createElement('option');
             optionNao.value = 0;
             optionNao.textContent = 'Não';
             selectIsContinuo.appendChild(optionNao);
 
-            divIsContinuo.appendChild(selectIsContinuo);
+            let optionSim = document.createElement('option');
+            optionSim.value = 1;
+            optionSim.textContent = 'Sim';
+            selectIsContinuo.appendChild(optionSim);
 
+            divIsContinuo.appendChild(selectIsContinuo);
 
             let divRow = document.createElement('div');
             divRow.classList = 'row g-3';
@@ -258,9 +285,7 @@
                 document.getElementById(`isContinuo${cont}`).value = isContinuoValue;
             });
 
-            cont++;
-
-            //evento pra controlar a exibição do input de data fimMonitoramento
+            // Evento para controlar a exibição do input de data fimMonitoramento
             selectIsContinuo.addEventListener('change', function() {
                 if (this.value == 1) {
                     inputFimMonitoramento.value = '';
@@ -272,6 +297,7 @@
                 }
             });
 
+            cont++;
         }
 
         document.getElementById('formCreate').addEventListener('submit', function (event) {
@@ -284,6 +310,9 @@
         });
 
     </script>
+
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
