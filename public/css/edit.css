@@ -312,3 +312,22 @@ a.reply-btn {
 a.reply-btn:hover {
   background-color: #218838;
 }
+
+/* MENSAGEM DE ERRO */
+.error-message {
+  display: flex;
+  justify-content: center;
+  padding-top: 1rem;
+  line-height: 38px;
+}
+
+.alert-danger {
+  width: 42%;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 0;
+  margin-bottom: 0;
+  height: 0%;
+}
