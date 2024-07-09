@@ -2,6 +2,10 @@ table, tr,th, td {
   border: 1px solid #b0b0b0;
 }
 
+.appContent {
+  margin-left: 10rem;
+}
+
 /* ESTILIZAÇÃO DA TABELA INÍCIO */
 .main-datatable .cust-datatable > thead > tr > th {
   padding: 9px 8px !important;
@@ -386,6 +390,7 @@ table.dataTable thead th, table.dataTable thead td {
 }
 
 .rodape {
+  z-index: -1;
   cursor: default;
   position: fixed;
   bottom: 0;

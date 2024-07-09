@@ -4,6 +4,10 @@
   font-style: normal;
 }
 
+.appContent {
+  margin-left: 10rem;
+}
+
 table, tr,th, td {
   border: 1px solid #b0b0b0;
 }
@@ -191,6 +195,7 @@ a.btn-add:hover {
 }
 
 .rodape {
+  z-index: -1;
   cursor: default;
   position: fixed;
   bottom: 0;
