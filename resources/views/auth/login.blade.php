@@ -32,7 +32,7 @@
         <form method="POST" action="{{ route('login') }}">
           @csrf
 
-          <div class="input-icon">
+          <!-- <div class="input-icon">
             <input id="email" class="inputImp @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="Insira seu Email" required autocomplete="email" autofocus>
             <i class="fas fa-user"></i>
 
@@ -41,7 +41,26 @@
               <strong>{{ $message }}</strong>
             </span>
             @enderror
+          </div> -->
+
+					<div class="input-icon">
+            <input id="cpf" maxlength="11" minlength="11" class="inputImp @error('cpf') is-invalid @enderror" name="cpf" value="{{ old('cpf') }}" placeholder="Insira seu CPF" required autocomplete="cpf" autofocus>
+            <i class="fas fa-user"></i>
+
+            @error('cpf')
+            <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+            </span>
+            @enderror
           </div>
+
+					<!-- <label>CPF:</label>
+        	<input id="cpf" maxlength="11" minlength="11" type="text" class="form-control inputField @error('cpf') is-invalid @enderror" name="cpf" value="{{ old('cpf') }}" required autocomplete="cpf" placeholder="Insira seu CPF">
+        	@error('cpf')
+         	 <span class="invalid-feedback" role="alert">
+            	<strong>{{ $message }}</strong>
+          	</span>
+        	@enderror -->
 
           <div class="input-icon">
             <input id="password" type="password" class="inputImp inputSenha @error('password') is-invalid @enderror " name="password" required autocomplete="current-password" placeholder="Senha">

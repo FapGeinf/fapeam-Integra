@@ -44,7 +44,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
+		public function findForPassport($username) {
+			return $this->where('cpf', $username)->first();
+		}
     public function unidade()
     {
         return $this->belongsTo(Unidade::class, 'unidadeIdFK');
