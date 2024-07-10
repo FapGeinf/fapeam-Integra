@@ -67,7 +67,7 @@
                 <label for="riscoCausa">Causa do Risco:<span class="asterisco">*</span></label>
                 <textarea id="riscoCausa" name="riscoCausa" class="textInput" required></textarea>
 
-                <label for="riscoConsequencia">Causa da Consequência:<span class="asterisco">*</span></label>
+                <label for="riscoConsequencia">Consequência do Risco:<span class="asterisco">*</span></label>
                 <textarea id="riscoConsequencia" name="riscoConsequencia" class="textInput" required></textarea>
 
                 <div class="row g-3">
