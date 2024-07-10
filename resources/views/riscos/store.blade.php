@@ -44,7 +44,7 @@
                 <div class="row g-3">
                     <div class="col-sm-4 col-md-3">
                         <label for="riscoAno">Insira o Ano:<span class="asterisco">*</span></label>
-                        <input type="text" id="riscoAno" name="riscoAno" class="form-control dataValue" placeholder="0000" required>
+                        <input type="text" id="riscoAno" name="riscoAno" class="form-control dataValue" placeholder="0000" minlength="4" maxlength="4" required>
                     </div>
 
                     <div class="col-sm-4 col-md-9 selectUnidade">
@@ -59,7 +59,7 @@
                 </div>
 
                 <label class="dataLim" for="responsavel">Responsável:<span class="asterisco">*</span></label>
-                <input type="text" name="responsavelRisco" id="responsavel" class="textInput form-control" placeholder="Ex: Fulano da Silva Pompeo" required>
+                <input type="text" name="responsavelRisco" id="responsavel" class="textInput form-control" placeholder="Ex: Fulano da Silva Pompeo" maxlength="100" required>
 
                 <label for="riscoEvento">Evento de Risco Inerente:<span class="asterisco">*</span></label>
                 <textarea id="riscoEvento" name="riscoEvento" class="textInput" required></textarea>
@@ -115,9 +115,23 @@
     </div>
 
     <script>
-        CKEDITOR.replace('riscoEvento');
-        CKEDITOR.replace('riscoCausa');
-        CKEDITOR.replace('riscoConsequencia');
+         CKEDITOR.replace('riscoEvento').on('required',function(evt){
+            alert('É necessario a inserção' );
+            evt.cancel();
+            console.log('CKeditor vazio');
+        });
+
+        CKEDITOR.replace('riscoCausa').on('required',function(evt){
+            alert('É necessario a inserção' );
+            evt.cancel();
+            console.log('CKeditor vazio');
+        });
+
+        CKEDITOR.replace('riscoConsequencia').on('required',function(evt){
+            alert('É necessario a inserção' );
+            evt.cancel();
+            console.log('CKeditor vazio');
+        });
     
         let cont = 0;
     
@@ -233,6 +247,9 @@
             execucaoMonitoramento.name = `monitoramentos[${cont}][execucaoMonitoramento]`;
             execucaoMonitoramento.placeholder = '';
             execucaoMonitoramento.classList = 'form-control textInput';
+
+            execucaoMonitoramento.required = true;
+
             divExecucaoMonitoramento.appendChild(execucaoMonitoramento);
     
             let divIsContinuo = document.createElement('div');
@@ -309,9 +326,16 @@
             });
     
             monitoramentosDiv.appendChild(monitoramentoContainer);
+                function teste() {
+                    console.log('entrou');
+                }
     
             // Inicializar CKEditor após adicionar o contêiner ao DOM
-            CKEDITOR.replace(`monitoramentoControleSugerido${cont}`);
+            CKEDITOR.replace(`monitoramentoControleSugerido${cont}`).on('required', function(evt){
+							alert('É necessario a inserção' );
+							evt.cancel();
+							console.log('CKeditor vazio');
+						});
     
             cont++;
         }
