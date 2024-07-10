@@ -13,6 +13,19 @@
 	<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{asset('css/login.css')}}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+	<script>
+    $(document).ready(function(){
+      $('#cpf').mask('000.000.000-00', {reverse: true});
+      $('form').submit(function() {
+        let cpf = $('#cpf').val().replace(/\D/g,'');
+        $('#cpf').val(cpf);
+      });
+    });
+  </script>
 </head>
 <body>
     
@@ -44,7 +57,7 @@
           </div> -->
 
 					<div class="input-icon">
-            <input id="cpf" maxlength="11" minlength="11" class="inputImp @error('cpf') is-invalid @enderror" name="cpf" value="{{ old('cpf') }}" placeholder="Insira seu CPF" required autocomplete="cpf" autofocus>
+            <input id="cpf" type="tel" class="inputImp @error('cpf') is-invalid @enderror" name="cpf" value="{{ old('cpf') }}" placeholder="Insira seu CPF" autocomplete="cpf" autofocus required>
             <i class="fas fa-user"></i>
 
             @error('cpf')
