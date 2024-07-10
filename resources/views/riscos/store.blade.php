@@ -12,6 +12,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="/ckeditor/ckeditor.js"></script>
     <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 </head>
 
 <body>
@@ -89,13 +91,36 @@
 
                 <div class="mt-3 text-end">
                   <input type="button" onclick="addMonitoramentos()" value="Adicionar Monitoramento" class="blue-btn">
-                  <input type="submit" value="Salvar" class="green-btn green-btn-store">
+                  <button type="button" onclick="showConfirmationModal()" class="green-btn green-btn-store" data-bs-toggle="modal" data-bs-target="#confirmationModal">Salvar</button>
                 </div>
 
+                <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                         <div class="modal-content">
+                              <div class="modal-header">
+                                   <h5 class="modal-title" id="confirmationModalLabel">Confirmação de envio de Relatório</h5>
+                                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                  <div id="modalContent">
+                                      <!-- Conteúdo do modal será inserido dinamicamente aqui -->
+                                  </div>
+                              </div>
+                              <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                  <button type="submit" class="green-btn green-btn-store">Salvar</button>
+                              </div>
+                         </div>
+                    </div>
+                </div>
 
             </form>
         </div>
     </div>
+
+
+
+
 
     <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -329,6 +354,84 @@
             cont++;
         }
 
+        function formatarDataParaBrasileiro(data) {
+            // Recebe uma data no formato ISO (aaaa-mm-dd) e retorna no formato brasileiro (dd/mm/aaaa)
+            const partes = data.split('-');
+            return `${partes[2]}/${partes[1]}/${partes[0]}`;
+        }
+
+        function showConfirmationModal() {
+            // Captura dos dados do formulário principal
+            let riscoAno = document.getElementById('riscoAno').value;
+            let unidadeId = document.querySelector('[name="unidadeId"]').options[document.querySelector('[name="unidadeId"]').selectedIndex].text;
+            let responsavelRisco = document.getElementById('responsavel').value;
+            let riscoEvento = CKEDITOR.instances.riscoEvento.getData();
+            let riscoCausa = CKEDITOR.instances.riscoCausa.getData();
+            let riscoConsequencia = CKEDITOR.instances.riscoConsequencia.getData();
+            let nivel_de_risco = document.getElementById('nivel_de_risco').value;
+
+            // Construção do HTML para o modal de confirmação
+            let modalContent = `
+                <p><strong>Ano:</strong> ${riscoAno}</p>
+                <p><strong>Unidade:</strong> ${unidadeId}</p>
+                <p><strong>Responsável:</strong> ${responsavelRisco}</p>
+                <p><strong>Evento de Risco:</strong></p>
+                <p>${riscoEvento}</p>
+                <p><strong>Causa do Risco:</strong></p>
+                <p>${riscoCausa}</p>
+                <p><strong>Causa da Consequência:</strong></p>
+                <p>${riscoConsequencia}</p>
+                <p><strong>Nível de Risco:</strong> ${nivel_de_risco}</p>
+                <hr>
+                <h4>Monitoramentos:</h4>
+            `;
+
+            // Captura dos dados dos monitoramentos
+            let monitoramentos = [];
+            let monitoramentosDiv = document.getElementById('monitoramentosDiv');
+            let monitoramentoContainers = monitoramentosDiv.getElementsByClassName('monitoramento-container');
+
+            for (let i = 0; i < monitoramentoContainers.length; i++) {
+                let monitoramento = {};
+
+                monitoramento.monitoramentoControleSugerido = monitoramentoContainers[i].querySelector(`[name="monitoramentos[${i}][monitoramentoControleSugerido]"]`).value;
+                monitoramento.statusMonitoramento = monitoramentoContainers[i].querySelector(`[name="monitoramentos[${i}][statusMonitoramento]"]`).value;
+                monitoramento.execucaoMonitoramento = monitoramentoContainers[i].querySelector(`[name="monitoramentos[${i}][execucaoMonitoramento]"]`).value;
+                monitoramento.isContinuo = monitoramentoContainers[i].querySelector(`[name="monitoramentos[${i}][isContinuo]"]`).value;
+                monitoramento.inicioMonitoramento = monitoramentoContainers[i].querySelector(`[name="monitoramentos[${i}][inicioMonitoramento]"]`).value;
+                monitoramento.fimMonitoramento = monitoramentoContainers[i].querySelector(`[name="monitoramentos[${i}][fimMonitoramento]"]`).value;
+
+                // Formatação das datas para o formato brasileiro
+                monitoramento.inicioMonitoramento = monitoramento.inicioMonitoramento ? formatarDataParaBrasileiro(monitoramento.inicioMonitoramento) : '';
+                monitoramento.fimMonitoramento = monitoramento.fimMonitoramento ? formatarDataParaBrasileiro(monitoramento.fimMonitoramento) : '';
+
+                monitoramentos.push(monitoramento);
+
+                // Adicionando cada monitoramento ao modal de confirmação
+                modalContent += `
+                    <div>
+                        <p><strong>Monitoramento N° ${i + 1}:</strong></p>
+                        <p><strong>Controle Sugerido:</strong> ${monitoramento.monitoramentoControleSugerido}</p>
+                        <p><strong>Status do Monitoramento:</strong> ${monitoramento.statusMonitoramento}</p>
+                        <p><strong>Execução do Monitoramento:</strong> ${monitoramento.execucaoMonitoramento}</p>
+                        <p><strong>Monitoramento Contínuo:</strong> ${monitoramento.isContinuo == 1 ? 'Sim' : 'Não'}</p>
+                        <p><strong>Início do Monitoramento:</strong> ${monitoramento.inicioMonitoramento}</p>
+                        <p><strong>Fim do Monitoramento:</strong> ${monitoramento.fimMonitoramento}</p>
+                    </div>
+                    <hr>
+                `;
+            }
+
+            // Inserção do conteúdo no modal de confirmação
+            document.getElementById('modalContent').innerHTML = modalContent;
+
+            // Exibir o modal de confirmação
+            let confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+            confirmationModal.show();
+        }
+
+
+
         document.getElementById('formCreate').addEventListener('submit', function (event) {
             let monitoramentosDiv = document.getElementById('monitoramentosDiv');
             if (monitoramentosDiv.children.length === 0) {
@@ -337,6 +440,9 @@
                 alertModal.show();
             }
         });
+
+
+
 
     </script>
 

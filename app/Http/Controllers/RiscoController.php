@@ -78,9 +78,9 @@ class RiscoController extends Controller
                 'monitoramentos.*.statusMonitoramento' => 'required|string',
                 'monitoramentos.*.execucaoMonitoramento' => 'required|string|max:9000',
                 'monitoramentos.*.inicioMonitoramento' => 'required|date',
-                'monitoramentos.*.fimMonitoramento' => 'nullable|date'
+                'monitoramentos.*.fimMonitoramento' => 'nullable|date',
+                'monitoramentos.*.isContinuo' => 'required|boolean', // Adicionei validação para isContinuo
             ]);
-
 
             // Cria um novo registro de risco
             $risco = Risco::create([
@@ -96,7 +96,7 @@ class RiscoController extends Controller
 
             // Cria monitoramentos associados ao risco
             foreach ($validatedData['monitoramentos'] as $monitoramentoData) {
-                Monitoramento::create([
+                $monitoramento = Monitoramento::create([
                     'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
                     'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
                     'execucaoMonitoramento' => $monitoramentoData['execucaoMonitoramento'],
@@ -105,9 +105,14 @@ class RiscoController extends Controller
                     'isContinuo' => $monitoramentoData['isContinuo'] ?? false,
                     'riscoFK' => $risco->id
                 ]);
-                if($monitoramentoData['fimMonitoramento'] <= $monitoramentoData['inicioMonitoramento'])
-                {
-                     return redirect()->back()->withErrors(['errors' => 'A data do fim do Monitoramento tem que ser maior do que a data do inicio do monitoramento']);
+
+                // Validar se fimMonitoramento é maior que inicioMonitoramento se fornecido
+                if (
+                    !$monitoramentoData['isContinuo'] && isset($monitoramentoData['fimMonitoramento']) &&
+                    $monitoramentoData['fimMonitoramento'] <= $monitoramentoData['inicioMonitoramento']
+                ) {
+                    // Se a validação falhar, retorna com mensagem de erro
+                    return redirect()->back()->withErrors(['errors' => 'A data do fim do Monitoramento deve ser maior do que a data do início do monitoramento.']);
                 }
             }
 
@@ -117,6 +122,7 @@ class RiscoController extends Controller
             return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao criar o risco. Por favor, tente novamente.']);
         }
     }
+
 
 
     public function edit($id)
@@ -158,7 +164,7 @@ class RiscoController extends Controller
                 'monitoramentos.*.execucaoMonitoramento' => 'required|string|max:9000',
                 'monitoramentos.*.inicioMonitoramento' => 'required|date',
                 'monitoramentos.*.fimMonitoramento' => 'nullable|date',
-                'monitoramentos.*.isContinuo' => 'required|boolean', // Adicionei validação para isContinuo
+                'monitoramentos.*.isContinuo' => 'required|boolean',
             ]);
 
             $existingMonitoramentos = $risco->monitoramentos->keyBy('id');
@@ -178,6 +184,14 @@ class RiscoController extends Controller
                             'fimMonitoramento' => $monitoramentoData['isContinuo'] ? null : $monitoramentoData['fimMonitoramento'],
                         ]);
 
+                        // Validar se fimMonitoramento é maior que inicioMonitoramento se fornecido
+                        if (
+                            !$monitoramentoData['isContinuo'] && isset($monitoramentoData['fimMonitoramento']) &&
+                            $monitoramentoData['fimMonitoramento'] <= $monitoramentoData['inicioMonitoramento']
+                        ) {
+                            return redirect()->back()->withErrors(['errors' => 'A data do fim do Monitoramento deve ser maior do que a data do início do monitoramento.']);
+                        }
+
                         // Remove o monitoramento da lista de existentes
                         unset($existingMonitoramentos[$monitoramentoData['id']]);
                     } else {
@@ -195,6 +209,14 @@ class RiscoController extends Controller
                         'riscoFK' => $risco->id,
                     ];
 
+                    // Validar se fimMonitoramento é maior que inicioMonitoramento se fornecido
+                    if (
+                        !$monitoramentoData['isContinuo'] && isset($monitoramentoData['fimMonitoramento']) &&
+                        $monitoramentoData['fimMonitoramento'] <= $monitoramentoData['inicioMonitoramento']
+                    ) {
+                        return redirect()->back()->withErrors(['errors' => 'A data do fim do Monitoramento deve ser maior do que a data do início do monitoramento.']);
+                    }
+
                     Monitoramento::create($newMonitoramentoData);
                 }
             }
@@ -209,6 +231,7 @@ class RiscoController extends Controller
             return redirect()->back()->withErrors(['errors' => 'Houve um erro ao atualizar ou adicionar monitoramentos']);
         }
     }
+
 
 
 
