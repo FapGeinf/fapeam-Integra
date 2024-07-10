@@ -64,7 +64,7 @@
                     required>{{ $risco->riscoEvento ?? old('riscoEvento') }}</textarea>
 
                 <label for="riscoCausa">Causa:</label>
-                <textarea name="riscoCausa" class="textInput" 
+                <textarea name="riscoCausa" class="textInput"
                     required>{{ $risco->riscoCausa ?? old('riscoCausa')}}</textarea>
 
                 <label for="riscoConsequencia">Consequência:</label>
@@ -108,17 +108,78 @@
                             </div>
 
                             <div id="btnSave">
-                                <button type="submit" class="submit-btn">Salvar Edição</button>
+                                <button type="button" onclick="showConfirmationModal()" class="submit-btn">Salvar Edição</button>
                             </div>
+
+                            <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="confirmationModalLabel">Confirmação de Edição</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div id="modalContent">
+                                                <!-- Conteúdo do modal será inserido dinamicamente aqui -->
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                            <button type="button" onclick="submitForm()" class="btn btn-primary">Salvar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
             </form>
         </div>
     </div>
 
     <script>
+        function showConfirmationModal() {
+            // Captura dos dados do formulário
+            let riscoAno = document.getElementById('riscoAno').value;
+            let responsavelRisco = document.getElementById('responsavelRisco').value;
+            let riscoEvento = CKEDITOR.instances.riscoEvento.getData();
+            let riscoCausa = CKEDITOR.instances.riscoCausa.getData();
+            let riscoConsequencia = CKEDITOR.instances.riscoConsequencia.getData();
+            let nivel_de_risco = document.getElementById('nivel_de_risco').value;
+            let unidadeId = document.querySelector('[name="unidadeId"]').options[document.querySelector('[name="unidadeId"]').selectedIndex].text;
+
+            // Construção do HTML para o modal de confirmação
+            let modalContent = `
+                <p><strong>Ano:</strong> ${riscoAno}</p>
+                <p><strong>Responsável do Risco:</strong> ${responsavelRisco}</p>
+                <p><strong>Evento de Risco:</strong></p>
+                <p>${riscoEvento}</p>
+                <p><strong>Causa do Risco:</strong></p>
+                <p>${riscoCausa}</p>
+                <p><strong>Causa da Consequência:</strong></p>
+                <p>${riscoConsequencia}</p>
+                <p><strong>Nível de Risco:</strong> ${nivel_de_risco}</p>
+                <p><strong>Unidade:</strong> ${unidadeId}</p>
+                <hr>
+                <p>Deseja realmente salvar as alterações?</p>
+            `;
+
+            // Inserção do conteúdo no modal de confirmação
+            document.getElementById('modalContent').innerHTML = modalContent;
+
+            // Exibir o modal de confirmação
+            let confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+            confirmationModal.show();
+        }
+
+        function submitForm() {
+            document.getElementById('formCreate').submit();
+        }
+
         CKEDITOR.replace('riscoEvento');
         CKEDITOR.replace('riscoCausa');
         CKEDITOR.replace('riscoConsequencia');
     </script>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
