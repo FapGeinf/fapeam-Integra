@@ -21,7 +21,7 @@ class UnidadeSeeder extends Seeder
         ]);
 
         Unidade::factory()->create([
-            'unidadeNome' => 'GEINF',
+            'unidadeNome' => 'Gerência de Informática',
             'unidadeEmail' => 'geinf@email.com',
             'unidadeTipoFK' => '2'
         ]);
