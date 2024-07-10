@@ -49,13 +49,13 @@
                     <div class="col-sm-4 col-md-4 mQuery">
                         <label for="name">Insira o Ano:</label>
                         <input type="text" id="riscoAno" name="riscoAno" class="form-control dataValue"
-                            value="{{$risco->riscoAno}}">
+                            value="{{$risco->riscoAno}}" minlength="4" maxlength="4" >
                     </div>
 
                     <div class="col-sm-8 col-md-8 mQuery">
                         <label for="name">Responsável do Risco:</label>
                         <input type="text" id="responsavelRisco" name="responsavelRisco" class="form-control dataValue"
-                            value="{{$risco->responsavelRisco ?? old('responsavelRisco')}}">
+                            value="{{$risco->responsavelRisco ?? old('responsavelRisco')}}" maxlength="100">
                     </div>
                 </div>
 
@@ -64,8 +64,8 @@
                     required>{{ $risco->riscoEvento ?? old('riscoEvento') }}</textarea>
 
                 <label for="riscoCausa">Causa:</label>
-                <textarea name="riscoCausa" class="textInput"
-                    required>{{ $risco->riscoCausa ?? old('riscoCausa') }}</textarea>
+                <textarea name="riscoCausa" class="textInput" 
+                    required>{{ $risco->riscoCausa ?? old('riscoCausa')}}</textarea>
 
                 <label for="riscoConsequencia">Consequência:</label>
                 <textarea name="riscoConsequencia" class="textInput"
