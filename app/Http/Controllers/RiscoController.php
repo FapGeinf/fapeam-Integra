@@ -105,6 +105,10 @@ class RiscoController extends Controller
                     'isContinuo' => $monitoramentoData['isContinuo'] ?? false,
                     'riscoFK' => $risco->id
                 ]);
+                if($monitoramentoData['fimMonitoramento'] <= $monitoramentoData['inicioMonitoramento'])
+                {
+                     return redirect()->back()->withErrors(['errors' => 'A data do fim do Monitoramento tem que ser maior do que a data do inicio do monitoramento']);
+                }
             }
 
             return redirect()->route('riscos.index')->with('success', 'Risco criado com sucesso!');
