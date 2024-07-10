@@ -99,10 +99,28 @@
         <i class="bi bi-exclamation-circle-fill"></i>
         Dica: Revise sua edição antes de salvar
       </span>
-
       <div id="btnSave">
-        <button type="submit" class="submit-btn">Salvar Edição</button>
+        <button type="button" onclick="showConfirmationModal()" class="submit-btn" data-bs-toggle="modal" data-bs-target="#confirmationModal">Salvar</button>
       </div>
+
+        <!-- Modal de Confirmação -->
+        <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirmação de Edição</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modalContent">
+
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" onclick="submitForm()" class="btn btn-success">Confirmar Edição</button>
+                </div>
+            </div>
+            </div>
+        </div>
     </form>
   </div>
 </div>
@@ -268,6 +286,63 @@
     });
 
   @endforeach
+
+
+
+
+  function showConfirmationModal() {
+        let modalContent = document.getElementById('modalContent');
+        modalContent.innerHTML = '';
+
+        // Função para formatar a data no formato brasileiro (dd/mm/aaaa)
+        function formatarDataParaBrasileiro(data) {
+        if (data) {
+        const partes = data.split('-');
+        return `${partes[2]}/${partes[1]}/${partes[0]}`;
+        }
+        return '';
+        }
+
+        let monitoramentos = document.querySelectorAll('.monitoramento');
+
+        monitoramentos.forEach((monitoramento, index) => {
+        let monitoramentoControleSugerido = CKEDITOR.instances[`monitoramentoControleSugerido${index}`].getData();
+        let statusMonitoramento =
+        monitoramento.querySelector(`select[name^="monitoramentos[${index}][statusMonitoramento]"]`).value;
+        let execucaoMonitoramento = CKEDITOR.instances[`execucaoMonitoramento${index}`].getData();
+        let isContinuo = monitoramento.querySelector(`select[name^="monitoramentos[${index}][isContinuo]"]`).value;
+        let inicioMonitoramento =
+        monitoramento.querySelector(`input[name^="monitoramentos[${index}][inicioMonitoramento]"]`).value;
+        let fimMonitoramento = monitoramento.querySelector(`input[name^="monitoramentos[${index}][fimMonitoramento]"]`).value;
+
+
+        inicioMonitoramento = inicioMonitoramento ? formatarDataParaBrasileiro(inicioMonitoramento) : 'N/A';
+
+        // Se Monitoramento Contínuo for 'Sim', define fimMonitoramento como 'N/A'
+        if (isContinuo == '1') {
+        fimMonitoramento = 'N/A';
+        } else {
+        fimMonitoramento = fimMonitoramento ? formatarDataParaBrasileiro(fimMonitoramento) : 'N/A';
+        }
+
+        modalContent.innerHTML += `
+        <p><strong>Monitoramento Nº ${index + 1}:</strong></p>
+        <p><strong>Controle Sugerido:</strong> ${monitoramentoControleSugerido}</p>
+        <p><strong>Status do Monitoramento:</strong> ${statusMonitoramento}</p>
+        <p><strong>Execução do Monitoramento:</strong> ${execucaoMonitoramento}</p>
+        <p><strong>Monitoramento Contínuo:</strong> ${isContinuo == '1' ? 'Sim' : 'Não'}</p>
+        <p><strong>Início do Monitoramento:</strong> ${inicioMonitoramento}</p>
+        <p><strong>Fim do Monitoramento:</strong> ${fimMonitoramento}</p>
+        <hr>
+        `;
+        });
+    }
+
+    function submitForm() {
+        document.getElementById('formCreate').submit();
+    }
+
+
 
 </script>
 
