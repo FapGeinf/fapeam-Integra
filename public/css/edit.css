@@ -117,11 +117,6 @@ hr {
   max-width: 800px; /* Largura máxima do formulário */
 }
 
-.form_create label {
-  /* font-weight: bold; */
-  /* margin-bottom: 2px; */
-}
-
 .form_create .textInput {
   width: 100%;
   padding: 8px;
@@ -261,7 +256,6 @@ hr {
   margin-right: 0;
 }
 
-
 .blue-btn {
   background-color: #0056b3;
   color: #fff;
@@ -281,7 +275,6 @@ hr {
 }
 
 /* LINKS QUE SÃO BOTÕES */
-
 a.edit-btn,
 a.reply-btn {
   border: none;
@@ -293,7 +286,6 @@ a.reply-btn {
   margin-right: 10px;
   transition: background-color 0.3s;
 }
-
 
 a.edit-btn {
   background-color: #0056b3;
@@ -312,6 +304,24 @@ a.reply-btn {
 a.reply-btn:hover {
   background-color: #218838;
 }
+
+.labelDel {
+  display: flex;
+  justify-content: space-between;
+}
+
+.labelDel label {
+  padding-top: 0;
+}
+
+/* .delMonit {
+  color: red;
+  margin-right: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  cursor: pointer;
+} */
 
 /* MENSAGEM DE ERRO */
 .error-message {

@@ -69,7 +69,7 @@
                 <label for="riscoCausa">Causa do Risco:<span class="asterisco">*</span></label>
                 <textarea id="riscoCausa" name="riscoCausa" class="textInput" required></textarea>
 
-                <label for="riscoConsequencia">Causa da Consequência:<span class="asterisco">*</span></label>
+                <label for="riscoConsequencia">Consequência do Risco:<span class="asterisco">*</span></label>
                 <textarea id="riscoConsequencia" name="riscoConsequencia" class="textInput" required></textarea>
 
                 <div class="row g-3">
@@ -140,21 +140,23 @@
     </div>
 
     <script>
-        CKEDITOR.replace('riscoEvento').on('required',function(evt){
-					alert('É necessario a inserção' );
-					evt.cancel();
-					console.log('CKeditor vazio');
-				});
+         CKEDITOR.replace('riscoEvento').on('required',function(evt){
+            alert('É necessario a inserção' );
+            evt.cancel();
+            console.log('CKeditor vazio');
+        });
+
         CKEDITOR.replace('riscoCausa').on('required',function(evt){
-					alert('É necessario a inserção' );
-					evt.cancel();
-					console.log('CKeditor vazio');
-				});
+            alert('É necessario a inserção' );
+            evt.cancel();
+            console.log('CKeditor vazio');
+        });
+
         CKEDITOR.replace('riscoConsequencia').on('required',function(evt){
-					alert('É necessario a inserção' );
-					evt.cancel();
-					console.log('CKeditor vazio');
-				});
+            alert('É necessario a inserção' );
+            evt.cancel();
+            console.log('CKeditor vazio');
+        });
 
         let cont = 0;
 
@@ -181,36 +183,42 @@
             novoMonitoramento.classList.add('monitoramento');
             monitoramentoContainer.appendChild(novoMonitoramento);
 
+            // Criando a div com a classe 'labelDel'
+            let divLabelDel = document.createElement('div');
+            divLabelDel.classList.add('labelDel');
+
+            // Criando o label
             let label = document.createElement('label');
             label.textContent = `Monitoramento N° ${cont + 1}`;
-            novoMonitoramento.appendChild(label);
 
-            // Criando o contêiner flexível para ícone e texto "Excluir"
+            // Criando o ícone de exclusão com a palavra "Fechar"
             let deleteWrapper = document.createElement('div');
-            deleteWrapper.classList.add('d-flex', 'align-items-center');
+            deleteWrapper.style.display = 'flex';
+            deleteWrapper.style.alignItems = 'center';
+            deleteWrapper.style.gap = '2px';
+            deleteWrapper.style.cursor = 'pointer';
 
-            // Ícone de exclusão
             let deleteIcon = document.createElement('i');
-            deleteIcon.classList.add('bi', 'bi-x-circle', 'text-danger', 'me-2');
-            deleteIcon.style.cursor = 'pointer';
+            deleteIcon.classList.add('bi', 'bi-trash3-fill', 'text-danger');
             deleteIcon.title = 'Excluir';
-            deleteWrapper.appendChild(deleteIcon);
 
-            // Texto "Excluir"
             let deleteText = document.createElement('span');
             deleteText.textContent = 'Excluir';
-            deleteText.style.cursor = 'pointer';
-            deleteText.title = 'Excluir';
             deleteText.classList.add('text-danger');
-            deleteWrapper.appendChild(deleteText);
 
-            // Adicionando evento de clique para exclusão do monitoramento e seus elementos associados
-            deleteWrapper.addEventListener('click', function() {
+            deleteWrapper.appendChild(deleteIcon);
+            deleteWrapper.appendChild(deleteText);
+            deleteWrapper.onclick = function() {
                 monitoramentosDiv.removeChild(monitoramentoContainer);
                 cont--; // Decrementa o contador ao excluir um monitoramento
-            });
+            };
 
-            label.appendChild(deleteWrapper);
+            // Adicionando os elementos à div 'labelDel'
+            divLabelDel.appendChild(label);
+            divLabelDel.appendChild(deleteWrapper);
+
+            // Adicionando a div 'labelDel' ao contêiner 'novoMonitoramento'
+            novoMonitoramento.appendChild(divLabelDel);
 
             let divControleSugerido = document.createElement('div');
             divControleSugerido.classList = 'form-group';
@@ -264,7 +272,9 @@
             execucaoMonitoramento.name = `monitoramentos[${cont}][execucaoMonitoramento]`;
             execucaoMonitoramento.placeholder = '';
             execucaoMonitoramento.classList = 'form-control textInput';
-						execucaoMonitoramento.required = true;
+
+            execucaoMonitoramento.required = true;
+
             divExecucaoMonitoramento.appendChild(execucaoMonitoramento);
 
             let divIsContinuo = document.createElement('div');
@@ -341,9 +351,9 @@
             });
 
             monitoramentosDiv.appendChild(monitoramentoContainer);
-						function teste(){
-							console.log('entrou')
-						}
+                function teste() {
+                    console.log('entrou');
+                }
 
             // Inicializar CKEditor após adicionar o contêiner ao DOM
             CKEDITOR.replace(`monitoramentoControleSugerido${cont}`).on('required', function(evt){
@@ -351,6 +361,7 @@
 							evt.cancel();
 							console.log('CKeditor vazio');
 						});
+
             cont++;
         }
 
@@ -445,6 +456,10 @@
 
 
     </script>
+
+
+
+
 
 
 
