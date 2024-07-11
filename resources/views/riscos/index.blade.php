@@ -54,11 +54,11 @@
 									<td>{!! Str::limit($risco->riscoCausa, 80) !!}</td>
 									<td>{!! Str::limit($risco->riscoConsequencia, 80) !!}</td>
 									@if($risco->nivel_de_risco==1)
-									<td class="bg-baixo riscoAvaliacao">{!! $risco->nivel_de_risco !!}</td>
+									<td class="bg-baixo riscoAvaliacao">Baixo</td>
 									@elseif ($risco->nivel_de_risco == 2)
-									<td class="bg-medio riscoAvaliacao">{!! $risco->nivel_de_risco !!}</td>
+									<td class="bg-medio riscoAvaliacao">Médio</td>
 									@else
-									<td class="bg-alto riscoAvaliacao">{!! $risco->nivel_de_risco !!}</td>
+									<td class="bg-alto riscoAvaliacao">Alto</td>
 									@endif
 								</tr>
 						@endforeach
