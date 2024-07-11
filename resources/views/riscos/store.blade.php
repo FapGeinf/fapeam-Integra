@@ -13,6 +13,7 @@
     <script src="/ckeditor/ckeditor.js"></script>
     <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-JzjS1k8F7FqhVfoJ6s5zjxuZkAdyjs2p8V3+OIcXwpjFgtVJ94k1tg4GfXoV6Ikv" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 </head>
 
@@ -91,7 +92,7 @@
 
                 <div class="mt-3 text-end">
                   <input type="button" onclick="addMonitoramentos()" value="Adicionar Monitoramento" class="blue-btn">
-                  <button type="button" onclick="showConfirmationModal()" class="green-btn green-btn-store" data-bs-toggle="modal" data-bs-target="#confirmationModal">Salvar</button>
+                  <button type="button" onclick="showConfirmationModal()" class="green-btn green-btn-store" data-toggle="modal" data-target="#confirmationModal">Salvar</button>
                 </div>
 
                 <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
@@ -127,13 +128,13 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="alertModalLabel">Aviso</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     Adicione pelo menos um monitoramento antes de enviar o formulário.
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                 </div>
             </div>
         </div>
@@ -405,7 +406,7 @@
             for (let i = 0; i < monitoramentoContainers.length; i++) {
                 let monitoramento = {};
 
-                monitoramento.monitoramentoControleSugerido = monitoramentoContainers[i].querySelector(`[name="monitoramentos[${i}][monitoramentoControleSugerido]"]`).value;
+                monitoramento.monitoramentoControleSugerido = CKEDITOR.instances[monitoramentoContainers[i].querySelector(`[name="monitoramentos[${i}][monitoramentoControleSugerido]"]`).id].getData();
                 monitoramento.statusMonitoramento = monitoramentoContainers[i].querySelector(`[name="monitoramentos[${i}][statusMonitoramento]"]`).value;
                 monitoramento.execucaoMonitoramento = monitoramentoContainers[i].querySelector(`[name="monitoramentos[${i}][execucaoMonitoramento]"]`).value;
                 monitoramento.isContinuo = monitoramentoContainers[i].querySelector(`[name="monitoramentos[${i}][isContinuo]"]`).value;
@@ -463,9 +464,7 @@
 
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+cuBiA4YZTIhVmxJy9+o6Z/xmO/PQIxM2rJ" crossorigin="anonymous"></script>
 
 </body>
 
