@@ -37,7 +37,7 @@
           </thead>
 
           <tbody>
-            <tr>
+            <tr class="text13">
               <td class="text-center pb-3 tBorder">{!! $risco->id !!}</td>
               <td class="text-center pb-3 tBorder">{!! $risco->riscoEvento !!}</td>
               <td class="text-center pb-3 tBorder">{!! $risco->riscoCausa !!}</td>
@@ -72,10 +72,10 @@
 
           <tbody>
             @foreach ($risco->monitoramentos as $monitoramento)
-                <td class="text-center pb-3 tBorder">{!! $monitoramento->monitoramentoControleSugerido !!}</td>
-                <td style="white-space: nowrap;" class="text-center pb-3 tBorder">{!! $monitoramento->statusMonitoramento !!}</td>
-                <td class="text-center pb-3">{!! $monitoramento->execucaoMonitoramento !!}</td>
-                <td style="white-space: nowrap;" class="text-center pb-3">
+                <td class="text-center text13 pb-3 tBorder">{!! $monitoramento->monitoramentoControleSugerido !!}</td>
+                <td style="white-space: nowrap;" class="text-center text13 pb-3 tBorder">{!! $monitoramento->statusMonitoramento !!}</td>
+                <td class="text-center text13 pb-3">{!! $monitoramento->execucaoMonitoramento !!}</td>
+                <td style="white-space: nowrap;" class="text-center text-13 pb-3">
                   {{ \Carbon\Carbon::parse($monitoramento->inicioMonitoramento)->format('d/m/Y') }} -
                   {{ $monitoramento->fimMonitoramento ? \Carbon\Carbon::parse($monitoramento->fimMonitoramento)->format('d/m/Y') : 'Contínuo' }}
                 </td>

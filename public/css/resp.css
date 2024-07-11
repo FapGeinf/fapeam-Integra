@@ -26,6 +26,10 @@ font-style: normal;
   /* margin-bottom: 30px; */
 }
 
+.text13 {
+  font-size: 13px;
+}
+
 .table th,
 .table td {
   vertical-align: middle;

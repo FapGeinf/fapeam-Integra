@@ -14,14 +14,14 @@
       @if($respostas->count() > 0)
       <table class="table table-bordered">
         <tr>
-          <th scope="col" class="text-center thNumber">Número</th>
+          <th scope="col" class="text-center thNumber">N°</th>
           <th scope="col" class="text-center thReply">Resposta do Risco: {{ $risco->id}}</th>
         </tr>
 
         @foreach ($respostas as $key => $resposta)
         <tr>
-          <td class="text-center tdNumber">{!! $key + 1 !!}</td>
-          <td class="text-center tdReply">{!! $resposta->respostaRisco !!}</td>
+          <td class="text-center text13 tdNumber">{!! $key + 1 !!}</td>
+          <td class="text-center text13 tdReply">{!! $resposta->respostaRisco !!}</td>
         </tr>
         @endforeach
       </table>

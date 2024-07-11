@@ -71,45 +71,51 @@
                 <textarea name="riscoConsequencia" class="textInput"
                     required>{{ $risco->riscoConsequencia ?? old('riscoConsequencia') }}</textarea>
 
-                <div class="row g-3 mt-1">
 
                     <div class="row g-3">
-                        <div class="col-sm-6 col-md-12">
-                            <label for="nivel_de_risco">Nivel de Risco:</label>
-                            <select name="nivel_de_risco" id="nivel_de_risco" required>
+                        <div class="col-sm-3 col-md-3">
+                            <label style="white-space: nowrap;" for="nivel_de_risco">Nivel de Risco:</label>
+                            <select name="nivel_de_risco" id="nivel_de_risco" class="form-select" required>
                                 <option value="1">Baixo</option>
                                 <option value="2">Médio</option>
                                 <option value="3">Alto</option>
                             </select>
-                            <div class="col-sm-8 col-md-12 mQuery">
-                                <label for="unidadeId">Unidade:</label>
-                                <select name="unidadeId" required>
-                                    <option selected disabled>Selecione uma unidade</option>
-                                    @foreach($unidades as $unidade)
-                                    <option value="{{ $unidade->id }}"
-                                        {{ isset($risco) && $risco->unidadeId == $unidade->id ? 'selected' : '' }}>
-                                        {{ $unidade->unidadeNome }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                        </div>  
+
+                        <div class="col-sm-9 col-md-9">
+                            <label for="unidadeId">Unidade:</label>
+                            <select name="unidadeId" class="form-select" required>
+                                <option selected disabled>Selecione uma unidade</option>
+                                @foreach($unidades as $unidade)
+                                <option value="{{ $unidade->id }}"
+                                    {{ isset($risco) && $risco->unidadeId == $unidade->id ? 'selected' : '' }}>
+                                    {{ $unidade->unidadeNome }}</option>
+                                @endforeach
+                            </select>
                         </div>
+                    </div>
 
-                        <div class="row g-3 mt-1">
+                        
 
-                            <hr id="hr4">
+                            <hr id="hr5">
 
-                            <span id="tip">
+                            {{-- <span id="tip">
                                 <i class="bi bi-exclamation-circle-fill"></i>
                                 Dica: Revise sua edição antes de salvar
-                            </span>
-                            <div class="mt-3 text-center mb-3">
-                                <a href="{{ route('riscos.edit-monitoramentos', ['id' => $risco->id]) }}"
-                                    class="btn btn-primary">Editar Monitoramentos</a>
-                            </div>
+                            </span> --}}
 
-                            <div id="btnSave">
-                                <button type="button" onclick="showConfirmationModal()" class="submit-btn">Salvar Edição</button>
-                            </div>
+                            
+                                <div class="d-flex justify-content-center">
+                                    <div class="me-1">
+                                        <a href="{{ route('riscos.edit-monitoramentos', ['id' => $risco->id]) }}" class="btn btn-primary">Editar Monitoramentos</a>
+                                    </div>
+                                    
+                                    <div>
+                                        <button type="button" onclick="showConfirmationModal()" class="submit-btn">Salvar Edição</button>
+                                    </div>
+                                </div>
+
+                            
 
                             <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
