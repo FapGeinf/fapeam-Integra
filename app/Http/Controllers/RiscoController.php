@@ -48,7 +48,6 @@ class RiscoController extends Controller
         }
     }
 
-
     public function show($id)
     {
         $risco = Risco::with('respostas')->findOrFail($id);
@@ -96,6 +95,11 @@ class RiscoController extends Controller
 
             // Cria monitoramentos associados ao risco
             foreach ($validatedData['monitoramentos'] as $monitoramentoData) {
+							if (!$monitoramentoData['isContinuo'] && isset($monitoramentoData['fimMonitoramento']) && $monitoramentoData['fimMonitoramento'] <= $monitoramentoData['inicioMonitoramento']) {
+								$aux = $monitoramentoData['fimMonitoramento'];
+								$monitoramentoData['fimMonitoramento'] = $monitoramentoData['inicioMonitoramento'];
+								$monitoramentoData['inicioMonitoramento'] = $aux;
+							}
                 $monitoramento = Monitoramento::create([
                     'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
                     'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
@@ -107,13 +111,7 @@ class RiscoController extends Controller
                 ]);
 
                 // Validar se fimMonitoramento é maior que inicioMonitoramento se fornecido
-                if (
-                    !$monitoramentoData['isContinuo'] && isset($monitoramentoData['fimMonitoramento']) &&
-                    $monitoramentoData['fimMonitoramento'] <= $monitoramentoData['inicioMonitoramento']
-                ) {
-                    // Se a validação falhar, retorna com mensagem de erro
-                    return redirect()->back()->withErrors(['errors' => 'A data do fim do Monitoramento deve ser maior do que a data do início do monitoramento.']);
-                }
+
             }
 
             return redirect()->route('riscos.index')->with('success', 'Risco criado com sucesso!');
@@ -122,8 +120,6 @@ class RiscoController extends Controller
             return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao criar o risco. Por favor, tente novamente.']);
         }
     }
-
-
 
     public function edit($id)
     {
