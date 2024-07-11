@@ -352,9 +352,6 @@
             });
 
             monitoramentosDiv.appendChild(monitoramentoContainer);
-                function teste() {
-                    console.log('entrou');
-                }
 
             // Inicializar CKEditor após adicionar o contêiner ao DOM
             CKEDITOR.replace(`monitoramentoControleSugerido${cont}`).on('required', function(evt){
@@ -362,7 +359,6 @@
 							evt.cancel();
 							console.log('CKeditor vazio');
 						});
-
             cont++;
         }
 

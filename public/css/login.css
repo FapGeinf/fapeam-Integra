@@ -25,12 +25,10 @@ body {
 }
 
 .mainContainer {
-  /* width: 66%; */
-  width: 55%;
+  width: 47%;
   min-width: 800px;
   position: absolute;
   top: 20%;
-  /* margin-left: 6%; */
   margin-left: 15%;
 }
 
