@@ -23,11 +23,9 @@ class RiscoController extends Controller
             if ($user->unidade->unidadeTipoFK == 1) {
                 // Caso o usuário seja de um tipo de unidade igual a 1
                 $riscos = Risco::all();
-                $monitoramentos = Monitoramento::all();
             } else {
                 // Caso o usuário seja de um tipo de unidade diferente de 1
                 $riscos = Risco::where('unidadeId', $user->unidade->unidadeTipoFK)->get();
-                $monitoramentos = Monitoramento::whereIn('riscoFK', $riscos->pluck('id'))->get();
             }
 
             // Contagem de todos os riscos
@@ -38,7 +36,6 @@ class RiscoController extends Controller
 
             return view('riscos.index', [
                 'riscos' => $riscos,
-                'monitoramentos' => $monitoramentos,
                 'prazo' => $prazo ? $prazo->data : null,
                 'riscosAbertos' => $riscosAbertos,
                 'riscosAbertosHoje' => $riscosAbertosHoje,

@@ -40,15 +40,12 @@
 							<th style="white-space: nowrap;">Evento de Risco</th>
 							<th>Causa</th>
 							<th>Consequência</th>
-							<th style="width: 90px;">Avaliação</th>
-							<th style="word-wrap: break-word;">Início Monitoramento</th>
-							<th style="word-wrap: break-word;">Fim Monitoramento</th>
+							<th style="width: 120px;">Avaliação</th>
 						</tr>
 					</thead>
 
 					<tbody>
 						@foreach ($riscos as $risco)
-							@foreach ($risco->monitoramentos as $monitoramento)
 								<tr style="cursor: pointer;" onclick="window.location='{{ route('riscos.show', $risco->id) }}';">
 									<td style="white-space:nowrap;">{{ $risco->id }}</td>
 									<td style="white-space: nowrap;">{!! $risco->responsavelRisco !!}</td>
@@ -63,16 +60,7 @@
 									@else
 									<td class="bg-alto riscoAvaliacao">{!! $risco->nivel_de_risco !!}</td>
 									@endif
-									<td>{{ \Carbon\Carbon::parse($monitoramento->inicioMonitoramento)->format('d/m/Y') }}</td>
-									<td>
-										@if ($monitoramento->fimMonitoramento)
-											{{ \Carbon\Carbon::parse($monitoramento->fimMonitoramento)->format('d/m/Y') }}
-										@else
-											Contínuo
-										@endif
-									</td>
 								</tr>
-							@endforeach
 						@endforeach
 					</tbody>
 				</table>
