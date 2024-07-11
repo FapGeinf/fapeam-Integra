@@ -124,6 +124,7 @@ hr {
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+  background-color: #f0f0f0;
 }
 
 .form_create select, .dataValue {
@@ -193,8 +194,12 @@ hr {
 
 /* Estilo para a numeração dos monitoramentos */
 .numeration {
-  font-weight: bold;
+  /* font-weight: bold; */
   margin-right: 5px;
+}
+
+.bgDateMon {
+  background-color: #f0f0f0;
 }
 
 /* Estilo para cada monitoramento */

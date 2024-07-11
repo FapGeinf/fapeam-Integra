@@ -39,12 +39,12 @@
 
       @foreach($risco->monitoramentos as $index => $monitoramento)
         <div class="monitoramento">
-          <span class="numeration">Monitoramento Nº {{ $index + 1 }}</span>
+          <span class="numeration">Monitoramento Nº {{ $index + 1 }}:</span>
 
           <textarea name="monitoramentos[{{ $index }}][monitoramentoControleSugerido]" placeholder="Monitoramento" class="textInput" id="monitoramentoControleSugerido{{ $index }}">{{ $monitoramento->monitoramentoControleSugerido }}</textarea>
 
           <label>Status do Monitoramento:</label>
-          <select name="monitoramentos[{{ $index }}][statusMonitoramento]" class="textInput" id="statusMonitoramento{{ $index }}">
+          <select name="monitoramentos[{{ $index }}][statusMonitoramento]" class="textInput form-select" id="statusMonitoramento{{ $index }}">
             <option value="NÃO IMPLEMENTADA" {{ $monitoramento->statusMonitoramento == 'NÃO IMPLEMENTADA' ? 'selected' : '' }}>NÃO IMPLEMENTADA</option>
             <option value="EM IMPLEMENTAÇÃO" {{ $monitoramento->statusMonitoramento == 'EM IMPLEMENTAÇÃO' ? 'selected' : '' }}>EM IMPLEMENTAÇÃO</option>
             <option value="IMPLEMENTADA PARCIALMENTE" {{ $monitoramento->statusMonitoramento == 'IMPLEMENTADA PARCIALMENTE' ? 'selected' : '' }}>IMPLEMENTADA PARCIALMENTE</option>
@@ -67,7 +67,7 @@
           <div class="row g-3">
             <div class="col-sm-12 col-md-6">
               <label>Início do Monitoramento:</label>
-              <input type="date" name="monitoramentos[{{ $index }}][inicioMonitoramento]" class="textInput dateInput" value="{{ $monitoramento->inicioMonitoramento }}">
+              <input type="date" name="monitoramentos[{{ $index }}][inicioMonitoramento]" class="textInput bgDateMon dateInput" value="{{ $monitoramento->inicioMonitoramento }}">
             </div>
 
             <div class="col-sm-12 col-md-6 mQuery2" id="fimMonitoramentoContainer{{ $index }}">
