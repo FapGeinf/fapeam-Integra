@@ -21,6 +21,12 @@ class UnidadeSeeder extends Seeder
         ]);
 
         Unidade::factory()->create([
+            'unidadeNome' => 'Secretária dos Conselhos',
+            'unidadeEmail' => 'SECCONSELHOS@email.com',
+            'unidadeTipoFK' => '2'
+        ]);
+
+        Unidade::factory()->create([
             'unidadeNome' => 'Gerência de Informática',
             'unidadeEmail' => 'geinf@email.com',
             'unidadeTipoFK' => '2'
@@ -37,7 +43,6 @@ class UnidadeSeeder extends Seeder
             'unidadeEmail' => 'presidencia@email.com',
             'unidadeTipoFK' => '2'
         ]);
-
         Unidade::factory()->create([
             'unidadeNome' => 'Diretoria Administrativo-Financeira',
             'unidadeEmail' => 'DAF@email.com',
@@ -161,6 +166,11 @@ class UnidadeSeeder extends Seeder
         Unidade::factory()->create([
             'unidadeNome' => 'Câmara de Assessoramento Científico Pós-Graduação',
             'unidadeEmail' => 'CACPOS@email.com',
+            'unidadeTipoFK' => '2'
+        ]);
+        Unidade::factory()->create([
+            'unidadeNome' => 'Assessoria de Planejamento e Avaliação Institucional',
+            'unidadeEmail' => 'ASPLAVI@email.com',
             'unidadeTipoFK' => '2'
         ]);
     }
