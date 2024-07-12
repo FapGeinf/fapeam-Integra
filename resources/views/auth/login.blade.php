@@ -1,10 +1,5 @@
 @extends('layouts.app')
-@section('content')
 
-@section('title') {{'Login'}} @endsection
-
-<!DOCTYPE html>
-<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,75 +22,56 @@
     });
   </script>
 </head>
-<body>
-    
-<div class="mainContainer">
-  <div class="">
-    
+
+@section('title') {{'Login'}} @endsection
+
+@section('content')
+<body class="login-page">
+
+ <div class="grid">
+  <div class="order__right centered no__overflow">
+     <img class="img" src="{{ asset('img/tela-7.png') }}" alt="picture">
   </div>
-
-  <div class="secContainer">
-    
-    <div class="login">
-      <div class="logoLogin">
-        <img src="img/logoDecon.png" alt="">
-      </div>
-      
-      <div class="login-content">
-        <form method="POST" action="{{ route('login') }}">
-          @csrf
-
-          <!-- <div class="input-icon">
-            <input id="email" class="inputImp @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="Insira seu Email" required autocomplete="email" autofocus>
-            <i class="fas fa-user"></i>
-
-            @error('email')
-            <span class="invalid-feedback" role="alert">
-              <strong>{{ $message }}</strong>
-            </span>
-            @enderror
-          </div> -->
-
-					<div class="input-icon">
-            <input id="cpf" type="tel" class="inputImp @error('cpf') is-invalid @enderror" name="cpf" value="{{ old('cpf') }}" placeholder="Insira seu CPF" autocomplete="cpf" autofocus required>
-            <i class="fas fa-user"></i>
-
-            @error('cpf')
-            <span class="invalid-feedback" role="alert">
-              <strong>{{ $message }}</strong>
-            </span>
-            @enderror
-          </div>
-
-					<!-- <label>CPF:</label>
-        	<input id="cpf" maxlength="11" minlength="11" type="text" class="form-control inputField @error('cpf') is-invalid @enderror" name="cpf" value="{{ old('cpf') }}" required autocomplete="cpf" placeholder="Insira seu CPF">
-        	@error('cpf')
-         	 <span class="invalid-feedback" role="alert">
-            	<strong>{{ $message }}</strong>
-          	</span>
-        	@enderror -->
-
-          <div class="input-icon">
-            <input id="password" type="password" class="inputImp inputSenha @error('password') is-invalid @enderror " name="password" required autocomplete="current-password" placeholder="Senha">
-            <i class="fas fa-lock"></i>
-
-            @error('password')
-            <span class="invalid-feedback" role="alert">
-              <strong>{{ $message }}</strong>
-            </span>
-            @enderror
-          </div>
-
-          <div class="rememberMeDiv">
-            <input type="checkbox" id="" name="remember_me" value="remember_me" style="margin-right: 3px">
-            <label for="remember_me" class="rememberMe">Lembrar-me</label>
-          </span>
+  
+  <div class="order__left centered">
+     <div class="form" style="width: 380px;">
+      <form method="POST" action="{{ route('login') }}">
+        @csrf
+        <div class="logo">
+          <img src="{{ asset('img/logoDecon-nobg.png') }}" alt="Banner Íntegra" style="margin-bottom: 3rem;">
         </div>
 
-          <div class="loginButton">
-            <input class="inputLogin" type="submit" value="Entrar">
-          </div>
-        </form>
+        <div class="input-icon">
+          <input id="cpf" type="tel" class="inputImp @error('cpf') is-invalid @enderror" name="cpf" value="{{ old('cpf') }}" placeholder="Insira seu CPF" autocomplete="cpf" autofocus required>
+          <i class="fas fa-user"></i>
+
+          @error('cpf')
+          <span class="invalid-feedback" role="alert">
+            <strong>Usuário não encontrado</strong>
+          </span>
+          @enderror
+        </div>
+
+        <div class="input-icon">
+          <input id="password" type="password" class="inputImp inputSenha @error('password') is-invalid @enderror " name="password" required autocomplete="current-password" placeholder="Senha">
+          <i class="fas fa-lock"></i>
+
+          @error('password')
+          <span class="invalid-feedback" role="alert">
+            <strong>Senha incorreta</strong>
+          </span>
+          @enderror
+        </div>
+
+        <div class="rememberMeDiv">
+          <input type="checkbox" id="" name="remember_me" value="remember_me" style="margin-right: 3px">
+          <label for="remember_me" class="rememberMe">Lembrar-me</label>
+        </div>
+
+        <div class="loginButton">
+          <input class="inputLogin" type="submit" value="Entrar">
+        </div>
+      </form>
 
       <div class="loginFooter">
         <div class="helpButtons">
@@ -107,10 +83,8 @@
       <div class="footerLogo">
         <span>&copy;2024 FAPEAM</span>
       </div>
-  
+
     </div>
   </div>
-</div>
 </body>
-</html>
 @endsection
