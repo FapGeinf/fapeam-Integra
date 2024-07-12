@@ -63,16 +63,16 @@ class RiscoController extends Controller
         try {
             $validatedData = $request->validate([
                 'responsavelRisco' => 'required',
-                'riscoEvento' => 'required|string|max:9000',
-                'riscoCausa' => 'required|string|max:9000',
-                'riscoConsequencia' => 'required|string|max:9000',
+                'riscoEvento' => 'max:9000',
+                'riscoCausa' => 'max:9000',
+                'riscoConsequencia' => 'max:9000',
                 'riscoAno' => 'required',
                 'nivel_de_risco' => 'required|integer',
                 'unidadeId' => 'required|exists:unidades,id',
                 'monitoramentos' => 'required|array|min:1',
-                'monitoramentos.*.monitoramentoControleSugerido' => 'required|string|max:9000',
+                'monitoramentos.*.monitoramentoControleSugerido' => 'max:9000',
                 'monitoramentos.*.statusMonitoramento' => 'required|string',
-                'monitoramentos.*.execucaoMonitoramento' => 'required|string|max:9000',
+                'monitoramentos.*.execucaoMonitoramento' => 'max:9000',
                 'monitoramentos.*.inicioMonitoramento' => 'required|date',
                 'monitoramentos.*.fimMonitoramento' => 'nullable|date',
                 'monitoramentos.*.isContinuo' => 'required|boolean', // Adicionei validação para isContinuo
@@ -107,12 +107,12 @@ class RiscoController extends Controller
                     'riscoFK' => $risco->id
                 ]);
 
-                // Validar se fimMonitoramento é maior que inicioMonitoramento se fornecido
 
             }
 
             return redirect()->route('riscos.index')->with('success', 'Risco criado com sucesso!');
         } catch (\Exception $e) {
+					dd($e);
             Log::error('Erro ao criar risco: ' . $e->getMessage());
             return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao criar o risco. Por favor, tente novamente.']);
         }
