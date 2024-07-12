@@ -1,3 +1,5 @@
+
+
 .poppins-regular {
   font-family: "Poppins", sans-serif;
   font-weight: 400;
@@ -5,63 +7,79 @@
 }
 
 body {
-  font-family: "Poppins", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  background: url('/img/tela-2.png') no-repeat center center fixed;
-  background-size: cover;
-  margin: 0 auto;
-  width: 66%;
+  font-family: "Poppins", sans-serif !important;
 }
 
-.logoLogin {
-  height: 115px;
+
+
+/* REMOVE AS CONFIGURAÇÕES DO GLOBAL.CSS */
+.login-page .appContent {
+    margin-left: 0 !important;
+  }
+
+.appContent {
+    margin-left: 0 !important;
+  }
+
+.conteudo {
+    margin-top: 0 !important;
+    padding-left: 0 !important;
+  }
+
+.logo {
+  padding-bottom: 1rem;
+}
+/* FIM */
+
+.grid {
+  display: grid;
+  grid-template-columns: 2.5fr 1fr;
+  height: 100vh;
+}
+
+.order__left {
+  order: 2;
+  padding:  168px;
+  background-color: #fff;
+}
+
+.order__right {
+  order: 1;
+}
+
+.centered {
+  display: flex;
+  align-items: center;
   justify-content: center;
+}
+
+.no__overflow {
   display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.logo {
   text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-  padding-bottom: 1.5rem;
 }
 
-.mainContainer {
-  width: 47%;
-  min-width: 800px;
-  position: absolute;
-  top: 20%;
-  margin-left: 15%;
+.logo img {
+  height: 100%;
 }
 
-.secContainer {
-  position: relative;
-  float: right;
-  width: 49%;
-  margin-left: 1%;
+.img {
+  height: 100%;
+  object-fit: cover;
+  max-width: auto;
+  padding-right: 2rem;
 }
 
-.loginTitle {
-  font-size: 25px;
-  padding: 3px;
-  padding-left: 1rem;
-  padding-bottom: 8px;
-  margin-bottom: 3rem;
-  border-radius: 8px;
-  background-color: #e5e5e5;
+.form {
+  max-width: 500px;
 }
 
-.login {
-  margin-right: 0;
-  /* border: 1px solid pink; */
-  
-}
-
-.login-content {
-  display: flex;
-  flex-direction: column;
-}
-
-input {
-  padding: 5px;
+.remember_me {
+  margin-top: 0;
 }
 
 .inputImp {
@@ -72,21 +90,6 @@ input {
   border-radius: 8px;
   margin-bottom: 1rem;
 }
-
-.inputSenha {
-  margin-bottom: 8px;
-}
-
-.rememberMe {
-  cursor: pointer;
-  color: #444444;
-  font-weight: 500;
-}
-
-/* .rememberMeDiv {
-  display: flex;
-  justify-content: end;
-} */
 
 .input-icon {
   position: relative;
@@ -102,6 +105,28 @@ input {
 
 .input-icon input {
   padding-left: 35px;
+}
+
+.inputSenha {
+  margin-bottom: 8px;
+}
+
+::-webkit-input-placeholder {
+  color: #000000;
+}
+
+:-ms-input-placeholder {
+  color: #000000;
+}
+
+::placeholder {
+  color: #000000;
+}
+
+.rememberMe {
+  cursor: pointer;
+  color: #444444;
+  font-weight: 500;
 }
 
 .loginButton {
@@ -121,7 +146,7 @@ input {
   color: #fff;
   font-size: 17px;
   background-color: #428ccf;
-  width: 30%;
+  width: 45%;
   border: none;
   border-radius: 8px;
   margin-top: 1.5rem;
@@ -137,7 +162,7 @@ input {
 }
 
 .loginFooter {
-  background-color: #f8f9fa;
+  background-color: #f0f0f0;
   border-radius: 8px;
 }
 
@@ -164,176 +189,100 @@ input {
   justify-content: center;
   font-weight: bold;
   margin-top: 7rem;
-
 }
 
-@media only screen and (max-width: 1450px) {
-  .mainContainer {
-    position: static;
-  }
-
-  .secContainer {
-    float: none;
-    width: 49%;
-    margin-top: 8.5rem;
-    margin-left: auto;
-    margin-right: 0;
-  }
-
-  .login {
-    margin-left: auto;
-    margin-right: auto;
-  }
+.justify__space_between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0;
+  margin-bottom: 30px;
 }
 
-@media only screen and (max-width: 1320px) {
-  .mainContainer {
-    position: static;
-  }
-
-  .secContainer {
-    float: none;
-    width: 49%;
-    margin-top: 8.5rem;
-    margin-left: auto;
-    margin-right: 3rem;
-  }
-
-  .login {
-    margin-left: auto;
-    margin-right: auto;
-  }
+input[type=checkbox], label {
+  margin-right: 4px;
+  cursor: pointer;
+  outline-color: #464646;
 }
 
-@media only screen and (max-width: 1170px) {
-  .mainContainer {
-    position: static;
-  }
-
-  .secContainer {
-    float: none;
-    width: 49%;
-    margin-top: 8.5rem;
-    margin-left: auto;
-    margin-right: 5rem;
-  }
-
-  .login {
-    margin-left: auto;
-    margin-right: auto;
-  }
+.remember_me, .signup {
+  color: #202020;
 }
 
-@media only screen and (max-width: 1170px) {
-  .mainContainer {
-    position: static;
-  }
-
-  .secContainer {
-    float: none;
-    width: 49%;
-    margin-top: 8.5rem;
-    margin-left: auto;
-    margin-right: 7rem;
-  }
-
-  .login {
-    margin-left: auto;
-    margin-right: auto;
-  }
+.forgot__password {
+  color: #202020;
+  text-align: left;
+  outline-color: #464646;
 }
 
-@media only screen and (max-width: 1050px) {
-  .mainContainer {
-    position: static;
+.forgot__password:active {
+  color: #867992;
+}
+
+.login__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  outline-color: #3c62ad;
+  width: 35%;
+  border: none;
+  background-color: #1d3055;
+  padding: 10px 13px;
+  color: #fff;
+  border-radius: 2rem;
+  font-size: 16px;
+  cursor: pointer;
+  transition: box-shadow 0.25s ease-in-out, background-color 0.3s;
+}
+
+
+.login__button:hover {
+  box-shadow: 0 0 0 0.15rem #3f6bc4;
+}
+
+.login__button:active {
+  background-color: #29447a;
+  box-shadow: 0 0 0 0.25rem #3c62ad;
+}
+
+
+
+@media only screen and (max-width:  800px) {
+  .grid {
+    grid-template-columns: auto;
   }
 
-  .secContainer {
-    float: none;
-    width: 49%;
-    margin-top: 8.5rem;
-    margin-left: auto;
-    margin-right: 9rem;
+  .logo img {
+    margin-top: 2rem;
   }
 
-  .login {
-    margin-left: auto;
-    margin-right: auto;
+  .order__left {
+    order: 2;
+    /* padding: 133px; */
+    background-color: #fff;
+  }
+
+  .order__right {
+    order: 2;
+  }
+
+  .centered {
+    align-items: flex-start;
+  }   
+     
+  .no__overflow {
+    align-items: flex-start;
+    background-color: #fff;
+  }
+  
+  .img {
+    display: none;
   }
 }
 
-@media only screen and (max-width: 1020px) {
-  .mainContainer {
-    position: static;
-  }
-
-  .secContainer {
-    float: none;
-    width: 49%;
-    margin-top: 8.5rem;
-    margin-left: auto;
-    margin-right: 10rem;
-  }
-
-  .login {
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-@media only screen and (max-width: 950px) {
-  .mainContainer {
-    position: static;
-  }
-
-  .secContainer {
-    float: none;
-    width: 49%;
-    margin-top: 8.5rem;
-    margin-left: auto;
-    margin-right: 12rem;
-  }
-
-  .login {
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-@media only screen and (max-width: 900px) {
-  .mainContainer {
-    position: static;
-  }
-
-  .secContainer {
-    float: none;
-    width: 49%;
-    margin-top: 8.5rem;
-    margin-left: auto;
-    margin-right: 13rem;
-  }
-
-  .login {
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-@media only screen and (max-width: 800px) {
-  .mainContainer {
-    position: static;
-  }
-
-  .secContainer {
-    float: none;
-    width: 49%;
-    margin-top: 8.5rem;
-    margin-left: auto;
-    margin-right: 16.5rem;
-  }
-
-  .login {
-    margin-left: auto;
-    margin-right: auto;
+@media only screen and (max-height:  600px) {
+  .img {
+    width: 120%;
   }
 }
