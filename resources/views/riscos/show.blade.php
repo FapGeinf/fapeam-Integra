@@ -62,7 +62,6 @@
             <tr>
               <th scope="col" class="text-center text-light tBorder">Controle Sugerido:</th>
               <th scope="col" class="text-center text-light tBorder">Status:</th>
-              <th scope="col" class="text-center text-light">Execução:</th>
               <th scope="col" class="text-center text-light">Data:</th>
               @if(count($monitoramentos)>1)
               <th scope="col" class="text-center text-light">Ações:</th>
@@ -74,7 +73,6 @@
             @foreach ($risco->monitoramentos as $monitoramento)
                 <td class="text-center text13 pb-3 tBorder">{!! $monitoramento->monitoramentoControleSugerido !!}</td>
                 <td style="white-space: nowrap;" class="text-center text13 pb-3 tBorder">{!! $monitoramento->statusMonitoramento !!}</td>
-                <td class="text-center text13 pb-3">{!! $monitoramento->execucaoMonitoramento !!}</td>
                 <td style="white-space: nowrap;" class="text-center text-13 pb-3">
                   {{ \Carbon\Carbon::parse($monitoramento->inicioMonitoramento)->format('d/m/Y') }} -
                   {{ $monitoramento->fimMonitoramento ? \Carbon\Carbon::parse($monitoramento->fimMonitoramento)->format('d/m/Y') : 'Contínuo' }}

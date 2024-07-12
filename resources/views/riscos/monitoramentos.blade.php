@@ -51,9 +51,6 @@
             <option value="IMPLEMENTADA" {{ $monitoramento->statusMonitoramento == 'IMPLEMENTADA' ? 'selected' : '' }}>IMPLEMENTADA</option>
           </select>
 
-          <label>Execução do Monitoramento:</label>
-          <textarea name="monitoramentos[{{ $index }}][execucaoMonitoramento]" placeholder="Execução do Monitoramento" class="textInput" id="execucaoMonitoramento{{ $index }}">{{ $monitoramento->execucaoMonitoramento }}</textarea>
-
           <div class="row g-3">
             <div class="col-sm-12 col-md-12">
               <label>Monitoramento Contínuo:</label>
@@ -80,7 +77,6 @@
 
         <script>
           CKEDITOR.replace(`monitoramentoControleSugerido{{ $index }}`);
-          CKEDITOR.replace(`execucaoMonitoramento{{ $index }}`);
         </script>
       @endforeach
 
@@ -170,14 +166,6 @@
       statusMonitoramento.appendChild(option);
     });
 
-    let execucaoMonitoramentoLabel = document.createElement('label');
-    execucaoMonitoramentoLabel.textContent = 'Execução do Monitoramento:';
-    let execucaoMonitoramento = document.createElement('textarea');
-    execucaoMonitoramento.name = `monitoramentos[${cont}][execucaoMonitoramento]`;
-    execucaoMonitoramento.placeholder = 'Execução do Monitoramento';
-    execucaoMonitoramento.classList.add('textInput');
-    execucaoMonitoramento.id = `execucaoMonitoramento${cont}`;
-
     let rowDiv = document.createElement('div');
     rowDiv.classList.add('row', 'g-3');
 
@@ -189,6 +177,7 @@
     inicioMonitoramento.type = 'date';
     inicioMonitoramento.name = `monitoramentos[${cont}][inicioMonitoramento]`;
     inicioMonitoramento.classList.add('textInput', 'dateInput');
+	inicioMonitoramento.required = true;
     colDiv1.appendChild(inicioMonitoramentoLabel);
     colDiv1.appendChild(inicioMonitoramento);
 
@@ -209,8 +198,6 @@
     monitoramentoDiv.appendChild(controleSugerido);
     monitoramentoDiv.appendChild(statusMonitoramentoLabel);
     monitoramentoDiv.appendChild(statusMonitoramento);
-    monitoramentoDiv.appendChild(execucaoMonitoramentoLabel);
-    monitoramentoDiv.appendChild(execucaoMonitoramento);
     monitoramentoDiv.appendChild(rowDiv);
 
     let divIsContinuo = document.createElement('div');
@@ -253,7 +240,6 @@
     monitoramentosDiv.appendChild(monitoramentoDiv);
 
     CKEDITOR.replace(`monitoramentoControleSugerido${cont}`);
-    CKEDITOR.replace(`execucaoMonitoramento${cont}`);
 
     cont++;
     updateCounter();
@@ -272,7 +258,6 @@
 
   @foreach($risco->monitoramentos as $index => $monitoramento)
     CKEDITOR.replace(`monitoramentoControleSugerido{{ $index }}`);
-    CKEDITOR.replace(`execucaoMonitoramento{{ $index }}`);
 
     let isContinuo{{ $index }} = document.getElementById(`isContinuo{{ $index }}`);
     let fimMonitoramento{{ $index }} = document.getElementById(`fimMonitoramentoContainer{{ $index }}`);
@@ -309,7 +294,6 @@
         let monitoramentoControleSugerido = CKEDITOR.instances[`monitoramentoControleSugerido${index}`].getData();
         let statusMonitoramento =
         monitoramento.querySelector(`select[name^="monitoramentos[${index}][statusMonitoramento]"]`).value;
-        let execucaoMonitoramento = CKEDITOR.instances[`execucaoMonitoramento${index}`].getData();
         let isContinuo = monitoramento.querySelector(`select[name^="monitoramentos[${index}][isContinuo]"]`).value;
         let inicioMonitoramento =
         monitoramento.querySelector(`input[name^="monitoramentos[${index}][inicioMonitoramento]"]`).value;
@@ -329,7 +313,6 @@
         <p><strong>Monitoramento Nº ${index + 1}:</strong></p>
         <p><strong>Controle Sugerido:</strong> ${monitoramentoControleSugerido}</p>
         <p><strong>Status do Monitoramento:</strong> ${statusMonitoramento}</p>
-        <p><strong>Execução do Monitoramento:</strong> ${execucaoMonitoramento}</p>
         <p><strong>Monitoramento Contínuo:</strong> ${isContinuo == '1' ? 'Sim' : 'Não'}</p>
         <p><strong>Início do Monitoramento:</strong> ${inicioMonitoramento}</p>
         <p><strong>Fim do Monitoramento:</strong> ${fimMonitoramento}</p>

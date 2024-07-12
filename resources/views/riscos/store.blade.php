@@ -141,23 +141,9 @@
     </div>
 
     <script>
-         CKEDITOR.replace('riscoEvento').on('required',function(evt){
-            alert('É necessario a inserção' );
-            evt.cancel();
-            console.log('CKeditor vazio');
-        });
-
-        CKEDITOR.replace('riscoCausa').on('required',function(evt){
-            alert('É necessario a inserção' );
-            evt.cancel();
-            console.log('CKeditor vazio');
-        });
-
-        CKEDITOR.replace('riscoConsequencia').on('required',function(evt){
-            alert('É necessario a inserção' );
-            evt.cancel();
-            console.log('CKeditor vazio');
-        });
+        CKEDITOR.replace('riscoEvento')
+        CKEDITOR.replace('riscoCausa')
+        CKEDITOR.replace('riscoConsequencia')
 
         let cont = 0;
 
@@ -260,23 +246,23 @@
 
             divStatusMonitoramento.appendChild(statusMonitoramento);
 
-            let divExecucaoMonitoramento = document.createElement('div');
-            divExecucaoMonitoramento.classList = 'form-group';
-            novoMonitoramento.appendChild(divExecucaoMonitoramento);
+            // let divExecucaoMonitoramento = document.createElement('div');
+            // divExecucaoMonitoramento.classList = 'form-group';
+            // novoMonitoramento.appendChild(divExecucaoMonitoramento);
 
-            let labelExecucaoMonitoramento = document.createElement('label');
-            labelExecucaoMonitoramento.textContent = 'Execução do Monitoramento:';
-            divExecucaoMonitoramento.appendChild(labelExecucaoMonitoramento);
+            // let labelExecucaoMonitoramento = document.createElement('label');
+            // labelExecucaoMonitoramento.textContent = 'Execução do Monitoramento:';
+            // divExecucaoMonitoramento.appendChild(labelExecucaoMonitoramento);
 
-            let execucaoMonitoramento = document.createElement('input');
-            execucaoMonitoramento.type = 'text';
-            execucaoMonitoramento.name = `monitoramentos[${cont}][execucaoMonitoramento]`;
-            execucaoMonitoramento.placeholder = '';
-            execucaoMonitoramento.classList = 'form-control textInput';
+            // let execucaoMonitoramento = document.createElement('input');
+            // execucaoMonitoramento.type = 'text';
+            // execucaoMonitoramento.name = `monitoramentos[${cont}][execucaoMonitoramento]`;
+            // execucaoMonitoramento.placeholder = '';
+            // execucaoMonitoramento.classList = 'form-control textInput';
 
-            execucaoMonitoramento.required = true;
+            // execucaoMonitoramento.required = true;
 
-            divExecucaoMonitoramento.appendChild(execucaoMonitoramento);
+            // divExecucaoMonitoramento.appendChild(execucaoMonitoramento);
 
             let divIsContinuo = document.createElement('div');
             divIsContinuo.classList.add('form-group');
@@ -318,6 +304,7 @@
             inputInicioMonitoramento.type = 'date';
             inputInicioMonitoramento.name = `monitoramentos[${cont}][inicioMonitoramento]`;
             inputInicioMonitoramento.classList = 'form-control textInput dateInput';
+            inputInicioMonitoramento.required = true;
             divInicioMonitoramento.appendChild(inputInicioMonitoramento);
 
             let divFimMonitoramento = document.createElement('div');
@@ -404,7 +391,7 @@
 
                 monitoramento.monitoramentoControleSugerido = CKEDITOR.instances[monitoramentoContainers[i].querySelector(`[name="monitoramentos[${i}][monitoramentoControleSugerido]"]`).id].getData();
                 monitoramento.statusMonitoramento = monitoramentoContainers[i].querySelector(`[name="monitoramentos[${i}][statusMonitoramento]"]`).value;
-                monitoramento.execucaoMonitoramento = monitoramentoContainers[i].querySelector(`[name="monitoramentos[${i}][execucaoMonitoramento]"]`).value;
+                //monitoramento.execucaoMonitoramento = monitoramentoContainers[i].querySelector(`[name="monitoramentos[${i}][execucaoMonitoramento]"]`).value;
                 monitoramento.isContinuo = monitoramentoContainers[i].querySelector(`[name="monitoramentos[${i}][isContinuo]"]`).value;
                 monitoramento.inicioMonitoramento = monitoramentoContainers[i].querySelector(`[name="monitoramentos[${i}][inicioMonitoramento]"]`).value;
                 monitoramento.fimMonitoramento = monitoramentoContainers[i].querySelector(`[name="monitoramentos[${i}][fimMonitoramento]"]`).value;
@@ -421,7 +408,6 @@
                         <p><strong>Monitoramento N° ${i + 1}:</strong></p>
                         <p><strong>Controle Sugerido:</strong> ${monitoramento.monitoramentoControleSugerido}</p>
                         <p><strong>Status do Monitoramento:</strong> ${monitoramento.statusMonitoramento}</p>
-                        <p><strong>Execução do Monitoramento:</strong> ${monitoramento.execucaoMonitoramento}</p>
                         <p><strong>Monitoramento Contínuo:</strong> ${monitoramento.isContinuo == 1 ? 'Sim' : 'Não'}</p>
                         <p><strong>Início do Monitoramento:</strong> ${monitoramento.inicioMonitoramento}</p>
                         <p><strong>Fim do Monitoramento:</strong> ${monitoramento.fimMonitoramento}</p>
