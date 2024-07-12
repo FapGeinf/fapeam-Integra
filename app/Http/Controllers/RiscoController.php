@@ -72,7 +72,6 @@ class RiscoController extends Controller
                 'monitoramentos' => 'required|array|min:1',
                 'monitoramentos.*.monitoramentoControleSugerido' => 'max:9000',
                 'monitoramentos.*.statusMonitoramento' => 'required|string',
-                'monitoramentos.*.execucaoMonitoramento' => 'max:9000',
                 'monitoramentos.*.inicioMonitoramento' => 'required|date',
                 'monitoramentos.*.fimMonitoramento' => 'nullable|date',
                 'monitoramentos.*.isContinuo' => 'required|boolean', // Adicionei validação para isContinuo
@@ -100,7 +99,7 @@ class RiscoController extends Controller
                 $monitoramento = Monitoramento::create([
                     'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
                     'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
-                    'execucaoMonitoramento' => $monitoramentoData['execucaoMonitoramento'],
+                    // 'execucaoMonitoramento' => $monitoramentoData['execucaoMonitoramento'],
                     'inicioMonitoramento' => $monitoramentoData['inicioMonitoramento'],
                     'fimMonitoramento' => $monitoramentoData['fimMonitoramento'] ?? null,
                     'isContinuo' => $monitoramentoData['isContinuo'] ?? false,
@@ -152,9 +151,8 @@ class RiscoController extends Controller
             $request->validate([
                 'monitoramentos' => 'required|array',
                 'monitoramentos.*.id' => 'nullable|exists:monitoramentos,id',
-                'monitoramentos.*.monitoramentoControleSugerido' => 'required|string|max:9000',
-                'monitoramentos.*.statusMonitoramento' => 'required|string|max:9000',
-                'monitoramentos.*.execucaoMonitoramento' => 'required|string|max:9000',
+                'monitoramentos.*.monitoramentoControleSugerido' => 'max:9000',
+                'monitoramentos.*.statusMonitoramento' => 'max:9000',
                 'monitoramentos.*.inicioMonitoramento' => 'required|date',
                 'monitoramentos.*.fimMonitoramento' => 'nullable|date',
                 'monitoramentos.*.isContinuo' => 'required|boolean',
@@ -166,12 +164,18 @@ class RiscoController extends Controller
                 if (isset($monitoramentoData['id'])) {
                     if ($existingMonitoramentos->has($monitoramentoData['id'])) {
                         $monitoramento = $existingMonitoramentos->get($monitoramentoData['id']);
+												
+												if (!$monitoramentoData['isContinuo'] && isset($monitoramentoData['fimMonitoramento']) && $monitoramentoData['fimMonitoramento'] <= $monitoramentoData['inicioMonitoramento']) {
+													$aux = $monitoramentoData['fimMonitoramento'];
+													$monitoramentoData['fimMonitoramento'] = $monitoramentoData['inicioMonitoramento'];
+													$monitoramentoData['inicioMonitoramento'] = $aux;
+												}
 
                         // Atualiza os dados do monitoramento existente
                         $monitoramento->update([
                             'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
                             'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
-                            'execucaoMonitoramento' => $monitoramentoData['execucaoMonitoramento'],
+                            // 'execucaoMonitoramento' => $monitoramentoData['execucaoMonitoramento'],
                             'isContinuo' => $monitoramentoData['isContinuo'],
                             'inicioMonitoramento' => $monitoramentoData['inicioMonitoramento'],
                             'fimMonitoramento' => $monitoramentoData['isContinuo'] ? null : $monitoramentoData['fimMonitoramento'],
@@ -192,10 +196,16 @@ class RiscoController extends Controller
                     }
                 } else {
                     // Cria um novo monitoramento
+
+										if (!$monitoramentoData['isContinuo'] && isset($monitoramentoData['fimMonitoramento']) && $monitoramentoData['fimMonitoramento'] <= $monitoramentoData['inicioMonitoramento']) {
+											$aux = $monitoramentoData['fimMonitoramento'];
+											$monitoramentoData['fimMonitoramento'] = $monitoramentoData['inicioMonitoramento'];
+											$monitoramentoData['inicioMonitoramento'] = $aux;
+										}
                     $newMonitoramentoData = [
                         'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
                         'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
-                        'execucaoMonitoramento' => $monitoramentoData['execucaoMonitoramento'],
+                        // 'execucaoMonitoramento' => $monitoramentoData['execucaoMonitoramento'],
                         'isContinuo' => $monitoramentoData['isContinuo'],
                         'inicioMonitoramento' => $monitoramentoData['inicioMonitoramento'],
                         'fimMonitoramento' => $monitoramentoData['isContinuo'] ? null : $monitoramentoData['fimMonitoramento'],
@@ -203,12 +213,12 @@ class RiscoController extends Controller
                     ];
 
                     // Validar se fimMonitoramento é maior que inicioMonitoramento se fornecido
-                    if (
-                        !$monitoramentoData['isContinuo'] && isset($monitoramentoData['fimMonitoramento']) &&
-                        $monitoramentoData['fimMonitoramento'] <= $monitoramentoData['inicioMonitoramento']
-                    ) {
-                        return redirect()->back()->withErrors(['errors' => 'A data do fim do Monitoramento deve ser maior do que a data do início do monitoramento.']);
-                    }
+                    // if (
+                    //     !$monitoramentoData['isContinuo'] && isset($monitoramentoData['fimMonitoramento']) &&
+                    //     $monitoramentoData['fimMonitoramento'] <= $monitoramentoData['inicioMonitoramento']
+                    // ) {
+                    //     return redirect()->back()->withErrors(['errors' => 'A data do fim do Monitoramento deve ser maior do que a data do início do monitoramento.']);
+                    // }
 
                     Monitoramento::create($newMonitoramentoData);
                 }
