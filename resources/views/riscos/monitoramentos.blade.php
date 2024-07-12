@@ -177,7 +177,7 @@
     inicioMonitoramento.type = 'date';
     inicioMonitoramento.name = `monitoramentos[${cont}][inicioMonitoramento]`;
     inicioMonitoramento.classList.add('textInput', 'dateInput');
-		inicioMonitoramento.required = true;
+	inicioMonitoramento.required = true;
     colDiv1.appendChild(inicioMonitoramentoLabel);
     colDiv1.appendChild(inicioMonitoramento);
 

@@ -304,6 +304,7 @@
             inputInicioMonitoramento.type = 'date';
             inputInicioMonitoramento.name = `monitoramentos[${cont}][inicioMonitoramento]`;
             inputInicioMonitoramento.classList = 'form-control textInput dateInput';
+            inputInicioMonitoramento.required = true;
             divInicioMonitoramento.appendChild(inputInicioMonitoramento);
 
             let divFimMonitoramento = document.createElement('div');
