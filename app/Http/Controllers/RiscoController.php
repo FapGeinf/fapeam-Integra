@@ -231,6 +231,7 @@ class RiscoController extends Controller
 
             return redirect()->route('riscos.show', ['id' => $risco->id])->with('success', 'Monitoramentos editados com sucesso');
         } catch (\Exception $e) {
+						dd($e);
             return redirect()->back()->withErrors(['errors' => 'Houve um erro ao atualizar ou adicionar monitoramentos']);
         }
     }
