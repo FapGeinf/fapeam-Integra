@@ -38,20 +38,18 @@
 
           <tbody>
             <tr class="text13">
-              <td class="text-center pb-3 tBorder">{!! $risco->id !!}</td>
-              <td class="text-center pb-3 tBorder">{!! $risco->riscoEvento !!}</td>
-              <td class="text-center pb-3 tBorder">{!! $risco->riscoCausa !!}</td>
-              <td class="text-center pb-3 tBorder">{!! $risco->riscoConsequencia !!}</td>
+              <td class="text-center pb-1 tBorder">{!! $risco->id !!}</td>
+              <td class="pb-1 tBorder">{!! $risco->riscoEvento !!}</td>
+              <td class="pb-1 tBorder">{!! $risco->riscoCausa !!}</td>
+              <td class="pb-1 tBorder">{!! $risco->riscoConsequencia !!}</td>
 
               @if($risco->nivel_de_risco==1)
-									<td class="bg-baixo riscoAvaliacao">Baixo</td>
-									@elseif ($risco->nivel_de_risco == 2)
-									<td class="bg-medio riscoAvaliacao">Médio</td>
-									@else
-									<td class="bg-alto riscoAvaliacao">Alto</td>
-									@endif
-
-              {{-- <td class="text-center pb-3">{!! $risco->riscoAvaliacao !!}</td> --}}
+                <td class="bg-baixo riscoAvaliacao"><span class="fontBold">Baixo</span></td>
+                @elseif ($risco->nivel_de_risco == 2)
+                <td class="bg-medio riscoAvaliacao"><span class="fontBold">Médio</span></td>
+                @else
+                <td class="bg-alto riscoAvaliacao"><span class="fontBold">Alto</span></td>
+              @endif
             </tr>
           </tbody>
         </table>
@@ -71,9 +69,9 @@
 
           <tbody>
             @foreach ($risco->monitoramentos as $monitoramento)
-                <td class="text-center text13 pb-3 tBorder">{!! $monitoramento->monitoramentoControleSugerido !!}</td>
-                <td style="white-space: nowrap;" class="text-center text13 pb-3 tBorder">{!! $monitoramento->statusMonitoramento !!}</td>
-                <td style="white-space: nowrap;" class="text-center text-13 pb-3">
+                <td class="text13 pb-1 tBorder">{!! $monitoramento->monitoramentoControleSugerido !!}</td>
+                <td style="white-space: nowrap;" class="text-center text13 pb-1 tBorder">{!! $monitoramento->statusMonitoramento !!}</td>
+                <td style="white-space: nowrap;" class="text-center text-13 pb-1">
                   {{ \Carbon\Carbon::parse($monitoramento->inicioMonitoramento)->format('d/m/Y') }} -
                   {{ $monitoramento->fimMonitoramento ? \Carbon\Carbon::parse($monitoramento->fimMonitoramento)->format('d/m/Y') : 'Contínuo' }}
                 </td>

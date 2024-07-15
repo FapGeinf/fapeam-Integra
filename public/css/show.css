@@ -129,6 +129,10 @@ a.btn-add:hover {
   font-size: 13px;
 }
 
+.fontBold {
+  font-weight: bold;
+}
+
 /* PÁGINA DE RESPOSTAS */
 
 .thNumber,

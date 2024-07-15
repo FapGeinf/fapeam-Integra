@@ -91,11 +91,11 @@ class RiscoController extends Controller
 
             // Cria monitoramentos associados ao risco
             foreach ($validatedData['monitoramentos'] as $monitoramentoData) {
-							if (!$monitoramentoData['isContinuo'] && isset($monitoramentoData['fimMonitoramento']) && $monitoramentoData['fimMonitoramento'] <= $monitoramentoData['inicioMonitoramento']) {
-								$aux = $monitoramentoData['fimMonitoramento'];
-								$monitoramentoData['fimMonitoramento'] = $monitoramentoData['inicioMonitoramento'];
-								$monitoramentoData['inicioMonitoramento'] = $aux;
-							}
+                if (!$monitoramentoData['isContinuo'] && isset($monitoramentoData['fimMonitoramento']) && $monitoramentoData['fimMonitoramento'] <= $monitoramentoData['inicioMonitoramento']) {
+                    $aux = $monitoramentoData['fimMonitoramento'];
+                    $monitoramentoData['fimMonitoramento'] = $monitoramentoData['inicioMonitoramento'];
+                    $monitoramentoData['inicioMonitoramento'] = $aux;
+                }
                 $monitoramento = Monitoramento::create([
                     'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
                     'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
@@ -105,13 +105,11 @@ class RiscoController extends Controller
                     'isContinuo' => $monitoramentoData['isContinuo'] ?? false,
                     'riscoFK' => $risco->id
                 ]);
-
-
             }
 
             return redirect()->route('riscos.index')->with('success', 'Risco criado com sucesso!');
         } catch (\Exception $e) {
-					dd($e);
+            dd($e);
             Log::error('Erro ao criar risco: ' . $e->getMessage());
             return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao criar o risco. Por favor, tente novamente.']);
         }
@@ -164,12 +162,12 @@ class RiscoController extends Controller
                 if (isset($monitoramentoData['id'])) {
                     if ($existingMonitoramentos->has($monitoramentoData['id'])) {
                         $monitoramento = $existingMonitoramentos->get($monitoramentoData['id']);
-												
-												if (!$monitoramentoData['isContinuo'] && isset($monitoramentoData['fimMonitoramento']) && $monitoramentoData['fimMonitoramento'] <= $monitoramentoData['inicioMonitoramento']) {
-													$aux = $monitoramentoData['fimMonitoramento'];
-													$monitoramentoData['fimMonitoramento'] = $monitoramentoData['inicioMonitoramento'];
-													$monitoramentoData['inicioMonitoramento'] = $aux;
-												}
+
+                        if (!$monitoramentoData['isContinuo'] && isset($monitoramentoData['fimMonitoramento']) && $monitoramentoData['fimMonitoramento'] <= $monitoramentoData['inicioMonitoramento']) {
+                            $aux = $monitoramentoData['fimMonitoramento'];
+                            $monitoramentoData['fimMonitoramento'] = $monitoramentoData['inicioMonitoramento'];
+                            $monitoramentoData['inicioMonitoramento'] = $aux;
+                        }
 
                         // Atualiza os dados do monitoramento existente
                         $monitoramento->update([
@@ -197,11 +195,11 @@ class RiscoController extends Controller
                 } else {
                     // Cria um novo monitoramento
 
-										if (!$monitoramentoData['isContinuo'] && isset($monitoramentoData['fimMonitoramento']) && $monitoramentoData['fimMonitoramento'] <= $monitoramentoData['inicioMonitoramento']) {
-											$aux = $monitoramentoData['fimMonitoramento'];
-											$monitoramentoData['fimMonitoramento'] = $monitoramentoData['inicioMonitoramento'];
-											$monitoramentoData['inicioMonitoramento'] = $aux;
-										}
+                    if (!$monitoramentoData['isContinuo'] && isset($monitoramentoData['fimMonitoramento']) && $monitoramentoData['fimMonitoramento'] <= $monitoramentoData['inicioMonitoramento']) {
+                        $aux = $monitoramentoData['fimMonitoramento'];
+                        $monitoramentoData['fimMonitoramento'] = $monitoramentoData['inicioMonitoramento'];
+                        $monitoramentoData['inicioMonitoramento'] = $aux;
+                    }
                     $newMonitoramentoData = [
                         'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
                         'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],

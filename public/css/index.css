@@ -12,6 +12,10 @@ table, tr,th, td {
   border-right: 0px;
 }
 
+.justify {
+  text-align: justify !important;
+}
+
 .divPrazoGeral {
   padding: 12px;
   display: flex;
@@ -30,7 +34,9 @@ table, tr,th, td {
   padding: 3px;
 }
 
-
+#tableHome {
+  margin-top: 13px;
+}
 
 .blue-btn,
 .green-btn,
@@ -47,7 +53,7 @@ table, tr,th, td {
 .spanThatLooksLikeABtn {
   color: #fff;
   cursor: default;
-  background-color:#8C8A93;
+  background-color: #ed9121;
 }
 
 .green-btn-store {
@@ -297,6 +303,7 @@ p {
   border-color: #b0b0b0;
   text-align: center;
   vertical-align: middle;
+  transition: .2s;
 }
 
 .main-datatable .cust-datatable>tbody tr {
@@ -319,6 +326,38 @@ table.dataTable thead th, table.dataTable thead td {
   color: #8e8e8e;
   margin: 2px;
 }
+
+/* FILTROS */
+
+.divContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* margin-bottom: 1rem; */
+}
+
+.divFilterUnidade {
+  margin-left: 3px;
+}
+
+.labelUnidade {
+  line-height: 31px;
+}
+
+.labelAvaliação {
+  line-height: 31px;
+}
+
+.dataTables_filter {
+  margin-bottom: 0;
+  }
+
+  #tableHome_length {
+  display: flex;
+  white-space: nowrap;
+  }
+
+/* FIM FILTROS */
 
 /* BOTÕES DE PAGINAÇÃO */
 .dataTables_wrapper .dataTables_info {
@@ -358,13 +397,15 @@ table.dataTable thead th, table.dataTable thead td {
   line-height: 13px;
   color: #fff;
   font-weight: 400;
-  border-radius: .3rem;
-  -webkit-border-radius: .3rem;
-  -moz-border-radius: .3rem;
-  -ms-border-radius: .3rem;
-  -o-border-radius: .3rem;
+  /* border-radius: .1rem; */
+
   font-size: 11px;
   letter-spacing: 0.4px;
+}
+
+.fontBold {
+  font-weight: bold;
+  color: #000;
 }
 
 .riskLevel1 {

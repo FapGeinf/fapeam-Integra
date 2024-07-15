@@ -50,15 +50,15 @@
 									<td style="white-space:nowrap;">{{ $risco->id }}</td>
 									<td style="white-space: nowrap;">{!! $risco->responsavelRisco !!}</td>
 									<td style="word-wrap:break-word;">{!! $risco->unidade->unidadeNome !!}</td>
-									<td>{!! Str::limit($risco->riscoEvento, 80) !!}</td>
-									<td>{!! Str::limit($risco->riscoCausa, 80) !!}</td>
-									<td>{!! Str::limit($risco->riscoConsequencia, 80) !!}</td>
+									<td class="justify">{!! Str::limit($risco->riscoEvento, 120) !!}</td>
+									<td class="justify">{!! Str::limit($risco->riscoCausa, 120) !!}</td>
+									<td class="justify">{!! Str::limit($risco->riscoConsequencia, 120) !!}</td>
 									@if($risco->nivel_de_risco==1)
-									<td class="bg-baixo riscoAvaliacao">Baixo</td>
+									<td class="bg-baixo riscoAvaliacao"><span class="fontBold">Baixo</span></td>
 									@elseif ($risco->nivel_de_risco == 2)
-									<td class="bg-medio riscoAvaliacao">Médio</td>
+									<td class="bg-medio riscoAvaliacao"><span class="fontBold">Médio</span></td>
 									@else
-									<td class="bg-alto riscoAvaliacao">Alto</td>
+									<td class="bg-alto riscoAvaliacao"><span class="fontBold">Alto</span></td>
 									@endif
 								</tr>
 						@endforeach
@@ -102,61 +102,161 @@
 		</div>
 	</div>
 
+	
 	<script>
 		$(document).ready(function(){
 			var table = $('#tableHome').DataTable({
 				language: {
 					url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
-						search: "Procurar:",
-						lengthMenu: "Riscos: _MENU_",
-						info: 'Mostrando página _PAGE_ de _PAGES_',
-						infoEmpty: 'Sem relatórios de risco disponíveis para visualização',
-						infoFiltered: '(Filtrados do total de _MAX_ relatórios)',
-						zeroRecords: 'Nada encontrado. Se achar que isso é um erro, contate o suporte.',
-						paginate: {
+					search: "Procurar:",
+					lengthMenu: "Riscos: _MENU_",
+					info: 'Mostrando página _PAGE_ de _PAGES_',
+					infoEmpty: 'Sem relatórios de risco disponíveis para visualização',
+					infoFiltered: '(Filtrados do total de _MAX_ relatórios)',
+					zeroRecords: 'Nada encontrado. Se achar que isso é um erro, contate o suporte.',
+					paginate: {
 						next: "Próximo",
 						previous: "Anterior"
-						}
-					},
-
+					}
+				},
+		
 				initComplete: function(){
 					// CONTAINER QUE ALINHA TODOS NA MESMA LINHA
-					var divContainer = $('<div class="divContainer" style="display: flex; justify-content: space-between;"></div>');
-
+					var divContainer = $('<div class="divContainer"></div>');
+		
 					// BOTÃO NA ESQUERDA
 					var divButtonNewRisk = $('<div class="divButtonNewRisk"></div>');
 					divButtonNewRisk.append($('#newRiskButtonDiv'));
 					divContainer.append(divButtonNewRisk);
-
-					// RELATÓRIOS E SEARCH BOX NA DIRETA
-					var divSearchAndEntries = $('<div class="divSearchAndEntries"></div>');
-					divSearchAndEntries.append($('.dataTables_length')).append($('.dataTables_filter'));
-					divContainer.append(divSearchAndEntries);
-
-					// CONTAINER NO TOPO DA TABELA
+		
+					// Adiciona o filtro de unidade na div de length
+					if (!$('#filterUnidade').length) {
+						var selectUnidade = $('<select id="filterUnidade" class="form-select form-select-sm divFilterUnidade"><option value="">Todas as Unidades</option></select>');
+						
+						// Popula o select com as unidades únicas
+						@foreach ($riscos->unique('unidade.unidadeNome') as $risco)
+							selectUnidade.append('<option value="{{ $risco->unidade->unidadeNome }}">{{ $risco->unidade->unidadeNome }}</option>');
+						@endforeach
+		
+						// Create the label for the select with class "labelUnidade"
+						var labelUnidades = $('<label for="filterUnidade" class="labelUnidade">Unidades:</label>');
+		
+						// Append label and select to the length div
+						$('.dataTables_length').append(labelUnidades).append(selectUnidade);
+					}
+		
+					// Adiciona o filtro de avaliação
+					if (!$('#filterAvaliação').length) {
+						var selectAvaliacao = $('<select id="filterAvaliação" class="form-select form-select-sm divFilterAvaliação"><option value="">Todas as Avaliações</option></select>');
+						
+						// Opções de avaliação
+						var avaliacaoOptions = [
+							{ value: "Baixo", text: "Baixo" },
+							{ value: "Médio", text: "Médio" },
+							{ value: "Alto", text: "Alto" }
+						];
+						
+						$.each(avaliacaoOptions, function(index, option) {
+							selectAvaliacao.append('<option value="'+option.value+'">'+option.text+'</option>');
+						});
+		
+						// Create the label for the select with class "labelAvaliação"
+						var labelAvaliacoes = $('<label for="filterAvaliação" class="labelAvaliação">Avaliação:</label>');
+		
+						// Append label and select to the length div
+						$('.dataTables_length').append(labelAvaliacoes).append(selectAvaliacao);
+					}
+		
+					// Move the length and filter divs into divContainer
+					divContainer.append($('.dataTables_filter'));
+					divContainer.append($('.dataTables_length'));
+					
+					// Adiciona a div container no topo da tabela
 					$(table.table().container()).prepend(divContainer);
+		
+					// Filtro de Unidade
+					$('#filterUnidade').on('change', function(){
+						var val = $.fn.dataTable.util.escapeRegex($(this).val());
+						table.column(2).search(val ? '^'+val+'$' : '', true, false).draw();
+					});
+		
+					// Filtro de Avaliação
+					$('#filterAvaliação').on('change', function(){
+						var val = $.fn.dataTable.util.escapeRegex($(this).val());
+						table.column(6).search(val ? '^'+val+'$' : '', true, false).draw();
+					});
 				}
 			});
-
+		
 			table.on('draw', function(){
-
-				// MANTÉM OS ELEMENTOS ALINHADO A CADA REFRESH
+				// MANTÉM OS ELEMENTOS ALINHADOS A CADA REFRESH, SEM DUPLICAR
 				if (!$(".divContainer").length) {
-					var divContainer = $('<div class="divContainer" style="display: flex; justify-content: space-between;"></div>');
-
+					var divContainer = $('<div class="divContainer"></div>');
+		
 					var divButtonNewRisk = $('<div class="divButtonNewRisk"></div>');
 					divButtonNewRisk.append($('#newRiskButtonDiv'));
 					divContainer.append(divButtonNewRisk);
-
-					var divSearchAndEntries = $('<div class="divSearchAndEntries"></div>');
-					divSearchAndEntries.append($('.dataTables_length')).append($('.dataTables_filter'));
-					divContainer.append(divSearchAndEntries);
-
+		
+					if (!$('#filterUnidade').length) {
+						var selectUnidade = $('<select id="filterUnidade" class="form-select form-select-sm divFilterUnidade"><option value="">TODAS</option></select>');
+						
+						@foreach ($riscos->unique('unidade.unidadeNome') as $risco)
+							selectUnidade.append('<option value="{{ $risco->unidade->unidadeNome }}">{{ $risco->unidade->unidadeNome }}</option>');
+						@endforeach
+		
+						// Create the label for the select with class "labelUnidade"
+						var labelUnidades = $('<label for="filterUnidade" class="labelUnidade">Unidades:</label>');
+		
+						// Append label and select to the length div
+						$('.dataTables_length').append(labelUnidades).append(selectUnidade);
+					}
+		
+					// Adiciona o filtro de avaliação
+					if (!$('#filterAvaliação').length) {
+						var selectAvaliacao = $('<select id="filterAvaliação" class="form-select form-select-sm divFilterAvaliação"><option value="">TODAS</option></select>');
+						
+						// Opções de avaliação
+						var avaliacaoOptions = [
+							{ value: "Baixo", text: "Baixo" },
+							{ value: "Médio", text: "Médio" },
+							{ value: "Alto", text: "Alto" }
+						];
+						
+						$.each(avaliacaoOptions, function(index, option) {
+							selectAvaliacao.append('<option value="'+option.value+'">'+option.text+'</option>');
+						});
+		
+						// Create the label for the select with class "labelAvaliação"
+						var labelAvaliacoes = $('<label for="filterAvaliação" class="labelAvaliação">Avaliação:</label>');
+		
+						// Append label and select to the length div
+						$('.dataTables_length').append(labelAvaliacoes).append(selectAvaliacao);
+					}
+		
+					// Move the length and filter divs into divContainer
+					divContainer.append($('.dataTables_length'));
+					divContainer.append($('.dataTables_filter'));
+		
 					$(table.table().container()).prepend(divContainer);
+		
+					$('#filterUnidade').on('change', function(){
+						var val = $.fn.dataTable.util.escapeRegex($(this).val());
+						table.column(2).search(val ? '^'+val+'$' : '', true, false).draw();
+					});
+		
+					$('#filterAvaliação').on('change', function(){
+						var val = $.fn.dataTable.util.escapeRegex($(this).val());
+						table.column(6).search(val ? '^'+val+'$' : '', true, false).draw();
+					});
 				}
 			});
 		});
-	</script>
+		</script>
+		
+
+
+
+	
 
 </body>
 </html>
