@@ -52,7 +52,7 @@
 
                     <div class="col-sm-4 col-md-9 selectUnidade">
                         <label for="unidadeId">Unidade:<span class="asterisco">*</span></label>
-                        <select name="unidadeId" class="" required>
+                        <select name="unidadeId" class="form-select" required>
                             <option selected disabled>Selecione uma unidade</option>
                             @foreach($unidades as $unidade)
                             <option value="{{ $unidade->id }}">{{ $unidade->unidadeNome }}</option>
@@ -76,7 +76,7 @@
                 <div class="row g-3">
                     <div class="col-sm-6 col-md-6">
                         <label for="nivel_de_risco">Nivel de Risco:<span class="asterisco">*</span></label>
-                        <select name="nivel_de_risco" id="nivel_de_risco" required>
+                        <select name="nivel_de_risco" id="nivel_de_risco" class="form-select" required>
                             <option value="1">Baixo</option>
                             <option value="2">Médio</option>
                             <option value="3">Alto</option>
