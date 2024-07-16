@@ -119,6 +119,10 @@ table, tr,th, td {
   margin-left: 10px;
 }
 
+#newRiskButtonDiv {
+  white-space: nowrap;
+}
+
 .buttonNewRisk {
   display: flex;
 }

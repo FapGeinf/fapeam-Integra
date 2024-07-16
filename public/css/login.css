@@ -268,7 +268,7 @@ input[type=checkbox], label {
   }
 
   .centered {
-    align-items: flex-start;
+    /* align-items: flex-start; */
   }   
      
   .no__overflow {
