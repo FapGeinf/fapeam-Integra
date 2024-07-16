@@ -1,9 +1,11 @@
 @extends('layouts.app')
-
 @section('content')
 
 @section('title') {{'Tabela das Respostas'}} @endsection
-<link rel="stylesheet" href="{{asset('css/resp.css')}}">
+
+<head>
+  <link rel="stylesheet" href="{{asset('css/resp.css')}}">
+</head>
 
 <div class="container-fluid p-30">
   <div class="col-12 box-shadow">
@@ -21,7 +23,7 @@
         @foreach ($respostas as $key => $resposta)
         <tr>
           <td class="text-center text13 tdNumber">{!! $key + 1 !!}</td>
-          <td class="text-center text13 tdReply">{!! $resposta->respostaRisco !!}</td>
+          <td class="text13 tdReply">{!! $resposta->respostaRisco !!}</td>
         </tr>
         @endforeach
       </table>
@@ -35,35 +37,6 @@
 <div class="container d-flex justify-content-center">
   <button type="button" class="reply-btn" data-bs-toggle="modal" data-bs-target="#respostaModal">Responder</button>
 </div>
-
-
-{{--
-<h2 class="text-center mb-4 mt-5">Respostas do Risco: {{ $risco->id }}</h2>
-<div id="respostasDiv" class="mb-4">
-  <div class="table-responsive-md">
-    @if($respostas->count() > 0)
-    <table class="table table-bordered table-sm mx-auto">
-      <thead>
-        <tr>
-          <th scope="col" class="text-center text-light bg-dark">Nº</th>
-          <th scope="col" class="text-center text-light bg-dark">Resposta</th>
-        </tr>
-    </thead>
-
-    <tbody>
-        @foreach ($respostas as $key => $resposta)
-        <tr>
-          <td class="text-center">{{ $key + 1 }}</td>
-          <td>{!! $resposta->respostaRisco !!}</td>
-        </tr>
-        @endforeach
-      </tbody>
-    </table>
-    @else
-    <p class="text-center">Não há respostas disponíveis para este risco.</p>
-    @endif
-  </div>
-</div> --}}
 
 <div class="modal fade" id="respostaModal" tabindex="-1" aria-labelledby="respostaModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">

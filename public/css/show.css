@@ -26,11 +26,6 @@ font-style: normal;
   margin-bottom: 30px;
 }
 
-/* .table th,
-.table td {
-  vertical-align: middle;
-} */
-
 .background-verde {
   background-color: green;
 }
@@ -130,6 +125,7 @@ a.btn-add:hover {
 }
 
 .fontBold {
+  color: #000;
   font-weight: bold;
 }
 
@@ -155,19 +151,19 @@ a.btn-add:hover {
 
 .bg-baixo {
   text-align: center;
-  color: #006b21 !important;
+  /* color: #006b21 !important; */
   background-color: #86e49d !important;
 }
 
 .bg-medio {
   text-align: center;
-  color: #7e522f !important;
+  /* color: #7e522f !important; */
   background-color: #fde164 !important;
 }
 
 .bg-alto {
   text-align: center;
-  color: #000000 !important;
+  /* color: #000000 !important; */
   background-color: #bb2440 !important;
 }
 
@@ -176,11 +172,6 @@ a.btn-add:hover {
   line-height: 13px;
   color: #fff;
   font-weight: 400;
-  border-radius: .3rem;
-  -webkit-border-radius: .3rem;
-  -moz-border-radius: .3rem;
-  -ms-border-radius: .3rem;
-  -o-border-radius: .3rem;
   font-size: 11px;
   letter-spacing: 0.4px;
 }
@@ -200,23 +191,23 @@ a.btn-add:hover {
   background-color: #bb2440;
 }
 
-.replied{
+.replied {
   color: #70c8e6;
   background-color: #125e8a;
 }
 
 .rodape {
-  z-index: -1;
   cursor: default;
   position: fixed;
   bottom: 0;
-  width: 100%;
+  width: 90%;
   border-top: 1px solid #ccc;
   display: flex;
   justify-content: center;
-  background-color: #fff;
-  padding-top: 3px;
-  padding-bottom: 4px;
+  background-color: #fcfdfe;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-left: .9rem;
 }
 
 .riskLevelDiv {

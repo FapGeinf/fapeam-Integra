@@ -19,7 +19,9 @@
 
 		<div id="newRiskButtonDiv" class="d-flex">
 			@if (Auth::user()->unidade->unidadeTipoFK == 1)
-			<a href="{{route('riscos.create')}}" class="blue-btn me-2"><i class="bi bi-plus-lg"></i> Novo Risco</a>
+			<a href="{{route('riscos.create')}}" class="blue-btn me-2">
+				<i class="bi bi-plus-lg"></i> Novo Risco
+			</a>
 
 			<button type="button" class="green-btn me-2" data-bs-toggle="modal" data-bs-target="#prazoModal">
 				<i class="bi bi-plus-lg"></i> inserir Prazo
@@ -46,21 +48,21 @@
 
 					<tbody>
 						@foreach ($riscos as $risco)
-								<tr style="cursor: pointer;" onclick="window.location='{{ route('riscos.show', $risco->id) }}';">
-									<td style="white-space:nowrap;">{{ $risco->id }}</td>
-									<td style="white-space: nowrap;">{!! $risco->responsavelRisco !!}</td>
-									<td style="word-wrap:break-word;">{!! $risco->unidade->unidadeNome !!}</td>
-									<td class="justify">{!! Str::limit($risco->riscoEvento, 120) !!}</td>
-									<td class="justify">{!! Str::limit($risco->riscoCausa, 120) !!}</td>
-									<td class="justify">{!! Str::limit($risco->riscoConsequencia, 120) !!}</td>
-									@if($risco->nivel_de_risco==1)
-									<td class="bg-baixo riscoAvaliacao"><span class="fontBold">Baixo</span></td>
-									@elseif ($risco->nivel_de_risco == 2)
-									<td class="bg-medio riscoAvaliacao"><span class="fontBold">Médio</span></td>
-									@else
-									<td class="bg-alto riscoAvaliacao"><span class="fontBold">Alto</span></td>
-									@endif
-								</tr>
+							<tr style="cursor: pointer;" onclick="window.location='{{ route('riscos.show', $risco->id) }}';">
+								<td style="white-space:nowrap;">{{ $risco->id }}</td>
+								<td style="white-space: nowrap;">{!! $risco->responsavelRisco !!}</td>
+								<td style="word-wrap:break-word;">{!! $risco->unidade->unidadeNome !!}</td>
+								<td class="justify">{!! Str::limit($risco->riscoEvento, 120) !!}</td>
+								<td class="justify">{!! Str::limit($risco->riscoCausa, 120) !!}</td>
+								<td class="justify">{!! Str::limit($risco->riscoConsequencia, 120) !!}</td>
+								@if($risco->nivel_de_risco==1)
+								<td class="bg-baixo riscoAvaliacao"><span class="fontBold">Baixo</span></td>
+								@elseif ($risco->nivel_de_risco == 2)
+								<td class="bg-medio riscoAvaliacao"><span class="fontBold">Médio</span></td>
+								@else
+								<td class="bg-alto riscoAvaliacao"><span class="fontBold">Alto</span></td>
+								@endif
+							</tr>
 						@endforeach
 					</tbody>
 				</table>
@@ -251,13 +253,7 @@
 				}
 			});
 		});
-		</script>
-		
-
-
-
-	
-
+	</script>
 </body>
 </html>
 @endsection
