@@ -149,6 +149,10 @@ a.btn-add:hover {
   padding-bottom: 3rem;
 }
 
+.riscoAvaliacao {
+  vertical-align: middle;
+}
+
 .bg-baixo {
   text-align: center;
   /* color: #006b21 !important; */

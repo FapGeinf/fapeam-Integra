@@ -76,7 +76,7 @@
                   {{ $monitoramento->fimMonitoramento ? \Carbon\Carbon::parse($monitoramento->fimMonitoramento)->format('d/m/Y') : 'Contínuo' }}
                 </td>
                 @if(count($risco->monitoramentos) > 1)
-                  <td class="text-center">
+                  <td class="text-center tdBtnExcluir">
                     <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modal-exclusao-{{ $monitoramento->id }}">Excluir</button>
                   </td>
                 @endif
