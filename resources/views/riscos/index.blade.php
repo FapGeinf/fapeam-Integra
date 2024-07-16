@@ -19,7 +19,9 @@
 
 		<div id="newRiskButtonDiv" class="d-flex">
 			@if (Auth::user()->unidade->unidadeTipoFK == 1)
-			<a href="{{route('riscos.create')}}" class="blue-btn me-2"><i class="bi bi-plus-lg"></i> Novo Risco</a>
+			<a href="{{route('riscos.create')}}" class="blue-btn me-2">
+				<i class="bi bi-plus-lg"></i> Novo Risco
+			</a>
 
 			<button type="button" class="green-btn me-2" data-bs-toggle="modal" data-bs-target="#prazoModal">
 				<i class="bi bi-plus-lg"></i> inserir Prazo
