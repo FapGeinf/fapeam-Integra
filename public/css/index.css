@@ -346,6 +346,7 @@ table.dataTable thead th, table.dataTable thead td {
 
 .labelAvaliação {
   line-height: 31px;
+  margin-right: 2px;
 }
 
 .dataTables_filter {
@@ -449,17 +450,17 @@ table.dataTable thead th, table.dataTable thead td {
 }
 
 .bg-baixo {
-  color: #006b21 !important;
+  /* color: #006b21 !important; */
   background-color: #86e49d !important;
 }
 
 .bg-medio {
-  color: #7e522f !important;
+  /* color: #7e522f !important; */
   background-color: #fde164 !important;
 }
 
 .bg-alto {
-  color: #000000 !important;
+  /* color: #000000 !important; */
   background-color: #bb2440 !important;
 }
 /* END FOOTER */
