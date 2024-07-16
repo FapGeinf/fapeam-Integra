@@ -24,15 +24,15 @@
     <div class="col-12 box-shadow">
       <h5 class="text-center mb-2">Detalhamento Risco Inerente</h5>
 
-      <div class="">
+      <div>
         <table class="table table-bordered mb-4">
           <thead>
             <tr>
-              <th style="white-space: nowrap; width: 100px;" scope="col" class="text-center text-light tBorder">N° Risco</th>
+              <th scope="col" style="white-space: nowrap; width: 100px;" class="text-center text-light tBorder">N° Risco</th>
               <th scope="col" class="text-center text-light tBorder">Evento:</th>
               <th scope="col" class="text-center text-light tBorder">Causa:</th>
               <th scope="col" class="text-center text-light tBorder">Consequência:</th>
-              <th style="width: 100px;" scope="col" class="text-center text-light">Avaliação:</th>
+              <th scope="col" style="width: 100px;" class="text-center text-light">Avaliação:</th>
             </tr>
           </thead>
 
