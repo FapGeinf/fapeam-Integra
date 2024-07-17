@@ -11,6 +11,7 @@
   <script src="/ckeditor/ckeditor.js"></script>
   <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
   <link rel="stylesheet" href="{{ asset('css/removeGlobalConfig.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/removeConfigRegister.css') }}">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-JzjS1k8F7FqhVfoJ6s5zjxuZkAdyjs2p8V3+OIcXwpjFgtVJ94k1tg4GfXoV6Ikv" crossorigin="anonymous">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
