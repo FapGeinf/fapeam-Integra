@@ -13,8 +13,20 @@
     <script src="/ckeditor/ckeditor.js"></script>
     <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-JzjS1k8F7FqhVfoJ6s5zjxuZkAdyjs2p8V3+OIcXwpjFgtVJ94k1tg4GfXoV6Ikv" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    <style>
+        .error-box {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: .25rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        .error-box p {
+            margin: 0;
+            color: #721c24;
+        }
+    </style>
 </head>
 
 <body>
@@ -92,7 +104,7 @@
 
                 <div class="mt-3 text-end">
                   <input type="button" onclick="addMonitoramentos()" value="Adicionar Monitoramento" class="blue-btn">
-                  <button type="button" onclick="showConfirmationModal()" class="green-btn green-btn-store" data-toggle="modal" data-target="#confirmationModal">Salvar</button>
+                  <button type="button" onclick="showConfirmationModal()" class="green-btn green-btn-store" data-bs-toggle="modal" data-bs-target="#confirmationModal">Salvar</button>
                 </div>
 
                 <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
@@ -109,7 +121,7 @@
                               </div>
                               <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                                  <button type="submit" class="green-btn green-btn-store">Salvar</button>
+                                  <button type="submit" class="green-btn green-btn-store" id="saveModal">Salvar</button>
                               </div>
                          </div>
                     </div>
@@ -128,13 +140,13 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="alertModalLabel">Aviso</h5>
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     Adicione pelo menos um monitoramento antes de enviar o formulário.
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                 </div>
             </div>
         </div>
@@ -356,7 +368,8 @@
         }
 
         function showConfirmationModal() {
-            // Captura dos dados do formulário principal
+            let erros = [];
+
             let riscoAno = document.getElementById('riscoAno').value;
             let unidadeId = document.querySelector('[name="unidadeId"]').options[document.querySelector('[name="unidadeId"]').selectedIndex].text;
             let responsavelRisco = document.getElementById('responsavel').value;
@@ -365,65 +378,125 @@
             let riscoConsequencia = CKEDITOR.instances.riscoConsequencia.getData();
             let nivel_de_risco = document.getElementById('nivel_de_risco').value;
 
-            // Construção do HTML para o modal de confirmação
-            let modalContent = `
-                <p><strong>Ano:</strong> ${riscoAno}</p>
-                <p><strong>Unidade:</strong> ${unidadeId}</p>
-                <p><strong>Responsável:</strong> ${responsavelRisco}</p>
-                <p><strong>Evento de Risco:</strong></p>
-                <p>${riscoEvento}</p>
-                <p><strong>Causa do Risco:</strong></p>
-                <p>${riscoCausa}</p>
-                <p><strong>Causa da Consequência:</strong></p>
-                <p>${riscoConsequencia}</p>
-                <p><strong>Nível de Risco:</strong> ${nivel_de_risco}</p>
+            // Verificar campos obrigatórios
+            if (!riscoAno) erros.push('O campo "Ano" é obrigatório.');
+            if (!unidadeId) erros.push('O campo "Unidade" é obrigatório.');
+            if (!responsavelRisco) erros.push('O campo "Responsável" é obrigatório.');
+            if (!riscoEvento) erros.push('O campo "Evento de Risco" é obrigatório.');
+            if (!riscoCausa) erros.push('O campo "Causa do Risco" é obrigatório.');
+            if (!riscoConsequencia) erros.push('O campo "Causa da Consequência" é obrigatório.');
+            if (!nivel_de_risco) erros.push('O campo "Nível de Risco" é obrigatório.');
+
+            let modalContent = '';
+
+
+            // Adicionar conteúdo dos campos do formulário
+            modalContent += `
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <div style="padding-right: 5px;">Ano:</div>
+                        <div style="background:#f0f0f0;" class="form-control">${riscoAno || '<span class="text-danger">Campo obrigatório</span>'}</div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div style="padding-right: 5px;">Unidade:</div>
+                        <div style="background:#f0f0f0;" class="form-control">${unidadeId || '<span class="text-danger">Campo obrigatório</span>'}</div>
+                    </div>
+                </div>
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <div style="padding-right: 5px;">Responsável:</div>
+                        <div style="background:#f0f0f0;" class="form-control">${responsavelRisco || '<span class="text-danger">Campo obrigatório</span>'}</div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div style="padding-right: 5px;">Evento de Risco:</div>
+                        <div style="background:#f0f0f0;" class="form-control">${riscoEvento || '<span class="text-danger">Campo obrigatório</span>'}</div>
+                    </div>
+                </div>
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <div style="padding-right: 5px;">Causa do Risco:</div>
+                        <div style="background:#f0f0f0;" class="form-control">${riscoCausa || '<span class="text-danger">Campo obrigatório</span>'}</div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div style="padding-right: 5px;">Causa da Consequência:</div>
+                        <div style="background:#f0f0f0;" class="form-control">${riscoConsequencia || '<span class="text-danger">Campo obrigatório</span>'}</div>
+                    </div>
+                </div>
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <div style="padding-right: 5px;">Nível de Risco:</div>
+                        <div style="background:#f0f0f0;" class="form-control">${nivel_de_risco || '<span class="text-danger">Campo obrigatório</span>'}</div>
+                    </div>
+                </div>
                 <hr>
                 <h4>Monitoramentos:</h4>
             `;
 
-            // Captura dos dados dos monitoramentos
-            let monitoramentos = [];
             let monitoramentosDiv = document.getElementById('monitoramentosDiv');
             let monitoramentoContainers = monitoramentosDiv.getElementsByClassName('monitoramento-container');
 
+            if (monitoramentoContainers.length === 0) {
+                erros.push('É necessário inserir pelo menos um monitoramento.');
+            }
+
             for (let i = 0; i < monitoramentoContainers.length; i++) {
-                let monitoramento = {};
+                let container = monitoramentoContainers[i];
+                let monitoramentoControleSugerido = CKEDITOR.instances[`monitoramentoControleSugerido${i}`].getData();
+                let statusMonitoramento = container.querySelector('select[name$="[statusMonitoramento]"]').value;
+                let inicioMonitoramento = container.querySelector('input[name$="[inicioMonitoramento]"]').value;
+                let fimMonitoramento = container.querySelector('input[name$="[fimMonitoramento]"]').value;
 
-                monitoramento.monitoramentoControleSugerido = CKEDITOR.instances[monitoramentoContainers[i].querySelector(`[name="monitoramentos[${i}][monitoramentoControleSugerido]"]`).id].getData();
-                monitoramento.statusMonitoramento = monitoramentoContainers[i].querySelector(`[name="monitoramentos[${i}][statusMonitoramento]"]`).value;
-                //monitoramento.execucaoMonitoramento = monitoramentoContainers[i].querySelector(`[name="monitoramentos[${i}][execucaoMonitoramento]"]`).value;
-                monitoramento.isContinuo = monitoramentoContainers[i].querySelector(`[name="monitoramentos[${i}][isContinuo]"]`).value;
-                monitoramento.inicioMonitoramento = monitoramentoContainers[i].querySelector(`[name="monitoramentos[${i}][inicioMonitoramento]"]`).value;
-                monitoramento.fimMonitoramento = monitoramentoContainers[i].querySelector(`[name="monitoramentos[${i}][fimMonitoramento]"]`).value;
+                // Verifica se os campos estão vazios
+                if (!monitoramentoControleSugerido) erros.push(`O campo "Controle Sugerido" do Monitoramento N° ${i + 1} é obrigatório.`);
+                if (!statusMonitoramento) erros.push(`O campo "Status do Monitoramento" do Monitoramento N° ${i + 1} é obrigatório.`);
+                if (!inicioMonitoramento) erros.push(`O campo "Início do Monitoramento" do Monitoramento N° ${i + 1} é obrigatório.`);
+                let isContinuo = container.querySelector('select[name$="[isContinuo]"]').value;
+                if (isContinuo == 0 && !fimMonitoramento) {
+                    erros.push(`O campo "Fim do Monitoramento" do Monitoramento N° ${i + 1} é obrigatório.`);
+                }
 
-                // Formatação das datas para o formato brasileiro
-                monitoramento.inicioMonitoramento = monitoramento.inicioMonitoramento ? formatarDataParaBrasileiro(monitoramento.inicioMonitoramento) : '';
-                monitoramento.fimMonitoramento = monitoramento.fimMonitoramento ? formatarDataParaBrasileiro(monitoramento.fimMonitoramento) : '';
+                let inicioMonitoramentoDisplay = inicioMonitoramento ? formatarDataParaBrasileiro(inicioMonitoramento) : "Data não definida";
+                let fimMonitoramentoDisplay = fimMonitoramento ? formatarDataParaBrasileiro(fimMonitoramento) : "Data não definida";
 
-                monitoramentos.push(monitoramento);
-
-                // Adicionando cada monitoramento ao modal de confirmação
                 modalContent += `
-                    <div>
-                        <p><strong>Monitoramento N° ${i + 1}:</strong></p>
-                        <p><strong>Controle Sugerido:</strong> ${monitoramento.monitoramentoControleSugerido}</p>
-                        <p><strong>Status do Monitoramento:</strong> ${monitoramento.statusMonitoramento}</p>
-                        <p><strong>Monitoramento Contínuo:</strong> ${monitoramento.isContinuo == 1 ? 'Sim' : 'Não'}</p>
-                        <p><strong>Início do Monitoramento:</strong> ${monitoramento.inicioMonitoramento}</p>
-                        <p><strong>Fim do Monitoramento:</strong> ${monitoramento.fimMonitoramento}</p>
+                    <div class="row g-3 mb-3">
+                        <div class="col-sm-12">
+                            <div style="padding-right: 5px; font-weight: bold;">Monitoramento N° ${i + 1}</div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div style="padding-right: 5px;">Controle Sugerido:</div>
+                            <div style="background:#f0f0f0;" class="form-control">${monitoramentoControleSugerido || '<span class="text-danger">Campo obrigatório</span>'}</div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div style="padding-right: 5px;">Status do Monitoramento:</div>
+                            <div style="background:#f0f0f0;" class="form-control">${statusMonitoramento || '<span class="text-danger">Campo obrigatório</span>'}</div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div style="padding-right: 5px;">Início do Monitoramento:</div>
+                            <div style="background:#f0f0f0;" class="form-control">${inicioMonitoramentoDisplay || '<span class="text-danger">Campo obrigatório</span>'}</div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div style="padding-right: 5px;">Fim do Monitoramento:</div>
+                            <div style="background:#f0f0f0;" class="form-control">${fimMonitoramentoDisplay || '<span class="text-danger">Campo obrigatório</span>'}</div>
+                        </div>
                     </div>
-                    <hr>
                 `;
             }
 
-            // Inserção do conteúdo no modal de confirmação
+            if (erros.length > 0) {
+                let errosHtml = `<div class='error-box' style='background-color: #f8d7da; color: #721c24; padding: 15px; border-radius: 5px;'>`;
+                erros.forEach(function(erro) {
+                    errosHtml += `<p>${erro}</p>`;
+                });
+                errosHtml += `</div>`;
+                modalContent += errosHtml;
+                document.querySelector('#saveModal').style.display = 'none';
+            } else {
+                document.querySelector('#saveModal').style.display = 'block';
+            }
+
             document.getElementById('modalContent').innerHTML = modalContent;
-
-            // Exibir o modal de confirmação
-            let confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
-            confirmationModal.show();
         }
-
 
 
         document.getElementById('formCreate').addEventListener('submit', function (event) {
@@ -438,6 +511,7 @@
 
 
 
+
     </script>
 
 
@@ -446,7 +520,7 @@
 
 
 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+cuBiA4YZTIhVmxJy9+o6Z/xmO/PQIxM2rJ" crossorigin="anonymous"></script>
+
 
 </body>
 
