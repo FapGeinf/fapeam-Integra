@@ -11,7 +11,7 @@ class Unidade extends Model
     use HasFactory;
 
 		protected $fillable = [
-			'unidadeNome','unidadeEmail','unidadeTipoFK'
+			'unidadeNome','unidadeSigla','unidadeEmail','unidadeTipoFK'
 		];
 
 	 public function unidadeTipo()

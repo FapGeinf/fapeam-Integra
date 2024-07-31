@@ -51,7 +51,7 @@
 							<tr style="cursor: pointer;" onclick="window.location='{{ route('riscos.show', $risco->id) }}';">
 								<td style="white-space:nowrap;">{{ $risco->id }}</td>
 								<td style="white-space: nowrap;">{!! $risco->responsavelRisco !!}</td>
-								<td style="word-wrap:break-word;">{!! $risco->unidade->unidadeNome !!}</td>
+								<td style="word-wrap:break-word;">{!! $risco->unidade->unidadeSigla !!}</td>
 								<td class="justify">{!! Str::limit($risco->riscoEvento, 120) !!}</td>
 								<td class="justify">{!! Str::limit($risco->riscoCausa, 120) !!}</td>
 								<td class="justify">{!! Str::limit($risco->riscoConsequencia, 120) !!}</td>
