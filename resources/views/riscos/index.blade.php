@@ -203,7 +203,7 @@
 						var selectUnidade = $('<select id="filterUnidade" class="form-select form-select-sm divFilterUnidade"><option value="">TODAS</option></select>');
 						
 						@foreach ($riscos->unique('unidade.unidadeNome') as $risco)
-							selectUnidade.append('<option value="{{ $risco->unidade->unidadeNome }}">{{ $risco->unidade->unidadeNome }}</option>');
+							selectUnidade.append('<option value="{{ $risco->unidade->unidadeSigla }}">{{ $risco->unidade->unidadeSigla }}</option>');
 						@endforeach
 		
 						// Create the label for the select with class "labelUnidade"
