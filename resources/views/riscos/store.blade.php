@@ -392,7 +392,9 @@
 
             // Adicionar conteúdo dos campos do formulário
             modalContent += `
-                <div class="row g-3">
+                <h4 class="text-center">Novo Risco</h4>
+                <hr>
+                <div class="row g-3 mb-3">
                     <div class="col-sm-6">
                         <div style="padding-right: 5px;">Ano:</div>
                         <div style="background:#f0f0f0;" class="form-control">${riscoAno || '<span class="text-danger">Campo obrigatório</span>'}</div>
@@ -402,34 +404,44 @@
                         <div style="background:#f0f0f0;" class="form-control">${unidadeId || '<span class="text-danger">Campo obrigatório</span>'}</div>
                     </div>
                 </div>
-                <div class="row g-3">
-                    <div class="col-sm-6">
+
+                <div class="row g-3 mb-3">
+                    <div class="col-sm-12">
                         <div style="padding-right: 5px;">Responsável:</div>
-                        <div style="background:#f0f0f0;" class="form-control">${responsavelRisco || '<span class="text-danger">Campo obrigatório</span>'}</div>
+                        <div style="background:#f0f0f0;" class="form-control">${responsavelRisco || '<span class="text-danger">Campo obrigatório</span>'}</div>  
                     </div>
-                    <div class="col-sm-6">
+                </div>
+
+                <div class="row g-3 mb-3">
+                    <div class="col-sm-12">
                         <div style="padding-right: 5px;">Evento de Risco:</div>
                         <div style="background:#f0f0f0;" class="form-control">${riscoEvento || '<span class="text-danger">Campo obrigatório</span>'}</div>
                     </div>
                 </div>
-                <div class="row g-3">
-                    <div class="col-sm-6">
+
+                <div class="row g-3 mb-3">
+                    <div class="col-sm-12">
                         <div style="padding-right: 5px;">Causa do Risco:</div>
                         <div style="background:#f0f0f0;" class="form-control">${riscoCausa || '<span class="text-danger">Campo obrigatório</span>'}</div>
                     </div>
-                    <div class="col-sm-6">
+                </div>
+
+                <div class="row g-3 mb-3">
+                    <div class="col-sm-12">
                         <div style="padding-right: 5px;">Causa da Consequência:</div>
                         <div style="background:#f0f0f0;" class="form-control">${riscoConsequencia || '<span class="text-danger">Campo obrigatório</span>'}</div>
                     </div>
                 </div>
-                <div class="row g-3">
-                    <div class="col-sm-6">
+
+                <div class="row g-3 mb-3">
+                    <div class="col-sm-5">
                         <div style="padding-right: 5px;">Nível de Risco:</div>
                         <div style="background:#f0f0f0;" class="form-control">${nivel_de_risco || '<span class="text-danger">Campo obrigatório</span>'}</div>
                     </div>
                 </div>
+
+                <h4 class="text-center mt-4">Monitoramentos</h4>
                 <hr>
-                <h4>Monitoramentos:</h4>
             `;
 
             let monitoramentosDiv = document.getElementById('monitoramentosDiv');
@@ -459,22 +471,30 @@
                 let fimMonitoramentoDisplay = fimMonitoramento ? formatarDataParaBrasileiro(fimMonitoramento) : "Data não definida";
 
                 modalContent += `
+
+                    <div class="text-center mb-3">
+                        <div style="padding-right: 5px; font-weight: bold;">Monitoramento N° ${i + 1}</div>
+                    </div>
                     <div class="row g-3 mb-3">
                         <div class="col-sm-12">
-                            <div style="padding-right: 5px; font-weight: bold;">Monitoramento N° ${i + 1}</div>
-                        </div>
-                        <div class="col-sm-6">
                             <div style="padding-right: 5px;">Controle Sugerido:</div>
                             <div style="background:#f0f0f0;" class="form-control">${monitoramentoControleSugerido || '<span class="text-danger">Campo obrigatório</span>'}</div>
                         </div>
+                    </div>
+
+                    <div class="row g-3 mb-3">
                         <div class="col-sm-6">
                             <div style="padding-right: 5px;">Status do Monitoramento:</div>
                             <div style="background:#f0f0f0;" class="form-control">${statusMonitoramento || '<span class="text-danger">Campo obrigatório</span>'}</div>
                         </div>
+
                         <div class="col-sm-6">
                             <div style="padding-right: 5px;">Início do Monitoramento:</div>
                             <div style="background:#f0f0f0;" class="form-control">${inicioMonitoramentoDisplay || '<span class="text-danger">Campo obrigatório</span>'}</div>
                         </div>
+                    </div>
+
+                    <div class="row g-3 mb-3">
                         <div class="col-sm-6">
                             <div style="padding-right: 5px;">Fim do Monitoramento:</div>
                             <div style="background:#f0f0f0;" class="form-control">${fimMonitoramentoDisplay || '<span class="text-danger">Campo obrigatório</span>'}</div>

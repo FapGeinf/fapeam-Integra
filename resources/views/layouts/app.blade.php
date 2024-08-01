@@ -19,9 +19,9 @@
     @if(!Request::is('login'))
     <nav class="navbar">
       @if(Auth::check())
-        <a class="navbar-brand">
-          {{-- <img src="/img/logoDeconWhiteMin.png" alt="logo" width="21" height="20" class="logoNavImg d-inline-block align-text-top"> --}}
-          <i class="bi bi-person-workspace iconPerson"></i>
+        <a class="navbar-brand" style="position: absolute; top: -7px">
+          <img src="/img/logoDeconWhite-nobg-1.png" alt="logo" class="logoNavImg d-inline-block align-text-top">
+          {{-- <i class="bi bi-person-workspace iconPerson"></i> --}}
         </a>
         @endif
 

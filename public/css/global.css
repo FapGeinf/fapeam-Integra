@@ -14,6 +14,16 @@
   font-size: 22px;
 }
 
+.dataUser {
+  color: #fff;
+  font-size: 15px;
+}
+
+.spacer {
+  color: #fff;
+  margin-bottom: 1.5rem;
+}
+
 /* FONT STYLE */
 
 .poppins-regular {
@@ -61,6 +71,9 @@ body {
 }
 
 .logoNavImg {
+  width: 90px;
+  height: 41px;
+  margin-left: 1.6rem;
   transition: .1s;
 }
 
@@ -138,7 +151,7 @@ a.navbar-brand:nth-child(1) {
   white-space: nowrap; */
   flex-direction: column;
   position: absolute;
-  left: 50px;
+  left: 173px;
   top: 2px;
 }
 

@@ -12,13 +12,13 @@
   <nav class="menu-lateral" id="appSidenav">
     <a class="navbar-brand">
       <div class="logo">
-        <img id="" src="{{ asset('img/logoDeconWhite-nobg.png') }}" style="height: 47%;  object-fit: cover;">
+        <img id="" src="{{ asset('img/logoDeconWhiteMin.png') }}" style="height: 60%;  object-fit: cover;">
       </div>
     </a>
 
     <ul class="ulList">
       <li class="item-menu">
-        <a href="{{route('riscos.index')}}" class="{{ Request::routeIs('riscos.index') ? 'active' : '' }}" style="margin-top: 2rem;">
+        <a href="{{route('riscos.index')}}" class="{{ Request::routeIs('riscos.index') ? 'active' : '' }}" style="margin-top: 1rem;">
           <i class="bx bi-house icon {{ Request::routeIs('riscos.index') ? 'active-icon' : '' }}"></i>
           <span class="txt-link">Home</span>
           {{-- <i class="bx bi-chevron-down dropdown-icon"></i> --}}
@@ -28,6 +28,8 @@
           <li class="dropdown-item">Placeholder 2</li>
         </ul> --}}
       </li>
+
+      <hr class="spacer">
 
       <li class="item-menu">
         <a href="" class="{{ Request::path() === 'home' ? 'active' : '' }}">
