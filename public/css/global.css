@@ -9,11 +9,6 @@
   transition: margin-left 0.4s;
 }
 
-.iconPerson {
-  color: #fff;
-  font-size: 22px;
-}
-
 .dataUser {
   color: #fff;
   font-size: 15px;
@@ -136,11 +131,12 @@ a.navbar-brand:nth-child(1) {
   opacity: .6;
 }
 
-/* .active-icon {
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 0.5rem;
-  border-radius: 5px;
-} */
+.iconPerson {
+  color: #fff;
+  font-size: 25px;
+  line-height: 45px;
+  margin-left: 10.7rem;
+}
 
 #navbarDropdown {
   color: #fff;
