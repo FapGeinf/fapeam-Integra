@@ -9,9 +9,14 @@
   transition: margin-left 0.4s;
 }
 
-.iconPerson {
+.dataUser {
   color: #fff;
-  font-size: 22px;
+  font-size: 15px;
+}
+
+.spacer {
+  color: #fff;
+  margin-bottom: 1.5rem;
 }
 
 /* FONT STYLE */
@@ -61,6 +66,9 @@ body {
 }
 
 .logoNavImg {
+  width: 90px;
+  height: 41px;
+  margin-left: 1.6rem;
   transition: .1s;
 }
 
@@ -123,11 +131,12 @@ a.navbar-brand:nth-child(1) {
   opacity: .6;
 }
 
-/* .active-icon {
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 0.5rem;
-  border-radius: 5px;
-} */
+.iconPerson {
+  color: #fff;
+  font-size: 25px;
+  line-height: 45px;
+  margin-left: 10.7rem;
+}
 
 #navbarDropdown {
   color: #fff;
@@ -138,7 +147,7 @@ a.navbar-brand:nth-child(1) {
   white-space: nowrap; */
   flex-direction: column;
   position: absolute;
-  left: 50px;
+  left: 173px;
   top: 2px;
 }
 

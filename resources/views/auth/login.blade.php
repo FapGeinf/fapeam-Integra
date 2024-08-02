@@ -29,8 +29,10 @@
 <body class="login-page">
 
  <div class="grid">
-  <div class="order__right centered no__overflow">
-     <img class="img" src="{{ asset('img/tela-7.png') }}" alt="picture">
+  <div class="order__right centered no__overflow borderRadius">
+     {{-- <img class="img" src="{{ asset('img/pexels-pixabay-45170.jpg') }}" alt="picture"> --}}
+     <img class="img" src="{{ asset('img/login/background-7.png') }}" alt="picture">
+     {{-- <img class="img" src="https://via.placeholder.com/1920x1080" alt="picture"> --}}
   </div>
   
   <div class="order__left centered">
