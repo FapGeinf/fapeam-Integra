@@ -1,259 +1,373 @@
 @extends('layouts.app')
 @section('content')
-@section('title') {{'Página Inicial'}} @endsection
+@section('title')
+    {{ 'Página Inicial' }}
+@endsection
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-	<link rel="stylesheet" href="{{asset('css/index.css')}}">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.2.3/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ asset('css/index.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.2.3/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
 </head>
+
 <body>
 
-	<div class="container-fluid p-30">
+    <div class="container-fluid p-30">
 
-		<div id="newRiskButtonDiv" class="d-flex">
-			@if (Auth::user()->unidade->unidadeTipoFK == 1)
-			<a href="{{route('riscos.create')}}" class="blue-btn me-2">
-				<i class="bi bi-plus-lg"></i> Novo Risco
-			</a>
+        <div id="newRiskButtonDiv" class="d-flex">
+            @if (Auth::user()->unidade->unidadeTipoFK == 1)
+                <a href="{{ route('riscos.create') }}" class="blue-btn me-2">
+                    <i class="bi bi-plus-lg"></i> Novo Risco
+                </a>
 
-			<button type="button" class="green-btn me-2" data-bs-toggle="modal" data-bs-target="#prazoModal">
-				<i class="bi bi-plus-lg"></i> inserir Prazo
-			</button>
-			@endif
-				<p class="spanThatLooksLikeABtn" id="prazo">Prazo Final: {{ \Carbon\Carbon::parse($prazo)->format('d/m/Y') }}</p>
-		</div>
+                <button type="button" class="green-btn me-2" data-bs-toggle="modal" data-bs-target="#prazoModal">
+                    <i class="bi bi-plus-lg"></i> inserir Prazo
+                </button>
+            @endif
+            <p class="spanThatLooksLikeABtn" id="prazo">Prazo Final:
+                {{ \Carbon\Carbon::parse($prazo)->format('d/m/Y') }}</p>
 
-		<div class="col-12 main-datatable">
+            <button id="notificationButton" type="button" class="btn btn-light position-relative ml-3"
+                data-bs-toggle="modal" data-bs-target="#notificationModal" onclick="updateNotificationCount()">
+                <i class="bi bi-bell"></i>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                    id="notificationBadge" data-count="{{ $notificacoes->count() }}">
+                    {{ $notificacoes->count() }}
+                    <span class="visually-hidden">unread messages</span>
+                </span>
+            </button>
+        </div>
 
-			<div class="container-fluid">
-				<table id="tableHome" class="table cust-datatable">
-					<thead>
-						<tr>
-							<th>N°</th>
-							<th>Responsável</th>
-							<th style="white-space:nowrap;">Unidade</th>
-							<th style="white-space: nowrap;">Evento de Risco</th>
-							<th>Causa</th>
-							<th>Consequência</th>
-							<th style="width: 120px;">Avaliação</th>
-						</tr>
-					</thead>
+        <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="notificationModalLabel">Notificações</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        @if ($notificacoes->isEmpty())
+                            <p>Não há notificações.</p>
+                        @else
+                            <ul class="list-group">
+                                @foreach ($notificacoes as $notificacao)
+                                    <li class="list-group-item">
+                                        {{ $notificacao->message }}
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @endif
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-					<tbody>
-						@foreach ($riscos as $risco)
-							<tr style="cursor: pointer;" onclick="window.location='{{ route('riscos.show', $risco->id) }}';">
-								<td style="white-space:nowrap;">{{ $risco->id }}</td>
-								<td style="white-space: nowrap;">{!! $risco->responsavelRisco !!}</td>
-								<td style="word-wrap:break-word;">{!! $risco->unidade->unidadeSigla !!}</td>
-								<td class="justify">{!! Str::limit($risco->riscoEvento, 120) !!}</td>
-								<td class="justify">{!! Str::limit($risco->riscoCausa, 120) !!}</td>
-								<td class="justify">{!! Str::limit($risco->riscoConsequencia, 120) !!}</td>
-								@if($risco->nivel_de_risco==1)
-								<td class="bg-baixo riscoAvaliacao"><span class="fontBold">Baixo</span></td>
-								@elseif ($risco->nivel_de_risco == 2)
-								<td class="bg-medio riscoAvaliacao"><span class="fontBold">Médio</span></td>
-								@else
-								<td class="bg-alto riscoAvaliacao"><span class="fontBold">Alto</span></td>
-								@endif
-							</tr>
-						@endforeach
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
 
-	<footer class="rodape">
-		<div class="riskLevelDiv">
-			<span>Nível de Risco (Avaliação):</span>
-			<span class="mode riskLevel1">Baixo</span>
-			<span class="mode riskLevel2">Médio</span>
-			<span class="mode riskLevel3">Alto</span>
-		</div>
-	</footer>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const markAsReadForm = document.getElementById('markAsReadForm');
+                const notificationButton = document.getElementById('notificationButton');
+                const notificationBadge = document.getElementById('notificationBadge');
 
-	<div class="modal fade" id="prazoModal" tabindex="-1" aria-labelledby="prazoModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="prazoModalLabel">Novo Prazo</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
+                function markNotificationsAsRead() {
+                    fetch(markAsReadForm.action, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                    'content')
+                            },
+                            body: new URLSearchParams(new FormData(markAsReadForm)).toString()
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                notificationBadge.textContent = '0';
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
+                }
 
-				<div class="modal-body">
-					<form action="{{route('riscos.prazo')}}" id="prazoForm" method="POST">
-						@csrf
-						<div class="mb-3">
-							<label for="data" class="form-label">Data:</label>
-							<input type="date" class="form-control" id="data" name="data" required>
-						</div>
 
-						<div class="text-end mt-4">
-							<button type="submit" class="btn btn-primary">Salvar Prazo</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+                markAsReadForm.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    markNotificationsAsRead();
+                });
+            });
+        </script>
 
-	
-	<script>
-		$(document).ready(function(){
-			var table = $('#tableHome').DataTable({
-				language: {
-					url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
-					search: "Procurar:",
-					lengthMenu: "Riscos: _MENU_",
-					info: 'Mostrando página _PAGE_ de _PAGES_',
-					infoEmpty: 'Sem relatórios de risco disponíveis no momento',
-					infoFiltered: '(Filtrados do total de _MAX_ relatórios)',
-					zeroRecords: 'Nada encontrado. Se achar que isso é um erro, contate o suporte.',
-					paginate: {
-						next: "Próximo",
-						previous: "Anterior"
-					}
-				},
-		
-				initComplete: function(){
-					// CONTAINER QUE ALINHA TODOS NA MESMA LINHA
-					var divContainer = $('<div class="divContainer"></div>');
-		
-					// BOTÃO NA ESQUERDA
-					var divButtonNewRisk = $('<div class="divButtonNewRisk"></div>');
-					divButtonNewRisk.append($('#newRiskButtonDiv'));
-					divContainer.append(divButtonNewRisk);
-		
-					// Adiciona o filtro de unidade na div de length
-					if (!$('#filterUnidade').length) {
-						var selectUnidade = $('<select id="filterUnidade" class="form-select form-select-sm divFilterUnidade"><option value="">Todas as Unidades</option></select>');
-						
-						// Popula o select com as unidades únicas
-						@foreach ($riscos->unique('unidade.unidadeNome') as $risco)
-							selectUnidade.append('<option value="{{ $risco->unidade->unidadeNome }}">{{ $risco->unidade->unidadeNome }}</option>');
-						@endforeach
-		
-						// Create the label for the select with class "labelUnidade"
-						var labelUnidades = $('<label for="filterUnidade" class="labelUnidade">Unidades:</label>');
-		
-						// Append label and select to the length div
-						$('.dataTables_length').append(labelUnidades).append(selectUnidade);
-					}
-		
-					// Adiciona o filtro de avaliação
-					if (!$('#filterAvaliação').length) {
-						var selectAvaliacao = $('<select id="filterAvaliação" class="form-select form-select-sm divFilterAvaliação"><option value="">Todas as Avaliações</option></select>');
-						
-						// Opções de avaliação
-						var avaliacaoOptions = [
-							{ value: "Baixo", text: "Baixo" },
-							{ value: "Médio", text: "Médio" },
-							{ value: "Alto", text: "Alto" }
-						];
-						
-						$.each(avaliacaoOptions, function(index, option) {
-							selectAvaliacao.append('<option value="'+option.value+'">'+option.text+'</option>');
-						});
-		
-						// Create the label for the select with class "labelAvaliação"
-						var labelAvaliacoes = $('<label for="filterAvaliação" class="labelAvaliação">Avaliação:</label>');
-		
-						// Append label and select to the length div
-						$('.dataTables_length').append(labelAvaliacoes).append(selectAvaliacao);
-					}
-		
-					// Move the length and filter divs into divContainer
-					divContainer.append($('.dataTables_filter'));
-					divContainer.append($('.dataTables_length'));
-					
-					// Adiciona a div container no topo da tabela
-					$(table.table().container()).prepend(divContainer);
-		
-					// Filtro de Unidade
-					$('#filterUnidade').on('change', function(){
-						var val = $.fn.dataTable.util.escapeRegex($(this).val());
-						table.column(2).search(val ? '^'+val+'$' : '', true, false).draw();
-					});
-		
-					// Filtro de Avaliação
-					$('#filterAvaliação').on('change', function(){
-						var val = $.fn.dataTable.util.escapeRegex($(this).val());
-						table.column(6).search(val ? '^'+val+'$' : '', true, false).draw();
-					});
-				}
-			});
-		
-			table.on('draw', function(){
-				// MANTÉM OS ELEMENTOS ALINHADOS A CADA REFRESH, SEM DUPLICAR
-				if (!$(".divContainer").length) {
-					var divContainer = $('<div class="divContainer"></div>');
-		
-					var divButtonNewRisk = $('<div class="divButtonNewRisk"></div>');
-					divButtonNewRisk.append($('#newRiskButtonDiv'));
-					divContainer.append(divButtonNewRisk);
-		
-					if (!$('#filterUnidade').length) {
-						var selectUnidade = $('<select id="filterUnidade" class="form-select form-select-sm divFilterUnidade"><option value="">TODAS</option></select>');
-						
-						@foreach ($riscos->unique('unidade.unidadeNome') as $risco)
-							selectUnidade.append('<option value="{{ $risco->unidade->unidadeSigla }}">{{ $risco->unidade->unidadeSigla }}</option>');
-						@endforeach
-		
-						// Create the label for the select with class "labelUnidade"
-						var labelUnidades = $('<label for="filterUnidade" class="labelUnidade">Unidades:</label>');
-		
-						// Append label and select to the length div
-						$('.dataTables_length').append(labelUnidades).append(selectUnidade);
-					}
-		
-					// Adiciona o filtro de avaliação
-					if (!$('#filterAvaliação').length) {
-						var selectAvaliacao = $('<select id="filterAvaliação" class="form-select form-select-sm divFilterAvaliação"><option value="">TODAS</option></select>');
-						
-						// Opções de avaliação
-						var avaliacaoOptions = [
-							{ value: "Baixo", text: "Baixo" },
-							{ value: "Médio", text: "Médio" },
-							{ value: "Alto", text: "Alto" }
-						];
-						
-						$.each(avaliacaoOptions, function(index, option) {
-							selectAvaliacao.append('<option value="'+option.value+'">'+option.text+'</option>');
-						});
-		
-						// Create the label for the select with class "labelAvaliação"
-						var labelAvaliacoes = $('<label for="filterAvaliação" class="labelAvaliação">Avaliação:</label>');
-		
-						// Append label and select to the length div
-						$('.dataTables_length').append(labelAvaliacoes).append(selectAvaliacao);
-					}
-		
-					// Move the length and filter divs into divContainer
-					divContainer.append($('.dataTables_length'));
-					divContainer.append($('.dataTables_filter'));
-		
-					$(table.table().container()).prepend(divContainer);
-		
-					$('#filterUnidade').on('change', function(){
-						var val = $.fn.dataTable.util.escapeRegex($(this).val());
-						table.column(2).search(val ? '^'+val+'$' : '', true, false).draw();
-					});
-		
-					$('#filterAvaliação').on('change', function(){
-						var val = $.fn.dataTable.util.escapeRegex($(this).val());
-						table.column(6).search(val ? '^'+val+'$' : '', true, false).draw();
-					});
-				}
-			});
-		});
-	</script>
+        <div class="col-12 main-datatable">
+
+            <div class="container-fluid">
+                <table id="tableHome" class="table cust-datatable">
+                    <thead>
+                        <tr>
+                            <th>N°</th>
+                            <th>Responsável</th>
+                            <th style="white-space:nowrap;">Unidade</th>
+                            <th style="white-space: nowrap;">Evento de Risco</th>
+                            <th>Causa</th>
+                            <th>Consequência</th>
+                            <th style="width: 120px;">Avaliação</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach ($riscos as $risco)
+                            <tr style="cursor: pointer;"
+                                onclick="window.location='{{ route('riscos.show', $risco->id) }}';">
+                                <td style="white-space:nowrap;">{{ $risco->id }}</td>
+                                <td style="white-space: nowrap;">{!! $risco->responsavelRisco !!}</td>
+                                <td style="word-wrap:break-word;">{!! $risco->unidade->unidadeSigla !!}</td>
+                                <td class="justify">{!! Str::limit($risco->riscoEvento, 120) !!}</td>
+                                <td class="justify">{!! Str::limit($risco->riscoCausa, 120) !!}</td>
+                                <td class="justify">{!! Str::limit($risco->riscoConsequencia, 120) !!}</td>
+                                @if ($risco->nivel_de_risco == 1)
+                                    <td class="bg-baixo riscoAvaliacao"><span class="fontBold">Baixo</span></td>
+                                @elseif ($risco->nivel_de_risco == 2)
+                                    <td class="bg-medio riscoAvaliacao"><span class="fontBold">Médio</span></td>
+                                @else
+                                    <td class="bg-alto riscoAvaliacao"><span class="fontBold">Alto</span></td>
+                                @endif
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <footer class="rodape">
+        <div class="riskLevelDiv">
+            <span>Nível de Risco (Avaliação):</span>
+            <span class="mode riskLevel1">Baixo</span>
+            <span class="mode riskLevel2">Médio</span>
+            <span class="mode riskLevel3">Alto</span>
+        </div>
+    </footer>
+
+    <div class="modal fade" id="prazoModal" tabindex="-1" aria-labelledby="prazoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="prazoModalLabel">Novo Prazo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <form action="{{ route('riscos.prazo') }}" id="prazoForm" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="data" class="form-label">Data:</label>
+                            <input type="date" class="form-control" id="data" name="data" required>
+                        </div>
+
+                        <div class="text-end mt-4">
+                            <button type="submit" class="btn btn-primary">Salvar Prazo</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        $(document).ready(function() {
+            var table = $('#tableHome').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
+                    search: "Procurar:",
+                    lengthMenu: "Riscos: _MENU_",
+                    info: 'Mostrando página _PAGE_ de _PAGES_',
+                    infoEmpty: 'Sem relatórios de risco disponíveis no momento',
+                    infoFiltered: '(Filtrados do total de _MAX_ relatórios)',
+                    zeroRecords: 'Nada encontrado. Se achar que isso é um erro, contate o suporte.',
+                    paginate: {
+                        next: "Próximo",
+                        previous: "Anterior"
+                    }
+                },
+
+                initComplete: function() {
+                    // CONTAINER QUE ALINHA TODOS NA MESMA LINHA
+                    var divContainer = $('<div class="divContainer"></div>');
+
+                    // BOTÃO NA ESQUERDA
+                    var divButtonNewRisk = $('<div class="divButtonNewRisk"></div>');
+                    divButtonNewRisk.append($('#newRiskButtonDiv'));
+                    divContainer.append(divButtonNewRisk);
+
+                    // Adiciona o filtro de unidade na div de length
+                    if (!$('#filterUnidade').length) {
+                        var selectUnidade = $(
+                            '<select id="filterUnidade" class="form-select form-select-sm divFilterUnidade"><option value="">Todas as Unidades</option></select>'
+                        );
+
+                        // Popula o select com as unidades únicas
+                        @foreach ($riscos->unique('unidade.unidadeNome') as $risco)
+                            selectUnidade.append(
+                                '<option value="{{ $risco->unidade->unidadeNome }}">{{ $risco->unidade->unidadeNome }}</option>'
+                            );
+                        @endforeach
+
+                        // Create the label for the select with class "labelUnidade"
+                        var labelUnidades = $(
+                            '<label for="filterUnidade" class="labelUnidade">Unidades:</label>');
+
+                        // Append label and select to the length div
+                        $('.dataTables_length').append(labelUnidades).append(selectUnidade);
+                    }
+
+                    // Adiciona o filtro de avaliação
+                    if (!$('#filterAvaliação').length) {
+                        var selectAvaliacao = $(
+                            '<select id="filterAvaliação" class="form-select form-select-sm divFilterAvaliação"><option value="">Todas as Avaliações</option></select>'
+                        );
+
+                        // Opções de avaliação
+                        var avaliacaoOptions = [{
+                                value: "Baixo",
+                                text: "Baixo"
+                            },
+                            {
+                                value: "Médio",
+                                text: "Médio"
+                            },
+                            {
+                                value: "Alto",
+                                text: "Alto"
+                            }
+                        ];
+
+                        $.each(avaliacaoOptions, function(index, option) {
+                            selectAvaliacao.append('<option value="' + option.value + '">' +
+                                option.text + '</option>');
+                        });
+
+                        // Create the label for the select with class "labelAvaliação"
+                        var labelAvaliacoes = $(
+                            '<label for="filterAvaliação" class="labelAvaliação">Avaliação:</label>'
+                        );
+
+                        // Append label and select to the length div
+                        $('.dataTables_length').append(labelAvaliacoes).append(selectAvaliacao);
+                    }
+
+                    // Move the length and filter divs into divContainer
+                    divContainer.append($('.dataTables_filter'));
+                    divContainer.append($('.dataTables_length'));
+
+                    // Adiciona a div container no topo da tabela
+                    $(table.table().container()).prepend(divContainer);
+
+                    // Filtro de Unidade
+                    $('#filterUnidade').on('change', function() {
+                        var val = $.fn.dataTable.util.escapeRegex($(this).val());
+                        table.column(2).search(val ? '^' + val + '$' : '', true, false).draw();
+                    });
+
+                    // Filtro de Avaliação
+                    $('#filterAvaliação').on('change', function() {
+                        var val = $.fn.dataTable.util.escapeRegex($(this).val());
+                        table.column(6).search(val ? '^' + val + '$' : '', true, false).draw();
+                    });
+                }
+            });
+
+            table.on('draw', function() {
+                // MANTÉM OS ELEMENTOS ALINHADOS A CADA REFRESH, SEM DUPLICAR
+                if (!$(".divContainer").length) {
+                    var divContainer = $('<div class="divContainer"></div>');
+
+                    var divButtonNewRisk = $('<div class="divButtonNewRisk"></div>');
+                    divButtonNewRisk.append($('#newRiskButtonDiv'));
+                    divContainer.append(divButtonNewRisk);
+
+                    if (!$('#filterUnidade').length) {
+                        var selectUnidade = $(
+                            '<select id="filterUnidade" class="form-select form-select-sm divFilterUnidade"><option value="">TODAS</option></select>'
+                        );
+
+                        @foreach ($riscos->unique('unidade.unidadeNome') as $risco)
+                            selectUnidade.append(
+                                '<option value="{{ $risco->unidade->unidadeSigla }}">{{ $risco->unidade->unidadeSigla }}</option>'
+                            );
+                        @endforeach
+
+                        // Create the label for the select with class "labelUnidade"
+                        var labelUnidades = $(
+                            '<label for="filterUnidade" class="labelUnidade">Unidades:</label>');
+
+                        // Append label and select to the length div
+                        $('.dataTables_length').append(labelUnidades).append(selectUnidade);
+                    }
+
+                    // Adiciona o filtro de avaliação
+                    if (!$('#filterAvaliação').length) {
+                        var selectAvaliacao = $(
+                            '<select id="filterAvaliação" class="form-select form-select-sm divFilterAvaliação"><option value="">TODAS</option></select>'
+                        );
+
+                        // Opções de avaliação
+                        var avaliacaoOptions = [{
+                                value: "Baixo",
+                                text: "Baixo"
+                            },
+                            {
+                                value: "Médio",
+                                text: "Médio"
+                            },
+                            {
+                                value: "Alto",
+                                text: "Alto"
+                            }
+                        ];
+
+                        $.each(avaliacaoOptions, function(index, option) {
+                            selectAvaliacao.append('<option value="' + option.value + '">' + option
+                                .text + '</option>');
+                        });
+
+                        // Create the label for the select with class "labelAvaliação"
+                        var labelAvaliacoes = $(
+                            '<label for="filterAvaliação" class="labelAvaliação">Avaliação:</label>');
+
+                        // Append label and select to the length div
+                        $('.dataTables_length').append(labelAvaliacoes).append(selectAvaliacao);
+                    }
+
+                    // Move the length and filter divs into divContainer
+                    divContainer.append($('.dataTables_length'));
+                    divContainer.append($('.dataTables_filter'));
+
+                    $(table.table().container()).prepend(divContainer);
+
+                    $('#filterUnidade').on('change', function() {
+                        var val = $.fn.dataTable.util.escapeRegex($(this).val());
+                        table.column(2).search(val ? '^' + val + '$' : '', true, false).draw();
+                    });
+
+                    $('#filterAvaliação').on('change', function() {
+                        var val = $.fn.dataTable.util.escapeRegex($(this).val());
+                        table.column(6).search(val ? '^' + val + '$' : '', true, false).draw();
+                    });
+                }
+            });
+        });
+    </script>
 </body>
+
 </html>
 @endsection

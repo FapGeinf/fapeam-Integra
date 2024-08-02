@@ -2,15 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PrazoProximo;
 use Illuminate\Http\Request;
 use app\Http\Middleware\VerifyCsrfToken;
 use App\Models\Risco;
 use App\Models\Unidade;
 use App\Models\Monitoramento;
+use App\Models\Notification;
 use App\Models\Resposta;
 use App\Models\Prazo;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
+
 
 class RiscoController extends Controller
 {
@@ -34,16 +39,38 @@ class RiscoController extends Controller
             // Contagem de todos os riscos do dia atual
             $riscosAbertosHoje = Risco::whereDate('created_at', \Carbon\Carbon::today())->count();
 
+            $notificacoes = Notification::where('global', true)->get();
+
             return view('riscos.index', [
                 'riscos' => $riscos,
                 'prazo' => $prazo ? $prazo->data : null,
                 'riscosAbertos' => $riscosAbertos,
                 'riscosAbertosHoje' => $riscosAbertosHoje,
+                'notificacoes' => $notificacoes
             ]);
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao carregar os riscos. Por favor, tente novamente.']);
         }
     }
+
+    public function marcarComoLida($id)
+    {
+        $notification = Notification::find($id);
+        if ($notification) {
+            $notification->update(['read_at' => now()]);
+        }
+
+        return redirect()->back();
+    }
+
+    public function marcarComoLidas(Request $request)
+    {
+        Notification::query()->update(['read_at' => now()]);
+
+        return redirect()->back();
+    }
+
+
 
     public function show($id)
     {
@@ -229,7 +256,7 @@ class RiscoController extends Controller
 
             return redirect()->route('riscos.show', ['id' => $risco->id])->with('success', 'Monitoramentos editados com sucesso');
         } catch (\Exception $e) {
-						dd($e);
+            dd($e);
             return redirect()->back()->withErrors(['errors' => 'Houve um erro ao atualizar ou adicionar monitoramentos']);
         }
     }
@@ -323,6 +350,8 @@ class RiscoController extends Controller
             if (!$novoPrazo) {
                 return redirect()->back()->with('error', 'Erro ao inserir um Prazo');
             }
+
+            event(new PrazoProximo($novoPrazo));
 
             return redirect()->back()->with('success', 'Prazo Inserido com sucesso');
         } catch (\Exception $e) {

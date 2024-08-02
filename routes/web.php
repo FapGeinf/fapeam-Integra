@@ -1,7 +1,11 @@
 <?php
 
+use App\Events\PrazoProximo;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RiscoController;
+use App\Models\Prazo;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +37,10 @@ Route::get('/riscos/respostas/{id}', [RiscoController::class, 'respostas'])->nam
 Route::get('/riscos/{id}/edit-monitoramentos', [RiscoController::class, 'editMonitoramentos'])->name('riscos.edit-monitoramentos');
 Route::put('/riscos/{id}/update-monitoramentos', [RiscoController::class, 'updateMonitoramentos'])->name('riscos.update-monitoramentos');
 Route::post('/riscos/prazo',[RiscoController::class,'insertPrazo'])->name('riscos.prazo');
+Route::post('/notificacoes/marcar-como-lidas', [RiscoController::class, 'marcarComoLidas'])->name('riscos.marcarComoLidas');
+Route::post('/notificacoes/marcar-como-lida', [RiscoController::class, 'marcarComoLida'])->name('riscos.marcarComoLida');
+
+
 
 
 Auth::routes();
