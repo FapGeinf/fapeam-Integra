@@ -61,8 +61,9 @@
               <th scope="col" class="text-center text-light tBorder">Controle Sugerido:</th>
               <th scope="col" class="text-center text-light tBorder">Status:</th>
               <th scope="col" class="text-center text-light">Data:</th>
+
               @if(count($monitoramentos)>1 && auth()->user()->unidade->unidadeTipo->id == 1)
-              		<th scope="col" class="text-center text-light">Ações:</th>
+              		<th scope="col" class="text-center text-light">Opções:</th>
               @endif
             </tr>
           </thead>
