@@ -349,22 +349,27 @@
                         <div class="col-sm-12">
                             <div style="padding-right: 5px; font-weight: bold;">Monitoramento N° ${index + 1}</div>
                         </div>
+
                         <div class="col-sm-6">
                             <div style="padding-right: 5px;">Controle Sugerido:</div>
                             <div style="background:#f0f0f0; overflow-wrap: break-word;" class="form-control">${monitoramentoControleSugerido || '<span class="text-danger">Campo obrigatório</span>'}</div>
                         </div>
+
                         <div class="col-sm-6">
                             <div style="padding-right: 5px;">Status do Monitoramento:</div>
                             <div style="background:#f0f0f0; overflow-wrap: break-word;" class="form-control">${statusMonitoramento || '<span class="text-danger">Campo obrigatório</span>'}</div>
                         </div>
+
                         <div class="col-sm-6">
                             <div style="padding-right: 5px;">Início do Monitoramento:</div>
                             <div style="background:#f0f0f0; overflow-wrap: break-word;" class="form-control">${inicioMonitoramento || '<span class="text-danger">Campo obrigatório</span>'}</div>
                         </div>
+
                         <div class="col-sm-6">
                             <div style="padding-right: 5px;">Fim do Monitoramento:</div>
                             <div style="background:#f0f0f0; overflow-wrap: break-word;" class="form-control">${fimMonitoramento || (isContinuo == '0' ? '<span class="text-danger">Campo obrigatório</span>' : 'N/A')}</div>
                         </div>
+                        
                     </div>
                 `;
                 hasError = true;
@@ -378,44 +383,58 @@
                 }
 
                 modalContent.innerHTML += `
-                    <div class="row g-3 mb-3">
-                        <div class="col-sm-12">
-                            <div style="padding-right: 5px; font-weight: bold;">Monitoramento N° ${index + 1}</div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div style="padding-right: 5px;">Controle Sugerido:</div>
-                            <div style="background:#f0f0f0; overflow-wrap: break-word;" class="form-control">${monitoramentoControleSugerido || '<span class="text-danger">Campo obrigatório</span>'}</div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div style="padding-right: 5px;">Status do Monitoramento:</div>
-                            <div style="background:#f0f0f0; overflow-wrap: break-word;" class="form-control">${statusMonitoramento || '<span class="text-danger">Campo obrigatório</span>'}</div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div style="padding-right: 5px;">Início do Monitoramento:</div>
-                            <div style="background:#f0f0f0; overflow-wrap: break-word;" class="form-control">${inicioMonitoramento || '<span class="text-danger">Campo obrigatório</span>'}</div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div style="padding-right: 5px;">Fim do Monitoramento:</div>
-                            <div style="background:#f0f0f0; overflow-wrap: break-word;" class="form-control">${fimMonitoramento || (isContinuo == '0' ? '<span class="text-danger">Campo obrigatório</span>' : 'N/A')}</div>
-                        </div>
-                    </div>
-                `;
-            }
+                  <div class="row g-3 mb-3">
+                    <span class="text-center">Monitoramento N° ${index + 1}</span>
 
-            if (hasError) {
-                confirmButton.style.display = "none";
-            } else {
-                confirmButton.style.display = "block";
-            }
+                    <div class="col-sm-12">
+                      <div>Controle Sugerido:</div>
+                      <div class="modalBg modalOF form-control">
+                        ${monitoramentoControleSugerido || '<span class="text-danger">Campo obrigatório</span>'}
+                    </div>
+                  </div>
+
+                  <div class="row g-3 bm-3">
+                    <div class="col-sm-12">
+                      <div>Situação do Monitoramento:</div>
+                      <div class="modalBg modalOF formControl">
+                        ${statusMonitoramento || '<span class="text-danger">Campo obrigatório</span>'}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row g-3 mb-3">
+                    <div class="col-sm-6">
+                      <div>Início do Monitoramento:</div>
+                      <div class="modalBg form-control">
+                        ${inicioMonitoramento || '<span class="text-danger">Campo obrigatório</span>'}
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                      <div>
+                        Fim do Monitoramento:
+                      </div>
+
+                      <div class="modalBg form-control">
+                        ${fimMonitoramento || (isContinuo == '0' ? '<span class="text-danger">Campo obrigatório</span>' : 'N/A')}
+                      </div>
+                    </div>
+                  </div>
+                `;
+              }
+
+          if (hasError) {
+            confirmButton.style.display = "none";
+          } else {
+            confirmButton.style.display = "block";
+          }
         });
-    }
+      }
 
 
     function submitForm() {
         document.getElementById('formCreate').submit();
     }
-
-
 
 </script>
 
