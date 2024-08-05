@@ -50,8 +50,8 @@ Route::get('/painel', [UserController::class, 'painel'])->name('usuarios.index')
 Route::put('/user/update/{id}', [UserController::class, 'updateUser'])->name('user.update');
 Route::delete('/user/delete/{id}', [UserController::class, 'deleteUser'])->name('user.destroy');
 
-Route::get('/user/alterar-senha', [UserController::class, 'changePassword'])->name('user.password');
-Route::post('/user/alterar-senha',[UserController::class,'updatePassword'])->name('user.password');
+Route::get('/user/alterar-senha', [UserController::class, 'changePassword'])->name('users.password');
+Route::post('/user/alterar-senha',[UserController::class,'updatePassword'])->name('users.password');
 
 Auth::routes();
 
