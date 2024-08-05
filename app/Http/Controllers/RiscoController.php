@@ -30,7 +30,7 @@ class RiscoController extends Controller
                 $riscos = Risco::all();
             } else {
                 // Caso o usuário seja de um tipo de unidade diferente de 1
-                $riscos = Risco::where('unidadeId', $user->unidade->unidadeTipoFK)->get();
+                $riscos = Risco::where('unidadeId', $user->unidade->id)->get();
             }
 
             // Contagem de todos os riscos
