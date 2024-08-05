@@ -354,3 +354,7 @@ a.reply-btn:hover {
 .modalBg {
   background: #f0f0f0;
 }
+
+.modalOF {
+  overflow-wrap: break-word;
+}
