@@ -16,13 +16,13 @@
       @if($respostas->count() > 0)
       <table class="table table-bordered">
         <tr>
-          <th scope="col" class="text-center thNumber">N°</th>
-          <th scope="col" class="text-center thReply">Resposta do Risco: {{ $risco->id}}</th>
+          <th scope="col" class="text-center thNumber">Respondido por</th>
+          <th scope="col" class="text-center thReply">Resposta do Risco</th>
         </tr>
-
         @foreach ($respostas as $key => $resposta)
+				
         <tr>
-          <td class="text-center text13 tdNumber">{!! $key + 1 !!}</td>
+          <td class="text-center text13 tdNumber">{{$resposta->user->name}}</td>
           <td class="text13 tdReply">{!! $resposta->respostaRisco !!}</td>
         </tr>
         @endforeach
@@ -50,7 +50,7 @@
           @csrf
           <div id="respostasFields">
             <div class="mb-4 resposta" style="margin-top: 10px;">
-              <label for="respostas[0][respostaRisco]" class="form-label">Resposta 1</label>
+              <label for="respostas[0][respostaRisco]" class="form-label">Resposta</label>
               <input type="text" class="form-control" name="respostas[0][respostaRisco]" required>
             </div>
           </div>
