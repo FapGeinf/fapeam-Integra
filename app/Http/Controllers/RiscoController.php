@@ -365,6 +365,29 @@ class RiscoController extends Controller
         }
     }
 
+    public function updateResposta(Request $request, $id)
+    {
+        $request->validate([
+            'respostaRisco' => 'required|string',
+        ]);
+
+        try {
+            $resposta = Resposta::findOrFail($id);
+
+            $resposta->update([
+                'respostaRisco' => $request->input('respostaRisco'),
+            ]);
+
+            return redirect()->route('riscos.respostas', ['id' => $resposta->respostaRiscoFK])
+                ->with('success', 'Resposta atualizada com sucesso!');
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return redirect()->back()->withErrors(['error' => 'Resposta não encontrada.']);
+        } catch (\Exception $e) {
+            Log::error('Erro ao atualizar a resposta: ' . $e->getMessage());
+            return redirect()->back()->withErrors(['error' => 'Ocorreu um erro ao atualizar a resposta. Por favor, tente novamente.']);
+        }
+    }
+
     public function respostas($id)
     {
         $risco = Risco::with('respostas')->findorFail($id);
