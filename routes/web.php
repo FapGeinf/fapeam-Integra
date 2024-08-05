@@ -3,6 +3,7 @@
 use App\Events\PrazoProximo;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RiscoController;
+use App\Http\Controllers\UserController;
 use App\Models\Prazo;
 
 
@@ -41,7 +42,12 @@ Route::post('/notificacoes/marcar-como-lidas', [RiscoController::class, 'marcarC
 Route::post('/notificacoes/marcar-como-lida', [RiscoController::class, 'marcarComoLida'])->name('riscos.marcarComoLida');
 
 
+Route::get('/painel', [UserController::class, 'painel'])->name('usuarios.index');
+Route::put('/user/update/{id}', [UserController::class, 'updateUser'])->name('user.update');
+Route::delete('/user/delete/{id}', [UserController::class, 'deleteUser'])->name('user.destroy');
 
+Route::get('/user/alterar-senha', [UserController::class, 'changePassword'])->name('user.password');
+Route::post('/user/alterar-senha',[UserController::class,'updatePassword'])->name('user.password');
 
 Auth::routes();
 
