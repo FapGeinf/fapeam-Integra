@@ -346,3 +346,11 @@ a.reply-btn:hover {
   margin-bottom: 0;
   height: 0%;
 }
+
+.modalP {
+  padding-right: 5px;
+}
+
+.modalBg {
+  background: #f0f0f0;
+}

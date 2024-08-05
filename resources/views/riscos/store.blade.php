@@ -64,8 +64,8 @@
 
                     <div class="col-sm-4 col-md-9 selectUnidade">
                         <label for="unidadeId">Unidade:<span class="asterisco">*</span></label>
-                        <select name="unidadeId" class="form-select" required>
-                            <option selected disabled></option>
+                        <select name="unidadeId" class="form-control form-select" required>
+                            <option selected disabled>Escolha uma unidade</option>
                             @foreach($unidades as $unidade)
                             <option value="{{ $unidade->id }}">{{ $unidade->unidadeNome }}</option>
                             @endforeach

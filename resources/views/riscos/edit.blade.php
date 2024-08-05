@@ -75,7 +75,7 @@
                     <div class="row g-3">
                         <div class="col-sm-3 col-md-3">
                             <label style="white-space: nowrap;" for="nivel_de_risco">Nivel de Risco:</label>
-                            <select name="nivel_de_risco" id="nivel_de_risco" class="form-select" required>
+                            <select name="nivel_de_risco" id="nivel_de_risco" class="form-select form-control" required>
                                 <option value="1">Baixo</option>
                                 <option value="2">Médio</option>
                                 <option value="3">Alto</option>
@@ -84,12 +84,13 @@
 
                         <div class="col-sm-9 col-md-9">
                             <label for="unidadeId">Unidade:</label>
-                            <select name="unidadeId" class="form-select" required>
+                            <select name="unidadeId" class="form-select form-control" required>
                                 <option selected disabled>Selecione uma unidade</option>
                                 @foreach($unidades as $unidade)
                                 <option value="{{ $unidade->id }}"
                                     {{ isset($risco) && $risco->unidadeId == $unidade->id ? 'selected' : '' }}>
-                                    {{ $unidade->unidadeNome }}</option>
+                                    {{ $unidade->unidadeNome }}
+                                </option>
                                 @endforeach
                             </select>
                         </div>
@@ -155,18 +156,49 @@
 
             // Construção do HTML para o modal de confirmação
             let modalContent = `
-                <p><strong>Ano:</strong> ${riscoAno}</p>
-                <p><strong>Responsável do Risco:</strong> ${responsavelRisco}</p>
-                <p><strong>Evento de Risco:</strong></p>
-                <p>${riscoEvento}</p>
-                <p><strong>Causa do Risco:</strong></p>
-                <p>${riscoCausa}</p>
-                <p><strong>Causa da Consequência:</strong></p>
-                <p>${riscoConsequencia}</p>
-                <p><strong>Nível de Risco:</strong> ${nivel_de_risco}</p>
-                <p><strong>Unidade:</strong> ${unidadeId}</p>
+
+                <div class="row g-3 mb-3">
+                    <div class="col-sm-4">
+                        <div>Ano:</div>
+                        <div class="modalBg form-control">${riscoAno}</div>
+                    </div>
+
+                    <div class="col-sm-8">
+                        <div>Unidade:</div>
+                        <div class="modalBg form-control">${unidadeId}</div>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-3">
+                    <div class="col-sm-12">
+                        <div>Responsável:</div>
+                        <div class="modalBg form-control">${responsavelRisco}</div>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-3">
+                    <div class="col-sm-12">
+                        <div>Evento de Risco:</div>
+                        <div class="modalBg form-control">${riscoEvento}</div>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-3">
+                    <div class="col-sm-12">
+                        <div>Causa do Risco:</div>
+                        <div class="modalBg form-control">${riscoCausa}</div>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-3">
+                    <div class="col-sm-12">
+                        <div>Causa da consequência:</div>
+                        <div class="modalBg form-control">${riscoConsequencia}</div>
+                    </div>
+                </div>
+
                 <hr>
-                <p>Deseja realmente salvar as alterações?</p>
+                <p class="text-center mb-0">Deseja realmente salvar as alterações?</p>
             `;
 
             // Inserção do conteúdo no modal de confirmação
