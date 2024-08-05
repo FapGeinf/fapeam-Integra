@@ -40,6 +40,7 @@ table, tr,th, td {
 
 .blue-btn,
 .green-btn,
+.purple-btn,
 .spanThatLooksLikeABtn {
   border: none;
   text-decoration: none;
@@ -64,6 +65,15 @@ table, tr,th, td {
 .blue-btn {
   background-color: #0056b3;
   color: #fff;
+}
+
+.purple-btn {
+  color: #fff;
+  background-color: #4f3ec8;
+}
+
+.purple-btn:hover {
+  background-color: #5c4ae7;
 }
 
 .blue-btn:hover {

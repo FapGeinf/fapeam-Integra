@@ -386,6 +386,8 @@
                   <div class="row g-3 mb-3">
                     <span class="text-center">Monitoramento N° ${index + 1}</span>
 
+                    <hr style="width: 40%">
+
                     <div class="col-sm-12">
                       <div>Controle Sugerido:</div>
                       <div class="modalBg modalOF form-control">
@@ -396,7 +398,7 @@
                   <div class="row g-3 bm-3">
                     <div class="col-sm-12">
                       <div>Situação do Monitoramento:</div>
-                      <div class="modalBg modalOF formControl">
+                      <div class="modalBg modalOF form-control">
                         ${statusMonitoramento || '<span class="text-danger">Campo obrigatório</span>'}
                       </div>
                     </div>
