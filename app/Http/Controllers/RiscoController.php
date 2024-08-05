@@ -168,6 +168,18 @@ class RiscoController extends Controller
         return view('riscos.monitoramentos', compact('risco'));
     }
 
+    public function editMonitoramento2($id)
+    {
+
+        $monitoramento = Monitoramento::findOrFail($id);
+
+
+        return view('riscos.editMonitoramento', [
+            'monitoramento' => $monitoramento
+        ]);
+    }
+
+
     public function updateMonitoramentos(Request $request, $id)
     {
         $risco = Risco::findOrFail($id);
@@ -260,6 +272,36 @@ class RiscoController extends Controller
             return redirect()->back()->withErrors(['errors' => 'Houve um erro ao atualizar ou adicionar monitoramentos']);
         }
     }
+
+    public function atualizaMonitoramento(Request $request, $id)
+    {
+
+        $request->validate([
+            'monitoramentoControleSugerido' => 'required|string',
+            'statusMonitoramento' => 'required|string',
+            'isContinuo' => 'required|boolean',
+            'inicioMonitoramento' => 'required|date',
+            'fimMonitoramento' => 'nullable|date|after_or_equal:inicioMonitoramento',
+        ]);
+
+
+        $monitoramento = Monitoramento::findOrFail($id);
+
+
+        $monitoramento->update([
+            'monitoramentoControleSugerido' => $request->input('monitoramentoControleSugerido'),
+            'statusMonitoramento' => $request->input('statusMonitoramento'),
+            'isContinuo' => $request->input('isContinuo'),
+            'inicioMonitoramento' => $request->input('inicioMonitoramento'),
+            'fimMonitoramento' => $request->input('fimMonitoramento'),
+        ]);
+
+        $riscoId = $monitoramento->riscoFK;
+
+        return redirect()->route('riscos.show', ['id' => $riscoId])
+            ->with('success', 'Monitoramento atualizado com sucesso!');
+    }
+
 
 
 
