@@ -34,7 +34,7 @@
             <p class="spanThatLooksLikeABtn" id="prazo">Prazo Final:
                 {{ \Carbon\Carbon::parse($prazo)->format('d/m/Y') }}</p>
 
-            <button id="notificationButton" type="button" class="btn btn-light position-relative ml-3"
+            <button id="notificationButton" type="button" class="purple-btn position-relative ms-2"
                 data-bs-toggle="modal" data-bs-target="#notificationModal" onclick="updateNotificationCount()">
                 <i class="bi bi-bell"></i>
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"

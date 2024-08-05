@@ -168,6 +168,18 @@ class RiscoController extends Controller
         return view('riscos.monitoramentos', compact('risco'));
     }
 
+    public function editMonitoramento2($id)
+    {
+
+        $monitoramento = Monitoramento::findOrFail($id);
+
+
+        return view('riscos.editMonitoramento', [
+            'monitoramento' => $monitoramento
+        ]);
+    }
+
+
     public function updateMonitoramentos(Request $request, $id)
     {
         $risco = Risco::findOrFail($id);
@@ -261,6 +273,36 @@ class RiscoController extends Controller
         }
     }
 
+    public function atualizaMonitoramento(Request $request, $id)
+    {
+
+        $request->validate([
+            'monitoramentoControleSugerido' => 'required|string',
+            'statusMonitoramento' => 'required|string',
+            'isContinuo' => 'required|boolean',
+            'inicioMonitoramento' => 'required|date',
+            'fimMonitoramento' => 'nullable|date|after_or_equal:inicioMonitoramento',
+        ]);
+
+
+        $monitoramento = Monitoramento::findOrFail($id);
+
+
+        $monitoramento->update([
+            'monitoramentoControleSugerido' => $request->input('monitoramentoControleSugerido'),
+            'statusMonitoramento' => $request->input('statusMonitoramento'),
+            'isContinuo' => $request->input('isContinuo'),
+            'inicioMonitoramento' => $request->input('inicioMonitoramento'),
+            'fimMonitoramento' => $request->input('fimMonitoramento'),
+        ]);
+
+        $riscoId = $monitoramento->riscoFK;
+
+        return redirect()->route('riscos.show', ['id' => $riscoId])
+            ->with('success', 'Monitoramento atualizado com sucesso!');
+    }
+
+
 
 
 
@@ -320,6 +362,29 @@ class RiscoController extends Controller
             return redirect()->route('riscos.respostas', $id)->with('success', 'Respostas adicionadas com sucesso');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
+        }
+    }
+
+    public function updateResposta(Request $request, $id)
+    {
+        $request->validate([
+            'respostaRisco' => 'required|string',
+        ]);
+
+        try {
+            $resposta = Resposta::findOrFail($id);
+
+            $resposta->update([
+                'respostaRisco' => $request->input('respostaRisco'),
+            ]);
+
+            return redirect()->route('riscos.respostas', ['id' => $resposta->respostaRiscoFK])
+                ->with('success', 'Resposta atualizada com sucesso!');
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return redirect()->back()->withErrors(['error' => 'Resposta não encontrada.']);
+        } catch (\Exception $e) {
+            Log::error('Erro ao atualizar a resposta: ' . $e->getMessage());
+            return redirect()->back()->withErrors(['error' => 'Ocorreu um erro ao atualizar a resposta. Por favor, tente novamente.']);
         }
     }
 

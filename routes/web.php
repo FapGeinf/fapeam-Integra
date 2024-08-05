@@ -40,6 +40,10 @@ Route::put('/riscos/{id}/update-monitoramentos', [RiscoController::class, 'updat
 Route::post('/riscos/prazo',[RiscoController::class,'insertPrazo'])->name('riscos.prazo');
 Route::post('/notificacoes/marcar-como-lidas', [RiscoController::class, 'marcarComoLidas'])->name('riscos.marcarComoLidas');
 Route::post('/notificacoes/marcar-como-lida', [RiscoController::class, 'marcarComoLida'])->name('riscos.marcarComoLida');
+Route::get('riscos/monitoramentos/{id}/edit', [RiscoController::class, 'editMonitoramento2'])->name('riscos.editMonitoramento');
+Route::put('riscos/monitoramentos/{id}', [RiscoController::class, 'atualizaMonitoramento'])->name('riscos.monitoramento');
+Route::put('/riscos/respostas/{id}', [RiscoController::class, 'updateResposta'])->name('riscos.updateResposta');
+
 
 
 Route::get('/painel', [UserController::class, 'painel'])->name('usuarios.index');

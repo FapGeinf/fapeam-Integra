@@ -18,13 +18,42 @@
         <tr>
           <th scope="col" class="text-center thNumber">Respondido por</th>
           <th scope="col" class="text-center thReply">Resposta do Risco</th>
+          <th scope="col" class="text-center thReply">Ações</th>
         </tr>
         @foreach ($respostas as $key => $resposta)
-				
+
         <tr>
           <td class="text-center text13 tdNumber">{{$resposta->user->name}}</td>
           <td class="text13 tdReply">{!! $resposta->respostaRisco !!}</td>
+          <td class="text-center text13 tdAction">
+            <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editRespostaModal" onclick="editResposta({{ $resposta->id }}, '{{ $resposta->respostaRisco }}')">Editar</button>
+          </td>
         </tr>
+
+        <div class="modal fade" id="editRespostaModal" tabindex="-1" aria-labelledby="editRespostaModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="editRespostaModalLabel">Editar Resposta</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form id="editRespostaForm" action="{{route('riscos.updateResposta',['id' => $resposta->id])}}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="mb-4">
+                      <label for="editRespostaRisco" class="form-label">Resposta</label>
+                      <input type="text" class="form-control" id="editRespostaRisco" name="respostaRisco" required>
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                      <button type="submit" class="btn btn-success mb-2">Salvar</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
         @endforeach
       </table>
       @else
@@ -63,6 +92,9 @@
     </div>
   </div>
 </div>
+
+
+
 
 <script>
   let respostaCount = 1;
@@ -105,6 +137,12 @@
     if (respostaCount === 1) {
       document.querySelector('.resposta .btn-danger').remove();
     }
+  }
+
+  function editResposta(id, resposta) {
+    const form = document.getElementById('editRespostaForm');
+    form.action = `/riscos/respostas/${id}`;
+    document.getElementById('editRespostaRisco').value = resposta;
   }
 </script>
 @endsection
