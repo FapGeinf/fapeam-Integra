@@ -65,7 +65,7 @@
 
               
               @if(count($monitoramentos)>1 && auth()->user()->unidade->unidadeTipo->id == 1)
-              		<th scope="col" class="text-center text-light">Ações:</th>
+              		<th scope="col" class="text-center text-light">Opções:</th>
               @endif
             </tr>
           </thead>
