@@ -55,7 +55,7 @@
                     </div>
                     <div class="modal-body">
                         @if ($notificacoes->isEmpty())
-                            <p>Não há notificações.</p>
+                            <p>Sem notificações.</p>
                         @else
                             <ul class="list-group">
                                 @foreach ($notificacoes as $notificacao)
