@@ -38,7 +38,6 @@
             <span class="sectorTopNav">Lotado em: </span>
             <span class="">{{ Auth::user()->unidade->unidadeNome}}</span>
           </div>
-
         </div>
       </div>
 
