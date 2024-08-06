@@ -140,33 +140,37 @@
 
 
             let modalContent = `
-                <div class="row">
-                    <div class="col-sm-12">
-                        <strong>Controle Sugerido:</strong>
-                        <textarea id="modalControleSugerido" class="form-control" rows="4">${monitoramentoControleSugerido}</textarea>
-                    </div>
+
+            <div class="row g-3">
+                <div class="col-sm-12">
+                    <span>Controle Sugerido:</span>
+                    <textarea id="modalControleSugerido" class="form-control" rows="4">${monitoramentoControleSugerido}</textarea>
                 </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <strong>Status:</strong>
-                        <input type="text" class="form-control" value="${statusMonitoramento}" readonly>
-                    </div>
-                    <div class="col-sm-6">
-                        <strong>É Contínuo:</strong>
-                        <input type="text" class="form-control" value="${isContinuo === '1' ? 'Sim' : 'Não'}" readonly>
-                    </div>
+            </div>
+
+            <div class="row g-3 mt-1">
+                <div class="col-sm-6">
+                    <span>Situação:</span>
+                    <input type="text" class="form-control" value="${statusMonitoramento}" readonly>
                 </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <strong>Início do Monitoramento:</strong>
-                        <input type="text" class="form-control" value="${formattedInicioMonitoramento}" readonly>
-                    </div>
-                    <div class="col-sm-6">
-                        <strong>Fim do Monitoramento:</strong>
-                        <input type="text" class="form-control" value="${formattedFimMonitoramento}" readonly>
-                    </div>
+                
+                <div class="col-sm-6">
+                    <span>É continuo?</span>
+                    <input type="text" class="form-control" value="${isContinuo === '1' ? 'Sim' : 'Não'}" readonly>
                 </div>
-            `;
+            </div>
+                
+            <div class="row g-3 mt-1 mb-2">
+                <div class="col-sm-6">
+                    <span>Início do Monitoramento:</span>
+                    <input type="text" class="form-control" value="${formattedInicioMonitoramento}" readonly>
+                </div>
+                <div class="col-sm-6">
+                    <span>Fim do Monitoramento:</span>
+                    <input type="text" class="form-control" value="${formattedFimMonitoramento}" readonly>
+                </div>
+            </div>
+        `;
 
 
             document.getElementById('modalContent').innerHTML = modalContent;
