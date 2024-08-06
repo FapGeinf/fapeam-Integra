@@ -129,6 +129,10 @@ a.reply-btn:hover {
 
 /* PÁGINA DE RESPOSTAS */
 
+.container {
+  max-width: 900px;
+}
+
 .thNumber,
 .thReply {
   color: #fff !important;
@@ -146,4 +150,55 @@ a.reply-btn:hover {
   margin-left: auto;
   margin-right: auto;
   padding-bottom: 3rem;
+}
+
+.chat-box {
+  display: flex;
+  flex-direction: column;
+  max-width: 900px;
+  margin: auto;
+}
+
+.message {
+  padding: 15px;
+  padding-top: 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  max-width: 100%;
+  /* word-wrap: break-word; */
+}
+
+.my-message {
+  background-color: #33a874;
+  align-self: flex-end;
+  text-align: right;
+}
+
+.other-message {
+  background-color: #d1f0e1; /* Cor de fundo verde bebe */
+  text-align: left;
+}
+
+.another-message {
+  background-color: #ececec;
+  text-align: right;
+}
+
+.align-right {
+  align-self: flex-end;
+}
+
+.align-left {
+  align-self: flex-start;
+}
+
+hr {
+  padding: 0;
+  margin: 0;
+  margin-top: .2rem;
+  margin-bottom: 1rem;
+}
+
+.fStyle {
+  font-size: 13px;
 }
