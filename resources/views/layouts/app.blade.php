@@ -42,25 +42,29 @@
         </div>
       </div>
 
-			<div class="nav-item">
+			<div class="nav-item d-flex">
       	<a class="btnSair" href="{{ route('users.password') }}" onclick="event.preventDefault();
       	document.getElementById('alterar-form').submit();">Alterar Senha</a>
       	<form id="alterar-form" action="{{route('users.password')}}" method="GET" class="d-none">
         	@csrf
       	</form>
+
+       <span class="barExit ms-2">|</span> 
+
+        <div class="">
+          <a class="btnSair" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+            <i class="bi bi-escape"></i>
+            Sair
+          </a>
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+            @csrf
+          </form>
+        </div>
     	</div>
 
-			<span class="barExit">|</span>
+			
 
-    	<div class="nav-item">
-      	<a class="btnSair" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-        	<i class="bi bi-escape"></i>
-        	Sair
-      	</a>
-      	<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-        	@csrf
-      	</form>
-    	</div>
+    	
 
     @endif
     </nav>
