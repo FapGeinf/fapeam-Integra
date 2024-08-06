@@ -43,7 +43,7 @@
       </div>
 
 			<div class="nav-item d-flex">
-      	<a class="btnSair" href="{{ route('users.password') }}" onclick="event.preventDefault();
+      	<a class="btnAltSenha" href="{{ route('users.password') }}" onclick="event.preventDefault();
       	document.getElementById('alterar-form').submit();">Alterar Senha</a>
       	<form id="alterar-form" action="{{route('users.password')}}" method="GET" class="d-none">
         	@csrf
