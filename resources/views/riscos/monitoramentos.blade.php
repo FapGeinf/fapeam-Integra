@@ -105,7 +105,7 @@
 
         <div class="buttons">
           <button type="button" class="add-btn" onclick="addMonitoramento()">Adicionar Monitoramento</button>
-          <button type="button" class="close-btn" onclick="fecharFormulario()">Excluir</button>
+          <button type="button" class="close-btn" onclick="fecharFormulario()">Remover</button>
         </div>
 
         <hr id="hr3">

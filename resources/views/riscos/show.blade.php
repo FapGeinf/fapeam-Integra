@@ -86,8 +86,8 @@
                             @if (count($risco->monitoramentos) > 1 && auth()->user()->unidade->unidadeTipo->id == 1)
                                 <td class="text-center tdBtnExcluir">
                                     {{-- <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modal-exclusao-{{ $monitoramento->id }}">Excluir</button> --}}
-                                    <a href="{{ route('riscos.editMonitoramento', ['id' => $monitoramento->id]) }}" class="btn btn-sm btn-primary">
-                                        Editar Monitoramento
+                                    <a href="{{ route('riscos.editMonitoramento', ['id' => $monitoramento->id]) }}" class="btn btn-sm btn btn btn-warning">
+																		<i class="bi bi-pen"></i>
                                     </a>
 
                                 </td>
@@ -126,12 +126,11 @@
 
                 <div class="text-center mb-4">
                     @if (Auth::user()->unidade->unidadeTipoFK == 1)
-                        <a href="{{ route('riscos.edit', $risco->id) }}" class="edit-btn">Editar Risco</a>
+                        <a href="{{ route('riscos.edit', $risco->id) }}" class=" btn btn btn-warning"><i class="bi bi-pen"></i> Editar Risco</a>
                         <a href="{{ route('riscos.edit-monitoramentos', ['id' => $risco->id]) }}"
-                            class="btn-add">Adicionar Monitoramentos</a>
+                            class="btn btn-primary">Adicionar Monitoramentos</a>
                     @endif
-                    <a href="{{ route('riscos.respostas', ['id' => $risco->id]) }}" class="reply-btn">Ver
-                        Respostas</a>
+                    <a href="{{ route('riscos.respostas', ['id' => $risco->id]) }}" class="btn btn-secondary">Ver Respostas</a>
                 </div>
             </div>
         </div>
