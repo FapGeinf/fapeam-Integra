@@ -130,7 +130,7 @@
                         <a href="{{ route('riscos.edit-monitoramentos', ['id' => $risco->id]) }}"
                             class="btn btn-primary">Adicionar Monitoramentos</a>
                     @endif
-                    <a href="{{ route('riscos.respostas', ['id' => $risco->id]) }}" class="btn btn-secondary">Ver Respostas</a>
+                    <a href="{{ route('riscos.respostas', ['id' => $risco->id]) }}" class="btn btn-secondary">Ver Providências</a>
                 </div>
             </div>
         </div>
