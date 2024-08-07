@@ -68,7 +68,7 @@
                             <th scope="col" class="text-center text-light tBorder">Situação:</th>
 
 
-                            @if (count($monitoramentos) > 1 && auth()->user()->unidade->unidadeTipo->id == 1)
+                            @if ( auth()->user()->unidade->unidadeTipo->id == 1)
                                 <th scope="col" class="text-center text-light">Opções:</th>
                             @endif
                         </tr>
@@ -83,7 +83,7 @@
                             </td>
                             <td style="white-space: nowrap;" class="text-center text13 pb-1 tBorder">
                                 {!! $monitoramento->statusMonitoramento !!}</td>
-                            @if (count($risco->monitoramentos) > 1 && auth()->user()->unidade->unidadeTipo->id == 1)
+                            @if ( auth()->user()->unidade->unidadeTipo->id == 1)
                                 <td class="text-center tdBtnExcluir">
                                     {{-- <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modal-exclusao-{{ $monitoramento->id }}">Excluir</button> --}}
                                     <a href="{{ route('riscos.editMonitoramento', ['id' => $monitoramento->id]) }}" class="btn btn-sm btn btn btn-warning">
