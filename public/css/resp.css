@@ -155,7 +155,7 @@ a.reply-btn:hover {
 .chat-box {
   display: flex;
   flex-direction: column;
-  max-width: 900px;
+  /* max-width: 900px; */
   margin: auto;
 }
 
@@ -165,6 +165,9 @@ a.reply-btn:hover {
   border-radius: 10px;
   margin-bottom: 10px;
   max-width: 100%;
+  border: 1px solid #ccc;
+  width: 600px;
+  /* height: 200px; */
   /* word-wrap: break-word; */
 }
 
@@ -175,13 +178,15 @@ a.reply-btn:hover {
 }
 
 .other-message {
-  background-color: #d1f0e1; /* Cor de fundo verde bebe */
+  background-color: #e2f2e3; /* Cor de fundo verde bebe */
   text-align: left;
+  border-radius: 0px 10px 10px 10px;
 }
 
 .another-message {
   background-color: #ececec;
   text-align: right;
+  border-radius: 10px 0 10px 10px;
 }
 
 .align-right {
@@ -192,13 +197,44 @@ a.reply-btn:hover {
   align-self: flex-start;
 }
 
-hr {
+.hr2 {
+  /* color: #fff; */
+  margin: 0;  
   padding: 0;
-  margin: 0;
-  margin-top: .2rem;
+  margin-top: .5rem;
   margin-bottom: 1rem;
+  color: #313131;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hr1 {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100px;
+  padding-bottom: 2rem;
+}
+
+.bi-person {
+  font-size: 13px;
+}
+
+.dataSector {
+  margin: 0;
+  padding: 5px;
+  font-size: 11px;
+  color: #313131;
+  border-radius: 6px;
+  border: 1px solid #cedccf;
+  background-color: #cedccf;
+}
+
+.dataSpan {
+  color: #3d7fb7;
 }
 
 .fStyle {
   font-size: 13px;
+  word-wrap: break-word;
 }
