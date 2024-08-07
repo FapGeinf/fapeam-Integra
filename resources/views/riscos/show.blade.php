@@ -126,7 +126,7 @@
 
                 <div class="text-center mb-4">
                     @if (Auth::user()->unidade->unidadeTipoFK == 1)
-                        <a href="{{ route('riscos.edit', $risco->id) }}" class=" btn btn btn-warning"><i class="bi bi-pen"></i> Editar Risco</a>
+                        <a href="{{ route('riscos.edit', $risco->id) }}" class="btn btn btn-warning" style="color: #24170c !important;"><i class="bi bi-pen"></i> Editar Risco</a>
                         <a href="{{ route('riscos.edit-monitoramentos', ['id' => $risco->id]) }}"
                             class="btn btn-primary">Adicionar Monitoramentos</a>
                     @endif
