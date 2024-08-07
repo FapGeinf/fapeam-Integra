@@ -26,31 +26,34 @@
 							  @if($lastSetor === $currentSetor)
 								<div class="message other-message {{ $alignmentClass }}">
 								  <div class="p-1">
-									<div class="d-flex row">
-									  <div class="dataSector">
-										<div>
-										  Criado em:
-										  <i class="bi bi-clock"></i>
-										  <span class="dataSpan">
-											{{ $resposta->created_at->format('d/m/Y - H:i') }}
-										  </span>
-										</div>
-										<div>
-										  Perfil:
-										  <i class="bi bi-person"></i>
-										  <span class="dataSpan">
-											{{ $resposta->user->name }}
-										  </span>
-										</div>
-									  </div>
-									</div>
+                    <div class="d-flex row">
+                      <div class="dataSector">
+                        <div>
+                          Criado em:
+                          <i class="bi bi-clock"></i>
+                          <span class="dataSpan">
+                            {{ $resposta->created_at->format('d/m/Y - H:i') }}
+                          </span>
+                        </div>
+
+                        <div>
+                          Perfil:
+                          <i class="bi bi-person"></i>
+                          <span class="dataSpan">
+                            {{ $resposta->user->name }}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
 								  </div>
+
 								  <hr class="hr2">
+
 								  <p class="form-control fStyle" style="background-color: #f0f0f0;">{!! $resposta->respostaRisco !!}</p>
-								  <div class="text-end">
-									<button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editRespostaModal" onclick="editResposta({{ $resposta->id }}, '{{ $resposta->respostaRisco }}')">
-									  <i class="bi bi-pen"></i>
-									</button>
+                    <div class="text-end">
+                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editRespostaModal" onclick="editResposta({{ $resposta->id }}, '{{ $resposta->respostaRisco }}')">
+                      <i class="bi bi-pen"></i>
+                    </button>
 								  </div>
 								</div>
 							  @else
@@ -60,31 +63,35 @@
 
 								<div class="message other-message {{ $alignmentClass }}">
 								  <div class="p-1">
-									<div class="d-flex row">
-									  <div class="dataSector">
-										<div>
-										  Criado em:
-										  <i class="bi bi-clock"></i>
-										  <span class="dataSpan">
-											{{ $resposta->created_at->format('d/m/Y - H:i') }}
-										  </span>
-										</div>
-										<div>
-										  Perfil:
-										  <i class="bi bi-person"></i>
-										  <span class="dataSpan">
-											{{ $resposta->user->name }}
-										  </span>
-										</div>
-									  </div>
-									</div>
+                    <div class="d-flex row">
+                      <div class="dataSector">
+                        <div>
+                          Criado em:
+                          <i class="bi bi-clock"></i>
+                          <span class="dataSpan">
+                          {{ $resposta->created_at->format('d/m/Y - H:i') }}
+                          </span>
+                        </div>
+
+                        <div>
+                          Perfil:
+                          <i class="bi bi-person"></i>
+                          <span class="dataSpan">
+                          {{ $resposta->user->name }}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
 								  </div>
+
 								  <hr class="hr2">
+
 								  <p class="form-control fStyle" style="background-color: #f0f0f0;">{!! $resposta->respostaRisco !!}</p>
+
 								  <div class="text-end">
-									<button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editRespostaModal" onclick="editResposta({{ $resposta->id }}, '{{ $resposta->respostaRisco }}')">
-									  <i class="bi bi-pen"></i>
-									</button>
+                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editRespostaModal" onclick="editResposta({{ $resposta->id }}, '{{ $resposta->respostaRisco }}')">
+                      <i class="bi bi-pen"></i>
+                    </button>
 								  </div>
 								</div>
 							  @endif
