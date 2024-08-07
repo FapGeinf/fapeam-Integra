@@ -32,7 +32,9 @@
                           Criado em:
                           <i class="bi bi-clock"></i>
                           <span class="dataSpan">
-                            {{ $resposta->created_at->format('d/m/Y - H:i') }}
+                            {{ $resposta->created_at->format('d/m/Y') }}
+                          às
+                          {{ $resposta->created_at->format('H:i') }}
                           </span>
                         </div>
 
@@ -69,7 +71,9 @@
                           Criado em:
                           <i class="bi bi-clock"></i>
                           <span class="dataSpan">
-                          {{ $resposta->created_at->format('d/m/Y - H:i') }}
+                          {{ $resposta->created_at->format('d/m/Y') }}
+                          às
+                          {{ $resposta->created_at->format('H:i') }}
                           </span>
                         </div>
 
