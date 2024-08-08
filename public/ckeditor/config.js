@@ -25,6 +25,11 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'about' }
 	];
 
+    config.wordcount = {
+        showCharCount: true,
+        showWordCount: true,
+    };
+
 	// The default plugins included in the basic setup define some buttons that
 	// are not needed in a basic editor. They are removed here.
 	config.removeButtons = 'Cut,Copy,Paste,Undo,Redo,Anchor,Underline,Strike,Subscript,Superscript';
@@ -32,4 +37,5 @@ CKEDITOR.editorConfig = function( config ) {
 	// Dialog windows are also simplified.
 	config.removeDialogTabs = 'link:advanced';
 	config.versionCheck =  false;
+    config.extraPlugins = 'wordcount';
 };
