@@ -196,6 +196,33 @@ a.reply-btn:hover {
   align-self: flex-start;
 }
 
+button.secondary {
+  border: none;
+  text-decoration: none;
+  border-radius: 4px;
+  padding: 7px 14px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-right: 10px;
+  transition: background-color 0.3s;
+}
+
+button.secondary {
+  color: #fff;
+  background-color: #218838;
+}
+
+button.secondary:hover {
+  background-color: #26973f;
+}
+
+.hr1 {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100px;
+  padding-bottom: 2rem;
+}
+
 .hr2 {
   /* color: #fff; */
   margin: 0;  
@@ -208,11 +235,16 @@ a.reply-btn:hover {
   margin-right: auto;
 }
 
-.hr1 {
+.hr3 {
+  /* color: #fff; */
+  margin: 0;  
+  padding: 0;
+  margin-top: .5rem;
+  margin-bottom: 1rem;
+  color: #313131;
+  width: 50%;
   margin-left: auto;
   margin-right: auto;
-  max-width: 100px;
-  padding-bottom: 2rem;
 }
 
 .bi-person {
@@ -240,4 +272,8 @@ a.reply-btn:hover {
 
 .form-control {
   padding: 0 .75rem;
+}
+
+.cke_top {
+  background-color: #f0f0f0;
 }

@@ -177,7 +177,7 @@
 
 <!-- Modal de Resposta -->
 <div class="modal fade" id="respostaModal" tabindex="-1" aria-labelledby="respostaModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="respostaModalLabel">Adicionar Resposta</h5>
@@ -189,11 +189,15 @@
           @csrf
           <div id="respostasFields">
             <div class="mb-4 resposta" style="margin-top: 10px;">
-              <label for="respostas[0][respostaRisco]" class="form-label">Resposta</label>
+              {{-- <label for="respostas[0][respostaRisco]" class="form-label">Resposta</label> --}}
               <textarea class="form-control" name="respostas[0][respostaRisco]" id="respostaRisco" required></textarea>
             </div>
           </div>
-          <button type="submit" class="btn btn-success mb-2">Salvar</button>
+          <hr class="hr3">
+          <div class="text-center">
+            <button type="submit" class="secondary mb-2">Enviar</button>   
+          </div>
+          
         </form>
       </div>
     </div>
@@ -234,24 +238,24 @@
     });
   });
 
-    function editResposta(id, resposta) {
-      const form = document.getElementById('editRespostaForm');
-      form.action = `/riscos/respostas/${id}`;
-      document.getElementById('editRespostaId').value = id;
-      if (CKEDITOR.instances['editRespostaRisco']) {
-          CKEDITOR.instances['editRespostaRisco'].destroy();
-      }
-      CKEDITOR.replace('editRespostaRisco', {
-        extraPlugins: 'wordcount',
-        wordcount: {
-          showCharCount: true,
-          maxCharCount: 4500,
-          maxCharCountMsg: 'Você atingiu o limite máximo de caracteres permitidos.',
-          charCountMsg: 'Caracteres restantes: {0}'
-        }
-      });
-      CKEDITOR.instances['editRespostaRisco'].setData(resposta);
+  function editResposta(id, resposta) {
+    const form = document.getElementById('editRespostaForm');
+    form.action = `/riscos/respostas/${id}`;
+    document.getElementById('editRespostaId').value = id;
+    if (CKEDITOR.instances['editRespostaRisco']) {
+        CKEDITOR.instances['editRespostaRisco'].destroy();
     }
+    CKEDITOR.replace('editRespostaRisco', {
+      extraPlugins: 'wordcount',
+      wordcount: {
+        showCharCount: true,
+        maxCharCount: 4500,
+        maxCharCountMsg: 'Você atingiu o limite máximo de caracteres permitidos.',
+        charCountMsg: 'Caracteres restantes: {0}'
+      }
+    });
+    CKEDITOR.instances['editRespostaRisco'].setData(resposta);
+  }
 </script>
 
 @endsection
