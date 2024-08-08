@@ -2,7 +2,9 @@
 
 @section('content')
 
-@section('title') {{ 'Novo Risco Inerente' }} @endsection
+@section('title')
+    {{ 'Novo Risco Inerente' }}
+@endsection
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,6 +24,7 @@
             padding: 1rem;
             margin-bottom: 1rem;
         }
+
         .error-box p {
             margin: 0;
             color: #721c24;
@@ -31,16 +34,16 @@
 
 <body>
     <div class="error-message">
-        @if($errors->any())
-             <div class="alert alert-danger">
-                 <ul style="list-style-type:none;">
-                     @foreach ($errors->all() as $error )
-                         <li>{{$error}}</li>
-                     @endforeach
-                 </ul>
-             </div>
-         @endif
-     </div>
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul style="list-style-type:none;">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+    </div>
 
     <div class="form-wrapper pt-4">
         <div class="form_create">
@@ -50,7 +53,7 @@
 
             <span class="tipWarning mb-3">
                 <span class="asteriscoTop">*</span>
-                    Campos obrigatórios
+                Campos obrigatórios
             </span>
 
             <form action="{{ route('riscos.store') }}" method="post" id="formCreate">
@@ -59,22 +62,24 @@
                 <div class="row g-3">
                     <div class="col-sm-4 col-md-3">
                         <label for="riscoAno">Insira o Ano:<span class="asterisco">*</span></label>
-                        <input type="text" id="riscoAno" name="riscoAno" class="form-control dataValue" placeholder="0000" minlength="4" maxlength="4" required>
+                        <input type="text" id="riscoAno" name="riscoAno" class="form-control dataValue"
+                            placeholder="0000" minlength="4" maxlength="4" required>
                     </div>
 
                     <div class="col-sm-4 col-md-9 selectUnidade">
                         <label for="unidadeId">Unidade:<span class="asterisco">*</span></label>
                         <select name="unidadeId" class="form-control form-select" required>
                             <option selected disabled>Escolha uma unidade</option>
-                            @foreach($unidades as $unidade)
-                            <option value="{{ $unidade->id }}">{{ $unidade->unidadeNome }}</option>
+                            @foreach ($unidades as $unidade)
+                                <option value="{{ $unidade->id }}">{{ $unidade->unidadeNome }}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
 
                 <label class="dataLim" for="responsavel">Responsável:<span class="asterisco">*</span></label>
-                <input type="text" name="responsavelRisco" id="responsavel" class="textInput form-control" placeholder="Ex: Fulano da Silva Pompeo" maxlength="100" required>
+                <input type="text" name="responsavelRisco" id="responsavel" class="textInput form-control"
+                    placeholder="Ex: Fulano da Silva Pompeo" maxlength="100" required>
 
                 <label for="riscoEvento">Evento de Risco Inerente:<span class="asterisco">*</span></label>
                 <textarea id="riscoEvento" name="riscoEvento" class="textInput" required></textarea>
@@ -103,27 +108,33 @@
                 <hr>
 
                 <div class="mt-3 text-end">
-                  <input type="button" onclick="addMonitoramentos()" value="Adicionar Monitoramento" class="blue-btn">
-                  <button type="button" onclick="showConfirmationModal()" class="green-btn green-btn-store" data-bs-toggle="modal" data-bs-target="#confirmationModal">Salvar</button>
+                    <input type="button" onclick="addMonitoramentos()" value="Adicionar Monitoramento"
+                        class="blue-btn">
+                    <button type="button" onclick="showConfirmationModal()" class="green-btn green-btn-store"
+                        data-bs-toggle="modal" data-bs-target="#confirmationModal">Salvar</button>
                 </div>
 
-                <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+                <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel"
+                    aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
-                         <div class="modal-content">
-                              <div class="modal-header">
-                                   <h5 class="modal-title" id="confirmationModalLabel">Confirmação de envio de Relatório</h5>
-                                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                              </div>
-                              <div class="modal-body">
-                                  <div id="modalContent">
-                                      <!-- Conteúdo do modal será inserido dinamicamente aqui -->
-                                  </div>
-                              </div>
-                              <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                                  <button type="submit" class="green-btn green-btn-store" id="saveModal">Salvar</button>
-                              </div>
-                         </div>
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="confirmationModalLabel">Confirmação de envio de Relatório
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div id="modalContent">
+                                    <!-- Conteúdo do modal será inserido dinamicamente aqui -->
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                <button type="submit" class="green-btn green-btn-store"
+                                    id="saveModal">Salvar</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -153,20 +164,30 @@
     </div>
 
     <script>
-        CKEDITOR.replace('riscoEvento')
-        CKEDITOR.replace('riscoCausa')
-        CKEDITOR.replace('riscoConsequencia')
+        document.addEventListener("DOMContentLoaded", function() {
+            var ckeditorConfig = {
+                extraPlugins: 'wordcount',
+                wordcount: {
+                    showCharCount: true,
+                    maxCharCount: 10000,
+                    maxCharCountMsg: 'Você atingiu o limite máximo de caracteres permitidos.',
+                    charCountMsg: 'Caracteres restantes: {0}'
+                }
+            };
+
+            CKEDITOR.replace('riscoEvento', ckeditorConfig);
+            CKEDITOR.replace('riscoCausa', ckeditorConfig);
+            CKEDITOR.replace('riscoConsequencia', ckeditorConfig);
+        });
 
         let cont = 0;
 
         function addMonitoramentos() {
             let monitoramentosDiv = document.getElementById('monitoramentosDiv');
 
-            // Criando um contêiner para o monitoramento e seus elementos associados
             let monitoramentoContainer = document.createElement('div');
             monitoramentoContainer.classList.add('monitoramento-container');
 
-            // Adicionando o trecho de código solicitado
             let novoEventoTitulo = document.createElement('h4');
             novoEventoTitulo.style.textAlign = 'center';
             novoEventoTitulo.style.marginTop = '1rem';
@@ -182,15 +203,12 @@
             novoMonitoramento.classList.add('monitoramento');
             monitoramentoContainer.appendChild(novoMonitoramento);
 
-            // Criando a div com a classe 'labelDel'
             let divLabelDel = document.createElement('div');
             divLabelDel.classList.add('labelDel');
 
-            // Criando o label
             let label = document.createElement('label');
             label.textContent = `Monitoramento N° ${cont + 1}`;
 
-            // Criando o ícone de exclusão com a palavra "Fechar"
             let deleteWrapper = document.createElement('div');
             deleteWrapper.style.display = 'flex';
             deleteWrapper.style.alignItems = 'center';
@@ -209,14 +227,11 @@
             deleteWrapper.appendChild(deleteText);
             deleteWrapper.onclick = function() {
                 monitoramentosDiv.removeChild(monitoramentoContainer);
-                cont--; // Decrementa o contador ao excluir um monitoramento
+                cont--;
             };
 
-            // Adicionando os elementos à div 'labelDel'
             divLabelDel.appendChild(label);
             divLabelDel.appendChild(deleteWrapper);
-
-            // Adicionando a div 'labelDel' ao contêiner 'novoMonitoramento'
             novoMonitoramento.appendChild(divLabelDel);
 
             let divControleSugerido = document.createElement('div');
@@ -230,6 +245,7 @@
             controleSugerido.id = `monitoramentoControleSugerido${cont}`;
             divControleSugerido.appendChild(controleSugerido);
 
+
             let divStatusMonitoramento = document.createElement('div');
             divStatusMonitoramento.classList = 'form-group';
             novoMonitoramento.appendChild(divStatusMonitoramento);
@@ -242,11 +258,22 @@
             statusMonitoramento.name = `monitoramentos[${cont}][statusMonitoramento]`;
             statusMonitoramento.classList = 'form-select';
 
-            let options = [
-                { value: "NÃO IMPLEMENTADA", text: "NÃO IMPLEMENTADA" },
-                { value: "EM IMPLEMENTAÇÃO", text: "EM IMPLEMENTAÇÃO" },
-                { value: "IMPLEMENTADA PARCIALMENTE", text: "IMPLEMENTADA PARCIALMENTE" },
-                { value: "IMPLEMENTADA", text: "IMPLEMENTADA" }
+            let options = [{
+                    value: "NÃO IMPLEMENTADA",
+                    text: "NÃO IMPLEMENTADA"
+                },
+                {
+                    value: "EM IMPLEMENTAÇÃO",
+                    text: "EM IMPLEMENTAÇÃO"
+                },
+                {
+                    value: "IMPLEMENTADA PARCIALMENTE",
+                    text: "IMPLEMENTADA PARCIALMENTE"
+                },
+                {
+                    value: "IMPLEMENTADA",
+                    text: "IMPLEMENTADA"
+                }
             ];
 
             options.forEach(function(optionData) {
@@ -257,24 +284,6 @@
             });
 
             divStatusMonitoramento.appendChild(statusMonitoramento);
-
-            // let divExecucaoMonitoramento = document.createElement('div');
-            // divExecucaoMonitoramento.classList = 'form-group';
-            // novoMonitoramento.appendChild(divExecucaoMonitoramento);
-
-            // let labelExecucaoMonitoramento = document.createElement('label');
-            // labelExecucaoMonitoramento.textContent = 'Execução do Monitoramento:';
-            // divExecucaoMonitoramento.appendChild(labelExecucaoMonitoramento);
-
-            // let execucaoMonitoramento = document.createElement('input');
-            // execucaoMonitoramento.type = 'text';
-            // execucaoMonitoramento.name = `monitoramentos[${cont}][execucaoMonitoramento]`;
-            // execucaoMonitoramento.placeholder = '';
-            // execucaoMonitoramento.classList = 'form-control textInput';
-
-            // execucaoMonitoramento.required = true;
-
-            // divExecucaoMonitoramento.appendChild(execucaoMonitoramento);
 
             let divIsContinuo = document.createElement('div');
             divIsContinuo.classList.add('form-group');
@@ -338,13 +347,12 @@
                 document.getElementById(`isContinuo${cont}`).value = isContinuoValue;
             });
 
-            // Evento para controlar a exibição do input de data fimMonitoramento
             selectIsContinuo.addEventListener('change', function() {
                 if (this.value == 1) {
                     inputFimMonitoramento.value = '';
                     inputFimMonitoramento.hidden = true;
                     labelFimMonitoramento.hidden = true;
-                } else if(this.value == 0) {
+                } else if (this.value == 0) {
                     labelFimMonitoramento.hidden = false;
                     inputFimMonitoramento.hidden = false;
                 }
@@ -352,12 +360,17 @@
 
             monitoramentosDiv.appendChild(monitoramentoContainer);
 
-            // Inicializar CKEditor após adicionar o contêiner ao DOM
-            CKEDITOR.replace(`monitoramentoControleSugerido${cont}`).on('required', function(evt){
-							alert('É necessario a inserção' );
-							evt.cancel();
-							console.log('CKeditor vazio');
-						});
+            CKEDITOR.replace(`monitoramentoControleSugerido${cont}`, {
+                extraPlugins: 'wordcount',
+                wordcount: {
+                    showCharCount: true,
+                    maxCharCount: 10000,
+                    maxCharCountMsg: 'Você atingiu o limite máximo de caracteres permitidos.',
+                    charCountMsg: 'Caracteres restantes: {0}'
+                }
+            });
+
+
             cont++;
         }
 
@@ -371,7 +384,8 @@
             let erros = [];
 
             let riscoAno = document.getElementById('riscoAno').value;
-            let unidadeId = document.querySelector('[name="unidadeId"]').options[document.querySelector('[name="unidadeId"]').selectedIndex].text;
+            let unidadeId = document.querySelector('[name="unidadeId"]').options[document.querySelector(
+                '[name="unidadeId"]').selectedIndex].text;
             let responsavelRisco = document.getElementById('responsavel').value;
             let riscoEvento = CKEDITOR.instances.riscoEvento.getData();
             let riscoCausa = CKEDITOR.instances.riscoCausa.getData();
@@ -408,7 +422,7 @@
                 <div class="row g-3 mb-3">
                     <div class="col-sm-12">
                         <div style="padding-right: 5px;">Responsável:</div>
-                        <div style="background:#f0f0f0;" class="form-control">${responsavelRisco || '<span class="text-danger">Campo obrigatório</span>'}</div>  
+                        <div style="background:#f0f0f0;" class="form-control">${responsavelRisco || '<span class="text-danger">Campo obrigatório</span>'}</div>
                     </div>
                 </div>
 
@@ -459,16 +473,21 @@
                 let fimMonitoramento = container.querySelector('input[name$="[fimMonitoramento]"]').value;
 
                 // Verifica se os campos estão vazios
-                if (!monitoramentoControleSugerido) erros.push(`O campo "Controle Sugerido" do Monitoramento N° ${i + 1} é obrigatório.`);
-                if (!statusMonitoramento) erros.push(`O campo "Status do Monitoramento" do Monitoramento N° ${i + 1} é obrigatório.`);
-                if (!inicioMonitoramento) erros.push(`O campo "Início do Monitoramento" do Monitoramento N° ${i + 1} é obrigatório.`);
+                if (!monitoramentoControleSugerido) erros.push(
+                    `O campo "Controle Sugerido" do Monitoramento N° ${i + 1} é obrigatório.`);
+                if (!statusMonitoramento) erros.push(
+                    `O campo "Status do Monitoramento" do Monitoramento N° ${i + 1} é obrigatório.`);
+                if (!inicioMonitoramento) erros.push(
+                    `O campo "Início do Monitoramento" do Monitoramento N° ${i + 1} é obrigatório.`);
                 let isContinuo = container.querySelector('select[name$="[isContinuo]"]').value;
                 if (isContinuo == 0 && !fimMonitoramento) {
                     erros.push(`O campo "Fim do Monitoramento" do Monitoramento N° ${i + 1} é obrigatório.`);
                 }
 
-                let inicioMonitoramentoDisplay = inicioMonitoramento ? formatarDataParaBrasileiro(inicioMonitoramento) : "Data não definida";
-                let fimMonitoramentoDisplay = fimMonitoramento ? formatarDataParaBrasileiro(fimMonitoramento) : "Data não definida";
+                let inicioMonitoramentoDisplay = inicioMonitoramento ? formatarDataParaBrasileiro(inicioMonitoramento) :
+                    "Data não definida";
+                let fimMonitoramentoDisplay = fimMonitoramento ? formatarDataParaBrasileiro(fimMonitoramento) :
+                    "Data não definida";
 
                 modalContent += `
 
@@ -504,7 +523,8 @@
             }
 
             if (erros.length > 0) {
-                let errosHtml = `<div class='error-box' style='background-color: #f8d7da; color: #721c24; padding: 15px; border-radius: 5px;'>`;
+                let errosHtml =
+                    `<div class='error-box' style='background-color: #f8d7da; color: #721c24; padding: 15px; border-radius: 5px;'>`;
                 erros.forEach(function(erro) {
                     errosHtml += `<p>${erro}</p>`;
                 });
@@ -519,7 +539,7 @@
         }
 
 
-        document.getElementById('formCreate').addEventListener('submit', function (event) {
+        document.getElementById('formCreate').addEventListener('submit', function(event) {
             let monitoramentosDiv = document.getElementById('monitoramentosDiv');
             if (monitoramentosDiv.children.length === 0) {
                 event.preventDefault();
@@ -527,11 +547,6 @@
                 alertModal.show();
             }
         });
-
-
-
-
-
     </script>
 
 
