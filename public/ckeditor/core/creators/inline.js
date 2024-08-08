@@ -127,7 +127,7 @@
 			CKEDITOR.fire( 'instanceReady', null, editor );
 
 			// give priority to plugins that relay on editor#loaded for bootstrapping.
-		}, null, null, 10000 );
+		}, null, null, 8000 );
 
 		// Handle editor destroying.
 		editor.on( 'destroy', function() {

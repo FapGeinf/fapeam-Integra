@@ -208,7 +208,7 @@
                 extraPlugins: 'wordcount',
                 wordcount: {
                     showCharCount: true,
-                    maxCharCount: 10000,
+                    maxCharCount: 8000,
                     maxCharCountMsg: 'Você atingiu o limite máximo de caracteres permitidos.',
                     charCountMsg: 'Caracteres restantes: {0}'
                 }
@@ -249,7 +249,7 @@
             extraPlugins: 'wordcount',
             wordcount: {
                 showCharCount: true,
-                maxCharCount: 10000,
+                maxCharCount: 8000,
                 maxCharCountMsg: 'Você atingiu o limite máximo de caracteres permitidos.',
                 charCountMsg: 'Caracteres restantes: {0}'
             }
