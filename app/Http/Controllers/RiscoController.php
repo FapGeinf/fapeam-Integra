@@ -347,7 +347,7 @@ class RiscoController extends Controller
         try {
             $request->validate([
                 'respostas' => 'required|array|min:1',
-                'respostas.*.respostaRisco' => 'required|string|max:9000',
+                'respostas.*.respostaRisco' => 'required|string|max:5000',
             ]);
 
             if (is_array($request->respostas)) {
@@ -361,6 +361,7 @@ class RiscoController extends Controller
             }
             return redirect()->route('riscos.respostas', $id)->with('success', 'Respostas adicionadas com sucesso');
         } catch (\Exception $e) {
+						
             return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
         }
     }

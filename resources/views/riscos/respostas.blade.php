@@ -8,6 +8,11 @@
 </head>
 
 <div class="container-xl p-30">
+	@if (session('error'))
+        <script>
+            alert('Não foi possivel salvar sua resposta no momento');
+        </script>
+  @endif
   <div class="col-12 box-shadow">
     <h4 class="text-center">Providência(s) do Risco Inerente</h4>
     <hr class="hr1">
@@ -29,7 +34,7 @@
                     <div class="d-flex row">
                       <div class="dataSector">
                         <div>
-                          Criado em:
+                          Criado em: 
                           <i class="bi bi-clock"></i>
                           <span class="dataSpan">
                             {{ $resposta->created_at->format('d/m/Y') }}
@@ -37,9 +42,15 @@
                           {{ $resposta->created_at->format('H:i') }}
                           </span>
                         </div>
-
+												<div>
+                          Lotação: 
+                          <i class="bi bi-building"></i>
+                          <span class="dataSpan">
+                          {{ $resposta->user->unidade->unidadeNome }}
+                          </span>
+                        </div>
                         <div>
-                          Perfil:
+                          Perfil: 
                           <i class="bi bi-person"></i>
                           <span class="dataSpan">
                             {{ $resposta->user->name }}
@@ -151,11 +162,11 @@
           <div id="respostasFields">
             <div class="mb-4 resposta" style="margin-top: 10px;">
               <label for="respostas[0][respostaRisco]" class="form-label">Resposta</label>
-              <input type="text" class="form-control" name="respostas[0][respostaRisco]" required>
+              <input type="text" class="form-control" name="respostas[0][respostaRisco]" maxlength="4500" required>
             </div>
           </div>
-          <div class="d-grid gap-2 d-md-flex justify-content-md-end" id="botoesExcluir">
-            <button type="button" class="btn btn-primary me-md-2 mb-2" onclick="addRespostaField()">Adicionar Resposta</button>
+          <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end" id="botoesExcluir">
+            <button type="button" class="btn btn-primary me-md-2 mb-2" onclick="addRespostaField()">Adicionar Resposta</button> -->
             <button type="submit" class="btn btn-success mb-2">Salvar</button>
           </div>
         </form>

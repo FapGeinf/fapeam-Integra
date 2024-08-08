@@ -130,9 +130,9 @@
                                 <td style="white-space:nowrap;">{{ $risco->id }}</td>
                                 <td style="white-space: nowrap;">{!! $risco->responsavelRisco !!}</td>
                                 <td style="word-wrap:break-word;">{!! $risco->unidade->unidadeSigla !!}</td>
-                                <td class="justify">{!! Str::limit($risco->riscoEvento, 120) !!}</td>
-                                <td class="justify">{!! Str::limit($risco->riscoCausa, 120) !!}</td>
-                                <td class="justify">{!! Str::limit($risco->riscoConsequencia, 120) !!}</td>
+                                <td class="justify">{!! Str::limit($risco->riscoEvento, 720) !!}</td>
+                                <td class="justify">{!! Str::limit($risco->riscoCausa, 720) !!}</td>
+                                <td class="justify">{!! Str::limit($risco->riscoConsequencia, 720) !!}</td>
                                 @if ($risco->nivel_de_risco == 1)
                                     <td class="bg-baixo riscoAvaliacao"><span class="fontBold">Baixo</span></td>
                                 @elseif ($risco->nivel_de_risco == 2)
