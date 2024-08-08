@@ -195,7 +195,7 @@ a.reply-btn:hover {
 .align-left {
   align-self: flex-start;
 }
-
+button.edit,
 button.secondary {
   border: none;
   text-decoration: none;
@@ -214,6 +214,17 @@ button.secondary {
 
 button.secondary:hover {
   background-color: #26973f;
+}
+
+button.edit {
+  color: #000;
+  margin-right: 0;
+  padding: 4px 9px;
+  background-color: #fec95c;
+}
+
+button.edit:hover {
+  background-color: #e5b553;
 }
 
 .hr1 {

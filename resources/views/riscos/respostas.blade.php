@@ -73,7 +73,7 @@
                 <p class="" style="background-color: #f0f0f0;">{!! $resposta->respostaRisco !!}</p>
               </div>
               <div class="text-end">
-                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editRespostaModal" onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)">
+                <button type="button" class="edit" data-bs-toggle="modal" data-bs-target="#editRespostaModal" onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)">
                   <i class="bi bi-pen"></i>
                 </button>
               </div>
@@ -124,7 +124,7 @@
                 <p class="" style="background-color: #f0f0f0;">{!! $resposta->respostaRisco !!}</p>
               </div>
               <div class="text-end">
-                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editRespostaModal" onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)">
+                <button type="button" class="edit" data-bs-toggle="modal" data-bs-target="#editRespostaModal" onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)">
                   <i class="bi bi-pen"></i>
                 </button>
               </div>
