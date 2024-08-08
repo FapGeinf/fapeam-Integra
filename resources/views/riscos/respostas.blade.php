@@ -38,10 +38,11 @@
                           <i class="bi bi-clock"></i>
                           <span class="dataSpan">
                             {{ $resposta->created_at->format('d/m/Y') }}
-                          às
-                          {{ $resposta->created_at->format('H:i') }}
+                            às
+                            {{ $resposta->created_at->format('H:i') }}
                           </span>
                         </div>
+
 												<div>
                           Lotação: 
                           <i class="bi bi-building"></i>
@@ -49,6 +50,7 @@
                           {{ $resposta->user->unidade->unidadeNome }}
                           </span>
                         </div>
+
                         <div>
                           Perfil: 
                           <i class="bi bi-person"></i>
@@ -82,11 +84,12 @@
                           Criado em:
                           <i class="bi bi-clock"></i>
                           <span class="dataSpan">
-                          {{ $resposta->created_at->format('d/m/Y') }}
-                          às
-                          {{ $resposta->created_at->format('H:i') }}
+                            {{ $resposta->created_at->format('d/m/Y') }}
+                            às
+                            {{ $resposta->created_at->format('H:i') }}
                           </span>
                         </div>
+
 												<div>
                           Lotação: 
                           <i class="bi bi-building"></i>
@@ -94,6 +97,7 @@
                           {{ $resposta->user->unidade->unidadeNome }}
                           </span>
                         </div>
+
                         <div>
                           Perfil:
                           <i class="bi bi-person"></i>
