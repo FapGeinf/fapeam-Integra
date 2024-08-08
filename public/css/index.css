@@ -478,3 +478,44 @@ table.dataTable thead th, table.dataTable thead td {
   background-color: #eb613d !important;
 }
 /* END FOOTER */
+
+a.warning,
+a.primary,
+a.secondary,
+button.secondary {
+  border: none;
+  text-decoration: none;
+  border-radius: 4px;
+  padding: 7px 14px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-right: 10px;
+  transition: background-color 0.3s;
+}
+
+a.warning {
+  color: #000;
+  background-color: #ffc107;
+}
+
+a.warning:hover {
+  background-color: #ffca2c;
+}
+
+a.primary {
+  color: #fff;
+  background-color: #0d6efd;
+}
+
+a.primary:hover {
+  background-color: #0b5ed7;
+}
+
+button.secondary {
+  color: #fff;
+  background-color: #6c757d;
+}
+
+button.secondary:hover {
+  background-color: #5c636a;
+}
