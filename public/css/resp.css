@@ -129,6 +129,10 @@ a.reply-btn:hover {
 
 /* PÁGINA DE RESPOSTAS */
 
+.container {
+  max-width: 900px;
+}
+
 .thNumber,
 .thReply {
   color: #fff !important;
@@ -146,4 +150,91 @@ a.reply-btn:hover {
   margin-left: auto;
   margin-right: auto;
   padding-bottom: 3rem;
+}
+
+.chat-box {
+  display: flex;
+  flex-direction: column;
+  /* max-width: 900px; */
+  margin: auto;
+}
+
+.message {
+  padding: 15px;
+  padding-top: 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  max-width: 100%;
+  border: 1px solid #ccc;
+  width: 600px;
+  /* height: 200px; */
+  /* word-wrap: break-word; */
+}
+
+.my-message {
+  background-color: #33a874;
+  align-self: flex-end;
+  text-align: right;
+}
+
+.other-message {
+  background-color: #e2f2e3; /* Cor de fundo verde bebe */
+  text-align: left;
+  border-radius: 0px 10px 10px 10px;
+}
+
+.another-message {
+  background-color: #ececec;
+  text-align: right;
+  border-radius: 10px 0 10px 10px;
+}
+
+.align-right {
+  align-self: flex-end;
+}
+
+.align-left {
+  align-self: flex-start;
+}
+
+.hr2 {
+  /* color: #fff; */
+  margin: 0;  
+  padding: 0;
+  margin-top: .5rem;
+  margin-bottom: 1rem;
+  color: #313131;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hr1 {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100px;
+  padding-bottom: 2rem;
+}
+
+.bi-person {
+  font-size: 13px;
+}
+
+.dataSector {
+  margin: 0;
+  padding: 5px;
+  font-size: 11px;
+  color: #313131;
+  border-radius: 6px;
+  border: 1px solid #cedccf;
+  background-color: #cedccf;
+}
+
+.dataSpan {
+  color: #3d7fb7;
+}
+
+.fStyle {
+  font-size: 13px;
+  word-wrap: break-word;
 }

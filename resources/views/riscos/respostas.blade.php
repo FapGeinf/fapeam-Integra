@@ -7,64 +7,146 @@
   <link rel="stylesheet" href="{{asset('css/resp.css')}}">
 </head>
 
-<div class="container-fluid p-30">
+<div class="container-xl p-30">
+	@if (session('error'))
+        <script>
+            alert('Não foi possivel salvar sua resposta no momento');
+        </script>
+  @endif
   <div class="col-12 box-shadow">
-    <h4 class="text-center mb-3">Detalhes da Resposta</h4>
-    <hr class="line">
+    <h4 class="text-center">Providência(s) do Risco Inerente</h4>
+    <hr class="hr1">
 
-    <div class="">
+    <div class="chat-box">
       @if($respostas->count() > 0)
-      <table class="table table-bordered">
-        <tr>
-          <th scope="col" class="text-center thNumber">Respondido por</th>
-          <th scope="col" class="text-center thReply">Resposta do Risco</th>
-          <th scope="col" class="text-center thReply">Ações</th>
-        </tr>
-        @foreach ($respostas as $key => $resposta)
+				@php
+			$lastSetor = null; // Para rastrear o setor da última mensagem
+				@endphp
 
-        <tr>
-          <td class="text-center text13 tdNumber">{{$resposta->user->name}}</td>
-          <td class="text13 tdReply">{!! $resposta->respostaRisco !!}</td>
-          <td class="text-center text13 tdAction">
-            <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editRespostaModal" onclick="editResposta({{ $resposta->id }}, '{{ $resposta->respostaRisco }}')">Editar</button>
-          </td>
-        </tr>
+				@foreach ($respostas as $resposta)
+							  @php
+							$currentSetor = $resposta->user->unidade->id;
+							  @endphp
 
-        <div class="modal fade" id="editRespostaModal" tabindex="-1" aria-labelledby="editRespostaModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="editRespostaModalLabel">Editar Resposta</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <form id="editRespostaForm" action="{{route('riscos.updateResposta',['id' => $resposta->id])}}" method="POST">
-                    @csrf
-                    @method('PUT')
-                    <div class="mb-4">
-                      <label for="editRespostaRisco" class="form-label">Resposta</label>
-                      <input type="text" class="form-control" id="editRespostaRisco" name="respostaRisco" required>
+							  @if($lastSetor === $currentSetor)
+								<div class="message other-message {{ $alignmentClass }}">
+								  <div class="p-1">
+                    <div class="d-flex row">
+                      <div class="dataSector">
+                        <div>
+                          Criado em: 
+                          <i class="bi bi-clock"></i>
+                          <span class="dataSpan">
+                            {{ $resposta->created_at->format('d/m/Y') }}
+                          às
+                          {{ $resposta->created_at->format('H:i') }}
+                          </span>
+                        </div>
+												<div>
+                          Lotação: 
+                          <i class="bi bi-building"></i>
+                          <span class="dataSpan">
+                          {{ $resposta->user->unidade->unidadeNome }}
+                          </span>
+                        </div>
+                        <div>
+                          Perfil: 
+                          <i class="bi bi-person"></i>
+                          <span class="dataSpan">
+                            {{ $resposta->user->name }}
+                          </span>
+                        </div>
+                      </div>
                     </div>
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                      <button type="submit" class="btn btn-success mb-2">Salvar</button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
+								  </div>
 
-        @endforeach
-      </table>
-      @else
-      <p class="text-center">Não há respostas disponíveis para este risco.</p>
+								  <hr class="hr2">
+
+								  <p class="form-control fStyle" style="background-color: #f0f0f0;">{!! $resposta->respostaRisco !!}</p>
+                    <div class="text-end">
+                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editRespostaModal" onclick="editResposta({{ $resposta->id }}, '{{ $resposta->respostaRisco }}')">
+                      <i class="bi bi-pen"></i>
+                    </button>
+								  </div>
+								</div>
+							  @else
+								@php
+								$alignmentClass = (isset($alignmentClass) && $alignmentClass === 'align-left') ? 'align-right' : 'align-left';
+								@endphp
+
+								<div class="message other-message {{ $alignmentClass }}">
+								  <div class="p-1">
+                    <div class="d-flex row">
+                      <div class="dataSector">
+                        <div>
+                          Criado em:
+                          <i class="bi bi-clock"></i>
+                          <span class="dataSpan">
+                          {{ $resposta->created_at->format('d/m/Y') }}
+                          às
+                          {{ $resposta->created_at->format('H:i') }}
+                          </span>
+                        </div>
+
+                        <div>
+                          Perfil:
+                          <i class="bi bi-person"></i>
+                          <span class="dataSpan">
+                          {{ $resposta->user->name }}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+								  </div>
+
+								  <hr class="hr2">
+
+								  <p class="form-control fStyle" style="background-color: #f0f0f0;">{!! $resposta->respostaRisco !!}</p>
+
+								  <div class="text-end">
+                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editRespostaModal" onclick="editResposta({{ $resposta->id }}, '{{ $resposta->respostaRisco }}')">
+                      <i class="bi bi-pen"></i>
+                    </button>
+								  </div>
+								</div>
+							  @endif
+
+							  @php
+							$lastSetor = $currentSetor; // Atualiza o setor da última mensagem
+							  @endphp
+										<div class="modal fade" id="editRespostaModal" tabindex="-1" aria-labelledby="editRespostaModalLabel" aria-hidden="true">
+					  <div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content">
+						  <div class="modal-header">
+							<h5 class="modal-title" id="editRespostaModalLabel">Editar Resposta</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						  </div>
+						  <div class="modal-body">
+							<form id="editRespostaForm" action="{{route('riscos.updateResposta', ['id' => $resposta->id])}}" method="POST">
+							  @csrf
+							  @method('PUT')
+							  <div class="mb-4">
+								<label for="editRespostaRisco" class="form-label">Resposta</label>
+								<input type="text" class="form-control" id="editRespostaRisco" name="respostaRisco" required>
+							  </div>
+							  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+								<button type="submit" class="btn btn-success mb-2">Salvar</button>
+							  </div>
+							</form>
+						  </div>
+						</div>
+					  </div>
+					</div>
+
+				@endforeach
+	  @else
+        <p class="text-center">Não há respostas disponíveis para este risco.</p>
       @endif
+      <div class="container d-flex justify-content-center mt-4">
+        <button type="button" class="reply-btn" data-bs-toggle="modal" data-bs-target="#respostaModal">Responder</button>
+      </div>
     </div>
   </div>
-</div>
-
-<div class="container d-flex justify-content-center">
-  <button type="button" class="reply-btn" data-bs-toggle="modal" data-bs-target="#respostaModal">Responder</button>
 </div>
 
 <div class="modal fade" id="respostaModal" tabindex="-1" aria-labelledby="respostaModalLabel" aria-hidden="true">
@@ -80,11 +162,11 @@
           <div id="respostasFields">
             <div class="mb-4 resposta" style="margin-top: 10px;">
               <label for="respostas[0][respostaRisco]" class="form-label">Resposta</label>
-              <input type="text" class="form-control" name="respostas[0][respostaRisco]" required>
+              <input type="text" class="form-control" name="respostas[0][respostaRisco]" maxlength="4500" required>
             </div>
           </div>
-          <div class="d-grid gap-2 d-md-flex justify-content-md-end" id="botoesExcluir">
-            <button type="button" class="btn btn-primary me-md-2 mb-2" onclick="addRespostaField()">Adicionar Resposta</button>
+          <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end" id="botoesExcluir">
+            <button type="button" class="btn btn-primary me-md-2 mb-2" onclick="addRespostaField()">Adicionar Resposta</button> -->
             <button type="submit" class="btn btn-success mb-2">Salvar</button>
           </div>
         </form>
@@ -92,8 +174,6 @@
     </div>
   </div>
 </div>
-
-
 
 
 <script>
@@ -120,7 +200,7 @@
     deleteButton.type = 'button';
     deleteButton.classList.add('btn', 'btn-danger', 'btn-sm', 'mt-2');
     deleteButton.innerText = 'Excluir Resposta';
-    deleteButton.onclick = function () {
+    deleteButton.onclick = function() {
       removeRespostaField(fieldGroup);
     };
 
@@ -145,4 +225,5 @@
     document.getElementById('editRespostaRisco').value = resposta;
   }
 </script>
+
 @endsection

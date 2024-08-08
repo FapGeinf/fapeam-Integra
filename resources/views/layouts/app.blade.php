@@ -38,21 +38,32 @@
             <span class="sectorTopNav">Lotado em: </span>
             <span class="">{{ Auth::user()->unidade->unidadeNome}}</span>
           </div>
-
         </div>
       </div>
 
-    <div class="nav-item">
-      <a class="btnSair" href="{{ route('logout') }}" onclick="event.preventDefault();
-      document.getElementById('logout-form').submit();">
-        <i class="bi bi-box-arrow-right"></i>
-        Sair
-      </a>
+			<div class="nav-item d-flex">
+      	<a class="btnAltSenha" href="{{ route('users.password') }}" onclick="event.preventDefault();
+      	document.getElementById('alterar-form').submit();">Alterar Senha</a>
+      	<form id="alterar-form" action="{{route('users.password')}}" method="GET" class="d-none">
+        	@csrf
+      	</form>
 
-      <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-        @csrf
-      </form>
-    </div>
+       <span class="barExit ms-2">|</span> 
+
+        <div class="">
+          <a class="btnSair" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+            <i class="bi bi-escape"></i>
+            Sair
+          </a>
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+            @csrf
+          </form>
+        </div>
+    	</div>
+
+			
+
+    	
 
     @endif
     </nav>

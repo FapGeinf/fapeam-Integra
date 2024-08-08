@@ -33,7 +33,7 @@
         @endif
     </div>
 
-    <div class="form-wrapper pt-4">
+    <div class="form-wrapper">
         <div class="form_create">
             <h3 style="text-align: center; margin-bottom: 20px;">
                 Editar Monitoramento
@@ -45,40 +45,48 @@
                 @method('PUT')
                 <input type="hidden" name="monitoramento_id" value="{{ $monitoramento->id }}">
 
-                <div class="mb-3">
-                    <label for="monitoramentoControleSugerido-{{ $monitoramento->id }}" class="form-label">Controle Sugerido</label>
-                    <textarea class="form-control" id="monitoramentoControleSugerido-{{ $monitoramento->id }}" name="monitoramentoControleSugerido" required>{{ old('monitoramentoControleSugerido', $monitoramento->monitoramentoControleSugerido) }}</textarea>
+                <div class="row g-3">
+                    <div class="col-sm-12">
+                        <label for="monitoramentoControleSugerido-{{ $monitoramento->id }}" class="form-label">Controle Sugerido:</label>
+                        <textarea class="form-control" id="monitoramentoControleSugerido-{{ $monitoramento->id }}" name="monitoramentoControleSugerido" required>{{ old('monitoramentoControleSugerido', $monitoramento->monitoramentoControleSugerido) }}</textarea>
+                    </div> 
                 </div>
 
-                <div class="mb-3">
-                    <label for="statusMonitoramento-{{ $monitoramento->id }}" class="form-label">Status</label>
-                    <select class="form-select" id="statusMonitoramento-{{ $monitoramento->id }}" name="statusMonitoramento" required>
-                        <option value="NÃO IMPLEMENTADA" {{ old('statusMonitoramento', $monitoramento->statusMonitoramento) == 'NÃO IMPLEMENTADA' ? 'selected' : '' }}>NÃO IMPLEMENTADA</option>
-                        <option value="EM IMPLEMENTAÇÃO" {{ old('statusMonitoramento', $monitoramento->statusMonitoramento) == 'EM IMPLEMENTAÇÃO' ? 'selected' : '' }}>EM IMPLEMENTAÇÃO</option>
-                        <option value="IMPLEMENTADA PARCIALMENTE" {{ old('statusMonitoramento', $monitoramento->statusMonitoramento) == 'IMPLEMENTADA PARCIALMENTE' ? 'selected' : '' }}>IMPLEMENTADA PARCIALMENTE</option>
-                        <option value="IMPLEMENTADA" {{ old('statusMonitoramento', $monitoramento->statusMonitoramento) == 'IMPLEMENTADA' ? 'selected' : '' }}>IMPLEMENTADA</option>
-                    </select>
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <label for="statusMonitoramento-{{ $monitoramento->id }}" class="form-label">Status:</label>
+                        <select class="form-select" id="statusMonitoramento-{{ $monitoramento->id }}" name="statusMonitoramento" required>
+                            <option value="NÃO IMPLEMENTADA" {{ old('statusMonitoramento', $monitoramento->statusMonitoramento) == 'NÃO IMPLEMENTADA' ? 'selected' : '' }}>NÃO IMPLEMENTADA</option>
+                            <option value="EM IMPLEMENTAÇÃO" {{ old('statusMonitoramento', $monitoramento->statusMonitoramento) == 'EM IMPLEMENTAÇÃO' ? 'selected' : '' }}>EM IMPLEMENTAÇÃO</option>
+                            <option value="IMPLEMENTADA PARCIALMENTE" {{ old('statusMonitoramento', $monitoramento->statusMonitoramento) == 'IMPLEMENTADA PARCIALMENTE' ? 'selected' : '' }}>IMPLEMENTADA PARCIALMENTE</option>
+                            <option value="IMPLEMENTADA" {{ old('statusMonitoramento', $monitoramento->statusMonitoramento) == 'IMPLEMENTADA' ? 'selected' : '' }}>IMPLEMENTADA</option>
+                        </select>
+                    </div>
+                    
+                    <div class="col-sm-6">
+                        <label for="isContinuo-{{ $monitoramento->id }}" class="form-label">É Contínuo?</label>
+                        <select class="form-select" id="isContinuo-{{ $monitoramento->id }}" name="isContinuo" required>
+                            <option value="0" {{ old('isContinuo', $monitoramento->isContinuo) == 0 ? 'selected' : '' }}>Não</option>
+                            <option value="1" {{ old('isContinuo', $monitoramento->isContinuo) == 1 ? 'selected' : '' }}>Sim</option>
+                        </select>
+                    </div>
                 </div>
 
-                <div class="mb-3">
-                    <label for="isContinuo-{{ $monitoramento->id }}" class="form-label">É Contínuo</label>
-                    <select class="form-select" id="isContinuo-{{ $monitoramento->id }}" name="isContinuo" required>
-                        <option value="0" {{ old('isContinuo', $monitoramento->isContinuo) == 0 ? 'selected' : '' }}>Não</option>
-                        <option value="1" {{ old('isContinuo', $monitoramento->isContinuo) == 1 ? 'selected' : '' }}>Sim</option>
-                    </select>
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <label for="inicioMonitoramento-{{ $monitoramento->id }}" class="form-label">Início do Monitoramento:</label>
+                        <input type="date" class="form-control" id="inicioMonitoramento-{{ $monitoramento->id }}" name="inicioMonitoramento" value="{{ old('inicioMonitoramento', $monitoramento->inicioMonitoramento instanceof \Carbon\Carbon ? $monitoramento->inicioMonitoramento->format('Y-m-d') : $monitoramento->inicioMonitoramento) }}" required>
+                    </div>
+                    
+                    <div class="col-sm-6" id="fimMonitoramentoContainer">
+                        <label for="fimMonitoramento-{{ $monitoramento->id }}" class="form-label">Fim do Monitoramento:</label>
+                        <input type="date" class="form-control" id="fimMonitoramento-{{ $monitoramento->id }}" name="fimMonitoramento" value="{{ old('fimMonitoramento', $monitoramento->fimMonitoramento instanceof \Carbon\Carbon ? $monitoramento->fimMonitoramento->format('Y-m-d') : $monitoramento->fimMonitoramento) }}">
+                    </div>
                 </div>
 
-                <div class="mb-3">
-                    <label for="inicioMonitoramento-{{ $monitoramento->id }}" class="form-label">Início do Monitoramento</label>
-                    <input type="date" class="form-control" id="inicioMonitoramento-{{ $monitoramento->id }}" name="inicioMonitoramento" value="{{ old('inicioMonitoramento', $monitoramento->inicioMonitoramento instanceof \Carbon\Carbon ? $monitoramento->inicioMonitoramento->format('Y-m-d') : $monitoramento->inicioMonitoramento) }}" required>
-                </div>
+                <hr class="mt-4">
 
-                <div class="mb-3" id="fimMonitoramentoContainer">
-                    <label for="fimMonitoramento-{{ $monitoramento->id }}" class="form-label">Fim do Monitoramento</label>
-                    <input type="date" class="form-control" id="fimMonitoramento-{{ $monitoramento->id }}" name="fimMonitoramento" value="{{ old('fimMonitoramento', $monitoramento->fimMonitoramento instanceof \Carbon\Carbon ? $monitoramento->fimMonitoramento->format('Y-m-d') : $monitoramento->fimMonitoramento) }}">
-                </div>
-
-                <div class="d-flex justify-content-center">
+                <div class="d-flex justify-content-center pt-2">
                     <div class="me-1">
                         <a href="{{ route('riscos.index') }}" class="btn btn-primary">Voltar</a>
                     </div>
@@ -132,33 +140,37 @@
 
 
             let modalContent = `
-                <div class="row">
-                    <div class="col-sm-12">
-                        <strong>Controle Sugerido:</strong>
-                        <textarea id="modalControleSugerido" class="form-control" rows="4">${monitoramentoControleSugerido}</textarea>
-                    </div>
+
+            <div class="row g-3">
+                <div class="col-sm-12">
+                    <span>Controle Sugerido:</span>
+                    <textarea id="modalControleSugerido" class="form-control" rows="4">${monitoramentoControleSugerido}</textarea>
                 </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <strong>Status:</strong>
-                        <input type="text" class="form-control" value="${statusMonitoramento}" readonly>
-                    </div>
-                    <div class="col-sm-6">
-                        <strong>É Contínuo:</strong>
-                        <input type="text" class="form-control" value="${isContinuo === '1' ? 'Sim' : 'Não'}" readonly>
-                    </div>
+            </div>
+
+            <div class="row g-3 mt-1">
+                <div class="col-sm-6">
+                    <span>Situação:</span>
+                    <input type="text" class="form-control" value="${statusMonitoramento}" readonly>
                 </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <strong>Início do Monitoramento:</strong>
-                        <input type="text" class="form-control" value="${formattedInicioMonitoramento}" readonly>
-                    </div>
-                    <div class="col-sm-6">
-                        <strong>Fim do Monitoramento:</strong>
-                        <input type="text" class="form-control" value="${formattedFimMonitoramento}" readonly>
-                    </div>
+                
+                <div class="col-sm-6">
+                    <span>É continuo?</span>
+                    <input type="text" class="form-control" value="${isContinuo === '1' ? 'Sim' : 'Não'}" readonly>
                 </div>
-            `;
+            </div>
+                
+            <div class="row g-3 mt-1 mb-2">
+                <div class="col-sm-6">
+                    <span>Início do Monitoramento:</span>
+                    <input type="text" class="form-control" value="${formattedInicioMonitoramento}" readonly>
+                </div>
+                <div class="col-sm-6">
+                    <span>Fim do Monitoramento:</span>
+                    <input type="text" class="form-control" value="${formattedFimMonitoramento}" readonly>
+                </div>
+            </div>
+        `;
 
 
             document.getElementById('modalContent').innerHTML = modalContent;

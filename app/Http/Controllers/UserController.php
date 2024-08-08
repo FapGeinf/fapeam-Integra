@@ -80,7 +80,7 @@ class UserController extends Controller
 
     public function changePassword()
     {
-        return view('user.password');
+        return view('users.password');
     }
 
 
