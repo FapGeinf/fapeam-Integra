@@ -23,20 +23,22 @@
             @if ($respostas->count() > 0)
                 @php
                     $lastSetor = null; // Para rastrear o setor da última mensagem
+                    $alignmentClass = 'align-left'; // Define o alinhamento inicial
                 @endphp
 
                 @foreach ($respostas as $resposta)
                     @php
                         $currentSetor = $resposta->user->unidade->id;
+                        $isLeftAligned = $alignmentClass === 'align-left';
                     @endphp
 
                     @if ($lastSetor === $currentSetor)
-                        <div class="message other-message {{ $alignmentClass }}">
+                        <div class="message {{ $isLeftAligned ? 'other-message' : 'another-message' }} {{ $alignmentClass }}">
                             <div class="p-1">
                                 <div class="d-flex row">
-                                    <div class="dataSector">
+                                  <div class="dataSector" style="{{ $alignmentClass === 'align-right' ? 'background-color: #d9d9d9cc;' : '' }}">
                                         <div>
-                                            Criado em:
+                                            Criado em: 
                                             <i class="bi bi-clock"></i>
                                             <span class="dataSpan">
                                                 {{ $resposta->created_at->format('d/m/Y') }}
@@ -45,14 +47,14 @@
                                             </span>
                                         </div>
                                         <div>
-                                            Lotação:
+                                            Lotação: 
                                             <i class="bi bi-building"></i>
                                             <span class="dataSpan">
                                                 {{ $resposta->user->unidade->unidadeNome }}
                                             </span>
                                         </div>
                                         <div>
-                                            Perfil:
+                                            Perfil: 
                                             <i class="bi bi-person"></i>
                                             <span class="dataSpan">
                                                 {{ $resposta->user->name }}
@@ -64,8 +66,7 @@
 
                             <hr class="hr2">
 
-                            <p class="form-control fStyle" style="background-color: #f0f0f0;">{!! $resposta->respostaRisco !!}
-                            </p>
+                            <p class="form-control fStyle" style="background-color: #f0f0f0;">{!! $resposta->respostaRisco !!}</p>
                             <div class="text-end">
                                 <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
                                     data-bs-target="#editRespostaModal"
@@ -76,18 +77,15 @@
                         </div>
                     @else
                         @php
-                            $alignmentClass =
-                                isset($alignmentClass) && $alignmentClass === 'align-left'
-                                    ? 'align-right'
-                                    : 'align-left';
+                            $alignmentClass = $isLeftAligned ? 'align-right' : 'align-left';
                         @endphp
 
-                        <div class="message other-message {{ $alignmentClass }}">
+                        <div class="message {{ $alignmentClass === 'align-left' ? 'other-message' : 'another-message' }} {{ $alignmentClass }}">
                             <div class="p-1">
                                 <div class="d-flex row">
-                                    <div class="dataSector">
+                                    <div class="dataSector" style="{{ $alignmentClass === 'align-right' ? 'background-color: #d9d9d9cc;' : '' }}">
                                         <div>
-                                            Criado em:
+                                            Criado em: 
                                             <i class="bi bi-clock"></i>
                                             <span class="dataSpan">
                                                 {{ $resposta->created_at->format('d/m/Y') }}
@@ -95,9 +93,15 @@
                                                 {{ $resposta->created_at->format('H:i') }}
                                             </span>
                                         </div>
-
                                         <div>
-                                            Perfil:
+                                            Lotação: 
+                                            <i class="bi bi-building"></i>
+                                            <span class="dataSpan">
+                                                {{ $resposta->user->unidade->unidadeNome }}
+                                            </span>
+                                        </div>
+                                        <div>
+                                            Perfil: 
                                             <i class="bi bi-person"></i>
                                             <span class="dataSpan">
                                                 {{ $resposta->user->name }}
@@ -109,9 +113,7 @@
 
                             <hr class="hr2">
 
-                            <p class="form-control fStyle" style="background-color: #f0f0f0;">{!! $resposta->respostaRisco !!}
-                            </p>
-
+                            <p class="form-control fStyle" style="background-color: #f0f0f0;">{!! $resposta->respostaRisco !!}</p>
                             <div class="text-end">
                                 <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
                                     data-bs-target="#editRespostaModal"
@@ -203,12 +205,9 @@
         document.addEventListener('shown.bs.modal', function (event) {
             const modalId = event.target.id;
             if (modalId === 'editRespostaModal') {
-                const respostaId = document.getElementById('editRespostaId').value;
-                // Se CKEditor já estiver instanciado, destrua-o para evitar problemas
                 if (CKEDITOR.instances['editRespostaRisco']) {
                     CKEDITOR.instances['editRespostaRisco'].destroy();
                 }
-                // Recria o CKEditor
                 CKEDITOR.replace('editRespostaRisco', {
                     extraPlugins: 'wordcount',
                     wordcount: {
@@ -226,11 +225,9 @@
         const form = document.getElementById('editRespostaForm');
         form.action = `/riscos/respostas/${id}`;
         document.getElementById('editRespostaId').value = id;
-        // Se CKEditor já estiver instanciado, destrua-o para evitar problemas
         if (CKEDITOR.instances['editRespostaRisco']) {
             CKEDITOR.instances['editRespostaRisco'].destroy();
         }
-        // Substitua o conteúdo do editor com a resposta
         CKEDITOR.replace('editRespostaRisco', {
             extraPlugins: 'wordcount',
             wordcount: {
