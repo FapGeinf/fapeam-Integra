@@ -234,6 +234,10 @@ a.reply-btn:hover {
 }
 
 .fStyle {
-  font-size: 13px;
+  font-size: 12px;
   word-wrap: break-word;
+}
+
+.form-control {
+  padding: 0 .75rem;
 }
