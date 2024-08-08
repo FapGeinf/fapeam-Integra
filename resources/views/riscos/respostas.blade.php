@@ -87,7 +87,13 @@
                           {{ $resposta->created_at->format('H:i') }}
                           </span>
                         </div>
-
+												<div>
+                          Lotação: 
+                          <i class="bi bi-building"></i>
+                          <span class="dataSpan">
+                          {{ $resposta->user->unidade->unidadeNome }}
+                          </span>
+                        </div>
                         <div>
                           Perfil:
                           <i class="bi bi-person"></i>
