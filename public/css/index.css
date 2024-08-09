@@ -188,9 +188,30 @@ table, tr,th, td {
   padding: 4px;
 }
 
+.dataTables_wrapper .dataTables_length {
+  float: none;
+}
+
+div.divContainer:nth-child(1) > div:nth-child(1) {
+  margin-bottom: .2rem;
+}
+
+#tableHome_length {
+  margin-bottom: .2rem;
+}
+
+
+.divContainer label {
+  margin-left: 0; 
+}
+
 thead tr th {
   background-color: #08558c !important;
   color: #fff !important;
+}
+
+.tTitles {
+  font-size: 12px;
 }
 
 .importantDetails {
@@ -363,14 +384,20 @@ table.dataTable thead th, table.dataTable thead td {
   margin-right: 2px;
 }
 
+.labelUnidade,
+.labelAvaliação {
+  margin-left: 10px !important;
+}
+
 .dataTables_filter {
   margin-bottom: 0;
-  }
+}
 
-  #tableHome_length {
+#tableHome_length {
+  width: 30%;
   display: flex;
   white-space: nowrap;
-  }
+}
 
 /* FIM FILTROS */
 

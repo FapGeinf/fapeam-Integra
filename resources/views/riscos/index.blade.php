@@ -111,11 +111,11 @@
 
             <div class="container-fluid">
                 <table id="tableHome" class="table cust-datatable">
-                    <thead>
+                    <thead class="tTitles">
                         <tr>
-                            <th>N°</th>
-                            <th>Responsável</th>
-                            <th style="white-space:nowrap;">Unidade</th>
+                            <th style="width: 40px;">N°</th>
+                            <th style="white-space:nowrap; width: 100px;">Responsável</th>
+                            <th style="white-space:nowrap; width: 100px;">Unidade</th>
                             <th style="white-space: nowrap;">Evento de Risco</th>
                             <th>Causa</th>
                             <th>Consequência</th>
