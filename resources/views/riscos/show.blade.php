@@ -29,7 +29,7 @@
 
             <div>
                 <table class="table table-bordered mb-4">
-                    <thead>
+                    <thead class="tTitles">
                         <tr>
                             <th scope="col" style="white-space: nowrap; width: 100px;"
                                 class="text-center text-light tBorder">N° Risco</th>
@@ -60,7 +60,7 @@
 
                 <h5 class="text-center mb-2">Plano de ação</h5>
                 <table class="table table-bordered mb-4">
-                    <thead>
+                    <thead class="tTitles">
                         <tr>
                             <th scope="col" class="text-center text-light tBorder">Controle Sugerido:</th>
 
