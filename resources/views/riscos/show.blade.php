@@ -86,7 +86,7 @@
                             @if ( auth()->user()->unidade->unidadeTipo->id == 1)
                                 <td class="text-center tdBtnExcluir">
                                     {{-- <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modal-exclusao-{{ $monitoramento->id }}">Excluir</button> --}}
-                                    <a href="{{ route('riscos.editMonitoramento', ['id' => $monitoramento->id]) }}" class="btn btn-sm btn btn btn-warning">
+                                    <a href="{{ route('riscos.editMonitoramento', ['id' => $monitoramento->id]) }}" class="edit">
                                         <i class="bi bi-pen"></i>
                                     </a>
 

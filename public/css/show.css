@@ -38,6 +38,36 @@ font-style: normal;
   background-color: red;
 }
 
+a.edit {
+  border: none;
+  text-decoration: none;
+  border-radius: 4px;
+  padding: 7px 14px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-right: 10px;
+  transition: background-color 0.3s;
+
+  color: #000;
+  margin-right: 0;
+  padding: 4px 9px;
+  background-color: #fec95c;
+}
+
+a.edit:hover {
+  background-color: #e5b553;
+}
+
+button.edit {
+  color: #000;
+  margin-right: 0;
+  padding: 4px 9px;
+  background-color: #fec95c;
+}
+
+button.edit:hover {
+  background-color: #e5b553;
+}
 
 .table th {
   background-color: #08558c;
@@ -103,11 +133,11 @@ a.secondary {
 
 a.warning {
   color: #000;
-  background-color: #ffc107;
+  background-color: #fec95c;
 }
 
 a.warning:hover {
-  background-color: #ffca2c;
+  background-color: #e5b553;
 }
 
 a.primary {
