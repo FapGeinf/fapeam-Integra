@@ -35,12 +35,6 @@ class Risco extends Model
     }
 
 
-    public function respostas()
-    {
-        return $this->hasMany(Resposta::class, 'respostaRiscoFK', 'id');
-    }
-
-
     public function unidade()
     {
         return $this->belongsTo(Unidade::class, 'unidadeId');

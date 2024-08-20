@@ -26,7 +26,7 @@
         </div>
 
 
-        <form action="{{ route('riscos.update-monitoramentos', ['id' => $risco->id]) }}" method="POST" id="formCreate">
+        <form action="{{ route('riscos.insert-monitoramentos', ['id' => $risco->id]) }}" method="POST" id="formCreate">
             @csrf
             @method('PUT')
 

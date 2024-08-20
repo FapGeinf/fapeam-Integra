@@ -16,7 +16,7 @@ class Resposta extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function risco()
+    public function monitoramento()
     {
         return $this->belongsTo(Monitoramento::class, 'respostaMonitoramentoFK', 'id');
     }

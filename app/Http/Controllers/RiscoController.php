@@ -190,7 +190,7 @@ class RiscoController extends Controller
     }
 
 
-    public function updateMonitoramentos(Request $request, $id)
+    public function insertMonitoramentos(Request $request, $id)
     {
         $risco = Risco::findOrFail($id);
 
@@ -218,23 +218,13 @@ class RiscoController extends Controller
                             $monitoramentoData['inicioMonitoramento'] = $aux;
                         }
 
-                        // Atualiza os dados do monitoramento existente
                         $monitoramento->update([
                             'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
                             'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
-                            // 'execucaoMonitoramento' => $monitoramentoData['execucaoMonitoramento'],
                             'isContinuo' => $monitoramentoData['isContinuo'],
                             'inicioMonitoramento' => $monitoramentoData['inicioMonitoramento'],
                             'fimMonitoramento' => $monitoramentoData['isContinuo'] ? null : $monitoramentoData['fimMonitoramento'],
                         ]);
-
-                        // Validar se fimMonitoramento é maior que inicioMonitoramento se fornecido
-                        if (
-                            !$monitoramentoData['isContinuo'] && isset($monitoramentoData['fimMonitoramento']) &&
-                            $monitoramentoData['fimMonitoramento'] <= $monitoramentoData['inicioMonitoramento']
-                        ) {
-                            return redirect()->back()->withErrors(['errors' => 'A data do fim do Monitoramento deve ser maior do que a data do início do monitoramento.']);
-                        }
 
                         // Remove o monitoramento da lista de existentes
                         unset($existingMonitoramentos[$monitoramentoData['id']]);
@@ -242,38 +232,17 @@ class RiscoController extends Controller
                         throw new \Exception('Monitoramento não encontrado para atualização.');
                     }
                 } else {
-                    // Cria um novo monitoramento
-
-                    if (!$monitoramentoData['isContinuo'] && isset($monitoramentoData['fimMonitoramento']) && $monitoramentoData['fimMonitoramento'] <= $monitoramentoData['inicioMonitoramento']) {
-                        $aux = $monitoramentoData['fimMonitoramento'];
-                        $monitoramentoData['fimMonitoramento'] = $monitoramentoData['inicioMonitoramento'];
-                        $monitoramentoData['inicioMonitoramento'] = $aux;
-                    }
                     $newMonitoramentoData = [
                         'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
                         'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
-                        // 'execucaoMonitoramento' => $monitoramentoData['execucaoMonitoramento'],
                         'isContinuo' => $monitoramentoData['isContinuo'],
                         'inicioMonitoramento' => $monitoramentoData['inicioMonitoramento'],
                         'fimMonitoramento' => $monitoramentoData['isContinuo'] ? null : $monitoramentoData['fimMonitoramento'],
                         'riscoFK' => $risco->id,
                     ];
 
-                    // Validar se fimMonitoramento é maior que inicioMonitoramento se fornecido
-                    // if (
-                    //     !$monitoramentoData['isContinuo'] && isset($monitoramentoData['fimMonitoramento']) &&
-                    //     $monitoramentoData['fimMonitoramento'] <= $monitoramentoData['inicioMonitoramento']
-                    // ) {
-                    //     return redirect()->back()->withErrors(['errors' => 'A data do fim do Monitoramento deve ser maior do que a data do início do monitoramento.']);
-                    // }
-
                     Monitoramento::create($newMonitoramentoData);
                 }
-            }
-
-            // Remove os monitoramentos que não foram atualizados ou criados
-            foreach ($existingMonitoramentos as $monitoramento) {
-                $monitoramento->delete();
             }
 
             return redirect()->route('riscos.show', ['id' => $risco->id])->with('success', 'Monitoramentos editados com sucesso');
@@ -282,6 +251,7 @@ class RiscoController extends Controller
             return redirect()->back()->withErrors(['errors' => 'Houve um erro ao atualizar ou adicionar monitoramentos']);
         }
     }
+
 
     public function atualizaMonitoramento(Request $request, $id)
     {
