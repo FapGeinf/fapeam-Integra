@@ -16,7 +16,7 @@
         </script>
     @endif
     <div class="col-12 box-shadow">
-        <h4 class="text-center">Providência(s) do Risco Inerente</h4>
+        <h4 class="text-center">Providência(s)</h4>
         <hr class="hr1">
 
         <div class="chat-box">
@@ -172,7 +172,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('riscos.storeResposta', ['id' => $risco->id]) }}" method="POST">
+                <form action="{{ route('riscos.storeResposta', ['id' => $monitoramento->id]) }}" method="POST">
                     @csrf
                     <div id="respostasFields">
                         <div class="mb-4 resposta" style="margin-top: 10px;">
@@ -224,7 +224,7 @@
 
     function editResposta(id, resposta) {
         const form = document.getElementById('editRespostaForm');
-        form.action = `/riscos/respostas/${id}`;
+        form.action = `/riscos/monitoramentos/respostas/${id}`;
         document.getElementById('editRespostaId').value = id;
         // Se CKEditor já estiver instanciado, destrua-o para evitar problemas
         if (CKEDITOR.instances['editRespostaRisco']) {

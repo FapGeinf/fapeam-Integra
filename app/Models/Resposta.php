@@ -9,7 +9,7 @@ class Resposta extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['respostaRisco', 'respostaRiscoFK', 'user_id'];
+    protected $fillable = ['respostaRisco', 'respostaMonitoramentoFK', 'user_id'];
 
     public function user()
     {
@@ -18,7 +18,7 @@ class Resposta extends Model
 
     public function risco()
     {
-        return $this->belongsTo(Risco::class, 'respostaRiscoFK', 'id');
+        return $this->belongsTo(Monitoramento::class, 'respostaMonitoramentoFK', 'id');
     }
 }
 

@@ -32,7 +32,7 @@ Route::post('/risco/criar', [RiscoController::class, 'store'])->name('riscos.sto
 Route::get('/riscos/show/{id}', [RiscoController::class, 'show'])->name('riscos.show');
 Route::get('/riscos/{id}/edit', [RiscoController::class, 'edit'])->name('riscos.edit');
 Route::put('/riscos/{id}', [RiscoController::class, 'update'])->name('riscos.update');
-Route::post('/riscos/{id}/respostas', [RiscoController::class, 'storeResposta'])->name('riscos.storeResposta');
+Route::post('/riscos/monitoramentos/{id}/respostas', [RiscoController::class, 'storeResposta'])->name('riscos.storeResposta');
 Route::delete('/riscos/monitoramentos/{id}',[RiscoController::class,'deleteMonitoramento'])->name('riscos.deleteMonitoramento');
 Route::get('/riscos/respostas/{id}', [RiscoController::class, 'respostas'])->name('riscos.respostas');
 Route::get('/riscos/{id}/edit-monitoramentos', [RiscoController::class, 'editMonitoramentos'])->name('riscos.edit-monitoramentos');
@@ -42,7 +42,7 @@ Route::post('/notificacoes/marcar-como-lidas', [RiscoController::class, 'marcarC
 Route::post('/notificacoes/marcar-como-lida', [RiscoController::class, 'marcarComoLida'])->name('riscos.marcarComoLida');
 Route::get('riscos/monitoramentos/{id}/edit', [RiscoController::class, 'editMonitoramento2'])->name('riscos.editMonitoramento');
 Route::put('riscos/monitoramentos/{id}', [RiscoController::class, 'atualizaMonitoramento'])->name('riscos.monitoramento');
-Route::put('/riscos/respostas/{id}', [RiscoController::class, 'updateResposta'])->name('riscos.updateResposta');
+Route::put('/riscos/monitoramentos/respostas/{id}', [RiscoController::class, 'updateResposta'])->name('riscos.updateResposta');
 
 
 

@@ -15,4 +15,9 @@ class Monitoramento extends Model
     {
         return $this->belongsTo(Risco::class, 'riscoFK', 'id');
     }
+
+    public function respostas()
+    {
+        return $this->hasMany(Resposta::class, 'respostaMonitoramentoFK', 'id');
+    }
 }

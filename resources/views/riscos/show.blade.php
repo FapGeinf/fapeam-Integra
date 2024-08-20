@@ -89,6 +89,9 @@
                                     <a href="{{ route('riscos.editMonitoramento', ['id' => $monitoramento->id]) }}" class="btn btn-sm btn btn btn-warning">
                                         <i class="bi bi-pen"></i>
                                     </a>
+                                    <a href="{{ route('riscos.respostas', ['id' => $monitoramento->id]) }}" class="btn btn-sm btn-info mt-2">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
 
                                 </td>
                             @endif
@@ -132,7 +135,6 @@
 
                         <a href="{{ route('riscos.edit-monitoramentos', ['id' => $risco->id]) }}" class="primary">Adicionar Monitoramentos</a>
                     @endif
-                    <a href="{{ route('riscos.respostas', ['id' => $risco->id]) }}" class="secondary">Ver Providências</a>
                 </div>
             </div>
         </div>

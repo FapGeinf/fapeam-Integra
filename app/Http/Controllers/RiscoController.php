@@ -74,11 +74,21 @@ class RiscoController extends Controller
 
     public function show($id)
     {
-        $risco = Risco::with('respostas')->findOrFail($id);
-        $respostas = Resposta::where('respostaRiscoFK', $risco->id)->get();
-        $monitoramentos = Monitoramento::where('riscoFK', $risco->id)->get();
-        return view('riscos.show', ['risco' => $risco, 'respostas' => $respostas, 'monitoramentos' => $monitoramentos]);
+        try {
+            $risco = Risco::findOrFail($id);
+            $monitoramentos = Monitoramento::where('riscoFK', $risco->id)->get();
+            foreach ($monitoramentos as $monitoramento) {
+                $monitoramento->respostas = Resposta::where('respostaMonitoramentoFK', $monitoramento->id)->get();
+            }
+            return view('riscos.show', [
+                'risco' => $risco,
+                'monitoramentos' => $monitoramentos
+            ]);
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao carregar os dados do risco.']);
+        }
     }
+
     public function create()
     {
         $unidades = Unidade::all();
@@ -342,7 +352,7 @@ class RiscoController extends Controller
 
     public function storeResposta(Request $request, $id)
     {
-        $risco = Risco::findOrFail($id);
+        $monitoramento = Monitoramento::findOrFail($id);
 
         try {
             $request->validate([
@@ -354,14 +364,14 @@ class RiscoController extends Controller
                 foreach ($request->respostas as $respostaData) {
                     Resposta::create([
                         'respostaRisco' => $respostaData['respostaRisco'],
-                        'respostaRiscoFK' => $risco->id,
+                        'respostaMonitoramentoFK' => $monitoramento->id,
                         'user_id' => auth()->id()
                     ]);
                 }
             }
             return redirect()->route('riscos.respostas', $id)->with('success', 'Respostas adicionadas com sucesso');
         } catch (\Exception $e) {
-						
+
             return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
         }
     }
@@ -391,9 +401,9 @@ class RiscoController extends Controller
 
     public function respostas($id)
     {
-        $risco = Risco::with('respostas')->findorFail($id);
-        $respostas = Resposta::where('respostaRiscoFK', $risco->id)->get();
-        return view('riscos.respostas', ['risco' => $risco, 'respostas' => $respostas]);
+        $monitoramento = Monitoramento::with('respostas')->findorFail($id);
+        $respostas = Resposta::where('respostaMonitoramentoFK', $monitoramento->id)->get();
+        return view('riscos.respostas', ['monitoramento' => $monitoramento, 'respostas' => $respostas]);
     }
 
     public function insertPrazo(Request $request)
