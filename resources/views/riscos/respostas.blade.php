@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 @section('content')
 
@@ -15,32 +16,38 @@
             alert('Não foi possível salvar sua resposta no momento');
         </script>
     @endif
-		
+
     <div class="col-12 box-shadow">
-				<div class="monitoramento">
-					<h4>Monitoramento</h4>
-					<p>{!!$monitoramento->monitoramentoControleSugerido!!}</p>
-					<hr>
-				</div>
+
+      <div class="monitoramento">
+        <h4 class="text-center">Monitoramento</h4>
+        <hr class="hr1" style="padding-bottom: .6rem;">
+        <div class="form-control" style="background-color: #f3f3f3;">{!!$monitoramento->monitoramentoControleSugerido!!}</div>
+        <hr>
+      </div>
+
         <h4 class="text-center">Providência(s)</h4>
         <hr class="hr1">
 
         <div class="chat-box">
             @if ($respostas->count() > 0)
                 @php
-                    $lastSetor = null; // Para rastrear o setor da última mensagem
+                    $lastSetor = null; // To track the last sector
+                    $alignmentClass = 'align-left'; // Initial alignment
                 @endphp
 
                 @foreach ($respostas as $resposta)
                     @php
                         $currentSetor = $resposta->user->unidade->id;
+                        $isLeftAligned = $alignmentClass === 'align-left';
                     @endphp
 
                     @if ($lastSetor === $currentSetor)
-                        <div class="message other-message {{ $alignmentClass }}">
+                        {{-- Same sector: keep the same alignment --}}
+                        <div class="message {{ $isLeftAligned ? 'other-message' : 'another-message' }} {{ $alignmentClass }}">
                             <div class="p-1">
                                 <div class="d-flex row">
-                                    <div class="dataSector">
+                                  <div class="dataSector" style="text-align: left; {{ $alignmentClass === 'align-right' ? 'background-color: #d9d9d9cc;' : '' }}">
                                         <div>
                                             Criado em:
                                             <i class="bi bi-clock"></i>
@@ -70,28 +77,27 @@
 
                             <hr class="hr2">
 
+                            <div class="form-control fStyle mb-2" style="text-align: left;">
+                              <p style="background-color: #f0f0f0;">{!! $resposta->respostaRisco !!}</p>
+                          </div>
+                          
 
                             <div class="text-end">
-															
-                                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                    data-bs-target="#editRespostaModal"
-                                    onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)">
+                                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editRespostaModal" onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)">
                                     <i class="bi bi-pen"></i>
                                 </button>
                             </div>
                         </div>
                     @else
+                        {{-- Sector change: switch alignment --}}
                         @php
-                            $alignmentClass =
-                                isset($alignmentClass) && $alignmentClass === 'align-left'
-                                    ? 'align-right'
-                                    : 'align-left';
+                            $alignmentClass = $isLeftAligned ? 'align-right' : 'align-left';
                         @endphp
 
-                        <div class="message other-message {{ $alignmentClass }}">
+                        <div class="message {{ $alignmentClass === 'align-left' ? 'other-message' : 'another-message' }} {{ $alignmentClass }}">
                             <div class="p-1">
                                 <div class="d-flex row">
-																<div class="dataSector">
+                                  <div class="dataSector" style="text-align: left; {{ $alignmentClass === 'align-right' ? 'background-color: #d9d9d9cc;' : '' }}">
                                         <div>
                                             Criado em:
                                             <i class="bi bi-clock"></i>
@@ -118,16 +124,16 @@
                                     </div>
                                 </div>
                             </div>
-														<div class="form-control fStyle" style="background-color: #f0f0f0;">{!! $resposta->respostaRisco !!}
-                            </div>
+
                             <hr class="hr2">
 
-
+                            <div class="form-control fStyle mb-2" style="text-align: left;">
+                              <p style="background-color: #f0f0f0;">{!! $resposta->respostaRisco !!}</p>
+                          </div>
+                          
 
                             <div class="text-end">
-                                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                    data-bs-target="#editRespostaModal"
-                                    onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)">
+                                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editRespostaModal" onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)">
                                     <i class="bi bi-pen"></i>
                                 </button>
                             </div>
@@ -135,15 +141,14 @@
                     @endif
 
                     @php
-                        $lastSetor = $currentSetor; // Atualiza o setor da última mensagem
+                        $lastSetor = $currentSetor; // Update the last sector
                     @endphp
                 @endforeach
             @else
                 <p class="text-center">Não há respostas disponíveis para este risco.</p>
             @endif
             <div class="container d-flex justify-content-center mt-4">
-                <button type="button" class="reply-btn" data-bs-toggle="modal"
-                    data-bs-target="#respostaModal">Responder</button>
+                <button type="button" class="reply-btn" data-bs-toggle="modal" data-bs-target="#respostaModal">Responder</button>
             </div>
         </div>
     </div>
@@ -151,7 +156,7 @@
 
 <!-- Modal de Edição -->
 <div class="modal fade" id="editRespostaModal" tabindex="-1" aria-labelledby="editRespostaModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editRespostaModalLabel">Editar Resposta</h5>
@@ -167,7 +172,7 @@
                         <textarea class="form-control" id="editRespostaRisco" name="respostaRisco" required></textarea>
                     </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button type="submit" class="btn btn-success mb-2">Salvar</button>
+                        <button type="submit" class="success">Salvar</button>
                     </div>
                 </form>
             </div>
@@ -177,7 +182,7 @@
 
 <!-- Modal de Resposta -->
 <div class="modal fade" id="respostaModal" tabindex="-1" aria-labelledby="respostaModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="respostaModalLabel">Adicionar Resposta</h5>
@@ -192,12 +197,50 @@
                             <textarea class="form-control" name="respostas[0][respostaRisco]" id="respostaRisco" required></textarea>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-success mb-2">Salvar</button>
+                    <div class="text-end">
+                        <button type="submit" class="success">Salvar</button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+{{-- <script src="/ckeditor/ckeditor.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        CKEDITOR.replace('respostaRisco', {
+            extraPlugins: 'wordcount',
+            wordcount: {
+                showCharCount: true,
+                maxCharCount: 4500,
+                maxCharCountMsg: 'Você atingiu o limite máximo de caracteres permitidos.',
+                charCountMsg: 'Caracteres restantes: {0}'
+            }
+        });
+
+        document.addEventListener('shown.bs.modal', function(event) {
+            const modalId = event.target.id;
+            if (modalId === 'editRespostaModal') {
+                CKEDITOR.replace('editRespostaRisco', {
+                    extraPlugins: 'wordcount',
+                    wordcount: {
+                        showCharCount: true,
+                        maxCharCount: 4500,
+                        maxCharCountMsg: 'Você atingiu o limite máximo de caracteres permitidos.',
+                        charCountMsg: 'Caracteres restantes: {0}'
+                    }
+                });
+            }
+        });
+    });
+
+    function editResposta(id, respostaRisco) {
+        document.getElementById('editRespostaId').value = id;
+        CKEDITOR.instances['editRespostaRisco'].setData(respostaRisco);
+    }
+</script>
+@endsection --}}
 
 <script src="/ckeditor/ckeditor.js"></script>
 <script>
@@ -255,5 +298,4 @@
         CKEDITOR.instances['editRespostaRisco'].setData(resposta);
     }
 </script>
-
 @endsection
