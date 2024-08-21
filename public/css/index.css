@@ -219,6 +219,8 @@ thead tr th {
   text-align: center;
 }
 
+
+
 #tableHome tbody tr:hover td:not(.riscoAvaliacao) {
   background-color: #ececec !important;
 }
@@ -368,6 +370,7 @@ table.dataTable thead th, table.dataTable thead td {
   }
 
   #tableHome_length {
+  width: 30%;
   display: flex;
   white-space: nowrap;
   }
