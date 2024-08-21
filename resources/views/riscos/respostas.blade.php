@@ -15,7 +15,13 @@
             alert('Não foi possível salvar sua resposta no momento');
         </script>
     @endif
+		
     <div class="col-12 box-shadow">
+				<div class="monitoramento">
+					<h4>Monitoramento</h4>
+					<p>{!!$monitoramento->monitoramentoControleSugerido!!}</p>
+					<hr>
+				</div>
         <h4 class="text-center">Providência(s)</h4>
         <hr class="hr1">
 
@@ -64,9 +70,9 @@
 
                             <hr class="hr2">
 
-                            <p class="form-control fStyle" style="background-color: #f0f0f0;">{!! $resposta->respostaRisco !!}
-                            </p>
+
                             <div class="text-end">
+															
                                 <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
                                     data-bs-target="#editRespostaModal"
                                     onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)">
@@ -85,7 +91,7 @@
                         <div class="message other-message {{ $alignmentClass }}">
                             <div class="p-1">
                                 <div class="d-flex row">
-                                    <div class="dataSector">
+																<div class="dataSector">
                                         <div>
                                             Criado em:
                                             <i class="bi bi-clock"></i>
@@ -95,7 +101,13 @@
                                                 {{ $resposta->created_at->format('H:i') }}
                                             </span>
                                         </div>
-
+                                        <div>
+                                            Lotação:
+                                            <i class="bi bi-building"></i>
+                                            <span class="dataSpan">
+                                                {{ $resposta->user->unidade->unidadeNome }}
+                                            </span>
+                                        </div>
                                         <div>
                                             Perfil:
                                             <i class="bi bi-person"></i>
@@ -106,11 +118,11 @@
                                     </div>
                                 </div>
                             </div>
-
+														<div class="form-control fStyle" style="background-color: #f0f0f0;">{!! $resposta->respostaRisco !!}
+                            </div>
                             <hr class="hr2">
 
-                            <p class="form-control fStyle" style="background-color: #f0f0f0;">{!! $resposta->respostaRisco !!}
-                            </p>
+
 
                             <div class="text-end">
                                 <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
