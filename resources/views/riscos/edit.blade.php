@@ -107,15 +107,15 @@
 
 
                 <div class="d-flex justify-content-center">
-                    <div class="me-1">
+                    {{-- <div class="me-1"> --}}
                         <a href="{{ route('riscos.edit-monitoramentos', ['id' => $risco->id]) }}"
-                            class="btn btn-primary">Editar Monitoramentos</a>
-                    </div>
+                            class="blue-btn">Editar Monitoramentos</a>
+                    {{-- </div> --}}
 
-                    <div>
-                        <button type="button" onclick="showConfirmationModal()" class="submit-btn">Salvar
+                    {{-- <div> --}}
+                        <button type="button" onclick="showConfirmationModal()" class="green-btn">Salvar
                             Edição</button>
-                    </div>
+                    {{-- </div> --}}
                 </div>
 
 
