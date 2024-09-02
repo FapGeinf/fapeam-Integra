@@ -9,7 +9,7 @@ class Resposta extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['respostaRisco', 'respostaMonitoramentoFK', 'user_id'];
+    protected $fillable = ['respostaRisco', 'respostaMonitoramentoFK', 'user_id','anexo'];
 
     public function user()
     {

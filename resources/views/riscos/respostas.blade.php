@@ -32,8 +32,8 @@
         <div class="chat-box">
             @if ($respostas->count() > 0)
                 @php
-                    $lastSetor = null; // To track the last sector
-                    $alignmentClass = 'align-left'; // Initial alignment
+                    $lastSetor = null;
+                    $alignmentClass = 'align-left';
                 @endphp
 
                 @foreach ($respostas as $resposta)
@@ -43,7 +43,6 @@
                     @endphp
 
                     @if ($lastSetor === $currentSetor)
-                        {{-- Same sector: keep the same alignment --}}
                         <div class="message {{ $isLeftAligned ? 'other-message' : 'another-message' }} {{ $alignmentClass }}">
                             <div class="p-1">
                                 <div class="d-flex row">
@@ -78,18 +77,34 @@
                             <hr class="hr2">
 
                             <div class="form-control fStyle mb-2" style="text-align: left;">
-                              <p style="background-color: #f0f0f0;">{!! $resposta->respostaRisco !!}</p>
-                          </div>
-                          
-
-                            <div class="text-end">
-                                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editRespostaModal" onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)">
-                                    <i class="bi bi-pen"></i>
-                                </button>
+                                <p style="background-color: #f0f0f0;">{!! $resposta->respostaRisco !!}</p>
                             </div>
+
+                            @if ($resposta->anexo)
+                                <div class="text-end">
+                                    <a href="{{ Storage::url($resposta->anexo) }}" class="btn btn-info btn-sm" target="_blank">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    <a href="{{ Storage::url($resposta->anexo) }}" class="btn btn-primary btn-sm" download>
+                                        <i class="bi bi-download"></i>
+                                    </a>
+                                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#editRespostaModal"
+                                        onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)">
+                                        <i class="bi bi-pen"></i>
+                                    </button>
+                                </div>
+                            @else
+                                <div class="text-end">
+                                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#editRespostaModal"
+                                        onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)">
+                                        <i class="bi bi-pen"></i>
+                                    </button>
+                                </div>
+                            @endif
                         </div>
                     @else
-                        {{-- Sector change: switch alignment --}}
                         @php
                             $alignmentClass = $isLeftAligned ? 'align-right' : 'align-left';
                         @endphp
@@ -130,18 +145,36 @@
                             <div class="form-control fStyle mb-2" style="text-align: left;">
                               <p style="background-color: #f0f0f0;">{!! $resposta->respostaRisco !!}</p>
                           </div>
-                          
 
-                            <div class="text-end">
-                                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editRespostaModal" onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)">
-                                    <i class="bi bi-pen"></i>
-                                </button>
-                            </div>
+
+                            @if ($resposta->anexo)
+                                <div class="text-end">
+                                    <a href="{{ Storage::url($resposta->anexo) }}" class="btn btn-info btn-sm" target="_blank">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    <a href="{{ Storage::url($resposta->anexo) }}" class="btn btn-primary btn-sm" download>
+                                        <i class="bi bi-download"></i>
+                                    </a>
+                                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#editRespostaModal"
+                                        onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)">
+                                        <i class="bi bi-pen"></i>
+                                    </button>
+                                </div>
+                            @else
+                                <div class="text-end">
+                                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#editRespostaModal"
+                                        onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)">
+                                        <i class="bi bi-pen"></i>
+                                    </button>
+                                </div>
+                            @endif
                         </div>
                     @endif
 
                     @php
-                        $lastSetor = $currentSetor; // Update the last sector
+                        $lastSetor = $currentSetor;
                     @endphp
                 @endforeach
             @else
@@ -154,7 +187,6 @@
     </div>
 </div>
 
-<!-- Modal de Edição -->
 <div class="modal fade" id="editRespostaModal" tabindex="-1" aria-labelledby="editRespostaModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
@@ -163,13 +195,17 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="editRespostaForm" method="POST">
+                <form id="editRespostaForm" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <input type="hidden" id="editRespostaId" name="id">
                     <div class="mb-4">
                         <label for="editRespostaRisco" class="form-label">Resposta</label>
                         <textarea class="form-control" id="editRespostaRisco" name="respostaRisco" required></textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label for="editRespostaAnexo" class="form-label">Anexar Arquivo</label>
+                        <input type="file" class="form-control" id="editRespostaAnexo" name="anexo">
                     </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <button type="submit" class="success">Salvar</button>
@@ -180,7 +216,6 @@
     </div>
 </div>
 
-<!-- Modal de Resposta -->
 <div class="modal fade" id="respostaModal" tabindex="-1" aria-labelledby="respostaModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
@@ -189,16 +224,18 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('riscos.storeResposta', ['id' => $monitoramento->id]) }}" method="POST">
+                <form action="{{ route('riscos.storeResposta', ['id' => $monitoramento->id]) }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div id="respostasFields">
-                        <div class="mb-4 resposta" style="margin-top: 10px;">
-                            <label for="respostas[0][respostaRisco]" class="form-label">Resposta</label>
-                            <textarea class="form-control" name="respostas[0][respostaRisco]" id="respostaRisco" required></textarea>
-                        </div>
+                    <div class="mb-4">
+                        <label for="respostaRisco" class="form-label">Resposta</label>
+                        <textarea class="form-control" id="respostaRisco" name="respostaRisco" required></textarea>
                     </div>
-                    <div class="text-end">
-                        <button type="submit" class="success">Salvar</button>
+                    <div class="mb-4">
+                        <label for="anexo" class="form-label">Anexar Arquivo</label>
+                        <input type="file" class="form-control" id="anexo" name="anexo">
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button type="submit" class="btn btn-primary mb-2">Enviar</button>
                     </div>
                 </form>
             </div>
@@ -259,11 +296,9 @@
             const modalId = event.target.id;
             if (modalId === 'editRespostaModal') {
                 const respostaId = document.getElementById('editRespostaId').value;
-                // Se CKEditor já estiver instanciado, destrua-o para evitar problemas
                 if (CKEDITOR.instances['editRespostaRisco']) {
                     CKEDITOR.instances['editRespostaRisco'].destroy();
                 }
-                // Recria o CKEditor
                 CKEDITOR.replace('editRespostaRisco', {
                     extraPlugins: 'wordcount',
                     wordcount: {
@@ -281,11 +316,9 @@
         const form = document.getElementById('editRespostaForm');
         form.action = `/riscos/monitoramentos/respostas/${id}`;
         document.getElementById('editRespostaId').value = id;
-        // Se CKEditor já estiver instanciado, destrua-o para evitar problemas
         if (CKEDITOR.instances['editRespostaRisco']) {
             CKEDITOR.instances['editRespostaRisco'].destroy();
         }
-        // Substitua o conteúdo do editor com a resposta
         CKEDITOR.replace('editRespostaRisco', {
             extraPlugins: 'wordcount',
             wordcount: {

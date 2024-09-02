@@ -15,6 +15,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 
 class RiscoController extends Controller
@@ -321,45 +322,63 @@ class RiscoController extends Controller
 
 
     public function storeResposta(Request $request, $id)
-    {
-        $monitoramento = Monitoramento::findOrFail($id);
+{
+    $monitoramento = Monitoramento::findOrFail($id);
 
-        try {
-            $request->validate([
-                'respostas' => 'required|array|min:1',
-                'respostas.*.respostaRisco' => 'required|string|max:5000',
-            ]);
+    try {
+        $request->validate([
+            'respostas' => 'required|array|min:1',
+            'respostas.*.respostaRisco' => 'required|string|max:5000',
+            'respostas.*.anexo' => 'nullable|file|mimes:jpg,png,pdf|max:2048'
+        ]);
 
-            if (is_array($request->respostas)) {
-                foreach ($request->respostas as $respostaData) {
-                    Resposta::create([
-                        'respostaRisco' => $respostaData['respostaRisco'],
-                        'respostaMonitoramentoFK' => $monitoramento->id,
-                        'user_id' => auth()->id()
-                    ]);
-                }
+        foreach ($request->respostas as $index => $respostaData) {
+            $filePath = null;
+            if (isset($respostaData['anexo']) && $request->hasFile("respostas.$index.anexo")) {
+                $filePath = $request->file("respostas.$index.anexo")->store('anexos', 'public');
             }
-            return redirect()->route('riscos.respostas', $id)->with('success', 'Respostas adicionadas com sucesso');
-        } catch (\Exception $e) {
 
-            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
+            Resposta::create([
+                'respostaRisco' => $respostaData['respostaRisco'],
+                'respostaMonitoramentoFK' => $monitoramento->id,
+                'user_id' => auth()->id(),
+                'anexo' => $filePath
+            ]);
         }
+
+        return redirect()->route('riscos.respostas', $id)->with('success', 'Respostas adicionadas com sucesso');
+    } catch (\Exception $e) {
+        return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
     }
+}
 
     public function updateResposta(Request $request, $id)
     {
+
         $request->validate([
-            'respostaRisco' => 'required|string',
+            'respostaRisco' => 'required|string|max:5000',
+            'anexo' => 'nullable|file|mimes:jpg,png,pdf|max:2048',
         ]);
 
         try {
+
             $resposta = Resposta::findOrFail($id);
 
-            $resposta->update([
-                'respostaRisco' => $request->input('respostaRisco'),
-            ]);
 
-            return redirect()->route('riscos.respostas', ['id' => $resposta->respostaRiscoFK])
+            $resposta->respostaRisco = $request->input('respostaRisco');
+
+
+            if ($request->hasFile('anexo')) {
+                if ($resposta->anexo) {
+                    Storage::disk('public')->delete($resposta->anexo);
+                }
+
+                $resposta->anexo = $request->file('anexo')->store('anexos', 'public');
+            }
+
+            $resposta->save();
+
+            return redirect()->route('riscos.respostas', ['id' => $resposta->respostaMonitoramentoFK])
                 ->with('success', 'Resposta atualizada com sucesso!');
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return redirect()->back()->withErrors(['error' => 'Resposta não encontrada.']);
@@ -368,6 +387,7 @@ class RiscoController extends Controller
             return redirect()->back()->withErrors(['error' => 'Ocorreu um erro ao atualizar a resposta. Por favor, tente novamente.']);
         }
     }
+
 
     public function respostas($id)
     {
