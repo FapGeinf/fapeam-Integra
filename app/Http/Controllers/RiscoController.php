@@ -198,6 +198,7 @@ class RiscoController extends Controller
     }
 
 
+
     public function insertMonitoramentos(Request $request, $id)
     {
         $risco = Risco::findOrFail($id);
@@ -211,6 +212,7 @@ class RiscoController extends Controller
                 'monitoramentos.*.inicioMonitoramento' => 'required|date',
                 'monitoramentos.*.fimMonitoramento' => 'nullable|date',
                 'monitoramentos.*.isContinuo' => 'required|boolean',
+                'monitoramentos.*.anexoMonitoramento' => 'nullable|file|mimes:pdf,doc,docx,jpg,png|max:2048',
             ]);
 
             $existingMonitoramentos = $risco->monitoramentos->keyBy('id');
@@ -226,7 +228,8 @@ class RiscoController extends Controller
                             $monitoramentoData['inicioMonitoramento'] = $aux;
                         }
 
-                        if (isset($monitoramentoData['anexoMonitoramento'])) {
+
+                        if (isset($monitoramentoData['anexoMonitoramento']) && $monitoramentoData['anexoMonitoramento']->isValid()) {
                             if ($monitoramento->anexoMonitoramento) {
                                 Storage::disk('public')->delete($monitoramento->anexoMonitoramento);
                             }
@@ -242,9 +245,8 @@ class RiscoController extends Controller
                             'isContinuo' => $monitoramentoData['isContinuo'],
                             'inicioMonitoramento' => $monitoramentoData['inicioMonitoramento'],
                             'fimMonitoramento' => $monitoramentoData['isContinuo'] ? null : $monitoramentoData['fimMonitoramento'],
+                            'anexoMonitoramento' => $monitoramentoData['anexoMonitoramento'],
                         ]);
-
-                        // Remove o monitoramento da lista de existentes
                         unset($existingMonitoramentos[$monitoramentoData['id']]);
                     } else {
                         throw new \Exception('Monitoramento não encontrado para atualização.');
@@ -257,18 +259,23 @@ class RiscoController extends Controller
                         'inicioMonitoramento' => $monitoramentoData['inicioMonitoramento'],
                         'fimMonitoramento' => $monitoramentoData['isContinuo'] ? null : $monitoramentoData['fimMonitoramento'],
                         'riscoFK' => $risco->id,
+                        'anexoMonitoramento' => isset($monitoramentoData['anexoMonitoramento']) && $monitoramentoData['anexoMonitoramento']->isValid() ? $monitoramentoData['anexoMonitoramento']->store('anexosMonitoramento', 'public') : null,
                     ];
 
                     Monitoramento::create($newMonitoramentoData);
                 }
             }
 
+            foreach ($existingMonitoramentos as $monitoramento) {
+                    $monitoramento->delete();
+            }
+
             return redirect()->route('riscos.show', ['id' => $risco->id])->with('success', 'Monitoramentos editados com sucesso');
         } catch (\Exception $e) {
-            dd($e);
             return redirect()->back()->withErrors(['errors' => 'Houve um erro ao atualizar ou adicionar monitoramentos']);
         }
     }
+
 
 
     public function atualizaMonitoramento(Request $request, $id)
