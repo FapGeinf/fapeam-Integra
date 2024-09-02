@@ -230,9 +230,6 @@ class RiscoController extends Controller
 
 
                         if (isset($monitoramentoData['anexoMonitoramento']) && $monitoramentoData['anexoMonitoramento']->isValid()) {
-                            if ($monitoramento->anexoMonitoramento) {
-                                Storage::disk('public')->delete($monitoramento->anexoMonitoramento);
-                            }
                             $file = $monitoramentoData['anexoMonitoramento'];
                             $monitoramentoData['anexoMonitoramento'] = $file->store('anexosMonitoramento', 'public');
                         } else {
