@@ -9,7 +9,7 @@ class Monitoramento extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['monitoramentoControleSugerido', 'statusMonitoramento','inicioMonitoramento','fimMonitoramento', 'riscoFK','isContinuo'];
+    protected $fillable = ['monitoramentoControleSugerido', 'statusMonitoramento','inicioMonitoramento','fimMonitoramento', 'riscoFK','isContinuo','anexoMonitoramento'];
 
     public function risco()
     {

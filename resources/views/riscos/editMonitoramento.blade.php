@@ -43,7 +43,7 @@
             <hr>
 
             <form action="{{ route('riscos.monitoramento', ['id' => $monitoramento->id]) }}" method="post"
-                id="formEditMonitoramento">
+                id="formEditMonitoramento" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <input type="hidden" name="monitoramento_id" value="{{ $monitoramento->id }}">
@@ -105,6 +105,11 @@
                         <input type="date" class="form-control" id="fimMonitoramento-{{ $monitoramento->id }}"
                             name="fimMonitoramento"
                             value="{{ old('fimMonitoramento', $monitoramento->fimMonitoramento instanceof \Carbon\Carbon ? $monitoramento->fimMonitoramento->format('Y-m-d') : $monitoramento->fimMonitoramento) }}">
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <label for="anexoMonitoramento">Anexo</label>
+                        <input type="file" id="anexoMonitoramento" name="anexoMonitoramento">{{$monitoramento->anexoMonitoramento}}
                     </div>
                 </div>
 
