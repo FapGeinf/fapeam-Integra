@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\PrazoProximo;
 use Illuminate\Http\Request;
 use app\Http\Middleware\VerifyCsrfToken;
+use App\Models\AnexoMonitoramento;
 use App\Models\Risco;
 use App\Models\Unidade;
 use App\Models\Monitoramento;
@@ -76,19 +77,16 @@ class RiscoController extends Controller
     public function show($id)
     {
         try {
-            $risco = Risco::findOrFail($id);
-            $monitoramentos = Monitoramento::where('riscoFK', $risco->id)->get();
-            foreach ($monitoramentos as $monitoramento) {
-                $monitoramento->respostas = Resposta::where('respostaMonitoramentoFK', $monitoramento->id)->get();
-            }
+            $risco = Risco::with(['monitoramentos.anexos'])->findOrFail($id);
             return view('riscos.show', [
                 'risco' => $risco,
-                'monitoramentos' => $monitoramentos
+                'monitoramentos' => $risco->monitoramentos
             ]);
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao carregar os dados do risco.']);
         }
     }
+
 
     public function create()
     {
@@ -99,6 +97,7 @@ class RiscoController extends Controller
     public function store(Request $request)
     {
         try {
+            // Validação dos dados
             $validatedData = $request->validate([
                 'responsavelRisco' => 'required',
                 'riscoEvento' => 'max:9000',
@@ -111,47 +110,65 @@ class RiscoController extends Controller
                 'monitoramentos.*.monitoramentoControleSugerido' => 'max:9000',
                 'monitoramentos.*.statusMonitoramento' => 'required|string',
                 'monitoramentos.*.inicioMonitoramento' => 'required|date',
-                'monitoramentos.*.fimMonitoramento' => 'nullable|date',
-                'monitoramentos.*.isContinuo' => 'required|boolean', // Adicionei validação para isContinuo
+                'monitoramentos.*.fimMonitoramento' => 'nullable|date|after:monitoramentos.*.inicioMonitoramento',
+                'monitoramentos.*.isContinuo' => 'required|boolean',
+                'monitoramentos.*.anexoMonitoramento' => 'nullable|file|mimes:jpeg,png,pdf|max:2048'
             ]);
 
-            // Cria um novo registro de risco
+            // Criação do risco
             $risco = Risco::create([
                 'responsavelRisco' => $validatedData['responsavelRisco'],
                 'riscoEvento' => $validatedData['riscoEvento'],
                 'riscoCausa' => $validatedData['riscoCausa'],
                 'riscoConsequencia' => $validatedData['riscoConsequencia'],
-                'nivel_de_risco' => $validatedData['nivel_de_risco'],
+                'nivel_de_risco' => (int)$validatedData['nivel_de_risco'], // Converter para inteiro
                 'unidadeId' => $validatedData['unidadeId'],
                 'riscoAno' => $validatedData['riscoAno'],
                 'userIdRisco' => auth()->id()
             ]);
 
-            // Cria monitoramentos associados ao risco
-            foreach ($validatedData['monitoramentos'] as $monitoramentoData) {
-                if (!$monitoramentoData['isContinuo'] && isset($monitoramentoData['fimMonitoramento']) && $monitoramentoData['fimMonitoramento'] <= $monitoramentoData['inicioMonitoramento']) {
-                    $aux = $monitoramentoData['fimMonitoramento'];
-                    $monitoramentoData['fimMonitoramento'] = $monitoramentoData['inicioMonitoramento'];
-                    $monitoramentoData['inicioMonitoramento'] = $aux;
+            // Processamento dos monitoramentos
+            foreach ($validatedData['monitoramentos'] as $index => $monitoramentoData) {
+                $isContinuo = filter_var($monitoramentoData['isContinuo'], FILTER_VALIDATE_BOOLEAN);
+
+                if (!$isContinuo && isset($monitoramentoData['fimMonitoramento']) && $monitoramentoData['fimMonitoramento'] <= $monitoramentoData['inicioMonitoramento']) {
+                    throw new \Exception('Fim do monitoramento não pode ser anterior ao início do monitoramento.');
                 }
+
+                $path = null;
+                if ($request->hasFile("monitoramentos.$index.anexoMonitoramento")) {
+                    $file = $request->file("monitoramentos.$index.anexoMonitoramento");
+                    $filename = time() . '_' . $file->getClientOriginalName();
+                    $path = $file->storeAs('public/anexos', $filename);
+                }
+
                 $monitoramento = Monitoramento::create([
                     'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
                     'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
-                    // 'execucaoMonitoramento' => $monitoramentoData['execucaoMonitoramento'],
                     'inicioMonitoramento' => $monitoramentoData['inicioMonitoramento'],
                     'fimMonitoramento' => $monitoramentoData['fimMonitoramento'] ?? null,
-                    'isContinuo' => $monitoramentoData['isContinuo'] ?? false,
+                    'isContinuo' => $isContinuo,
                     'riscoFK' => $risco->id
                 ]);
+
+                if ($path) {
+                    AnexoMonitoramento::create([
+                        'path' => $path,
+                        'monitoramentoId' => $monitoramento->id
+                    ]);
+                }
             }
 
             return redirect()->route('riscos.index')->with('success', 'Risco criado com sucesso!');
         } catch (\Exception $e) {
-            dd($e);
             Log::error('Erro ao criar risco: ' . $e->getMessage());
             return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao criar o risco. Por favor, tente novamente.']);
         }
     }
+
+
+
+
 
     public function edit($id)
     {
@@ -197,9 +214,8 @@ class RiscoController extends Controller
         $risco = Risco::findOrFail($id);
 
         try {
-            $request->validate([
+            $validatedData = $request->validate([
                 'monitoramentos' => 'required|array',
-                'monitoramentos.*.id' => 'nullable|exists:monitoramentos,id',
                 'monitoramentos.*.monitoramentoControleSugerido' => 'max:9000',
                 'monitoramentos.*.statusMonitoramento' => 'max:9000',
                 'monitoramentos.*.inicioMonitoramento' => 'required|date',
@@ -208,53 +224,48 @@ class RiscoController extends Controller
                 'monitoramentos.*.anexoMonitoramento' => 'nullable|file|mimes:pdf,doc,docx,jpg,png|max:2048',
             ]);
 
-            $existingMonitoramentos = $risco->monitoramentos->keyBy('id');
+            foreach ($validatedData['monitoramentos'] as $index => $monitoramentoData) {
+                $isContinuo = filter_var($monitoramentoData['isContinuo'], FILTER_VALIDATE_BOOLEAN);
 
-            foreach ($request->monitoramentos as $monitoramentoData) {
-                if (isset($monitoramentoData['id'])) {
-                    if ($existingMonitoramentos->has($monitoramentoData['id'])) {
-                        $monitoramento = $existingMonitoramentos->get($monitoramentoData['id']);
+                if (!$isContinuo && isset($monitoramentoData['fimMonitoramento']) && $monitoramentoData['fimMonitoramento'] <= $monitoramentoData['inicioMonitoramento']) {
+                    throw new \Exception('Fim do monitoramento não pode ser anterior ao início do monitoramento.');
+                }
 
-                        if (!$monitoramentoData['isContinuo'] && isset($monitoramentoData['fimMonitoramento']) && $monitoramentoData['fimMonitoramento'] <= $monitoramentoData['inicioMonitoramento']) {
-                            $aux = $monitoramentoData['fimMonitoramento'];
-                            $monitoramentoData['fimMonitoramento'] = $monitoramentoData['inicioMonitoramento'];
-                            $monitoramentoData['inicioMonitoramento'] = $aux;
-                        }
+                $path = null;
+                if ($request->hasFile("monitoramentos.$index.anexoMonitoramento")) {
+                    $file = $request->file("monitoramentos.$index.anexoMonitoramento");
+                    $filename = time() . '_' . $file->getClientOriginalName();
+                    $path = $file->storeAs('public/anexos', $filename);
+                }
 
-                        $monitoramento->update([
-                            'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
-                            'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
-                            'isContinuo' => $monitoramentoData['isContinuo'],
-                            'inicioMonitoramento' => $monitoramentoData['inicioMonitoramento'],
-                            'fimMonitoramento' => $monitoramentoData['isContinuo'] ? null : $monitoramentoData['fimMonitoramento'],
-                            'anexoMonitoramento' => $monitoramentoData['anexoMonitoramento'],
-                        ]);
-                        unset($existingMonitoramentos[$monitoramentoData['id']]);
-                    } else {
-                        throw new \Exception('Monitoramento não encontrado para atualização.');
-                    }
-                } else {
-                    $newMonitoramentoData = [
-                        'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
-                        'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
-                        'isContinuo' => $monitoramentoData['isContinuo'],
-                        'inicioMonitoramento' => $monitoramentoData['inicioMonitoramento'],
-                        'fimMonitoramento' => $monitoramentoData['isContinuo'] ? null : $monitoramentoData['fimMonitoramento'],
-                        'riscoFK' => $risco->id,
-                        'anexoMonitoramento' => isset($monitoramentoData['anexoMonitoramento']) && $monitoramentoData['anexoMonitoramento']->isValid() ? $monitoramentoData['anexoMonitoramento']->store('anexosMonitoramento', 'public') : null,
-                    ];
+                $monitoramento = Monitoramento::create([
+                    'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
+                    'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
+                    'inicioMonitoramento' => $monitoramentoData['inicioMonitoramento'],
+                    'fimMonitoramento' => $monitoramentoData['fimMonitoramento'] ?? null,
+                    'isContinuo' => $isContinuo,
+                    'riscoFK' => $risco->id
+                ]);
 
-                    Monitoramento::create($newMonitoramentoData);
+                if ($path) {
+                    AnexoMonitoramento::create([
+                        'path' => $path,
+                        'monitoramentoId' => $monitoramento->id
+                    ]);
                 }
             }
 
-            foreach ($existingMonitoramentos as $monitoramento) {
-                $monitoramento->delete();
-            }
-
-            return redirect()->route('riscos.show', ['id' => $risco->id])->with('success', 'Monitoramentos editados com sucesso');
+            return redirect()->route('riscos.show', ['id' => $risco->id])
+                ->with('success', 'Monitoramentos inseridos com sucesso');
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['errors' => 'Houve um erro ao atualizar ou adicionar monitoramentos']);
+            Log::error('Error inserting monitoramentos:', [
+                'exception_message' => $e->getMessage(),
+                'exception_trace' => $e->getTraceAsString(),
+            ]);
+
+            dd($e);
+
+            return redirect()->back()->withErrors(['errors' => 'Houve um erro ao inserir monitoramentos']);
         }
     }
 

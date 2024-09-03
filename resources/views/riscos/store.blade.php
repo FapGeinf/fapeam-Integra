@@ -56,7 +56,7 @@
                 Campos obrigatórios
             </span>
 
-            <form action="{{ route('riscos.store') }}" method="post" id="formCreate">
+            <form action="{{ route('riscos.store') }}" method="post" id="formCreate" enctype="multipart/form-data">
                 @csrf
 
                 <div class="row g-3">
@@ -357,6 +357,21 @@
                     inputFimMonitoramento.hidden = false;
                 }
             });
+
+
+            let divAnexo = document.createElement('div');
+            divAnexo.classList.add('form-group');
+            let labelAnexo = document.createElement('label');
+            labelAnexo.textContent = 'Anexo (se houver):';
+            divAnexo.appendChild(labelAnexo);
+
+            let anexo = document.createElement('input');
+            anexo.name = `monitoramentos[${cont}][anexoMonitoramento]`;
+            anexo.type = 'file';
+            anexo.classList.add('form-control');
+            divAnexo.appendChild(anexo);
+
+            novoMonitoramento.appendChild(divAnexo);
 
             monitoramentosDiv.appendChild(monitoramentoContainer);
 

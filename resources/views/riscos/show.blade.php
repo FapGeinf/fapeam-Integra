@@ -68,7 +68,8 @@
                             <th scope="col" class="text-center text-light tBorder">Situação:</th>
 
 
-                                <th scope="col" class="text-center text-light">Opções:</th>
+                            <th scope="col" class="text-center text-light">Anexo:</th>
+                            <th scope="col" class="text-center text-light">Opções:</th>
 
                         </tr>
                     </thead>
@@ -83,18 +84,33 @@
                             <td style="white-space: nowrap;" class="text-center text13 pb-1 tBorder">
                                 {!! $monitoramento->statusMonitoramento !!}</td>
 
-                                <td class="text-center tdBtnExcluir">
-                                    {{-- <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modal-exclusao-{{ $monitoramento->id }}">Excluir</button> --}}
-																		@if ( auth()->user()->unidade->unidadeTipo->id == 1)
-                                    <a href="{{ route('riscos.editMonitoramento', ['id' => $monitoramento->id]) }}" class="btn btn-sm btn btn btn-warning">
+                            <td class="text-center text13 pb-1 tBorder">
+                                    @if ($monitoramento->anexos->isNotEmpty())
+                                        @foreach ($monitoramento->anexos as $anexo)
+                                            <a href="{{ Storage::url($anexo->path) }}" target="_blank" class="btn btn-outline-primary btn-sm" title="Visualizar Anexo">
+                                                <i class="bi bi-file-earmark-pdf"></i> {{ basename($anexo->path) }}
+                                            </a>
+                                            <br>
+                                        @endforeach
+                                    @else
+                                        Nenhum anexo disponível
+                                    @endif
+                            </td>
+
+                            <td class="text-center tdBtnExcluir">
+                                {{-- <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modal-exclusao-{{ $monitoramento->id }}">Excluir</button> --}}
+                                @if (auth()->user()->unidade->unidadeTipo->id == 1)
+                                    <a href="{{ route('riscos.editMonitoramento', ['id' => $monitoramento->id]) }}"
+                                        class="btn btn-sm btn btn btn-warning">
                                         <i class="bi bi-pen"></i>
                                     </a>
-																		@endif
-                                    <a href="{{ route('riscos.respostas', ['id' => $monitoramento->id]) }}" class="btn btn-sm btn-info mt-2">
-                                        <i class="bi bi-eye"></i>
-                                    </a>
+                                @endif
+                                <a href="{{ route('riscos.respostas', ['id' => $monitoramento->id]) }}"
+                                    class="btn btn-sm btn-info mt-2">
+                                    <i class="bi bi-eye"></i>
+                                </a>
 
-                                </td>
+                            </td>
 
                             </tr>
                             </tr>
@@ -111,7 +127,8 @@
                                         </div>
 
                                         <div class="modal-footer">
-                                            <form action="{{ route('riscos.deleteMonitoramento', $monitoramento->id) }}"
+                                            <form
+                                                action="{{ route('riscos.deleteMonitoramento', $monitoramento->id) }}"
                                                 method="POST">
                                                 @method('DELETE')
                                                 @csrf
@@ -134,7 +151,8 @@
                             Editar Risco
                         </a>
 
-                        <a href="{{ route('riscos.edit-monitoramentos', ['id' => $risco->id]) }}" class="primary">Adicionar Monitoramentos</a>
+                        <a href="{{ route('riscos.edit-monitoramentos', ['id' => $risco->id]) }}"
+                            class="primary">Adicionar Monitoramentos</a>
                     @endif
                 </div>
             </div>
