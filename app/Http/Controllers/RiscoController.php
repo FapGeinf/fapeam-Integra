@@ -249,7 +249,7 @@ class RiscoController extends Controller
             }
 
             foreach ($existingMonitoramentos as $monitoramento) {
-                    $monitoramento->delete();
+                $monitoramento->delete();
             }
 
             return redirect()->route('riscos.show', ['id' => $risco->id])->with('success', 'Monitoramentos editados com sucesso');
@@ -328,35 +328,31 @@ class RiscoController extends Controller
 
 
     public function storeResposta(Request $request, $id)
-{
-    $monitoramento = Monitoramento::findOrFail($id);
+    {
+        $monitoramento = Monitoramento::findOrFail($id);
+        try {
+            $request->validate([
+                'respostaRisco' => 'required|string|max:5000',
+                'anexo' => 'nullable|file|mimes:jpg,png,pdf|max:2048'
+            ]);
 
-    try {
-        $request->validate([
-            'respostas' => 'required|array|min:1',
-            'respostas.*.respostaRisco' => 'required|string|max:5000',
-            'respostas.*.anexo' => 'nullable|file|mimes:jpg,png,pdf|max:2048'
-        ]);
-
-        foreach ($request->respostas as $index => $respostaData) {
             $filePath = null;
-            if (isset($respostaData['anexo']) && $request->hasFile("respostas.$index.anexo")) {
-                $filePath = $request->file("respostas.$index.anexo")->store('anexos', 'public');
+            if ($request->hasFile('anexo')) {
+                $filePath = $request->file('anexo')->store('anexos', 'public');
             }
 
             Resposta::create([
-                'respostaRisco' => $respostaData['respostaRisco'],
+                'respostaRisco' => $request->respostaRisco,
                 'respostaMonitoramentoFK' => $monitoramento->id,
                 'user_id' => auth()->id(),
                 'anexo' => $filePath
             ]);
-        }
 
-        return redirect()->route('riscos.respostas', $id)->with('success', 'Respostas adicionadas com sucesso');
-    } catch (\Exception $e) {
-        return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
+            return redirect()->route('riscos.respostas', $id)->with('success', 'Respostas adicionadas com sucesso');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
+        }
     }
-}
 
     public function updateResposta(Request $request, $id)
     {
