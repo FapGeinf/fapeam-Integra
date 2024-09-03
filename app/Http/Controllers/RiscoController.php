@@ -112,10 +112,10 @@ class RiscoController extends Controller
                 'monitoramentos.*.statusMonitoramento' => 'required|string',
                 'monitoramentos.*.inicioMonitoramento' => 'required|date',
                 'monitoramentos.*.fimMonitoramento' => 'nullable|date',
-                'monitoramentos.*.isContinuo' => 'required|boolean',
-                'monitoramentos.*.anexoMonitoramento' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
+                'monitoramentos.*.isContinuo' => 'required|boolean', // Adicionei validação para isContinuo
             ]);
 
+            // Cria um novo registro de risco
             $risco = Risco::create([
                 'responsavelRisco' => $validatedData['responsavelRisco'],
                 'riscoEvento' => $validatedData['riscoEvento'],
@@ -127,34 +127,27 @@ class RiscoController extends Controller
                 'userIdRisco' => auth()->id()
             ]);
 
+            // Cria monitoramentos associados ao risco
             foreach ($validatedData['monitoramentos'] as $monitoramentoData) {
                 if (!$monitoramentoData['isContinuo'] && isset($monitoramentoData['fimMonitoramento']) && $monitoramentoData['fimMonitoramento'] <= $monitoramentoData['inicioMonitoramento']) {
                     $aux = $monitoramentoData['fimMonitoramento'];
                     $monitoramentoData['fimMonitoramento'] = $monitoramentoData['inicioMonitoramento'];
                     $monitoramentoData['inicioMonitoramento'] = $aux;
                 }
-
-                if (isset($monitoramentoData['anexoMonitoramento'])) {
-                    $file = $monitoramentoData['anexoMonitoramento'];
-                    $monitoramentoData['anexoMonitoramento'] = $file->store('anexosMonitoramento', 'public');
-                } else {
-                    $monitoramentoData['anexoMonitoramento'] = null; // Garante que o campo seja nulo se não houver anexo
-                }
-
-
-                Monitoramento::create([
+                $monitoramento = Monitoramento::create([
                     'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
                     'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
+                    // 'execucaoMonitoramento' => $monitoramentoData['execucaoMonitoramento'],
                     'inicioMonitoramento' => $monitoramentoData['inicioMonitoramento'],
                     'fimMonitoramento' => $monitoramentoData['fimMonitoramento'] ?? null,
                     'isContinuo' => $monitoramentoData['isContinuo'] ?? false,
-                    'anexoMonitoramento' => $monitoramentoData['anexoMonitoramento'],
                     'riscoFK' => $risco->id
                 ]);
             }
 
             return redirect()->route('riscos.index')->with('success', 'Risco criado com sucesso!');
         } catch (\Exception $e) {
+            dd($e);
             Log::error('Erro ao criar risco: ' . $e->getMessage());
             return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao criar o risco. Por favor, tente novamente.']);
         }
@@ -228,14 +221,6 @@ class RiscoController extends Controller
                             $monitoramentoData['inicioMonitoramento'] = $aux;
                         }
 
-
-                        if (isset($monitoramentoData['anexoMonitoramento']) && $monitoramentoData['anexoMonitoramento']->isValid()) {
-                            $file = $monitoramentoData['anexoMonitoramento'];
-                            $monitoramentoData['anexoMonitoramento'] = $file->store('anexosMonitoramento', 'public');
-                        } else {
-                            $monitoramentoData['anexoMonitoramento'] = $monitoramento->anexoMonitoramento;
-                        }
-
                         $monitoramento->update([
                             'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
                             'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
@@ -277,6 +262,7 @@ class RiscoController extends Controller
 
     public function atualizaMonitoramento(Request $request, $id)
     {
+
         $request->validate([
             'monitoramentoControleSugerido' => 'required|string',
             'statusMonitoramento' => 'required|string',
@@ -285,39 +271,24 @@ class RiscoController extends Controller
             'fimMonitoramento' => 'nullable|date|after_or_equal:inicioMonitoramento',
         ]);
 
-        try {
-            $monitoramento = Monitoramento::findOrFail($id);
 
-            $monitoramentoData = [
-                'monitoramentoControleSugerido' => $request->input('monitoramentoControleSugerido'),
-                'statusMonitoramento' => $request->input('statusMonitoramento'),
-                'isContinuo' => $request->input('isContinuo'),
-                'inicioMonitoramento' => $request->input('inicioMonitoramento'),
-                'fimMonitoramento' => $request->input('fimMonitoramento'),
-            ];
-
-            if ($request->hasFile('anexoMonitoramento')) {
-                if ($monitoramento->anexoMonitoramento) {
-                    Storage::disk('public')->delete($monitoramento->anexoMonitoramento);
-                }
-
-                $monitoramentoData['anexoMonitoramento'] = $request->file('anexoMonitoramento')->store('anexos', 'public');
-            }
+        $monitoramento = Monitoramento::findOrFail($id);
 
 
-            $monitoramento->update($monitoramentoData);
+        $monitoramento->update([
+            'monitoramentoControleSugerido' => $request->input('monitoramentoControleSugerido'),
+            'statusMonitoramento' => $request->input('statusMonitoramento'),
+            'isContinuo' => $request->input('isContinuo'),
+            'inicioMonitoramento' => $request->input('inicioMonitoramento'),
+            'fimMonitoramento' => $request->input('fimMonitoramento'),
+        ]);
 
-            $riscoId = $monitoramento->riscoFK;
+        $riscoId = $monitoramento->riscoFK;
 
-            return redirect()->route('riscos.show', ['id' => $riscoId])
-                ->with('success', 'Monitoramento atualizado com sucesso!');
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return redirect()->back()->withErrors(['error' => 'Monitoramento não encontrado.']);
-        } catch (\Exception $e) {
-            Log::error('Erro ao atualizar o monitoramento: ' . $e->getMessage());
-            return redirect()->back()->withErrors(['error' => 'Ocorreu um erro ao atualizar o monitoramento. Por favor, tente novamente.']);
-        }
+        return redirect()->route('riscos.show', ['id' => $riscoId])
+            ->with('success', 'Monitoramento atualizado com sucesso!');
     }
+
 
 
 
@@ -357,35 +328,35 @@ class RiscoController extends Controller
 
 
     public function storeResposta(Request $request, $id)
-    {
-        $monitoramento = Monitoramento::findOrFail($id);
+{
+    $monitoramento = Monitoramento::findOrFail($id);
 
-        try {
-            $request->validate([
-                'respostas' => 'required|array|min:1',
-                'respostas.*.respostaRisco' => 'required|string|max:5000',
-                'respostas.*.anexo' => 'nullable|file|mimes:jpg,png,pdf|max:2048'
-            ]);
+    try {
+        $request->validate([
+            'respostas' => 'required|array|min:1',
+            'respostas.*.respostaRisco' => 'required|string|max:5000',
+            'respostas.*.anexo' => 'nullable|file|mimes:jpg,png,pdf|max:2048'
+        ]);
 
-            foreach ($request->respostas as $index => $respostaData) {
-                $filePath = null;
-                if (isset($respostaData['anexo']) && $request->hasFile("respostas.$index.anexo")) {
-                    $filePath = $request->file("respostas.$index.anexo")->store('anexos', 'public');
-                }
-
-                Resposta::create([
-                    'respostaRisco' => $respostaData['respostaRisco'],
-                    'respostaMonitoramentoFK' => $monitoramento->id,
-                    'user_id' => auth()->id(),
-                    'anexo' => $filePath
-                ]);
+        foreach ($request->respostas as $index => $respostaData) {
+            $filePath = null;
+            if (isset($respostaData['anexo']) && $request->hasFile("respostas.$index.anexo")) {
+                $filePath = $request->file("respostas.$index.anexo")->store('anexos', 'public');
             }
 
-            return redirect()->route('riscos.respostas', $id)->with('success', 'Respostas adicionadas com sucesso');
-        } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
+            Resposta::create([
+                'respostaRisco' => $respostaData['respostaRisco'],
+                'respostaMonitoramentoFK' => $monitoramento->id,
+                'user_id' => auth()->id(),
+                'anexo' => $filePath
+            ]);
         }
+
+        return redirect()->route('riscos.respostas', $id)->with('success', 'Respostas adicionadas com sucesso');
+    } catch (\Exception $e) {
+        return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
     }
+}
 
     public function updateResposta(Request $request, $id)
     {
