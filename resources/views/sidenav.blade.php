@@ -16,7 +16,14 @@
       </div>
     </a>
 
+    <div id="welcome">
+      <p>Bem-vindo(a)!</p>
+    </div>
+
+    <hr class="spacer">
+
     <ul class="ulList">
+
       <li class="item-menu">
         <a href="{{route('riscos.index')}}" class="{{ Request::routeIs('riscos.index') ? 'active' : '' }}" style="margin-top: 1rem;">
           <i class="bx bi-house icon {{ Request::routeIs('riscos.index') ? 'active-icon' : '' }}"></i>
@@ -31,7 +38,7 @@
 
       <hr class="spacer">
 
-      <li class="item-menu">
+      <!-- <li class="item-menu">
         <a href="" class="{{ Request::path() === 'home' ? 'active' : '' }}">
           <i class='bx bi-file-text icon'></i>
           <span class="txt-link">Relatórios</span>
@@ -41,7 +48,7 @@
           <li class="dropdown-item">Placeholder 1</li>
           <li class="dropdown-item">Placeholder 2</li>
         </ul> --}}
-      </li>
+      </li> -->
 
       <li style="display: none" class="item-menu">
         <a href="{{ route('logout') }}" onclick="event.preventDefault();
