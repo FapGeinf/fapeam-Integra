@@ -83,18 +83,19 @@
                             <td style="white-space: nowrap;" class="text-center text13 pb-1 tBorder">
                                 {!! $monitoramento->statusMonitoramento !!}</td>
 
-                                <td class="text-center tdBtnExcluir">
-                                    {{-- <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modal-exclusao-{{ $monitoramento->id }}">Excluir</button> --}}
-																		@if ( auth()->user()->unidade->unidadeTipo->id == 1)
-                                    <a href="{{ route('riscos.editMonitoramento', ['id' => $monitoramento->id]) }}" class="btn btn-sm btn btn btn-warning">
-                                        <i class="bi bi-pen"></i>
-                                    </a>
-																		@endif
-                                    <a href="{{ route('riscos.respostas', ['id' => $monitoramento->id]) }}" class="btn btn-sm btn-info mt-2">
-                                        <i class="bi bi-eye"></i>
-                                    </a>
-
+                                <td class="text-center">
+                                    <div style="display: flex; flex-direction: row; align-items: center;">
+                                        @if (auth()->user()->unidade->unidadeTipo->id == 1)
+                                            <a href="{{ route('riscos.editMonitoramento', ['id' => $monitoramento->id]) }}" class="btn btn-sm btn btn-warning me-1">
+                                                <i class="bi bi-pen"></i>
+                                            </a>
+                                        @endif
+                                        <a href="{{ route('riscos.respostas', ['id' => $monitoramento->id]) }}" class="btn btn-sm btn-info">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+                                    </div>
                                 </td>
+                                
 
                             </tr>
                             </tr>
