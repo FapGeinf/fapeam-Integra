@@ -97,7 +97,6 @@ class RiscoController extends Controller
     public function store(Request $request)
     {
         try {
-            // Validação dos dados
             $validatedData = $request->validate([
                 'responsavelRisco' => 'required',
                 'riscoEvento' => 'max:9000',
@@ -127,7 +126,6 @@ class RiscoController extends Controller
                 'userIdRisco' => auth()->id()
             ]);
 
-            // Processamento dos monitoramentos
             foreach ($validatedData['monitoramentos'] as $index => $monitoramentoData) {
                 $isContinuo = filter_var($monitoramentoData['isContinuo'], FILTER_VALIDATE_BOOLEAN);
 
@@ -198,14 +196,21 @@ class RiscoController extends Controller
 
     public function editMonitoramento2($id)
     {
-
         $monitoramento = Monitoramento::findOrFail($id);
 
+        $anexoMonitoramento = $monitoramento->anexoMonitoramento;
+
+        Log::info('Editando monitoramento:', [
+            'monitoramento' => $monitoramento->toArray(),
+            'anexoMonitoramento' => $anexoMonitoramento ? $anexoMonitoramento->toArray() : null
+        ]);
 
         return view('riscos.editMonitoramento', [
-            'monitoramento' => $monitoramento
+            'monitoramento' => $monitoramento,
+            'anexoMonitoramento' => $anexoMonitoramento
         ]);
     }
+
 
 
 
@@ -270,21 +275,18 @@ class RiscoController extends Controller
     }
 
 
-
     public function atualizaMonitoramento(Request $request, $id)
     {
-
         $request->validate([
             'monitoramentoControleSugerido' => 'required|string',
             'statusMonitoramento' => 'required|string',
             'isContinuo' => 'required|boolean',
             'inicioMonitoramento' => 'required|date',
             'fimMonitoramento' => 'nullable|date|after_or_equal:inicioMonitoramento',
+            'anexoMonitoramento' => 'nullable|file|mimes:jpeg,png,pdf|max:2048'
         ]);
 
-
         $monitoramento = Monitoramento::findOrFail($id);
-
 
         $monitoramento->update([
             'monitoramentoControleSugerido' => $request->input('monitoramentoControleSugerido'),
@@ -294,16 +296,42 @@ class RiscoController extends Controller
             'fimMonitoramento' => $request->input('fimMonitoramento'),
         ]);
 
+        Log::info('Monitoramento atualizado:', $monitoramento->toArray());
+
+        if ($request->hasFile('anexoMonitoramento')) {
+            Log::info('Novo anexo recebido.');
+
+            if ($monitoramento->anexoMonitoramento) {
+                Storage::delete($monitoramento->anexoMonitoramento->path);
+                Log::info('Anexo antigo excluído:', ['path' => $monitoramento->anexoMonitoramento->path]);
+
+                $monitoramento->anexoMonitoramento()->delete();
+            }
+
+            $file = $request->file('anexoMonitoramento');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('public/anexos', $filename);
+
+            Log::info('Novo arquivo enviado:', ['filename' => $filename, 'path' => $path]);
+
+            $anexoMonitoramento = AnexoMonitoramento::create([
+                'path' => $path,
+                'monitoramentoId' => $monitoramento->id
+            ]);
+
+            Log::info('Novo anexo criado:', $anexoMonitoramento->toArray());
+        } else {
+            Log::info('Nenhum novo anexo recebido.');
+        }
+
+        Log::info('Atualização de monitoramento concluída com sucesso.');
+
+
         $riscoId = $monitoramento->riscoFK;
 
         return redirect()->route('riscos.show', ['id' => $riscoId])
             ->with('success', 'Monitoramento atualizado com sucesso!');
     }
-
-
-
-
-
 
 
     public function delete($id)
