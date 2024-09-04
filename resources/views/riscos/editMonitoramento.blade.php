@@ -43,7 +43,7 @@
             <hr>
 
             <form action="{{ route('riscos.monitoramento', ['id' => $monitoramento->id]) }}" method="post"
-                id="formEditMonitoramento">
+                id="formEditMonitoramento" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <input type="hidden" name="monitoramento_id" value="{{ $monitoramento->id }}">
@@ -105,6 +105,16 @@
                         <input type="date" class="form-control" id="fimMonitoramento-{{ $monitoramento->id }}"
                             name="fimMonitoramento"
                             value="{{ old('fimMonitoramento', $monitoramento->fimMonitoramento instanceof \Carbon\Carbon ? $monitoramento->fimMonitoramento->format('Y-m-d') : $monitoramento->fimMonitoramento) }}">
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-sm-12">
+                        <label for="anexoMonitoramento-{{ $monitoramento->id }}" class="form-label">Anexo:</label>
+                        <input type="file" class="form-control" id="anexoMonitoramento-{{ $monitoramento->id }}" name="anexoMonitoramento">
+                        @if($monitoramento->anexoMonitoramento)
+                            <p class="mt-2">Arquivo atual: <a href="{{ asset('storage/' . $monitoramento->anexoMonitoramento) }}" target="_blank">{{ $monitoramento->anexoMonitoramento }}</a></p>
+                        @endif
                     </div>
                 </div>
 
@@ -219,9 +229,6 @@
             confirmationModal.show();
         }
 
-        function submitForm() {
-            document.getElementById('formEditMonitoramento').submit();
-        }
 
         function toggleFimMonitoramento() {
             const isContinuo = document.getElementById('isContinuo-{{ $monitoramento->id }}').value;
@@ -254,6 +261,11 @@
                 charCountMsg: 'Caracteres restantes: {0}'
             }
         });
+
+        function submitForm() {
+            document.getElementById('formEditMonitoramento').submit();
+        }
+
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

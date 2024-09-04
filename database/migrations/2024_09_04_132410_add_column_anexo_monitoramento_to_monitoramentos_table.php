@@ -13,12 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('anexos_monitoramentos', function (Blueprint $table) {
-            $table->id();
-            $table->string('path');
-            $table->unsignedBigInteger('monitoramentoId');
-            $table->foreign('monitoramentoId')->references('id')->on('monitoramentos')->onDelete('cascade');
-            $table->timestamps();
+        Schema::table('monitoramentos', function (Blueprint $table) {
+               $table->string('anexoMonitoramento')->nullable();
         });
     }
 
@@ -29,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('anexos_monitoramentos');
+        Schema::table('monitoramentos', function (Blueprint $table) {
+              $table->dropColumn('anexoMonitoramento');
+        });
     }
 };

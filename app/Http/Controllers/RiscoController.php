@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\PrazoProximo;
 use Illuminate\Http\Request;
 use app\Http\Middleware\VerifyCsrfToken;
-use App\Models\AnexoMonitoramento;
+
 use App\Models\Risco;
 use App\Models\Unidade;
 use App\Models\Monitoramento;
@@ -77,7 +77,7 @@ class RiscoController extends Controller
     public function show($id)
     {
         try {
-            $risco = Risco::with(['monitoramentos.anexos'])->findOrFail($id);
+            $risco = Risco::with(['monitoramentos'])->findOrFail($id);
             return view('riscos.show', [
                 'risco' => $risco,
                 'monitoramentos' => $risco->monitoramentos
@@ -146,15 +146,9 @@ class RiscoController extends Controller
                     'inicioMonitoramento' => $monitoramentoData['inicioMonitoramento'],
                     'fimMonitoramento' => $monitoramentoData['fimMonitoramento'] ?? null,
                     'isContinuo' => $isContinuo,
-                    'riscoFK' => $risco->id
+                    'riscoFK' => $risco->id,
+                    'anexoMonitoramento' => $path // Armazena o caminho do arquivo diretamente
                 ]);
-
-                if ($path) {
-                    AnexoMonitoramento::create([
-                        'path' => $path,
-                        'monitoramentoId' => $monitoramento->id
-                    ]);
-                }
             }
 
             return redirect()->route('riscos.index')->with('success', 'Risco criado com sucesso!');
@@ -163,7 +157,6 @@ class RiscoController extends Controller
             return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao criar o risco. Por favor, tente novamente.']);
         }
     }
-
 
 
 
@@ -198,16 +191,13 @@ class RiscoController extends Controller
     {
         $monitoramento = Monitoramento::findOrFail($id);
 
-        $anexoMonitoramento = $monitoramento->anexoMonitoramento;
 
         Log::info('Editando monitoramento:', [
             'monitoramento' => $monitoramento->toArray(),
-            'anexoMonitoramento' => $anexoMonitoramento ? $anexoMonitoramento->toArray() : null
         ]);
 
         return view('riscos.editMonitoramento', [
             'monitoramento' => $monitoramento,
-            'anexoMonitoramento' => $anexoMonitoramento
         ]);
     }
 
@@ -224,7 +214,7 @@ class RiscoController extends Controller
                 'monitoramentos.*.monitoramentoControleSugerido' => 'max:9000',
                 'monitoramentos.*.statusMonitoramento' => 'max:9000',
                 'monitoramentos.*.inicioMonitoramento' => 'required|date',
-                'monitoramentos.*.fimMonitoramento' => 'nullable|date',
+                'monitoramentos.*.fimMonitoramento' => 'nullable|date|after_or_equal:inicioMonitoramento',
                 'monitoramentos.*.isContinuo' => 'required|boolean',
                 'monitoramentos.*.anexoMonitoramento' => 'nullable|file|mimes:pdf,doc,docx,jpg,png|max:2048',
             ]);
@@ -249,15 +239,9 @@ class RiscoController extends Controller
                     'inicioMonitoramento' => $monitoramentoData['inicioMonitoramento'],
                     'fimMonitoramento' => $monitoramentoData['fimMonitoramento'] ?? null,
                     'isContinuo' => $isContinuo,
-                    'riscoFK' => $risco->id
+                    'riscoFK' => $risco->id,
+                    'anexoMonitoramento' => $path
                 ]);
-
-                if ($path) {
-                    AnexoMonitoramento::create([
-                        'path' => $path,
-                        'monitoramentoId' => $monitoramento->id
-                    ]);
-                }
             }
 
             return redirect()->route('riscos.show', ['id' => $risco->id])
@@ -268,70 +252,83 @@ class RiscoController extends Controller
                 'exception_trace' => $e->getTraceAsString(),
             ]);
 
-            dd($e);
-
             return redirect()->back()->withErrors(['errors' => 'Houve um erro ao inserir monitoramentos']);
         }
     }
 
-
     public function atualizaMonitoramento(Request $request, $id)
     {
-        $request->validate([
-            'monitoramentoControleSugerido' => 'required|string',
-            'statusMonitoramento' => 'required|string',
-            'isContinuo' => 'required|boolean',
-            'inicioMonitoramento' => 'required|date',
-            'fimMonitoramento' => 'nullable|date|after_or_equal:inicioMonitoramento',
-            'anexoMonitoramento' => 'nullable|file|mimes:jpeg,png,pdf|max:2048'
-        ]);
-
-        $monitoramento = Monitoramento::findOrFail($id);
-
-        $monitoramento->update([
-            'monitoramentoControleSugerido' => $request->input('monitoramentoControleSugerido'),
-            'statusMonitoramento' => $request->input('statusMonitoramento'),
-            'isContinuo' => $request->input('isContinuo'),
-            'inicioMonitoramento' => $request->input('inicioMonitoramento'),
-            'fimMonitoramento' => $request->input('fimMonitoramento'),
-        ]);
-
-        Log::info('Monitoramento atualizado:', $monitoramento->toArray());
-
-        if ($request->hasFile('anexoMonitoramento')) {
-            Log::info('Novo anexo recebido.');
-
-            if ($monitoramento->anexoMonitoramento) {
-                Storage::delete($monitoramento->anexoMonitoramento->path);
-                Log::info('Anexo antigo excluído:', ['path' => $monitoramento->anexoMonitoramento->path]);
-
-                $monitoramento->anexoMonitoramento()->delete();
-            }
-
-            $file = $request->file('anexoMonitoramento');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $path = $file->storeAs('public/anexos', $filename);
-
-            Log::info('Novo arquivo enviado:', ['filename' => $filename, 'path' => $path]);
-
-            $anexoMonitoramento = AnexoMonitoramento::create([
-                'path' => $path,
-                'monitoramentoId' => $monitoramento->id
+        try {
+            $request->validate([
+                'monitoramentoControleSugerido' => 'required|string',
+                'statusMonitoramento' => 'required|string',
+                'isContinuo' => 'required|boolean',
+                'inicioMonitoramento' => 'required|date',
+                'fimMonitoramento' => 'nullable|date|after_or_equal:inicioMonitoramento',
+                'anexoMonitoramento' => 'nullable|file|mimes:jpeg,png,pdf|max:2048'
             ]);
 
-            Log::info('Novo anexo criado:', $anexoMonitoramento->toArray());
-        } else {
-            Log::info('Nenhum novo anexo recebido.');
+            $monitoramento = Monitoramento::findOrFail($id);
+
+            $monitoramento->update([
+                'monitoramentoControleSugerido' => $request->input('monitoramentoControleSugerido'),
+                'statusMonitoramento' => $request->input('statusMonitoramento'),
+                'isContinuo' => $request->input('isContinuo'),
+                'inicioMonitoramento' => $request->input('inicioMonitoramento'),
+                'fimMonitoramento' => $request->input('fimMonitoramento'),
+            ]);
+
+            Log::info('Monitoramento atualizado:', $monitoramento->toArray());
+
+
+            if ($request->hasFile('anexoMonitoramento')) {
+                Log::info('Novo anexo recebido.');
+
+                if ($monitoramento->anexoMonitoramento) {
+                    Storage::delete($monitoramento->anexoMonitoramento);
+                    Log::info('Anexo antigo excluído:', ['path' => $monitoramento->anexoMonitoramento]);
+                }
+
+                $file = $request->file('anexoMonitoramento');
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $path = $file->storeAs('public/anexos', $filename);
+
+                Log::info('Novo arquivo enviado:', ['filename' => $filename, 'path' => $path]);
+
+                $monitoramento->anexoMonitoramento = $path;
+                $monitoramento->save();
+
+                Log::info('Novo anexo salvo no monitoramento.', ['path' => $path]);
+            } else {
+                Log::info('Nenhum novo anexo recebido.');
+            }
+
+            Log::info('Atualização de monitoramento concluída com sucesso.');
+
+            return redirect()->route('riscos.show', ['id' => $monitoramento->riscoFK])
+                ->with('success', 'Monitoramento atualizado com sucesso!');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            Log::error('Erro de validação ao atualizar monitoramento:', [
+                'errors' => $e->errors(),
+                'request' => $request->all()
+            ]);
+            return back()->withErrors($e->errors())->withInput();
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            Log::error('Monitoramento não encontrado:', ['id' => $id]);
+            return redirect()->route('riscos.index')->with('error', 'Monitoramento não encontrado.');
+        } catch (\Illuminate\Contracts\Filesystem\FileNotFoundException $e) {
+            Log::error('Erro ao tentar excluir o anexo antigo:', ['path' => $monitoramento->anexoMonitoramento]);
+            return back()->with('error', 'Erro ao tentar excluir o anexo antigo. Por favor, tente novamente.');
+        } catch (\Exception $e) {
+            Log::error('Erro inesperado ao atualizar monitoramento:', [
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            return back()->with('error', 'Ocorreu um erro inesperado. Por favor, tente novamente.')->withInput();
         }
-
-        Log::info('Atualização de monitoramento concluída com sucesso.');
-
-
-        $riscoId = $monitoramento->riscoFK;
-
-        return redirect()->route('riscos.show', ['id' => $riscoId])
-            ->with('success', 'Monitoramento atualizado com sucesso!');
     }
+
+
 
 
     public function delete($id)

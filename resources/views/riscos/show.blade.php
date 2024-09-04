@@ -4,6 +4,7 @@
 @section('title')
     {{ 'Detalhes do Risco' }}
 @endsection
+
 <!doctype html>
 <html lang="en">
 
@@ -19,7 +20,7 @@
 <body>
     @if (session('error'))
         <script>
-            alert('{{ session('error ') }}');
+            alert('{{ session('error') }}');
         </script>
     @endif
 
@@ -31,22 +32,19 @@
                 <table class="table table-bordered mb-4">
                     <thead>
                         <tr>
-                            <th scope="col" style="white-space: nowrap; width: 100px;"
-                                class="text-center text-light tBorder">N° Risco</th>
+                            <th scope="col" style="white-space: nowrap; width: 100px;" class="text-center text-light tBorder">N° Risco</th>
                             <th scope="col" class="text-center text-light tBorder">Evento:</th>
                             <th scope="col" class="text-center text-light tBorder">Causa:</th>
                             <th scope="col" class="text-center text-light tBorder">Consequência:</th>
                             <th scope="col" style="width: 100px;" class="text-center text-light">Avaliação:</th>
                         </tr>
                     </thead>
-
                     <tbody>
                         <tr class="text13">
                             <td class="text-center pb-1 tBorder">{!! $risco->id !!}</td>
                             <td class="pb-1 tBorder">{!! $risco->riscoEvento !!}</td>
                             <td class="pb-1 tBorder">{!! $risco->riscoCausa !!}</td>
                             <td class="pb-1 tBorder">{!! $risco->riscoConsequencia !!}</td>
-
                             @if ($risco->nivel_de_risco == 1)
                                 <td class="bg-baixo riscoAvaliacao"><span class="fontBold">Baixo</span></td>
                             @elseif ($risco->nivel_de_risco == 2)
@@ -63,96 +61,54 @@
                     <thead>
                         <tr>
                             <th scope="col" class="text-center text-light tBorder">Controle Sugerido:</th>
-
                             <th scope="col" class="text-center text-light">Data:</th>
                             <th scope="col" class="text-center text-light tBorder">Situação:</th>
-
-
                             <th scope="col" class="text-center text-light">Anexo:</th>
                             <th scope="col" class="text-center text-light">Opções:</th>
-
                         </tr>
                     </thead>
-
                     <tbody>
                         @foreach ($risco->monitoramentos as $monitoramento)
-                            <td class="text13 pb-1 tBorder">{!! $monitoramento->monitoramentoControleSugerido !!}</td>
-                            <td style="white-space: nowrap;" class="text-center text-13 pb-1">
-                                {{ \Carbon\Carbon::parse($monitoramento->inicioMonitoramento)->format('d/m/Y') }} -
-                                {{ $monitoramento->fimMonitoramento ? \Carbon\Carbon::parse($monitoramento->fimMonitoramento)->format('d/m/Y') : 'Contínuo' }}
-                            </td>
-                            <td style="white-space: nowrap;" class="text-center text13 pb-1 tBorder">
-                                {!! $monitoramento->statusMonitoramento !!}</td>
-
-                            <td class="text-center text13 pb-1 tBorder">
-                                    @if ($monitoramento->anexos->isNotEmpty())
-                                        @foreach ($monitoramento->anexos as $anexo)
-                                            <a href="{{ Storage::url($anexo->path) }}" target="_blank" class="btn btn-outline-primary btn-sm" title="Visualizar Anexo">
-                                                <i class="bi bi-file-earmark-pdf"></i> {{ basename($anexo->path) }}
-                                            </a>
-                                            <br>
-                                        @endforeach
+                            <tr>
+                                <td class="text13 pb-1 tBorder">{!! $monitoramento->monitoramentoControleSugerido !!}</td>
+                                <td style="white-space: nowrap;" class="text-center text-13 pb-1">
+                                    {{ \Carbon\Carbon::parse($monitoramento->inicioMonitoramento)->format('d/m/Y') }} -
+                                    {{ $monitoramento->fimMonitoramento ? \Carbon\Carbon::parse($monitoramento->fimMonitoramento)->format('d/m/Y') : 'Contínuo' }}
+                                </td>
+                                <td style="white-space: nowrap;" class="text-center text13 pb-1 tBorder">
+                                    {!! $monitoramento->statusMonitoramento !!}</td>
+                                <td class="text-center text13 pb-1 tBorder">
+                                    @if ($monitoramento->anexoMonitoramento)
+                                        <a href="{{ Storage::url($monitoramento->anexoMonitoramento) }}" target="_blank" class="btn btn-outline-primary btn-sm" title="Visualizar Anexo">
+                                            @if (strpos($monitoramento->anexoMonitoramento, '.pdf') !== false)
+                                                <i class="bi bi-file-earmark-pdf"></i>
+                                            @else
+                                                <i class="bi bi-file-earmark-image"></i>
+                                            @endif
+                                            {{ basename($monitoramento->anexoMonitoramento) }}
+                                        </a>
                                     @else
                                         Nenhum anexo disponível
                                     @endif
-                            </td>
-
-                            <td class="text-center tdBtnExcluir">
-                                {{-- <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modal-exclusao-{{ $monitoramento->id }}">Excluir</button> --}}
-                                @if (auth()->user()->unidade->unidadeTipo->id == 1)
-                                    <a href="{{ route('riscos.editMonitoramento', ['id' => $monitoramento->id]) }}"
-                                        class="btn btn-sm btn btn btn-warning">
-                                        <i class="bi bi-pen"></i>
+                                </td>
+                                <td class="text-center tdBtnExcluir">
+                                    @if (auth()->user()->unidade->unidadeTipo->id == 1)
+                                        <a href="{{ route('riscos.editMonitoramento', ['id' => $monitoramento->id]) }}" class="btn btn-sm btn-warning">
+                                            <i class="bi bi-pen"></i>
+                                        </a>
+                                    @endif
+                                    <a href="{{ route('riscos.respostas', ['id' => $monitoramento->id]) }}" class="btn btn-sm btn-info mt-2">
+                                        <i class="bi bi-eye"></i>
                                     </a>
-                                @endif
-                                <a href="{{ route('riscos.respostas', ['id' => $monitoramento->id]) }}"
-                                    class="btn btn-sm btn-info mt-2">
-                                    <i class="bi bi-eye"></i>
-                                </a>
-
-                            </td>
-
                             </tr>
-                            </tr>
-
-                            <div class="modal fade" id="modal-exclusao-{{ $monitoramento->id }}">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">Aviso</h4>
-                                        </div>
-
-                                        <div class="modal-body">
-                                            <p>Tem certeza que deseja apagar este monitoramento?</p>
-                                        </div>
-
-                                        <div class="modal-footer">
-                                            <form
-                                                action="{{ route('riscos.deleteMonitoramento', $monitoramento->id) }}"
-                                                method="POST">
-                                                @method('DELETE')
-                                                @csrf
-                                                <button type="submit" class="btn btn-danger"
-                                                    data-bs-dismiss="modal">Apagar</button>
-                                            </form>
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Fechar</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         @endforeach
                     </tbody>
                 </table>
 
                 <div class="text-center mb-4">
                     @if (Auth::user()->unidade->unidadeTipoFK == 1)
-                        <a href="{{ route('riscos.edit', $risco->id) }}" class="warning">
-                            Editar Risco
-                        </a>
-
-                        <a href="{{ route('riscos.edit-monitoramentos', ['id' => $risco->id]) }}"
-                            class="primary">Adicionar Monitoramentos</a>
+                        <a href="{{ route('riscos.edit', $risco->id) }}" class="warning">Editar Risco</a>
+                        <a href="{{ route('riscos.edit-monitoramentos', ['id' => $risco->id]) }}" class="primary">Adicionar Monitoramentos</a>
                     @endif
                 </div>
             </div>
