@@ -276,7 +276,17 @@ input[type=checkbox], label {
   box-shadow: 0 0 0 0.25rem #3c62ad;
 }
 
+@media only screen and (max-width:  1112px) {
+  .links {
+    gap: 2rem;
+  }
+}
 
+@media only screen and (max-width:  1010px) {
+  .links {
+    display: none;
+  }
+}
 
 @media only screen and (max-width:  800px) {
   .grid {
@@ -297,16 +307,16 @@ input[type=checkbox], label {
     order: 2;
   }
 
-  .centered {
-    /* align-items: flex-start; */
-  }
-
   .no__overflow {
     align-items: flex-start;
     background-color: #fff;
   }
 
   .img {
+    display: none;
+  }
+
+  .links {
     display: none;
   }
 }
