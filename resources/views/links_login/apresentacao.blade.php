@@ -22,11 +22,11 @@
       </div>
 
       <div class="textJustify pBottomHalf p1">
-        Na administração pública há a necessidade de implantação de mecanismos de Governança, transparência e Integridade. O Programa de Integridade é um conjunto estruturado de medidas institucionais voltadas para prevenção, detecção, punição e remediação de fraudes e atos de corrupção em apoio à boa governança.
+        Na administração pública há a necessidade de implantação de mecanismos de Governança, Transparência e Integridade. O Programa de Integridade é um conjunto estruturado de medidas institucionais voltadas para prevenção, detecção, punição e remediação de fraudes e atos de corrupção em apoio à boa governança.
       </div>
 
       <div class="textJustify pBottomHalf p2">
-        Nos últimos anos,  a Fapeam vem trabalhando na formulação de práticas sistêmicas e na construção de  programas e ferramentas, que  possibilitem o aprimoramento institucional e o fortalecimento do seu sistema de controle interno, implantando rotinas sistêmicas com vistas a maior eficiência e transparência dos seus atos.
+        Nos últimos anos,  a FAPEAM vem trabalhando na formulação de práticas sistêmicas e na construção de  programas e ferramentas, que  possibilitem o aprimoramento institucional e o fortalecimento do seu sistema de controle interno, implantando rotinas sistêmicas com vistas a maior eficiência e transparência dos seus atos.
       </div>
 
       <div class="textJustify pBottomHalf p3">
