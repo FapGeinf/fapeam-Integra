@@ -33,17 +33,17 @@
     <div class="links">
       <div class="linksChild">
         <i class="fas fa-tv"></i>
-        <a href="{{ route('apresentacao') }}">Apresentação</a>
+        <a href="{{ route('apresentacao') }}" target="_blank">Apresentação</a>
       </div>
       
       <div class="linksChild">
         <i class="fas fa-balance-scale"></i>
-        <a href="{{ route('legislacao') }}">Legislação</a>
+        <a href="{{ route('legislacao') }}" target="_blank">Legislação</a>
       </div>
 
       <div class="linksChild">
         <i class="fas fa-book"></i>
-        <a href="{{ route('tutorial') }}">Tutorial</a>
+        <a href="{{ route('tutorial') }}" target="_blank">Tutorial</a>
       </div>
     </div>
 
