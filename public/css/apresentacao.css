@@ -1,0 +1,29 @@
+.poppins-regular {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+  font-family: "Poppins", sans-serif !important;
+  background-color: #e8e7e3 !important;
+}
+
+.form-wrapper {
+  display: flex;
+  padding: 0 10px;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  min-height: 25vh !important;
+}
+
+.form_create {
+  width: 100%;
+  padding: 20px;
+  max-width: 1280px;
+  border-radius: 5px;
+  border: 1px solid #000;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
