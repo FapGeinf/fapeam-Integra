@@ -16,4 +16,14 @@ class Notification extends Model
     ];
 
     protected $dates = ['read_at'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function markAsRead()
+    {
+        $this->update(['read_at' => now()]);
+    }
 }
