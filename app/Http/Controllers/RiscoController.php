@@ -12,11 +12,13 @@ use App\Models\Monitoramento;
 use App\Models\Notification;
 use App\Models\Resposta;
 use App\Models\Prazo;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+
 
 
 class RiscoController extends Controller
@@ -41,7 +43,9 @@ class RiscoController extends Controller
             // Contagem de todos os riscos do dia atual
             $riscosAbertosHoje = Risco::whereDate('created_at', \Carbon\Carbon::today())->count();
 
-            $notificacoes = Notification::where('global', true)->get();
+            $notificacoes = Notification::where('global', true)
+                            ->whereNull('read_at')
+                            ->get();
 
             return view('riscos.index', [
                 'riscos' => $riscos,
@@ -362,7 +366,6 @@ class RiscoController extends Controller
     }
 
 
-
     public function storeResposta(Request $request, $id)
     {
         $monitoramento = Monitoramento::findOrFail($id);
@@ -377,18 +380,42 @@ class RiscoController extends Controller
                 $filePath = $request->file('anexo')->store('anexos', 'public');
             }
 
-            Resposta::create([
+            $resposta = Resposta::create([
                 'respostaRisco' => $request->respostaRisco,
                 'respostaMonitoramentoFK' => $monitoramento->id,
                 'user_id' => auth()->id(),
                 'anexo' => $filePath
             ]);
 
+
+            $respostaUrl = route('riscos.respostas', ['id' => $monitoramento->id]);
+
+
+            $message = sprintf(
+                'Olá! O usuário %s adicionou uma nova resposta ao monitoramento. Confira os detalhes da resposta aqui: %s',
+                auth()->user()->name,
+                $respostaUrl
+            );
+
+            $notification = Notification::create([
+                'message' => $message,
+                'global' => true
+            ]);
+
+
+            $users = User::all();
+
+            foreach ($users as $user) {
+                $user->notifications()->attach($notification->id);
+            }
+
+
             return redirect()->route('riscos.respostas', $id)->with('success', 'Respostas adicionadas com sucesso');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
         }
     }
+
 
     public function updateResposta(Request $request, $id)
     {
@@ -462,6 +489,18 @@ class RiscoController extends Controller
             return redirect()->back()->with('error', 'Um erro ocorreu: ' . $e->getMessage());
         }
     }
+
+    public function markAsRead(Request $request, $id)
+    {
+        $notification = Notification::findOrFail($id);
+
+        $notification->update([
+            'read_at' => now()
+        ]);
+
+        return redirect()->back()->with('success', 'Notificação marcada como lida.');
+    }
+
 
 
 

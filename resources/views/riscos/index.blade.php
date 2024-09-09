@@ -35,18 +35,19 @@
                 {{ \Carbon\Carbon::parse($prazo)->format('d/m/Y') }}</p>
 
             <button id="notificationButton" type="button" class="purple-btn position-relative ms-2"
-                data-bs-toggle="modal" data-bs-target="#notificationModal" onclick="updateNotificationCount()">
+                data-bs-toggle="modal" data-bs-target="#notificationModal">
                 <i class="bi bi-bell"></i>
-                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                    id="notificationBadge" data-count="{{ $notificacoes->count() }}">
-                    {{ $notificacoes->count() }}
+                <span id="notificationBadge"
+                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                    data-count="{{ $notificacoes->whereNull('read_at')->count() }}">
+                    {{ $notificacoes->whereNull('read_at')->count() }}
                     <span class="visually-hidden">unread messages</span>
                 </span>
             </button>
+
         </div>
 
-        <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -59,53 +60,47 @@
                         @else
                             <ul class="list-group">
                                 @foreach ($notificacoes as $notificacao)
-                                    <li class="list-group-item">
-                                        {{ $notificacao->message }}
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <div class="d-flex align-items-center w-100">
+                                            <div class="form-check form-check-inline">
+                                                @if (is_null($notificacao->read_at))
+                                                    <form action="{{ route('riscos.markAsRead', $notificacao->id) }}" method="POST" class="mb-0">
+                                                        @csrf
+                                                        <input class="form-check-input" type="checkbox" id="notificationCheck{{ $notificacao->id }}" onchange="this.form.submit()">
+                                                        <label class="form-check-label ms-2" for="notificationCheck{{ $notificacao->id }}">Marcar como lida</label>
+                                                    </form>
+                                                @else
+                                                    <input class="form-check-input" type="checkbox" id="notificationCheck{{ $notificacao->id }}" checked disabled>
+                                                    <label class="form-check-label ms-2" for="notificationCheck{{ $notificacao->id }}">Marcar como lida</label>
+                                                @endif
+                                            </div>
+                                            <span class="ms-3">{{ $notificacao->message }}</span>
+                                        </div>
                                     </li>
                                 @endforeach
                             </ul>
                         @endif
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                     </div>
                 </div>
             </div>
         </div>
 
 
+
+
+
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const markAsReadForm = document.getElementById('markAsReadForm');
-                const notificationButton = document.getElementById('notificationButton');
+            document.getElementById('notificationModal').addEventListener('show.bs.modal', function() {
                 const notificationBadge = document.getElementById('notificationBadge');
-
-                function markNotificationsAsRead() {
-                    fetch(markAsReadForm.action, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded',
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                    'content')
-                            },
-                            body: new URLSearchParams(new FormData(markAsReadForm)).toString()
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                notificationBadge.textContent = '0';
-                            }
-                        })
-                        .catch(error => console.error('Error:', error));
-                }
-
-
-                markAsReadForm.addEventListener('submit', function(event) {
-                    event.preventDefault();
-                    markNotificationsAsRead();
-                });
+                const unreadCount = parseInt(notificationBadge.dataset.count, 10);
+                notificationBadge.textContent = unreadCount;
+                notificationBadge.dataset.count = unreadCount;
             });
         </script>
+
 
         <div class="col-12 main-datatable">
 
