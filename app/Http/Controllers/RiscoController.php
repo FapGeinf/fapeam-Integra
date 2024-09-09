@@ -43,7 +43,9 @@ class RiscoController extends Controller
             // Contagem de todos os riscos do dia atual
             $riscosAbertosHoje = Risco::whereDate('created_at', \Carbon\Carbon::today())->count();
 
-            $notificacoes = Notification::where('global', true)->get();
+            $notificacoes = Notification::where('global', true)
+                            ->whereNull('read_at')
+                            ->get();
 
             return view('riscos.index', [
                 'riscos' => $riscos,

@@ -60,14 +60,22 @@
                         @else
                             <ul class="list-group">
                                 @foreach ($notificacoes as $notificacao)
-                                    <li class="list-group-item">
-                                        {{ $notificacao->message }}
-                                        @if (is_null($notificacao->read_at))
-                                            <form action="{{ route('riscos.markAsRead', $notificacao->id) }}" method="POST" class="float-end">
-                                                @csrf
-                                                <button type="submit" class="btn btn-sm btn-primary">Marcar como lida</button>
-                                            </form>
-                                        @endif
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <div class="d-flex align-items-center w-100">
+                                            <div class="form-check form-check-inline">
+                                                @if (is_null($notificacao->read_at))
+                                                    <form action="{{ route('riscos.markAsRead', $notificacao->id) }}" method="POST" class="mb-0">
+                                                        @csrf
+                                                        <input class="form-check-input" type="checkbox" id="notificationCheck{{ $notificacao->id }}" onchange="this.form.submit()">
+                                                        <label class="form-check-label ms-2" for="notificationCheck{{ $notificacao->id }}">Marcar como lida</label>
+                                                    </form>
+                                                @else
+                                                    <input class="form-check-input" type="checkbox" id="notificationCheck{{ $notificacao->id }}" checked disabled>
+                                                    <label class="form-check-label ms-2" for="notificationCheck{{ $notificacao->id }}">Marcar como lida</label>
+                                                @endif
+                                            </div>
+                                            <span class="ms-3">{{ $notificacao->message }}</span>
+                                        </div>
                                     </li>
                                 @endforeach
                             </ul>
@@ -79,6 +87,10 @@
                 </div>
             </div>
         </div>
+
+
+
+
 
         <script>
             document.getElementById('notificationModal').addEventListener('show.bs.modal', function() {
