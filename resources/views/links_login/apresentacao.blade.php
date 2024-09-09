@@ -15,7 +15,7 @@
 @section('content')
 <body>
   <div class="form-wrapper">
-    <div class="form_create">
+    <div class="box-shadow">
       <h1>Apresentação</h1>
     </div>
     
