@@ -44,7 +44,6 @@ class RiscoController extends Controller
             $riscosAbertosHoje = Risco::whereDate('created_at', \Carbon\Carbon::today())->count();
 
             $notificacoes = Notification::where('global', true)
-                            ->whereNull('read_at')
                             ->get();
 
             return view('riscos.index', [
@@ -369,6 +368,9 @@ class RiscoController extends Controller
     public function storeResposta(Request $request, $id)
     {
         $monitoramento = Monitoramento::findOrFail($id);
+
+        $risco = Risco::findOrFail($monitoramento->riscoFK);
+
         try {
             $request->validate([
                 'respostaRisco' => 'required|string|max:5000',
@@ -401,6 +403,18 @@ class RiscoController extends Controller
                 'message' => $message,
                 'global' => true
             ]);
+
+            $unitId = $risco->unidadeId;
+            $usersForUnit = User::where('unidadeIdFK', $unitId)->get();
+
+            $subcomissaoUnit = Unidade::where('unidadeNome', 'Subcomissão do Programa de Integridade')->first();
+            $usersForSubcomissao = User::where('unidadeIdFK', $subcomissaoUnit->id)->get();
+
+            $allUsers = $usersForUnit->merge($usersForSubcomissao)->unique('id');
+
+            foreach ($allUsers as $user) {
+                $user->notifications()->attach($notification->id);
+            }
 
 
             $users = User::all();
