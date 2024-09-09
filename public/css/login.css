@@ -23,6 +23,38 @@ body {
     padding-left: 0 !important;
   }
 
+.links {
+  gap: 5rem;
+  z-index: 1;
+  display: flex;
+  margin-top: 32rem;
+  position: absolute;
+}
+
+.links i {
+  font-size: 24px;
+  color: #fff;
+  margin-right: 4px;
+}
+
+.links a {
+  color: #fff;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.linksChild {
+  padding: 7px;
+  border-radius: 5px;
+  transition: .2s;
+  border: 1px solid #fff;
+  background-color: #002379;
+}
+
+.linksChild:hover {
+  opacity: .7;
+}
+
 .logo {
   padding-bottom: 1rem;
 }
@@ -69,11 +101,6 @@ body {
 }
 
 .img {
-  /* height: 100%;
-  object-fit: cover;
-  max-width: auto;
-  padding-right: 2rem; */
-
   height: 100%;
 }
 
@@ -272,13 +299,13 @@ input[type=checkbox], label {
 
   .centered {
     /* align-items: flex-start; */
-  }   
-     
+  }
+
   .no__overflow {
     align-items: flex-start;
     background-color: #fff;
   }
-  
+
   .img {
     display: none;
   }

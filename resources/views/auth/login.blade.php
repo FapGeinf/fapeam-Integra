@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{asset('css/login.css')}}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -30,9 +29,25 @@
 
  <div class="grid">
   <div class="order__right centered no__overflow borderRadius">
-     {{-- <img class="img" src="{{ asset('img/pexels-pixabay-45170.jpg') }}" alt="picture"> --}}
+
+    <div class="links">
+      <div class="linksChild">
+        <i class="fas fa-tv"></i>
+        <a href="#">Apresentação</a>
+      </div>
+      
+      <div class="linksChild">
+        <i class="fas fa-balance-scale"></i>
+        <a href="#">Legislação</a>
+      </div>
+
+      <div class="linksChild">
+        <i class="fas fa-book"></i>
+        <a href="#">Tutorial</a>
+      </div>
+    </div>
+
      <img class="img" src="{{ asset('img/login/background-7.png') }}" alt="picture">
-     {{-- <img class="img" src="https://via.placeholder.com/1920x1080" alt="picture"> --}}
   </div>
   
   <div class="order__left centered">
@@ -85,7 +100,6 @@
       <div class="footerLogo">
         <span>&copy;2024 FAPEAM</span>
       </div>
-
     </div>
   </div>
 </body>
