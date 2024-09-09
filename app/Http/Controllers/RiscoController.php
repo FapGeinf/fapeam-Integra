@@ -37,7 +37,6 @@ class RiscoController extends Controller
                 $riscos = Risco::where('unidadeId', $user->unidade->id)->get();
             }
 
-            // Contagem de todos os riscos
             $riscosAbertos = $riscos->count();
 
             // Contagem de todos os riscos do dia atual
