@@ -59,4 +59,16 @@ Route::get('/home', function(){
 	return redirect()->route('riscos.index');
 });
 
+Route::get('/apresentacao', function () {
+	return view('links_login.apresentacao');
+})->name('apresentacao');
+
+Route::get('/legislacao', function () {
+	return view('links_login.legislacao');
+})->name('legislacao');
+
+Route::get('/tutorial', function () {
+	return view('links_login.tutorial');
+})->name('tutorial');
+
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
