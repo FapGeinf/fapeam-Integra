@@ -17,9 +17,17 @@
 .spacer {
   color: #fff;
   margin-bottom: 1.5rem;
+  width: 100% !important;
 }
 
 /* FONT STYLE */
+
+#welcome {
+  color: #fff;
+  cursor: default;
+  text-align: center;
+  white-space: nowrap;
+}
 
 .poppins-regular {
   font-family: "Poppins", sans-serif;

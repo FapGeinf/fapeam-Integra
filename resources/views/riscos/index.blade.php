@@ -115,11 +115,11 @@
                         <tr>
                             <th>N°</th>
                             <th>Responsável</th>
-                            <th style="white-space:nowrap;">Unidade</th>
+                            <th style="white-space:nowrap; width: 100px;">Unidade</th>
                             <th style="white-space: nowrap;">Evento de Risco</th>
                             <th>Causa</th>
                             <th>Consequência</th>
-                            <th style="width: 120px;">Avaliação</th>
+                            <th style="width: 100px;">Avaliação</th>
                         </tr>
                     </thead>
 
