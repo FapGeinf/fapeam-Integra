@@ -31,8 +31,33 @@
                     <i class="bi bi-plus-lg"></i> inserir Prazo
                 </button>
             @endif
-            <p class="spanThatLooksLikeABtn" id="prazo">Prazo Final:
-                {{ \Carbon\Carbon::parse($prazo)->format('d/m/Y') }}</p>
+            <p class="spanThatLooksLikeABtn" id="prazo"
+                data-prazo="{{ \Carbon\Carbon::parse($prazo)->format('Y-m-d') }}">
+                Prazo Final: {{ \Carbon\Carbon::parse($prazo)->format('d/m/Y') }}
+            </p>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const prazoElement = document.getElementById('prazo');
+                    const prazoDate = new Date(prazoElement.dataset.prazo);
+                    const today = new Date();
+
+                    const diffTime = prazoDate - today;
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+
+                    prazoElement.classList.remove('bg-success', 'bg-warning', 'bg-danger');
+
+
+                    if (diffDays < 0) {
+                        prazoElement.classList.add('bg-danger');
+                    } else if (diffDays <= 7) {
+                        prazoElement.classList.add('bg-warning');
+                    } else {
+                        prazoElement.classList.add('bg-success');
+                    }
+                });
+            </script>
 
             <button id="notificationButton" type="button" class="purple-btn position-relative ms-2"
                 data-bs-toggle="modal" data-bs-target="#notificationModal">
@@ -160,6 +185,7 @@
                     this.textContent = notifications.classList.contains('expanded') ? 'Mostrar menos' :
                         'Mostrar mais';
                 });
+
             });
         </script>
 
