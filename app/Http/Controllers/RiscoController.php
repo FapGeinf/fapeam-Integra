@@ -42,15 +42,24 @@ class RiscoController extends Controller
             // Contagem de todos os riscos do dia atual
             $riscosAbertosHoje = Risco::whereDate('created_at', \Carbon\Carbon::today())->count();
 
-            $notificacoes = Notification::where('global', true)
-                            ->get();
+            $notificacoes = Notification::where('global', true)->get();
+
+            $notificacoesNaoLidas = Notification::where('global', true)
+                ->whereNull('read_at')
+                ->get();
+
+            $notificacoesLidas = Notification::where('global', true)
+                ->whereNotNull('read_at')
+                ->get();
 
             return view('riscos.index', [
                 'riscos' => $riscos,
                 'prazo' => $prazo ? $prazo->data : null,
                 'riscosAbertos' => $riscosAbertos,
                 'riscosAbertosHoje' => $riscosAbertosHoje,
-                'notificacoes' => $notificacoes
+                'notificacoes' => $notificacoes,
+                'notificacoesNaoLidas' => $notificacoesNaoLidas,
+                'notificacoesLidas' => $notificacoesLidas,
             ]);
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao carregar os riscos. Por favor, tente novamente.']);
@@ -389,18 +398,12 @@ class RiscoController extends Controller
             ]);
 
 
-            $respostaUrl = route('riscos.respostas', ['id' => $monitoramento->id]);
-
-
-            $message = sprintf(
-                'Olá! O usuário %s adicionou uma nova resposta ao monitoramento. Confira os detalhes da resposta aqui: %s',
-                auth()->user()->name,
-                $respostaUrl
-            );
+            $message = 'Olá, há uma nova mensagem do usuário ' . auth()->user()->name;
 
             $notification = Notification::create([
                 'message' => $message,
-                'global' => true
+                'global' => true,
+                'monitoramentoId' => $monitoramento->id
             ]);
 
             $unitId = $risco->unidadeId;

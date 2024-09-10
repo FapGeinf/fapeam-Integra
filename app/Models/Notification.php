@@ -9,7 +9,7 @@ class Notification extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['message','global','read_at'];
+    protected $fillable = ['message','global','read_at','monitoramentoId'];
 
     protected $casts = [
          'global' => 'boolean'
@@ -25,5 +25,10 @@ class Notification extends Model
     public function markAsRead()
     {
         $this->update(['read_at' => now()]);
+    }
+
+    public function monitoramento()
+    {
+           return $this->belongsTo(Monitoramento::class,'monitoramentoId');
     }
 }
