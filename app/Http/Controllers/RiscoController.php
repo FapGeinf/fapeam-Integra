@@ -424,7 +424,7 @@ class RiscoController extends Controller
 
                 // Enviar e-mail
                 try {
-                    Mail::to($user->email)->send(new ResponseNotification($monitoramento, $notification));
+                    Mail::to('teste@exemplo.com')->send(new ResponseNotification($monitoramento, $notification));
                     Log::info('Email enviado para: ' . $user->email);
                 } catch (\Exception $e) {
                     Log::error('Erro ao enviar email para: ' . $user->email . ' - ' . $e->getMessage());
