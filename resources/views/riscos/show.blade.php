@@ -26,7 +26,7 @@
 
     <div class="container-fluid p-30">
         <div class="col-12 box-shadow">
-            <h5 class="text-center mb-2">Detalhamento Risco Inerente</h5>
+            <h5 class="text-center mb-2">Detalhamento do Risco Inerente</h5>
 
             <div>
                 <table class="table table-bordered mb-4">
@@ -88,18 +88,23 @@
                                             {{ basename($monitoramento->anexoMonitoramento) }}
                                         </a>
                                     @else
-                                        Nenhum anexo disponível
+                                        <div class="center">
+                                            <i class="bi bi-file-earmark-excel"></i>
+                                            Nenhum anexo disponível   
+                                        </div>
                                     @endif
                                 </td>
-                                <td class="text-center tdBtnExcluir">
-                                    @if (auth()->user()->unidade->unidadeTipo->id == 1)
-                                        <a href="{{ route('riscos.editMonitoramento', ['id' => $monitoramento->id]) }}" class="btn btn-sm btn-warning">
-                                            <i class="bi bi-pen"></i>
+                                <td class="text-center">
+                                    <div class="ms-2" style="display: flex; flex-direction: column; align-items: center;">
+                                        @if (auth()->user()->unidade->unidadeTipo->id == 1)
+                                            <a href="{{ route('riscos.editMonitoramento', ['id' => $monitoramento->id]) }}" class="warning mb-2" style="font-size: 13px; white-space: nowrap;">
+                                                 Editar Monitoramento
+                                            </a>
+                                        @endif
+                                            <a href="{{ route('riscos.respostas', ['id' => $monitoramento->id]) }}" class="primary" style="font-size: 13px; white-space: nowrap;">
+                                             Visualizar Providências
                                         </a>
-                                    @endif
-                                    <a href="{{ route('riscos.respostas', ['id' => $monitoramento->id]) }}" class="btn btn-sm btn-info mt-2">
-                                        <i class="bi bi-eye"></i>
-                                    </a>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach
