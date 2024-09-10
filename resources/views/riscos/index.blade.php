@@ -104,9 +104,9 @@
                                                 </div>
                                                 <div class="ms-3">
                                                     @if (is_null($notificacao->monitoramentoId))
-                                                        <span>{{ $notificacao->message }}</span>
+                                                        <span>{!! $notificacao->message !!}</span>
                                                     @else
-                                                        <span>{{ $notificacao->message }}</span>
+                                                        <span>{!! $notificacao->message !!}</span>
                                                         <a
                                                             href="{{ route('riscos.respostas', ['id' => $notificacao->monitoramentoId]) }}">Ver
                                                             a Resposta</a>
@@ -135,9 +135,9 @@
                                                 </div>
                                                 <div class="ms-3">
                                                     @if (is_null($notificacao->monitoramentoId))
-                                                        <span>{{ $notificacao->message }}</span>
+                                                        <span>{!! $notificacao->message !!}</span>
                                                     @else
-                                                        <span>{{ $notificacao->message }}</span>
+                                                        <span>{!! $notificacao->message !!}</span>
                                                         <a
                                                             href="{{ route('riscos.respostas', ['id' => $notificacao->monitoramentoId]) }}">Ver
                                                             a Resposta</a>
