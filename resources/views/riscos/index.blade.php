@@ -130,8 +130,7 @@
                                                     <input class="form-check-input" type="checkbox"
                                                         id="notificationCheck{{ $notificacao->id }}" checked disabled>
                                                     <label class="form-check-label ms-2"
-                                                        for="notificationCheck{{ $notificacao->id }}">Marcar como
-                                                        lida</label>
+                                                        for="notificationCheck{{ $notificacao->id }}">Lida</label>
                                                 </div>
                                                 <div class="ms-3">
                                                     @if (is_null($notificacao->monitoramentoId))
