@@ -8,6 +8,20 @@
   margin-left: 10rem;
 }
 
+/* NOTIFICAÇÕES - INÍCIO */
+
+.msgController {
+  font-size: 13px;
+}
+
+.spanNotify {
+  font-size: 12px;
+  font-style: italic;
+  margin-right: .4rem;
+}
+
+/* NOTIFICAÇÕES - FIM */
+
 table, tr,th, td {
   border: 1px solid #b0b0b0;
 }

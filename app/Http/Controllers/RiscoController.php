@@ -401,9 +401,10 @@ class RiscoController extends Controller
             $formattedDateTime = Carbon::parse($resposta->created_at)->format('d/m/Y \à\s H:i');
 
 
-            $message = 'Olá, você recebeu uma nova mensagem do usuário ' . auth()->user()->name .
-                       ' da unidade ' . (auth()->user()->unidade ? auth()->user()->unidade->unidadeNome : 'Desconhecida') .
-                       '. A mensagem foi registrada no dia ' . $formattedDateTime . '.';
+            $message = '<div><span>Nova mensagem!</span><br><br><div><span>Usuário: </span>' . htmlspecialchars(auth()->user()->name) . '</div>' .
+                       '<div><span>Unidade: </span>' . (auth()->user()->unidade ? htmlspecialchars(auth()->user()->unidade->unidadeNome) : 'Desconhecida') . '</div>' .
+                       '<div><span>Data do envio: </span>' . htmlspecialchars($formattedDateTime) . '</div><br>' .
+                       '</div>';
 
             $notification = Notification::create([
                 'message' => $message,
