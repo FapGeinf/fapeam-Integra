@@ -100,6 +100,7 @@
                                     <a href="{{ route('riscos.respostas', ['id' => $monitoramento->id]) }}" class="btn btn-sm btn-info mt-2">
                                         <i class="bi bi-eye"></i>
                                     </a>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
