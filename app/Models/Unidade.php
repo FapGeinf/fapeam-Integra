@@ -21,4 +21,10 @@ class Unidade extends Model
 	//  public function risco(){
 	// 		return $this->belongsToMany(Risco::class);
 	//  }
+
+    public function users()
+    {
+        return $this->hasMany(User::class, 'unidadeIdFK');
+
+    }
 }

@@ -522,3 +522,14 @@ button.secondary {
 button.secondary:hover {
   background-color: #5c636a;
 }
+
+#unreadNotifications.expanded, #readNotifications.expanded {
+    max-height: none;
+    overflow: visible;
+}
+
+#unreadNotifications, #readNotifications {
+    max-height: 300px;
+    overflow-y: auto;
+    transition: max-height 0.3s ease-out;
+}
