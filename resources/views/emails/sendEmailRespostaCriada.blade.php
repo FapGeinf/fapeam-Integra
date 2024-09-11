@@ -1,11 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Nova Resposta Criada</title>
-</head>
-<body>
-    <h1>Nova Resposta Criada</h1>
-    <p>{{ $notificacao->message }}</p>
-    <a href="{{ route('riscos.respostas', ['id' => $monitoramento->id]) }}">Ver Resposta</a>
-</body>
-</html>
+@component('mail::message')
+# Nova Resposta Criada
+
+Há uma nova mensagem do usuário **{{ auth()->user()->name }}**.
+
+@component('mail::button', ['url' => route('riscos.respostas', ['id' => $notificacao->monitoramentoId])])
+Ver Resposta
+@endcomponent
+
+Obrigado,<br>
+{{ config('app.name') }}
+@endcomponent

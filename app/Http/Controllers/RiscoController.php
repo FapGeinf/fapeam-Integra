@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NovaRespostaCriada;
 use App\Events\PrazoProximo;
 use Illuminate\Http\Request;
 use app\Http\Middleware\VerifyCsrfToken;
@@ -14,11 +15,13 @@ use App\Models\Resposta;
 use App\Models\Prazo;
 use App\Models\User;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+
 
 
 
@@ -375,6 +378,20 @@ class RiscoController extends Controller
     }
 
 
+    private function sendEmail(Resposta $resposta, Monitoramento $monitoramento, Notification $notification)
+    {
+        try {
+            if ($resposta) {
+                $users = User::all();
+                Mail::to(auth()->user())->send(new ResponseNotification($notification, $monitoramento));
+            }
+        } catch (Exception $e) {
+            Log::error('Houve um erro ao enviar um email: ' . $e->getMessage());
+            throw new Exception('Houve um erro ao enviar o email');
+        }
+    }
+
+
     public function storeResposta(Request $request, $id)
     {
         $monitoramento = Monitoramento::findOrFail($id);
@@ -401,9 +418,9 @@ class RiscoController extends Controller
             $formattedDateTime = Carbon::parse($resposta->created_at)->format('d/m/Y \à\s H:i');
 
             $message = '<div><span>Nova mensagem!</span><br><br><div><span>Usuário: </span>' . htmlspecialchars(auth()->user()->name) . '</div>' .
-                       '<div><span>Unidade: </span>' . (auth()->user()->unidade ? htmlspecialchars(auth()->user()->unidade->unidadeNome) : 'Desconhecida') . '</div>' .
-                       '<div><span>Data do envio: </span>' . htmlspecialchars($formattedDateTime) . '</div><br>' .
-                       '</div>';
+                '<div><span>Unidade: </span>' . (auth()->user()->unidade ? htmlspecialchars(auth()->user()->unidade->unidadeNome) : 'Desconhecida') . '</div>' .
+                '<div><span>Data do envio: </span>' . htmlspecialchars($formattedDateTime) . '</div><br>' .
+                '</div>';
 
             $notification = Notification::create([
                 'message' => $message,
@@ -411,31 +428,31 @@ class RiscoController extends Controller
                 'monitoramentoId' => $monitoramento->id
             ]);
 
-            // Obter todos os usuários da unidade e da subcomissão
+            Log::info('Calling sendEmail function', [
+                'notification_id' => $notification->id,
+                'monitoramento_id' => $monitoramento->id,
+                'resposta_id' => $resposta->id
+            ]);
+
+            $this->sendEmail($resposta, $monitoramento, $notification);
+
+            Log::info('sendEmail function executed successfully');
+
             $unitId = $risco->unidadeId;
             $usersForUnit = User::where('unidadeIdFK', $unitId)->get();
             $subcomissaoUnit = Unidade::where('unidadeNome', 'Subcomissão do Programa de Integridade')->first();
             $usersForSubcomissao = User::where('unidadeIdFK', $subcomissaoUnit->id)->get();
             $allUsers = $usersForUnit->merge($usersForSubcomissao)->unique('id');
 
-            // Enviar e-mail para todos os usuários
             foreach ($allUsers as $user) {
                 $user->notifications()->attach($notification->id);
-
-                // Enviar e-mail
-                try {
-                    Mail::to('teste@exemplo.com')->send(new ResponseNotification($monitoramento, $notification));
-                    Log::info('Email enviado para: ' . $user->email);
-                } catch (\Exception $e) {
-                    Log::error('Erro ao enviar email para: ' . $user->email . ' - ' . $e->getMessage());
-                }
             }
 
-            // Enviar e-mail para todos os usuários gerais
             $users = User::all();
             foreach ($users as $user) {
                 $user->notifications()->attach($notification->id);
             }
+
 
             return redirect()->route('riscos.respostas', $id)->with('success', 'Respostas adicionadas com sucesso');
         } catch (\Exception $e) {

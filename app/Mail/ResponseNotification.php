@@ -15,7 +15,6 @@ class ResponseNotification extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $monitoramento;
     public $notificacao;
 
     /**
@@ -24,9 +23,8 @@ class ResponseNotification extends Mailable
      * @param $monitoramento
      * @param $resposta
      */
-    public function __construct($monitoramento, $notificacao)
+    public function __construct($notificacao)
     {
-        $this->monitoramento = $monitoramento;
         $this->notificacao = $notificacao;
     }
 
@@ -37,7 +35,8 @@ class ResponseNotification extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.sendEmailRespostaCriada')
-                    ->subject('Nova Resposta Criada');
+        return $this->markdown('emails.sendEmailRespostaCriada')
+            ->subject('Nova Resposta Criada')
+            ->with('notificacao', $this->notificacao);
     }
 }
