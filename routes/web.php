@@ -3,6 +3,7 @@
 use App\Events\PrazoProximo;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RiscoController;
+use App\Http\Controllers\StatusController;
 use App\Http\Controllers\UserController;
 use App\Models\Prazo;
 
@@ -54,6 +55,11 @@ Route::get('/user/alterar-senha', [UserController::class, 'changePassword'])->na
 Route::post('/user/alterar-senha',[UserController::class,'updatePassword'])->name('users.password');
 Route::post('/notifications/{id}/mark-as-read', [RiscoController::class, 'markAsRead'])->name('riscos.markAsRead');
 
+
+Route::get('/riscos/implementadas', [StatusController::class, 'implementadasShow'])->name('riscos.implementadas');
+Route::get('/riscos/implementadas-parcialmente', [StatusController::class, 'implementadasParcialmenteShow'])->name('riscos.implementadasParcialmente');
+Route::get('/riscos/em-implementacao', [StatusController::class, 'emImplementacaoShow'])->name('riscos.emImplementacao');
+Route::get('/riscos/nao-implementada', [StatusController::class, 'naoImplementadaShow'])->name('riscos.naoImplementada');
 
 
 Auth::routes();
