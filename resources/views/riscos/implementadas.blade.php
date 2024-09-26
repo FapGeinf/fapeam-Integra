@@ -32,6 +32,7 @@
                     <table class="table table-bordered mb-4">
                         <thead>
                             <tr>
+                                <th scope="col" class="text-center text-light">Unidade:</th>
                                 <th scope="col" class="text-center text-light tBorder">Controle Sugerido:</th>
                                 <th scope="col" class="text-center text-light">Data:</th>
                                 <th scope="col" class="text-center text-light tBorder">Situação:</th>
@@ -43,6 +44,9 @@
                             @foreach ($riscosDaUnidade as $risco)
                                 @foreach ($risco->monitoramentos as $monitoramento)
                                     <tr>
+                                        <td class="text-center text13 pb-1 tBorder">
+                                            {!! $risco->unidade->unidadeSigla !!}
+                                        </td>
                                         <td class="text13 pb-1 tBorder">{!! $monitoramento->monitoramentoControleSugerido !!}</td>
                                         <td style="white-space: nowrap;" class="text-center text-13 pb-1">
                                             {{ \Carbon\Carbon::parse($monitoramento->inicioMonitoramento)->format('d/m/Y') }} -
@@ -69,11 +73,6 @@
                                         </td>
                                         <td class="text-center">
                                             <div class="ms-2" style="display: flex; flex-direction: column; align-items: center;">
-                                                @if (auth()->user()->unidade->unidadeTipo->id == 1)
-                                                    <a href="{{ route('riscos.editMonitoramento', ['id' => $monitoramento->id]) }}" class="warning mb-2" style="font-size: 13px; white-space: nowrap;">
-                                                        Editar Monitoramento
-                                                    </a>
-                                                @endif
                                                 <a href="{{ route('riscos.show', $risco->id) }}" class="btn btn-info mb-2">Mostrar Risco</a>
                                                 <a href="{{ route('riscos.respostas', ['id' => $monitoramento->id]) }}" class="primary" style="font-size: 13px; white-space: nowrap;">
                                                     Visualizar Providências
@@ -85,12 +84,6 @@
                             @endforeach
                         </tbody>
                     </table>
-
-                    <div class="text-center mb-4">
-                        @if (Auth::user()->unidade->unidadeTipoFK == 1)
-                            <a href="{{ route('riscos.edit-monitoramentos', ['id' => $risco->id]) }}" class="primary">Adicionar Monitoramentos</a>
-                        @endif
-                    </div>
                 </div>
             </div>
         </div>
