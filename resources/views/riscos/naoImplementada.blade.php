@@ -73,7 +73,7 @@
                                         </td>
                                         <td class="text-center">
                                             <div class="ms-2" style="display: flex; flex-direction: column; align-items: center;">
-                                                <a href="{{ route('riscos.show', $risco->id) }}" class="btn btn-info mb-2">Mostrar Risco</a>
+                                                <a href="{{ route('riscos.show', $risco->id) }}" class="btn btn-warning mb-2">Mostrar Risco</a>
                                                 <a href="{{ route('riscos.respostas', ['id' => $monitoramento->id]) }}" class="primary" style="font-size: 13px; white-space: nowrap;">
                                                     Visualizar Providências
                                                 </a>
