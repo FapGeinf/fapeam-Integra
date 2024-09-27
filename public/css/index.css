@@ -219,8 +219,6 @@ thead tr th {
   text-align: center;
 }
 
-
-
 #tableHome tbody tr:hover td:not(.riscoAvaliacao) {
   background-color: #ececec !important;
 }
@@ -249,6 +247,10 @@ p {
 
 .p-30 {
   padding: 30px;
+}
+
+.paddingLeft {
+  padding-left: 8rem;
 }
 
 .main-datatable {
@@ -458,7 +460,8 @@ table.dataTable thead th, table.dataTable thead td {
   background-color: #fcfdfe;
   padding-top: 10px;
   padding-bottom: 10px;
-  margin-left: .9rem;
+  /* margin-left: .9rem; */
+  margin-left: 6rem;
 }
 
 .riskLevelDiv {

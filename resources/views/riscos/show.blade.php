@@ -24,8 +24,8 @@
         </script>
     @endif
 
-    <div class="container-fluid p-30">
-        <div class="col-12 box-shadow">
+    <div class="container-fluid p-30 paddingLeft">
+        <div class="col-12 border box-shadow">
             <h5 class="text-center mb-2">Detalhamento do Risco Inerente</h5>
 
             <div>

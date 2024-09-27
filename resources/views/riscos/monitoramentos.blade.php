@@ -9,7 +9,7 @@
     <script src="/ckeditor/ckeditor.js"></script>
 </head>
 
-<div class="form-wrapper pt-4">
+<div class="form-wrapper pt-4 paddingLeft">
     <div class="form_create">
         <h3 style="text-align: center; margin-bottom: 10px;">Formulário de Monitoramentos</h3>
 

@@ -45,8 +45,8 @@
         @endif
     </div>
 
-    <div class="form-wrapper pt-4">
-        <div class="form_create">
+    <div class="form-wrapper pt-4 paddingLeft">
+        <div class="form_create border">
             <h3 style="text-align: center; margin-bottom:5px;">
                 Novo Evento de Risco Inerente
             </h3>

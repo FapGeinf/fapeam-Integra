@@ -225,6 +225,20 @@ a.btnAltSenha:hover {
 }
 
 /* INÍCIO CSS SIDENAV */
+.liHover,
+.liHover a {
+  transition: 0.2s;
+}
+
+.liHover a:hover {
+  padding: 6px;
+}
+
+.liHover:hover {
+  border-radius: 6px;
+  background-color: #1d4683;
+}
+
 .sidenavImg {
   display: flex;
   justify-content: center;
@@ -276,7 +290,7 @@ nav.menu-lateral {
   box-sizing: border-box;
   top: 0;
   left: 0;
-  width: 170px;
+  width: 255px;
   position: fixed;
   float: left;
   background-color: #22539c;
@@ -310,13 +324,13 @@ ul li.item-menu {
   transition: 0.4s;
 }
 
-ul li.item-menu:hover {
+/* ul li.item-menu:hover {
   opacity: .5;
 }
 
 ul li.item-menu:active {
   opacity: .8;
-}
+} */
 
 .ulList {
   padding-left: 0;
@@ -334,7 +348,7 @@ ul li.item-menu a {
 }
 
 .txt-link {
-  font-size: 1rem;
+  font-size: 14px;
   white-space: nowrap;
 }
 
@@ -366,28 +380,5 @@ ul li.item-menu.btn-sair {
     opacity: 1;
   }
 }
-
-/* .dropdown {
-  display: none;
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  padding-left: 1.5rem;
-}
-
-.dropdown.show {
-  display: block;
-}
-
-.dropdown-item {
-  margin: 0.5rem 0;
-  font-size: 1rem;
-}
-
-.dropdown-icon {
-  margin-left: auto;
-} */
-
-
 
 /* FIM CSS SIDENAV */

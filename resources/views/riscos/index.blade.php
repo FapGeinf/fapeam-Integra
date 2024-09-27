@@ -19,7 +19,7 @@
 
 <body>
 
-    <div class="container-fluid p-30">
+    <div class="container-fluid p-30 paddingLeft">
 
         <div id="newRiskButtonDiv" class="d-flex">
             @if (Auth::user()->unidade->unidadeTipoFK == 1)
@@ -188,7 +188,7 @@
             });
         </script>
 
-        <div class="col-12 main-datatable">
+        <div class="col-12 border main-datatable">
 
             <div class="container-fluid">
                 <table id="tableHome" class="table cust-datatable">

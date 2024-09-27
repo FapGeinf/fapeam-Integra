@@ -20,8 +20,7 @@
 <body>
     @if (session('error'))
         <script>
-            alert('{{ session('
-                        error ') }}');
+            alert('{{ session(' error ') }}');
         </script>
     @endif
 
@@ -35,8 +34,8 @@
         @endif
     </div>
 
-    <div class="form-wrapper pt-4">
-        <div class="form_create">
+    <div class="form-wrapper pt-4 paddingLeft">
+        <div class="form_create border">
             <h3 style="text-align: center; margin-bottom: 20px;">
                 Editar Formulário de Risco
             </h3>

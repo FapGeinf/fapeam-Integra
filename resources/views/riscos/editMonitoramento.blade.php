@@ -35,8 +35,8 @@
         @endif
     </div>
 
-    <div class="form-wrapper">
-        <div class="form_create">
+    <div class="form-wrapper paddingLeft">
+        <div class="form_create border">
             <h3 style="text-align: center; margin-bottom: 20px;">
                 Editar Monitoramento
             </h3>

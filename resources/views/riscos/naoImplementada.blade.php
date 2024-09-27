@@ -24,7 +24,7 @@
             </script>
         @endif
 
-        <div class="container-fluid p-30">
+        <div class="container-fluid p-30 paddingLeft">
             <div class="col-12 box-shadow">
                 <h5 class="text-center mb-2">Monitoramentos Não Implementados</h5>
 

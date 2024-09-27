@@ -64,6 +64,10 @@ hr {
   line-height: 16px;
 }
 
+.paddingLeft {
+  padding-left: 7rem;
+}
+
 /* EDITOR DE TEXTO */
 .cke_top {
   background: #f0f0f0;;
