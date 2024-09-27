@@ -76,7 +76,8 @@ body {
 .logoNavImg {
   width: 90px;
   height: 41px;
-  margin-left: 1.6rem;
+  /* margin-left: 1.6rem; */
+  margin-left: 4rem;
   transition: .1s;
 }
 
@@ -155,7 +156,7 @@ a.navbar-brand:nth-child(1) {
   white-space: nowrap; */
   flex-direction: column;
   position: absolute;
-  left: 173px;
+  left: 260px;
   top: 2px;
 }
 
