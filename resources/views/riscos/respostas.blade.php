@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 @section('content')
 
@@ -17,14 +16,20 @@
         </script>
     @endif
 
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <div class="col-12 box-shadow">
 
-      <div class="monitoramento">
-        <h4 class="text-center">Monitoramento</h4>
-        <hr class="hr1" style="padding-bottom: .6rem;">
-        <div class="form-control" style="background-color: #f3f3f3;">{!!$monitoramento->monitoramentoControleSugerido!!}</div>
-        <hr>
-      </div>
+        <div class="monitoramento">
+            <h4 class="text-center">Monitoramento</h4>
+            <hr class="hr1" style="padding-bottom: .6rem;">
+            <div class="form-control" style="background-color: #f3f3f3;">{!! $monitoramento->monitoramentoControleSugerido !!}</div>
+            <hr>
+        </div>
 
         <h4 class="text-center">Providência(s)</h4>
         <hr class="hr1">
@@ -43,10 +48,12 @@
                     @endphp
 
                     @if ($lastSetor === $currentSetor)
-                        <div class="message {{ $isLeftAligned ? 'other-message' : 'another-message' }} {{ $alignmentClass }}">
+                        <div
+                            class="message {{ $isLeftAligned ? 'other-message' : 'another-message' }} {{ $alignmentClass }}">
                             <div class="p-1">
                                 <div class="d-flex row">
-                                  <div class="dataSector" style="text-align: left; {{ $alignmentClass === 'align-right' ? 'background-color: #d9d9d9cc;' : '' }}">
+                                    <div class="dataSector"
+                                        style="text-align: left; {{ $alignmentClass === 'align-right' ? 'background-color: #d9d9d9cc;' : '' }}">
                                         <div>
                                             Criado em:
                                             <i class="bi bi-clock"></i>
@@ -82,16 +89,24 @@
 
                             @if ($resposta->anexo)
                                 <div class="text-end">
-                                    <a href="{{ Storage::url($resposta->anexo) }}" class="btn btn-info btn-sm" target="_blank">
+                                    <a href="{{ Storage::url($resposta->anexo) }}" class="btn btn-info btn-sm"
+                                        target="_blank">
                                         <i class="bi bi-eye"></i>
                                     </a>
-                                    <a href="{{ Storage::url($resposta->anexo) }}" class="btn btn-primary btn-sm" download>
+                                    <a href="{{ Storage::url($resposta->anexo) }}" class="btn btn-primary btn-sm"
+                                        download>
                                         <i class="bi bi-download"></i>
                                     </a>
                                     <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
                                         data-bs-target="#editRespostaModal"
                                         onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)">
                                         <i class="bi bi-pen"></i>
+                                    </button>
+
+                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#deleteAnexoModal"
+                                        onclick="setDeleteAnexo({{ $resposta->id }})">
+                                        <i class="bi bi-trash"></i> Excluir Anexo
                                     </button>
                                 </div>
                             @else
@@ -103,16 +118,19 @@
                                     </button>
                                 </div>
                             @endif
+
                         </div>
                     @else
                         @php
                             $alignmentClass = $isLeftAligned ? 'align-right' : 'align-left';
                         @endphp
 
-                        <div class="message {{ $alignmentClass === 'align-left' ? 'other-message' : 'another-message' }} {{ $alignmentClass }}">
+                        <div
+                            class="message {{ $alignmentClass === 'align-left' ? 'other-message' : 'another-message' }} {{ $alignmentClass }}">
                             <div class="p-1">
                                 <div class="d-flex row">
-                                  <div class="dataSector" style="text-align: left; {{ $alignmentClass === 'align-right' ? 'background-color: #d9d9d9cc;' : '' }}">
+                                    <div class="dataSector"
+                                        style="text-align: left; {{ $alignmentClass === 'align-right' ? 'background-color: #d9d9d9cc;' : '' }}">
                                         <div>
                                             Criado em:
                                             <i class="bi bi-clock"></i>
@@ -143,22 +161,30 @@
                             <hr class="hr2">
 
                             <div class="form-control fStyle mb-2" style="text-align: left;">
-                              <p style="background-color: #f0f0f0;">{!! $resposta->respostaRisco !!}</p>
-                          </div>
+                                <p style="background-color: #f0f0f0;">{!! $resposta->respostaRisco !!}</p>
+                            </div>
 
 
                             @if ($resposta->anexo)
                                 <div class="text-end">
-                                    <a href="{{ Storage::url($resposta->anexo) }}" class="btn btn-info btn-sm" target="_blank">
+                                    <a href="{{ Storage::url($resposta->anexo) }}" class="btn btn-info btn-sm"
+                                        target="_blank">
                                         <i class="bi bi-eye"></i>
                                     </a>
-                                    <a href="{{ Storage::url($resposta->anexo) }}" class="btn btn-primary btn-sm" download>
+                                    <a href="{{ Storage::url($resposta->anexo) }}" class="btn btn-primary btn-sm"
+                                        download>
                                         <i class="bi bi-download"></i>
                                     </a>
                                     <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
                                         data-bs-target="#editRespostaModal"
                                         onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)">
                                         <i class="bi bi-pen"></i>
+                                    </button>
+
+                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#deleteAnexoModal"
+                                        onclick="setDeleteAnexo({{ $resposta->id }})">
+                                        <i class="bi bi-trash"></i> Excluir Anexo
                                     </button>
                                 </div>
                             @else
@@ -170,6 +196,7 @@
                                     </button>
                                 </div>
                             @endif
+
                         </div>
                     @endif
 
@@ -181,13 +208,15 @@
                 <p class="text-center">Não há respostas disponíveis para este risco.</p>
             @endif
             <div class="container d-flex justify-content-center mt-4">
-                <button type="button" class="reply-btn" data-bs-toggle="modal" data-bs-target="#respostaModal">Responder</button>
+                <button type="button" class="reply-btn" data-bs-toggle="modal"
+                    data-bs-target="#respostaModal">Responder</button>
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="editRespostaModal" tabindex="-1" aria-labelledby="editRespostaModalLabel" aria-hidden="true">
+<div class="modal fade" id="editRespostaModal" tabindex="-1" aria-labelledby="editRespostaModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -224,7 +253,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('riscos.storeResposta', ['id' => $monitoramento->id]) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('riscos.storeResposta', ['id' => $monitoramento->id]) }}" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="mb-4">
                         <label for="respostaRisco" class="form-label">Resposta</label>
@@ -242,6 +272,31 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="deleteAnexoModal" tabindex="-1" aria-labelledby="deleteAnexoModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteAnexoModalLabel">Confirmar Exclusão do Anexo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Tem certeza que deseja excluir o anexo?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <form action="{{ route('riscos.deleteAnexo', $resposta->id) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">Excluir Anexo</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 {{-- <script src="/ckeditor/ckeditor.js"></script>
 <script>
@@ -292,7 +347,7 @@
             }
         });
 
-        document.addEventListener('shown.bs.modal', function (event) {
+        document.addEventListener('shown.bs.modal', function(event) {
             const modalId = event.target.id;
             if (modalId === 'editRespostaModal') {
                 const respostaId = document.getElementById('editRespostaId').value;
@@ -329,6 +384,8 @@
             }
         });
         CKEDITOR.instances['editRespostaRisco'].setData(resposta);
+
+
     }
 </script>
 @endsection

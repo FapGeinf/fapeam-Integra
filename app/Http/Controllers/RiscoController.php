@@ -16,6 +16,7 @@ use App\Models\Prazo;
 use App\Models\User;
 use Carbon\Carbon;
 use Exception;
+use FFI\Exception as FFIException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
@@ -495,6 +496,35 @@ class RiscoController extends Controller
         } catch (\Exception $e) {
             Log::error('Erro ao atualizar a resposta: ' . $e->getMessage());
             return redirect()->back()->withErrors(['error' => 'Ocorreu um erro ao atualizar a resposta. Por favor, tente novamente.']);
+        }
+    }
+
+    public function deleteAnexo(Request $request, $id)
+    {
+        try {
+            Log::info('Attempting to delete anexo for Resposta with ID: ' . $id);
+
+            $resposta = Resposta::findOrFail($id);
+
+            if ($resposta->anexo) {
+                Log::info('Anexo found: ' . $resposta->anexo . ' for Resposta ID: ' . $id);
+
+                Storage::disk('public')->delete($resposta->anexo);
+
+                $resposta->anexo = null;
+                $resposta->save();
+
+                Log::info('Anexo deleted and Resposta updated for ID: ' . $id);
+            } else {
+                Log::info('No anexo found for Resposta ID: ' . $id);
+            }
+
+            return redirect()->back()->with('success','Anexo deletado com sucesso');
+        } catch (Exception $e) {
+
+            Log::error('Error deleting anexo for Resposta ID: ' . $id . '. Error: ' . $e->getMessage());
+
+            return redirect()->back()->with('errors','Houve um erro ao deletar o anexo selecionado');
         }
     }
 

@@ -44,6 +44,7 @@ Route::post('/notificacoes/marcar-como-lida', [RiscoController::class, 'marcarCo
 Route::get('riscos/monitoramentos/{id}/edit', [RiscoController::class, 'editMonitoramento2'])->name('riscos.editMonitoramento');
 Route::put('riscos/monitoramentos/{id}', [RiscoController::class, 'atualizaMonitoramento'])->name('riscos.monitoramento');
 Route::put('/riscos/monitoramentos/respostas/{id}', [RiscoController::class, 'updateResposta'])->name('riscos.updateResposta');
+Route::delete('riscos/delete-anexo/${respostaId}', [RiscoController::class, 'deleteAnexo'])->name('riscos.deleteAnexo');
 
 
 
