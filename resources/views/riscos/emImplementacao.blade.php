@@ -37,16 +37,19 @@
                                 <td class="text-center text13 pb-1 tBorder">
                                     {!! $risco->unidade->unidadeSigla !!}
                                 </td>
+
                                 <td class="text13 pb-1 tBorder">{!! $monitoramento->monitoramentoControleSugerido !!}</td>
+
                                 <td class="text-center text-13 pb-1" style="white-space: nowrap;">
                                     {{ \Carbon\Carbon::parse($monitoramento->inicioMonitoramento)->format('d/m/Y') }} -
                                     {{ $monitoramento->fimMonitoramento ? \Carbon\Carbon::parse($monitoramento->fimMonitoramento)->format('d/m/Y') : 'Contínuo' }}
                                 </td>
+
                                 <td class="text-center text13 pb-1 tBorder">{!! $monitoramento->statusMonitoramento !!}</td>
+                                
                                 <td class="text-center text13 pb-1 tBorder">
                                     @if ($monitoramento->anexoMonitoramento)
-                                        <a href="{{ Storage::url($monitoramento->anexoMonitoramento) }}" target="_blank"
-                                            class="btn btn-outline-primary btn-sm" title="Visualizar Anexo">
+                                        <a href="{{ Storage::url($monitoramento->anexoMonitoramento) }}" target="_blank" class="btn btn-outline-primary btn-sm" title="Visualizar Anexo">
                                             @if (strpos($monitoramento->anexoMonitoramento, '.pdf') !== false)
                                                 <i class="bi bi-file-earmark-pdf"></i>
                                             @else
@@ -64,8 +67,7 @@
                                 <td class="text-center">
                                     <div class="ms-2 d-flex flex-column align-items-center">
                                         <a href="{{ route('riscos.show', $risco->id) }}" class="btn btn-warning mb-2">Mostrar Risco</a>
-                                        <a href="{{ route('riscos.respostas', ['id' => $monitoramento->id]) }}"
-                                            class="primary" style="font-size: 13px; white-space: nowrap;">
+                                        <a href="{{ route('riscos.respostas', ['id' => $monitoramento->id]) }}" class="primary" style="font-size: 13px; white-space: nowrap;">
                                             Visualizar Providências
                                         </a>
                                     </div>
