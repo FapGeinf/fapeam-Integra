@@ -325,13 +325,11 @@ ul li.item-menu {
   transition: 0.4s;
 }
 
-/* ul li.item-menu:hover {
-  opacity: .5;
+.active-icon {
+  padding: 6px;
+  border-radius: 6px;
+  background-color: #1d4683;
 }
-
-ul li.item-menu:active {
-  opacity: .8;
-} */
 
 .ulList {
   padding-left: 0;
