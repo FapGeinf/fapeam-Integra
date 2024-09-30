@@ -60,11 +60,6 @@
           </form>
         </div>
     	</div>
-
-			
-
-    	
-
     @endif
     </nav>
 

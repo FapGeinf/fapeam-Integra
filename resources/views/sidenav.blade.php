@@ -24,43 +24,35 @@
 
         <ul class="ulList">
             <li class="item-menu liHover">
-                <a href="{{ route('riscos.index') }}" class="{{ Request::routeIs('riscos.index') ? 'active' : '' }}">
+                <a href="{{ route('riscos.index') }}" class="{{ Request::routeIs('riscos.index') ? 'active-icon' : '' }}">
                     <i class="bi bi-house icon"></i>
                     <span class="txt-link">Home</span>
                 </a>
             </li>
 
-            {{-- <hr class="spacer"> --}}
             <li class="item-menu liHover">
-                <a href="{{ route('riscos.implementadas') }}"
-                    class="{{ Request::routeIs('riscos.implementadas') ? 'active' : '' }}">
+                <a href="{{ route('riscos.implementadas') }}" class="{{ Request::routeIs('riscos.implementadas') ? 'active-icon' : '' }}">
                     <i class="bi bi-check-circle icon"></i>
                     <span class="txt-link">Implementadas</span>
                 </a>
             </li>
 
-            {{-- <hr class="spacer"> --}}
             <li class="item-menu liHover">
-                <a href="{{ route('riscos.implementadasParcialmente') }}"
-                    class="{{ Request::routeIs('riscos.implementadasParcialmente') ? 'active' : '' }}">
-                    <i class="bi bi-check-circle icon"></i>
+                <a href="{{ route('riscos.implementadasParcialmente') }}" class="{{ Request::routeIs('riscos.implementadasParcialmente') ? 'active-icon' : '' }}">
+                    <i class="bi bi-circle-half icon"></i>
                     <span class="txt-link">Implementadas Parcial.</span>
                 </a>
             </li>
 
-            {{-- <hr class="spacer"> --}}
             <li class="item-menu liHover">
-                <a href="{{ route('riscos.emImplementacao') }}"
-                    class="{{ Request::routeIs('riscos.emImplementacao') ? 'active' : '' }}">
-                    <i class="bi bi-hourglass-split icon"></i>
+                <a href="{{ route('riscos.emImplementacao') }}" class="{{ Request::routeIs('riscos.emImplementacao') ? 'active-icon' : '' }}">
+                    <i class="bi bi-clock-history icon"></i>
                     <span class="txt-link">Em Implementação</span>
                 </a>
             </li>
 
-            {{-- <hr class="spacer"> --}}
             <li class="item-menu liHover">
-                <a href="{{ route('riscos.naoImplementada') }}"
-                    class="{{ Request::routeIs('riscos.naoImplementada') ? 'active' : '' }}">
+                <a href="{{ route('riscos.naoImplementada') }}" class="{{ Request::routeIs('riscos.naoImplementada') ? 'active-icon' : '' }}">
                     <i class="bi bi-x-circle icon"></i>
                     <span class="txt-link">Não Implementada</span>
                 </a>
