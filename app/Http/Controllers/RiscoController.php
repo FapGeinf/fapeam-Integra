@@ -399,6 +399,8 @@ class RiscoController extends Controller
         $risco = Risco::findOrFail($monitoramento->riscoFK);
 
         try {
+            Log::info('Storing resposta for monitoramento', ['monitoramento_id' => $monitoramento->id]);
+
             $request->validate([
                 'respostaRisco' => 'required|string|max:5000',
                 'anexo' => 'nullable|file|mimes:jpg,png,pdf|max:2048'
@@ -407,6 +409,9 @@ class RiscoController extends Controller
             $filePath = null;
             if ($request->hasFile('anexo')) {
                 $filePath = $request->file('anexo')->store('anexos', 'public');
+                Log::info('File uploaded', ['file_path' => $filePath]);
+            } else {
+                Log::info('No file uploaded');
             }
 
             $resposta = Resposta::create([
@@ -416,8 +421,9 @@ class RiscoController extends Controller
                 'anexo' => $filePath
             ]);
 
-            $formattedDateTime = Carbon::parse($resposta->created_at)->format('d/m/Y \à\s H:i');
+            Log::info('Resposta created', ['resposta_id' => $resposta->id]);
 
+            $formattedDateTime = Carbon::parse($resposta->created_at)->format('d/m/Y \à\s H:i');
             $message = '<div><span>Nova mensagem!</span><br><br><div><span>Usuário: </span>' . htmlspecialchars(auth()->user()->name) . '</div>' .
                 '<div><span>Unidade: </span>' . (auth()->user()->unidade ? htmlspecialchars(auth()->user()->unidade->unidadeNome) : 'Desconhecida') . '</div>' .
                 '<div><span>Data do envio: </span>' . htmlspecialchars($formattedDateTime) . '</div><br>' .
@@ -429,15 +435,17 @@ class RiscoController extends Controller
                 'monitoramentoId' => $monitoramento->id
             ]);
 
-            Log::info('Calling sendEmail function', [
-                'notification_id' => $notification->id,
-                'monitoramento_id' => $monitoramento->id,
-                'resposta_id' => $resposta->id
-            ]);
+            Log::info('Notification created', ['notification_id' => $notification->id]);
 
-            $this->sendEmail($resposta, $monitoramento, $notification);
+            // Log::info('Calling sendEmail function', [
+            //     'notification_id' => $notification->id,
+            //     'monitoramento_id' => $monitoramento->id,
+            //     'resposta_id' => $resposta->id
+            // ]);
 
-            Log::info('sendEmail function executed successfully');
+            // $this->sendEmail($resposta, $monitoramento, $notification);
+
+            // Log::info('sendEmail function executed successfully');
 
             $unitId = $risco->unidadeId;
             $usersForUnit = User::where('unidadeIdFK', $unitId)->get();
@@ -445,21 +453,29 @@ class RiscoController extends Controller
             $usersForSubcomissao = User::where('unidadeIdFK', $subcomissaoUnit->id)->get();
             $allUsers = $usersForUnit->merge($usersForSubcomissao)->unique('id');
 
+            Log::info('Attaching notification to users', ['user_count' => $allUsers->count()]);
+
             foreach ($allUsers as $user) {
                 $user->notifications()->attach($notification->id);
+                Log::info('Notification attached to user', ['user_id' => $user->id]);
             }
 
             $users = User::all();
             foreach ($users as $user) {
                 $user->notifications()->attach($notification->id);
+                Log::info('Notification attached to all users', ['user_id' => $user->id]);
             }
-
 
             return redirect()->route('riscos.respostas', $id)->with('success', 'Respostas adicionadas com sucesso');
         } catch (\Exception $e) {
+            Log::error('Error storing resposta', [
+                'error' => $e->getMessage(),
+                'monitoramento_id' => $monitoramento->id
+            ]);
             return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
         }
     }
+
 
 
 
