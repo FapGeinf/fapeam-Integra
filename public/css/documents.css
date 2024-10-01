@@ -94,7 +94,7 @@ a img:hover {
   font-weight: bold;
   padding:1.5rem 12rem 1rem 12rem;
   border-radius: 0 0 15px 0;
-  background-color: #1d3055;
+  background-color: #22539c;
 }
 
 .apresentacao2 {
@@ -135,7 +135,13 @@ a img:hover {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   position: relative;
   overflow: hidden;
-  border-left: 5px solid #1d3055;
+  border-right: 5px solid #22539c;
+  transition: .3s ease;
+}
+
+.central-text:hover {
+  transform: translateY(-10px);
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.3);
 }
 
 .central-text:before,
