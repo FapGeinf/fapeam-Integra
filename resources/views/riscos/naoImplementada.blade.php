@@ -26,7 +26,7 @@
 
         <div class="col-12 border main-datatable">
             <div class="container-fluid">
-                <table id="tableHome" class="table cust-datatable">
+                <table id="tableHome2" class="table cust-datatable">
                     <thead>
                         <tr>
                             <th style="white-space: nowrap; width: 100px;">Unidade</th>
@@ -99,7 +99,7 @@
 
     <script>
         $(document).ready(function() {
-            var table = $('#tableHome').DataTable({
+            var table = $('#tableHome2').DataTable({
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
                     search: "Procurar:",

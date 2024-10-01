@@ -6,6 +6,19 @@ table, tr,th, td {
   margin-left: 10rem;
 }
 
+.notification-item {
+  background-color: #f7f9fc; /* Cor de fundo suave */
+  border: 1px solid #e0e0e0; /* Borda leve */
+  border-radius: 8px; /* Bordas arredondadas */
+  margin-bottom: 0.5rem; /* Espaçamento entre os itens */
+  transition: background-color 0.3s, box-shadow 0.3s; /* Transição suave */
+}
+
+.notification-item:hover {
+  background-color: #f0f0f0; /* Cor de fundo ao passar o mouse */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra ao passar o mouse */
+}
+
 /* ESTILIZAÇÃO DA TABELA INÍCIO */
 .main-datatable .cust-datatable > thead > tr > th {
   padding: 9px 8px !important;
@@ -220,7 +233,7 @@ thead tr th {
 }
 
 #tableHome tbody tr:hover td:not(.riscoAvaliacao) {
-  background-color: #ececec !important;
+  background-color: #ececec;
 }
 
 #tableHome tbody tr:nth-child(even) td {
@@ -237,6 +250,36 @@ thead tr th {
 
 /* HOVER CUSTOM INÍCIO */
 #tableHome tbody tr {
+  transition: transform 0.3s ease;
+}
+
+#tableHome2 tbody tr {
+  transition: transform 0.3s ease;
+}
+
+
+#tableHome2 tbody tr:nth-child(even) td {
+  background-color: #fff;
+  border-right: 0;
+}
+
+#tableHome2 tbody tr:nth-child(odd) td {
+  background-color: #f3f3f3;
+  border-right: 0px;
+}
+
+#tableHome2 tbody tr:hover td:not(.riscoAvaliacao) {
+  background-color: #ececec;
+}
+
+#tableHome2_length {
+  width: 20%;
+  display: flex;
+  white-space: nowrap;
+}
+
+/* HOVER CUSTOM INÍCIO */
+#tableHome2 tbody tr {
   transition: transform 0.3s ease;
 }
 
