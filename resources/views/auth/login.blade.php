@@ -43,7 +43,7 @@
 
       <div class="linksChild">
         <i class="fas fa-book"></i>
-        <a href="{{ route('tutorial') }}" target="_blank">Tutorial</a>
+        <a href="{{ route('manual') }}" target="_blank">Manual</a>
       </div>
     </div>
 
