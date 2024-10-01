@@ -338,6 +338,7 @@ a.reply-btn:hover {
   justify-content: center;
   padding-top: 1rem;
   line-height: 38px;
+  margin-left: 7rem;
 }
 
 .alert-danger {

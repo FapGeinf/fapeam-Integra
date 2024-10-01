@@ -1,12 +1,13 @@
 <?php
 
 use App\Events\PrazoProximo;
+use App\Http\Controllers\DocumentoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RiscoController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\UserController;
 use App\Models\Prazo;
-
+use Illuminate\Support\Facades\Storage;
 
 
 /*
@@ -69,16 +70,12 @@ Route::get('/home', function(){
 	return redirect()->route('riscos.index');
 });
 
-Route::get('/apresentacao', function () {
-	return view('links_login.apresentacao');
-})->name('apresentacao');
+Route::get('/apresentacao', [DocumentoController::class, 'showSystemPage'] )->name('apresentacao');
 
 Route::get('/legislacao', function () {
 	return view('links_login.legislacao');
 })->name('legislacao');
 
-Route::get('/tutorial', function () {
-	return view('links_login.tutorial');
-})->name('tutorial');
+Route::get('/manual', [DocumentoController::class, 'downloadManual'])->name('manual');
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
