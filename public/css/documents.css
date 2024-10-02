@@ -134,9 +134,11 @@ a img:hover {
   border: 1px solid #d1d1d1;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   position: relative;
-  overflow: hidden;
+  /* overflow: hidden; */
   border-right: 5px solid #22539c;
   transition: .3s ease;
+  overflow-y: auto;
+  max-height: 700px;
 }
 
 .central-text:hover {
