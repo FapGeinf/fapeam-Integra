@@ -71,6 +71,11 @@
     </p>
    
   </div>
+  <style>
+    .tooltip-container {
+      margin-bottom: 10px;
+    }
+  </style>
 
   <script>// Função para criar o tooltip
     function showTooltip(event) {

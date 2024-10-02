@@ -99,7 +99,8 @@ class UserController extends Controller
         User::whereId(auth()->user()->id)->update([
             'password' => Hash::make($request->new_password)
         ]);
-        return back()->with('status', 'Senha alterada com sucesso');
+        //return back()->with('status', 'Senha alterada com sucesso');
+				return redirect()->route('riscos.index')->with('status', 'Senha alterada com sucesso');
     }
 
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Risco;
+use App\Models\Monitoramento;
 use Illuminate\Http\Request;
 
 class StatusController extends Controller
@@ -38,21 +39,17 @@ class StatusController extends Controller
         $userUnit = $user->unidade->unidadeTipoFK;
 
         if ($userUnit === 1) {
-            $todosRiscos = Risco::whereHas('monitoramentos', function ($query) use ($status) {
-                $query->where('statusMonitoramento', $status);
-            })->get();
-
-            $riscosDaUnidade = $todosRiscos;
+            $todosMonitoramentos = Monitoramento::where('statusMonitoramento', $status)->get();
+            $monitoramentosDaUnidade = $todosMonitoramentos;
         } else {
-            $riscosDaUnidade = Risco::where('unidadeId', $userUnit)
-                ->whereHas('monitoramentos', function ($query) use ($status) {
-                    $query->where('statusMonitoramento', $status);
-                })->get();
+            $monitoramentosDaUnidade = Monitoramento::whereHas('risco', function ($query) use ($userUnit) {
+                $query->where('unidadeId', $userUnit);
+            })->where('statusMonitoramento', $status)->get();
         }
 
         return view($view, [
-            'riscos' => $todosRiscos ?? collect(),
-            'riscosDaUnidade' => $riscosDaUnidade,
+            'monitoramentos' => $todosMonitoramentos ?? collect(),
+            'monitoramentosDaUnidade' => $monitoramentosDaUnidade,
             'userUnit' => $userUnit
         ]);
     }

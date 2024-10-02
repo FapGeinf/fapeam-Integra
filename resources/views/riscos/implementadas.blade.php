@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    {{ 'Implementadas' }}
+    {{ 'Monitoramentos Implementados' }}
 @endsection
 
 
@@ -12,7 +12,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Monitoramentos Implementados</title>
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.2.3/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
@@ -28,59 +28,57 @@
             <div class="container-fluid">
                 <table id="tableHome2" class="table cust-datatable">
                     <thead>
-                        <tr>
+										<tr>
                             <th style="white-space: nowrap; width: 100px;">Unidade</th>
                             <th>Controle Sugerido</th>
-                            <th style="white-space: nowrap;">Data</th>
+                            <th style="white-space: nowrap;">Data</th>                       
                             <th style="white-space: nowrap;">Situação</th>
                             <th style="white-space: nowrap;">Anexo</th>
                             <th style="white-space: nowrap;">Opções</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($riscosDaUnidade as $risco)
-                            @foreach ($risco->monitoramentos as $monitoramento)
-                                <tr>
-                                    <td class="text-center text13 pb-1 tBorder">
-                                        {!! $risco->unidade->unidadeSigla !!}
-                                    </td>
-    
-                                    <td class="text13 pb-1 tBorder">{!! $monitoramento->monitoramentoControleSugerido !!}</td>
-    
-                                    <td class="text-center text-13 pb-1" style="white-space: nowrap;">
-                                        {{ \Carbon\Carbon::parse($monitoramento->inicioMonitoramento)->format('d/m/Y') }} -
-                                        {{ $monitoramento->fimMonitoramento ? \Carbon\Carbon::parse($monitoramento->fimMonitoramento)->format('d/m/Y') : 'Contínuo' }}
-                                    </td>
-    
-                                    <td class="text-center text13 pb-1 tBorder">{!! $monitoramento->statusMonitoramento !!}</td>
-                                    
-                                    <td class="text-center text13 pb-1 tBorder">
-                                        @if ($monitoramento->anexoMonitoramento)
-                                            <a href="{{ Storage::url($monitoramento->anexoMonitoramento) }}" target="_blank" class="btn btn-outline-primary btn-sm" title="Visualizar Anexo">
-                                                @if (strpos($monitoramento->anexoMonitoramento, '.pdf') !== false)
-                                                    <i class="bi bi-file-earmark-pdf"></i>
-                                                @else
-                                                    <i class="bi bi-file-earmark-image"></i>
-                                                @endif
-                                                {{ basename($monitoramento->anexoMonitoramento) }}
-                                            </a>
-                                        @else
-                                            <div class="center">
-                                                <i class="bi bi-file-earmark-excel"></i>
-                                                Nenhum anexo disponível
-                                            </div>
-                                        @endif
-                                    </td>
-                                    <td class="text-center">
-                                        <div class="ms-2 d-flex flex-column align-items-center">
-                                            <a href="{{ route('riscos.show', $risco->id) }}" class="btn btn-warning mb-2">Mostrar Risco</a>
-                                            <a href="{{ route('riscos.respostas', ['id' => $monitoramento->id]) }}" class="primary" style="font-size: 13px; white-space: nowrap;">
-                                                Visualizar Providências
-                                            </a>
+                        @foreach ($monitoramentosDaUnidade as $monitoramento)
+                            <tr>
+                                <td class="text-center text13 pb-1 tBorder">
+                                    {!! $monitoramento->risco->unidade->unidadeSigla !!}
+                                </td>
+
+                                <td class="text13 pb-1 tBorder">{!! $monitoramento->monitoramentoControleSugerido !!}</td>
+
+                                <td class="text-center text-13 pb-1" style="white-space: nowrap;">
+                                    {{ \Carbon\Carbon::parse($monitoramento->inicioMonitoramento)->format('d/m/Y') }} -
+                                    {{ $monitoramento->fimMonitoramento ? \Carbon\Carbon::parse($monitoramento->fimMonitoramento)->format('d/m/Y') : 'Contínuo' }}
+                                </td>
+
+                                <td class="text-center text13 pb-1 tBorder">{!! $monitoramento->statusMonitoramento !!}</td>
+                                
+                                <td class="text-center text13 pb-1 tBorder">
+                                    @if ($monitoramento->anexoMonitoramento)
+                                        <a href="{{ Storage::url($monitoramento->anexoMonitoramento) }}" target="_blank" class="btn btn-outline-primary btn-sm" title="Visualizar Anexo">
+                                            @if (strpos($monitoramento->anexoMonitoramento, '.pdf') !== false)
+                                                <i class="bi bi-file-earmark-pdf"></i>
+                                            @else
+                                                <i class="bi bi-file-earmark-image"></i>
+                                            @endif
+                                            {{ basename($monitoramento->anexoMonitoramento) }}
+                                        </a>
+                                    @else
+                                        <div class="center">
+                                            <i class="bi bi-file-earmark-excel"></i>
+                                            Nenhum anexo disponível
                                         </div>
-                                    </td>
-                                </tr>
-                            @endforeach
+                                    @endif
+                                </td>
+                                <td class="text-center">
+                                    <div class="ms-2 d-flex flex-column align-items-center">
+                                        <a href="{{ route('riscos.show', $monitoramento->risco->id) }}" class="btn btn-warning mb-2">Mostrar Risco</a>
+                                        <a href="{{ route('riscos.respostas', ['id' => $monitoramento->id]) }}" class="primary" style="font-size: 13px; white-space: nowrap;">
+                                            Visualizar Providências
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
@@ -103,10 +101,10 @@
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
                     search: "Procurar:",
-                    lengthMenu: "Riscos: _MENU_",
+                    lengthMenu: "Monitoramentos: _MENU_",
                     info: 'Mostrando página _PAGE_ de _PAGES_',
-                    infoEmpty: 'Sem relatórios de risco disponíveis no momento',
-                    infoFiltered: '(Filtrados do total de _MAX_ relatórios)',
+                    infoEmpty: 'Sem monitoramentos disponíveis no momento',
+                    infoFiltered: '(Filtrados do total de _MAX_ monitoramentos)',
                     zeroRecords: 'Nada encontrado. Se achar que isso é um erro, contate o suporte.',
                     paginate: {
                         next: "Próximo",
@@ -119,8 +117,8 @@
     
                     if (!$('#filterUnidade').length) {
                         var selectUnidade = $('<select id="filterUnidade" class="form-select form-select-sm divFilterUnidade"><option value="">Todas as Unidades</option></select>');
-                        @foreach ($riscos->unique('unidade.unidadeNome') as $risco)
-                            selectUnidade.append('<option value="{{ $risco->unidade->unidadeNome }}">{{ $risco->unidade->unidadeNome }}</option>');
+                        @foreach ($monitoramentosDaUnidade->unique('risco.unidade.unidadeNome') as $monitoramento)
+                            selectUnidade.append('<option value="{{ $monitoramento->risco->unidade->unidadeNome }}">{{ $monitoramento->risco->unidade->unidadeNome }}</option>');
                         @endforeach
     
                         var labelUnidades = $('<label for="filterUnidade" class="labelUnidade">Unidades:</label>');
@@ -144,8 +142,8 @@
     
                     if (!$('#filterUnidade').length) {
                         var selectUnidade = $('<select id="filterUnidade" class="form-select form-select-sm divFilterUnidade"><option value="">TODAS</option></select>');
-                        @foreach ($riscos->unique('unidade.unidadeNome') as $risco)
-                            selectUnidade.append('<option value="{{ $risco->unidade->unidadeSigla }}">{{ $risco->unidade->unidadeSigla }}</option>');
+                        @foreach ($monitoramentosDaUnidade->unique('risco.unidade.unidadeNome') as $monitoramento)
+                            selectUnidade.append('<option value="{{ $monitoramento->risco->unidade->unidadeSigla }}">{{ $monitoramento->risco->unidade->unidadeSigla }}</option>');
                         @endforeach
     
                         var labelUnidades = $('<label for="filterUnidade" class="labelUnidade">Unidades:</label>');
