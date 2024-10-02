@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ asset('css/resp.css') }}">
 </head>
 
-<div class="container-xl p-30">
+<div class="container-xl p-30 paddingTop">
     @if (session('error'))
         <script>
             alert('Não foi possível salvar sua resposta no momento');

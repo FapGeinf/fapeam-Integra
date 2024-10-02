@@ -35,7 +35,7 @@
         @endif
     </div>
 
-    <div class="form-wrapper paddingLeft">
+    <div class="form-wrapper paddingTop">
         <div class="form_create border">
             <h3 style="text-align: center; margin-bottom: 20px;">
                 Editar Monitoramento

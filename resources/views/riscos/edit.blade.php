@@ -34,7 +34,7 @@
         @endif
     </div>
 
-    <div class="form-wrapper pt-4 paddingLeft">
+    <div class="form-wrapper pt-4 paddingTop">
         <div class="form_create border">
             <h3 style="text-align: center; margin-bottom: 20px;">
                 Editar Formulário de Risco

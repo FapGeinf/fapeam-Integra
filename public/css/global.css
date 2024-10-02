@@ -9,6 +9,36 @@
   transition: margin-left 0.4s;
 }
 
+
+
+/* Estilo do botão de expandir/recolher */
+.btn-toggle {
+  position: fixed;
+  top: 45px;
+  left: 260px; /* Ajuste conforme a largura inicial da sidenav */
+  background-color: #22539c;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 1;
+  transition: left 0.4s;
+  border-radius: 10%;
+}
+
+.menu-lateral.collapsed {
+  width: 80px; /* Largura quando recolhida */
+}
+
+.menu-lateral.collapsed .txt-link {
+  display: none;
+}
+
+.btn-toggle.collapsed {
+  left: 90px; /* Posicione o botão quando a sidenav está recolhida */
+}
+
+
 .dataUser {
   color: #fff;
   font-size: 15px;
@@ -232,7 +262,7 @@ a.btnAltSenha:hover {
 }
 
 .liHover a:hover {
-  padding: 6px;
+  padding: 6px 6px 6px 0;
 }
 
 .liHover:hover {
@@ -309,11 +339,11 @@ nav.menu-lateral {
 }
 
 .icon {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-left: 0.5rem;
+  padding-left: 0.4rem;
 }
 
 ol, ul {
@@ -326,7 +356,7 @@ ul li.item-menu {
 }
 
 .active-icon {
-  padding: 6px;
+  padding: 6px 8px 6px 0px !important;
   border-radius: 6px;
   background-color: #1d4683;
 }
@@ -352,8 +382,8 @@ ul li.item-menu a {
 }
 
 ul li.item-menu a .txt-link {
-  margin-left: 1rem;
-  transition: .8s;
+  margin-left: 1.4rem;
+  /* transition: .8s; */
 }
 
 nav.menu-lateral.expand .txt-link {

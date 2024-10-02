@@ -22,7 +22,7 @@
 
 <body>
 
-    <div class="container-fluid p-30 paddingLeft">
+    <div class="container-fluid p-30 paddingTop">
 
         <div class="col-12 border main-datatable">
             <div class="container-fluid">

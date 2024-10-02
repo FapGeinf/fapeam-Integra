@@ -11,12 +11,20 @@ table, tr,th, td {
   border: 1px solid #e0e0e0; /* Borda leve */
   border-radius: 8px; /* Bordas arredondadas */
   margin-bottom: 0.5rem; /* Espaçamento entre os itens */
-  transition: background-color 0.3s, box-shadow 0.3s; /* Transição suave */
+  transition: .2s; /* Transição suave */
 }
 
 .notification-item:hover {
-  background-color: #f0f0f0; /* Cor de fundo ao passar o mouse */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra ao passar o mouse */
+  background-color: #f0f0f0;
+  transform: translateY(-3px);
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); */
+}
+
+#readNotifications li {
+  color: #888888;
+  font-style: italic;
+  background-color: #f0f0f0;
 }
 
 /* ESTILIZAÇÃO DA TABELA INÍCIO */
@@ -46,6 +54,8 @@ table, tr,th, td {
   background-color: #0056b3;
   padding: 3px;
 }
+
+
 
 #tableHome {
   margin-top: 13px;
@@ -292,8 +302,8 @@ p {
   padding: 30px;
 }
 
-.paddingLeft {
-  padding-left: 8rem;
+.paddingTop {
+  padding-top: 4rem;
 }
 
 .main-datatable {

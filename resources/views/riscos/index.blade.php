@@ -19,7 +19,7 @@
 
 <body>
 
-    <div class="container-fluid p-30 paddingLeft">
+    <div class="container-fluid p-30 paddingTop">
 
         <div id="newRiskButtonDiv" class="d-flex">
             @if (Auth::user()->unidade->unidadeTipoFK == 1)
@@ -325,6 +325,7 @@
                             selectAvaliacao.append('<option value="' + option.value + '">' +
                                 option.text + '</option>');
                         });
+                        
 
                         // Create the label for the select with class "labelAvaliação"
                         var labelAvaliacoes = $(
@@ -334,6 +335,8 @@
                         // Append label and select to the length div
                         $('.dataTables_length').append(labelAvaliacoes).append(selectAvaliacao);
                     }
+
+                    
 
                     // Move the length and filter divs into divContainer
                     divContainer.append($('.dataTables_filter'));
