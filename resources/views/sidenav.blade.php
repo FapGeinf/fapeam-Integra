@@ -19,6 +19,85 @@
     </style>
 </head>
 
+<script defer>
+    document.addEventListener('DOMContentLoaded', function() {
+        const bodyClass = document.body.classList.contains('page-with-filters');
+        const removeSNItens = document.body.classList.contains('changePassword');
+        const sidenav = document.getElementById("appSidenav");
+        const imgElement = document.querySelectorAll('#logoMin');
+        const fullLogoElement = document.querySelectorAll('#logoMax');
+        const appContent = document.getElementsByClassName('appContent')[0];
+        const marginLeft1 = document.querySelector('.marginLeft1');
+        const textFilter = document.querySelector('.textFilter');
+        const searchDivs = document.querySelectorAll('#searchDiv');
+        const toggleButton = document.querySelector("#toggleSidenav"); // Seletor do botão
+        
+        // Configuração inicial
+        if (bodyClass) {
+            sidenav.style.width = "255px";
+            appContent.style.marginLeft = "255px";
+            imgElement.forEach(img => img.style.display = "none");
+            fullLogoElement.forEach(img => img.style.display = "block");
+            toggleButton.style.left = "260px"; // Posição do botão quando a sidenav está expandida
+
+            if (marginLeft1) {
+                marginLeft1.style.marginLeft = '15px';
+            }
+        } else {
+            sidenav.style.width = "4rem";
+            appContent.style.marginLeft = '4rem';
+            // appContent.style.width = 'calc(100% - 3rem)'; // Alarga o conteúdo
+            imgElement.forEach(img => img.style.display = "block");
+            fullLogoElement.forEach(img => img.style.display = "none");
+            toggleButton.style.left = "70px"; // Posição do botão quando a sidenav está recolhida
+
+            if (marginLeft1) {
+                marginLeft1.style.marginLeft = '0px';
+            }
+
+            if (textFilter) textFilter.style.visibility = 'visible';
+            searchDivs.forEach(div => div.style.visibility = 'visible');
+        }
+
+        if (removeSNItens) {
+            if (sidenav) {
+                sidenav.style.display = 'none'; // Oculta toda a sidenav
+            }
+        }
+
+        function toggleNav() {
+            const sidenavWidth = parseInt(sidenav.style.width) || 0; // Verifica a largura atual do sidenav
+
+            if (sidenavWidth === 255) { // Caso a sidenav esteja expandida
+                sidenav.style.width = "4rem";
+                appContent.style.marginLeft = '4rem';
+                //appContent.style.width = 'calc(100% - 3rem)';  Alarga o conteúdo para ocupar o espaço liberado
+                imgElement.forEach(img => img.style.display = "block");
+                fullLogoElement.forEach(img => img.style.display = "none");
+                toggleButton.style.left = "70px"; // Posição do botão ao recolher a sidenav
+                if (marginLeft1) marginLeft1.style.marginLeft = '0px';
+
+                if (textFilter) textFilter.style.visibility = 'hidden';
+                searchDivs.forEach(div => div.style.visibility = 'hidden');
+            } else { // Caso esteja recolhida
+                sidenav.style.width = "255px";
+                appContent.style.marginLeft = "255px";
+              // appContent.style.width = 'calc(100% - 255px)';  Ajusta o conteúdo para o tamanho menor da sidenav
+                imgElement.forEach(img => img.style.display = "none");
+                fullLogoElement.forEach(img => img.style.display = "block");
+                toggleButton.style.left = "260px"; // Posição do botão ao expandir a sidenav
+                if (marginLeft1) marginLeft1.style.marginLeft = '15px';
+
+                if (textFilter) textFilter.style.visibility = 'visible';
+                searchDivs.forEach(div => div.style.visibility = 'visible');
+            }
+        }
+
+        // Adiciona o evento de clique para o botão de abrir/fechar sidenav
+        toggleButton.addEventListener("click", toggleNav);
+    });
+</script>
+
 <body>
     <nav class="menu-lateral" id="appSidenav">
         <button id="toggleSidenav" class="btn-toggle">
@@ -93,84 +172,7 @@
             </a>
         </ul>
     </nav>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const bodyClass = document.body.classList.contains('page-with-filters');
-            const removeSNItens = document.body.classList.contains('changePassword');
-            const sidenav = document.getElementById("appSidenav");
-            const imgElement = document.querySelectorAll('#logoMin');
-            const fullLogoElement = document.querySelectorAll('#logoMax');
-            const appContent = document.getElementsByClassName('appContent')[0];
-            const marginLeft1 = document.querySelector('.marginLeft1');
-            const textFilter = document.querySelector('.textFilter');
-            const searchDivs = document.querySelectorAll('#searchDiv');
-            const toggleButton = document.querySelector("#toggleSidenav"); // Seletor do botão
-            
-            // Configuração inicial
-            if (bodyClass) {
-                sidenav.style.width = "255px";
-                appContent.style.marginLeft = "255px";
-                imgElement.forEach(img => img.style.display = "none");
-                fullLogoElement.forEach(img => img.style.display = "block");
-                toggleButton.style.left = "260px"; // Posição do botão quando a sidenav está expandida
     
-                if (marginLeft1) {
-                    marginLeft1.style.marginLeft = '15px';
-                }
-            } else {
-                sidenav.style.width = "4rem";
-                appContent.style.marginLeft = '4rem';
-                // appContent.style.width = 'calc(100% - 3rem)'; // Alarga o conteúdo
-                imgElement.forEach(img => img.style.display = "block");
-                fullLogoElement.forEach(img => img.style.display = "none");
-                toggleButton.style.left = "70px"; // Posição do botão quando a sidenav está recolhida
-    
-                if (marginLeft1) {
-                    marginLeft1.style.marginLeft = '0px';
-                }
-    
-                if (textFilter) textFilter.style.visibility = 'visible';
-                searchDivs.forEach(div => div.style.visibility = 'visible');
-            }
-    
-            if (removeSNItens) {
-                if (sidenav) {
-                    sidenav.style.display = 'none'; // Oculta toda a sidenav
-                }
-            }
-    
-            function toggleNav() {
-                const sidenavWidth = parseInt(sidenav.style.width) || 0; // Verifica a largura atual do sidenav
-    
-                if (sidenavWidth === 255) { // Caso a sidenav esteja expandida
-                    sidenav.style.width = "4rem";
-                    appContent.style.marginLeft = '4rem';
-                    //appContent.style.width = 'calc(100% - 3rem)';  Alarga o conteúdo para ocupar o espaço liberado
-                    imgElement.forEach(img => img.style.display = "block");
-                    fullLogoElement.forEach(img => img.style.display = "none");
-                    toggleButton.style.left = "70px"; // Posição do botão ao recolher a sidenav
-                    if (marginLeft1) marginLeft1.style.marginLeft = '0px';
-    
-                    if (textFilter) textFilter.style.visibility = 'hidden';
-                    searchDivs.forEach(div => div.style.visibility = 'hidden');
-                } else { // Caso esteja recolhida
-                    sidenav.style.width = "255px";
-                    appContent.style.marginLeft = "255px";
-                  // appContent.style.width = 'calc(100% - 255px)';  Ajusta o conteúdo para o tamanho menor da sidenav
-                    imgElement.forEach(img => img.style.display = "none");
-                    fullLogoElement.forEach(img => img.style.display = "block");
-                    toggleButton.style.left = "260px"; // Posição do botão ao expandir a sidenav
-                    if (marginLeft1) marginLeft1.style.marginLeft = '15px';
-    
-                    if (textFilter) textFilter.style.visibility = 'visible';
-                    searchDivs.forEach(div => div.style.visibility = 'visible');
-                }
-            }
-    
-            // Adiciona o evento de clique para o botão de abrir/fechar sidenav
-            toggleButton.addEventListener("click", toggleNav);
-        });
-    </script>
     
     
     
