@@ -79,3 +79,6 @@ Route::get('/legislacao', function () {
 Route::get('/manual', [DocumentoController::class, 'downloadManual'])->name('manual');
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/eixos', function () {
+	return view('eixos');
+});
