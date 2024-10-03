@@ -1,0 +1,31 @@
+ul, ol {
+  margin: 0;
+  padding-left: 0;
+  list-style-position: inside;
+}
+
+ul li,
+ol li {
+  padding-left: 0;
+}
+
+.container {
+  padding-top: 7rem;
+}
+
+.box-container {
+  border: 1px solid #ccc;
+  padding: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.10);
+  background-color: #f8fafc;
+}
+
+.card {
+  background-color: #f3f3f3;
+  transition: .2s;
+}
+
+.card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.1);
+}
