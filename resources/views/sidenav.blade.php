@@ -7,14 +7,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
-    
     <style>
+        /* Defina a largura inicial da sidenav para garantir que ela carregue fechada */
         #appSidenav {
-            transition: width 0.3s ease;
+            width: 4rem; /* Inicia recolhida */
+            transition: width 0.3s ease; /* Animação suave para abertura/fechamento */
+            overflow: hidden; /* Para esconder o conteúdo quando a sidenav está recolhida */
         }
 
-        .appContent {
-            transition: margin-left 0.3s ease, width 0.3s ease;
+        .appContent,
+        #toggleSidenav {
+            margin-left: 4rem; /* O conteúdo também deve iniciar deslocado */
+            transition: margin-left 0.3s ease; /* Animação suave */
         }
     </style>
 </head>
@@ -38,7 +42,7 @@
             appContent.style.marginLeft = "255px";
             imgElement.forEach(img => img.style.display = "none");
             fullLogoElement.forEach(img => img.style.display = "block");
-            toggleButton.style.left = "260px"; // Posição do botão quando a sidenav está expandida
+            toggleButton.style.left = "200px"; // Posição do botão quando a sidenav está expandida
 
             if (marginLeft1) {
                 marginLeft1.style.marginLeft = '15px';
@@ -49,7 +53,7 @@
             // appContent.style.width = 'calc(100% - 3rem)'; // Alarga o conteúdo
             imgElement.forEach(img => img.style.display = "block");
             fullLogoElement.forEach(img => img.style.display = "none");
-            toggleButton.style.left = "70px"; // Posição do botão quando a sidenav está recolhida
+            toggleButton.style.left = "10px"; // Posição do botão quando a sidenav está recolhida
 
             if (marginLeft1) {
                 marginLeft1.style.marginLeft = '0px';
@@ -74,7 +78,7 @@
                 //appContent.style.width = 'calc(100% - 3rem)';  Alarga o conteúdo para ocupar o espaço liberado
                 imgElement.forEach(img => img.style.display = "block");
                 fullLogoElement.forEach(img => img.style.display = "none");
-                toggleButton.style.left = "70px"; // Posição do botão ao recolher a sidenav
+                toggleButton.style.left = "10px"; // Posição do botão ao recolher a sidenav
                 if (marginLeft1) marginLeft1.style.marginLeft = '0px';
 
                 if (textFilter) textFilter.style.visibility = 'hidden';
@@ -85,7 +89,7 @@
               // appContent.style.width = 'calc(100% - 255px)';  Ajusta o conteúdo para o tamanho menor da sidenav
                 imgElement.forEach(img => img.style.display = "none");
                 fullLogoElement.forEach(img => img.style.display = "block");
-                toggleButton.style.left = "260px"; // Posição do botão ao expandir a sidenav
+                toggleButton.style.left = "200px"; // Posição do botão ao expandir a sidenav
                 if (marginLeft1) marginLeft1.style.marginLeft = '15px';
 
                 if (textFilter) textFilter.style.visibility = 'visible';
