@@ -11,7 +11,7 @@
   <div class="form_create1 border">
     <div class="titleDP text-center">
       <span>
-        Documentos do Programa de Integridade
+        Eixos do Programa de Integridade
       </span>
     </div>
   </div>
