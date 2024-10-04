@@ -121,14 +121,14 @@
         </div>
     </div>
 
-    <footer class="rodape">
+    <!-- <footer class="rodape">
         <div class="riskLevelDiv">
             <span>Nível de Risco (Avaliação):</span>
             <span class="mode riskLevel1">Baixo</span>
             <span class="mode riskLevel2">Médio</span>
             <span class="mode riskLevel3">Alto</span>
         </div>
-    </footer>
+    </footer> -->
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>

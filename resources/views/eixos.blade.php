@@ -108,7 +108,8 @@
             <p class="card-text">Descrição do eixo 8.</p>
             <ul>
               <li><a href="#">Apresentação</a></li>
-              <li><a href="#">Indicadores</a></li>
+              <!-- <li><a href="#">Indicadores</a></li> -->
+              <li><a href="{{route('riscos.index')}}">Monitoramentos</a></li>
             </ul>
           </div>
         </div>

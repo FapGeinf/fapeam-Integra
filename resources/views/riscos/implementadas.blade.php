@@ -86,14 +86,14 @@
         </div>
     </div>
 
-    <footer class="rodape">
+    <!-- <footer class="rodape">
         <div class="riskLevelDiv">
             <span>Nível de Risco (Avaliação):</span>
             <span class="mode riskLevel1">Baixo</span>
             <span class="mode riskLevel2">Médio</span>
             <span class="mode riskLevel3">Alto</span>
         </div>
-    </footer>
+    </footer> -->
 
     <script>
         $(document).ready(function() {

@@ -155,6 +155,19 @@
                     <span class="txt-link">Não Implementada</span>
                 </a>
             </li>
+						<hr class="spacer">
+            <li class="item-menu liHover">
+                <a href="{{ route('riscos.naoImplementada') }}" >
+								<i class="bi bi-card-text icon"></i>
+                    <span class="txt-link">Documentos</span>
+                </a>
+            </li>
+            <li class="item-menu liHover">
+                <a href="{{ route('riscos.naoImplementada') }}" >
+								<i class="bi bi-archive icon"></i>
+                    <span class="txt-link">Relatórios</span>
+                </a>
+            </li>
 
             <hr class="spacer">
 

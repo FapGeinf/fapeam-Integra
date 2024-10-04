@@ -189,7 +189,7 @@
                             <th style="white-space: nowrap;">Evento de Risco</th>
                             <th>Causa</th>
                             <th>Consequência</th>
-                            <th style="width: 100px;">Avaliação</th>
+                            <th style="width: 100px;">Classificação do Risco</th>
                         </tr>
                     </thead>
 
@@ -218,14 +218,14 @@
         </div>
     </div>
 
-    <footer class="rodape">
+    <!-- <footer class="rodape">
         <div class="riskLevelDiv">
             <span>Nível de Risco (Avaliação):</span>
             <span class="mode riskLevel1">Baixo</span>
             <span class="mode riskLevel2">Médio</span>
             <span class="mode riskLevel3">Alto</span>
         </div>
-    </footer>
+    </footer> -->
 
     <div class="modal fade" id="prazoModal" tabindex="-1" aria-labelledby="prazoModalLabel" aria-hidden="true">
         <div class="modal-dialog">
