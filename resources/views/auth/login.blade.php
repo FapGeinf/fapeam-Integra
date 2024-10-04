@@ -47,7 +47,7 @@
       </div>
     </div>
 
-     <img class="img" src="{{ asset('img/login/background-7.png') }}" alt="picture">
+    <img class="img" src="{{ asset('img/login/integracao.png') }}" alt="picture">
   </div>
   
   <div class="order__left centered">
@@ -55,7 +55,7 @@
       <form method="POST" action="{{ route('login') }}">
         @csrf
         <div class="logo">
-          <img src="{{ asset('img/logoDecon-nobg.png') }}" alt="Banner Íntegra" style="margin-bottom: 3rem;">
+          <img src="{{ asset('img/login/logoDeconNew-nobg.png') }}" alt="Banner Íntegra" style="margin-bottom: 3rem;">
         </div>
 
         <div class="input-icon">
