@@ -82,3 +82,7 @@ Route::get('/manual', [DocumentoController::class, 'downloadManual'])->name('man
 Route::get('/eixos', function () {
 	return view('eixos');
 });
+
+Route::get('/historico', function () {
+	return view('historico');
+});
