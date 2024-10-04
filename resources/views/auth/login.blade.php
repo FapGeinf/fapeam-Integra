@@ -47,7 +47,7 @@
       </div>
     </div>
 
-    <img class="img" src="{{ asset('img/login/integracao.png') }}" alt="picture">
+    {{-- <img class="img" src="{{ asset('img/login/integracao.png') }}" alt="picture"> --}}
   </div>
   
   <div class="order__left centered">

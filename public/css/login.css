@@ -11,7 +11,7 @@ body {
 }
 
 .borderRadius {
-  background-image: url('/img/login/bg-2.png');
+  background-image: url('/img/login/bg_textos.png');
   background-size: cover;
   background-position: center;
 }
