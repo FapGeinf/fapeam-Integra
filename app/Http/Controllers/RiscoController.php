@@ -167,7 +167,7 @@ class RiscoController extends Controller
                 'monitoramentos.*.inicioMonitoramento' => 'required|date',
                 'monitoramentos.*.fimMonitoramento' => 'nullable|date|after:monitoramentos.*.inicioMonitoramento',
                 'monitoramentos.*.isContinuo' => 'required|boolean',
-                'monitoramentos.*.anexoMonitoramento' => 'nullable|file|mimes:jpeg,png,pdf|max:2048'
+                'monitoramentos.*.anexoMonitoramento' => 'nullable|file|mimes:jpeg,png,pdf|max:51200'
             ]);
 
             // Criação do risco
@@ -272,7 +272,7 @@ class RiscoController extends Controller
                 'monitoramentos.*.inicioMonitoramento' => 'required|date',
                 'monitoramentos.*.fimMonitoramento' => 'nullable|date|after_or_equal:inicioMonitoramento',
                 'monitoramentos.*.isContinuo' => 'required|boolean',
-                'monitoramentos.*.anexoMonitoramento' => 'nullable|file|mimes:pdf,doc,docx,jpg,png|max:2048',
+                'monitoramentos.*.anexoMonitoramento' => 'nullable|file|mimes:pdf,doc,docx,jpg,png|max:51200',
             ]);
 
             foreach ($validatedData['monitoramentos'] as $index => $monitoramentoData) {
@@ -321,7 +321,7 @@ class RiscoController extends Controller
                 'isContinuo' => 'required|boolean',
                 'inicioMonitoramento' => 'required|date',
                 'fimMonitoramento' => 'nullable|date|after_or_equal:inicioMonitoramento',
-                'anexoMonitoramento' => 'nullable|file|mimes:jpeg,png,pdf|max:2048'
+                'anexoMonitoramento' => 'nullable|file|mimes:jpeg,png,pdf|max:51200'
             ]);
 
             $monitoramento = Monitoramento::findOrFail($id);
@@ -442,7 +442,7 @@ class RiscoController extends Controller
 
             $request->validate([
                 'respostaRisco' => 'required|string|max:5000',
-                'anexo' => 'nullable|file|mimes:jpg,png,pdf|max:2048'
+                'anexo' => 'nullable|file|mimes:jpg,png,pdf|max:51200'
             ]);
 
             $filePath = null;
@@ -517,7 +517,7 @@ class RiscoController extends Controller
 
         $request->validate([
             'respostaRisco' => 'required|string|max:5000',
-            'anexo' => 'nullable|file|mimes:jpg,png,pdf|max:2048',
+            'anexo' => 'nullable|file|mimes:jpg,png,pdf|max:51200',
         ]);
 
         try {
@@ -613,11 +613,6 @@ class RiscoController extends Controller
             return redirect()->back()->with('error', 'Um erro ocorreu: ' . $e->getMessage());
         }
     }
-
-
-
-
-
 
     public function __construct()
     {
