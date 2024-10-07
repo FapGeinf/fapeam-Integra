@@ -103,6 +103,7 @@ class RiscoController extends Controller
 
                 case 2:
                     $notificacoesTipo2 = Notification::where('global', false)
+                        ->where('user_id', $user->id)
                         ->whereHas('monitoramento.risco.unidade', function ($query) use ($user) {
                             $query->where('unidadeId', $user->unidade->unidadeIdFK);
                         })
