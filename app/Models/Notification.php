@@ -9,7 +9,7 @@ class Notification extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['message','global','read_at','monitoramentoId'];
+    protected $fillable = ['message','global','read_at','monitoramentoId','user_id'];
 
     protected $casts = [
          'global' => 'boolean'

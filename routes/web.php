@@ -55,7 +55,7 @@ Route::delete('/user/delete/{id}', [UserController::class, 'deleteUser'])->name(
 
 Route::get('/user/alterar-senha', [UserController::class, 'changePassword'])->name('users.password');
 Route::post('/user/alterar-senha',[UserController::class,'updatePassword'])->name('users.password');
-Route::post('/notifications/{id}/mark-as-read', [RiscoController::class, 'markAsRead'])->name('riscos.markAsRead');
+Route::post('/notifications/mark-as-read', [RiscoController::class, 'markAsRead'])->name('riscos.markAsRead');
 
 
 Route::get('/riscos/implementadas', [StatusController::class, 'implementadasShow'])->name('riscos.implementadas');

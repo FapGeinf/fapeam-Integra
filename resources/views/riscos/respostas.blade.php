@@ -289,6 +289,23 @@
                         <label for="anexo" class="form-label">Anexar Arquivo</label>
                         <input type="file" class="form-control" id="anexo" name="anexo">
                     </div>
+                    <div class="mb-4">
+                        <label for="statusMonitoramento-{{ $monitoramento->id }}" class="form-label">Status do Monitoramento</label>
+                        <select class="form-select" id="statusMonitoramento-{{ $monitoramento->id }}" name="statusMonitoramento" required>
+                            <option value="NÃO IMPLEMENTADA" {{ old('statusMonitoramento', $monitoramento->statusMonitoramento) == 'NÃO IMPLEMENTADA' ? 'selected' : '' }}>
+                                NÃO IMPLEMENTADA
+                            </option>
+                            <option value="EM IMPLEMENTAÇÃO" {{ old('statusMonitoramento', $monitoramento->statusMonitoramento) == 'EM IMPLEMENTAÇÃO' ? 'selected' : '' }}>
+                                EM IMPLEMENTAÇÃO
+                            </option>
+                            <option value="IMPLEMENTADA PARCIALMENTE" {{ old('statusMonitoramento', $monitoramento->statusMonitoramento) == 'IMPLEMENTADA PARCIALMENTE' ? 'selected' : '' }}>
+                                IMPLEMENTADA PARCIALMENTE
+                            </option>
+                            <option value="IMPLEMENTADA" {{ old('statusMonitoramento', $monitoramento->statusMonitoramento) == 'IMPLEMENTADA' ? 'selected' : '' }}>
+                                IMPLEMENTADA
+                            </option>
+                        </select>
+                    </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <button type="submit" class="btn btn-primary mb-2">Enviar</button>
                     </div>

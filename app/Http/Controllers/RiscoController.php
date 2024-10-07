@@ -36,27 +36,22 @@ class RiscoController extends Controller
             $prazo = Prazo::latest()->first();
 
             if ($user->unidade->unidadeTipoFK == 1) {
-                // Caso o usuário seja de um tipo de unidade igual a 1
                 $riscos = Risco::all();
             } else {
-                // Caso o usuário seja de um tipo de unidade diferente de 1
                 $riscos = Risco::where('unidadeId', $user->unidade->id)->get();
             }
 
             $riscosAbertos = $riscos->count();
 
-            // Contagem de todos os riscos do dia atual
+
             $riscosAbertosHoje = Risco::whereDate('created_at', \Carbon\Carbon::today())->count();
 
-            $notificacoes = Notification::where('global', true)->get();
 
-            $notificacoesNaoLidas = Notification::where('global', true)
-                ->whereNull('read_at')
-                ->get();
+            $notificacoes = $this->filtraNotificacoes();
 
-            $notificacoesLidas = Notification::where('global', true)
-                ->whereNotNull('read_at')
-                ->get();
+
+            $notificacoesNaoLidas = $notificacoes->whereNull('read_at');
+            $notificacoesLidas = $notificacoes->whereNotNull('read_at');
 
             return view('riscos.index', [
                 'riscos' => $riscos,
@@ -72,22 +67,65 @@ class RiscoController extends Controller
         }
     }
 
-    public function marcarComoLida($id)
+
+
+    public function markAsRead(Request $request)
     {
-        $notification = Notification::find($id);
-        if ($notification) {
-            $notification->update(['read_at' => now()]);
+        $notificationIds = $request->input('notification_ids');
+
+        if ($notificationIds) {
+            Notification::whereIn('id', $notificationIds)->update(['read_at' => now()]);
+            return redirect()->route('riscos.index')->with('success', 'Notificações marcadas como lidas com sucesso.');
         }
 
-        return redirect()->back();
+        return redirect()->route('riscos.index')->with('error', 'Erro ao marcar notificações como lidas.');
     }
 
-    public function marcarComoLidas(Request $request)
+
+
+    private function filtraNotificacoes()
     {
-        Notification::query()->update(['read_at' => now()]);
+        try {
+            $user = auth()->user();
+            $unidadeTipoId = $user->unidade->unidadeTipo->id;
 
-        return redirect()->back();
+            switch ($unidadeTipoId) {
+                case 1:
+                    $notificacoesTipo1 = Notification::where('global', false)
+                        ->where('user_id', $user->id)
+                        ->get();
+
+                    Log::info('Notificações do tipo 1', ['notificacoes' => $notificacoesTipo1]);
+
+                    return $notificacoesTipo1;
+
+                    break;
+
+                case 2:
+                    $notificacoesTipo2 = Notification::where('global', false)
+                        ->whereHas('monitoramento.risco.unidade', function ($query) use ($user) {
+                            $query->where('unidadeId', $user->unidade->unidadeIdFK);
+                        })
+                        ->get();
+
+                    Log::info('Notificações do tipo 2', ['notificacoes' => $notificacoesTipo2]);
+
+                    return $notificacoesTipo2;
+
+                    break;
+
+                default:
+
+                    Log::info('Tipo de unidade não reconhecido', ['unidade_tipo' => $unidadeTipoId]);
+                    return collect();
+            }
+        } catch (Exception $e) {
+            Log::error('Error filtering notifications', ['error' => $e->getMessage()]);
+            return collect();
+        }
     }
+
+
 
 
 
@@ -421,31 +459,16 @@ class RiscoController extends Controller
                 'anexo' => $filePath
             ]);
 
-            Log::info('Resposta created', ['resposta_id' => $resposta->id]);
-
-            $formattedDateTime = Carbon::parse($resposta->created_at)->format('d/m/Y \à\s H:i');
-            $message = '<div><span>Nova mensagem!</span><br><br><div><span>Usuário: </span>' . htmlspecialchars(auth()->user()->name) . '</div>' .
-                '<div><span>Unidade: </span>' . (auth()->user()->unidade ? htmlspecialchars(auth()->user()->unidade->unidadeNome) : 'Desconhecida') . '</div>' .
-                '<div><span>Data do envio: </span>' . htmlspecialchars($formattedDateTime) . '</div><br>' .
-                '</div>';
-
-            $notification = Notification::create([
-                'message' => $message,
-                'global' => true,
-                'monitoramentoId' => $monitoramento->id
+            $monitoramento->update([
+                'statusMonitoramento' => $request->input('statusMonitoramento')
             ]);
 
-            Log::info('Notification created', ['notification_id' => $notification->id]);
+            Log::info('Updated statusMonitoramento', [
+                'monitoramento_id' => $monitoramento->id,
+                'new_status' => $monitoramento->statusMonitoramento
+            ]);
 
-            // Log::info('Calling sendEmail function', [
-            //     'notification_id' => $notification->id,
-            //     'monitoramento_id' => $monitoramento->id,
-            //     'resposta_id' => $resposta->id
-            // ]);
-
-            // $this->sendEmail($resposta, $monitoramento, $notification);
-
-            // Log::info('sendEmail function executed successfully');
+            Log::info('Resposta created', ['resposta_id' => $resposta->id]);
 
             $unitId = $risco->unidadeId;
             $usersForUnit = User::where('unidadeIdFK', $unitId)->get();
@@ -456,15 +479,23 @@ class RiscoController extends Controller
             Log::info('Attaching notification to users', ['user_count' => $allUsers->count()]);
 
             foreach ($allUsers as $user) {
-                $user->notifications()->attach($notification->id);
-                Log::info('Notification attached to user', ['user_id' => $user->id]);
+                $formattedDateTime = Carbon::parse($resposta->created_at)->format('d/m/Y \à\s H:i');
+                $message = '<div><span>Nova mensagem!</span><br><br><div><span>Usuário: </span>' . htmlspecialchars($user->name) . '</div>' .
+                    '<div><span>Unidade: </span>' . ($user->unidade ? htmlspecialchars($user->unidade->unidadeNome) : 'Desconhecida') . '</div>' .
+                    '<div><span>Data do envio: </span>' . htmlspecialchars($formattedDateTime) . '</div><br>' .
+                    '</div>';
+
+                $notification = Notification::create([
+                    'message' => $message,
+                    'global' => false,
+                    'monitoramentoId' => $monitoramento->id,
+                    'user_id' => $user->id
+                ]);
+
+                Log::info('Notification created', ['notification_id' => $notification->id, 'user_id' => $user->id]);
             }
 
-            $users = User::all();
-            foreach ($users as $user) {
-                $user->notifications()->attach($notification->id);
-                Log::info('Notification attached to all users', ['user_id' => $user->id]);
-            }
+
 
             return redirect()->route('riscos.respostas', $id)->with('success', 'Respostas adicionadas com sucesso');
         } catch (\Exception $e) {
@@ -475,6 +506,7 @@ class RiscoController extends Controller
             return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
         }
     }
+
 
 
 
@@ -535,12 +567,12 @@ class RiscoController extends Controller
                 Log::info('No anexo found for Resposta ID: ' . $id);
             }
 
-            return redirect()->back()->with('success','Anexo deletado com sucesso');
+            return redirect()->back()->with('success', 'Anexo deletado com sucesso');
         } catch (Exception $e) {
 
             Log::error('Error deleting anexo for Resposta ID: ' . $id . '. Error: ' . $e->getMessage());
 
-            return redirect()->back()->with('errors','Houve um erro ao deletar o anexo selecionado');
+            return redirect()->back()->with('errors', 'Houve um erro ao deletar o anexo selecionado');
         }
     }
 
@@ -581,16 +613,7 @@ class RiscoController extends Controller
         }
     }
 
-    public function markAsRead(Request $request, $id)
-    {
-        $notification = Notification::findOrFail($id);
 
-        $notification->update([
-            'read_at' => now()
-        ]);
-
-        return redirect()->back()->with('success', 'Notificação marcada como lida.');
-    }
 
 
 
