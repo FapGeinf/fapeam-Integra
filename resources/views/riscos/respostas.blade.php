@@ -287,11 +287,11 @@
                     </div>
                     <div class="mb-4">
                         <label for="anexo" class="form-label">Anexar Arquivo</label>
-                        <input type="file" class="form-control" id="anexo" name="anexo">
+                        <input type="file" style="background-color: #f0f0f0;" class="form-control" id="anexo" name="anexo">
                     </div>
                     <div class="mb-4">
                         <label for="statusMonitoramento-{{ $monitoramento->id }}" class="form-label">Status do Monitoramento</label>
-                        <select class="form-select" id="statusMonitoramento-{{ $monitoramento->id }}" name="statusMonitoramento" required>
+                        <select class="form-select" style="background-color: #f0f0f0;"  id="statusMonitoramento-{{ $monitoramento->id }}" name="statusMonitoramento" required>
                             <option value="NÃO IMPLEMENTADA" {{ old('statusMonitoramento', $monitoramento->statusMonitoramento) == 'NÃO IMPLEMENTADA' ? 'selected' : '' }}>
                                 NÃO IMPLEMENTADA
                             </option>

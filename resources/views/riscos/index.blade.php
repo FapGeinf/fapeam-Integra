@@ -130,9 +130,13 @@
                                             @if ($notificacoesNaoLidas->count() > 10)
                                                 <button class="btn btn-link" id="showMoreUnread">Mostrar mais</button>
                                             @endif
-                                            <button type="submit" class="btn btn-primary mt-3">Marcar como
-                                                lida</button>
+                                            
                                         </div>
+                                        
+                                        <div style="display: flex; justify-content: end;">
+                                            <button type="submit" class="btn btn-primary text-end mt-3">Salvar seleção</button>
+                                        </div>
+                                        
                                     </div>
                                 @endif
                                 @if (!$notificacoesLidas->isEmpty())
