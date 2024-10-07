@@ -55,7 +55,7 @@
       <form method="POST" action="{{ route('login') }}">
         @csrf
         <div class="logo">
-          <img src="{{ asset('img/login/logoDeconNew-nobg.png') }}" alt="Banner Íntegra" style="margin-bottom: 3rem;">
+          <img src="{{ asset('img/login/logo_ajuste1.png') }}" alt="Banner Íntegra" style="margin-bottom: 3rem;">
         </div>
 
         <div class="input-icon">

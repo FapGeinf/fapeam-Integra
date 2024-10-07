@@ -11,9 +11,9 @@ body {
 }
 
 .borderRadius {
-  background-image: url('/img/login/bg_textos.png');
+  background-image: url('/img/login/capa.png');
   background-size: cover;
-  background-position: center;
+  /* background-position: center; */
 }
 
 /* REMOVE AS CONFIGURAÇÕES DO GLOBAL.CSS */
@@ -31,10 +31,11 @@ body {
   }
 
 .links {
-  gap: 5rem;
+  gap: 3rem;
   z-index: 1;
   display: flex;
   margin-top: 32rem;
+  margin-left: 16rem;
   position: absolute;
 }
 
@@ -52,14 +53,16 @@ body {
 
 .linksChild {
   padding: 7px;
-  border-radius: 5px;
+  border-radius: 15px;
   transition: .2s;
   border: 1px solid #fff;
-  background-color: #002379;
+  background-color: #183479;
 }
 
 .linksChild:hover {
-  opacity: .7;
+  border: 1px solid #ccc;
+  background-color: #13285e;
+  transform: translateY(-7px);
 }
 
 .logo {
