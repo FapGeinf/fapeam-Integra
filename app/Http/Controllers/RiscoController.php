@@ -87,44 +87,44 @@ class RiscoController extends Controller
     {
         try {
             $user = auth()->user();
-            $unidadeTipoId = $user->unidade->unidadeTipo->id;
 
-            switch ($unidadeTipoId) {
+            if (!$user->unidade || !$user->unidade->unidadeTipo) {
+                Log::info('Usuário não possui uma unidade ou tipo de unidade associada', ['user_id' => $user->id]);
+                return collect();
+            }
+
+            $unidadeTipo = $user->unidade->unidadeTipo->id;
+
+            switch ($unidadeTipo) {
                 case 1:
-                    $notificacoesTipo1 = Notification::where('global', false)
+                    $notificacoes = Notification::where('global', false)
                         ->where('user_id', $user->id)
                         ->get();
-
-                    Log::info('Notificações do tipo 1', ['notificacoes' => $notificacoesTipo1]);
-
-                    return $notificacoesTipo1;
-
                     break;
 
                 case 2:
-                    $notificacoesTipo2 = Notification::where('global', false)
+                    $notificacoes = Notification::where('global', false)
                         ->where('user_id', $user->id)
                         ->whereHas('monitoramento.risco.unidade', function ($query) use ($user) {
-                            $query->where('unidadeId', $user->unidade->unidadeIdFK);
+                            $query->where('unidadeId', $user->unidade->id);
                         })
                         ->get();
-
-                    Log::info('Notificações do tipo 2', ['notificacoes' => $notificacoesTipo2]);
-
-                    return $notificacoesTipo2;
-
                     break;
 
                 default:
-
-                    Log::info('Tipo de unidade não reconhecido', ['unidade_tipo' => $unidadeTipoId]);
+                    Log::info('Tipo de unidade não reconhecido', ['user_id' => $user->id, 'unidade_tipo' => $unidadeTipo]);
                     return collect();
             }
+
+            return $notificacoes;
         } catch (Exception $e) {
-            Log::error('Error filtering notifications', ['error' => $e->getMessage()]);
+            Log::error('Erro ao filtrar notificações', ['error' => $e->getMessage()]);
             return collect();
         }
     }
+
+
+
 
 
 
@@ -471,11 +471,8 @@ class RiscoController extends Controller
 
             Log::info('Resposta created', ['resposta_id' => $resposta->id]);
 
-            $unitId = $risco->unidadeId;
-            $usersForUnit = User::where('unidadeIdFK', $unitId)->get();
-            $subcomissaoUnit = Unidade::where('unidadeNome', 'Subcomissão do Programa de Integridade')->first();
-            $usersForSubcomissao = User::where('unidadeIdFK', $subcomissaoUnit->id)->get();
-            $allUsers = $usersForUnit->merge($usersForSubcomissao)->unique('id');
+
+            $allUsers = User::all();
 
             Log::info('Attaching notification to users', ['user_count' => $allUsers->count()]);
 

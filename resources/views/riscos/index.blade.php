@@ -32,7 +32,6 @@
                 {{ session('error') }}
             </div>
         @endif
-
         <div id="newRiskButtonDiv" class="d-flex">
             @if (Auth::user()->unidade->unidadeTipoFK == 1)
                 <a href="{{ route('riscos.create') }}" class="blue-btn me-2">
@@ -130,13 +129,13 @@
                                             @if ($notificacoesNaoLidas->count() > 10)
                                                 <button class="btn btn-link" id="showMoreUnread">Mostrar mais</button>
                                             @endif
-                                            
+
                                         </div>
-                                        
+
                                         <div style="display: flex; justify-content: end;">
                                             <button type="submit" class="btn btn-primary text-end mt-3">Salvar seleção</button>
                                         </div>
-                                        
+
                                     </div>
                                 @endif
                                 @if (!$notificacoesLidas->isEmpty())
