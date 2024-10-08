@@ -30,7 +30,7 @@
  <div class="grid">
   <div class="order__right centered no__overflow borderRadius">
 
-    <div class="links">
+    {{-- <div class="links">
       <div class="linksChild">
         <i class="fas fa-tv"></i>
         <a href="{{ route('apresentacao') }}" target="_blank">Apresentação</a>
@@ -45,8 +45,9 @@
         <i class="fas fa-book"></i>
         <a href="{{ route('manual') }}" target="_blank">Manual</a>
       </div>
-    </div>
+    </div> --}}
 
+    {{-- LINK FLUTUANTE --}}
     {{-- <img class="img" src="{{ asset('img/login/integracao.png') }}" alt="picture"> --}}
   </div>
   
@@ -96,10 +97,32 @@
           <a href="http://10.10.3.252/glpi/">Primeiro Acesso?</a>
         </div> 
       </div>
+
+      {{-- <hr> --}}
+
+      <div class="loginButtonsDiv">
+
+        <div class="loginButtons">
+          <i class="fas fa-tv"></i>
+          <a href="{{ route('apresentacao') }}" target="_blank">Apresentação</a>
+        </div>
+
+        <div class="loginButtons">
+          <i class="fas fa-balance-scale"></i>
+          <a href="{{ route('legislacao') }}" target="_blank">Legislação</a>
+        </div>
+        
+        <div class="loginButtons">
+          <i class="fas fa-book"></i>
+          <a href="{{ route('manual') }}" target="_blank">Manual</a>
+        </div>
+
+      </div>
       
       <div class="footerLogo">
         <span>&copy;2024 FAPEAM</span>
       </div>
+
     </div>
   </div>
 </body>

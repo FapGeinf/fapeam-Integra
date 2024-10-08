@@ -7,7 +7,6 @@
 body {
   font-family: "Poppins", sans-serif !important;
   background-color: #fff !important;
-  
 }
 
 .borderRadius {
@@ -34,20 +33,20 @@ body {
   gap: 3rem;
   z-index: 1;
   display: flex;
-  margin-top: 32rem;
-  margin-left: 16rem;
+  /* margin-top: 32rem; */
+  /* margin-left: 16rem; */
   position: absolute;
 }
 
 .links i {
-  font-size: 24px;
+  /* font-size: 24px; */
   color: #fff;
   margin-right: 4px;
 }
 
 .links a {
   color: #fff;
-  font-size: 20px;
+  /* font-size: 20px; */
   text-decoration: none;
 }
 
@@ -129,6 +128,7 @@ body {
   border: 1px solid #ccc;
   border-radius: 8px;
   /* margin-bottom: 1rem; */
+  box-shadow: 8px 6px 10px 0 rgba(0, 0, 0, 0.1);
 }
 
 .input-icon {
@@ -191,6 +191,7 @@ body {
   border-radius: 8px;
   margin-top: 1.5rem;
   transition: .2s;
+  box-shadow: 8px 6px 10px 0 rgba(0, 0, 0, 0.1);
 }
 
 .inputLogin:hover {
@@ -204,6 +205,39 @@ body {
 .loginFooter {
   background-color: #f0f0f0;
   border-radius: 8px;
+  margin-bottom: 2rem;
+  border: 1px solid #ccc;
+  box-shadow: 8px 6px 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+.loginButtonsDiv {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  background-color: #f0f0f0;
+  padding: 9px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 8px 6px 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+.loginButtons {
+  color: #fff;
+  padding: 6px;
+  border-radius: 8px;
+  transition: .2s;
+  /* border: 1px solid #ccc; */
+  background-color: #3c75a9;
+}
+
+.loginButtons a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.loginButtons:hover {
+  /* background-color: #04295a; */
+  transform: translateY(-7px);
 }
 
 .helpButtons {
@@ -284,6 +318,20 @@ input[type=checkbox], label {
 .login__button:active {
   background-color: #29447a;
   box-shadow: 0 0 0 0.25rem #3c62ad;
+}
+
+@media (min-width: 1200px) {
+  .order__left {
+    padding: 20px;
+  }
+}
+
+@media (width: 1300px) {
+  .borderRadius {
+    background-image: url('/img/login/tela-tablet.png');
+    background-size: cover;
+    background-position: center;
+  }
 }
 
 @media only screen and (max-width:  1112px) {
