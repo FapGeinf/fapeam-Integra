@@ -69,7 +69,7 @@
           @enderror
         </div>
 
-        <div class="input-icon">
+        <div class="input-icon" style="margin-top: 1rem;">
           <input id="password" type="password" class="inputImp inputSenha @error('password') is-invalid @enderror " name="password" required autocomplete="current-password" placeholder="Senha">
           <i class="fas fa-lock"></i>
 
