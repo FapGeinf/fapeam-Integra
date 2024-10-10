@@ -132,7 +132,7 @@
 
         <ul class="ulList">
             <li class="item-menu liHover">
-                <a href="{{ route('riscos.index') }}" class="{{ Request::routeIs('riscos.index') ? 'active-icon' : '' }}">
+                <a href="{{ route('documentos.eixos') }}" class="{{ Request::routeIs('documentos.eixos') ? 'active-icon' : '' }}">
                     <i class="bi bi-house icon"></i>
                     <span class="txt-link">Home</span>
                 </a>
@@ -167,7 +167,7 @@
             </li>
 						<hr class="spacer">
             <li class="item-menu liHover">
-                <a href="{{ route('riscos.naoImplementada') }}" >
+                <a href="{{ route('historico') }}" >
 								<i class="bi bi-card-text icon"></i>
                     <span class="txt-link">Documentos</span>
                 </a>

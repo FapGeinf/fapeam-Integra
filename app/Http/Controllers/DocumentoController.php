@@ -19,4 +19,9 @@ class DocumentoController extends Controller
 			return view('links_login.legislacao');
 		}
 
+		public function eixos()
+		{
+			   return view('eixos');
+		}
+
 }
