@@ -10,7 +10,7 @@ body {
 }
 
 .borderRadius {
-  background-image: url('/img/login/capa4.png');
+  background-image: url('/img/login/banner-assinatura.png');
   background-size: cover;
   /* background-position: center; */
 }
@@ -114,7 +114,8 @@ body {
 }
 
 .form {
-  max-width: 500px;
+  width: 380px;
+  /* max-width: 500px; */
 }
 
 .remember_me {
@@ -320,33 +321,368 @@ input[type=checkbox], label {
   box-shadow: 0 0 0 0.25rem #3c62ad;
 }
 
-@media (min-width: 1200px) {
+@media only screen and (max-width: 1760px) {
+  .form {
+    padding-top: 1rem;
+  }
+
   .order__left {
-    padding: 20px;
+    padding: 15px;
+  }
+
+  .form {
+    transition: .2s;
+    width: 345px;
+  }
+
+  .inputImp {
+    padding: 8px;
+  }
+
+  .inputImp i {
+    padding: 6px;
+  }
+
+  .input-icon input {
+    padding-left: 30px;
+  }
+
+  .input-icon i {
+    padding: 10px;
+  }
+
+  .rememberMe {
+    font-size: 12px;
+  }
+
+  .inputLogin {
+    font-size: 12px ;
+    width: 39%;
+  }
+
+  .helpButtons {
+    font-size: 14px;
+  }
+
+  .helpButtons a {
+    font-size: 12px;
+  }
+
+  input, button, select, optgroup, textarea {
+    font-size: 12px;
+  }
+
+  .logo {
+    height: 80px;
+  }
+
+  .logo img {
+    height: 85%;
+  }
+
+  .loginButtonsDiv {
+    display: block;
+  }
+
+  .loginButtons {
+    margin-bottom: .5rem;
+    font-size: 12px;
+    padding: 3px;
+    text-align: center;
+  }
+
+  .footerLogo {
+    font-size: 10px;
+    margin-top: 2rem;
   }
 }
 
-@media (width: 1300px) {
-  .borderRadius {
-    background-image: url('/img/login/tela-tablet.png');
-    background-size: cover;
-    background-position: center;
+@media only screen and (max-width:  1600px) {
+  .form {
+    padding-top: 2rem;
+  }
+
+  .order__left {
+    padding: 15px;
+  }
+
+  .form {
+    transition: .2s;
+    width: 330px;
+  }
+
+  .inputImp {
+    padding: 7px;
+    font-size: 12px;
+  }
+
+  .inputImp i {
+    padding: 6px;
+  }
+
+  .input-icon input {
+    padding-left: 28px;
+  }
+
+  .input-icon i {
+    padding: 9px;
+  }
+
+  .rememberMe {
+    font-size: 11px;
+  }
+
+  .inputLogin {
+    font-size: 12px ;
+    width: 37%;
+  }
+
+  .helpButtons a {
+    font-size: 11px;
+  }
+
+  input, button, select, optgroup, textarea {
+    font-size: 12px;
+  }
+
+  .logo {
+    height: 74px;
+  }
+
+  .logo img {
+    height: 80%;
+  }
+
+  .loginButtonsDiv {
+    display: block;
+  }
+
+  .loginButtons {
+    margin-bottom: .5rem;
+    font-size: 12px;
+    padding: 3px;
+    text-align: center;
+  }
+
+  .footerLogo {
+    font-size: 10px;
+    margin-top: 2rem;
   }
 }
 
-@media only screen and (max-width:  1112px) {
-  .links {
-    gap: 2rem;
+@media only screen and (max-width:  1472px) {
+  .form {
+    padding-top: 3rem;
+  }
+
+  .order__left {
+    padding: 15px;
+  }
+
+  .form {
+    transition: .2s;
+    width: 300px;
+  }
+
+  .inputImp {
+    padding: 6px;
+  }
+
+  .inputImp i {
+    padding: 6px;
+  }
+
+  .input-icon input {
+    padding-left: 25px;
+  }
+
+  .input-icon i {
+    padding: 8px;
+  }
+
+  .rememberMe {
+    font-size: 11px;
+  }
+
+  .inputLogin {
+    font-size: 12px ;
+    width: 37%;
+  }
+
+  .helpButtons a {
+    font-size: 11px;
+  }
+
+  input, button, select, optgroup, textarea {
+    font-size: 12px;
+  }
+
+  .logo {
+    height: 74px;
+  }
+
+  .logo img {
+    height: 75%;
+  }
+
+  .loginButtonsDiv {
+    display: block;
+  }
+
+  .loginButtons {
+    margin-bottom: .5rem;
+    font-size: 12px;
+    padding: 3px;
+    text-align: center;
+  }
+
+  .footerLogo {
+    font-size: 10px;
+    margin-top: 2rem;
   }
 }
 
-@media only screen and (max-width:  1010px) {
-  .links {
-    display: none;
+@media only screen and (max-width:  1376px) {
+  .form {
+    padding-top: 3rem;
+  }
+
+  .order__left {
+    padding: 15px;
+  }
+
+  .form {
+    transition: .2s;
+    width: 300px;
+  }
+
+  .inputImp {
+    padding: 6px;
+  }
+
+  .inputImp i {
+    padding: 6px;
+  }
+
+  .input-icon input {
+    padding-left: 25px;
+  }
+
+  .input-icon i {
+    padding: 8px;
+  }
+
+  .rememberMe {
+    font-size: 11px;
+  }
+
+  .inputLogin {
+    font-size: 12px ;
+    width: 37%;
+  }
+
+  .helpButtons a {
+    font-size: 11px;
+  }
+
+  input, button, select, optgroup, textarea {
+    font-size: 12px;
+  }
+
+  .logo {
+    height: 74px;
+  }
+
+  .logo img {
+    height: 70%;
+  }
+
+  .loginButtonsDiv {
+    display: block;
+  }
+
+  .loginButtons {
+    margin-bottom: .5rem;
+    font-size: 12px;
+    padding: 3px;
+    text-align: center;
+  }
+
+  .footerLogo {
+    font-size: 10px;
+    margin-top: 2rem;
   }
 }
 
-@media only screen and (max-width:  800px) {
+@media only screen and (max-width: 1280px) {
+  .form {
+    padding-top: 1rem;
+  }
+
+  .order__left {
+    padding: 15px;
+  }
+
+  .form {
+    transition: .2s;
+    width: 300px;
+  }
+
+  .inputImp {
+    padding: 4px;
+  }
+
+  .inputImp i {
+    padding: 6px;
+  }
+
+  .input-icon input {
+    padding-left: 25px;
+  }
+
+  .input-icon i {
+    padding: 6px;
+  }
+
+  .rememberMe {
+    font-size: 11px;
+  }
+
+  .inputLogin {
+    font-size: 12px ;
+    width: 37%;
+  }
+
+  .helpButtons a {
+    font-size: 11px;
+  }
+
+  input, button, select, optgroup, textarea {
+    font-size: 12px;
+  }
+
+  .logo {
+    height: 74px;
+  }
+
+  .loginButtonsDiv {
+    display: block;
+  }
+
+  .loginButtons {
+    margin-bottom: .5rem;
+    font-size: 12px;
+    padding: 3px;
+    text-align: center;
+  }
+
+  .footerLogo {
+    font-size: 10px;
+    margin-top: 2rem;
+  }
+}
+
+@media only screen and (max-width:  1216px) {
   .grid {
     grid-template-columns: auto;
   }
@@ -357,7 +693,6 @@ input[type=checkbox], label {
 
   .order__left {
     order: 2;
-    /* padding: 133px; */
     background-color: #fff;
   }
 
@@ -372,15 +707,5 @@ input[type=checkbox], label {
 
   .img {
     display: none;
-  }
-
-  .links {
-    display: none;
-  }
-}
-
-@media only screen and (max-height:  600px) {
-  .img {
-    width: 120%;
   }
 }

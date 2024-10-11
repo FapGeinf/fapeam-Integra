@@ -52,7 +52,7 @@
   </div>
   
   <div class="order__left centered">
-     <div class="form" style="width: 380px;">
+     <div class="form">
       <form method="POST" action="{{ route('login') }}">
         @csrf
         <div class="logo">
