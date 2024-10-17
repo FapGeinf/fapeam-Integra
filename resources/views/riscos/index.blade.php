@@ -42,6 +42,10 @@
                 <button type="button" class="green-btn me-2" data-bs-toggle="modal" data-bs-target="#prazoModal">
                     <i class="bi bi-plus-lg"></i> inserir Prazo
                 </button>
+
+                <button type="button" class="btn btn-md btn-secondary me-2" onclick="window.location.href='{{ route('relatorios.download') }}'">
+                            <i class="bi bi-download"></i> Baixar Relatório
+                </button>
             @endif
             
             <p class="spanThatLooksLikeABtn" id="prazo"

@@ -8,6 +8,7 @@ use App\Http\Controllers\StatusController;
 use App\Http\Controllers\UserController;
 use App\Models\Prazo;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\RelatorioController;
 
 
 /*
@@ -84,3 +85,6 @@ Route::get('/eixos',[DocumentoController::class,'eixos'])->name('documentos.eixo
 Route::get('/historico', function () {
 	return view('historico');
 })->name('historico')->middleware('auth');
+
+Route::get('/relatorio/riscos', [RelatorioController::class, 'gerarRelatorioGeral'])->name('relatorios.download');
+
