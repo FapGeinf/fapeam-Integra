@@ -12,14 +12,9 @@
         h1, h2, h3, h4 {
             text-align: center;
         }
-        .risco, .monitoramento, .resposta {
+        .risco, .monitoramento {
             margin: 10px 0; 
             padding: 15px;
-        }
-        .resposta {
-            margin-top: 5px;
-            padding-left: 10px;
-          
         }
         span {
             display: inline;
@@ -54,21 +49,9 @@
                     <div class="monitoramento">
                         <h5>Monitoramento</h5>
                         <strong>Status:</strong> <span>{!! $monitoramento->statusMonitoramento !!}</span><br>
+                        <strong>Controle Sugerido:</strong> <span>{!! $monitoramento->monitoramentoControleSugerido !!}</span><br>
                         <strong>Início:</strong> <span>{{ \Carbon\Carbon::parse($monitoramento->inicioMonitoramento)->format('d/m/Y') }}</span><br>
                         <strong>Fim:</strong> <span>{{ \Carbon\Carbon::parse($monitoramento->fimMonitoramento)->format('d/m/Y') }}</span><br>
-                        <strong>Anexo:</strong> <span>{!! $monitoramento->anexoMonitoramento ?? 'Nenhum' !!}</span><br>
-
-                        <h6>Respostas</h6>
-                        @if ($monitoramento->respostas->isEmpty())
-                            <p>Não há respostas para este monitoramento.</p>
-                        @else
-                            @foreach ($monitoramento->respostas as $resposta)
-                                <div class="resposta">
-                                    <strong>Resposta:</strong> <span>{!! $resposta->respostaRisco !!}</span><br>
-                                    <strong>Responsável:</strong> <span>{!! $resposta->user->name ?? 'Desconhecido' !!}</span><br>
-                                </div>
-                            @endforeach
-                        @endif
                     </div>
                 @endforeach
             </div>

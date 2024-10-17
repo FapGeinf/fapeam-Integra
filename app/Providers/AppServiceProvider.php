@@ -24,7 +24,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $unidades = Unidade::all();
+        try {
+            $unidades = Unidade::all();
+        } catch (\Exception $e) {
+            $unidades = null;
+        }
         view()->share('unidades',$unidades);
     }
 }
