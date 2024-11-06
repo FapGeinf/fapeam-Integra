@@ -1,3 +1,54 @@
+.dropdown-menu {
+  background-color: #f8f9fa; /* Cor de fundo clara */
+  border: none;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15); /* Sombra leve */
+  border-radius: 8px; /* Cantos arredondados */
+}
+
+li {
+  margin-left: 1rem;
+}
+
+a {
+  color: #2272b9;
+}
+
+/* Estilo dos itens do dropdown */
+.dropdown-item {
+  color: #343a40; /* Cor do texto */
+  padding: 10px 20px; /* Espaçamento para melhor visualização */
+  transition: background-color 0.3s, color 0.3s; /* Transição suave */
+}
+
+.dropdown-item:hover {
+  /* border: 1px solid #ccc; */
+  border-radius: 10px;
+  background-color: #e9ecef;
+  color: #007bff;
+}
+
+/* Estilo para o ícone e a aba do dropdown */
+.nav-link.dropdown-toggle {
+  color: #fff; /* Cor do texto do botão */
+  /* font-weight: bold; */
+  display: flex;
+  align-items: center;
+  transition: color 0.3s;
+}
+
+.nav-link.dropdown-toggle:hover {
+  color: #007bff; /* Cor do texto ao passar o mouse */
+}
+
+/* Ajuste do ícone para combinar com o texto */
+.nav-link.dropdown-toggle .bi-person {
+  margin-right: 4px; /* Espaçamento entre o ícone e o texto */
+}
+
+.pb__dropdown {
+  padding-bottom: 3.5rem;
+}
+
 /*css do layout App */
 .login-page .py-4 {
   padding-top: 0 !important;
@@ -213,23 +264,25 @@ a.navbar-brand:nth-child(1) {
   cursor: default;
 }
 
-a.btnSair {
-  color: #fff;
+ a.btnSair {
+  /* color: #fff; */
   text-decoration: none;
 }
 
+/*
 a.btnSair:hover {
   text-decoration: underline;
-}
+} */
 
-a.btnAltSenha {
-  color: #fff;
+ a.btnAltSenha {
+  /* color: #fff; */
   text-decoration: none;
 }
 
+/*
 a.btnAltSenha:hover {
   text-decoration: underline;
-}
+} */
 
 .nav-item i {
   color: #fff;

@@ -41,24 +41,28 @@
         </div>
       </div>
 
-			<div class="nav-item d-flex">
-      	<a class="btnAltSenha" href="{{ route('users.password') }}" onclick="event.preventDefault();
-      	document.getElementById('alterar-form').submit();">Alterar Senha</a>
-      	<form id="alterar-form" action="{{route('users.password')}}" method="GET" class="d-none">
-        	@csrf
-      	</form>
+			<div class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle btnSair" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+					<i class="bi bi-person"></i> <span style="margin-right: 5px;">Conta</span>
+				</a>
 
-       <span class="barExit ms-2">|</span> 
+        <ul class="dropdown-menu pb__dropdown dropdown-menu-end" aria-labelledby="userDropdown">
+          <li class="mb-1">
+            <a class="btnAltSenha" href="{{ route('users.password') }}" onclick="event.preventDefault(); document.getElementById('alterar-form').submit();">Alterar Senha</a>
+            <form id="alterar-form" action="{{route('users.password')}}" method="GET" class="d-none">
+              @csrf
+            </form>
+          </li>
 
-        <div class="">
-          <a class="btnSair" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-            <i class="bi bi-escape"></i>
-            Sair
-          </a>
-          <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-            @csrf
-          </form>
-        </div>
+          <li>
+            <a class="btnSair" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+              Sair
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+              @csrf
+            </form>
+          </li>
+        </ul>
     	</div>
     @endif
     </nav>
