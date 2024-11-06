@@ -9,6 +9,10 @@ li {
   margin-left: 1rem;
 }
 
+.liDP a:hover {
+  text-decoration: underline;
+}
+
 a {
   color: #2272b9;
 }
@@ -36,8 +40,8 @@ a {
   transition: color 0.3s;
 }
 
-.nav-link.dropdown-toggle:hover {
-  color: #007bff; /* Cor do texto ao passar o mouse */
+/*.nav-link.dropdown-toggle:hover {
+  color: #007bff;  Cor do texto ao passar o mouse */
 }
 
 /* Ajuste do ícone para combinar com o texto */

@@ -47,14 +47,14 @@
 				</a>
 
         <ul class="dropdown-menu pb__dropdown dropdown-menu-end" aria-labelledby="userDropdown">
-          <li class="mb-1">
+          <li class="mb-1 liDP">
             <a class="btnAltSenha" href="{{ route('users.password') }}" onclick="event.preventDefault(); document.getElementById('alterar-form').submit();">Alterar Senha</a>
             <form id="alterar-form" action="{{route('users.password')}}" method="GET" class="d-none">
               @csrf
             </form>
           </li>
 
-          <li>
+          <li class="liDP">
             <a class="btnSair" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
               Sair
             </a>
