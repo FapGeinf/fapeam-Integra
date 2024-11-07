@@ -9,6 +9,13 @@ li {
   margin-left: 1rem;
 }
 
+.alert-success {
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
 .liDP a:hover {
   text-decoration: underline;
 }
