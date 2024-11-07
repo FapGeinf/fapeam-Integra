@@ -132,6 +132,10 @@ body {
   box-shadow: 8px 6px 10px 0 rgba(0, 0, 0, 0.1);
 }
 
+.inputImp::placeholder {
+  color: #999;
+}
+
 .input-icon {
   position: relative;
 }
@@ -213,13 +217,14 @@ body {
 
 .loginButtonsDiv {
   margin-top: 2rem;
-  display: flex;
-  justify-content: space-between;
+  /* display: flex; */
+  /* justify-content: space-between; */
   background-color: #f0f0f0;
   padding: 9px;
   border: 1px solid #ccc;
   border-radius: 8px;
   box-shadow: 8px 6px 10px 0 rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
 .loginButtons {
@@ -229,6 +234,7 @@ body {
   transition: .2s;
   /* border: 1px solid #ccc; */
   background-color: #3c75a9;
+  margin-bottom: 8px;
 }
 
 .loginButtons a {
@@ -707,11 +713,12 @@ input[type=checkbox], label {
 
   .inputImp {
     font-size: 10px;
+    padding: 6px;
   }
 
   .input-icon i {
     font-size: 12px;
-    padding: 6px;
+    padding: 7px;
   }
 
   .no__overflow {
@@ -731,6 +738,10 @@ input[type=checkbox], label {
   .loginButton input {
     margin-top: .5rem;
     margin-bottom: 0;
+  }
+
+  .loginButtons {
+    font-size: 11px;
   }
 
   .helpButtons a {
@@ -756,5 +767,17 @@ input[type=checkbox], label {
 
   .img {
     display: none;
+  }
+
+  .loginFooter {
+    margin-bottom: 1rem;
+  }
+
+  .loginButtonsDiv {
+    margin-top: 1rem;
+  }
+
+  .footerLogo {
+    margin-top: 1rem;
   }
 }
