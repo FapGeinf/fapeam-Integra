@@ -60,7 +60,7 @@
         </div>
 
         <div class="input-icon">
-          <input id="cpf" type="tel" class="inputImp @error('cpf') is-invalid @enderror" name="cpf" value="{{ old('cpf') }}" placeholder="Insira seu CPF" autocomplete="cpf" autofocus required>
+          <input id="cpf" type="tel" class="inputImp @error('cpf') is-invalid @enderror" name="cpf" value="{{ old('cpf') }}" placeholder="Insira seu CPF" autocomplete="cpf" required>
           <i class="fas fa-user"></i>
 
           @error('cpf')
