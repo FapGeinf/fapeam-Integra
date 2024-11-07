@@ -34,7 +34,8 @@
         @endif
 
         <div class="p-1 border coloredButtons">
-            @if (Auth::user()->unidade->unidadeTipoFK == 1)
+            @if (Auth::user()->unidade->unidadeTipoFK == 1 || Auth::user()->unidade->unidadeTipoFK == 4)
+
             <a href="{{ route('riscos.create') }}" class="blue-btn me-2">
                     <i class="bi bi-plus-lg"></i> Novo Risco
                 </a>
@@ -212,7 +213,7 @@
         </div>
 
         <div id="newRiskButtonDiv" class="d-flex">
-            @if (Auth::user()->unidade->unidadeTipoFK == 1)
+            @if (Auth::user()->unidade->unidadeTipoFK == 1 || Auth::user()->unidade->unidadeTipoFK == 4)
                 
             @endif
             
