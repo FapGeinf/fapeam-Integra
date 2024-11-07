@@ -43,9 +43,9 @@
                     <i class="bi bi-plus-lg"></i> inserir Prazo
                 </button>
 
-                <button type="button" class="btn btn-md btn-secondary me-2" onclick="window.location.href='{{ route('relatorios.download') }}'">
+                <!-- <button type="button" class="btn btn-md btn-secondary me-2" onclick="window.location.href='{{ route('relatorios.download') }}'">
                             <i class="bi bi-download"></i> Baixar Relatório
-                </button>
+                </button> -->
             @endif
             
             <p class="spanThatLooksLikeABtn" id="prazo"

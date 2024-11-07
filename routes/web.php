@@ -86,5 +86,4 @@ Route::get('/historico', function () {
 	return view('historico');
 })->name('historico')->middleware('auth');
 
-Route::get('/relatorio/riscos', [RelatorioController::class, 'gerarRelatorioGeral'])->name('relatorios.download');
-
+// Route::get('/relatorio/riscos', [RelatorioController::class, 'gerarRelatorioGeral'])->name('relatorios.download');
