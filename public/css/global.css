@@ -48,9 +48,9 @@ a {
 }
 
 /*.nav-link.dropdown-toggle:hover {
-  color: #007bff;  Cor do texto ao passar o mouse */
+  color: #007bff;  Cor do texto ao passar o mouse
 }
-
+ */
 /* Ajuste do ícone para combinar com o texto */
 .nav-link.dropdown-toggle .bi-person {
   margin-right: 4px; /* Espaçamento entre o ícone e o texto */
