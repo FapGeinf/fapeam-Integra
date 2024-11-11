@@ -429,11 +429,13 @@
 
     <script>
         $(document).ready(function() {
+            console.log("Inicializando DataTable...");
+    
             var table = $('#tableHome').DataTable({
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
                     search: "Procurar:",
-                    lengthMenu: "Riscos: _MENU_",
+                    lengthMenu: "Paginação: _MENU_",
                     info: 'Mostrando página _PAGE_ de _PAGES_',
                     infoEmpty: 'Sem relatórios de risco disponíveis no momento',
                     infoFiltered: '(Filtrados do total de _MAX_ relatórios)',
@@ -443,170 +445,72 @@
                         previous: "Anterior"
                     }
                 },
-
+    
                 initComplete: function() {
-                    // CONTAINER QUE ALINHA TODOS NA MESMA LINHA
+                    console.log("DataTable inicializado com sucesso.");
                     var divContainer = $('<div class="divContainer"></div>');
-
-                    // BOTÃO NA ESQUERDA
-                    var divButtonNewRisk = $('<div class="divButtonNewRisk"></div>');
-                    divButtonNewRisk.append($('#newRiskButtonDiv'));
-                    divContainer.append(divButtonNewRisk);
-
-                    // Adiciona o filtro de unidade na div de length
-                    if (!$('#filterUnidade').length) {
-                        var selectUnidade = $(
-                            '<select id="filterUnidade" class="form-select form-select-sm divFilterUnidade"><option value="">Todas as Unidades</option></select>'
-                        );
-
-                        // Popula o select com as unidades únicas
-                        @foreach ($riscos->unique('unidade.unidadeNome') as $risco)
-                            selectUnidade.append(
-                                '<option value="{{ $risco->unidade->unidadeNome }}">{{ $risco->unidade->unidadeNome }}</option>'
-                            );
-                        @endforeach
-
-                        // Create the label for the select with class "labelUnidade"
-                        var labelUnidades = $(
-                            '<label for="filterUnidade" class="labelUnidade">Unidades:</label>');
-
-                        // Append label and select to the length div
-                        $('.dataTables_length').append(labelUnidades).append(selectUnidade);
+    
+                    // Verifique se #newRiskButtonDiv existe
+                    if ($('#newRiskButtonDiv').length) {
+                        var divButtonNewRisk = $('<div class="divButtonNewRisk"></div>');
+                        divButtonNewRisk.append($('#newRiskButtonDiv'));
+                        divContainer.append(divButtonNewRisk);
+                    } else {
+                        console.warn("#newRiskButtonDiv não encontrado.");
                     }
-
+    
+                    var dropdownContainer = $('<div class="dropdown-container"></div>');
+                    var dropdownButton = $('<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Abrir filtros</button>');
+                    var dropdownMenu = $('<div class="dropdown-menu p-3"></div>');
+    
+                    // Adiciona o filtro de unidade
+                    if (!$('#filterUnidade').length) {
+                        console.log("Adicionando filtro de unidade...");
+                        var selectUnidade = $('<select id="filterUnidade" class="form-select form-select-sm divFilterUnidade"><option value="">Todas as Unidades</option></select>');
+    
+                        @foreach ($riscos->unique('unidade.unidadeNome') as $risco)
+                            selectUnidade.append('<option value="{{ $risco->unidade->unidadeNome }}">{{ $risco->unidade->unidadeNome }}</option>');
+                        @endforeach
+    
+                        var labelUnidades = $('<label for="filterUnidade" class="labelUnidade d-block">Unidades:</label>');
+                        dropdownMenu.append(labelUnidades).append(selectUnidade);
+                    }
+    
                     // Adiciona o filtro de avaliação
                     if (!$('#filterAvaliação').length) {
-                        var selectAvaliacao = $(
-                            '<select id="filterAvaliação" class="form-select form-select-sm divFilterAvaliação"><option value="">Todas as Avaliações</option></select>'
-                        );
-
-                        // Opções de avaliação
-                        var avaliacaoOptions = [{
-                                value: "Baixo",
-                                text: "Baixo"
-                            },
-                            {
-                                value: "Médio",
-                                text: "Médio"
-                            },
-                            {
-                                value: "Alto",
-                                text: "Alto"
-                            }
+                        console.log("Adicionando filtro de avaliação...");
+                        var selectAvaliacao = $('<select id="filterAvaliação" class="form-select form-select-sm divFilterAvaliação"><option value="">Todas as Avaliações</option></select>');
+    
+                        var avaliacaoOptions = [
+                            { value: "Baixo", text: "Baixo" },
+                            { value: "Médio", text: "Médio" },
+                            { value: "Alto", text: "Alto" }
                         ];
-
+    
                         $.each(avaliacaoOptions, function(index, option) {
-                            selectAvaliacao.append('<option value="' + option.value + '">' +
-                                option.text + '</option>');
+                            selectAvaliacao.append('<option value="' + option.value + '">' + option.text + '</option>');
                         });
-
-
-                        // Create the label for the select with class "labelAvaliação"
-                        var labelAvaliacoes = $(
-                            '<label for="filterAvaliação" class="labelAvaliação">Avaliação:</label>'
-                        );
-
-                        // Append label and select to the length div
-                        $('.dataTables_length').append(labelAvaliacoes).append(selectAvaliacao);
+    
+                        var labelAvaliacoes = $('<label for="filterAvaliação" class="labelAvaliação d-block">Avaliação:</label>');
+                        dropdownMenu.append(labelAvaliacoes).append(selectAvaliacao);
                     }
-
-
-
-                    // Move the length and filter divs into divContainer
+    
+                    dropdownContainer.append(dropdownButton).append(dropdownMenu);
+                    divContainer.append(dropdownContainer);
+    
                     divContainer.append($('.dataTables_filter'));
                     divContainer.append($('.dataTables_length'));
-
-                    // Adiciona a div container no topo da tabela
+    
                     $(table.table().container()).prepend(divContainer);
-
-                    // Filtro de Unidade
+    
                     $('#filterUnidade').on('change', function() {
+                        console.log("Filtro de unidade alterado.");
                         var val = $.fn.dataTable.util.escapeRegex($(this).val());
                         table.column(2).search(val ? '^' + val + '$' : '', true, false).draw();
                     });
-
-                    // Filtro de Avaliação
+    
                     $('#filterAvaliação').on('change', function() {
-                        var val = $.fn.dataTable.util.escapeRegex($(this).val());
-                        table.column(6).search(val ? '^' + val + '$' : '', true, false).draw();
-                    });
-                }
-            });
-
-            table.on('draw', function() {
-                // MANTÉM OS ELEMENTOS ALINHADOS A CADA REFRESH, SEM DUPLICAR
-                if (!$(".divContainer").length) {
-                    var divContainer = $('<div class="divContainer"></div>');
-
-                    var divButtonNewRisk = $('<div class="divButtonNewRisk"></div>');
-                    divButtonNewRisk.append($('#newRiskButtonDiv'));
-                    divContainer.append(divButtonNewRisk);
-
-                    if (!$('#filterUnidade').length) {
-                        var selectUnidade = $(
-                            '<select id="filterUnidade" class="form-select form-select-sm divFilterUnidade"><option value="">TODAS</option></select>'
-                        );
-
-                        @foreach ($riscos->unique('unidade.unidadeNome') as $risco)
-                            selectUnidade.append(
-                                '<option value="{{ $risco->unidade->unidadeSigla }}">{{ $risco->unidade->unidadeSigla }}</option>'
-                            );
-                        @endforeach
-
-                        // Create the label for the select with class "labelUnidade"
-                        var labelUnidades = $(
-                            '<label for="filterUnidade" class="labelUnidade">Unidades:</label>');
-
-                        // Append label and select to the length div
-                        $('.dataTables_length').append(labelUnidades).append(selectUnidade);
-                    }
-
-                    // Adiciona o filtro de avaliação
-                    if (!$('#filterAvaliação').length) {
-                        var selectAvaliacao = $(
-                            '<select id="filterAvaliação" class="form-select form-select-sm divFilterAvaliação"><option value="">TODAS</option></select>'
-                        );
-
-                        // Opções de avaliação
-                        var avaliacaoOptions = [{
-                                value: "Baixo",
-                                text: "Baixo"
-                            },
-                            {
-                                value: "Médio",
-                                text: "Médio"
-                            },
-                            {
-                                value: "Alto",
-                                text: "Alto"
-                            }
-                        ];
-
-                        $.each(avaliacaoOptions, function(index, option) {
-                            selectAvaliacao.append('<option value="' + option.value + '">' + option
-                                .text + '</option>');
-                        });
-
-                        // Create the label for the select with class "labelAvaliação"
-                        var labelAvaliacoes = $(
-                            '<label for="filterAvaliação" class="labelAvaliação">Avaliação:</label>');
-
-                        // Append label and select to the length div
-                        $('.dataTables_length').append(labelAvaliacoes).append(selectAvaliacao);
-                    }
-
-                    // Move the length and filter divs into divContainer
-                    divContainer.append($('.dataTables_length'));
-                    divContainer.append($('.dataTables_filter'));
-
-                    $(table.table().container()).prepend(divContainer);
-
-                    $('#filterUnidade').on('change', function() {
-                        var val = $.fn.dataTable.util.escapeRegex($(this).val());
-                        table.column(2).search(val ? '^' + val + '$' : '', true, false).draw();
-                    });
-
-                    $('#filterAvaliação').on('change', function() {
+                        console.log("Filtro de avaliação alterado.");
                         var val = $.fn.dataTable.util.escapeRegex($(this).val());
                         table.column(6).search(val ? '^' + val + '$' : '', true, false).draw();
                     });
@@ -614,6 +518,7 @@
             });
         });
     </script>
+    
 </body>
 
 </html>
