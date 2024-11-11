@@ -2,6 +2,22 @@ li {
   margin-left: 0;
 }
 
+.listStyle {
+  list-style: lower-latin;
+}
+
+.liStrong {
+  font-weight: bold;
+}
+
+/* ol.custom-list {
+  list-style-type: upper-latin;
+}
+
+ol.custom-list li::marker {
+  content: counter(list-item) ")";
+} */
+
 .form-wrapper {
   display: flex;
   justify-content: center;
