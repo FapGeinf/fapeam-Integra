@@ -2,6 +2,44 @@ li {
   margin-left: 0;
 }
 
+.bg__card_pattern {
+  background-color: #22539c;
+}
+
+.icon__color {
+  color: #2272b9;
+}
+
+.btn__bg {
+  border: none;
+  font-size: 13px;
+  border-radius: 7px;
+  padding: 4px;
+  transition: .2s;
+  color: #fff;
+}
+
+.btn__bg_color {
+  background-color: #0077cc;
+}
+
+.btn__bg_trans {
+  color: #0077cc;
+  background-color: #f7f7f7;
+  border: 1px solid #0077cc;
+}
+
+.btn__bg_color:hover {
+  background-color: #00497d;
+  box-shadow: 5px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.btn__bg_trans:hover {
+  color: #2c65b9;
+  border: 1px solid #2c65b9;
+  box-shadow: 5px 0 5px rgba(0, 0, 0, 0.1);
+}
+
 .listStyle {
   list-style: lower-latin;
 }
@@ -103,7 +141,7 @@ ol li {
 
 /* Defina uma altura mínima para garantir que todos os cartões fiquem do mesmo tamanho */
 .card {
-  min-height: 200px;
+  min-height: 300px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

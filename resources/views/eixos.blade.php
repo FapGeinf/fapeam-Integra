@@ -24,35 +24,30 @@
 
       <!-- EIXO I: Botões -->
       <div class="col-md-3 mb-4">
-        <div class="card border-primary shadow-lg rounded-lg">
-          <h5 class="card-title text-white bg-primary rounded-top p-2 d-flex align-items-center">
+        <div class="card shadow-lg rounded-lg overflow-hidden">
+          <h5 class="card-title text-white bg__card_pattern p-3 d-flex align-items-center mb-0">
             <i class="bi bi-check-circle me-2"></i> EIXO I
           </h5>
-          <div class="card-body">
-            <div class="mb-3">
-              <div class="d-flex">
-                <i class="bi bi-bookmark-fill text-primary me-2"></i>
-                <p class="card-text text-muted fs-6">COMPROMETIMENTO E APOIO DA ALTA DIREÇÃO</p>
-              </div>
+          <div class="card-body p-4">
+            <div class="mb-3 d-flex align-items-start">
+              <i class="bi bi-bookmark-fill icon__color me-2 fs-5"></i>
+              <p class="card-text text-muted fs-6 mb-0">COMPROMETIMENTO E APOIO DA ALTA DIREÇÃO</p>
             </div>
-
-            <hr class="mt-0">
-
-            <ul class="list-unstyled">
-              <li>
-                <button type="button" class="btn btn-outline-primary btn-sm w-100 mb-2 rounded-pill shadow-sm transition-all hover-scale" data-bs-toggle="modal" data-bs-target="#modalApresentacao">
-                  <i class="bi bi-file-earmark-text me-2"></i> Apresentação
-                </button>
-              </li>
-              <li>
-                <button type="button" class="btn btn-outline-primary btn-sm w-100 rounded-pill shadow-sm transition-all hover-scale" data-bs-toggle="modal" data-bs-target="#modalIndicadores">
-                  <i class="bi bi-bar-chart-line me-2"></i> Indicadores
-                </button>
-              </li>
-            </ul>
+      
+            <hr class="mt-2 mb-3 border-primary">
+      
+            <div class="d-flex flex-column gap-2">
+              <button type="button" class=" btn__bg btn__bg_color" data-bs-toggle="modal" data-bs-target="#modalApresentacao">
+                <i class="bi bi-file-earmark-text me-2"></i> Apresentação
+              </button>
+              <button type="button" class="btn__bg btn__bg_trans" data-bs-toggle="modal" data-bs-target="#modalIndicadores">
+                <i class="bi bi-bar-chart-line me-2"></i> Indicadores
+              </button>
+            </div>
           </div>
         </div>
       </div>
+      
 
       <!-- EIXO I: Modal Apresentação -->
       <div class="modal fade" id="modalApresentacao" tabindex="-1" aria-labelledby="modalApresentacaoLabel" aria-hidden="true">
@@ -116,34 +111,28 @@
       
       <!-- EIXO II: Botões -->
       <div class="col-md-3 mb-4">
-        <div class="card border-primary shadow-lg rounded-lg">
-          <h5 class="card-title text-white bg-primary rounded-top p-2 d-flex align-items-center">
+        <div class="card shadow-lg rounded-lg overflow-hidden">
+          <h5 class="card-title text-white bg__card_pattern p-3 d-flex align-items-center mb-0">
             <i class="bi bi-check-circle me-2"></i> EIXO II
           </h5>
-          <div class="card-body">
-            <div class="mb-3">
-              <div class="d-flex">
-                <i class="bi bi-bookmark-fill text-primary me-2"></i>
-                <p class="card-text text-muted fs-6">INSTITUCIONALIZAÇÃO DO CÓDIGO DE CONDUTA</p>
-              </div>
+          <div class="card-body p-4">
+            <div class="mb-3 d-flex align-items-start">
+              <i class="bi bi-bookmark-fill icon__color me-2 fs-5"></i>
+              <p class="card-text text-muted fs-6 mb-0">INSTITUCIONALIZAÇÃO DO CÓDIGO DE CONDUTA</p>
             </div>
-            <hr class="mt-0">
-
-            <ul class="list-unstyled">
-              <li>
-                <button type="button" class="btn btn-outline-primary btn-sm w-100 mb-2 rounded-pill shadow-sm transition-all hover-scale" data-bs-toggle="modal" data-bs-target="#modalApresentacao1">
-                  <i class="bi bi-file-earmark-text me-2"></i> Apresentação
-                </button>
-              </li>
-              <li>
-                <button type="button" class="btn btn-outline-primary btn-sm w-100 rounded-pill shadow-sm transition-all hover-scale" data-bs-toggle="modal" data-bs-target="#modalIndicadores1">
-                  <i class="bi bi-bar-chart-line me-2"></i> Indicadores
-                </button>
-              </li>
-            </ul>
+            <hr class="mt-2 mb-3 border-primary">
+            <div class="d-flex flex-column gap-2">
+              <button type="button" class="btn__bg btn__bg_color" data-bs-toggle="modal" data-bs-target="#modalApresentacao1">
+                <i class="bi bi-file-earmark-text me-2"></i> Apresentação
+              </button>
+              <button type="button" class="btn__bg btn__bg_trans" data-bs-toggle="modal" data-bs-target="#modalIndicadores1">
+                <i class="bi bi-bar-chart-line me-2"></i> Indicadores
+              </button>
+            </div>
           </div>
         </div>
       </div>
+      
         
       <!-- EIXO II: Modal Apresentação -->
       <div class="modal fade" id="modalApresentacao1" tabindex="-1" aria-labelledby="modalApresentacaoLabel" aria-hidden="true">
@@ -207,35 +196,28 @@
 
       <!-- EIXO III: Botões -->
       <div class="col-md-3 mb-4">
-        <div class="card border-primary shadow-lg rounded-lg">
-          <h5 class="card-title text-white bg-primary rounded-top p-2 d-flex align-items-center">
+        <div class="card shadow-lg rounded-lg overflow-hidden">
+          <h5 class="card-title text-white bg__card_pattern p-3 d-flex align-items-center mb-0">
             <i class="bi bi-check-circle me-2"></i> EIXO III
           </h5>
-          <div class="card-body">
-            <div class="mb-3">
-              <div class="d-flex">
-                <i class="bi bi-bookmark-fill text-primary me-2"></i>
-                <p class="card-text text-muted fs-6">AVALIAÇÃO DE RISCOS</p>
-              </div>
+          <div class="card-body p-4">
+            <div class="mb-3 d-flex align-items-start">
+              <i class="bi bi-bookmark-fill icon__color me-2 fs-5"></i>
+              <p class="card-text text-muted fs-6 mb-0">AVALIAÇÃO DE RISCOS</p>
             </div>
-
-            <hr class="mt-0">
-
-            <ul class="list-unstyled">
-              <li>
-                <button type="button" class="btn btn-outline-primary btn-sm w-100 mb-2 rounded-pill shadow-sm transition-all hover-scale" data-bs-toggle="modal" data-bs-target="#modalApresentacao2">
-                  <i class="bi bi-file-earmark-text me-2"></i> Apresentação
-                </button>
-              </li>
-              <li>
-                <button type="button" class="btn btn-outline-primary btn-sm w-100 rounded-pill shadow-sm transition-all hover-scale" data-bs-toggle="modal" data-bs-target="#modalIndicadores2">
-                  <i class="bi bi-bar-chart-line me-2"></i> Indicadores
-                </button>
-              </li>
-            </ul>
+            <hr class="mt-2 mb-3 border-primary">
+            <div class="d-flex flex-column gap-2">
+              <button type="button" class="btn__bg btn__bg_color" data-bs-toggle="modal" data-bs-target="#modalApresentacao2">
+                <i class="bi bi-file-earmark-text me-2"></i> Apresentação
+              </button>
+              <button type="button" class="btn__bg btn__bg_trans" data-bs-toggle="modal" data-bs-target="#modalIndicadores2">
+                <i class="bi bi-bar-chart-line me-2"></i> Indicadores
+              </button>
+            </div>
           </div>
         </div>
       </div>
+      
 
       <!-- EIXO III: Modal Apresentação -->
       <div class="modal fade" id="modalApresentacao2" tabindex="-1" aria-labelledby="modalApresentacaoLabel" aria-hidden="true">
@@ -270,22 +252,6 @@
               <span>
                 <ol class="listStyle">
                   <li class="">Auditorias</li>
-                  <!-- <span>
-                    Métrica: Percentual de diretores e executivos que participaram de treinamentos relacionados ao programa de integridade no último ano.
-                    Objetivo: ≥ 80% de participação.
-                  </span> -->
-
-                  <!-- <li class="mt-3 liStrong">Visibilidade e Comunicação</li>
-                  <span>
-                    Métrica: Número de comunicações oficiais (e-mails, reuniões, vídeos) emitidas pela alta direção sobre a importância do programa de integridade.
-                    Objetivo: Mínimo de 4 comunicações por ano.
-                  </span> -->
-
-                  <!-- <li class="mt-3 liStrong">Participação em Comitês de Ética</li>
-                  <span>
-                    Métrica: Frequência de participação da alta direção em reuniões do comitê de ética ou integridade.
-                    Objetivo: Presença em ≥ 80% das reuniões.
-                  </span> -->
                 </ol>
               </span>
             </div>
@@ -299,34 +265,28 @@
 
       <!-- EIXO IV: Botões -->
       <div class="col-md-3 mb-4">
-        <div class="card border-primary shadow-lg rounded-lg">
-          <h5 class="card-title text-white bg-primary rounded-top p-2 d-flex align-items-center">
+        <div class="card shadow-lg rounded-lg overflow-hidden">
+          <h5 class="card-title text-white bg__card_pattern p-3 d-flex align-items-center mb-0">
             <i class="bi bi-check-circle me-2"></i> EIXO IV
           </h5>
-          <div class="card-body">
-            <div class="mb-3">
-              <div class="d-flex">
-                <i class="bi bi-bookmark-fill text-primary me-2"></i>
-                <p class="card-text text-muted fs-6">IMPLEMENTAÇÃO DOS CONTROLES INTERNOS</p>
-              </div>
+          <div class="card-body p-4">
+            <div class="mb-3 d-flex align-items-start">
+              <i class="bi bi-bookmark-fill icon__color me-2 fs-5"></i>
+              <p class="card-text text-muted fs-6 mb-0">IMPLEMENTAÇÃO DOS CONTROLES INTERNOS</p>
             </div>
-            <hr class="mt-0">
-
-            <ul class="list-unstyled">
-              <li>
-                <button type="button" class="btn btn-outline-primary btn-sm w-100 mb-2 rounded-pill shadow-sm transition-all hover-scale" data-bs-toggle="modal" data-bs-target="#modalApresentacao3">
-                  <i class="bi bi-file-earmark-text me-2"></i> Apresentação
-                </button>
-              </li>
-              <li>
-                <button type="button" class="btn btn-outline-primary btn-sm w-100 rounded-pill shadow-sm transition-all hover-scale" data-bs-toggle="modal" data-bs-target="#modalIndicadores3">
-                  <i class="bi bi-bar-chart-line me-2"></i> Indicadores
-                </button>
-              </li>
-            </ul>
+            <hr class="mt-2 mb-3 border-primary">
+            <div class="d-flex flex-column gap-2">
+              <button type="button" class="btn__bg btn__bg_color" data-bs-toggle="modal" data-bs-target="#modalApresentacao3">
+                <i class="bi bi-file-earmark-text me-2"></i> Apresentação
+              </button>
+              <button type="button" class="btn__bg btn__bg_trans" data-bs-toggle="modal" data-bs-target="#modalIndicadores3">
+                <i class="bi bi-bar-chart-line me-2"></i> Indicadores
+              </button>
+            </div>
           </div>
         </div>
       </div>
+      
 
       <!-- EIXO IV: Modal Apresentação -->
       <div class="modal fade" id="modalApresentacao3" tabindex="-1" aria-labelledby="modalApresentacaoLabel" aria-hidden="true">
@@ -361,22 +321,6 @@
               <span>
                 <ol class="listStyle">
                   <li class="">Auditorias</li>
-                  <!-- <span>
-                    Métrica: Percentual de diretores e executivos que participaram de treinamentos relacionados ao programa de integridade no último ano.
-                    Objetivo: ≥ 80% de participação.
-                  </span> -->
-
-                  <!-- <li class="mt-3 liStrong">Visibilidade e Comunicação</li>
-                  <span>
-                    Métrica: Número de comunicações oficiais (e-mails, reuniões, vídeos) emitidas pela alta direção sobre a importância do programa de integridade.
-                    Objetivo: Mínimo de 4 comunicações por ano.
-                  </span> -->
-
-                  <!-- <li class="mt-3 liStrong">Participação em Comitês de Ética</li>
-                  <span>
-                    Métrica: Frequência de participação da alta direção em reuniões do comitê de ética ou integridade.
-                    Objetivo: Presença em ≥ 80% das reuniões.
-                  </span> -->
                 </ol>
               </span>
             </div>
@@ -390,35 +334,28 @@
 
       <!-- EIXO V: Botões -->
       <div class="col-md-3 mb-4">
-        <div class="card border-primary shadow-lg rounded-lg">
-          <h5 class="card-title text-white bg-primary rounded-top p-2 d-flex align-items-center">
+        <div class="card shadow-lg rounded-lg overflow-hidden">
+          <h5 class="card-title text-white bg__card_pattern p-3 d-flex align-items-center mb-0">
             <i class="bi bi-check-circle me-2"></i> EIXO V
           </h5>
-          <div class="card-body">
-            <div class="mb-3">
-              <div class="d-flex">
-                <i class="bi bi-bookmark-fill text-primary me-2"></i>
-                <p class="card-text text-muted fs-6">COMUNICAÇÃO E TREINAMENTOS PERIÓDICOS</p>
-              </div>
+          <div class="card-body p-4">
+            <div class="mb-3 d-flex align-items-start">
+              <i class="bi bi-bookmark-fill icon__color me-2 fs-5"></i>
+              <p class="card-text text-muted fs-6 mb-0">COMUNICAÇÃO E TREINAMENTOS PERIÓDICOS</p>
             </div>
-
-            <hr class="mt-0">
-
-            <ul class="list-unstyled">
-              <li>
-                <button type="button" class="btn btn-outline-primary btn-sm w-100 mb-2 rounded-pill shadow-sm transition-all hover-scale" data-bs-toggle="modal" data-bs-target="#modalApresentacao4">
-                  <i class="bi bi-file-earmark-text me-2"></i> Apresentação
-                </button>
-              </li>
-              <li>
-                <button type="button" class="btn btn-outline-primary btn-sm w-100 rounded-pill shadow-sm transition-all hover-scale" data-bs-toggle="modal" data-bs-target="#modalIndicadores4">
-                  <i class="bi bi-bar-chart-line me-2"></i> Indicadores
-                </button>
-              </li>
-            </ul>
+            <hr class="mt-2 mb-3 border-primary">
+            <div class="d-flex flex-column gap-2">
+              <button type="button" class="btn__bg btn__bg_color" data-bs-toggle="modal" data-bs-target="#modalApresentacao4">
+                <i class="bi bi-file-earmark-text me-2"></i> Apresentação
+              </button>
+              <button type="button" class="btn__bg btn__bg_trans" data-bs-toggle="modal" data-bs-target="#modalIndicadores4">
+                <i class="bi bi-bar-chart-line me-2"></i> Indicadores
+              </button>
+            </div>
           </div>
         </div>
       </div>
+      
 
       <!-- EIXO V: Modal Apresentação -->
       <div class="modal fade" id="modalApresentacao4" tabindex="-1" aria-labelledby="modalApresentacaoLabel" aria-hidden="true">
@@ -453,22 +390,6 @@
               <span>
                 <ol class="listStyle">
                   <li class="">Sugestão da CGE</li>
-                  <!-- <span>
-                    Métrica: Percentual de diretores e executivos que participaram de treinamentos relacionados ao programa de integridade no último ano.
-                    Objetivo: ≥ 80% de participação.
-                  </span> -->
-
-                  <!-- <li class="mt-3 liStrong">Visibilidade e Comunicação</li>
-                  <span>
-                    Métrica: Número de comunicações oficiais (e-mails, reuniões, vídeos) emitidas pela alta direção sobre a importância do programa de integridade.
-                    Objetivo: Mínimo de 4 comunicações por ano.
-                  </span> -->
-
-                  <!-- <li class="mt-3 liStrong">Participação em Comitês de Ética</li>
-                  <span>
-                    Métrica: Frequência de participação da alta direção em reuniões do comitê de ética ou integridade.
-                    Objetivo: Presença em ≥ 80% das reuniões.
-                  </span> -->
                 </ol>
               </span>
             </div>
@@ -482,34 +403,27 @@
 
       <!-- EIXO VI: Botões -->
       <div class="col-md-3 mb-4">
-        <div class="card border-primary shadow-lg rounded-lg">
-          <h5 class="card-title text-white bg-primary rounded-top p-2 d-flex align-items-center">
+        <div class="card shadow-lg rounded-lg overflow-hidden">
+          <h5 class="card-title text-white bg__card_pattern p-3 d-flex align-items-center mb-0">
             <i class="bi bi-check-circle me-2"></i> EIXO VI
           </h5>
-          <div class="card-body">
-            <div class="mb-3">
-              <div class="d-flex">
-                <i class="bi bi-bookmark-fill text-primary me-2"></i>
-                <p class="card-text text-muted fs-6">CANAIS DE DENÚNCIA</p>
-              </div>
+          <div class="card-body p-4">
+            <div class="mb-3 d-flex align-items-start">
+              <i class="bi bi-bookmark-fill icon__color me-2 fs-5"></i>
+              <p class="card-text text-muted fs-6 mb-0">CANAIS DE DENÚNCIA</p>
             </div>
-            <hr class="mt-0">
-
-            <ul class="list-unstyled">
-              <li>
-                <button type="button" class="btn btn-outline-primary btn-sm w-100 mb-2 rounded-pill shadow-sm transition-all hover-scale" data-bs-toggle="modal" data-bs-target="#modalApresentacao5">
-                  <i class="bi bi-file-earmark-text me-2"></i> Apresentação
-                </button>
-              </li>
-              <li>
-                <button type="button" class="btn btn-outline-primary btn-sm w-100 rounded-pill shadow-sm transition-all hover-scale" data-bs-toggle="modal" data-bs-target="#modalIndicadores5">
-                  <i class="bi bi-bar-chart-line me-2"></i> Indicadores
-                </button>
-              </li>
-            </ul>
+            <hr class="mt-2 mb-3 border-primary">
+            <div class="d-flex flex-column gap-2">
+              <button type="button" class="btn__bg btn__bg_color" data-bs-toggle="modal" data-bs-target="#modalApresentacao5">
+                <i class="bi bi-file-earmark-text me-2"></i> Apresentação
+              </button>
+              <button type="button" class="btn__bg btn__bg_trans" data-bs-toggle="modal" data-bs-target="#modalIndicadores5">
+                <i class="bi bi-bar-chart-line me-2"></i> Indicadores
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      </div>      
 
       <!-- EIXO VI: Modal Apresentação -->
       <div class="modal fade" id="modalApresentacao5" tabindex="-1" aria-labelledby="modalApresentacaoLabel" aria-hidden="true">
@@ -573,34 +487,28 @@
 
       <!-- EIXO VII: Botões -->
       <div class="col-md-3 mb-4">
-        <div class="card border-primary shadow-lg rounded-lg">
-          <h5 class="card-title text-white bg-primary rounded-top p-2 d-flex align-items-center">
+        <div class="card shadow-lg rounded-lg overflow-hidden">
+          <h5 class="card-title text-white bg__card_pattern p-3 d-flex align-items-center mb-0">
             <i class="bi bi-check-circle me-2"></i> EIXO VII
           </h5>
-          <div class="card-body">
-            <div class="mb-3">
-              <div class="d-flex">
-                <i class="bi bi-bookmark-fill text-primary me-2"></i>
-                <p class="card-text text-muted fs-6">INVESTIGAÇÕES INTERNAS</p>
-              </div>
+          <div class="card-body p-4">
+            <div class="mb-3 d-flex align-items-start">
+              <i class="bi bi-bookmark-fill icon__color me-2 fs-5"></i>
+              <p class="card-text text-muted fs-6 mb-0">INVESTIGAÇÕES INTERNAS</p>
             </div>
-            <hr class="mt-0">
-
-            <ul class="list-unstyled">
-              <li>
-                <button type="button" class="btn btn-outline-primary btn-sm w-100 mb-2 rounded-pill shadow-sm transition-all hover-scale" data-bs-toggle="modal" data-bs-target="#modalApresentacao6">
-                  <i class="bi bi-file-earmark-text me-2"></i> Apresentação
-                </button>
-              </li>
-              <li>
-                <button type="button" class="btn btn-outline-primary btn-sm w-100 rounded-pill shadow-sm transition-all hover-scale" data-bs-toggle="modal" data-bs-target="#modalIndicadores6">
-                  <i class="bi bi-bar-chart-line me-2"></i> Indicadores
-                </button>
-              </li>
-            </ul>
+            <hr class="mt-2 mb-3 border-primary">
+            <div class="d-flex flex-column gap-2">
+              <button type="button" class="btn__bg btn__bg_color" data-bs-toggle="modal" data-bs-target="#modalApresentacao6">
+                <i class="bi bi-file-earmark-text me-2"></i> Apresentação
+              </button>
+              <button type="button" class="btn__bg btn__bg_trans" data-bs-toggle="modal" data-bs-target="#modalIndicadores6">
+                <i class="bi bi-bar-chart-line me-2"></i> Indicadores
+              </button>
+            </div>
           </div>
         </div>
       </div>
+      
 
       <!-- EIXO VII: Modal Apresentação -->
       <div class="modal fade" id="modalApresentacao6" tabindex="-1" aria-labelledby="modalApresentacaoLabel" aria-hidden="true">
@@ -651,35 +559,30 @@
 
       <!-- EIXO VIII: Botões -->
       <div class="col-md-3 mb-4">
-        <div class="card border-primary shadow-lg rounded-lg">
-          <h5 class="card-title text-white bg-primary rounded-top p-2 d-flex align-items-center">
+        <div class="card shadow-lg rounded-lg overflow-hidden">
+          <h5 class="card-title text-white bg__card_pattern p-3 d-flex align-items-center mb-0">
             <i class="bi bi-check-circle me-2"></i> EIXO VIII
           </h5>
-          <div class="card-body">
-            <div class="mb-3">
-              <div class="d-flex">
-                <i class="bi bi-bookmark-fill text-primary me-2"></i>
-                <p class="card-text text-muted fs-6">MONITORAMENTO CONTÍNUO</p>
-              </div>
+          <div class="card-body p-4">
+            <div class="mb-3 d-flex align-items-start">
+              <i class="bi bi-bookmark-fill icon__color me-2 fs-5"></i>
+              <p class="card-text text-muted fs-6 mb-0">MONITORAMENTO CONTÍNUO</p>
             </div>
-            <hr class="mt-0">
+            <hr class="mt-2 mb-3 border-primary">
+            <div class="d-flex flex-column gap-2">
+              <button type="button" class="btn__bg btn__bg_color" data-bs-toggle="modal" data-bs-target="#modalApresentacao7">
+                <i class="bi bi-file-earmark-text me-2"></i> Apresentação
+              </button>
 
-            <ul class="list-unstyled">
-              <li>
-                <button type="button" class="btn btn-outline-primary btn-sm w-100 mb-2 rounded-pill shadow-sm transition-all hover-scale" data-bs-toggle="modal" data-bs-target="#modalApresentacao7">
-                  <i class="bi bi-file-earmark-text me-2"></i> Apresentação
-                </button>
-              </li>
-              <li>
-                <button type="button" class="btn btn-outline-primary btn-sm w-100 rounded-pill shadow-sm transition-all hover-scale" data-bs-toggle="modal" data-bs-target="#modalIndicadores7">
-                  <i class="bi bi-bar-chart-line me-2"></i> Indicadores
-                </button>
-              </li>
+              <a class="btn__bg btn__bg_color text-center text-decoration-none w-100" href="{{route('riscos.index')}}">
+                <i class="bi bi-bar-chart-line me-2"></i> Monitoramentos
+              </a>
 
-              <li class="mt-2">
-                <a class="btn btn-outline-primary btn-sm w-100 rounded-pill shadow-sm transition-all hover-scale" href="{{route('riscos.index')}}"><i class="bi bi-bar-chart-line me-2"></i> Monitoramentos</a>
-              </li>
-            </ul>
+              <button type="button" class="btn__bg btn__bg_trans" data-bs-toggle="modal" data-bs-target="#modalIndicadores7">
+                <i class="bi bi-bar-chart-line me-2"></i> Indicadores
+              </button>
+              
+            </div>
           </div>
         </div>
       </div>
