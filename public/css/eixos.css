@@ -10,6 +10,22 @@ li {
   color: #2272b9;
 }
 
+.body-modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%; /* Garante que o conteúdo preencha a altura da card */
+}
+
+.card__title {
+  font-size: 15px;
+}
+
+.card__inside {
+  margin-top: auto !important;
+  margin-bottom: auto !important;
+}
+
 .btn__bg {
   border: none;
   font-size: 13px;

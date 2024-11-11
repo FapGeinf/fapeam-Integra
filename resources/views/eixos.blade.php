@@ -80,6 +80,31 @@
             </div>
             <div class="modal-body">
               <span>
+
+                {{-- MODAL BONITO ABAIXO --}}
+                {{-- <div class="card-group">
+                  <div class="card">
+                    <div class="card-body">
+                      <p class="card__title">a) Participação em Treinamentos e Workshops</p>
+                      <p class="card__inside"> Métrica: Percentual de diretores e executivos que participaram de treinamentos relacionados ao programa de integridade no último ano.
+                      Objetivo: ≥ 80% de participação.</p>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-body body-modal">
+                      <p class="card__title">b) Visibilidade e Comunicação</p>
+                      <p class="card__inside">Métrica: Número de comunicações oficiais (e-mails, reuniões, vídeos) emitidas pela alta direção sobre a importância do programa de integridade.
+                        Objetivo: Mínimo de 4 comunicações por ano.</p>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-body body-modal">
+                      <p class="card__title">c) Participação em Comitês de Ética</p>
+                      <p class="card__inside">Métrica: Frequência de participação da alta direção em reuniões do comitê de ética ou integridade.
+                      Objetivo: Presença em ≥ 80% das reuniões.</p>
+                    </div>
+                  </div>
+                </div> --}}
                 <ol class="listStyle">
                   <li class="liStrong">Participação em Treinamentos e Workshops</li>
                   <span>
