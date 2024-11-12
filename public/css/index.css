@@ -89,9 +89,9 @@ table, tr,th, td {
 }
 
 .spanThatLooksLikeABtn {
-  color: #fff;
+  color: #000;
   cursor: default;
-  background-color: #ed9121;
+  background-color: #ececec;
 }
 
 .green-btn-store {
