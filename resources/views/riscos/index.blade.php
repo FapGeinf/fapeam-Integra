@@ -33,8 +33,8 @@
             </div>
         @endif
 
-        <div class="p-1 border coloredButtons">
-            @if (Auth::user()->unidade->unidadeTipoFK == 1 || Auth::user()->unidade->unidadeTipoFK == 4)
+        <div class="">
+            {{-- @if (Auth::user()->unidade->unidadeTipoFK == 1 || Auth::user()->unidade->unidadeTipoFK == 4)
 
             <a href="{{ route('riscos.create') }}" class="blue-btn me-2">
                     <i class="bi bi-plus-lg"></i> Novo Risco
@@ -44,17 +44,12 @@
                     <i class="bi bi-plus-lg"></i> inserir Prazo
                 </button>
 
-                {{-- 
-									<button type="button" class="btn btn-md btn-secondary me-2" onclick="window.location.href='{{ route('relatorios.download') }}'">
-                            <i class="bi bi-download"></i> Baixar Relatório
-                	</button> 
-								--}} 
             @endif
             
             <p class="spanThatLooksLikeABtn" id="prazo"
                 data-prazo="{{ \Carbon\Carbon::parse($prazo)->format('Y-m-d') }}">
                 Prazo Final: {{ \Carbon\Carbon::parse($prazo)->format('d/m/Y') }}
-            </p>
+            </p> --}}
 
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
@@ -79,7 +74,7 @@
                 });
             </script>
 
-            <button id="notificationButton" type="button" class="purple-btn position-relative ms-3"
+            {{-- <button id="notificationButton" type="button" class="purple-btn position-relative ms-3"
                 data-bs-toggle="modal" data-bs-target="#notificationModal">
                 <i class="bi bi-bell"></i>
                 <span id="notificationBadge"
@@ -88,7 +83,7 @@
                     {{ $notificacoes->whereNull('read_at')->count() }}
                     <span class="visually-hidden">unread messages</span>
                 </span>
-            </button>
+            </button> --}}
 
             <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel"
             aria-hidden="true">
@@ -426,7 +421,6 @@
         </div>
     </div>
 
-
     <script>
         $(document).ready(function() {
             console.log("Inicializando DataTable...");
@@ -448,16 +442,7 @@
     
                 initComplete: function() {
                     console.log("DataTable inicializado com sucesso.");
-                    var divContainer = $('<div class="divContainer"></div>');
-    
-                    // Verifique se #newRiskButtonDiv existe
-                    if ($('#newRiskButtonDiv').length) {
-                        var divButtonNewRisk = $('<div class="divButtonNewRisk"></div>');
-                        divButtonNewRisk.append($('#newRiskButtonDiv'));
-                        divContainer.append(divButtonNewRisk);
-                    } else {
-                        console.warn("#newRiskButtonDiv não encontrado.");
-                    }
+                    var divContainer = $('<div class="divContainer d-flex justify-content-between align-items-center"></div>');
     
                     var dropdownContainer = $('<div class="dropdown-container"></div>');
                     var dropdownButton = $('<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Abrir filtros</button>');
@@ -498,11 +483,37 @@
                     dropdownContainer.append(dropdownButton).append(dropdownMenu);
                     divContainer.append(dropdownContainer);
     
+                    // Adiciona os botões personalizados em uma div separada
+                    var buttonContainer = $('<div class="button-container d-flex align-items-center"></div>');
+    
+                    @if (Auth::user()->unidade->unidadeTipoFK == 1 || Auth::user()->unidade->unidadeTipoFK == 4)
+                        // Botão "Novo Risco"
+                        var newRiskButton = $('<a href="{{ route('riscos.create') }}" class="blue-btn me-2"><i class="bi bi-plus-lg"></i> Novo Risco</a>');
+                        
+                        // Botão "Inserir Prazo"
+                        var insertDeadlineButton = $('<button type="button" class="green-btn me-2" data-bs-toggle="modal" data-bs-target="#prazoModal"><i class="bi bi-plus-lg"></i> Inserir Prazo</button>');
+                        
+                        // Botão "Notificações"
+                        var notificationButton = $('<button id="notificationButton" type="button" class="purple-btn position-relative" data-bs-toggle="modal" data-bs-target="#notificationModal"><i class="bi bi-bell"></i><span id="notificationBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" data-count="{{ $notificacoes->whereNull('read_at')->count() }}">{{ $notificacoes->whereNull('read_at')->count() }}<span class="visually-hidden">unread messages</span></span></button>');
+                        
+                        // Adiciona os botões à div do container
+                        buttonContainer.append(newRiskButton, insertDeadlineButton, notificationButton);
+                    @endif
+    
+                    // Adiciona o container de botões à div principal
+                    divContainer.append(buttonContainer);
+    
+                    // Adiciona os filtros e a paginação
                     divContainer.append($('.dataTables_filter'));
                     divContainer.append($('.dataTables_length'));
     
+                    // Adiciona o botão "Abrir filtros" ao final
+                    divContainer.append(dropdownContainer);
+    
+                    // Coloca a estrutura final na tabela
                     $(table.table().container()).prepend(divContainer);
     
+                    // Adiciona eventos para os filtros
                     $('#filterUnidade').on('change', function() {
                         console.log("Filtro de unidade alterado.");
                         var val = $.fn.dataTable.util.escapeRegex($(this).val());
@@ -519,6 +530,7 @@
         });
     </script>
     
+
 </body>
 
 </html>
