@@ -328,7 +328,7 @@ a.btnAltSenha:hover {
 /* INÍCIO CSS SIDENAV */
 .liHover,
 .liHover a {
-  transition: 0.2s;
+  transition: 0.1s;
 }
 
 .liHover a:hover {
