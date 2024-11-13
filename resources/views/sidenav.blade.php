@@ -17,7 +17,7 @@
 
         .appContent,
         #toggleSidenav {
-            margin-left: 4rem; /* O conteúdo também deve iniciar deslocado */
+           /* margin-left: 4rem;  O conteúdo também deve iniciar deslocado */
             transition: margin-left 0.3s ease; /* Animação suave */
         }
     </style>
@@ -43,7 +43,7 @@
         appContent.style.marginLeft = "255px";
         imgElement.forEach(img => img.style.display = "none");
         fullLogoElement.forEach(img => img.style.display = "block");
-        toggleButton.style.left = "200px";
+        // Removido: toggleButton.style.left = "200px";
 
         if (marginLeft1) {
             marginLeft1.style.marginLeft = '15px';
@@ -53,7 +53,7 @@
         appContent.style.marginLeft = '4rem';
         imgElement.forEach(img => img.style.display = "block");
         fullLogoElement.forEach(img => img.style.display = "none");
-        toggleButton.style.left = "10px";
+        // Removido: toggleButton.style.left = "10px";
 
         if (marginLeft1) {
             marginLeft1.style.marginLeft = '0px';
@@ -81,7 +81,7 @@
             appContent.style.marginLeft = '4rem';
             imgElement.forEach(img => img.style.display = "block");
             fullLogoElement.forEach(img => img.style.display = "none");
-            toggleButton.style.left = "10px";
+            // Removido: toggleButton.style.left = "10px";
             if (marginLeft1) marginLeft1.style.marginLeft = '0px';
 
             if (welcomeDiv) {
@@ -95,7 +95,7 @@
             appContent.style.marginLeft = "255px";
             imgElement.forEach(img => img.style.display = "none");
             fullLogoElement.forEach(img => img.style.display = "block");
-            toggleButton.style.left = "200px";
+            // Removido: toggleButton.style.left = "200px";
             if (marginLeft1) marginLeft1.style.marginLeft = '15px';
 
             if (welcomeDiv) {
@@ -109,18 +109,18 @@
 
     toggleButton.addEventListener("click", toggleNav);
 });
-
 </script>
+
 
 <body>
     <nav class="menu-lateral" id="appSidenav">
         <button id="toggleSidenav" class="btn-toggle">
-            <i class="bi bi-arrow-left-right"></i>
+            <i class="bi bi-list"></i>
         </button>
         
         <a class="navbar-brand">
             <div class="logo">
-                <img id="" src="{{ asset('img/logoDeconWhiteMin.png') }}" style="height: 60%; object-fit: cover; margin-top: 2rem;">
+                <img id="" src="{{ asset('img/logoDeconWhiteMin.png') }}" style="height: 60%; object-fit: cover; margin-top: 9rem;">
             </div>
         </a>
 
@@ -128,7 +128,7 @@
             <p>Bem-vindo(a)!</p>
         </div>
 
-        <hr class="spacer">
+        <hr class="spacer" style="margin-top: 4rem;">
 
         <ul class="ulList">
             <li class="item-menu liHover">
