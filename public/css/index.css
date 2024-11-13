@@ -47,6 +47,10 @@ table, tr,th, td {
   background-color: #f0f0f0;
 }
 
+.select__pag {
+  border: 1px solid #ccc !important;
+}
+
 /* ESTILIZAÇÃO DA TABELA INÍCIO */
 .main-datatable .cust-datatable > thead > tr > th {
   padding: 9px 8px !important;
@@ -175,9 +179,9 @@ table, tr,th, td {
   margin-bottom: 1rem;
 }
 
-.divContainer label {
+/* .divContainer label {
   margin-left: 10px;
-}
+} */
 
 #newRiskButtonDiv {
   white-space: nowrap;
@@ -435,7 +439,13 @@ table.dataTable thead th, table.dataTable thead td {
 }
 
 .divFilterUnidade {
-  margin-left: 3px;
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+.FilterAvaliacao {
+  background-color: #f1f1f1;
+  cursor: pointer;
 }
 
 .labelUnidade {

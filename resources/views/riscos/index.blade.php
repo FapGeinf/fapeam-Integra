@@ -424,7 +424,7 @@
     <script>
         $(document).ready(function() {
             console.log("Inicializando DataTable...");
-        
+    
             var table = $('#tableHome').DataTable({
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
@@ -439,104 +439,92 @@
                         previous: "Anterior"
                     }
                 },
-        
+    
                 initComplete: function() {
                     console.log("DataTable inicializado com sucesso.");
                     var divContainer = $('<div class="divContainer d-flex justify-content-between align-items-center flex-wrap"></div>');
-        
-                    // Cria uma div que vai conter os botões "Ações", "Abrir filtros" e "Notificações"
+    
                     var buttonContainer = $('<div class="d-flex align-items-center gap-2"></div>');
-                    
-
-                    // Adiciona o botão de "Ações"
+    
                     var actionDropdownContainer = $('<div class="dropdown action-dropdown"></div>');
                     var actionDropdownButton = $('<button class="btnAdd dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Ações</button>');
                     var actionDropdownMenu = $('<ul style="min-height: 97px;" class="dropdown-menu text-center p-3"></ul>');
-        
+    
                     @if (Auth::user()->unidade->unidadeTipoFK == 1 || Auth::user()->unidade->unidadeTipoFK == 4)
                         var newRiskButton = $('<li style="margin-left: 0; "><a href="{{ route('riscos.create') }}" class="btnAdd text-decoration-none"><i class="bi bi-plus-lg"></i> Novo Risco</a></li>');
                         var insertDeadlineButton = $('<li style="margin-left: 0;"><button type="button" class="mt-2 green-btn" data-bs-toggle="modal" data-bs-target="#prazoModal"><i class="bi bi-plus-lg"></i> Inserir Prazo</button></li>');
                         actionDropdownMenu.append(newRiskButton, insertDeadlineButton);
                     @endif
-        
+    
                     actionDropdownContainer.append(actionDropdownButton).append(actionDropdownMenu);
-        
-                    // Adiciona o botão de "Ações" antes de "Abrir filtros"
+    
                     buttonContainer.append(actionDropdownContainer);
-        
-                    // Adiciona o botão de "Abrir filtros"
+    
                     var dropdownContainer = $('<div class="dropdown-container"></div>');
                     var dropdownButton = $('<button class="btnFilter dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Abrir filtros</button>');
                     var dropdownMenu = $('<div class="dropdown-menu p-3"></div>');
-        
-                    // Adiciona os filtros
+    
                     if (!$('#filterUnidade').length) {
                         console.log("Adicionando filtro de unidade...");
                         var selectUnidade = $('<select id="filterUnidade" class="form-select form-select-sm divFilterUnidade"><option value="">Todas as Unidades</option></select>');
-        
+    
                         @foreach ($riscos->unique('unidade.unidadeNome') as $risco)
                             selectUnidade.append('<option value="{{ $risco->unidade->unidadeNome }}">{{ $risco->unidade->unidadeNome }}</option>');
                         @endforeach
-        
+    
                         var labelUnidades = $('<label for="filterUnidade" class="labelUnidade d-block">Unidades:</label>');
                         dropdownMenu.append(labelUnidades).append(selectUnidade);
                     }
-        
+    
                     if (!$('#filterAvaliação').length) {
                         console.log("Adicionando filtro de avaliação...");
-                        var selectAvaliacao = $('<select id="filterAvaliação" class="form-select form-select-sm divFilterAvaliação"><option value="">Todas as Avaliações</option></select>');
-        
+                        var selectAvaliacao = $('<select id="filterAvaliação" class="form-select form-select-sm FilterAvaliacao"><option value="">Todas as Avaliações</option></select>');
+    
                         var avaliacaoOptions = [
                             { value: "Baixo", text: "Baixo" },
                             { value: "Médio", text: "Médio" },
                             { value: "Alto", text: "Alto" }
                         ];
-        
+    
                         $.each(avaliacaoOptions, function(index, option) {
                             selectAvaliacao.append('<option value="' + option.value + '">' + option.text + '</option>');
                         });
-        
+    
                         var labelAvaliacoes = $('<label for="filterAvaliação" class="labelAvaliação d-block">Avaliação:</label>');
                         dropdownMenu.append(labelAvaliacoes).append(selectAvaliacao);
                     }
-        
+    
+                    // Modificação para adicionar classes ao seletor de paginação
+                    $('.dataTables_length select').addClass('mt-2 select__pag');
+    
                     dropdownMenu.append($('.dataTables_length'));
                     dropdownContainer.append(dropdownButton).append(dropdownMenu);
-        
-                    // Adiciona os botões de filtros e notificações na mesma div
-                    buttonContainer.append(dropdownContainer); // Adiciona o "Abrir filtros"
-        
-                    // Adiciona o botão de "Notificações" à direita do "Abrir filtros"
+                    buttonContainer.append(dropdownContainer);
+    
                     var notificationButton = $('<button id="notificationButton" type="button" class="purple-btn position-relative" data-bs-toggle="modal" data-bs-target="#notificationModal">Notificações <i class="bi bi-bell"></i><span id="notificationBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" data-count="{{ $notificacoes->whereNull('read_at')->count() }}">{{ $notificacoes->whereNull('read_at')->count() }}<span class="visually-hidden">unread messages</span></span></button>');
-                    buttonContainer.append(notificationButton); // Coloca o botão de notificações à direita
-        
-                    divContainer.append(buttonContainer); // Adiciona o container de botões à div principal
-        
-                    // Cria uma div para o campo de pesquisa e o prazo final
+                    buttonContainer.append(notificationButton);
+    
+                    divContainer.append(buttonContainer);
+    
                     var searchAndPrazoContainer = $('<div class="d-flex align-items-center gap-3"></div>');
-                    
-                    // Adiciona o campo de pesquisa centralizado
+    
                     var searchContainer = $('<div class="search-container mx-auto"></div>');
                     searchContainer.append($('.dataTables_filter'));
                     searchAndPrazoContainer.append(searchContainer);
-        
-                    // Adiciona o "Prazo Final"
+    
                     var prazoContainer = $('<p class="spanThatLooksLikeABtn" id="prazo" data-prazo="{{ \Carbon\Carbon::parse($prazo)->format('Y-m-d') }}">Prazo Final: <strong>{{ \Carbon\Carbon::parse($prazo)->format('d/m/Y') }}</strong></p>');
                     searchAndPrazoContainer.append(prazoContainer);
-        
-                    // Adiciona a div que contém o campo de pesquisa e o prazo final à div principal
+    
                     divContainer.append(searchAndPrazoContainer);
-        
-                    // Coloca a estrutura final na tabela
+    
                     $(table.table().container()).prepend(divContainer);
-        
-                    // Adiciona eventos para os filtros
+    
                     $('#filterUnidade').on('change', function() {
                         console.log("Filtro de unidade alterado.");
                         var val = $.fn.dataTable.util.escapeRegex($(this).val());
                         table.column(2).search(val ? '^' + val + '$' : '', true, false).draw();
                     });
-        
+    
                     $('#filterAvaliação').on('change', function() {
                         console.log("Filtro de avaliação alterado.");
                         var val = $.fn.dataTable.util.escapeRegex($(this).val());
@@ -546,6 +534,7 @@
             });
         });
     </script>
+    
 
 </body>
 
