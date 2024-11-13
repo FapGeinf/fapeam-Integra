@@ -446,10 +446,11 @@
         
                     // Cria uma div que vai conter os botões "Ações", "Abrir filtros" e "Notificações"
                     var buttonContainer = $('<div class="d-flex align-items-center gap-2"></div>');
-        
+                    
+
                     // Adiciona o botão de "Ações"
                     var actionDropdownContainer = $('<div class="dropdown action-dropdown"></div>');
-                    var actionDropdownButton = $('<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Ações</button>');
+                    var actionDropdownButton = $('<button class="btnAdd dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Ações</button>');
                     var actionDropdownMenu = $('<ul class="dropdown-menu p-3"></ul>');
         
                     @if (Auth::user()->unidade->unidadeTipoFK == 1 || Auth::user()->unidade->unidadeTipoFK == 4)
@@ -465,7 +466,7 @@
         
                     // Adiciona o botão de "Abrir filtros"
                     var dropdownContainer = $('<div class="dropdown-container"></div>');
-                    var dropdownButton = $('<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Abrir filtros</button>');
+                    var dropdownButton = $('<button class="btnFilter dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Abrir filtros</button>');
                     var dropdownMenu = $('<div class="dropdown-menu p-3"></div>');
         
                     // Adiciona os filtros
@@ -506,7 +507,7 @@
                     buttonContainer.append(dropdownContainer); // Adiciona o "Abrir filtros"
         
                     // Adiciona o botão de "Notificações" à direita do "Abrir filtros"
-                    var notificationButton = $('<button id="notificationButton" type="button" class="purple-btn position-relative" data-bs-toggle="modal" data-bs-target="#notificationModal"><i class="bi bi-bell"></i><span id="notificationBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" data-count="{{ $notificacoes->whereNull('read_at')->count() }}">{{ $notificacoes->whereNull('read_at')->count() }}<span class="visually-hidden">unread messages</span></span></button>');
+                    var notificationButton = $('<button id="notificationButton" type="button" class="purple-btn position-relative" data-bs-toggle="modal" data-bs-target="#notificationModal">Notificações <i class="bi bi-bell"></i><span id="notificationBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" data-count="{{ $notificacoes->whereNull('read_at')->count() }}">{{ $notificacoes->whereNull('read_at')->count() }}<span class="visually-hidden">unread messages</span></span></button>');
                     buttonContainer.append(notificationButton); // Coloca o botão de notificações à direita
         
                     divContainer.append(buttonContainer); // Adiciona o container de botões à div principal
@@ -520,7 +521,7 @@
                     searchAndPrazoContainer.append(searchContainer);
         
                     // Adiciona o "Prazo Final"
-                    var prazoContainer = $('<p class="spanThatLooksLikeABtn" id="prazo" data-prazo="{{ \Carbon\Carbon::parse($prazo)->format('Y-m-d') }}">Prazo Final: {{ \Carbon\Carbon::parse($prazo)->format('d/m/Y') }}</p>');
+                    var prazoContainer = $('<p class="spanThatLooksLikeABtn" id="prazo" data-prazo="{{ \Carbon\Carbon::parse($prazo)->format('Y-m-d') }}">Prazo Final: <strong>{{ \Carbon\Carbon::parse($prazo)->format('d/m/Y') }}</strong></p>');
                     searchAndPrazoContainer.append(prazoContainer);
         
                     // Adiciona a div que contém o campo de pesquisa e o prazo final à div principal

@@ -13,6 +13,19 @@ table, tr,th, td {
   margin-left: 10rem;
 }
 
+/* #notificationButton {
+  color: #fff;
+  padding: 5px;
+  border: none;
+  font-size: 20px;
+  border-radius: 5px;
+  background-color: #2d2d6e;
+}
+
+#notificationBadge {
+  font-size: 10px;
+} */
+
 .notification-item {
   background-color: #f7f9fc; /* Cor de fundo suave */
   border: 1px solid #e0e0e0; /* Borda leve */
@@ -555,6 +568,42 @@ table.dataTable thead th, table.dataTable thead td {
   background-color: #eb613d !important;
 }
 /* END FOOTER */
+
+.btnAdd {
+  background-color: #1a52b9;
+  border-radius: 5px;
+  color: #fff;
+  border: none;
+  outline: none;
+  padding: 0.4rem 0.6rem;
+  transition: .3s;
+}
+
+.btnAdd:hover {
+  background-color: #2464da;
+}
+
+.btnAdd:active {
+  opacity: 0.8;
+}
+
+.btnFilter {
+  background-color: #4f5d6e;
+  border-radius: 5px;
+  color: #fff;
+  border: none;
+  outline: none;
+  padding: 0.4rem 0.6rem;
+  transition: .3s;
+}
+
+.btnFilter:hover {
+  background-color: #3e4956;
+}
+
+.btnFilter:active {
+  opacity: 0.8;
+}
 
 a.warning,
 a.primary,
