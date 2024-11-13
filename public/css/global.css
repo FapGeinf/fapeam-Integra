@@ -304,10 +304,6 @@ a.btnAltSenha:hover {
   transition: .1s;
 }
 
-.nav-item:hover {
-  /* opacity: .6; */
-}
-
 .appContent {
   margin-left: 10.5rem;
   transition: margin-left 0.4s;
