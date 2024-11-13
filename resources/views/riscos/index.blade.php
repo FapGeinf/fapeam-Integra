@@ -19,7 +19,7 @@
 
 <body>
 
-    <div class="container-fluid p-30 paddingTop">
+    <div class="container-fluid p-30">
 
         @if (session('success'))
             <div class="alert alert-success">
