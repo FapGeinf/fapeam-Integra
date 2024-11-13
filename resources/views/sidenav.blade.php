@@ -18,7 +18,7 @@
         .appContent,
         #toggleSidenav {
            /* margin-left: 4rem;  O conteúdo também deve iniciar deslocado */
-            transition: margin-left 0.3s ease; /* Animação suave */
+            transition: margin-left 0.3s; /* Animação suave */
         }
     </style>
 </head>
@@ -81,7 +81,7 @@
             appContent.style.marginLeft = '4rem';
             imgElement.forEach(img => img.style.display = "block");
             fullLogoElement.forEach(img => img.style.display = "none");
-            // Removido: toggleButton.style.left = "10px";
+            toggleButton.style.left = "15px";
             if (marginLeft1) marginLeft1.style.marginLeft = '0px';
 
             if (welcomeDiv) {
@@ -95,7 +95,7 @@
             appContent.style.marginLeft = "255px";
             imgElement.forEach(img => img.style.display = "none");
             fullLogoElement.forEach(img => img.style.display = "block");
-            // Removido: toggleButton.style.left = "200px";
+            toggleButton.style.left = "200px";
             if (marginLeft1) marginLeft1.style.marginLeft = '15px';
 
             if (welcomeDiv) {
@@ -114,19 +114,19 @@
 
 <body>
     <nav class="menu-lateral" id="appSidenav">
-        <button id="toggleSidenav" class="btn-toggle">
+        <button id="toggleSidenav" class="btn-toggle" style="transition: .3s">
             <i class="bi bi-list"></i>
         </button>
         
         <a class="navbar-brand">
             <div class="logo">
-                <img id="" src="{{ asset('img/logoDeconWhiteMin.png') }}" style="height: 60%; object-fit: cover; margin-top: 9rem;">
+                <img id="" src="{{ asset('img/logoDeconWhiteMin.png') }}" style="height: 60%; object-fit: cover; margin-top: 8rem;">
             </div>
         </a>
 
-        <div id="welcome">
+        {{-- <div id="welcome">
             <p>Bem-vindo(a)!</p>
-        </div>
+        </div> --}}
 
         <hr class="spacer" style="margin-top: 4rem;">
 
@@ -179,7 +179,7 @@
                 </a>
             </li>
 
-            <hr class="spacer">
+            <!-- <hr class="spacer"> -->
 
             <li style="display: none" class="item-menu">
                 <a href="{{ route('logout') }}"
