@@ -28,7 +28,7 @@
             <div class="container-fluid">
                 <table id="tableHome2" class="table cust-datatable">
                     <thead>
-										<tr>
+                        <tr>
                             <th style="white-space: nowrap; width: 100px;">Unidade</th>
                             <th>Controle Sugerido</th>
                             <th style="white-space: nowrap;">Data</th>                       
