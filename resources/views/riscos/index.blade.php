@@ -451,11 +451,11 @@
                     // Adiciona o botão de "Ações"
                     var actionDropdownContainer = $('<div class="dropdown action-dropdown"></div>');
                     var actionDropdownButton = $('<button class="btnAdd dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Ações</button>');
-                    var actionDropdownMenu = $('<ul style="min-height: 113px;" class="dropdown-menu p-3"></ul>');
+                    var actionDropdownMenu = $('<ul style="min-height: 107px;" class="dropdown-menu text-center p-3"></ul>');
         
                     @if (Auth::user()->unidade->unidadeTipoFK == 1 || Auth::user()->unidade->unidadeTipoFK == 4)
-                        var newRiskButton = $('<li style="margin-left: 0; "><a href="{{ route('riscos.create') }}" class="dropdown-item"><i class="bi bi-plus-lg"></i> Novo Risco</a></li>');
-                        var insertDeadlineButton = $('<li style="margin-left: 0;"><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#prazoModal"><i class="bi bi-plus-lg"></i> Inserir Prazo</button></li>');
+                        var newRiskButton = $('<li style="margin-left: 0; "><a href="{{ route('riscos.create') }}" class="btnAdd text-decoration-none"><i class="bi bi-plus-lg"></i> Novo Risco</a></li>');
+                        var insertDeadlineButton = $('<li style="margin-left: 0;"><button type="button" class="mt-3 green-btn" data-bs-toggle="modal" data-bs-target="#prazoModal"><i class="bi bi-plus-lg"></i> Inserir Prazo</button></li>');
                         actionDropdownMenu.append(newRiskButton, insertDeadlineButton);
                     @endif
         
