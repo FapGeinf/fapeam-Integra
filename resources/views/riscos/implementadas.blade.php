@@ -14,6 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Monitoramentos Implementados</title>
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/filterImplement.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.2.3/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -51,7 +52,7 @@
                                     {{ $monitoramento->fimMonitoramento ? \Carbon\Carbon::parse($monitoramento->fimMonitoramento)->format('d/m/Y') : 'Contínuo' }}
                                 </td>
 
-                                <td class="text-center text13 pb-1 tBorder">{!! $monitoramento->statusMonitoramento !!}</td>
+                                <td class="text-center text13 pb-1 tBorder" style="white-space:nowrap;">{!! $monitoramento->statusMonitoramento !!}</td>
                                 
                                 <td class="text-center text13 pb-1 tBorder">
                                     @if ($monitoramento->anexoMonitoramento)
@@ -64,17 +65,22 @@
                                             {{ basename($monitoramento->anexoMonitoramento) }}
                                         </a>
                                     @else
-                                        <div class="center">
+                                        <div class="center" style="white-space:nowrap;">
                                             <i class="bi bi-file-earmark-excel"></i>
                                             Nenhum anexo disponível
                                         </div>
                                     @endif
                                 </td>
                                 <td class="text-center">
-                                    <div class="ms-2 d-flex flex-column align-items-center">
-                                        <a href="{{ route('riscos.show', $monitoramento->risco->id) }}" class="btn btn-warning mb-2">Mostrar Risco</a>
-                                        <a href="{{ route('riscos.respostas', ['id' => $monitoramento->id]) }}" class="primary" style="font-size: 13px; white-space: nowrap;">
-                                            Visualizar Providências
+                                    <div class="d-flex gap-1 align-items-center">
+                                        <a href="{{ route('riscos.show', $monitoramento->risco->id) }}" class="warning" style="white-space: nowrap;">
+                                            <i class="bi bi-clipboard2-data"></i>
+                                            Ver Riscos
+                                        </a>
+
+                                        <a href="{{ route('riscos.respostas', ['id' => $monitoramento->id]) }}" class="primary me-0" style="white-space: nowrap;">
+                                            <i class="bi bi-chat-left-text me-1"></i>
+                                            Providências
                                         </a>
                                     </div>
                                 </td>
