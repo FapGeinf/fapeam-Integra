@@ -118,49 +118,75 @@
                     }
                 },
                 initComplete: function() {
-                    // CONTAINER QUE ALINHA TODOS NA MESMA LINHA
-                    var divContainer = $('<div class="divContainer"></div>');
-    
+                    // Cria o dropdown container para os filtros
+                    var dropdownContainer = $(`
+                        <div class="dropdown d-none mb-2">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownFilters" data-bs-toggle="dropdown" aria-expanded="false">
+                                Filtros
+                            </button>
+                            <div class="dropdown-menu p-3" aria-labelledby="dropdownFilters">
+                                <div id="filtersContent"></div>
+                            </div>
+                        </div>
+                    `);
+        
+                    // Verifica e cria o filtro de unidades
                     if (!$('#filterUnidade').length) {
-                        var selectUnidade = $('<select id="filterUnidade" class="form-select form-select-sm divFilterUnidade"><option value="">Todas as Unidades</option></select>');
+                        var selectUnidade = $('<select id="filterUnidade" class="form-select form-select-sm mb-2"><option value="">Todas as Unidades</option></select>');
                         @foreach ($monitoramentosDaUnidade->unique('risco.unidade.unidadeNome') as $monitoramento)
                             selectUnidade.append('<option value="{{ $monitoramento->risco->unidade->unidadeNome }}">{{ $monitoramento->risco->unidade->unidadeNome }}</option>');
                         @endforeach
-    
-                        var labelUnidades = $('<label for="filterUnidade" class="labelUnidade">Unidades:</label>');
-                        $('.dataTables_length').append(labelUnidades).append(selectUnidade);
+        
+                        var labelUnidades = $('<label for="filterUnidade" class="form-label">Unidades:</label>');
+                        $('#filtersContent').append(labelUnidades).append(selectUnidade);
                     }
-    
-                    divContainer.append($('.dataTables_filter'));
-                    divContainer.append($('.dataTables_length'));
-                    $(table.table().container()).prepend(divContainer);
-    
+        
+                    // Mover a parte de paginação para dentro do dropdown
+                    $('#filtersContent').append($('.dataTables_length'));
+        
+                    // Adiciona o dropdown dentro da div com id "tableHome2_filter"
+                    $('#tableHome2_filter').append(dropdownContainer);
+        
+                    // Mantém a caixa de pesquisa fora do dropdown
+                    // A caixa de pesquisa já está na estrutura padrão, então não precisamos movê-la para o dropdown
+        
+                    // Evento de filtro de unidade
                     $('#filterUnidade').on('change', function() {
                         var val = $.fn.dataTable.util.escapeRegex($(this).val());
                         table.column(0).search(val ? '^' + val + '$' : '', true, false).draw();
                     });
                 }
             });
-    
+        
             table.on('draw', function() {
-                if (!$(".divContainer").length) {
-                    var divContainer = $('<div class="divContainer"></div>');
-    
+                // Garante que os filtros sejam movidos para o dropdown após a atualização da tabela
+                if (!$("#dropdownFilters").length) {
+                    var dropdownContainer = $(`
+                        <div class="dropdown mb-2">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownFilters" data-bs-toggle="dropdown" aria-expanded="false">
+                                Filtros
+                            </button>
+                            <div class="dropdown-menu p-3" aria-labelledby="dropdownFilters">
+                                <div id="filtersContent"></div>
+                            </div>
+                        </div>
+                    `);
+        
                     if (!$('#filterUnidade').length) {
-                        var selectUnidade = $('<select id="filterUnidade" class="form-select form-select-sm divFilterUnidade"><option value="">TODAS</option></select>');
+                        var selectUnidade = $('<select id="filterUnidade" class="form-select form-select-sm mb-2"><option value="">TODAS</option></select>');
                         @foreach ($monitoramentosDaUnidade->unique('risco.unidade.unidadeNome') as $monitoramento)
                             selectUnidade.append('<option value="{{ $monitoramento->risco->unidade->unidadeSigla }}">{{ $monitoramento->risco->unidade->unidadeSigla }}</option>');
                         @endforeach
-    
-                        var labelUnidades = $('<label for="filterUnidade" class="labelUnidade">Unidades:</label>');
-                        $('.dataTables_length').append(labelUnidades).append(selectUnidade);
+        
+                        var labelUnidades = $('<label for="filterUnidade" class="form-label">Unidades:</label>');
+                        $('#filtersContent').append(labelUnidades).append(selectUnidade);
                     }
-    
-                    divContainer.append($('.dataTables_length'));
-                    divContainer.append($('.dataTables_filter'));
-    
-                    $(table.table().container()).prepend(divContainer);
-    
+        
+                    $('#filtersContent').append($('.dataTables_length'));
+        
+                    // Adiciona o dropdown dentro da div com id "tableHome2_filter"
+                    $('#tableHome2_filter').append(dropdownContainer);
+        
                     $('#filterUnidade').on('change', function() {
                         var val = $.fn.dataTable.util.escapeRegex($(this).val());
                         table.column(0).search(val ? '^' + val + '$' : '', true, false).draw();

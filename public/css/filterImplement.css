@@ -1,3 +1,13 @@
 .divContainer {
   justify-content: space-between;
 }
+
+/* #tableHome2_filter {
+  
+} */
+
+#tableHome2_filter {
+  display: flex;
+  justify-content: space-between;
+  float: none;
+}
