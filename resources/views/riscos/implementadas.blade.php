@@ -132,9 +132,9 @@
             
                     // Verifica e cria o filtro de unidades
                     if (!$('#filterUnidade').length) {
-                        var selectUnidade = $('<select id="filterUnidade" class="form-select form-select-sm mb-2"><option value="">Todas as Unidades</option></select>');
+                        var selectUnidade = $('<select style="background-color: #f1f1f1; cursor: pointer;" id="filterUnidade" class="form-select form-select-sm mb-2"><option value="">TODAS</option></select>');
                         @foreach ($monitoramentosDaUnidade->unique('risco.unidade.unidadeNome') as $monitoramento)
-                            selectUnidade.append('<option value="{{ $monitoramento->risco->unidade->unidadeNome }}">{{ $monitoramento->risco->unidade->unidadeNome }}</option>');
+                            selectUnidade.append('<option value="{{ $monitoramento->risco->unidade->unidadeSigla }}">{{ $monitoramento->risco->unidade->unidadeSigla }}</option>');
                         @endforeach
             
                         var labelUnidades = $('<label for="filterUnidade" class="form-label">Unidades:</label>');
@@ -147,10 +147,12 @@
                     // Adiciona o dropdown dentro da div com id "tableHome2_filter"
                     $('#tableHome2_filter').prepend(dropdownContainer);
             
-                    // Evento de filtro de unidade
+                    // Evento de filtro de unidade (agora filtrando pela sigla)
                     $('#filterUnidade').on('change', function() {
                         var val = $.fn.dataTable.util.escapeRegex($(this).val());
-                        table.column(0).search(val ? '^' + val + '$' : '', true, false).draw();
+                        table.column(0)  // Coluna 0 é onde você deve ter a sigla da unidade
+                            .search(val ? '^' + val + '$' : '', true, false)  // A pesquisa é feita pela sigla exata
+                            .draw();
                     });
                 }
             });
@@ -160,7 +162,7 @@
                 if (!$("#dropdownFilters").length) {
                     var dropdownContainer = $(`
                         <div class="dropdown mb-2">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownFilters" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btnFilter dropdown-toggle" type="button" id="dropdownFilters" data-bs-toggle="dropdown" aria-expanded="false">
                                 Filtros
                             </button>
                             <div class="dropdown-menu p-3" aria-labelledby="dropdownFilters">
@@ -184,14 +186,18 @@
                     // Adiciona o dropdown dentro da div com id "tableHome2_filter"
                     $('#tableHome2_filter').prepend(dropdownContainer);
             
+                    // Evento de filtro de unidade (agora filtrando pela sigla)
                     $('#filterUnidade').on('change', function() {
                         var val = $.fn.dataTable.util.escapeRegex($(this).val());
-                        table.column(0).search(val ? '^' + val + '$' : '', true, false).draw();
+                        table.column(0)  // Coluna 0 é onde você deve ter a sigla da unidade
+                            .search(val ? '^' + val + '$' : '', true, false)  // A pesquisa é feita pela sigla exata
+                            .draw();
                     });
                 }
             });
         });
     </script>
+    
     
     
 </body>

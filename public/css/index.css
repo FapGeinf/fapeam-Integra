@@ -235,7 +235,7 @@ table, tr,th, td {
 
 .dataTables_wrapper .dataTables_length select {
   cursor: pointer;
-  border: 1px solid #aaa;
+  border: 1px solid #dee2e6 !important;
   border-radius: 3px;
   padding: 5px;
   background-color: #f1f1f1 !important;
