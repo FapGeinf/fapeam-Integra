@@ -129,27 +129,24 @@
                             </div>
                         </div>
                     `);
-        
+            
                     // Verifica e cria o filtro de unidades
                     if (!$('#filterUnidade').length) {
                         var selectUnidade = $('<select id="filterUnidade" class="form-select form-select-sm mb-2"><option value="">Todas as Unidades</option></select>');
                         @foreach ($monitoramentosDaUnidade->unique('risco.unidade.unidadeNome') as $monitoramento)
                             selectUnidade.append('<option value="{{ $monitoramento->risco->unidade->unidadeNome }}">{{ $monitoramento->risco->unidade->unidadeNome }}</option>');
                         @endforeach
-        
+            
                         var labelUnidades = $('<label for="filterUnidade" class="form-label">Unidades:</label>');
                         $('#filtersContent').append(labelUnidades).append(selectUnidade);
                     }
-        
+            
                     // Mover a parte de paginação para dentro do dropdown
                     $('#filtersContent').append($('.dataTables_length'));
-        
+            
                     // Adiciona o dropdown dentro da div com id "tableHome2_filter"
-                    $('#tableHome2_filter').append(dropdownContainer);
-        
-                    // Mantém a caixa de pesquisa fora do dropdown
-                    // A caixa de pesquisa já está na estrutura padrão, então não precisamos movê-la para o dropdown
-        
+                    $('#tableHome2_filter').prepend(dropdownContainer);
+            
                     // Evento de filtro de unidade
                     $('#filterUnidade').on('change', function() {
                         var val = $.fn.dataTable.util.escapeRegex($(this).val());
@@ -171,22 +168,22 @@
                             </div>
                         </div>
                     `);
-        
+            
                     if (!$('#filterUnidade').length) {
                         var selectUnidade = $('<select id="filterUnidade" class="form-select form-select-sm mb-2"><option value="">TODAS</option></select>');
                         @foreach ($monitoramentosDaUnidade->unique('risco.unidade.unidadeNome') as $monitoramento)
                             selectUnidade.append('<option value="{{ $monitoramento->risco->unidade->unidadeSigla }}">{{ $monitoramento->risco->unidade->unidadeSigla }}</option>');
                         @endforeach
-        
+            
                         var labelUnidades = $('<label for="filterUnidade" class="form-label">Unidades:</label>');
                         $('#filtersContent').append(labelUnidades).append(selectUnidade);
                     }
-        
+            
                     $('#filtersContent').append($('.dataTables_length'));
-        
+            
                     // Adiciona o dropdown dentro da div com id "tableHome2_filter"
-                    $('#tableHome2_filter').append(dropdownContainer);
-        
+                    $('#tableHome2_filter').prepend(dropdownContainer);
+            
                     $('#filterUnidade').on('change', function() {
                         var val = $.fn.dataTable.util.escapeRegex($(this).val());
                         table.column(0).search(val ? '^' + val + '$' : '', true, false).draw();
@@ -195,6 +192,7 @@
             });
         });
     </script>
+    
     
 </body>
 

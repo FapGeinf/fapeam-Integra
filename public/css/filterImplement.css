@@ -10,4 +10,6 @@
   display: flex;
   justify-content: space-between;
   float: none;
+  padding-top: 1rem;
+  padding-bottom: .5rem;
 }
