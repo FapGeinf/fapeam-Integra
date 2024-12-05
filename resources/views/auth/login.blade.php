@@ -99,7 +99,7 @@
 
       {{-- <hr> --}}
 
-      <div class="loginButtonsDiv">
+      <!-- <div class="loginButtonsDiv">
 
         <div class="loginButtons">
           <i class="fas fa-tv"></i>
@@ -116,7 +116,7 @@
           <a href="{{ route('manual') }}" target="_blank">Manual</a>
         </div>
 
-      </div>
+      </div> -->
       
       <div class="footerLogo">
         <span>&copy;2024 FAPEAM</span>
