@@ -68,7 +68,7 @@ Route::get('/riscos/nao-implementada', [StatusController::class, 'naoImplementad
 Auth::routes();
 
 Route::get('/', function () {
-    return redirect()->route('documentos.eixos');
+    return redirect()->route('documentos.newHome');
 });
 
 Route::get('/apresentacao', [DocumentoController::class, 'showSystemPage'] )->name('apresentacao');
@@ -87,3 +87,5 @@ Route::get('/historico', function () {
 })->name('historico')->middleware('auth');
 
 Route::get('/relatorio/riscos', [RelatorioController::class, 'gerarRelatorioGeral'])->name('relatorios.download');
+
+Route::get('/newHome',[DocumentoController::class,'newHome'])->name('documentos.newHome')->middleware('auth');
