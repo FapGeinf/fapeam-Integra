@@ -35,19 +35,29 @@
   <div class="central-text">
 
     <p class="noMB">
-      Na administração pública há a necessidade de implantação de mecanismos de Governança, Transparência e Integridade.
+    O <strong>Sistema Íntegra</strong> é uma ferramenta do Programa de Integridade da Fundação de Amparo à Pesquisa do Estado do Amazonas – FAPEAM.
+    Sua finalidade é aprimorar as rotinas e sistemas de controle interno preventivo e corretivo, buscando assegurar a legalidade, legitimidade, economicidade, eficiência, publicidade e transparência da gestão administrativa, proporcionando apoio à Alta Administração na gestão dos recursos públicos e ao atendimento às legislações vigentes.
     </p>
 
     <p class="noMT">
-      O <span>Programa de Integridade</span> é um conjunto estruturado de medidas institucionais voltadas para prevenção, detecção, punição e remediação de fraudes e atos de corrupção em apoio à boa governança.
+    Esta ferramenta acompanha as rotinas administrativas, com intuito de direcionar, monitorar e avaliar a efetividade do Programa de Integridade, conforme os eixos estabelecidos:
     </p>
 
     <p>
-      Nos últimos anos,  a <a href="https://www.fapeam.am.gov.br" target="_blank">Fapeam</a> vem trabalhando na formulação de práticas sistêmicas e na construção de  programas e ferramentas, que  possibilitem o aprimoramento institucional e o fortalecimento do seu sistema de controle interno, implantando rotinas sistêmicas com vistas a maior eficiência e transparência dos seus atos, assim como no fomento de condutas de integridade e de ética de seus colaboradores, além de estabelecer mecanismos que possibilitam a prevenção de eventuais atos de corrupção, desvios de ética e de conduta, seguindo às recomendações das instâncias de controle interno e externo.
+    <ul>
+        <li>I – Comprometimento e Apoio da Alta Direção;</li>
+        <li>II – Institucionalização do Código de Conduta;</li>
+        <li>III – Avaliação de Riscos;</li>
+        <li>IV – Implementação de Controles Internos;</li>
+        <li>V – Comunicação e Treinamentos Periódicos;</li>
+        <li>VI – Canais de Denúncia;</li>
+        <li>VII – Investigações Internas;</li>
+        <li>VIII – Monitoramento Contínuo.</li>
+    </ul>
     </p>
 
     <p>
-      O <span>Sistema Íntegra</span> é uma dessas ferramentas do Programa de Integridade e compliance para o acompanhamento das rotinas administrativas, com intuito de:  avaliar, direcionar e monitorar os riscos de integridade inerentes diagnosticados na instituição; instituir medidas preventivas de corrupção, fraudes e de quebra de integridade; aprimorar as rotinas  e sistemas de controle interno preventivo e corretivo, no que tange à aplicação da gestão de riscos, buscando assegurar a legalidade, legitimidade, economicidade, eficiência, publicidade e transparência da gestão administrativa, proporcionando apoio à Alta Administração na gestão dos recursos públicos e ao atendimento às legislações vigentes.
+    Contamos com sua contribuição para prevenir, detectar e remediar fraudes e atos de corrupção em apoio à boa governança.
     </p>
    
   </div>

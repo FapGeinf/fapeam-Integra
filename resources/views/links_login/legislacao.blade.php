@@ -35,23 +35,23 @@
   <div class="central-text">
 
     <p class="noMB">
-      1. Portaria da Controladoria Geral da União - CGU N.° 1.089, DE 25 DE ABRIL DE 2018. Estabelece orientações para os órgãos e as entidades da administração pública federal direta, autarquias e fundacional, adotem procedimentos para estruturação, a execução e o monitoramento de seus programas de integridade e dá outras providências.
+    1. Portaria da Controladoria Geral da União - CGU N.° 1.089, DE 25 DE ABRIL DE 2018. Estabelece orientações para os órgãos e as entidades da administração pública federal direta, autarquias e fundacional, adotem procedimentos para estruturação, a execução e o monitoramento de seus programas de integridade e dá outras providências.
     </p>
 
     <p class="noMT">
-      2. INSTRUÇÃO NORMATIVA Nº 02, DE 28 DE NOVEMBRO DE 2022. Dispõe sobre as diretrizes a serem observadas na implementação do Programa de Integridade, no âmbito dos órgãos e das entidades da Administração Pública Estadual Direta e Indireta, e dá outras providências.
+    2. INSTRUÇÃO NORMATIVA Nº 02, DE 28 DE NOVEMBRO DE 2022. Dispõe sobre as diretrizes a serem observadas na implementação do Programa de Integridade, no âmbito dos órgãos e das entidades da Administração Pública Estadual Direta e Indireta, e dá outras providências.
     </p>
 
     <p>
-      3. INSTRUÇÃO NORMATIVA Nº 03, DE 28 DE NOVEMBRO DE 2022. Disciplina os procedimentos para a implantação do Programa de Integridade de fornecedores, no âmbito do Poder Executivo do Estado do Amazonas e dá outras providências.
+    3. INSTRUÇÃO NORMATIVA Nº 03, DE 28 DE NOVEMBRO DE 2022. Disciplina os procedimentos para a implantação do Programa de Integridade de fornecedores, no âmbito do Poder Executivo do Estado do Amazonas e dá outras providências.
     </p>
 
     <p>
-      4. DECRETO N.° 4.849, DE 14 DE OUTUBRO DE 2019. Disciplina a Política de Governança e Gestão do Estado do Amazonas e dá outras providências.
+    4. DECRETO N.° 4.849, DE 14 DE OUTUBRO DE 2019. Disciplina a Política de Governança e Gestão do Estado do Amazonas e dá outras providências.
     </p>
 
     <p>
-      5. DECRETO N.° 42.873, DE 14 DE OUTUBRO DE 2020. INSTITUI a Unidade de Controle Interno - UCI, no âmbito da Fundação de Amparo à Pesquisa do Estado do Amazonas - FAPEAM, estabelece diretrizes para sua estruturação e funcionamento e dá outras providências.
+    5. DECRETO N.° 42.873, DE 14 DE OUTUBRO DE 2020. INSTITUI a Unidade de Controle Interno - UCI, no âmbito da Fundação de Amparo à Pesquisa do Estado do Amazonas - FAPEAM, estabelece diretrizes para sua estruturação e funcionamento e dá outras providências.
     </p>
 
     <p>
