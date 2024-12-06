@@ -1,23 +1,105 @@
-.banner {
-    background-image: url('/img/login/Tela.jpg');
+.poppins-regular {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  body {
+    font-family: "Poppins", sans-serif !important;
+    background-color: #fff !important;
+  }
+  
+  .borderRadius {
+    background-image: url('/img/login/bg-white.png');
     background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 100%;
-    min-height: 100vh;
-    position: relative;
-}
-
-.container {
+    /* background-position: center; */
+  }
+  
+  /* REMOVE AS CONFIGURAÇÕES DO GLOBAL.CSS */
+  .login-page .appContent {
+      margin-left: 0 !important;
+    }
+  
+  .appContent {
+      margin-left: 0 !important;
+    }
+  
+  .conteudo {
+      margin-top: 0 !important;
+      padding-left: 0 !important;
+    }
+  
+  .links {
+    gap: 2rem;
+    z-index: 1;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+    margin-top: 8rem;
+    margin-left: 28rem;
+    position: absolute;
+  }
+  
+  .links a {
+    color: #fff;
+    font-size: 20px;
+    text-decoration: none;
+  }
+  
+  .linksChild {
+    padding: 6px;
+    border-radius: 5px;
+    transition: .2s;
+    border: 1px solid #2d4790;
+    background-color: #2d4790;
+    width: 160px;
     text-align: center;
-    position: relative;
 }
+  
+  .linksChild:hover {
+    background-color: #13285e;
+    /* transform: translateY(-7px); */
+  }
+  
+  .grid {
+    display: grid;
+    /* grid-template-columns: 2.5fr 1fr; */
+    height: 100vh;
+  }
+  
+  .order__left {
+    order: 2;
+    padding:  40px;
+    background-color: #fff;
+  }
+  
+  .order__right {
+    order: 1;
+  }
+  
+  .centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .no__overflow {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+  
+  .logo {
+    text-align: center;
+  }
+  
+  .logo img {
+    height: 100%;
+  }
+  
+  .img {
+    height: 60%;
+  }
 
-.button-container {
+  .button-container {
     display: flex;
     justify-content: center; 
     align-items: center;
@@ -30,46 +112,21 @@
     transform: translate(-50%, -50%);
 }
 
-.loginButtons {
-    color: #fff;
-    padding: 15px 30px;
-    border-radius: 8px;
-    font-size: 1.25rem;
-    background-color: #2d5a8e;
-    transition: 0.3s ease;
-    text-decoration: none;
-    margin: 0 15px; 
-    display: inline-block;
-    text-align: center;
-    min-width: 250px; 
-    max-width: 300px; 
-}
-
-.loginButtons:hover {
-    background-color: #1d4874;
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
-}
-
-.loginButtons i {
-    margin-right: 10px;
-}
-
 .arrowButton {
     color: #fff;
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-size: 1rem;
-    background-color: #2d5a8e;
-    transition: 0.3s ease;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    min-width: 80px;
-    justify-content: center;
+    padding: 6px;
+    border-radius: 5px;
+    transition: .2s;
+    border: 1px solid #2d4790;
+    background-color: #2d4790;
+    width: 220px;
+    white-space: nowrap;
+    text-align: center;
     position: fixed;
     top: 20px;
     right: 20px;
     z-index: 1000;
+    text-decoration: none;
 }
 
 .arrowButton i {
@@ -77,52 +134,45 @@
 }
 
 .arrowButton:hover {
-    background-color: #1d4874;
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    background-color: #13285e;
+}
+  
+@media only screen and (max-width: 1760px) {
+
 }
 
-@media (max-width: 768px) {
-    .button-container {
-        width: 90%;
-        flex-wrap: nowrap; 
-        justify-content: center;
-    }
+@media only screen and (max-width:  1600px) {
 
-    .loginButtons {
-        font-size: 1rem;
-        padding: 15px 30px;
-        margin: 10px 5px;
-        min-width: 150px;
-        max-width: 200px; 
-    }
-
-    .arrowButton {
-        font-size: 0.9rem;
-        padding: 6px 12px;
-        top: 10px; 
-        right: 10px;
-    }
 }
 
-@media (max-width: 480px) {
-    .button-container {
-        width: 90%;
-        flex-wrap: nowrap; 
+@media only screen and (max-width:  1472px) {
+
+}
+
+@media only screen and (max-width:  1376px) {
+
+}
+
+@media only screen and (max-width: 1280px) {
+
+}
+
+@media only screen and (max-width:  1216px) {
+    body {
+        display: flex;
+        align-items: center;
         justify-content: center;
+        height: 100vh;
+        margin: 0;
+        background-image: url('/img/login/background.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        transition: .2s;
     }
 
-    .loginButtons {
-        font-size: 0.9rem;
-        padding: 12px 25px;
-        margin: 8px 5px;
-        min-width: 120px;
-        max-width: 180px;
-    }
-
-    .arrowButton {
-        font-size: 0.8rem;
-        padding: 5px 10px;
-        top: 5px;
-        right: 5px;
+    .order__left {
+        order: 2;
+        background-color: transparent;
     }
 }
