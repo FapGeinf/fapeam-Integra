@@ -19,7 +19,9 @@
         <i class="bi bi-arrow-90deg-right"></i> Ir para pagina de Eixos
       </a>
   
+      <img src="{{asset('img/login/bloco.png')}}" class="imgBloco" alt="">
       <div class="links">
+        
         <div class="linksChild">
           <a class="fw-bold" href="{{ route('apresentacao') }}" target="_blank">Apresentação</a>
         </div>

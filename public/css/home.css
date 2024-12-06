@@ -10,9 +10,14 @@
   }
   
   .borderRadius {
-    background-image: url('/img/login/bg-white.png');
+    background-image: url('/img/login/tela-full.png');
     background-size: cover;
     /* background-position: center; */
+  }
+
+  .imgBloco {
+    width: 600px;
+    margin-left: 27rem;
   }
   
   /* REMOVE AS CONFIGURAÇÕES DO GLOBAL.CSS */
@@ -33,9 +38,10 @@
     gap: 2rem;
     z-index: 1;
     display: flex;
-    margin-top: 8rem;
+    /* margin-top: -12rem; */
     margin-left: 28rem;
     position: absolute;
+    
   }
   
   .links a {
@@ -52,7 +58,7 @@
     background-color: #2d4790;
     width: 160px;
     text-align: center;
-}
+  }
   
   .linksChild:hover {
     background-color: #13285e;
@@ -137,6 +143,27 @@
     background-color: #13285e;
 }
   
+@media only screen and (max-width: 1140px) {
+    .borderRadius {
+        background-image: url('/img/login/tela-clean-1190.png');
+        background-size: cover;
+    }
+
+    .links {
+        gap: 2rem;
+        z-index: 1;
+        display: flex;
+        /* margin-top: -12rem; */
+        margin-left: 0;
+        position: absolute;
+        
+      }
+
+    .imgBloco {
+        margin-left: 0;
+    }
+}
+
 @media only screen and (max-width: 1760px) {
 
 }
@@ -157,7 +184,7 @@
 
 }
 
-@media only screen and (max-width:  1216px) {
+/* @media only screen and (max-width:  1216px) {
     body {
         display: flex;
         align-items: center;
@@ -175,4 +202,4 @@
         order: 2;
         background-color: transparent;
     }
-}
+} */
