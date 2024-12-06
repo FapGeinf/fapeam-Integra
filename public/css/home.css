@@ -4,53 +4,50 @@
     font-style: normal;
   }
   
-  body {
+body {
     font-family: "Poppins", sans-serif !important;
     background-color: #fff !important;
-  }
-  
-  .borderRadius {
+}
+
+.borderRadius {
     background-image: url('/img/login/tela-full.png');
     background-size: cover;
-    /* background-position: center; */
-  }
+}
 
-  .imgBloco {
+.imgBloco {
     width: 600px;
     margin-left: 27rem;
-  }
+}
+
+/* REMOVE AS CONFIGURAÇÕES DO GLOBAL.CSS */
+.login-page .appContent {
+    margin-left: 0 !important;
+}
+
+.appContent {
+    margin-left: 0 !important;
+}
+
+.conteudo {
+    margin-top: 0 !important;
+    padding-left: 0 !important;
+}
   
-  /* REMOVE AS CONFIGURAÇÕES DO GLOBAL.CSS */
-  .login-page .appContent {
-      margin-left: 0 !important;
-    }
-  
-  .appContent {
-      margin-left: 0 !important;
-    }
-  
-  .conteudo {
-      margin-top: 0 !important;
-      padding-left: 0 !important;
-    }
-  
-  .links {
+.links {
     gap: 2rem;
     z-index: 1;
     display: flex;
-    /* margin-top: -12rem; */
     margin-left: 28rem;
     position: absolute;
-    
-  }
-  
-  .links a {
+}
+
+.links a {
     color: #fff;
     font-size: 20px;
     text-decoration: none;
-  }
-  
-  .linksChild {
+}
+
+.linksChild {
     padding: 6px;
     border-radius: 5px;
     transition: .2s;
@@ -58,54 +55,52 @@
     background-color: #2d4790;
     width: 160px;
     text-align: center;
-  }
-  
-  .linksChild:hover {
+}
+
+.linksChild:hover {
     background-color: #13285e;
-    /* transform: translateY(-7px); */
-  }
-  
-  .grid {
+}
+
+.grid {
     display: grid;
-    /* grid-template-columns: 2.5fr 1fr; */
     height: 100vh;
-  }
-  
-  .order__left {
+}
+
+.order__left {
     order: 2;
     padding:  40px;
     background-color: #fff;
-  }
-  
-  .order__right {
+}
+
+.order__right {
     order: 1;
-  }
-  
-  .centered {
+}
+
+.centered {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  
-  .no__overflow {
+}
+
+.no__overflow {
     display: flex;
     align-items: center;
     overflow: hidden;
-  }
-  
-  .logo {
-    text-align: center;
-  }
-  
-  .logo img {
-    height: 100%;
-  }
-  
-  .img {
-    height: 60%;
-  }
+}
 
-  .button-container {
+.logo {
+    text-align: center;
+}
+
+.logo img {
+    height: 100%;
+}
+
+.img {
+    height: 60%;
+}
+
+.button-container {
     display: flex;
     justify-content: center; 
     align-items: center;
@@ -153,7 +148,6 @@
         gap: 2rem;
         z-index: 1;
         display: flex;
-        /* margin-top: -12rem; */
         margin-left: 0;
         position: absolute;
         
@@ -163,43 +157,3 @@
         margin-left: 0;
     }
 }
-
-@media only screen and (max-width: 1760px) {
-
-}
-
-@media only screen and (max-width:  1600px) {
-
-}
-
-@media only screen and (max-width:  1472px) {
-
-}
-
-@media only screen and (max-width:  1376px) {
-
-}
-
-@media only screen and (max-width: 1280px) {
-
-}
-
-/* @media only screen and (max-width:  1216px) {
-    body {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        margin: 0;
-        background-image: url('/img/login/background.jpg');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        transition: .2s;
-    }
-
-    .order__left {
-        order: 2;
-        background-color: transparent;
-    }
-} */
