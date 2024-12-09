@@ -146,8 +146,8 @@
             </li>
 
             <li class="item-menu liHover">
-                <a href="{{ route('documentos.newHome') }}"
-                    class="{{ Request::routeIs('documentos.newHome') ? 'active-icon' : '' }}">
+                <a href="{{ route('documentos.intro') }}"
+                    class="{{ Request::routeIs('documentos.intro') ? 'active-icon' : '' }}">
                     <i class="bi bi-question-circle icon"></i>
                     <span class="txt-link">Apresentação</span>
                 </a>

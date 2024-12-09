@@ -27,9 +27,9 @@ class DocumentoController extends Controller
 		return view('eixos');
 	}
 
-	public function newHome()
+	public function intro()
 	{
-		   return view('links_login.newHome');
+		   return view('links_login.intro');
 	}
 
 }
