@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Diretoria;
 
 
 
@@ -34,12 +35,36 @@ class RiscoController extends Controller
         try {
             $user = auth()->user();
             $prazo = Prazo::latest()->first();
-
-            if ($user->unidade->unidadeTipoFK == 1) {
-                $riscos = Risco::all();
-            } else {
-                $riscos = Risco::where('unidadeId', $user->unidade->id)->get();
+            $user = auth()->user();
+            $tipoAcesso = $user->unidade->unidadeTipoFK;
+            $unidadeDiretoria = $user->unidade->unidadeDiretoria;
+            
+            switch ($tipoAcesso) {
+                case 1:
+                case 3:
+                case 4:
+                    $riscos = Risco::all();
+                    break;
+            
+                case 5:
+                    $riscos = Risco::whereHas('unidade', function ($query) use ($unidadeDiretoria) {
+                        $query->where('unidadeDiretoria', $unidadeDiretoria);
+                    })->get();
+                    break;
+            
+                default:
+                    $riscos = Risco::where('unidadeId', $user->unidade->id)->get();
+                    break;
             }
+            
+          
+            
+
+            // if ($user->unidade->unidadeTipoFK == 1  && $user->unidade->unidadeTipoFK == 2) {
+            //     $riscos = Risco::all();
+            // } else {
+            //     $riscos = Risco::where('unidadeId', $user->unidade->id)->get();
+            // }
 
             $riscosAbertos = $riscos->count();
 

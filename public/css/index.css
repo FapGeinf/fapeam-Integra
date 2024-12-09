@@ -2,9 +2,29 @@ table, tr,th, td {
   border: 1px solid #b0b0b0;
 }
 
+.alert-success {
+  width: 30%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
 .appContent {
   margin-left: 10rem;
 }
+
+/* #notificationButton {
+  color: #fff;
+  padding: 5px;
+  border: none;
+  font-size: 20px;
+  border-radius: 5px;
+  background-color: #2d2d6e;
+}
+
+#notificationBadge {
+  font-size: 10px;
+} */
 
 .notification-item {
   background-color: #f7f9fc; /* Cor de fundo suave */
@@ -25,6 +45,10 @@ table, tr,th, td {
   color: #888888;
   font-style: italic;
   background-color: #f0f0f0;
+}
+
+.select__pag {
+  border: 1px solid #ccc !important;
 }
 
 /* ESTILIZAÇÃO DA TABELA INÍCIO */
@@ -82,9 +106,9 @@ table, tr,th, td {
 }
 
 .spanThatLooksLikeABtn {
-  color: #fff;
+  color: #000;
   cursor: default;
-  background-color: #ed9121;
+  background-color: #ececec;
 }
 
 .green-btn-store {
@@ -151,13 +175,13 @@ table, tr,th, td {
 }
 
 .divContainer {
-  margin-top: 1.5rem;
-  margin-bottom: -.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
-.divContainer label {
+/* .divContainer label {
   margin-left: 10px;
-}
+} */
 
 #newRiskButtonDiv {
   white-space: nowrap;
@@ -211,7 +235,7 @@ table, tr,th, td {
 
 .dataTables_wrapper .dataTables_length select {
   cursor: pointer;
-  border: 1px solid #aaa;
+  border: 1px solid #dee2e6 !important;
   border-radius: 3px;
   padding: 5px;
   background-color: #f1f1f1 !important;
@@ -307,10 +331,6 @@ p {
 
 .p-30 {
   padding: 30px;
-}
-
-.paddingTop {
-  padding-top: 4rem;
 }
 
 .main-datatable {
@@ -415,7 +435,13 @@ table.dataTable thead th, table.dataTable thead td {
 }
 
 .divFilterUnidade {
-  margin-left: 3px;
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+.FilterAvaliacao {
+  background-color: #f1f1f1;
+  cursor: pointer;
 }
 
 .labelUnidade {
@@ -549,6 +575,42 @@ table.dataTable thead th, table.dataTable thead td {
 }
 /* END FOOTER */
 
+.btnAdd {
+  background-color: #1a52b9;
+  border-radius: 5px;
+  color: #fff;
+  border: none;
+  outline: none;
+  padding: 0.4rem 0.6rem;
+  transition: .3s;
+}
+
+.btnAdd:hover {
+  background-color: #2464da;
+}
+
+.btnAdd:active {
+  opacity: 0.8;
+}
+
+.btnFilter {
+  background-color: #4f5d6e;
+  border-radius: 5px;
+  color: #fff;
+  border: none;
+  outline: none;
+  padding: 0.4rem 0.6rem;
+  transition: .3s;
+}
+
+.btnFilter:hover {
+  background-color: #3e4956;
+}
+
+.btnFilter:active {
+  opacity: 0.8;
+}
+
 a.warning,
 a.primary,
 a.secondary,
@@ -564,7 +626,7 @@ button.secondary {
 }
 
 a.warning {
-  color: #000;
+  color: #24170c;
   background-color: #ffc107;
 }
 

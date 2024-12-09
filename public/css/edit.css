@@ -64,10 +64,6 @@ hr {
   line-height: 16px;
 }
 
-.paddingTop {
-  padding-top: 4rem;
-}
-
 /* EDITOR DE TEXTO */
 .cke_top {
   background: #f0f0f0;;
@@ -342,13 +338,15 @@ a.reply-btn:hover {
 }
 
 .alert-danger {
-  width: 42%;
+  width: 40%;
   justify-content: center;
   display: flex;
-  align-items: center;
+  
   text-align: center;
-  margin: 0;
+  margin-left: auto;
+  margin-right: auto;
   margin-bottom: 0;
+  /* margin: 0; */
   height: 0%;
 }
 

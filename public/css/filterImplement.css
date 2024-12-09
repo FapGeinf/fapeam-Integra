@@ -1,0 +1,15 @@
+.divContainer {
+  justify-content: space-between;
+}
+
+/* #tableHome2_filter {
+  
+} */
+
+#tableHome2_filter {
+  display: flex;
+  justify-content: space-between;
+  float: none;
+  padding-top: 1rem;
+  padding-bottom: .5rem;
+}

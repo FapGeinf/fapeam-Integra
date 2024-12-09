@@ -10,134 +10,157 @@
     <style>
         /* Defina a largura inicial da sidenav para garantir que ela carregue fechada */
         #appSidenav {
-            width: 4rem; /* Inicia recolhida */
-            transition: width 0.3s ease; /* Animação suave para abertura/fechamento */
-            overflow: hidden; /* Para esconder o conteúdo quando a sidenav está recolhida */
+            width: 4rem;
+            /* Inicia recolhida */
+            transition: width 0.3s ease;
+            /* Animação suave para abertura/fechamento */
+            overflow: hidden;
+            /* Para esconder o conteúdo quando a sidenav está recolhida */
         }
 
         .appContent,
         #toggleSidenav {
-            margin-left: 4rem; /* O conteúdo também deve iniciar deslocado */
-            transition: margin-left 0.3s ease; /* Animação suave */
+            /* margin-left: 4rem;  O conteúdo também deve iniciar deslocado */
+            transition: margin-left 0.3s;
+            /* Animação suave */
         }
+
+        .hide-sidenav #appSidenav {
+            display: none; /* Esconde completamente a sidenav */
+        }
+
+        .hide-sidenav .appContent {
+            margin-left: 0; /* Remove o deslocamento do conteúdo */
+        }
+
     </style>
 </head>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-    const bodyClass = document.body.classList.contains('page-with-filters');
-    const removeSNItens = document.body.classList.contains('changePassword');
-    const sidenav = document.getElementById("appSidenav");
-    const imgElement = document.querySelectorAll('#logoMin');
-    const fullLogoElement = document.querySelectorAll('#logoMax');
-    const appContent = document.getElementsByClassName('appContent')[0];
-    const marginLeft1 = document.querySelector('.marginLeft1');
-    const textFilter = document.querySelector('.textFilter');
-    const searchDivs = document.querySelectorAll('#searchDiv');
-    const toggleButton = document.querySelector("#toggleSidenav");
-    const welcomeDiv = document.getElementById('welcome'); // Seleciona a div #welcome
+    document.addEventListener('DOMContentLoaded', function () {
+        const bodyClass = document.body.classList.contains('page-with-filters');
+        const removeSNItens = document.body.classList.contains('changePassword');
+        const sidenav = document.getElementById("appSidenav");
+        const imgElement = document.querySelectorAll('#logoMin');
+        const fullLogoElement = document.querySelectorAll('#logoMax');
+        const appContent = document.getElementsByClassName('appContent')[0];
+        const marginLeft1 = document.querySelector('.marginLeft1');
+        const textFilter = document.querySelector('.textFilter');
+        const searchDivs = document.querySelectorAll('#searchDiv');
+        const toggleButton = document.querySelector("#toggleSidenav");
+        const welcomeDiv = document.getElementById('welcome'); // Seleciona a div #welcome
 
-    // Configuração inicial
-    if (bodyClass) {
-        sidenav.style.width = "255px";
-        appContent.style.marginLeft = "255px";
-        imgElement.forEach(img => img.style.display = "none");
-        fullLogoElement.forEach(img => img.style.display = "block");
-        toggleButton.style.left = "200px";
+        
 
-        if (marginLeft1) {
-            marginLeft1.style.marginLeft = '15px';
-        }
-    } else {
-        sidenav.style.width = "4rem";
-        appContent.style.marginLeft = '4rem';
-        imgElement.forEach(img => img.style.display = "block");
-        fullLogoElement.forEach(img => img.style.display = "none");
-        toggleButton.style.left = "10px";
-
-        if (marginLeft1) {
-            marginLeft1.style.marginLeft = '0px';
-        }
-
-        if (welcomeDiv) {
-            welcomeDiv.style.display = 'none'; // Esconde a div #welcome ao carregar com a sidenav fechada
-        }
-
-        if (textFilter) textFilter.style.visibility = 'visible';
-        searchDivs.forEach(div => div.style.visibility = 'visible');
-    }
-
-    if (removeSNItens) {
-        if (sidenav) {
-            sidenav.style.display = 'none'; // Oculta toda a sidenav
-        }
-    }
-
-    function toggleNav() {
-        const sidenavWidth = parseInt(sidenav.style.width) || 0;
-
-        if (sidenavWidth === 255) { // Caso a sidenav esteja expandida
-            sidenav.style.width = "4rem";
-            appContent.style.marginLeft = '4rem';
-            imgElement.forEach(img => img.style.display = "block");
-            fullLogoElement.forEach(img => img.style.display = "none");
-            toggleButton.style.left = "10px";
-            if (marginLeft1) marginLeft1.style.marginLeft = '0px';
-
-            if (welcomeDiv) {
-                welcomeDiv.style.display = 'none'; // Esconde a div #welcome ao recolher
-            }
-
-            if (textFilter) textFilter.style.visibility = 'hidden';
-            searchDivs.forEach(div => div.style.visibility = 'hidden');
-        } else { // Caso esteja recolhida
+        // Configuração inicial
+        if (bodyClass) {
             sidenav.style.width = "255px";
             appContent.style.marginLeft = "255px";
             imgElement.forEach(img => img.style.display = "none");
             fullLogoElement.forEach(img => img.style.display = "block");
-            toggleButton.style.left = "200px";
-            if (marginLeft1) marginLeft1.style.marginLeft = '15px';
+            // Removido: toggleButton.style.left = "200px";
+
+            if (marginLeft1) {
+                marginLeft1.style.marginLeft = '15px';
+            }
+        } else {
+            sidenav.style.width = "4rem";
+            appContent.style.marginLeft = '4rem';
+            imgElement.forEach(img => img.style.display = "block");
+            fullLogoElement.forEach(img => img.style.display = "none");
+            // Removido: toggleButton.style.left = "10px";
+
+            if (marginLeft1) {
+                marginLeft1.style.marginLeft = '0px';
+            }
 
             if (welcomeDiv) {
-                welcomeDiv.style.display = 'block'; // Mostra a div #welcome ao expandir
+                welcomeDiv.style.display = 'none'; // Esconde a div #welcome ao carregar com a sidenav fechada
             }
 
             if (textFilter) textFilter.style.visibility = 'visible';
             searchDivs.forEach(div => div.style.visibility = 'visible');
         }
-    }
 
-    toggleButton.addEventListener("click", toggleNav);
-});
+        if (removeSNItens) {
+            if (sidenav) {
+                sidenav.style.display = 'none'; // Oculta toda a sidenav
+            }
+        }
 
+        function toggleNav() {
+            const sidenavWidth = parseInt(sidenav.style.width) || 0;
+
+            if (sidenavWidth === 255) { // Caso a sidenav esteja expandida
+                sidenav.style.width = "4rem";
+                appContent.style.marginLeft = '4rem';
+                imgElement.forEach(img => img.style.display = "block");
+                fullLogoElement.forEach(img => img.style.display = "none");
+                toggleButton.style.left = "15px";
+                if (marginLeft1) marginLeft1.style.marginLeft = '0px';
+
+                if (welcomeDiv) {
+                    welcomeDiv.style.display = 'none'; // Esconde a div #welcome ao recolher
+                }
+
+                if (textFilter) textFilter.style.visibility = 'hidden';
+                searchDivs.forEach(div => div.style.visibility = 'hidden');
+            } else { // Caso esteja recolhida
+                sidenav.style.width = "255px";
+                appContent.style.marginLeft = "255px";
+                imgElement.forEach(img => img.style.display = "none");
+                fullLogoElement.forEach(img => img.style.display = "block");
+                toggleButton.style.left = "200px";
+                if (marginLeft1) marginLeft1.style.marginLeft = '15px';
+
+                if (welcomeDiv) {
+                    welcomeDiv.style.display = 'block'; // Mostra a div #welcome ao expandir
+                }
+
+                if (textFilter) textFilter.style.visibility = 'visible';
+                searchDivs.forEach(div => div.style.visibility = 'visible');
+            }
+        }
+
+        toggleButton.addEventListener("click", toggleNav);
+    });
 </script>
 
-<body>
+
+<body class="{{ Request::routeIs('documentos.eixos') ? 'hide-sidenav' : '' }}">
+
     <nav class="menu-lateral" id="appSidenav">
-        <button id="toggleSidenav" class="btn-toggle">
-            <i class="bi bi-arrow-left-right"></i>
+        <button id="toggleSidenav" class="btn-toggle" style="transition: .3s">
+            <i class="bi bi-list"></i>
         </button>
-        
-        <a class="navbar-brand">
-            <div class="logo">
-                <img id="" src="{{ asset('img/logoDeconWhiteMin.png') }}" style="height: 60%; object-fit: cover; margin-top: 2rem;">
-            </div>
-        </a>
 
-        <div id="welcome">
-            <p>Bem-vindo(a)!</p>
-        </div>
-
-        <hr class="spacer">
+        <hr class="spacer" style="margin-top: 4rem; color: #22539c;">
 
         <ul class="ulList">
             <li class="item-menu liHover">
-                <a href="{{ route('riscos.index') }}" class="{{ Request::routeIs('riscos.index') ? 'active-icon' : '' }}">
+                <a href="{{ route('documentos.eixos') }}"
+                    class="{{ Request::routeIs('documentos.eixos') ? 'active-icon' : '' }}">
                     <i class="bi bi-house icon"></i>
                     <span class="txt-link">Home</span>
                 </a>
             </li>
 
+            <li class="item-menu liHover">
+                <a href="{{ route('documentos.newHome') }}"
+                    class="{{ Request::routeIs('documentos.newHome') ? 'active-icon' : '' }}">
+                    <i class="bi bi-question-circle icon"></i>
+                    <span class="txt-link">Apresentação</span>
+                </a>
+            </li>
+
+            <li class="item-menu liHover">
+                <a href="{{ route('documentos.eixos') }}">
+                    <i class="bi bi-arrow-left-right icon"></i>
+                    <span class="txt-link">Eixos da Integridade</span>
+                </a>
+            </li>
+
+            <!--
             <li class="item-menu liHover">
                 <a href="{{ route('riscos.implementadas') }}" class="{{ Request::routeIs('riscos.implementadas') ? 'active-icon' : '' }}">
                     <i class="bi bi-check-circle icon"></i>
@@ -165,21 +188,27 @@
                     <span class="txt-link">Não Implementada</span>
                 </a>
             </li>
-						<hr class="spacer">
+            -->
+
+            <hr class="spacer">
+
             <li class="item-menu liHover">
-                <a href="{{ route('riscos.naoImplementada') }}" >
-								<i class="bi bi-card-text icon"></i>
+                <a href="{{ route('historico') }}">
+                    <i class="bi bi-card-text icon"></i>
                     <span class="txt-link">Documentos</span>
                 </a>
             </li>
-            <li class="item-menu liHover">
-                <a href="{{ route('riscos.naoImplementada') }}" >
-								<i class="bi bi-archive icon"></i>
-                    <span class="txt-link">Relatórios</span>
-                </a>
-            </li>
 
-            <hr class="spacer">
+            @if (Auth::user()->unidade->unidadeTipoFK == 1)
+                <li class="item-menu liHover">
+                    <a href="{{ route('relatorios.download') }}">
+                        <i class="bi bi-archive icon"></i>
+                        <span class="txt-link">Relatório Geral</span>
+                    </a>
+                </li>
+            @endif
+
+            <!-- <hr class="spacer"> -->
 
             <li style="display: none" class="item-menu">
                 <a href="{{ route('logout') }}"
@@ -199,12 +228,7 @@
             </a>
         </ul>
     </nav>
-    
-    
-    
-    
-    
-    
+
 </body>
 
 </html>

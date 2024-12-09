@@ -8,6 +8,7 @@ use App\Http\Controllers\StatusController;
 use App\Http\Controllers\UserController;
 use App\Models\Prazo;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\RelatorioController;
 
 
 /*
@@ -24,7 +25,7 @@ use Illuminate\Support\Facades\Storage;
 Route::get('/welcome', function () {
     return view('welcome');
 });
-Route::get('/', function (){
+Route::get('/home', function (){
 	return redirect()->route('riscos.index');
 });
 
@@ -66,8 +67,8 @@ Route::get('/riscos/nao-implementada', [StatusController::class, 'naoImplementad
 
 Auth::routes();
 
-Route::get('/home', function(){
-	return redirect()->route('riscos.index');
+Route::get('/', function () {
+    return redirect()->route('documentos.newHome');
 });
 
 Route::get('/apresentacao', [DocumentoController::class, 'showSystemPage'] )->name('apresentacao');
@@ -79,10 +80,12 @@ Route::get('/legislacao', function () {
 Route::get('/manual', [DocumentoController::class, 'downloadManual'])->name('manual');
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/eixos', function () {
-	return view('eixos');
-});
+Route::get('/eixos',[DocumentoController::class,'eixos'])->name('documentos.eixos')->middleware('auth');;
 
 Route::get('/historico', function () {
 	return view('historico');
-});
+})->name('historico')->middleware('auth');
+
+Route::get('/relatorio/riscos', [RelatorioController::class, 'gerarRelatorioGeral'])->name('relatorios.download');
+
+Route::get('/newHome',[DocumentoController::class,'newHome'])->name('documentos.newHome')->middleware('auth');

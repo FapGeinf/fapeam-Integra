@@ -48,7 +48,7 @@
           </div>
 
           <div class="form-group mt-4 text-center">
-            <button class="button-26-blue">Salvar</button>
+            <button class="btnAdd">Salvar</button>
           </div>
 
         </fieldset>
