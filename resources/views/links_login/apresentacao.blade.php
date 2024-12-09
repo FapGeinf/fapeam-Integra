@@ -19,7 +19,7 @@
       <div class="apresentacao2">
         <span class="mainData">
           <div>
-            <a href="{{ route('documentos.newHome') }}" class="tooltip" data-tooltip="Voltar para HOME">
+            <a href="{{ route('documentos.intro') }}" class="tooltip" data-tooltip="Voltar para HOME">
               <img src="{{ asset('img/house-icon-modified3.png') }}" alt="House Icon" style="margin-right: .5rem;">
             </a>
           
