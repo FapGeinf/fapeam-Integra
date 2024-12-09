@@ -183,4 +183,9 @@ body {
         margin-left: 0;
         width: 350px;
     }
+
+    .arrowButton {
+        width: 180px;
+        font-size: 13px;
+    }
 }
