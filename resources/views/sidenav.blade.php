@@ -24,6 +24,15 @@
             transition: margin-left 0.3s;
             /* Animação suave */
         }
+
+        .hide-sidenav #appSidenav {
+            display: none; /* Esconde completamente a sidenav */
+        }
+
+        .hide-sidenav .appContent {
+            margin-left: 0; /* Remove o deslocamento do conteúdo */
+        }
+
     </style>
 </head>
 
@@ -40,6 +49,8 @@
         const searchDivs = document.querySelectorAll('#searchDiv');
         const toggleButton = document.querySelector("#toggleSidenav");
         const welcomeDiv = document.getElementById('welcome'); // Seleciona a div #welcome
+
+        
 
         // Configuração inicial
         if (bodyClass) {
@@ -116,32 +127,29 @@
 </script>
 
 
-<body>
+<body class="{{ Request::routeIs('documentos.eixos') ? 'hide-sidenav' : '' }}">
+
     <nav class="menu-lateral" id="appSidenav">
         <button id="toggleSidenav" class="btn-toggle" style="transition: .3s">
             <i class="bi bi-list"></i>
         </button>
 
-        <a class="navbar-brand">
-            <div class="logo">
-                <img id="" src="{{ asset('img/logoDeconWhiteMin.png') }}"
-                    style="height: 60%; object-fit: cover; margin-top: 8rem;">
-            </div>
-        </a>
-
-        {{-- <div id="welcome">
-            <p>Bem-vindo(a)!</p>
-        </div> --}}
-
-        <hr class="spacer" style="margin-top: 4rem;">
+        <hr class="spacer" style="margin-top: 4rem; color: #22539c;">
 
         <ul class="ulList">
-            <!-- Home -->
             <li class="item-menu liHover">
                 <a href="{{ route('documentos.eixos') }}"
                     class="{{ Request::routeIs('documentos.eixos') ? 'active-icon' : '' }}">
                     <i class="bi bi-house icon"></i>
                     <span class="txt-link">Home</span>
+                </a>
+            </li>
+
+            <li class="item-menu liHover">
+                <a href="{{ route('documentos.newHome') }}"
+                    class="{{ Request::routeIs('documentos.newHome') ? 'active-icon' : '' }}">
+                    <i class="bi bi-question-circle icon"></i>
+                    <span class="txt-link">Apresentação</span>
                 </a>
             </li>
 
@@ -220,11 +228,6 @@
             </a>
         </ul>
     </nav>
-
-
-
-
-
 
 </body>
 

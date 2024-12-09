@@ -48,6 +48,8 @@
 
         <ul class="dropdown-menu pb__dropdown dropdown-menu-end" aria-labelledby="userDropdown">
           <li class="mb-1 liDP">
+            <i class="bi bi-key" style="color: #22539c; margin-left: 1rem;"></i>
+
             <a class="btnAltSenha" href="{{ route('users.password') }}" onclick="event.preventDefault(); document.getElementById('alterar-form').submit();">Alterar Senha</a>
             <form id="alterar-form" action="{{route('users.password')}}" method="GET" class="d-none">
               @csrf
@@ -55,6 +57,8 @@
           </li>
 
           <li class="liDP">
+            <i class="bi bi-door-open" style="color: #22539c; margin-left: 1rem;"></i>
+
             <a class="btnSair" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
               Sair
             </a>
