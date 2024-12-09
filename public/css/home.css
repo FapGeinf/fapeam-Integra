@@ -149,11 +149,15 @@ body {
     }
 
     .links a {
-        font-size: 15px;
+        font-size: 16px;
     }
 
     .linksChild {
         width: 128px;
+    }
+
+    .arrowButton {
+        width: 180px;
     }
 }
   
@@ -185,7 +189,7 @@ body {
     }
 
     .arrowButton {
-        width: 148px;
-        font-size: 11px;
+        width: 130px;
+        font-size: 12px;
     }
 }

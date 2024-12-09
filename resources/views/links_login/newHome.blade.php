@@ -16,8 +16,8 @@
   <div class="grid">
     <div class="order__right centered no__overflow borderRadius">
 
-      <a href="{{ route('documentos.eixos') }}" class="arrowButton">
-        <i class="bi bi-arrow-90deg-right"></i> Ir para pagina de Eixos
+      <a href="{{ route('documentos.eixos') }}" class="arrowButton fw-bold">
+        <i class="bi bi-arrow-90deg-right"></i> Página de Eixos
       </a>
   
       <img src="{{asset('img/login/bloco.png')}}" class="imgBloco" alt="">
