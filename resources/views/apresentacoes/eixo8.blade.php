@@ -45,9 +45,9 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex justify-content-center mt-5">
+        <!-- <div class="d-flex justify-content-center mt-5">
             <button class="btn btn-primary btn-lg px-5 shadow-sm fw-bold">Atividades</button>
-        </div>
+        </div> -->
     </div>
 
 

@@ -45,9 +45,16 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex justify-content-center mt-5">
+        <!-- <div class="d-flex justify-content-center mt-5">
             <button class="btn btn-primary btn-lg px-5 shadow-sm fw-bold">Atividades</button>
-        </div>
+        </div> -->
+				
+				<div class="d-flex justify-content-center mt-5">
+						<a class="btn btn-primary btn-lg px-5 shadow-sm fw-bold" href="{{route('riscos.index')}}">
+          			<i class="bi bi-bar-chart-line me-2"></i> Monitoramentos
+       		 	</a>
+				</div>
+				
     </div>
 
 
