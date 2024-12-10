@@ -26,15 +26,15 @@
       <div class="links">
         
         <div class="linksChild">
-          <a class="fw-bold" href="{{ route('apresentacao') }}" target="_blank">Apresentação</a>
+          <a class="fw-bold" href="{{ route('apresentacao') }}" >Apresentação</a>
         </div>
         
         <div class="linksChild">
-          <a class="fw-bold" href="{{ route('legislacao') }}" target="_blank">Legislação</a>
+          <a class="fw-bold" href="{{ route('legislacao') }}" >Legislação</a>
         </div>
   
         <div class="linksChild">
-          <a class="fw-bold" href="{{ route('manual') }}" target="_blank">Manual</a>
+          <a class="fw-bold" href="{{ route('manual') }}" >Manual</a>
         </div>
       </div>
       
