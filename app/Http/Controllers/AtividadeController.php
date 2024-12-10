@@ -24,14 +24,22 @@ class AtividadeController extends Controller
         ]);
     }
 
-    public function index()
+    public function index(Request $request)
     {
-       
-        $atividades = Atividade::with('eixo')->paginate(10);
-    
+
+        $eixo_id = $request->get('eixo_id');
+
+        if ($eixo_id && in_array($eixo_id, [1, 2, 3, 4, 5, 6, 7, 8])) {
+            $atividades = Atividade::where('eixo_id', $eixo_id)->get();
+        } else {
+
+            $atividades = Atividade::all();
+        }
+
         return view('atividades.index', ['atividades' => $atividades]);
     }
-    
+
+
 
     public function showAtividade($id)
     {

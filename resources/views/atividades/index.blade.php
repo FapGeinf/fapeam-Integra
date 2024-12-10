@@ -99,9 +99,6 @@
                     </div> 
                 </div>
             </div>
-            <div class="d-flex justify-content-center mt-4">
-                {{ $atividades->links() }}
-            </div>
         </div>
     </div>
 </div>
