@@ -2,6 +2,7 @@
 
 use App\Events\PrazoProximo;
 use App\Http\Controllers\DocumentoController;
+use App\Http\Controllers\EixosController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RiscoController;
 use App\Http\Controllers\StatusController;
@@ -89,3 +90,15 @@ Route::get('/historico', function () {
 Route::get('/relatorio/riscos', [RelatorioController::class, 'gerarRelatorioGeral'])->name('relatorios.download');
 
 Route::get('/intro',[DocumentoController::class,'intro'])->name('documentos.intro')->middleware('auth');
+
+
+
+Route::get('/apresentacoes/eixo1', [EixosController::class, 'Eixo1'])->name('apresentacoes.eixo1');
+Route::get('/apresentacoes/eixo2', [EixosController::class, 'Eixo2'])->name('apresentacoes.eixo2');
+Route::get('/apresentacoes/eixo3', [EixosController::class, 'Eixo3'])->name('apresentacoes.eixo3');
+Route::get('/apresentacoes/eixo4', [EixosController::class, 'Eixo4'])->name('apresentacoes.eixo4');
+Route::get('/apresentacoes/eixo5', [EixosController::class, 'Eixo5'])->name('apresentacoes.eixo5');
+Route::get('/apresentacoes/eixo6', [EixosController::class, 'Eixo6'])->name('apresentacoes.eixo6');
+Route::get('/apresentacoes/eixo7', [EixosController::class, 'Eixo7'])->name('apresentacoes.eixo7');
+Route::get('/apresentacoes/eixo8', [EixosController::class, 'Eixo8'])->name('apresentacoes.eixo8');
+
