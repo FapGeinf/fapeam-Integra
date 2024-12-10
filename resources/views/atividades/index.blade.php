@@ -18,7 +18,9 @@
             <div class="card rounded-3 shadow-sm border-1 mb-4">
                 <div class="card-body d-flex justify-content-between">
                     <h2 class="mb-0 fw-bold">Lista de Atividades</h2>
+                    @if(Auth::user()->unidade->unidadeTipoFK == 1)
                     <a href="{{ route('atividades.create') }}" class="btn btn-primary">Adicionar Atividade</a>
+                    @endif
                 </div>
             </div>
             <div class="card rounded-3 shadow-sm border-1">
