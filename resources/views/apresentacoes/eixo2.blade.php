@@ -1,56 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
+@section('content')
+
+@section('title') {{ 'Institucionalização do Código de Conduta' }}
+@endsection
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    <title>INSTITUCIONALIZAÇÃO DO CÓDIGO DE CONDUTA</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+  <link rel="stylesheet" href="{{ asset('css/eixosPages.css') }}">
 </head>
 
 <body>
-    <div class="container-md mt-5">
-        <div class="row d-flex justify-content-center">
-            <div class="col-lg-12">
-                <div class="card rounded-3 shadow border-1 mb-4">
-                    <div class="card-body">
-                        <h2 class="mb-0 fw-bold text-center">INSTITUCIONALIZAÇÃO DO CÓDIGO DE CONDUTA</h2>
-                    </div>
-                </div>
-
-                <div class="card rounded-3 shadow border-1">
-                    <div class="card-body p-4">
-                        <p class = "text-secondary lh-lg">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minima fugit cumque cum ipsa,
-                            blanditiis tempore dolore distinctio eaque earum nesciunt porro autem doloremque atque
-                            incidunt saepe repudiandae aperiam unde voluptatem?
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis iste hic quod, molestias
-                            doloribus maiores consectetur cumque enim quas. Laborum nisi voluptate fugit beatae a
-                            repudiandae velit tempore, rerum recusandae?
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quia error nisi beatae libero,
-                            placeat quas autem officia praesentium odit tempore consequatur facilis dolorum esse natus
-                            laboriosam quaerat minus numquam ducimus!
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam optio sequi cum, expedita,
-                            temporibus quaerat suscipit, explicabo aperiam doloribus nemo dignissimos amet accusamus
-                            porro odio in perferendis tempora dolorum adipisci.
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam temporibus ea accusantium
-                            nulla, in quas repellat mollitia non iusto autem totam debitis culpa! Temporibus neque
-                            quaerat quia aut laborum magni.
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam rem quod dicta aut quisquam
-                            quam voluptate iste, reprehenderit, a ex distinctio dolorum debitis consequatur placeat qui,
-                            asperiores laudantium quas ut.
-
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="d-flex justify-content-center mt-5">
-            <button class="btn btn-primary btn-lg px-5 shadow-sm fw-bold">Atividades</button>
-        </div>
+  <div class="form-wrapper pt-5">
+    <div class="form_create border">
+      <div class="titleDP text-center fw-bold">
+        <span>
+          Institucionalização do Código de Conduta
+        </span>
+      </div>
     </div>
+  </div>
 
+  <div class="form-wrapper pt-3">
+    <div class="form_create border">
+      <div class="textDP text__justify">
+        <span>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae quibusdam, nisi, tempore corporis quis possimus dignissimos debitis vero labore voluptatem ducimus consequatur maxime culpa! Officiis aperiam necessitatibus aut iste, exercitationem at voluptatibus eaque provident odit sapiente, illum animi unde repellat et modi asperiores sit est reiciendis ut rerum fuga harum. Nostrum quos quasi obcaecati dolor, enim similique. Expedita, est voluptas. Rerum dolorem, provident cum suscipit expedita exercitationem voluptatum molestias sint, voluptate blanditiis consequatur assumenda cumque non omnis recusandae aspernatur aut vero mollitia vel accusamus. Numquam, tempora laudantium accusamus ea adipisci unde, possimus similique libero nesciunt minus dicta nulla explicabo totam provident consequatur odit voluptates corrupti quasi officiis sapiente. Ducimus veniam corrupti, maxime suscipit fugiat dolor unde cupiditate neque quas veritatis, amet minima! Facilis iure aliquid ad, dicta dignissimos harum similique, perferendis alias obcaecati illo numquam error deserunt fuga. Veniam sequi voluptas alias obcaecati enim mollitia iusto sint cumque similique, voluptate est reiciendis doloremque animi id assumenda cupiditate? Veritatis itaque autem sunt inventore natus veniam quam quo adipisci eligendi dolorum dicta velit corrupti necessitatibus voluptatum non earum beatae debitis esse quas, quos in dolor excepturi illum! Tempora consectetur qui quibusdam dolore? Perspiciatis doloribus odit explicabo aperiam culpa vel, dignissimos molestiae molestias?
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-center mt-4">
+      <button class="btn__bg btn__bg_color shadow-sm fw-bold">Atividades</button>
+  </div>
 
 </body>
 
 </html>
+
+@endsection

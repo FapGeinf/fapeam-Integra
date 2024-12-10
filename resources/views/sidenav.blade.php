@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -145,13 +146,15 @@
                 </a>
             </li>
 
-            <li class="item-menu liHover">
+            <li class="item-menu liHover" style="{{ Request::routeIs('documentos.intro') ? 'display: none;' : '' }}">
+
                 <a href="{{ route('documentos.intro') }}"
                     class="{{ Request::routeIs('documentos.intro') ? 'active-icon' : '' }}">
                     <i class="bi bi-question-circle icon"></i>
                     <span class="txt-link">Apresentação</span>
                 </a>
             </li>
+            
 
             <li class="item-menu liHover">
                 <a href="{{ route('documentos.eixos') }}">
