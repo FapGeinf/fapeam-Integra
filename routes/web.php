@@ -1,6 +1,7 @@
 <?php
 
 use App\Events\PrazoProximo;
+use App\Http\Controllers\AtividadeController;
 use App\Http\Controllers\DocumentoController;
 use App\Http\Controllers\EixosController;
 use Illuminate\Support\Facades\Route;
@@ -101,4 +102,13 @@ Route::get('/apresentacoes/eixo5', [EixosController::class, 'Eixo5'])->name('apr
 Route::get('/apresentacoes/eixo6', [EixosController::class, 'Eixo6'])->name('apresentacoes.eixo6');
 Route::get('/apresentacoes/eixo7', [EixosController::class, 'Eixo7'])->name('apresentacoes.eixo7');
 Route::get('/apresentacoes/eixo8', [EixosController::class, 'Eixo8'])->name('apresentacoes.eixo8');
+
+
+Route::get('/atividades',[AtividadeController::class,'index'])->name('atividades.index');
+Route::get('/atividade/show/{id}',[AtividadeController::class,'showAtividade'])->name('atividades.show');
+Route::get('/atividades/create',[AtividadeController::class,'createAtividade'])->name('atividades.create');
+Route::post('/atividades/store',[AtividadeController::class,'storeAtividade'])->name('atividades.store');
+Route::get('/atividade/edit/{id}',[AtividadeController::class,'editAtividade'])->name('atividades.edit');
+Route::put('/atividade/update/{id}',[AtividadeController::class,'updateAtividade'])->name('atividades.update');
+Route::delete('/atividade/delete/{id}',[AtividadeController::class,'deleteAtividade'])->name('atividades.delete');
 
