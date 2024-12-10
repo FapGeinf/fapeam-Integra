@@ -10,6 +10,17 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   @vite(['resources/sass/app.scss', 'resources/js/app.js'])
   <link rel="stylesheet" href="{{ asset('css/eixosPages.css') }}">
+
+  <style>
+    .pb__dropdown {
+      padding-bottom: 4rem;
+    }
+
+    .bi-key,
+    .bi-door-open {
+      margin-left: 0 !important;
+    }
+  </style>
 </head>
 
 <body>

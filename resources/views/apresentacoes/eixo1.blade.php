@@ -11,6 +11,17 @@
   @vite(['resources/sass/app.scss', 'resources/js/app.js'])
   <link rel="stylesheet" href="{{ asset('css/eixosPages.css') }}">
   <title>COMPROMETIMENTO E APOIO DA ALTA DIREÇÃO</title>
+
+  <style>
+    .pb__dropdown {
+      padding-bottom: 4rem;
+    }
+
+    .bi-key,
+    .bi-door-open {
+      margin-left: 0 !important;
+    }
+  </style>
 </head>
 
 <body>
