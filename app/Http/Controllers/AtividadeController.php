@@ -18,7 +18,7 @@ class AtividadeController extends Controller
             'tipo_evento' => 'required|string|max:255',
             'canal_divulgacao' => 'required|string|max:255',
             'data_prevista' => 'required|date',
-            'data_realizada' => 'nullable|date|after_or_equal:data_prevista',
+            'data_realizada' => 'required|date',
             'meta' => 'required|integer|min:0',
             'realizado' => 'required|integer|min:0',
         ]);
