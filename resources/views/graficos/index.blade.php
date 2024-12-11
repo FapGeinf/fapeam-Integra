@@ -58,10 +58,10 @@
         </div>
     </div>
 </div>
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/offline-exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="{{asset('js/highcharts.js')}}"></script>
+<script src="{{asset('js/exporting.js')}}"></script>
+<script src="{{asset('js/offline-exporting.js')}}"></script>
+<script src="{{asset('js/export-data.js')}}"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         Highcharts.chart('grafico-atividades', {
