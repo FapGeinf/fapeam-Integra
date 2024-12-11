@@ -31,9 +31,46 @@
       </div>
     
       <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="{{ asset('img/slide-fapeam2.png') }}" class="d-block w-100" alt="Imagem Aleatória">
+        <div class="carousel-item active position-relative">
+          <img src="{{ asset('img/slide-fapeam2.png') }}" class="d-block w-100" alt="Imagem Aleatória" style="opacity: 0.5;">
+          
+          <!-- Container para os cards -->
+          <div class="position-absolute top-50 start-50 translate-middle w-100 d-flex justify-content-center">
+            <div class="row w-75">
+              <!-- Card 1 -->
+              <div class="col-md-4">
+                <div class="card text-center shadow-sm">
+                  <div class="card-body">
+                    <h5 class="card-title">Card 1</h5>
+                    <p class="card-text">Descrição do card 1.</p>
+                    <a href="#" class="btn btn-primary">Saiba mais</a>
+                  </div>
+                </div>
+              </div>
+              <!-- Card 2 -->
+              <div class="col-md-4">
+                <div class="card text-center shadow-sm">
+                  <div class="card-body">
+                    <h5 class="card-title">Card 2</h5>
+                    <p class="card-text">Descrição do card 2.</p>
+                    <a href="#" class="btn btn-primary">Saiba mais</a>
+                  </div>
+                </div>
+              </div>
+              <!-- Card 3 -->
+              <div class="col-md-4">
+                <div class="card text-center shadow-sm">
+                  <div class="card-body">
+                    <h5 class="card-title">Card 3</h5>
+                    <p class="card-text">Descrição do card 3.</p>
+                    <a href="#" class="btn btn-primary">Saiba mais</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+        
     
         <div class="carousel-item">
           <img src="{{ asset('img/slide-fapeam4.png') }}" class="d-block w-100" alt="Imagem Aleatória">
