@@ -23,7 +23,7 @@
       </h3>
     </div>
 
-    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+    {{-- <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000"> --}}
       <div class="carousel-indicators">
         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -36,14 +36,14 @@
           
           <!-- Container para os cards -->
           <div class="position-absolute top-50 start-50 translate-middle w-100 d-flex justify-content-center">
-            <div class="row w-75">
+            <div class="row w-75 g-3">
               <!-- Card 1 -->
               <div class="col-md-4">
                 <div class="card text-center shadow-sm">
                   <div class="card-body">
-                    <h5 class="card-title">Card 1</h5>
-                    <p class="card-text">Descrição do card 1.</p>
-                    <a href="#" class="btn btn-primary">Saiba mais</a>
+                    <h5 class="card-title">EIXO I</h5>
+                    <p class="card-text">COMPROMETIMENTO E APOIO DA ALTA DIREÇÃO</p>
+                    <a href="#" class="btn btn-primary">Clique aqui<br>e saiba mais</a>
                   </div>
                 </div>
               </div>
@@ -51,9 +51,9 @@
               <div class="col-md-4">
                 <div class="card text-center shadow-sm">
                   <div class="card-body">
-                    <h5 class="card-title">Card 2</h5>
-                    <p class="card-text">Descrição do card 2.</p>
-                    <a href="#" class="btn btn-primary">Saiba mais</a>
+                    <h5 class="card-title">EIXO II</h5>
+                    <p class="card-text">INSTITUCIONALIZAÇÃO DO CÓDIGO DE CONDUTA</p>
+                    <a href="#" class="btn btn-primary">Clique aqui<br>e saiba mais</a>
                   </div>
                 </div>
               </div>
@@ -61,9 +61,9 @@
               <div class="col-md-4">
                 <div class="card text-center shadow-sm">
                   <div class="card-body">
-                    <h5 class="card-title">Card 3</h5>
-                    <p class="card-text">Descrição do card 3.</p>
-                    <a href="#" class="btn btn-primary">Saiba mais</a>
+                    <h5 class="card-title">EIXO III</h5>
+                    <p class="card-text">AVALIAÇÃO DE RISCOS</p>
+                    <a href="#" class="btn btn-primary">Clique aqui<br>e saiba mais</a>
                   </div>
                 </div>
               </div>
