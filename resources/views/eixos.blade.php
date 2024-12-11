@@ -5,14 +5,8 @@
 
 <head>
   <link rel="stylesheet" href="{{ asset('css/eixos.css') }}">
-
-  <style>
-    .appContent {
-      margin-left: 0 !important;
-    }
-  </style>
-
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -23,7 +17,7 @@
       </h3>
     </div>
 
-    {{-- <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000"> --}}
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
       <div class="carousel-indicators">
         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -39,36 +33,63 @@
             <div class="row w-75 g-3">
               <!-- Card 1 -->
               <div class="col-md-4">
-                <div class="card text-center shadow-sm">
-                  <div class="card-body">
+                
+                <div class="d-flex align-items-center shadow-sm bg-white rounded">
+                  
+                    <img src="https://via.placeholder.com/80x80" class="img-fluid" alt="Eixo I" style="width: 100px; height: 200px; object-fit: cover;">
+                  
+                  <div class="p-2">
                     <h5 class="card-title">EIXO I</h5>
                     <p class="card-text">COMPROMETIMENTO E APOIO DA ALTA DIREÇÃO</p>
-                    <a href="#" class="btn btn-primary">Clique aqui<br>e saiba mais</a>
+                    
+                    <a href="#" class="clickHere">
+                      <i class="fas fa-hand-pointer me-1"></i>
+                      Clique aqui
+                    </a>
                   </div>
                 </div>
               </div>
+          
               <!-- Card 2 -->
               <div class="col-md-4">
-                <div class="card text-center shadow-sm">
-                  <div class="card-body">
+                
+                <div class="d-flex align-items-center shadow-sm bg-white rounded">
+                  
+                    <img src="https://via.placeholder.com/80x80" class="img-fluid" alt="Eixo I" style="width: 100px; height: 200px; object-fit: cover;">
+                  
+                  <div class="p-2">
                     <h5 class="card-title">EIXO II</h5>
                     <p class="card-text">INSTITUCIONALIZAÇÃO DO CÓDIGO DE CONDUTA</p>
-                    <a href="#" class="btn btn-primary">Clique aqui<br>e saiba mais</a>
+                    
+                    <a href="#" class="clickHere">
+                      <i class="fas fa-hand-pointer me-1"></i>
+                      Clique aqui
+                    </a>
                   </div>
                 </div>
               </div>
+          
               <!-- Card 3 -->
               <div class="col-md-4">
-                <div class="card text-center shadow-sm">
-                  <div class="card-body">
+                
+                <div class="d-flex align-items-center shadow-sm bg-white rounded">
+                  
+                    <img src="https://via.placeholder.com/80x80" class="img-fluid" alt="Eixo I" style="width: 100px; height: 200px; object-fit: cover;">
+                  
+                  <div class="p-2">
                     <h5 class="card-title">EIXO III</h5>
                     <p class="card-text">AVALIAÇÃO DE RISCOS</p>
-                    <a href="#" class="btn btn-primary">Clique aqui<br>e saiba mais</a>
+
+                    <a href="#" class="clickHere">
+                      <i class="fas fa-hand-pointer me-1"></i>
+                      Clique aqui
+                    </a>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          
         </div>
         
     
