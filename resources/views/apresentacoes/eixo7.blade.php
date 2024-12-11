@@ -48,11 +48,11 @@
     </div>
   </div>
 
-  <div class="d-flex justify-content-center mt-4">
+  <!-- <div class="d-flex justify-content-center mt-4">
     <a href="{{ route('atividades.index', ['eixo_id' => 7]) }}">
       <button class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">Atividades</button>
     </a>
-  </div>
+  </div> -->
 
 </body>
 

@@ -52,7 +52,7 @@
     <a href="{{ route('atividades.index', ['eixo_id' => 5]) }}">
       <button class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">Atividades</button>
     </a>
-		<button class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">Relatórios</button>
+		<button class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">Relatório</button>
   </div>
 
 </body>
