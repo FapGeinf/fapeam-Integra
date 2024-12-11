@@ -32,16 +32,32 @@ class RelatorioController extends Controller
 
     public function graficosIndex(Request $request)
     {
-       
+
         $ano = $request->input('ano');
         $unidadeId = $request->input('unidade');
         $eixoId = $request->input('eixo');
         $nivelDeRisco = $request->input('nivel_de_risco');
+        $isContinuo = $request->input('isContinuo');
+        $statusMonitoramento = $request->input('statusMonitoramento');
 
         $totalAtividades = Atividade::count();
         $totalRiscos = Risco::count();
         $totalMonitoramentos = Monitoramento::count();
         $totalEixos = Eixo::count();
+
+        $monitoramentosTipos = Monitoramento::select('isContinuo', DB::raw('COUNT(*) as total'))
+            ->groupBy('isContinuo')
+            ->when($isContinuo !== null, function ($query) use ($isContinuo) {
+                return $query->where('isContinuo', (bool) $isContinuo);
+            })
+            ->get();
+
+        $monitoramentosStatus = Monitoramento::select('statusMonitoramento', DB::raw('COUNT(*) as total'))
+            ->groupBy('statusMonitoramento')
+            ->when($statusMonitoramento != null, function ($query) use ($statusMonitoramento) {
+                return $query->where('statusMonitoramento', $statusMonitoramento);
+            })
+            ->get();
 
         $atividadesPorEixo = Atividade::select('eixo_id', DB::raw('COUNT(*) as total'))
             ->groupBy('eixo_id')
@@ -102,7 +118,7 @@ class RelatorioController extends Controller
             ];
         });
 
-    
+
         $anos = Risco::distinct()->pluck('riscoAno');
         $unidades = Unidade::all();
         $eixos = Eixo::all();
@@ -116,6 +132,10 @@ class RelatorioController extends Controller
             'riscosUnidadeData',
             'riscosNivelData',
             'riscosAnoData',
+            'monitoramentosTipos',
+            'monitoramentosStatus',
+            'isContinuo',
+            'statusMonitoramento',
             'anos',
             'unidades',
             'eixos'
