@@ -1,7 +1,64 @@
 @extends('layouts.app')
 @section('content')
 <div class="container-lg mt-5">
-    <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="row row-cols-1 row-cols-md g-4 mt-4 mb-4">
+        <div class="col">
+            <div class="card shadow-sm border-1 rounded-3 bg-light">
+                <div class="card-body">
+                    <form method="GET" action="{{ route('graficos.index') }}" class="mb-4">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="ano" class="form-label">Ano</label>
+                                <select name="ano" id="ano" class="form-select">
+                                    <option value="">Selecione um ano</option>
+                                    @foreach($anos as $ano)
+                                        <option value="{{ $ano }}" {{ request('ano') == $ano ? 'selected' : '' }}>{{ $ano }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="unidade" class="form-label">Unidade</label>
+                                <select name="unidade" id="unidade" class="form-select">
+                                    <option value="">Selecione uma unidade</option>
+                                    @foreach($unidades as $unidade)
+                                        <option value="{{ $unidade->id }}" {{ request('unidade') == $unidade->id ? 'selected' : '' }}>
+                                            {{ $unidade->unidadeNome }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="eixo" class="form-label">Eixo</label>
+                                <select name="eixo" id="eixo" class="form-select">
+                                    <option value="">Selecione um eixo</option>
+                                    @foreach($eixos as $eixo)
+                                        <option value="{{ $eixo->id }}" {{ request('eixo') == $eixo->id ? 'selected' : '' }}>
+                                            {{ $eixo->nome }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="nivel_de_risco" class="form-label">Nível de Risco</label>
+                                <select name="nivel_de_risco" id="nivel_de_risco" class="form-select">
+                                    <option value="">Selecione um nível de risco</option>
+                                    <option value="1" {{ request('nivel_de_risco') == 1 ? 'selected' : '' }}>Baixo
+                                    </option>
+                                    <option value="2" {{ request('nivel_de_risco') == 2 ? 'selected' : '' }}>Médio
+                                    </option>
+                                    <option value="3" {{ request('nivel_de_risco') == 3 ? 'selected' : '' }}>Alto</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Filtrar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4 mt-4">
         <div class="col">
             <div class="card shadow-sm border-1 rounded-3 text-center bg-light">
                 <div class="card-body">
@@ -241,7 +298,7 @@
                 enabled: true,
                 buttons: {
                     contextButton: {
-                        menuItems: ['downloadPNG', 'downloadPDF', 'downloadCSV', 'downloadXLS'] 
+                        menuItems: ['downloadPNG', 'downloadPDF', 'downloadCSV', 'downloadXLS']
                     }
                 }
             }
