@@ -5,151 +5,58 @@
 
 <head>
   <link rel="stylesheet" href="{{ asset('css/eixos.css') }}">
+
+  <style>
+    .appContent {
+      margin-left: 0 !important;
+    }
+  </style>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css.css">
 </head>
 
-<div class="form-wrapper pt-5">
-  <div class="form_create1 border">
-    <div class="titleDP text-center">
-      <span>
+<body>
+  <div class="container-xxl pt-5">
+    <div class="text-start">
+      <h3 class="border__h3">
         Eixos do Programa de Integridade
-      </span>
+      </h3>
     </div>
-  </div>
-</div>
 
-<div class="form-wrapper pt-4">
-  <div class="form_create border">
-    <div class="row">
+    <div id="carouselExampleIndicators" class="carousel slide">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
 
-      <!-- EIXO I -->
-      <a class="col-md-3 mb-4" href="{{ route('apresentacoes.eixo1') }}">
-        <div class="card shadow-lg rounded-lg overflow-hidden">
-          <h5 class="card-title text-white bg__card_pattern p-3 d-flex align-items-center mb-0">
-            <i class="bi bi-check-circle me-2"></i> EIXO I
-          </h5>
-          <div class="card-body p-4">
-            <div class="mb-3 d-flex align-items-start">
-              <i class="bi bi-bookmark-fill icon__color me-2 fs-5"></i>
-              <p class="card-text text-muted fs-6 mb-0">COMPROMETIMENTO E APOIO DA ALTA DIREÇÃO</p>
-            </div>
-            <hr class="mt-2 mb-3 border-primary">
-          </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="{{ asset('img/slide-fapeam2.png') }}" class="d-block w-100" alt="Imagem Aleatória">
         </div>
-      </a>
 
-      <!-- EIXO II -->
-      <a class="col-md-3 mb-4" href="{{ route('apresentacoes.eixo2') }}">
-        <div class="card shadow-lg rounded-lg overflow-hidden" href="{{ route('apresentacoes.eixo1') }}">
-          <h5 class="card-title text-white bg__card_pattern p-3 d-flex align-items-center mb-0">
-            <i class="bi bi-check-circle me-2"></i> EIXO II
-          </h5>
-          <div class="card-body p-4">
-            <div class="mb-3 d-flex align-items-start">
-              <i class="bi bi-bookmark-fill icon__color me-2 fs-5"></i>
-              <p class="card-text text-muted fs-6 mb-0">INSTITUCIONALIZAÇÃO DO CÓDIGO DE CONDUTA</p>
-            </div>
-            <hr class="mt-2 mb-3 border-primary">
-          </div>
+        <div class="carousel-item">
+          <img src="{{ asset('img/slide-fapeam4.png') }}" class="d-block w-100" alt="Imagem Aleatória">
         </div>
-      </a>
-
-      <!-- EIXO III -->
-      <a class="col-md-3 mb-4" href="{{ route('apresentacoes.eixo3') }}">
-        <div class="card shadow-lg rounded-lg overflow-hidden" >
-          <h5 class="card-title text-white bg__card_pattern p-3 d-flex align-items-center mb-0">
-            <i class="bi bi-check-circle me-2"></i> EIXO III
-          </h5>
-          <div class="card-body p-4">
-            <div class="mb-3 d-flex align-items-start">
-              <i class="bi bi-bookmark-fill icon__color me-2 fs-5"></i>
-              <p class="card-text text-muted fs-6 mb-0">AVALIAÇÃO DE RISCOS</p>
-            </div>
-            <hr class="mt-2 mb-3 border-primary">
-          </div>
+        
+        <div class="carousel-item">
+          <img src="{{ asset('img/slide-fapeam6.png') }}" class="d-block w-100" alt="Imagem Aleatória">
         </div>
-      </a>
+      </div>
 
-      <!-- EIXO IV -->
-      <a class="col-md-3 mb-4" href="{{ route('apresentacoes.eixo4') }}">
-        <div class="card shadow-lg rounded-lg overflow-hidden">
-          <h5 class="card-title text-white bg__card_pattern p-3 d-flex align-items-center mb-0">
-            <i class="bi bi-check-circle me-2"></i> EIXO IV
-          </h5>
-          <div class="card-body p-4">
-            <div class="mb-3 d-flex align-items-start">
-              <i class="bi bi-bookmark-fill icon__color me-2 fs-5"></i>
-              <p class="card-text text-muted fs-6 mb-0">IMPLEMENTAÇÃO DOS CONTROLES INTERNOS</p>
-            </div>
-            <hr class="mt-2 mb-3 border-primary">
-          </div>
-        </div>
-      </a>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
 
-      <!-- EIXO V -->
-      <a class="col-md-3 mb-4" href="{{ route('apresentacoes.eixo5') }}">
-        <div class="card shadow-lg rounded-lg overflow-hidden">
-          <h5 class="card-title text-white bg__card_pattern p-3 d-flex align-items-center mb-0">
-            <i class="bi bi-check-circle me-2"></i> EIXO V
-          </h5>
-          <div class="card-body p-4">
-            <div class="mb-3 d-flex align-items-start">
-              <i class="bi bi-bookmark-fill icon__color me-2 fs-5"></i>
-              <p class="card-text text-muted fs-6 mb-0">COMUNICAÇÃO E TREINAMENTOS PERIÓDICOS</p>
-            </div>
-            <hr class="mt-2 mb-3 border-primary">
-          </div>
-        </div>
-      </a>
-
-      <!-- EIXO VI -->
-      <a class="col-md-3 mb-4" href="{{ route('apresentacoes.eixo6') }}">
-        <div class="card shadow-lg rounded-lg overflow-hidden">
-          <h5 class="card-title text-white bg__card_pattern p-3 d-flex align-items-center mb-0">
-            <i class="bi bi-check-circle me-2"></i> EIXO VI
-          </h5>
-          <div class="card-body p-4">
-            <div class="mb-3 d-flex align-items-start">
-              <i class="bi bi-bookmark-fill icon__color me-2 fs-5"></i>
-              <p class="card-text text-muted fs-6 mb-0">CANAIS DE DENÚNCIA</p>
-            </div>
-            <hr class="mt-2 mb-3 border-primary">
-          </div>
-        </div>
-      </a>
-
-      <!-- EIXO VII -->
-      <a class="col-md-3 mb-4" href="{{ route('apresentacoes.eixo7') }}">
-        <div class="card shadow-lg rounded-lg overflow-hidden">
-          <h5 class="card-title text-white bg__card_pattern p-3 d-flex align-items-center mb-0">
-            <i class="bi bi-check-circle me-2"></i> EIXO VII
-          </h5>
-          <div class="card-body p-4">
-            <div class="mb-3 d-flex align-items-start">
-              <i class="bi bi-bookmark-fill icon__color me-2 fs-5"></i>
-              <p class="card-text text-muted fs-6 mb-0">INVESTIGAÇÕES INTERNAS</p>
-            </div>
-            <hr class="mt-2 mb-3 border-primary">
-          </div>
-        </div>
-      </a>
-
-      <!-- EIXO VIII -->
-      <a class="col-md-3 mb-4" href="{{ route('apresentacoes.eixo8') }}">
-        <div class="card shadow-lg rounded-lg overflow-hidden">
-          <h5 class="card-title text-white bg__card_pattern p-3 d-flex align-items-center mb-0">
-            <i class="bi bi-check-circle me-2"></i> EIXO VIII
-          </h5>
-          <div class="card-body p-4">
-            <div class="mb-3 d-flex align-items-start">
-              <i class="bi bi-bookmark-fill icon__color me-2 fs-5"></i>
-              <p class="card-text text-muted fs-6 mb-0">MONITORAMENTO CONTÍNUO</p>
-            </div>
-            <hr class="mt-2 mb-3 border-primary">
-          </div>
-        </div>
-      </a>
-
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
     </div>
+
   </div>
-</div>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 @endsection
