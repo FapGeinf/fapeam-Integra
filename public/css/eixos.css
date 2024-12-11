@@ -2,6 +2,35 @@ li {
   margin-left: 0;
 }
 
+.appContent {
+  margin-left: 0 !important;
+}
+
+/* .custom__text-start {
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 5px;
+} */
+
+.custom__form_create {
+  /* background-color: #f8fafc; */
+  border-radius: 5px;
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+  /* padding: 20px; */
+  width: 100%;
+  max-width: 1000px;
+}
+
+.custom__no-bg {
+  width: 100%;
+  max-width: 1000px;
+}
+
+.custom__span-title {
+  font-size: 24px;
+  color: #0c326f;
+}
+
+
 .bg__card_pattern {
   background-color: #22539c;
 }
@@ -297,4 +326,8 @@ ol {
 .card-body .mt-5 {
   font-size: 18px;
   color: #777;
+}
+
+.custom__mouse {
+  font-style: italic;
 }
