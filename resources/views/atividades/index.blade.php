@@ -59,6 +59,7 @@
                                         <td>{{$atividade->meta}}</td>
                                         <td>{{$atividade->realizado}}</td>
                                         <td>
+                                        @if(Auth::user()->unidade->unidadeTipoFK == 1)
                                             <div class="d-flex justify-content-start">
                                                 <a href="{{ route('atividades.edit', $atividade->id) }}"
                                                     class="btn btn-sm btn-warning me-2">Editar</a>
@@ -68,6 +69,7 @@
                                                 </button>
                                             </div>
                                         </td>
+                                        @endif
                                     </tr>
                                     <div class="modal fade" id="deleteModal{{ $atividade->id }}" tabindex="-1"
                                         aria-labelledby="deleteModalLabel{{ $atividade->id }}" aria-hidden="true">
