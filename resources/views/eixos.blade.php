@@ -25,6 +25,8 @@
       <!-- EIXO I -->
       <div class="col-md-3 mb-4">
         <div class="card overflow-hidden">
+          <h5 class="bg__card_pattern p-3 mb-0"></h5>
+
           <div class="card-body card-fofinho p-4">
             <div class="mb-3 title-fofinho d-flex">
               EIXO I
@@ -49,6 +51,8 @@
       <!-- EIXO II -->
       <div class="col-md-3 mb-4">
         <div class="card overflow-hidden">
+          <h5 class="bg__card_pattern p-3 mb-0"></h5>
+          
           <div class="card-body card-fofinho p-4">
             <div class="mb-3 title-fofinho d-flex">
               EIXO II
@@ -72,6 +76,8 @@
       <!-- EIXO III -->
       <div class="col-md-3 mb-4">
         <div class="card overflow-hidden">
+          <h5 class="bg__card_pattern p-3 mb-0"></h5>
+          
           <div class="card-body card-fofinho p-4">
             <div class="mb-3 title-fofinho d-flex">
               EIXO III
@@ -95,17 +101,19 @@
       <!-- EIXO IV -->
       <div class="col-md-3 mb-4">
         <div class="card overflow-hidden">
+          <h5 class="bg__card_pattern p-3 mb-0"></h5>
+
           <div class="card-body card-fofinho p-4">
             <div class="mb-3 title-fofinho d-flex">
               EIXO IV
             </div>
 
-            <div class="mt-5 custom__mouse">
+            {{-- <div class="mt-5 custom__mouse">
               <span style="color: #0c326f">
                 <i class="fas fa-mouse-pointer"></i>
                 Passe o mouse
               </span>
-            </div>
+            </div> --}}
           </div>
 
           <div class="card-hover">
@@ -118,6 +126,8 @@
       <!-- EIXO V -->
       <div class="col-md-3 mb-4">
         <div class="card overflow-hidden">
+          <h5 class="bg__card_pattern p-3 mb-0"></h5>
+
           <div class="card-body card-fofinho p-4">
             <div class="mb-3 title-fofinho d-flex">
               EIXO V
@@ -142,6 +152,8 @@
       <!-- EIXO VI -->
       <div class="col-md-3 mb-4">
         <div class="card overflow-hidden">
+          <h5 class="bg__card_pattern p-3 mb-0"></h5>
+
           <div class="card-body card-fofinho p-4">
             <div class="mb-3 title-fofinho d-flex">
               EIXO VI
@@ -165,6 +177,8 @@
       <!-- EIXO VII -->
       <div class="col-md-3 mb-4">
         <div class="card overflow-hidden">
+          <h5 class="bg__card_pattern p-3 mb-0"></h5>
+
           <div class="card-body card-fofinho p-4">
             <div class="mb-3 title-fofinho d-flex">
               EIXO VII
@@ -188,6 +202,8 @@
       <!-- EIXO VIII -->
       <div class="col-md-3 mb-4">
         <div class="card overflow-hidden">
+          <h5 class="bg__card_pattern p-3 mb-0"></h5>
+
           <div class="card-body card-fofinho p-4">
             <div class="mb-3 title-fofinho d-flex">
               EIXO VIII
