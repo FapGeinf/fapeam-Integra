@@ -2,10 +2,12 @@
   border: none;
   font-size: 17px;
   border-radius: 7px;
-  padding: 4px;
+  padding: 5px;
+	padding-inline: 15px;
   transition: .2s;
   color: #fff;
-  width: 120px;
+	margin: 5px;
+  /* width: 120px; */
 }
 
 .btn__bg_color {
