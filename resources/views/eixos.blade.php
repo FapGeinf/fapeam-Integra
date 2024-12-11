@@ -22,8 +22,8 @@
     <div class="row">
 
       <!-- EIXO I -->
-      <a class="col-md-3 mb-4" href="{{ route('apresentacoes.eixo1') }}">
-        <div class="card shadow-lg rounded-lg overflow-hidden">
+      <div class="col-md-3 mb-4" >
+        <a class="card shadow-lg rounded-lg overflow-hidden" href="{{ route('apresentacoes.eixo1') }}">
           <h5 class="card-title text-white bg__card_pattern p-3 d-flex align-items-center mb-0">
             <i class="bi bi-check-circle me-2"></i> EIXO I
           </h5>
@@ -34,12 +34,12 @@
             </div>
             <hr class="mt-2 mb-3 border-primary">
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
 
       <!-- EIXO II -->
-      <a class="col-md-3 mb-4" href="{{ route('apresentacoes.eixo2') }}">
-        <div class="card shadow-lg rounded-lg overflow-hidden" href="{{ route('apresentacoes.eixo1') }}">
+      <div class="col-md-3 mb-4">
+        <a class="card shadow-lg rounded-lg overflow-hidden" href="{{ route('apresentacoes.eixo2') }}">
           <h5 class="card-title text-white bg__card_pattern p-3 d-flex align-items-center mb-0">
             <i class="bi bi-check-circle me-2"></i> EIXO II
           </h5>
@@ -50,12 +50,12 @@
             </div>
             <hr class="mt-2 mb-3 border-primary">
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
 
       <!-- EIXO III -->
-      <a class="col-md-3 mb-4" href="{{ route('apresentacoes.eixo3') }}">
-        <div class="card shadow-lg rounded-lg overflow-hidden" >
+      <div class="col-md-3 mb-4" >
+        <a class="card shadow-lg rounded-lg overflow-hidden" href="{{ route('apresentacoes.eixo3') }}">
           <h5 class="card-title text-white bg__card_pattern p-3 d-flex align-items-center mb-0">
             <i class="bi bi-check-circle me-2"></i> EIXO III
           </h5>
@@ -66,12 +66,12 @@
             </div>
             <hr class="mt-2 mb-3 border-primary">
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
 
       <!-- EIXO IV -->
-      <a class="col-md-3 mb-4" href="{{ route('apresentacoes.eixo4') }}">
-        <div class="card shadow-lg rounded-lg overflow-hidden">
+      <div class="col-md-3 mb-4" >
+        <a class="card shadow-lg rounded-lg overflow-hidden" href="{{ route('apresentacoes.eixo4') }}">
           <h5 class="card-title text-white bg__card_pattern p-3 d-flex align-items-center mb-0">
             <i class="bi bi-check-circle me-2"></i> EIXO IV
           </h5>
@@ -82,12 +82,12 @@
             </div>
             <hr class="mt-2 mb-3 border-primary">
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
 
       <!-- EIXO V -->
-      <a class="col-md-3 mb-4" href="{{ route('apresentacoes.eixo5') }}">
-        <div class="card shadow-lg rounded-lg overflow-hidden">
+      <div class="col-md-3 mb-4" >
+        <a class="card shadow-lg rounded-lg overflow-hidden" href="{{ route('apresentacoes.eixo5') }}">
           <h5 class="card-title text-white bg__card_pattern p-3 d-flex align-items-center mb-0">
             <i class="bi bi-check-circle me-2"></i> EIXO V
           </h5>
@@ -98,12 +98,12 @@
             </div>
             <hr class="mt-2 mb-3 border-primary">
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
 
       <!-- EIXO VI -->
-      <a class="col-md-3 mb-4" href="{{ route('apresentacoes.eixo6') }}">
-        <div class="card shadow-lg rounded-lg overflow-hidden">
+      <div class="col-md-3 mb-4">
+        <a class="card shadow-lg rounded-lg overflow-hidden" href="{{ route('apresentacoes.eixo6') }}">
           <h5 class="card-title text-white bg__card_pattern p-3 d-flex align-items-center mb-0">
             <i class="bi bi-check-circle me-2"></i> EIXO VI
           </h5>
@@ -114,12 +114,12 @@
             </div>
             <hr class="mt-2 mb-3 border-primary">
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
 
       <!-- EIXO VII -->
-      <a class="col-md-3 mb-4" href="{{ route('apresentacoes.eixo7') }}">
-        <div class="card shadow-lg rounded-lg overflow-hidden">
+      <div class="col-md-3 mb-4">
+        <a class="card shadow-lg rounded-lg overflow-hidden" href="{{ route('apresentacoes.eixo7') }}">
           <h5 class="card-title text-white bg__card_pattern p-3 d-flex align-items-center mb-0">
             <i class="bi bi-check-circle me-2"></i> EIXO VII
           </h5>
@@ -130,12 +130,12 @@
             </div>
             <hr class="mt-2 mb-3 border-primary">
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
 
       <!-- EIXO VIII -->
-      <a class="col-md-3 mb-4" href="{{ route('apresentacoes.eixo8') }}">
-        <div class="card shadow-lg rounded-lg overflow-hidden">
+      <div class="col-md-3 mb-4">
+        <a class="card shadow-lg rounded-lg overflow-hidden" href="{{ route('apresentacoes.eixo8') }}">
           <h5 class="card-title text-white bg__card_pattern p-3 d-flex align-items-center mb-0">
             <i class="bi bi-check-circle me-2"></i> EIXO VIII
           </h5>
@@ -146,10 +146,10 @@
             </div>
             <hr class="mt-2 mb-3 border-primary">
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
 
-    </div>
+    </>
   </div>
 </div>
 @endsection
