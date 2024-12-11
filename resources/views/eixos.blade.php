@@ -5,6 +5,58 @@
 
 <head>
   <link rel="stylesheet" href="{{ asset('css/eixos.css') }}">
+
+  <style>
+    .card-fofinho {
+      justify-content: center;
+      align-items: center;
+    }
+
+    .title-fofinho {
+      font-size: 30px;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+    }
+
+    /* Estilo para o card original e alternativo */
+    .card {
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-10px)
+    }
+
+    .card-hover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #002560;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+      z-index: 1;
+    }
+
+    /* Exibe o card alternativo ao passar o mouse */
+    .card:hover .card-hover {
+      opacity: 1;
+    }
+
+    .card:hover .card-body {
+      opacity: 0;
+    }
+
+    .card-hover button {
+      margin-top: 10px;
+    }
+  </style>
 </head>
 
 <div class="form-wrapper pt-5">
@@ -22,134 +74,79 @@
     <div class="row">
 
       <!-- EIXO I -->
-      <div class="col-md-3 mb-4" >
-        <a class="card shadow-lg rounded-lg overflow-hidden" href="{{ route('apresentacoes.eixo1') }}">
-          <h5 class="card-title text-white bg__card_pattern p-3 d-flex align-items-center mb-0">
-            <i class="bi bi-check-circle me-2"></i> EIXO I
-          </h5>
-          <div class="card-body p-4">
-            <div class="mb-3 d-flex align-items-start">
-              <i class="bi bi-bookmark-fill icon__color me-2 fs-5"></i>
-              <p class="card-text text-muted fs-6 mb-0">COMPROMETIMENTO E APOIO DA ALTA DIREÇÃO</p>
+      <div class="col-md-3 mb-4">
+        <div class="card shadow-lg rounded-lg overflow-hidden">
+          <div class="card-body card-fofinho p-4">
+            <div class="mb-3 title-fofinho d-flex">
+              EIXO I
             </div>
-            <hr class="mt-2 mb-3 border-primary">
+            <div class="mt-5">
+              <span class="">Passe o mouse</span>
+            </div>
+            
           </div>
-        </a>
+
+          <!-- Card alternativo -->
+          <div class="card-hover">
+            <p class="p-5">COMPROMETIMENTO E APOIO DA ALTA DIREÇÃO</p>
+            <button class="btn btn-light mt-5">Ler mais</button>
+          </div>
+        </div>
       </div>
 
       <!-- EIXO II -->
       <div class="col-md-3 mb-4">
-        <a class="card shadow-lg rounded-lg overflow-hidden" href="{{ route('apresentacoes.eixo2') }}">
-          <h5 class="card-title text-white bg__card_pattern p-3 d-flex align-items-center mb-0">
-            <i class="bi bi-check-circle me-2"></i> EIXO II
-          </h5>
-          <div class="card-body p-4">
-            <div class="mb-3 d-flex align-items-start">
-              <i class="bi bi-bookmark-fill icon__color me-2 fs-5"></i>
-              <p class="card-text text-muted fs-6 mb-0">INSTITUCIONALIZAÇÃO DO CÓDIGO DE CONDUTA</p>
+        <div class="card shadow-lg rounded-lg overflow-hidden">
+          <div class="card-body card-fofinho p-4">
+            <div class="mb-3 title-fofinho d-flex">
+              EIXO II
             </div>
-            <hr class="mt-2 mb-3 border-primary">
           </div>
-        </a>
+          <!-- Card alternativo -->
+          <div class="card-hover">
+            <p>INSTITUCIONALIZAÇÃO DO CÓDIGO DE CONDUTA</p>
+            <button class="btn btn-light">Ação</button>
+          </div>
+        </div>
       </div>
+
 
       <!-- EIXO III -->
-      <div class="col-md-3 mb-4" >
-        <a class="card shadow-lg rounded-lg overflow-hidden" href="{{ route('apresentacoes.eixo3') }}">
-          <h5 class="card-title text-white bg__card_pattern p-3 d-flex align-items-center mb-0">
-            <i class="bi bi-check-circle me-2"></i> EIXO III
-          </h5>
-          <div class="card-body p-4">
-            <div class="mb-3 d-flex align-items-start">
-              <i class="bi bi-bookmark-fill icon__color me-2 fs-5"></i>
-              <p class="card-text text-muted fs-6 mb-0">AVALIAÇÃO DE RISCOS</p>
-            </div>
-            <hr class="mt-2 mb-3 border-primary">
-          </div>
-        </a>
-      </div>
-
-      <!-- EIXO IV -->
-      <div class="col-md-3 mb-4" >
-        <a class="card shadow-lg rounded-lg overflow-hidden" href="{{ route('apresentacoes.eixo4') }}">
-          <h5 class="card-title text-white bg__card_pattern p-3 d-flex align-items-center mb-0">
-            <i class="bi bi-check-circle me-2"></i> EIXO IV
-          </h5>
-          <div class="card-body p-4">
-            <div class="mb-3 d-flex align-items-start">
-              <i class="bi bi-bookmark-fill icon__color me-2 fs-5"></i>
-              <p class="card-text text-muted fs-6 mb-0">IMPLEMENTAÇÃO DOS CONTROLES INTERNOS</p>
-            </div>
-            <hr class="mt-2 mb-3 border-primary">
-          </div>
-        </a>
-      </div>
-
-      <!-- EIXO V -->
-      <div class="col-md-3 mb-4" >
-        <a class="card shadow-lg rounded-lg overflow-hidden" href="{{ route('apresentacoes.eixo5') }}">
-          <h5 class="card-title text-white bg__card_pattern p-3 d-flex align-items-center mb-0">
-            <i class="bi bi-check-circle me-2"></i> EIXO V
-          </h5>
-          <div class="card-body p-4">
-            <div class="mb-3 d-flex align-items-start">
-              <i class="bi bi-bookmark-fill icon__color me-2 fs-5"></i>
-              <p class="card-text text-muted fs-6 mb-0">COMUNICAÇÃO E TREINAMENTOS PERIÓDICOS</p>
-            </div>
-            <hr class="mt-2 mb-3 border-primary">
-          </div>
-        </a>
-      </div>
-
-      <!-- EIXO VI -->
       <div class="col-md-3 mb-4">
-        <a class="card shadow-lg rounded-lg overflow-hidden" href="{{ route('apresentacoes.eixo6') }}">
-          <h5 class="card-title text-white bg__card_pattern p-3 d-flex align-items-center mb-0">
-            <i class="bi bi-check-circle me-2"></i> EIXO VI
-          </h5>
-          <div class="card-body p-4">
-            <div class="mb-3 d-flex align-items-start">
-              <i class="bi bi-bookmark-fill icon__color me-2 fs-5"></i>
-              <p class="card-text text-muted fs-6 mb-0">CANAIS DE DENÚNCIA</p>
+        <div class="card shadow-lg rounded-lg overflow-hidden">
+          <div class="card-body card-fofinho p-4">
+            <div class="mb-3 title-fofinho d-flex">
+              EIXO III
             </div>
-            <hr class="mt-2 mb-3 border-primary">
+
+            <span></span>
           </div>
-        </a>
+          <!-- Card alternativo -->
+          <div class="card-hover">
+            <p>AVALIAÇÃO DE RISCO</p>
+            <button class="btn btn-light">Ação</button>
+          </div>
+        </div>
       </div>
 
-      <!-- EIXO VII -->
+      <!-- EIXO IIII -->
       <div class="col-md-3 mb-4">
-        <a class="card shadow-lg rounded-lg overflow-hidden" href="{{ route('apresentacoes.eixo7') }}">
-          <h5 class="card-title text-white bg__card_pattern p-3 d-flex align-items-center mb-0">
-            <i class="bi bi-check-circle me-2"></i> EIXO VII
-          </h5>
-          <div class="card-body p-4">
-            <div class="mb-3 d-flex align-items-start">
-              <i class="bi bi-bookmark-fill icon__color me-2 fs-5"></i>
-              <p class="card-text text-muted fs-6 mb-0">INVESTIGAÇÕES INTERNAS</p>
+        <div class="card shadow-lg rounded-lg overflow-hidden">
+          <div class="card-body card-fofinho p-4">
+            <div class="mb-3 title-fofinho d-flex">
+              EIXO IIII
             </div>
-            <hr class="mt-2 mb-3 border-primary">
           </div>
-        </a>
+          <!-- Card alternativo -->
+          <div class="card-hover">
+            <p>IMPLEMENTAÇÃO DOS CONTROLES INTERNOS</p>
+            <button class="btn btn-light">Ação</button>
+          </div>
+        </div>
       </div>
 
-      <!-- EIXO VIII -->
-      <div class="col-md-3 mb-4">
-        <a class="card shadow-lg rounded-lg overflow-hidden" href="{{ route('apresentacoes.eixo8') }}">
-          <h5 class="card-title text-white bg__card_pattern p-3 d-flex align-items-center mb-0">
-            <i class="bi bi-check-circle me-2"></i> EIXO VIII
-          </h5>
-          <div class="card-body p-4">
-            <div class="mb-3 d-flex align-items-start">
-              <i class="bi bi-bookmark-fill icon__color me-2 fs-5"></i>
-              <p class="card-text text-muted fs-6 mb-0">MONITORAMENTO CONTÍNUO</p>
-            </div>
-            <hr class="mt-2 mb-3 border-primary">
-          </div>
-        </a>
-      </div>
-
-    </>
+    </div>
   </div>
 </div>
+
 @endsection
