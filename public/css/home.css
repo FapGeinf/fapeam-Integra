@@ -20,9 +20,9 @@ body {
 }
 
 /* REMOVE AS CONFIGURAÇÕES DO GLOBAL.CSS */
-.login-page .appContent {
+/* .login-page .appContent {
     margin-left: 0 !important;
-}
+} */
 
 .appContent {
     margin-left: 0 !important;
@@ -88,17 +88,17 @@ body {
     overflow: hidden;
 }
 
-.logo {
+/* .logo {
     text-align: center;
 }
 
 .logo img {
     height: 100%;
-}
+} */
 
-.img {
+/* .img {
     height: 60%;
-}
+} */
 
 .button-container {
     display: flex;
