@@ -25,202 +25,200 @@
       <!-- EIXO I -->
       <div class="col-md-3 mb-4">
         <div class="card overflow-hidden">
-          <h5 class="bg__card_pattern p-3 mb-0"></h5>
+          <h5 class="bg__card_pattern p-1 mb-0"></h5>
 
           <div class="card-body card-fofinho p-4">
-            <div class="mb-3 title-fofinho d-flex">
-              EIXO I
+            <div class="mb-3 title-fofinho text-center d-flex">
+              <span class="title-fofinho"></span>EIXO<br>I
             </div>
-
-            <div class="mt-5 custom__mouse">
-              <span style="color: #0c326f">
-                <i class="fas fa-mouse-pointer"></i>
-                Passe o mouse
-              </span>
-            </div>
-
           </div>
 
           <div class="card-hover">
-            <p class="p-5">COMPROMETIMENTO E APOIO DA ALTA DIREÇÃO</p>
-            <button class="btn btn-light mt-5 mb-3">Ler mais</button>
+
+            <button class="btn btn-light">Abrir</button>
           </div>
+
+          <div>
+            <h5 class="bg__card_pattern p-3 text-light text-center mb-0">
+              COMPROMETIMENTO E APOIO DA ALTA DIREÇÃO
+            </h5>
+          </div>
+          
         </div>
       </div>
 
       <!-- EIXO II -->
       <div class="col-md-3 mb-4">
         <div class="card overflow-hidden">
-          <h5 class="bg__card_pattern p-3 mb-0"></h5>
-          
-          <div class="card-body card-fofinho p-4">
-            <div class="mb-3 title-fofinho d-flex">
-              EIXO II
-            </div>
+          <h5 class="bg__card_pattern p-1 mb-0"></h5>
 
-            <div class="mt-5 custom__mouse">
-              <span style="color: #0c326f">
-                <i class="fas fa-mouse-pointer"></i>
-                Passe o mouse
-              </span>
+          <div class="card-body card-fofinho p-4">
+            <div class="mb-3 title-fofinho text-center d-flex">
+              <span class="title-fofinho"></span>EIXO<br>II
             </div>
           </div>
 
           <div class="card-hover">
-            <p class="p-5">INSTITUCIONALIZAÇÃO DO CÓDIGO DE CONDUTA</p>
-            <button class="btn btn-light mt-5 mb-3">Ler mais</button>
+
+            <button class="btn btn-light">Abrir</button>
           </div>
+
+          <div>
+            <h5 class="bg__card_pattern p-3 text-light text-center mb-0">
+              INSTITUICIONALIZAÇÃO DO CÓDIGO DE CONDUTA
+            </h5>
+          </div>
+          
         </div>
       </div>
 
       <!-- EIXO III -->
       <div class="col-md-3 mb-4">
         <div class="card overflow-hidden">
-          <h5 class="bg__card_pattern p-3 mb-0"></h5>
-          
-          <div class="card-body card-fofinho p-4">
-            <div class="mb-3 title-fofinho d-flex">
-              EIXO III
-            </div>
+          <h5 class="bg__card_pattern p-1 mb-0"></h5>
 
-            <div class="mt-5 custom__mouse">
-              <span style="color: #0c326f">
-                <i class="fas fa-mouse-pointer"></i>
-                Passe o mouse
-              </span>
+          <div class="card-body card-fofinho p-4">
+            <div class="mb-3 title-fofinho text-center d-flex">
+              <span class="title-fofinho"></span>EIXO<br>III
             </div>
           </div>
 
           <div class="card-hover">
-            <p class="p-5">AVALIAÇÃO DE RISCO</p>
-            <button class="btn btn-light mt-5 mb-3">Ler mais</button>
+
+            <button class="btn btn-light">Abrir</button>
           </div>
+
+          <div>
+            <h5 class="bg__card_pattern p-3 text-light text-center mb-0">
+              AVALIAÇÃO DE RISCOS
+            </h5>
+          </div>
+          
         </div>
       </div>
 
       <!-- EIXO IV -->
       <div class="col-md-3 mb-4">
         <div class="card overflow-hidden">
-          <h5 class="bg__card_pattern p-3 mb-0"></h5>
+          <h5 class="bg__card_pattern p-1 mb-0"></h5>
 
           <div class="card-body card-fofinho p-4">
-            <div class="mb-3 title-fofinho d-flex">
-              EIXO IV
+            <div class="mb-3 title-fofinho text-center d-flex">
+              <span class="title-fofinho"></span>EIXO<br>IV
             </div>
-
-            {{-- <div class="mt-5 custom__mouse">
-              <span style="color: #0c326f">
-                <i class="fas fa-mouse-pointer"></i>
-                Passe o mouse
-              </span>
-            </div> --}}
           </div>
 
           <div class="card-hover">
-            <p class="p-5">IMPLEMENTAÇÃO DOS CONTROLES INTERNOS</p>
-            <button class="btn btn-light mt-5 mb-3">Ler mais</button>
+
+            <button class="btn btn-light">Abrir</button>
           </div>
+
+          <div>
+            <h5 class="bg__card_pattern p-3 text-light text-center mb-0">
+              IMPLEMENTAÇÃO DOS CONTROLES INTERNOS
+            </h5>
+          </div>
+          
         </div>
       </div>
 
       <!-- EIXO V -->
       <div class="col-md-3 mb-4">
         <div class="card overflow-hidden">
-          <h5 class="bg__card_pattern p-3 mb-0"></h5>
+          <h5 class="bg__card_pattern p-1 mb-0"></h5>
 
           <div class="card-body card-fofinho p-4">
-            <div class="mb-3 title-fofinho d-flex">
-              EIXO V
+            <div class="mb-3 title-fofinho text-center d-flex">
+              <span class="title-fofinho"></span>EIXO<br>V
             </div>
-
-            <div class="mt-5 custom__mouse">
-              <span style="color: #0c326f">
-                <i class="fas fa-mouse-pointer"></i>
-                Passe o mouse
-              </span>
-            </div>
-
           </div>
 
           <div class="card-hover">
-            <p class="p-5">COMUNICAÇÃO E TREINAMENTOS PERIÓDICOS</p>
-            <button class="btn btn-light mt-5 mb-3">Ler mais</button>
+
+            <button class="btn btn-light">Abrir</button>
           </div>
+
+          <div>
+            <h5 class="bg__card_pattern p-3 text-light text-center mb-0">
+              COMUNICAÇÃO E TREINAMENTOS PERIÓDICOS
+            </h5>
+          </div>
+          
         </div>
       </div>
 
       <!-- EIXO VI -->
       <div class="col-md-3 mb-4">
         <div class="card overflow-hidden">
-          <h5 class="bg__card_pattern p-3 mb-0"></h5>
+          <h5 class="bg__card_pattern p-1 mb-0"></h5>
 
           <div class="card-body card-fofinho p-4">
-            <div class="mb-3 title-fofinho d-flex">
-              EIXO VI
-            </div>
-
-            <div class="mt-5 custom__mouse">
-              <span style="color: #0c326f">
-                <i class="fas fa-mouse-pointer"></i>
-                Passe o mouse
-              </span>
+            <div class="mb-3 title-fofinho text-center d-flex">
+              <span class="title-fofinho"></span>EIXO<br>VI
             </div>
           </div>
 
           <div class="card-hover">
-            <p class="p-5">CANAIS DE DENÚNCIA</p>
-            <button class="btn btn-light mt-5 mb-3">Ler mais</button>
+
+            <button class="btn btn-light">Abrir</button>
           </div>
+
+          <div>
+            <h5 class="bg__card_pattern p-3 text-light text-center mb-0">
+              CANAIS DE DENÚNCIA
+            </h5>
+          </div>
+          
         </div>
       </div>
 
       <!-- EIXO VII -->
       <div class="col-md-3 mb-4">
         <div class="card overflow-hidden">
-          <h5 class="bg__card_pattern p-3 mb-0"></h5>
+          <h5 class="bg__card_pattern p-1 mb-0"></h5>
 
           <div class="card-body card-fofinho p-4">
-            <div class="mb-3 title-fofinho d-flex">
-              EIXO VII
-            </div>
-
-            <div class="mt-5 custom__mouse">
-              <span style="color: #0c326f">
-                <i class="fas fa-mouse-pointer"></i>
-                Passe o mouse
-              </span>
+            <div class="mb-3 title-fofinho text-center d-flex">
+              <span class="title-fofinho"></span>EIXO<br>VII
             </div>
           </div>
 
           <div class="card-hover">
-            <p class="p-5">INVESTIGAÇÕES INTERNAS</p>
-            <button class="btn btn-light mt-5 mb-3">Ler mais</button>
+
+            <button class="btn btn-light">Abrir</button>
           </div>
+
+          <div>
+            <h5 class="bg__card_pattern p-3 text-light text-center mb-0">
+              INVESTIGAÇÕES INTERNAS
+            </h5>
+          </div>
+          
         </div>
       </div>
 
       <!-- EIXO VIII -->
       <div class="col-md-3 mb-4">
         <div class="card overflow-hidden">
-          <h5 class="bg__card_pattern p-3 mb-0"></h5>
+          <h5 class="bg__card_pattern p-1 mb-0"></h5>
 
           <div class="card-body card-fofinho p-4">
-            <div class="mb-3 title-fofinho d-flex">
-              EIXO VIII
-            </div>
-
-            <div class="mt-5 custom__mouse">
-              <span style="color: #0c326f">
-                <i class="fas fa-mouse-pointer"></i>
-                Passe o mouse
-              </span>
+            <div class="mb-3 title-fofinho text-center d-flex">
+              <span class="title-fofinho"></span>EIXO<br>VIII
             </div>
           </div>
 
           <div class="card-hover">
-            <p class="p-5">MONITORAMENTO CONTÍNUO</p>
-            <button class="btn btn-light mt-5 mb-3">Ler mais</button>
+
+            <button class="btn btn-light">Abrir</button>
           </div>
+
+          <div>
+            <h5 class="bg__card_pattern p-3 text-light text-center mb-0">
+              MONITORAMENTO CONTÍNUO
+            </h5>
+          </div>
+          
         </div>
       </div>
 
