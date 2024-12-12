@@ -48,11 +48,11 @@
                                     <tr>
                                         <td>{{ $atividade->id }}</td>
                                         <td>{{ $atividade->eixo->nome }}</td>
-                                        <td>{{ $atividade->atividade_descricao }}</td>
-                                        <td>{{ $atividade->objetivo }}</td>
-                                        <td>{{$atividade->publico_alvo}}</td>
+                                        <td>{!!$atividade->atividade_descricao!!}</td>
+                                        <td>{!!$atividade->objetivo !!}</td>
+                                        <td>{!!$atividade->publico_alvo!!}</td>
                                         <td>{{$atividade->tipo_evento}}</td>
-                                        <td>{{$atividade->canal_divulgacao}}</td>
+                                        <td>{!!$atividade->canal_divulgacao!!}</td>
                                         <td>{{ \Carbon\Carbon::parse($atividade->data_prevista)->format('d/m/Y') }}</td>
                                         <td>{{ $atividade->data_realizada ? \Carbon\Carbon::parse($atividade->data_realizada)->format('d/m/Y') : 'Não realizada' }}
                                         </td>

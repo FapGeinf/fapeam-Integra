@@ -57,8 +57,8 @@
                         </div>
                         <div class="mb-4">
                             <label for="publico_alvo" class="form-label">Público Alvo:</label>
-                            <input type="text" name="publico_alvo" id="publico_alvo" class="form-control" required
-                                maxlength="255" value="{{ old('publico_alvo', $atividade->publico_alvo) }}">
+                            <textarea name="publico_alvo" id="publico_alvo" class="form-control"
+                                required>{{ old('publico_alvo', $atividade->publico_alvo) }}</textarea>
                         </div>
                         <div class="mb-4">
                             <label for="tipo_evento" class="form-label">Tipo de Evento:</label>
@@ -69,9 +69,8 @@
                         </div>
                         <div class="mb-4">
                             <label for="canal_divulgacao" class="form-label">Canal de Divulgação:</label>
-                            <input type="text" name="canal_divulgacao" id="canal_divulgacao" class="form-control"
-                                required maxlength="255"
-                                value="{{ old('canal_divulgacao', $atividade->canal_divulgacao) }}">
+                            <textarea name="canal_divulgacao" id="canal_divulgacao" class="form-control"
+                                required>{{ old('canal_divulgacao', $atividade->canal_divulgacao) }}</textarea>
                         </div>
                         <div class="mb-4">
                             <label for="data_prevista" class="form-label">Data Prevista:</label>
