@@ -1,64 +1,60 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-lg mt-5">
-    <div class="alert-container">
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @elseif (session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-        @endif
 
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+@section('title') {{ 'Nova Atividade' }} @endsection
+
+<head>
+  <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
+</head>
+
+
+
+<div class="form-wrapper pt-4 paddingLeft">
+  <div class="form_create border">
+    <h3 style="text-align: center; margin-bottom: 5px;">
+      Insira sua Atividade
+    </h3>
+
+    <div class="tipWarning mb-3">
+      <span class="asteriscoTop">*</span>
+      Campos obrigatórios
     </div>
 
-    <div class="row d-flex justify-content-center align-items-center ">
-        <div class="col-lg-12">
-            <div class="card rounded-3 shadow-sm border-1 mb-4">
-                <div class="card-body">
-                    <h2 class="mb-0 fw-bold text-center">Insira sua Atividade</h2>
-                </div>
-            </div>
+    <form action="{{ route('atividades.store') }}" method="POST">
+      @csrf
 
-            <div class="card rounded-3 shadow-sm border-1 mb-4">
-                <div class="card-body">
-                    <form action="{{ route('atividades.store') }}" method="POST">
-                        @csrf
-                        <div class="mb-5">
-                            <label for="eixo_id" class="form-label">Eixo:</label>
-                            <select name="eixo_id" id="eixo_id" class="form-select" required>
-                                <option value="">Selecione o Eixo</option>
-                                @foreach ($eixos as $eixo)
-                                    <option value="{{ $eixo->id }}" {{ old('eixo_id') == $eixo->id ? 'selected' : '' }}>
-                                        {{ $eixo->nome }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
+      <div class="row g-3">
+        <!-- EIXO -->
+        <div class="col-12">
+          <label for="eixo_id" class="form-label">Eixo:</label>
+          
+          <select name="eixo_id" id="eixo_id" class="form-select" required>
+            <option value="">Selecione o Eixo</option>
+            @foreach ($eixos as $eixo)
+              <option value="{{ $eixo->id }}" {{ old('eixo_id') == $eixo->id ? 'selected' : '' }}>
+                {{ $eixo->nome }}
+              </option>
+            @endforeach
+          </select>
+        </div>
 
-                        <div class="mb-5">
-                            <label for="atividade_descricao" class="form-label">Atividade:</label>
-                            <textarea name="atividade_descricao" id="atividade_descricao" class="form-control"
-                                required>{{ old('atividade_descricao') }}</textarea>
-                        </div>
+        <!-- ATIVIDADE & OBJETIVO -->
+        <div class="col-12">
+          <label for="atividade_descricao" class="form-label">Atividade:</label>
 
-                        <div class="mb-5">
-                            <label for="objetivo" class="form-label">Objetivo:</label>
-                            <textarea name="objetivo" id="objetivo" class="form-control"
-                                required>{{ old('objetivo') }}</textarea>
-                        </div>
+          <textarea name="atividade_descricao" id="atividade_descricao" class="form-control" required>
+            {{ old('atividade_descricao') }}
+          </textarea>
+        </div>
+
+        <div class="col-12">
+          <label for="objetivo" class="form-label">Objetivo:</label>
+
+          <textarea name="objetivo" id="objetivo" class="form-control" required>
+            {{ old('objetivo') }}
+          </textarea>
+        </div>
 
                         <div class="mb-5">
                             <label for="publico_alvo" class="form-label">Público Alvo:</label>
@@ -79,60 +75,63 @@
                                 required>{{ old('canal_divulgacao') }}</textarea>
                         </div>
 
-                        <div class="mb-5">
-                            <label for="data_prevista" class="form-label">Data Prevista:</label>
-                            <input type="date" name="data_prevista" id="data_prevista" class="form-control" required
-                                value="{{ old('data_prevista') }}">
-                        </div>
+        <!-- DATAS -->
+        <div class="col-12 col-md-6">
+          <label for="data_prevista" class="form-label">Data Prevista:</label>
 
-                        <div class="mb-5">
-                            <label for="data_realizada" class="form-label">Data Realizada:</label>
-                            <input type="date" name="data_realizada" id="data_realizada" class="form-control"
-                                min="{{ \Carbon\Carbon::today()->toDateString() }}" value="{{ old('data_realizada') }}">
-                        </div>
-
-                        <div class="mb-5">
-                            <label for="meta" class="form-label">Meta:</label>
-                            <input type="number" name="meta" id="meta" class="form-control" required min="0"
-                                value="{{ old('meta') }}">
-                        </div>
-
-                        <div class="mb-5">
-                            <label for="realizado" class="form-label">Realizado:</label>
-                            <input type="number" name="realizado" id="realizado" class="form-control" required min="0"
-                                value="{{ old('realizado') }}">
-                        </div>
-
-                        <div class="d-flex justify-content-end">
-                            <button type="submit" class="btn btn-md btn-primary">Enviar a Atividade</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+          <input type="date" name="data_prevista" id="data_prevista" class="form-control" required value="{{ old('data_prevista') }}">
         </div>
-    </div>
-    <script src="{{asset('ckeditor/ckeditor.js')}}"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            let ckeditorConfig = {
-                extraPlugins: 'wordcount',
-                wordcount: {
-                    showCharCount: true,
-                    maxCharCount: 10000,
-                    charCountMsg: 'Caracteres restantes: {0}',
-                    maxCharCountMsg: 'Você atingiu o limite máximo de caracteres permitidos.'
-                }
-            };
 
-            let ckeditorConfig2 = {
-                extraPlugins: 'wordcount',
-                wordcount: {
-                    showCharCount: true,
-                    maxCharCount: 255,
-                    charCountMsg: 'Caracteres restantes: {0}',
-                    maxCharCountMsg: 'Você atingiu o limite máximo de caracteres permitidos.'
-                }
-            };
+        <div class="col-12 col-md-6">
+          <label for="data_realizada" class="form-label">Data Realizada:</label>
+
+          <input type="date" name="data_realizada" id="data_realizada" class="form-control" min="{{ \Carbon\Carbon::today()->toDateString() }}" value="{{ old('data_realizada') }}">
+        </div>
+
+        <!-- META & REALIZADO -->
+        <div class="col-12 col-md-6">
+          <label for="meta" class="form-label">Meta:</label>
+
+          <input type="number" name="meta" id="meta" class="form-control" required min="0" value="{{ old('meta') }}">
+        </div>
+
+        <div class="col-12 col-md-6">
+          <label for="realizado" class="form-label">Realizado:</label>
+
+          <input type="number" name="realizado" id="realizado" class="form-control" required min="0" value="{{ old('realizado') }}">
+        </div>
+
+        <div class="d-flex justify-content-end pt-3">
+          <button type="submit" class="btn btn-md btn-primary">Enviar a Atividade</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="{{asset('ckeditor/ckeditor.js')}}"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    let ckeditorConfig = {
+      extraPlugins: 'wordcount',
+      wordcount: {
+        showCharCount: true,
+        maxCharCount: 10000,
+        charCountMsg: 'Caracteres restantes: {0}',
+        maxCharCountMsg: 'Você atingiu o limite máximo de caracteres permitidos.'
+      }
+    };
+
+    let ckeditorConfig2 = {
+      extraPlugins: 'wordcount',
+      wordcount: {
+        showCharCount: true,
+        maxCharCount: 255,
+        charCountMsg: 'Caracteres restantes: {0}',
+        maxCharCountMsg: 'Você atingiu o limite máximo de caracteres permitidos.'
+      }
+    };
 
             if (document.getElementById('atividade_descricao')) {
                 CKEDITOR.replace('atividade_descricao', ckeditorConfig);
