@@ -93,24 +93,25 @@ Route::get('/relatorio/riscos', [RelatorioController::class, 'gerarRelatorioGera
 
 Route::get('/intro',[DocumentoController::class,'intro'])->name('documentos.intro')->middleware('auth');
 
+Route::prefix('apresentacoes')->name('apresentacoes.')->middleware('auth')->group(function () {
+    Route::get('/eixo1', [EixosController::class, 'Eixo1'])->name('eixo1');
+    Route::get('/eixo2', [EixosController::class, 'Eixo2'])->name('eixo2');
+    Route::get('/eixo3', [EixosController::class, 'Eixo3'])->name('eixo3');
+    Route::get('/eixo4', [EixosController::class, 'Eixo4'])->name('eixo4');
+    Route::get('/eixo5', [EixosController::class, 'Eixo5'])->name('eixo5');
+    Route::get('/eixo6', [EixosController::class, 'Eixo6'])->name('eixo6');
+    Route::get('/eixo7', [EixosController::class, 'Eixo7'])->name('eixo7');
+    Route::get('/eixo8', [EixosController::class, 'Eixo8'])->name('eixo8');
+});
 
-
-Route::get('/apresentacoes/eixo1', [EixosController::class, 'Eixo1'])->name('apresentacoes.eixo1')->middleware('auth');
-Route::get('/apresentacoes/eixo2', [EixosController::class, 'Eixo2'])->name('apresentacoes.eixo2')->middleware('auth');
-Route::get('/apresentacoes/eixo3', [EixosController::class, 'Eixo3'])->name('apresentacoes.eixo3')->middleware('auth');
-Route::get('/apresentacoes/eixo4', [EixosController::class, 'Eixo4'])->name('apresentacoes.eixo4')->middleware('auth');
-Route::get('/apresentacoes/eixo5', [EixosController::class, 'Eixo5'])->name('apresentacoes.eixo5')->middleware('auth');
-Route::get('/apresentacoes/eixo6', [EixosController::class, 'Eixo6'])->name('apresentacoes.eixo6')->middleware('auth');
-Route::get('/apresentacoes/eixo7', [EixosController::class, 'Eixo7'])->name('apresentacoes.eixo7')->middleware('auth');
-Route::get('/apresentacoes/eixo8', [EixosController::class, 'Eixo8'])->name('apresentacoes.eixo8')->middleware('auth');
-
-
-Route::get('/atividades',[AtividadeController::class,'index'])->name('atividades.index')->middleware('auth');
-Route::get('/atividade/show/{id}',[AtividadeController::class,'showAtividade'])->name('atividades.show')->middleware('auth');
-Route::get('/atividades/create',[AtividadeController::class,'createAtividade'])->name('atividades.create')->middleware('auth');
-Route::post('/atividades/store',[AtividadeController::class,'storeAtividade'])->name('atividades.store')->middleware('auth');
-Route::get('/atividade/edit/{id}',[AtividadeController::class,'editAtividade'])->name('atividades.edit')->middleware('auth');
-Route::put('/atividade/update/{id}',[AtividadeController::class,'updateAtividade'])->name('atividades.update')->middleware('auth');
-Route::delete('/atividade/delete/{id}',[AtividadeController::class,'deleteAtividade'])->name('atividades.delete')->middleware('auth');
+Route::prefix('atividades')->name('atividades.')->middleware('auth')->group(function () {
+    Route::get('/', [AtividadeController::class, 'index'])->name('index');
+    Route::get('/show/{id}', [AtividadeController::class, 'showAtividade'])->name('show');
+    Route::get('/create', [AtividadeController::class, 'createAtividade'])->name('create');
+    Route::post('/store', [AtividadeController::class, 'storeAtividade'])->name('store');
+    Route::get('/edit/{id}', [AtividadeController::class, 'editAtividade'])->name('edit');
+    Route::put('/update/{id}', [AtividadeController::class, 'updateAtividade'])->name('update');
+    Route::delete('/delete/{id}', [AtividadeController::class, 'deleteAtividade'])->name('delete');
+});
 
 Route::get('/graficos',[RelatorioController::class,'graficosIndex'])->name('graficos.index')->middleware('auth');

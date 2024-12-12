@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-lg">
+<div class="container-lg mt-5"> <!-- Adicionado mt-5 para margem superior -->
     <div class="alert-container">
         @if (session('success'))
             <div class="alert alert-success">
@@ -22,7 +22,7 @@
             </div>
         @endif
     </div>
-    <div class="row d-flex justify-content-center align-items-center">
+    <div class="row d-flex justify-content-center align-items-center mt-5">
         <div class="col-lg-12">
             <div class="card rounded-3 shadow-sm border-1 mb-4">
                 <div class="card-body">
