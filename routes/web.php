@@ -112,4 +112,4 @@ Route::get('/atividade/edit/{id}',[AtividadeController::class,'editAtividade'])-
 Route::put('/atividade/update/{id}',[AtividadeController::class,'updateAtividade'])->name('atividades.update')->middleware('auth');
 Route::delete('/atividade/delete/{id}',[AtividadeController::class,'deleteAtividade'])->name('atividades.delete')->middleware('auth');
 
-Route::get('/graficos',[RelatorioController::class,'graficosIndex'])->name('graficos.index');
+Route::get('/graficos',[RelatorioController::class,'graficosIndex'])->name('graficos.index')->middleware('auth');
