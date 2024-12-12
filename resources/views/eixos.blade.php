@@ -34,8 +34,9 @@
           </div>
 
           <div class="card-hover">
-
-            <button class="btn btn-light">Abrir</button>
+            <a href="{{ route('apresentacoes.eixo1') }}">
+              <button class="btn btn-light">Abrir</button>
+            </a>
           </div>
 
           <div>
@@ -59,8 +60,9 @@
           </div>
 
           <div class="card-hover">
-
-            <button class="btn btn-light">Abrir</button>
+            <a href="{{ route('apresentacoes.eixo2') }}">
+              <button class="btn btn-light">Abrir</button>
+            </a>
           </div>
 
           <div>
@@ -84,8 +86,9 @@
           </div>
 
           <div class="card-hover">
-
-            <button class="btn btn-light">Abrir</button>
+            <a href="{{ route('apresentacoes.eixo3') }}">
+              <button class="btn btn-light">Abrir</button>
+            </a>
           </div>
 
           <div>
@@ -109,8 +112,9 @@
           </div>
 
           <div class="card-hover">
-
-            <button class="btn btn-light">Abrir</button>
+            <a href="{{ route('apresentacoes.eixo4') }}">
+              <button class="btn btn-light">Abrir</button>
+            </a>
           </div>
 
           <div>
@@ -134,8 +138,9 @@
           </div>
 
           <div class="card-hover">
-
-            <button class="btn btn-light">Abrir</button>
+            <a href="{{ route('apresentacoes.eixo5') }}">
+              <button class="btn btn-light">Abrir</button>
+            </a>
           </div>
 
           <div>
@@ -159,8 +164,9 @@
           </div>
 
           <div class="card-hover">
-
-            <button class="btn btn-light">Abrir</button>
+            <a href="{{ route('apresentacoes.eixo6') }}">
+              <button class="btn btn-light">Abrir</button>
+            </a>
           </div>
 
           <div>
@@ -184,8 +190,9 @@
           </div>
 
           <div class="card-hover">
-
-            <button class="btn btn-light">Abrir</button>
+            <a href="{{ route('apresentacoes.eixo7') }}">
+              <button class="btn btn-light">Abrir</button>
+            </a>
           </div>
 
           <div>
@@ -209,8 +216,9 @@
           </div>
 
           <div class="card-hover">
-
-            <button class="btn btn-light">Abrir</button>
+            <a href="{{ route('apresentacoes.eixo8') }}">
+              <button class="btn btn-light">Abrir</button>
+            </a>
           </div>
 
           <div>
