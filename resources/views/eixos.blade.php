@@ -39,7 +39,7 @@
           </div>
 
           <div>
-            <h5 class="bg__card_pattern p-3 text-light text-center mb-0">
+            <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0">
               COMPROMETIMENTO E APOIO DA ALTA DIREÇÃO
             </h5>
           </div>
@@ -64,7 +64,7 @@
           </div>
 
           <div>
-            <h5 class="bg__card_pattern p-3 text-light text-center mb-0">
+            <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0">
               INSTITUICIONALIZAÇÃO DO CÓDIGO DE CONDUTA
             </h5>
           </div>
@@ -89,7 +89,7 @@
           </div>
 
           <div>
-            <h5 class="bg__card_pattern p-3 text-light text-center mb-0">
+            <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0">
               AVALIAÇÃO DE RISCOS
             </h5>
           </div>
@@ -114,7 +114,7 @@
           </div>
 
           <div>
-            <h5 class="bg__card_pattern p-3 text-light text-center mb-0">
+            <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0">
               IMPLEMENTAÇÃO DOS CONTROLES INTERNOS
             </h5>
           </div>
@@ -139,7 +139,7 @@
           </div>
 
           <div>
-            <h5 class="bg__card_pattern p-3 text-light text-center mb-0">
+            <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0">
               COMUNICAÇÃO E TREINAMENTOS PERIÓDICOS
             </h5>
           </div>
@@ -164,7 +164,7 @@
           </div>
 
           <div>
-            <h5 class="bg__card_pattern p-3 text-light text-center mb-0">
+            <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0">
               CANAIS DE DENÚNCIA
             </h5>
           </div>
@@ -189,7 +189,7 @@
           </div>
 
           <div>
-            <h5 class="bg__card_pattern p-3 text-light text-center mb-0">
+            <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0">
               INVESTIGAÇÕES INTERNAS
             </h5>
           </div>
@@ -214,7 +214,7 @@
           </div>
 
           <div>
-            <h5 class="bg__card_pattern p-3 text-light text-center mb-0">
+            <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0">
               MONITORAMENTO CONTÍNUO
             </h5>
           </div>
