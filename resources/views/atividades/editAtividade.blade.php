@@ -41,9 +41,11 @@
                         <select name="eixo_id" id="eixo_id" class="form-select" required>
                             <option value="">Selecione o Eixo</option>
                             @foreach ($eixos as $eixo)
-                                <option value="{{ $eixo->id }}" {{ old('eixo_id', $atividade->eixo_id) == $eixo->id ? 'selected' : '' }}>
-                                    {{ 'Eixo ' . $loop->iteration . ' - ' . $eixo->nome }}
-                                </option>
+                                @if (in_array($eixo->id, [1, 2, 5]))
+                                    <option value="{{ $eixo->id }}" {{ old('eixo_id', $atividade->eixo_id) == $eixo->id ? 'selected' : '' }}>
+                                        {{ 'Eixo ' . $loop->iteration . ' - ' . $eixo->nome }}
+                                    </option>
+                                @endif
                             @endforeach
                         </select>
                     </div>
