@@ -31,6 +31,10 @@ Route::get('/home', function (){
 	return redirect()->route('riscos.index');
 });
 
+Route::get('/', function () {
+	return redirect()->route('documentos.intro');
+});
+
 Route::get('/index', [RiscoController::class, 'index'])->name('riscos.index');
 Route::get('/risco/novo', [RiscoController::class,'create'])->name('riscos.create');
 Route::post('/risco/criar', [RiscoController::class, 'store'])->name('riscos.store');
@@ -69,9 +73,6 @@ Route::get('/riscos/nao-implementada', [StatusController::class, 'naoImplementad
 
 Auth::routes();
 
-Route::get('/', function () {
-    return redirect()->route('documentos.intro');
-});
 
 Route::get('/apresentacao', [DocumentoController::class, 'showSystemPage'] )->name('apresentacao');
 

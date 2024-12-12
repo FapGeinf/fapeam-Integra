@@ -138,9 +138,9 @@
         <hr class="spacer" style="margin-top: 4rem; color: #22539c;">
 
         <ul class="ulList">
-            <li class="item-menu liHover">
-                <a href="{{ route('documentos.eixos') }}"
-                    class="{{ Request::routeIs('documentos.eixos') ? 'active-icon' : '' }}">
+            <li class="item-menu liHover" >
+                <a href="{{ route('documentos.intro') }}"
+                    class="{{ Request::routeIs('documentos.intro') ? 'active-icon' : '' }}">
                     <i class="bi bi-house icon"></i>
                     <span class="txt-link">Home</span>
                 </a>
@@ -148,8 +148,7 @@
 
             <li class="item-menu liHover" style="{{ Request::routeIs('documentos.intro') ? 'display: none;' : '' }}">
 
-                <a href="{{ route('documentos.intro') }}"
-                    class="{{ Request::routeIs('documentos.intro') ? 'active-icon' : '' }}">
+                <a href="{{ route('documentos.intro') }}" class="{{ Request::routeIs('documentos.intro') ? 'active-icon' : '' }}">
                     <i class="bi bi-question-circle icon"></i>
                     <span class="txt-link">Apresentação</span>
                 </a>
