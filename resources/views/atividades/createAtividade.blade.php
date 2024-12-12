@@ -8,8 +8,6 @@
   <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
 </head>
 
-
-
 <div class="form-wrapper pt-4 paddingLeft">
   <div class="form_create border">
     <h3 style="text-align: center; margin-bottom: 5px;">
@@ -56,24 +54,26 @@
           </textarea>
         </div>
 
-                        <div class="mb-5">
-                            <label for="publico_alvo" class="form-label">Público Alvo:</label>
-                            <textarea name="publico_alvo" id="publico_alvo" class="form-control"
-                                required>{{ old('publico_alvo') }}</textarea>
-                        </div>
-                        <div class="mb-5">
-                            <label for="tipo_evento" class="form-label">Tipo de Evento:</label>
-                            <select name="tipo_evento" id="tipo_evento" class="form-select" required>
-                                <option value="Presencial" {{ old('tipo_evento') == 'Presencial' ? 'selected' : '' }}>
-                                    Presencial</option>
-                                <option value="TeleConferência" {{ old('tipo_evento') == 'TeleConferência' ? 'selected' : '' }}>TeleConferência</option>
-                            </select>
-                        </div>
-                        <div class="mb-5">
-                            <label for="canal_divulgacao" class="form-label">Canal de Divulgação:</label>
-                            <textarea name="canal_divulgacao" id="canal_divulgacao" class="form-control"
-                                required>{{ old('canal_divulgacao') }}</textarea>
-                        </div>
+        <div class="col-12">
+          <label for="publico_alvo" class="form-label">Público Alvo:</label>
+          <textarea name="publico_alvo" id="publico_alvo" class="form-control"
+          required>{{ old('publico_alvo') }}</textarea>
+        </div>
+
+        <div class="col-12">
+          <label for="tipo_evento" class="form-label">Tipo de Evento:</label>
+          <select name="tipo_evento" id="tipo_evento" class="form-select" required>
+            <option value="Presencial" {{ old('tipo_evento') == 'Presencial' ? 'selected' : '' }}>
+              Presencial</option>
+            <option value="TeleConferência" {{ old('tipo_evento') == 'TeleConferência' ? 'selected' : '' }}>TeleConferência</option>
+          </select>
+        </div>
+
+        <div class="col-12">
+            <label for="canal_divulgacao" class="form-label">Canal de Divulgação:</label>
+            <textarea name="canal_divulgacao" id="canal_divulgacao" class="form-control"
+            required>{{ old('canal_divulgacao') }}</textarea>
+        </div>
 
         <!-- DATAS -->
         <div class="col-12 col-md-6">
@@ -133,28 +133,28 @@
       }
     };
 
-            if (document.getElementById('atividade_descricao')) {
-                CKEDITOR.replace('atividade_descricao', ckeditorConfig);
-            }
-            if (document.getElementById('objetivo')) {
-                CKEDITOR.replace('objetivo', ckeditorConfig);
-            }
-            if (document.getElementById('publico_alvo')) {
-                CKEDITOR.replace('publico_alvo', ckeditorConfig2);
-            }
-            if (document.getElementById('canal_divulgacao')) {
-                CKEDITOR.replace('canal_divulgacao', ckeditorConfig2);
-            }
+    if (document.getElementById('atividade_descricao')) {
+      CKEDITOR.replace('atividade_descricao', ckeditorConfig);
+    }
+    if (document.getElementById('objetivo')) {
+      CKEDITOR.replace('objetivo', ckeditorConfig);
+    }
+    if (document.getElementById('publico_alvo')) {
+      CKEDITOR.replace('publico_alvo', ckeditorConfig2);
+    }
+    if (document.getElementById('canal_divulgacao')) {
+      CKEDITOR.replace('canal_divulgacao', ckeditorConfig2);
+    }
 
-            // Sincronizar os campos do CKEditor antes de enviar o formulário
-            const form = document.querySelector('form');
-            if (form) {
-                form.addEventListener('submit', function () {
-                    for (let instanceName in CKEDITOR.instances) {
-                        CKEDITOR.instances[instanceName].updateElement();
-                    }
-                });
-            }
-        });
-    </script>
-    @endsection
+    // Sincronizar os campos do CKEditor antes de enviar o formulário
+    const form = document.querySelector('form');
+      if (form) {
+        form.addEventListener('submit', function () {
+          for (let instanceName in CKEDITOR.instances) {
+            CKEDITOR.instances[instanceName].updateElement();
+          }
+      });
+    }
+});
+</script>
+@endsection
