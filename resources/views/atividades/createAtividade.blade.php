@@ -7,7 +7,6 @@
 <head>
     <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
 </head>
-
 <div class="alert-container mt-5">
     @if (session('success'))
         <div class="alert alert-success">
