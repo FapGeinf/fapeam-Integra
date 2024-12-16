@@ -144,7 +144,6 @@
       language: {
         url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
         search: "Procurar:",
-        lengthMenu: "Monitoramentos: _MENU_",
         info: 'Mostrando página _PAGE_ de _PAGES_',
         infoEmpty: 'Sem monitoramentos disponíveis no momento',
         infoFiltered: '(Filtrados do total de _MAX_ monitoramentos)',
@@ -153,18 +152,42 @@
       },
 
       initComplete: function () {
-        var dropdownContainer = $('<div class="dropdown mb-2"></div>')
-        .append('<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Filtros</button>')
-        .append('<div class="dropdown-menu p-3" id="filtersContent"></div>');
+        // Captura o seletor padrão de quantidade por página do DataTables
+        var lengthMenu = $('#tableHome2_length');
 
-        var selectUnidade = $('<select class="form-select form-select-sm mb-2" id="filterUnidade"><option value="">TODAS</option></select>');
-        @foreach ($atividades->unique('eixo.nome') as $atividade)
-          selectUnidade.append('<option value="{{ $atividade->eixo->nome }}">{{ $atividade->eixo->nome }}</option>');
-        @endforeach
+        // Captura a caixa de pesquisa padrão do DataTables
+        var searchBox = $('#tableHome2_filter');
 
-        $('#filtersContent').append(selectUnidade);
-        $('#tableHome2_filter').prepend(dropdownContainer);
+        // Criação do botão "Filtros" com dropdown
+        var dropdownContainer = $(`
+          <div class="dropdown mb-2">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Filtros
+            </button>
+            <div class="dropdown-menu p-3" id="filtersContent" style="min-width: 300px;">
+              <div class="mb-3">
+                <label for="filterUnidade" class="form-label">Filtrar por Eixo:</label>
+                <select class="form-select form-select-sm mb-2" id="filterUnidade">
+                  <option value="">TODOS</option>
+                  @foreach ($atividades->unique('eixo.nome') as $atividade)
+                    <option value="{{ $atividade->eixo->nome }}">{{ $atividade->eixo->nome }}</option>
+                  @endforeach
+                </select>
+              </div>
+              <div class="mb-3" id="lengthMenuContainer">
+                <!-- O seletor de quantidade será movido para cá -->
+              </div>
+            </div>
+          </div>
+        `);
 
+        // Adiciona o dropdown ao local padrão de filtros
+        searchBox.before(dropdownContainer);
+
+        // Move o seletor padrão de quantidade para dentro do botão "Filtros"
+        $('#lengthMenuContainer').append(lengthMenu);
+
+        // Filtro por Unidade (Eixo)
         $('#filterUnidade').on('change', function () {
           var val = $.fn.dataTable.util.escapeRegex($(this).val());
           table.column(1).search(val ? '^' + val + '$' : '', true, false).draw();
@@ -173,4 +196,5 @@
     });
   });
 </script>
+
 @endsection
