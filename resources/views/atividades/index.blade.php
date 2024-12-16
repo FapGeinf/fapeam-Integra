@@ -148,7 +148,8 @@
       infoEmpty: 'Sem monitoramentos disponíveis no momento',
       infoFiltered: '(Filtrados do total de _MAX_ monitoramentos)',
       zeroRecords: 'Nada encontrado. Se achar que isso é um erro, contate o suporte.',
-      paginate: { next: "Próximo", previous: "Anterior" }
+      paginate: { next: "Próximo", previous: "Anterior" },
+      responsive: true
     },
 
     initComplete: function () {
