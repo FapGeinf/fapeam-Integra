@@ -140,61 +140,70 @@
 
 <script>
   $(document).ready(function () {
-    var table = $('#tableHome2').DataTable({
-      language: {
-        url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
-        search: "Procurar:",
-        info: 'Mostrando página _PAGE_ de _PAGES_',
-        infoEmpty: 'Sem monitoramentos disponíveis no momento',
-        infoFiltered: '(Filtrados do total de _MAX_ monitoramentos)',
-        zeroRecords: 'Nada encontrado. Se achar que isso é um erro, contate o suporte.',
-        paginate: { next: "Próximo", previous: "Anterior" }
-      },
+  var table = $('#tableHome2').DataTable({
+    language: {
+      url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
+      search: "Procurar:",
+      info: 'Mostrando página _PAGE_ de _PAGES_',
+      infoEmpty: 'Sem monitoramentos disponíveis no momento',
+      infoFiltered: '(Filtrados do total de _MAX_ monitoramentos)',
+      zeroRecords: 'Nada encontrado. Se achar que isso é um erro, contate o suporte.',
+      paginate: { next: "Próximo", previous: "Anterior" }
+    },
 
-      initComplete: function () {
-        // Captura o seletor padrão de quantidade por página do DataTables
-        var lengthMenu = $('#tableHome2_length');
+    initComplete: function () {
+      var searchBox = $('#tableHome2_filter');
 
-        // Captura a caixa de pesquisa padrão do DataTables
-        var searchBox = $('#tableHome2_filter');
-
-        // Criação do botão "Filtros" com dropdown
-        var dropdownContainer = $(`
-          <div class="dropdown mb-2">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Filtros
-            </button>
-            <div class="dropdown-menu p-3" id="filtersContent" style="min-width: 300px;">
-              <div class="mb-3">
-                <label for="filterUnidade" class="form-label">Filtrar por Eixo:</label>
-                <select class="form-select form-select-sm mb-2" id="filterUnidade">
-                  <option value="">TODOS</option>
-                  @foreach ($atividades->unique('eixo.nome') as $atividade)
-                    <option value="{{ $atividade->eixo->nome }}">{{ $atividade->eixo->nome }}</option>
-                  @endforeach
-                </select>
-              </div>
-              <div class="mb-3" id="lengthMenuContainer">
-                <!-- O seletor de quantidade será movido para cá -->
-              </div>
+      var dropdownContainer = $(`
+        <div class="dropdown mt-3 d-none">
+          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Filtros
+          </button>
+          <div class="dropdown-menu p-3" id="filtersContent" style="min-width: 300px;">
+            <div class="mb-3">
+              <label for="filterUnidade" class="form-label">Filtrar por Eixo:</label>
+              <select class="form-select form-select-sm mb-2" id="filterUnidade">
+                <option value="">TODOS</option>
+                @foreach ($atividades->unique('eixo.nome') as $atividade)
+                  <option value="{{ $atividade->eixo->nome }}">{{ $atividade->eixo->nome }}</option>
+                @endforeach
+              </select>
+            </div>
+            <div class="mb-3" id="lengthMenuContainer">
+              <!-- O seletor de quantidade será movido para cá -->
             </div>
           </div>
-        `);
+        </div>
+      `);
 
-        // Adiciona o dropdown ao local padrão de filtros
-        searchBox.before(dropdownContainer);
+      // Envolve o searchBox e o dropdownContainer em uma div com d-flex para alinhá-los lado a lado
+      var container = $(`
+        <div class="d-flex justify-content-start mb-2">
+          <div class="me-3" id="searchContainer">
+            <!-- Mantém o searchBox original -->
+          </div>
+          ${dropdownContainer[0].outerHTML}
+        </div>
+      `);
 
-        // Move o seletor padrão de quantidade para dentro do botão "Filtros"
-        $('#lengthMenuContainer').append(lengthMenu);
+      // Adiciona o novo contêiner com ambos os elementos ao DOM
+      searchBox.before(container);
 
-        // Filtro por Unidade (Eixo)
-        $('#filterUnidade').on('change', function () {
-          var val = $.fn.dataTable.util.escapeRegex($(this).val());
-          table.column(1).search(val ? '^' + val + '$' : '', true, false).draw();
-        });
-      }
-    });
+      // Move o searchBox para o novo contêiner
+      $('#searchContainer').append(searchBox);
+
+      // Move o seletor de quantidade para dentro do botão "Filtros"
+      $('#lengthMenuContainer').append($('#tableHome2_length'));
+
+      // Filtro por Unidade (Eixo)
+      $('#filterUnidade').on('change', function () {
+        var val = $.fn.dataTable.util.escapeRegex($(this).val());
+        table.column(1).search(val ? '^' + val + '$' : '', true, false).draw();
+      });
+    }
   });
+});
+
 </script>
 
 @endsection
