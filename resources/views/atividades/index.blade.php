@@ -11,39 +11,59 @@
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+
+  <style>
+    #tableHome2 {
+      border-collapse: collapse;
+    }
+
+    .dataTables_wrapper {
+      margin-top: 1rem;
+    }
+
+    .separator2 {
+      padding-top: 1rem;
+
+    }
+  </style>
 </head>
 
-<div class="container-fluid mt-5">
-  <div class="row d-flex justify-content-center align-items-center">
-    <div class="col-lg-12">
-      <div class="alert-container">
-        @if (session('success'))
-          <div class="alert alert-success">
-            {{ session('success') }}
-          </div>
-          
-        @elseif (session('error'))
-          <div class="alert alert-danger">
-            {{ session('error') }}
-          </div>
+<div class="alert-container">
+  @if (session('success'))
+    <div class="alert alert-success">
+      {{ session('success') }}
+    </div>
+    
+  @elseif (session('error'))
+    <div class="alert alert-danger">
+      {{ session('error') }}
+    </div>
+  @endif
+</div>
+
+<div class="container-fluid separator2">
+  <div class="col-12 border p-2 main-datatable" style="margin-top: 2rem;">
+    <div class="p-1">
+      <div class="card-body d-flex justify-content-between">
+        <h2 class="mb-0 fw-bold">Lista de Atividades</h2>
+        @if(Auth::user()->unidade->unidadeTipoFK == 1)
+        <a href="{{ route('atividades.create') }}" class="btn btn-primary">Adicionar Atividade</a>
         @endif
       </div>
+    </div>
+  </div>
+</div>
 
-      <div class="p-1 mb-4">
-        <div class="card-body d-flex justify-content-between">
-          <h2 class="mb-0 fw-bold">Lista de Atividades</h2>
-          @if(Auth::user()->unidade->unidadeTipoFK == 1)
-          <a href="{{ route('atividades.create') }}" class="btn btn-primary">Adicionar Atividade</a>
-          @endif
-        </div>
-      </div>
+<div class="container-fluid separator2">
 
-      <div class="card rounded-3 shadow-sm border-1">
-        <div class="card-body">
+  <div class="col-12 border main-datatable">
+    <div class="container-fluid">
+      <div class="">
+        <div class="">
           <div class="table-responsive">
-            <table class="table table-striped">
+            <table id="tableHome2" class="table table-striped">
               <thead>
-                <tr>
+                <tr style="white-space: nowrap; text-align:center;">
                   <th scope="col">#</th>
                   <th scope="col">Eixo</th>
                   <th scope="col">Atividade</th>
@@ -62,18 +82,18 @@
               <tbody>
                 @foreach ($atividades as $atividade)
                   <tr>
-                    <td>{{ $atividade->id }}</td>
-                    <td>{{ $atividade->eixo->nome }}</td>
-                    <td>{!!$atividade->atividade_descricao!!}</td>
+                    <td style="text-align: center">{{ $atividade->id }}</td>
+                    <td style="text-align:center;">{{ $atividade->eixo->nome }}</td>
+                    <td style="text-align: center">{!!$atividade->atividade_descricao!!}</td>
                     <td>{!!$atividade->objetivo !!}</td>
                     <td>{!!$atividade->publico_alvo!!}</td>
-                    <td>{{$atividade->tipo_evento}}</td>
+                    <td style="text-align:center;">{{$atividade->tipo_evento}}</td>
                     <td>{!!$atividade->canal_divulgacao!!}</td>
-                    <td>{{ \Carbon\Carbon::parse($atividade->data_prevista)->format('d/m/Y') }}</td>
-                    <td>{{ $atividade->data_realizada ? \Carbon\Carbon::parse($atividade->data_realizada)->format('d/m/Y') : 'Não realizada' }}
+                    <td style="text-align:center;">{{ \Carbon\Carbon::parse($atividade->data_prevista)->format('d/m/Y') }}</td>
+                    <td style="text-align:center;">{{ $atividade->data_realizada ? \Carbon\Carbon::parse($atividade->data_realizada)->format('d/m/Y') : 'Não realizada' }}
                     </td>
-                    <td>{{$atividade->meta}}</td>
-                    <td>{{$atividade->realizado}}</td>
+                    <td style="text-align:center;">{{$atividade->meta}}</td>
+                    <td style="text-align:center;">{{$atividade->realizado}}</td>
                     <td>
                     @if(Auth::user()->unidade->unidadeTipoFK == 1)
                       <div class="d-flex justify-content-start">
@@ -117,4 +137,40 @@
     </div>
   </div>
 </div>
+
+<script>
+  $(document).ready(function () {
+    var table = $('#tableHome2').DataTable({
+      language: {
+        url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
+        search: "Procurar:",
+        lengthMenu: "Monitoramentos: _MENU_",
+        info: 'Mostrando página _PAGE_ de _PAGES_',
+        infoEmpty: 'Sem monitoramentos disponíveis no momento',
+        infoFiltered: '(Filtrados do total de _MAX_ monitoramentos)',
+        zeroRecords: 'Nada encontrado. Se achar que isso é um erro, contate o suporte.',
+        paginate: { next: "Próximo", previous: "Anterior" }
+      },
+
+      initComplete: function () {
+        var dropdownContainer = $('<div class="dropdown mb-2"></div>')
+        .append('<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Filtros</button>')
+        .append('<div class="dropdown-menu p-3" id="filtersContent"></div>');
+
+        var selectUnidade = $('<select class="form-select form-select-sm mb-2" id="filterUnidade"><option value="">TODAS</option></select>');
+        @foreach ($atividades->unique('eixo.nome') as $atividade)
+          selectUnidade.append('<option value="{{ $atividade->eixo->nome }}">{{ $atividade->eixo->nome }}</option>');
+        @endforeach
+
+        $('#filtersContent').append(selectUnidade);
+        $('#tableHome2_filter').prepend(dropdownContainer);
+
+        $('#filterUnidade').on('change', function () {
+          var val = $.fn.dataTable.util.escapeRegex($(this).val());
+          table.column(1).search(val ? '^' + val + '$' : '', true, false).draw();
+        });
+      }
+    });
+  });
+</script>
 @endsection
