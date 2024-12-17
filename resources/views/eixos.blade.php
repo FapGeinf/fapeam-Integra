@@ -132,8 +132,8 @@
           <h5 class="bg__card_pattern p-1 mb-0"></h5>
 
           <div class="card-body card-fofinho p-4">
-            <div class="mb-3 title-fofinho text-center d-flex">
-              <span class="title-fofinho"></span>EIXO<br>V
+            <div class="my-auto form-control title-teste text-center d-flex">
+              COMUNICAÇÃO E TREINAMENTOS PERIÓDICOS
             </div>
           </div>
 
@@ -145,7 +145,7 @@
 
           <div>
             <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0">
-              COMUNICAÇÃO E TREINAMENTOS PERIÓDICOS
+              EIXO V
             </h5>
           </div>
           
@@ -158,8 +158,8 @@
           <h5 class="bg__card_pattern p-1 mb-0"></h5>
 
           <div class="card-body card-fofinho p-4">
-            <div class="mb-3 title-fofinho text-center d-flex">
-              <span class="title-fofinho"></span>EIXO<br>VI
+            <div class="my-auto form-control title-teste text-center d-flex">
+              CANAIS DE DENÚNCIA
             </div>
           </div>
 
@@ -171,7 +171,7 @@
 
           <div>
             <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0">
-              CANAIS DE DENÚNCIA
+              EIXO VI
             </h5>
           </div>
           
@@ -184,8 +184,8 @@
           <h5 class="bg__card_pattern p-1 mb-0"></h5>
 
           <div class="card-body card-fofinho p-4">
-            <div class="mb-3 title-fofinho text-center d-flex">
-              <span class="title-fofinho"></span>EIXO<br>VII
+            <div class="my-auto form-control title-teste text-center d-flex">
+              INVESTIGAÇÕES INTERNAS
             </div>
           </div>
 
@@ -197,7 +197,7 @@
 
           <div>
             <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0">
-              INVESTIGAÇÕES INTERNAS
+              EIXO VII
             </h5>
           </div>
           
@@ -210,8 +210,8 @@
           <h5 class="bg__card_pattern p-1 mb-0"></h5>
 
           <div class="card-body card-fofinho p-4">
-            <div class="mb-3 title-fofinho text-center d-flex">
-              <span class="title-fofinho"></span>EIXO<br>VIII
+            <div class="my-auto form-control title-teste text-center d-flex">
+              MONITORAMENTO CONTÍNUO
             </div>
           </div>
 
@@ -223,7 +223,7 @@
 
           <div>
             <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0">
-              MONITORAMENTO CONTÍNUO
+              EIXO VIII
             </h5>
           </div>
           

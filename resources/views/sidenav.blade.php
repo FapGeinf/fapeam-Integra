@@ -128,7 +128,8 @@
 </script>
 
 
-<body class="{{ Request::routeIs('documentos.eixos') ? 'hide-sidenav' : '' }}">
+{{-- <body class="{{ Request::routeIs('documentos.eixos') ? 'hide-sidenav' : '' }}"> --}}
+<body>
 
     <nav class="menu-lateral" id="appSidenav">
         <button id="toggleSidenav" class="btn-toggle" style="transition: .3s">

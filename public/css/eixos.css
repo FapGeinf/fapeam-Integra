@@ -2,8 +2,13 @@ li {
   margin-left: 0;
 }
 
-.appContent {
+/* .appContent {
   margin-left: 0 !important;
+} */
+
+.form-control {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 .custom__form_create {
@@ -222,6 +227,14 @@ ol {
   flex-direction: column;
   /* font-family: Georgia, 'Times New Roman', Times, serif; */
   color: #1e2a3a; /* Cor do título do card */
+}
+
+.title-teste {
+  font-size: 17px;
+  /* font-weight: bold; */
+  flex-direction: column;
+  /* font-family: Georgia, 'Times New Roman', Times, serif; */
+  color: #0c326f; /* Cor do título do card */
 }
 
 /* Estilo para o card original */
