@@ -64,7 +64,7 @@
 
           @error('cpf')
           <span class="invalid-feedback" role="alert">
-            <strong>Usuário não encontrado</strong>
+            <span class="">Usuário não encontrado</span>
           </span>
           @enderror
         </div>
