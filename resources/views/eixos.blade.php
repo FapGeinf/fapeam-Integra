@@ -19,7 +19,7 @@
 </div>
 
 <div class="form-wrapper pt-4">
-  <div class="custom__form_create">
+  <div class="custom__form_create border">
     <div class="row">
 
       <!-- EIXO I -->
@@ -181,54 +181,54 @@
       <!-- EIXO VII -->
       <div class="col-md-3 mb-4">
         <div class="card overflow-hidden">
-          <h5 class="bg__card_pattern p-1 mb-0"></h5>
-
+          <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 70px;">
+            EIXO <span style="" class="ms-1">VII</span>
+          </h5>
+      
           <div class="card-body border card-fofinho p-4">
             <div class="my-auto title-teste text-center d-flex">
               INVESTIGAÇÕES INTERNAS
             </div>
           </div>
-
+      
           <div class="card-hover">
             <a href="{{ route('apresentacoes.eixo7') }}">
               <button class="btn btn-light">Abrir</button>
             </a>
           </div>
-
+      
           <div>
-            <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0">
-              EIXO <span style="" class="ms-1">VII</span>
-            </h5>
+            <h5 class="bg__card_pattern p-1 mb-0"></h5>
           </div>
-          
         </div>
       </div>
+      
 
       <!-- EIXO VIII -->
       <div class="col-md-3 mb-4">
         <div class="card overflow-hidden">
-          <h5 class="bg__card_pattern p-1 mb-0"></h5>
-
+          <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 70px;">
+            EIXO <span style="" class="ms-1">VIII</span>
+          </h5>
+      
           <div class="card-body border card-fofinho p-4">
             <div class="my-auto title-teste text-center d-flex">
               MONITORAMENTO CONTÍNUO
             </div>
           </div>
-
+      
           <div class="card-hover">
             <a href="{{ route('apresentacoes.eixo8') }}">
               <button class="btn btn-light">Abrir</button>
             </a>
           </div>
-
+      
           <div>
-            <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0">
-              EIXO <span style="" class="ms-1">VIII</span>
-            </h5>
+            <h5 class="bg__card_pattern p-1 mb-0"></h5>
           </div>
-          
         </div>
       </div>
+      
 
     </div>
   </div>
