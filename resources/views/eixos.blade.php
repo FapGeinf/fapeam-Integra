@@ -132,7 +132,7 @@
           <h5 class="bg__card_pattern p-1 mb-0"></h5>
 
           <div class="card-body card-fofinho p-4">
-            <div class="my-auto form-control title-teste text-center d-flex">
+            <div class="my-auto title-teste text-center d-flex">
               COMUNICAÇÃO E TREINAMENTOS PERIÓDICOS
             </div>
           </div>
@@ -145,7 +145,7 @@
 
           <div>
             <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0">
-              EIXO V
+              EIXO <span style="color: #6ab9ff;" class="ms-1">V</span>
             </h5>
           </div>
           
@@ -158,7 +158,7 @@
           <h5 class="bg__card_pattern p-1 mb-0"></h5>
 
           <div class="card-body card-fofinho p-4">
-            <div class="my-auto form-control title-teste text-center d-flex">
+            <div class="my-auto title-teste text-center d-flex">
               CANAIS DE DENÚNCIA
             </div>
           </div>
@@ -171,7 +171,7 @@
 
           <div>
             <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0">
-              EIXO VI
+              EIXO <span style="color: #6ab9ff;" class="ms-1">VI</span>
             </h5>
           </div>
           
@@ -184,7 +184,7 @@
           <h5 class="bg__card_pattern p-1 mb-0"></h5>
 
           <div class="card-body card-fofinho p-4">
-            <div class="my-auto form-control title-teste text-center d-flex">
+            <div class="my-auto title-teste text-center d-flex">
               INVESTIGAÇÕES INTERNAS
             </div>
           </div>
@@ -197,7 +197,7 @@
 
           <div>
             <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0">
-              EIXO VII
+              EIXO <span style="color: #6ab9ff;" class="ms-1">VII</span>
             </h5>
           </div>
           
@@ -210,7 +210,7 @@
           <h5 class="bg__card_pattern p-1 mb-0"></h5>
 
           <div class="card-body card-fofinho p-4">
-            <div class="my-auto form-control title-teste text-center d-flex">
+            <div class="my-auto title-teste text-center d-flex">
               MONITORAMENTO CONTÍNUO
             </div>
           </div>
@@ -223,7 +223,7 @@
 
           <div>
             <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0">
-              EIXO VIII
+              EIXO <span style="color: #6ab9ff;" class="ms-1">VIII</span>
             </h5>
           </div>
           
