@@ -145,7 +145,7 @@
 
           <div>
             <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0">
-              EIXO <span style="color: #6ab9ff;" class="ms-1">V</span>
+              EIXO <span style="" class="ms-1">V</span>
             </h5>
           </div>
           
@@ -171,7 +171,7 @@
 
           <div>
             <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0">
-              EIXO <span style="color: #6ab9ff;" class="ms-1">VI</span>
+              EIXO <span style="" class="ms-1">VI</span>
             </h5>
           </div>
           
@@ -197,7 +197,7 @@
 
           <div>
             <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0">
-              EIXO <span style="color: #6ab9ff;" class="ms-1">VII</span>
+              EIXO <span style="" class="ms-1">VII</span>
             </h5>
           </div>
           
@@ -223,7 +223,7 @@
 
           <div>
             <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0">
-              EIXO <span style="color: #6ab9ff;" class="ms-1">VIII</span>
+              EIXO <span style="" class="ms-1">VIII</span>
             </h5>
           </div>
           
