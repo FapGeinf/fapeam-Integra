@@ -140,7 +140,7 @@
 
 <script>
   $(document).ready(function () {
-  var table = $('#tableHome2').DataTable({
+  let table = $('#tableHome2').DataTable({
     language: {
       url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
       search: "Procurar:",
@@ -153,9 +153,9 @@
     },
 
     initComplete: function () {
-      var searchBox = $('#tableHome2_filter');
+      let searchBox = $('#tableHome2_filter');
 
-      var dropdownContainer = $(`
+      let dropdownContainer = $(`
         <div class="dropdown mt-3 d-none">
           <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
             Filtros
@@ -177,8 +177,7 @@
         </div>
       `);
 
-      // Envolve o searchBox e o dropdownContainer em uma div com d-flex para alinhá-los lado a lado
-      var container = $(`
+      let container = $(`
         <div class="d-flex justify-content-start mb-2">
           <div class="me-3" id="searchContainer">
             <!-- Mantém o searchBox original -->
@@ -187,18 +186,14 @@
         </div>
       `);
 
-      // Adiciona o novo contêiner com ambos os elementos ao DOM
       searchBox.before(container);
 
-      // Move o searchBox para o novo contêiner
       $('#searchContainer').append(searchBox);
 
-      // Move o seletor de quantidade para dentro do botão "Filtros"
       $('#lengthMenuContainer').append($('#tableHome2_length'));
 
-      // Filtro por Unidade (Eixo)
       $('#filterUnidade').on('change', function () {
-        var val = $.fn.dataTable.util.escapeRegex($(this).val());
+        let val = $.fn.dataTable.util.escapeRegex($(this).val());
         table.column(1).search(val ? '^' + val + '$' : '', true, false).draw();
       });
     }
