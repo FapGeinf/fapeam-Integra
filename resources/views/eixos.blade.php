@@ -27,7 +27,7 @@
         <div class="card overflow-hidden">
           <h5 class="bg__card_pattern p-1 mb-0"></h5>
 
-          <div class="card-body card-fofinho p-4">
+          <div class="card-body border card-fofinho p-4">
             <div class="mb-3 title-fofinho text-center d-flex">
               <span class="title-fofinho"></span>EIXO<br>I
             </div>
@@ -53,7 +53,7 @@
         <div class="card overflow-hidden">
           <h5 class="bg__card_pattern p-1 mb-0"></h5>
 
-          <div class="card-body card-fofinho p-4">
+          <div class="card-body border card-fofinho p-4">
             <div class="mb-3 title-fofinho text-center d-flex">
               <span class="title-fofinho"></span>EIXO<br>II
             </div>
@@ -79,7 +79,7 @@
         <div class="card overflow-hidden">
           <h5 class="bg__card_pattern p-1 mb-0"></h5>
 
-          <div class="card-body card-fofinho p-4">
+          <div class="card-body border card-fofinho p-4">
             <div class="mb-3 title-fofinho text-center d-flex">
               <span class="title-fofinho"></span>EIXO<br>III
             </div>
@@ -105,7 +105,7 @@
         <div class="card overflow-hidden">
           <h5 class="bg__card_pattern p-1 mb-0"></h5>
 
-          <div class="card-body card-fofinho p-4">
+          <div class="card-body border card-fofinho p-4">
             <div class="mb-3 title-fofinho text-center d-flex">
               <span class="title-fofinho"></span>EIXO<br>IV
             </div>
@@ -131,7 +131,7 @@
         <div class="card overflow-hidden">
           <h5 class="bg__card_pattern p-1 mb-0"></h5>
 
-          <div class="card-body card-fofinho p-4">
+          <div class="card-body border card-fofinho p-4">
             <div class="my-auto title-teste text-center d-flex">
               COMUNICAÇÃO E TREINAMENTOS PERIÓDICOS
             </div>
@@ -157,7 +157,7 @@
         <div class="card overflow-hidden">
           <h5 class="bg__card_pattern p-1 mb-0"></h5>
 
-          <div class="card-body card-fofinho p-4">
+          <div class="card-body border card-fofinho p-4">
             <div class="my-auto title-teste text-center d-flex">
               CANAIS DE DENÚNCIA
             </div>
@@ -183,7 +183,7 @@
         <div class="card overflow-hidden">
           <h5 class="bg__card_pattern p-1 mb-0"></h5>
 
-          <div class="card-body card-fofinho p-4">
+          <div class="card-body border card-fofinho p-4">
             <div class="my-auto title-teste text-center d-flex">
               INVESTIGAÇÕES INTERNAS
             </div>
@@ -209,7 +209,7 @@
         <div class="card overflow-hidden">
           <h5 class="bg__card_pattern p-1 mb-0"></h5>
 
-          <div class="card-body card-fofinho p-4">
+          <div class="card-body border card-fofinho p-4">
             <div class="my-auto title-teste text-center d-flex">
               MONITORAMENTO CONTÍNUO
             </div>
