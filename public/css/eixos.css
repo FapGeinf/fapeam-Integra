@@ -17,7 +17,7 @@ li {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
   width: 100%;
-  max-width: 1000px;
+  max-width: 1140px;
 }
 
 .custom__no-bg {
@@ -136,7 +136,7 @@ li {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 10px;
   width: 100%;
-  max-width: 1000px;
+  max-width: 1140px;
 }
 
 ul, ol {
@@ -173,7 +173,7 @@ ol li {
 
 /* Altura do card */
 .card {
-  min-height: 300px;
+  min-height: 325px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

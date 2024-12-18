@@ -25,156 +25,150 @@
       <!-- EIXO I -->
       <div class="col-md-3 mb-4">
         <div class="card overflow-hidden">
-          <h5 class="bg__card_pattern p-1 mb-0"></h5>
-
+          <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 70px;">
+            EIXO <span style="" class="ms-1">I</span>
+          </h5>
+      
           <div class="card-body border card-fofinho p-4">
-            <div class="mb-3 title-fofinho text-center d-flex">
-              <span class="title-fofinho"></span>EIXO<br>I
+            <div class="my-auto title-teste text-center d-flex">
+              COMPROMETIMENTO E APOIO DA ALTA DIREÇÃO
             </div>
           </div>
-
+      
           <div class="card-hover">
             <a href="{{ route('apresentacoes.eixo1') }}">
               <button class="btn btn-light">Abrir</button>
             </a>
           </div>
-
+      
           <div>
-            <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0">
-              COMPROMETIMENTO E APOIO DA ALTA DIREÇÃO
-            </h5>
+            <h5 class="bg__card_pattern p-1 mb-0"></h5>
           </div>
-          
         </div>
       </div>
 
       <!-- EIXO II -->
       <div class="col-md-3 mb-4">
         <div class="card overflow-hidden">
-          <h5 class="bg__card_pattern p-1 mb-0"></h5>
-
+          <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 70px;">
+            EIXO <span style="" class="ms-1">II</span>
+          </h5>
+      
           <div class="card-body border card-fofinho p-4">
-            <div class="mb-3 title-fofinho text-center d-flex">
-              <span class="title-fofinho"></span>EIXO<br>II
+            <div class="my-auto title-teste text-center d-flex">
+              INSTITUCIONALIZAÇÃO DO CÓDIGO DE CONDUTA
             </div>
           </div>
-
+      
           <div class="card-hover">
             <a href="{{ route('apresentacoes.eixo2') }}">
               <button class="btn btn-light">Abrir</button>
             </a>
           </div>
-
+      
           <div>
-            <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0">
-              INSTITUICIONALIZAÇÃO DO CÓDIGO DE CONDUTA
-            </h5>
+            <h5 class="bg__card_pattern p-1 mb-0"></h5>
           </div>
-          
         </div>
       </div>
 
       <!-- EIXO III -->
       <div class="col-md-3 mb-4">
         <div class="card overflow-hidden">
-          <h5 class="bg__card_pattern p-1 mb-0"></h5>
-
+          <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 70px;">
+            EIXO <span style="" class="ms-1">III</span>
+          </h5>
+      
           <div class="card-body border card-fofinho p-4">
-            <div class="mb-3 title-fofinho text-center d-flex">
-              <span class="title-fofinho"></span>EIXO<br>III
+            <div class="my-auto title-teste text-center d-flex">
+              AVALIAÇÃO DE RISCOS
             </div>
           </div>
-
+      
           <div class="card-hover">
             <a href="{{ route('apresentacoes.eixo3') }}">
               <button class="btn btn-light">Abrir</button>
             </a>
           </div>
-
+      
           <div>
-            <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0">
-              AVALIAÇÃO DE RISCOS
-            </h5>
+            <h5 class="bg__card_pattern p-1 mb-0"></h5>
           </div>
-          
         </div>
       </div>
 
       <!-- EIXO IV -->
       <div class="col-md-3 mb-4">
         <div class="card overflow-hidden">
-          <h5 class="bg__card_pattern p-1 mb-0"></h5>
-
+          <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 70px;">
+            EIXO <span style="" class="ms-1">IV</span>
+          </h5>
+      
           <div class="card-body border card-fofinho p-4">
-            <div class="mb-3 title-fofinho text-center d-flex">
-              <span class="title-fofinho"></span>EIXO<br>IV
+            <div class="my-auto title-teste text-center d-flex">
+              IMPLEMENTAÇÃO DOS CONTROLES INTERNOS
             </div>
           </div>
-
+      
           <div class="card-hover">
             <a href="{{ route('apresentacoes.eixo4') }}">
               <button class="btn btn-light">Abrir</button>
             </a>
           </div>
-
+      
           <div>
-            <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0">
-              IMPLEMENTAÇÃO DOS CONTROLES INTERNOS
-            </h5>
+            <h5 class="bg__card_pattern p-1 mb-0"></h5>
           </div>
-          
         </div>
       </div>
 
       <!-- EIXO V -->
       <div class="col-md-3 mb-4">
         <div class="card overflow-hidden">
-          <h5 class="bg__card_pattern p-1 mb-0"></h5>
-
+          <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 70px;">
+            EIXO <span style="" class="ms-1">V</span>
+          </h5>
+      
           <div class="card-body border card-fofinho p-4">
             <div class="my-auto title-teste text-center d-flex">
               COMUNICAÇÃO E TREINAMENTOS PERIÓDICOS
             </div>
           </div>
-
+      
           <div class="card-hover">
             <a href="{{ route('apresentacoes.eixo5') }}">
               <button class="btn btn-light">Abrir</button>
             </a>
           </div>
-
+      
           <div>
-            <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0">
-              EIXO <span style="" class="ms-1">V</span>
-            </h5>
+            <h5 class="bg__card_pattern p-1 mb-0"></h5>
           </div>
-          
         </div>
       </div>
 
       <!-- EIXO VI -->
       <div class="col-md-3 mb-4">
         <div class="card overflow-hidden">
-          <h5 class="bg__card_pattern p-1 mb-0"></h5>
-
+          <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 70px;">
+            EIXO <span style="" class="ms-1">VI</span>
+          </h5>
+      
           <div class="card-body border card-fofinho p-4">
             <div class="my-auto title-teste text-center d-flex">
               CANAIS DE DENÚNCIA
             </div>
           </div>
-
+      
           <div class="card-hover">
             <a href="{{ route('apresentacoes.eixo6') }}">
               <button class="btn btn-light">Abrir</button>
             </a>
           </div>
-
+      
           <div>
-            <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0">
-              EIXO <span style="" class="ms-1">VI</span>
-            </h5>
+            <h5 class="bg__card_pattern p-1 mb-0"></h5>
           </div>
-          
         </div>
       </div>
 
@@ -229,7 +223,6 @@
         </div>
       </div>
       
-
     </div>
   </div>
 </div>
