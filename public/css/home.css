@@ -39,6 +39,7 @@ body {
     display: flex;
     margin-left: 28rem;
     position: absolute;
+    margin-top: 2rem;
 }
 
 .links a {
