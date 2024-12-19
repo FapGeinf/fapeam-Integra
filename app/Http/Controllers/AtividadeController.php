@@ -41,7 +41,7 @@ class AtividadeController extends Controller
     {
         $eixo_id = $request->get('eixo_id');
 
-        if ($eixo_id && in_array($eixo_id, [1, 2, 3, 4, 5, 6, 7, 8])) {
+        if ($eixo_id && in_array($eixo_id, [1, 2, 3, 4, 5, 6, 7])) {
             $atividades = $this->atividade->whereHas('eixos', function ($query) use ($eixo_id) {
                 $query->where('eixo_id', $eixo_id);
             })->with(['publico', 'canal'])->get();
