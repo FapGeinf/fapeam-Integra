@@ -152,21 +152,11 @@ body {
     .links a {
         font-size: 16px;
     }
-
-
-
-    /* .linksChild {
-        width: 128px;
-    }
-
-    .arrowButton {
-        width: 180px;
-    } */
 }
   
-/* @media only screen and (max-width: 1140px) {
+@media only screen and (max-width: 1140px) {
     .borderRadius {
-        background-image: url('/img/login/tela-clean-1190.png');
+        background-image: url('/img/Decon/inicial_limpo.png');
         background-size: cover;
     }
 
@@ -182,17 +172,9 @@ body {
         font-size: 13px;
       }
 
-      .linksChild {
-        width: 100px;
-      }
 
     .imgBloco {
         margin-left: 0;
-        width: 350px;
+        width: 60%;
     }
-
-    .arrowButton {
-        width: 130px;
-        font-size: 12px;
-    }
-} */
+}
