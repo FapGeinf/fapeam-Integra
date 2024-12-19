@@ -10,12 +10,12 @@ body {
 }
 
 .borderRadius {
-    background-image: url('/img/login/tela-full.png');
+    background-image: url('/img/Decon/tela_inicial.png');
     background-size: cover;
 }
 
 .imgBloco {
-    width: 600px;
+    /* width: 600px; */
     margin-left: 27rem;
 }
 
@@ -42,23 +42,21 @@ body {
 }
 
 .links a {
-    color: #fff;
+    color: #183689;
     font-size: 20px;
+    font-weight: bold;
     text-decoration: none;
 }
 
 .linksChild {
-    padding: 6px;
-    border-radius: 5px;
-    transition: .2s;
-    border: 1px solid #2d4790;
-    background-color: #2d4790;
-    width: 160px;
-    text-align: center;
+    padding: 10px 60px;
+    border: 1px solid #fff;
+    background-color: #fff;
+    border-radius: 7px;
 }
 
 .linksChild:hover {
-    background-color: #13285e;
+    background-color: #ccc;
 }
 
 .grid {
