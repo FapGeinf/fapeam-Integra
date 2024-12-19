@@ -64,7 +64,6 @@
             <table id="tableHome2" class="table table-striped">
               <thead>
                 <tr style="white-space: nowrap; text-align:center;">
-                  <th scope="col">#</th>
                   <th scope="col">Eixo</th>
                   <th scope="col">Atividade</th>
                   <th scope="col">Objetivo</th>
@@ -82,7 +81,6 @@
               <tbody>
                 @foreach ($atividades as $atividade)
                   <tr>
-                    <td style="text-align: center">{{ $atividade->id }}</td>
                     <td style="text-align:center;">{{ $atividade->eixo->nome }}</td>
                     <td style="text-align: center">{!!$atividade->atividade_descricao!!}</td>
                     <td>{!!$atividade->objetivo !!}</td>
@@ -141,6 +139,7 @@
 <script>
   $(document).ready(function () {
   let table = $('#tableHome2').DataTable({
+		order: [[6, "asc"]],
     language: {
       url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
       search: "Procurar:",
