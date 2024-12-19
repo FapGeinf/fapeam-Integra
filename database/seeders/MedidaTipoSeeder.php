@@ -16,11 +16,11 @@ class MedidaTipoSeeder extends Seeder
     public function run()
     {
             MedidaTipo::factory()->create([
-                 "nome" => "Pessoa"
+                 "nome" => "Pessoa(s)"
             ]);
 
             MedidaTipo::factory()->create([
-                 "nome" => "Relatórios"
+                 "nome" => "Relatório(s)"
             ]);
     }
 }
