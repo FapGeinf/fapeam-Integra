@@ -2,6 +2,7 @@
 <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
 <link href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+
 @section('content')
 <div class="container-lg mt-5">
     <div class="alert-container">
@@ -53,15 +54,11 @@
                 <div class="row g-3">
                     <div class="col-12">
                         <label for="atividade_descricao" class="form-label">Atividade:</label>
-                        <textarea name="atividade_descricao" id="atividade_descricao" class="form-control" required>
-                            {{ old('atividade_descricao', $atividade->atividade_descricao) }}
-                        </textarea>
+                        <textarea name="atividade_descricao" id="atividade_descricao" class="form-control" required>{{ old('atividade_descricao', $atividade->atividade_descricao) }}</textarea>
                     </div>
                     <div class="col-12">
                         <label for="objetivo" class="form-label">Objetivo:</label>
-                        <textarea name="objetivo" id="objetivo" class="form-control" required>
-                            {{ old('objetivo', $atividade->objetivo) }}
-                        </textarea>
+                        <textarea name="objetivo" id="objetivo" class="form-control" required>{{ old('objetivo', $atividade->objetivo) }}</textarea>
                     </div>
 
                     <div class="col-12">
@@ -116,16 +113,27 @@
                     <div class="col-12 col-md-6">
                         <label for="meta" class="form-label">Meta:</label>
                         <input type="number" name="meta" id="meta" class="form-control" required min="0"
-                            value="{{ old('meta', $atividade->meta) }}">
+                            value="{{ old('meta', $atividade->meta) }}"  oninput="mostrarUnidade()">
                     </div>
                     <div class="col-12 col-md-6">
                         <label for="realizado" class="form-label">Realizado:</label>
                         <input type="number" name="realizado" id="realizado" class="form-control" required min="0"
-                            value="{{ old('realizado', $atividade->realizado) }}">
+                            value="{{ old('realizado', $atividade->realizado) }}"  oninput="mostrarUnidade()">
+                    </div>
+                    <div class="col-12 col-md-6" id="unidade-container" style="display: none;">
+                        <label for="medida_id" class="form-label">Tipo de Unidade:</label>
+                        <select name="medida_id" id="medida_id" class="form-control" required>
+                            <option value="">Selecione o Tipo de Unidade</option>
+                            @foreach ($medidas as $medida)
+                                <option value="{{ $medida->id }}" {{ old('medida_id', $atividade->medida_id) == $medida->id ? 'selected' : '' }}>
+                                    {{ $medida->nome }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
 
-                <div class="d-flex justify-content-end pt-3">
+                <div class="d-flex justify-content-end pt-5">
                     <button type="submit" class="btn btn-md btn-primary">Enviar a Atividade</button>
                 </div>
             </form>
@@ -162,25 +170,24 @@
         if (document.getElementById('objetivo')) {
             CKEDITOR.replace('objetivo', ckeditorConfig);
         }
-        if (document.getElementById('publico_alvo')) {
-            CKEDITOR.replace('publico_alvo', ckeditorConfig2);
-        }
-        if (document.getElementById('canal_divulgacao')) {
-            CKEDITOR.replace('canal_divulgacao', ckeditorConfig2);
-        }
     });
 
     document.addEventListener('DOMContentLoaded', function () {
         let elemento = document.getElementById('eixo_ids');
         if (elemento) {
-            let choices = new Choices(elemento, {
-                removeItemButton: true,
-                placeholder: true,
-                searchEnabled: false,
-                itemSelectText: '',
-                allowHTML: true
-            });
+            new Choices(elemento);
         }
     });
+
+    function mostrarUnidade() {
+        var meta = document.getElementById('meta').value;
+        var realizado = document.getElementById('realizado').value;
+        var unidadeContainer = document.getElementById('unidade-container');
+        if (meta != "" && realizado != "") {
+            unidadeContainer.style.display = "block";
+        } else {
+            unidadeContainer.style.display = "none";
+        }
+    }
 </script>
 @endsection

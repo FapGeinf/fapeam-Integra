@@ -123,12 +123,24 @@
                 <div class="col-12 col-md-6">
                     <label for="meta" class="form-label">Meta:</label>
                     <input type="number" name="meta" id="meta" class="form-control" required min="0"
-                        value="{{ old('meta') }}">
+                        value="{{ old('meta') }}" oninput="mostrarUnidade()">
                 </div>
+
                 <div class="col-12 col-md-6">
                     <label for="realizado" class="form-label">Realizado:</label>
                     <input type="number" name="realizado" id="realizado" class="form-control" required min="0"
-                        value="{{ old('realizado') }}">
+                        value="{{ old('realizado') }}" oninput="mostrarUnidade()">
+                </div>
+                <div class="col-12 col-md-6" id="unidade-container" style="display: none;">
+                    <label for="medida_id" class="form-label">Tipo de Unidade:</label>
+                    <select name="medida_id" id="medida_id" class="form-control" required>
+                        <option value="">Selecione o Tipo de Unidade</option>
+                        @foreach ($medidas as $medida )
+                        <option value="{{ $medida->id }}" {{ old('medida_id') == $medida->id ? 'selected' : '' }}>
+                                {{ $medida->nome }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="d-flex justify-content-end pt-3">
                     <button type="submit" class="btn btn-md btn-primary">Enviar a Atividade</button>
@@ -175,5 +187,19 @@
             CKEDITOR.replace('canal_divulgacao', ckeditorConfig2);
         }
     });
+   
+    function mostrarUnidade() {
+        var meta = document.getElementById('meta').value;
+        var realizado = document.getElementById('realizado').value;
+        var unidadeContainer = document.getElementById('unidade-container');
+        
+        if (meta > 0 || realizado > 0) {
+            unidadeContainer.style.display = 'block';
+        } else {
+            unidadeContainer.style.display = 'none';
+        }
+    }
+
+
 </script>
 @endsection

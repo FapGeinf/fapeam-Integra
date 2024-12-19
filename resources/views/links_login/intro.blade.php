@@ -22,7 +22,8 @@
         <i class="bi bi-arrow-90deg-right"></i> Ir para pagina de Eixos
       </a> --}}
   
-      <img src="{{asset('img/login/bloco.png')}}" class="imgBloco" alt="">
+      <img src="{{asset('img/Decon/bloco3.png')}}" class="imgBloco" alt="">
+
       <div class="links">
         
         <div class="linksChild">

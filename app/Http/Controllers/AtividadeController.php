@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Eixo;
 use App\Models\Publico;
 use App\Models\Canal;
+use App\Models\MedidaTipo;
 
 class AtividadeController extends Controller
 {
@@ -33,6 +34,7 @@ class AtividadeController extends Controller
             'data_realizada' => 'required|date',
             'meta' => 'required|integer|min:0',
             'realizado' => 'required|integer|min:0',
+            'medida_id' => 'nullable|exists:medida_tipos,id'
         ]);
     }
 
@@ -44,7 +46,7 @@ class AtividadeController extends Controller
         if ($eixo_id && in_array($eixo_id, [1, 2, 3, 4, 5, 6, 7])) {
             $atividades = $this->atividade->whereHas('eixos', function ($query) use ($eixo_id) {
                 $query->where('eixo_id', $eixo_id);
-            })->with(['publico', 'canal'])->get();
+            })->with(['publico', 'canal', 'medida'])->get();
         } else {
             $atividades = $this->atividade->all();
         }
@@ -64,7 +66,8 @@ class AtividadeController extends Controller
         $eixos = $this->eixo->all();
         $publicos = Publico::all();
         $canais = Canal::all();
-        return view('atividades.createAtividade', ['eixos' => $eixos, 'publicos' => $publicos, "canais" => $canais]);
+        $medidas = MedidaTipo::all();
+        return view('atividades.createAtividade', ['eixos' => $eixos, 'publicos' => $publicos, "canais" => $canais, 'medidas' => $medidas]);
     }
 
     public function storeAtividade(Request $request)
@@ -92,13 +95,14 @@ class AtividadeController extends Controller
         $eixos = $this->eixo->all();
         $publicos = Publico::all();
         $canais = Canal::all();
+        $medidas = MedidaTipo::all();
         $atividade = $this->atividade->findOrFail($id);
 
         if (!$atividade) {
             return redirect()->back()->with('error', 'Não foi encontrada a atividade selecionada no sistema.');
         }
 
-        return view('atividades.editAtividade', ['eixos' => $eixos, 'atividade' => $atividade, 'publicos' => $publicos, 'canais' => $canais]);
+        return view('atividades.editAtividade', ['eixos' => $eixos, 'atividade' => $atividade, 'publicos' => $publicos, 'canais' => $canais, 'medidas' => $medidas]);
     }
 
     public function updateAtividade(Request $request, $id)

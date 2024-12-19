@@ -22,5 +22,6 @@ class DatabaseSeeder extends Seeder
             $this->call(CanalSeeder::class);       
             $this->call(EixoSeeder::class);
             $this->call(UsuarioTipoSeeder::class);
+            $this->call(MedidaTipoSeeder::class);
     }
 }

@@ -9,7 +9,7 @@ class Atividade extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['eixo_id', 'atividade_descricao','objetivo','publico_id','tipo_evento','canal_id','data_prevista','data_realizada','meta','realizado'];
+    protected $fillable = ['eixo_id', 'atividade_descricao','objetivo','publico_id','tipo_evento','canal_id','data_prevista','data_realizada','meta','realizado', 'medida_id'];
 
     public function eixos()
     {
@@ -24,5 +24,10 @@ class Atividade extends Model
     public function canal()
     {
            return $this->belongsTo(Canal::class,'canal_id');
+    }
+
+    public function medida()
+    {
+           return $this->belongsTo(MedidaTipo::class,'medida_id');
     }
 }

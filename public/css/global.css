@@ -323,17 +323,18 @@ a.btnAltSenha:hover {
 
 /* INÍCIO CSS SIDENAV */
 .liHover,
-.liHover a {
+.liHover a,
+.liHover .icon {
   transition: 0.1s;
 }
 
-.liHover a:hover {
+/* .liHover a:hover {
   padding: 6px 6px 6px 0;
-}
+} */
 
-.liHover:hover {
+.liHover .icon:hover {
   border-radius: 6px;
-  background-color: #1d4683;
+  color: #2d3783;
 }
 
 .sidenavImg {
