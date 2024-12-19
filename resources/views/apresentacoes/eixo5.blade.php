@@ -28,7 +28,7 @@
     <div class="form_create border">
       <div class="titleDP text-center fw-bold">
         <span>
-          Eixo V - Comunicação e Treinamentos Periódicos
+          Eixo V - COMUNICAÇÃO E TREINAMENTOS PERIÓDICOS
         </span>
       </div>
     </div>
@@ -37,25 +37,31 @@
   <div class="form-wrapper pt-3">
     <div class="form_create border">
       <div class="textDP text__justify">
-			<span>
-  			<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae quibusdam, nisi, tempore corporis quis possimus dignissimos debitis vero labore voluptatem ducimus consequatur maxime culpa! Officiis aperiam necessitatibus aut iste, exercitationem at voluptatibus eaque provident odit sapiente, illum animi unde repellat et modi asperiores sit est reiciendis ut rerum fuga harum.</p>
-  			<p>Nostrum quos quasi obcaecati dolor, enim similique. Expedita, est voluptas. Rerum dolorem, provident cum suscipit expedita exercitationem voluptatum molestias sint, voluptate blanditiis consequatur assumenda cumque non omnis recusandae aspernatur aut vero mollitia vel accusamus. Numquam, tempora laudantium accusamus ea adipisci unde, possimus similique libero nesciunt minus dicta nulla explicabo totam provident consequatur odit voluptates corrupti quasi officiis sapiente.</p>
-  			<p>Ducimus veniam corrupti, maxime suscipit fugiat dolor unde cupiditate neque quas veritatis, amet minima! Facilis iure aliquid ad, dicta dignissimos harum similique, perferendis alias obcaecati illo numquam error deserunt fuga.</p>
-  			<p>Veniam sequi voluptas alias obcaecati enim mollitia iusto sint cumque similique, voluptate est reiciendis doloremque animi id assumenda cupiditate? Veritatis itaque autem sunt inventore natus veniam quam quo adipisci eligendi dolorum dicta velit corrupti necessitatibus voluptatum non earum beatae debitis esse quas, quos in dolor excepturi illum!</p>
-  			<p>Tempora consectetur qui quibusdam dolore? Perspiciatis doloribus odit explicabo aperiam culpa vel, dignissimos molestiae molestias?</p>
-			</span>
+        <p>
+          As ações de comunicação do Programa de Integridade abrangem todas as iniciativas destinadas a levar aos colaboradores e parceiros institucionais, os valores do órgão, comunicar as regras e padrões éticos, bem como estimular comportamentos alinhados à moral, ao respeito às leis e à integridade pública (IN Nº 02/2022-CGE/AM).
+        </p>
+
+        <p>
+          Comunicação Interna: direcionada aos colaboradores da FAPEAM para disseminação de uma cultura da integridade e conduta ética e moral. Ferramentas de comunicação são utilizadas nessas atividades, tais como: e-mails, cartilhas, podcasts, palestras, capacitação, wallpapers, entre outras.
+        </p>
+
+        <p>
+          Comunicação Público Externo: a FAPEAM disponibiliza no site institucional as plataformas de Acesso à Informação, Transparência Institucional e do Programa de Dados Abertos 2023-2025, bem como acompanha o cumprimento da Lei Estadual 4.730/2018.
+        </p>
       </div>
     </div>
   </div>
 
   <div class="d-flex justify-content-center mt-4">
-  <form action="{{ route('atividades.index') }}" method="POST" class="d-inline">
+    <form action="{{ route('atividades.index') }}" method="POST" class="d-inline">
       @csrf
       <input type="hidden" name="eixo_id" value="5">
+
       <button type="submit" class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">
         Atividades
       </button>
     </form>
+
 		<button class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">Relatório</button>
   </div>
 

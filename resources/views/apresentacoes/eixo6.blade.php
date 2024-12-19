@@ -28,7 +28,7 @@
     <div class="form_create border">
       <div class="titleDP text-center fw-bold">
         <span>
-          Eixo VI - Canais de Denúncia
+          EIXO VI - CANAIS DE DENÚNCIA
         </span>
       </div>
     </div>
@@ -37,13 +37,13 @@
   <div class="form-wrapper pt-3">
     <div class="form_create border">
       <div class="textDP text__justify">
-			<span>
-  			<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae quibusdam, nisi, tempore corporis quis possimus dignissimos debitis vero labore voluptatem ducimus consequatur maxime culpa! Officiis aperiam necessitatibus aut iste, exercitationem at voluptatibus eaque provident odit sapiente, illum animi unde repellat et modi asperiores sit est reiciendis ut rerum fuga harum.</p>
-  			<p>Nostrum quos quasi obcaecati dolor, enim similique. Expedita, est voluptas. Rerum dolorem, provident cum suscipit expedita exercitationem voluptatum molestias sint, voluptate blanditiis consequatur assumenda cumque non omnis recusandae aspernatur aut vero mollitia vel accusamus. Numquam, tempora laudantium accusamus ea adipisci unde, possimus similique libero nesciunt minus dicta nulla explicabo totam provident consequatur odit voluptates corrupti quasi officiis sapiente.</p>
-  			<p>Ducimus veniam corrupti, maxime suscipit fugiat dolor unde cupiditate neque quas veritatis, amet minima! Facilis iure aliquid ad, dicta dignissimos harum similique, perferendis alias obcaecati illo numquam error deserunt fuga.</p>
-  			<p>Veniam sequi voluptas alias obcaecati enim mollitia iusto sint cumque similique, voluptate est reiciendis doloremque animi id assumenda cupiditate? Veritatis itaque autem sunt inventore natus veniam quam quo adipisci eligendi dolorum dicta velit corrupti necessitatibus voluptatum non earum beatae debitis esse quas, quos in dolor excepturi illum!</p>
-  			<p>Tempora consectetur qui quibusdam dolore? Perspiciatis doloribus odit explicabo aperiam culpa vel, dignissimos molestiae molestias?</p>
-			</span>
+        <p>
+          A FAPEAM disponibiliza canais de denúncia para acesso da sociedade em geral para relatar atos ou fatos que envolvam desvios éticos e de integridade de agentes públicos e insatisfações institucionais.
+        </p>
+
+        <p>
+          A Ouvidoria é o canal de relacionamento direto, não burocrático, que recebe, analisa, seleciona e encaminha aos setores competentes, pedidos de informações, dúvidas, denúncias, reclamações, críticas, opiniões, sugestões e elogios, respondendo-os em tempo hábil e sugerindo mudanças nos procedimentos e ações da FAPEAM. 
+        </p>
       </div>
     </div>
   </div>

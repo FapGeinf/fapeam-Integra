@@ -29,8 +29,7 @@
     <div class="form_create border">
       <div class="titleDP text-center fw-bold">
         <span>
-          Eixo I - Comprometimento e Apoio da Alta Direção
-        </span>
+          Eixo I - COMPROMETIMENTO E APOIO DA ALTA DIREÇÃO
       </div>
     </div>
   </div>
@@ -39,24 +38,9 @@
     <div class="form_create border">
       <div class="textDP text__justify">
         <span>
-          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae quibusdam, nisi, tempore corporis quis
-            possimus dignissimos debitis vero labore voluptatem ducimus consequatur maxime culpa! Officiis aperiam
-            necessitatibus aut iste, exercitationem at voluptatibus eaque provident odit sapiente, illum animi unde
-            repellat et modi asperiores sit est reiciendis ut rerum fuga harum.</p>
-          <p>Nostrum quos quasi obcaecati dolor, enim similique. Expedita, est voluptas. Rerum dolorem, provident cum
-            suscipit expedita exercitationem voluptatum molestias sint, voluptate blanditiis consequatur assumenda
-            cumque non omnis recusandae aspernatur aut vero mollitia vel accusamus. Numquam, tempora laudantium
-            accusamus ea adipisci unde, possimus similique libero nesciunt minus dicta nulla explicabo totam provident
-            consequatur odit voluptates corrupti quasi officiis sapiente.</p>
-          <p>Ducimus veniam corrupti, maxime suscipit fugiat dolor unde cupiditate neque quas veritatis, amet minima!
-            Facilis iure aliquid ad, dicta dignissimos harum similique, perferendis alias obcaecati illo numquam error
-            deserunt fuga.</p>
-          <p>Veniam sequi voluptas alias obcaecati enim mollitia iusto sint cumque similique, voluptate est reiciendis
-            doloremque animi id assumenda cupiditate? Veritatis itaque autem sunt inventore natus veniam quam quo
-            adipisci eligendi dolorum dicta velit corrupti necessitatibus voluptatum non earum beatae debitis esse quas,
-            quos in dolor excepturi illum!</p>
-          <p>Tempora consectetur qui quibusdam dolore? Perspiciatis doloribus odit explicabo aperiam culpa vel,
-            dignissimos molestiae molestias?</p>
+          <p>Apoiar o Programa de Integridade é um compromisso da alta direção da FAPEAM no combate à corrupção, na prestação de serviços públicos com mais qualidade e para a conduta ética em todas as operações e relações institucionais. </p>
+
+          <p>Este é um eixo essencial para a implementação eficaz do Programa de Integridade da FAPEAM, e garante que os princípios de transparência, responsabilidade e conformidade sejam incorporados à cultura organizacional, fortalecendo a governança e consolidando empenho em assegurar que os recursos públicos sejam geridos com responsabilidade e eficiência, de acordo com as normas legais, regulatórias e os valores institucionais.</p>
         </span>
       </div>
     </div>
