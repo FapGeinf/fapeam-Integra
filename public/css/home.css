@@ -10,12 +10,12 @@ body {
 }
 
 .borderRadius {
-    background-image: url('/img/login/tela-full.png');
+    background-image: url('/img/Decon/tela_inicial.png');
     background-size: cover;
 }
 
 .imgBloco {
-    width: 600px;
+    /* width: 600px; */
     margin-left: 27rem;
 }
 
@@ -39,26 +39,25 @@ body {
     display: flex;
     margin-left: 28rem;
     position: absolute;
+    margin-top: 2rem;
 }
 
 .links a {
-    color: #fff;
+    color: #183689;
     font-size: 20px;
+    font-weight: bold;
     text-decoration: none;
 }
 
 .linksChild {
-    padding: 6px;
-    border-radius: 5px;
-    transition: .2s;
-    border: 1px solid #2d4790;
-    background-color: #2d4790;
-    width: 160px;
-    text-align: center;
+    padding: 10px 60px;
+    border: 1px solid #fff;
+    background-color: #fff;
+    border-radius: 7px;
 }
 
 .linksChild:hover {
-    background-color: #13285e;
+    background-color: #ccc;
 }
 
 .grid {
@@ -140,30 +139,24 @@ body {
 
 @media only screen and (max-width: 1366px) {
     .imgBloco {
-        width: 460px;
+        width: 740px;
         margin-left: 15rem;
     }
 
     .links {
         margin-left: 14rem;
+        margin-top: 3rem;
+        padding: 10px 50px;
     }
 
     .links a {
         font-size: 16px;
     }
-
-    .linksChild {
-        width: 128px;
-    }
-
-    .arrowButton {
-        width: 180px;
-    }
 }
   
 @media only screen and (max-width: 1140px) {
     .borderRadius {
-        background-image: url('/img/login/tela-clean-1190.png');
+        background-image: url('/img/Decon/inicial_limpo.png');
         background-size: cover;
     }
 
@@ -179,17 +172,9 @@ body {
         font-size: 13px;
       }
 
-      .linksChild {
-        width: 100px;
-      }
 
     .imgBloco {
         margin-left: 0;
-        width: 350px;
-    }
-
-    .arrowButton {
-        width: 130px;
-        font-size: 12px;
+        width: 60%;
     }
 }
