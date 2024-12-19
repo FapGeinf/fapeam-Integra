@@ -49,13 +49,13 @@
   </div>
 
   <div class="d-flex justify-content-center mt-4">
-  <!-- <form action="{{ route('atividades.index') }}" method="POST" class="d-inline">
+  <form action="{{ route('atividades.index') }}" method="POST" class="d-inline">
       @csrf
       <input type="hidden" name="eixo_id" value="3">
       <button type="submit" class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">
         Atividades
       </button>
-    </form> -->
+    </form>
 		<button class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">Relatório</button>
   </div>
 
