@@ -28,7 +28,7 @@
     <div class="form_create border">
       <div class="titleDP text-center fw-bold">
         <span>
-          Eixo VII - Investigações Internas
+          EIXO VII - INVESTIGAÇÕES INTERNAS
         </span>
       </div>
     </div>
@@ -37,13 +37,13 @@
   <div class="form-wrapper pt-3">
     <div class="form_create border">
       <div class="textDP text__justify">
-			<span>
-  			<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae quibusdam, nisi, tempore corporis quis possimus dignissimos debitis vero labore voluptatem ducimus consequatur maxime culpa! Officiis aperiam necessitatibus aut iste, exercitationem at voluptatibus eaque provident odit sapiente, illum animi unde repellat et modi asperiores sit est reiciendis ut rerum fuga harum.</p>
-  			<p>Nostrum quos quasi obcaecati dolor, enim similique. Expedita, est voluptas. Rerum dolorem, provident cum suscipit expedita exercitationem voluptatum molestias sint, voluptate blanditiis consequatur assumenda cumque non omnis recusandae aspernatur aut vero mollitia vel accusamus. Numquam, tempora laudantium accusamus ea adipisci unde, possimus similique libero nesciunt minus dicta nulla explicabo totam provident consequatur odit voluptates corrupti quasi officiis sapiente.</p>
-  			<p>Ducimus veniam corrupti, maxime suscipit fugiat dolor unde cupiditate neque quas veritatis, amet minima! Facilis iure aliquid ad, dicta dignissimos harum similique, perferendis alias obcaecati illo numquam error deserunt fuga.</p>
-  			<p>Veniam sequi voluptas alias obcaecati enim mollitia iusto sint cumque similique, voluptate est reiciendis doloremque animi id assumenda cupiditate? Veritatis itaque autem sunt inventore natus veniam quam quo adipisci eligendi dolorum dicta velit corrupti necessitatibus voluptatum non earum beatae debitis esse quas, quos in dolor excepturi illum!</p>
-  			<p>Tempora consectetur qui quibusdam dolore? Perspiciatis doloribus odit explicabo aperiam culpa vel, dignissimos molestiae molestias?</p>
-			</span>
+        <p>
+          As investigações internas são indispensáveis para construção de uma cultura de integridade, objetivando verificar a ocorrência de materialidade e autoria de casos de conduta ilegal ou contra as políticas da FAPEAM, identificar as partes envolvidas e aplicar sanções cabíveis e adotar medidas de remediação para evitar a ocorrência de atos similares, em atenção ao disposto na IN N° 02/2022-CGE/AM.
+        </p>
+
+        <p>
+          A FAPEAM aprovou, por meio da Resolução 034/2023-CD/FAPEAM, o Manual Prático de Sindicância Disciplinar, que é um documento orientador, elaborado com base nos preceitos constitucionais, nas Leis Estaduais Nº 1.762/1986 e Nº 8.112/1990 e no Manual de Processo Administrativo Disciplinar da Controladoria Geral da União (CGU, Ed. 2021).
+        </p>
       </div>
     </div>
   </div>
