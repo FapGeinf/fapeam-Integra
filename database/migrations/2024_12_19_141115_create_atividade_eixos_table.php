@@ -13,15 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('atividades', function (Blueprint $table) {
+        Schema::create('atividade_eixos', function (Blueprint $table) {
             $table->id();
-            $table->text('atividade_descricao');
-            $table->text('objetivo');
-            $table->string('tipo_evento',255);
-            $table->date('data_prevista');
-            $table->date('data_realizada');
-            $table->integer('meta');
-            $table->integer('realizado');
+            $table->unsignedBigInteger('atividade_id');
+            $table->unsignedBigInteger('eixo_id');
+            $table->foreign('atividade_id')->references('id')->on('atividades')->onDelete('cascade');
+            $table->foreign('eixo_id')->references('id')->on('eixos')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -33,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('atividades');
+        Schema::dropIfExists('atividade_eixos');
     }
 };

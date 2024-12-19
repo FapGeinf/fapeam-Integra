@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Atividade;
 use Illuminate\Http\Request;
 use App\Models\Eixo;
+use App\Models\Publico;
+use App\Models\Canal;
 
 class AtividadeController extends Controller
 {
@@ -13,19 +15,20 @@ class AtividadeController extends Controller
 
     public function __construct(Atividade $atividade, Eixo $eixo)
     {
-           $this->atividade = $atividade;
-           $this->eixo = $eixo;
+        $this->atividade = $atividade;
+        $this->eixo = $eixo;
     }
 
     private function validateRules(Request $request)
     {
         return $request->validate([
-            'eixo_id' => 'required|exists:eixos,id',
+            'eixo_ids' => 'required|array',
+            'eixo_ids.*' => 'exists:eixos,id',
             'atividade_descricao' => 'required|string',
             'objetivo' => 'required|string',
-            'publico_alvo' => 'required|string|max:255',
+            'publico_id' => 'nullable|exists:publicos,id',
             'tipo_evento' => 'required|string|max:255',
-            'canal_divulgacao' => 'required|string|max:255',
+            'canal_id' => 'required|exists:canais,id',
             'data_prevista' => 'required|date',
             'data_realizada' => 'required|date',
             'meta' => 'required|integer|min:0',
@@ -33,18 +36,22 @@ class AtividadeController extends Controller
         ]);
     }
 
+
     public function index(Request $request)
     {
         $eixo_id = $request->get('eixo_id');
 
         if ($eixo_id && in_array($eixo_id, [1, 2, 3, 4, 5, 6, 7, 8])) {
-            $atividades = $this->atividade->where('eixo_id', $eixo_id)->get();
+            $atividades = $this->atividade->whereHas('eixos', function ($query) use ($eixo_id) {
+                $query->where('eixo_id', $eixo_id);
+            })->with(['publico', 'canal'])->get();
         } else {
             $atividades = $this->atividade->all();
         }
 
         return view('atividades.index', ['atividades' => $atividades]);
     }
+
 
     public function showAtividade($id)
     {
@@ -55,7 +62,9 @@ class AtividadeController extends Controller
     public function createAtividade()
     {
         $eixos = $this->eixo->all();
-        return view('atividades.createAtividade', ['eixos' => $eixos]);
+        $publicos = Publico::all();
+        $canais = Canal::all();
+        return view('atividades.createAtividade', ['eixos' => $eixos, 'publicos' => $publicos, "canais" => $canais]);
     }
 
     public function storeAtividade(Request $request)
@@ -65,26 +74,31 @@ class AtividadeController extends Controller
         try {
             $atividade = $this->atividade->create($validatedData);
 
-            if ($atividade) {
-                return redirect()->route('atividades.index')->with('success', 'Atividade criada com sucesso!');
+            if ($request->has('eixo_ids')) {
+                $atividade->eixos()->attach($request->eixo_ids);
             }
+
+            return redirect()->route('atividades.index')->with('success', 'Atividade criada com sucesso!');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Ocorreu um erro ao salvar a atividade. Por favor, tente novamente mais tarde.');
         }
 
-        return redirect()->back()->with('error', 'Ocorreu um erro inesperado.');
+
     }
+
 
     public function editAtividade($id)
     {
         $eixos = $this->eixo->all();
+        $publicos = Publico::all();
+        $canais = Canal::all();
         $atividade = $this->atividade->findOrFail($id);
 
         if (!$atividade) {
             return redirect()->back()->with('error', 'Não foi encontrada a atividade selecionada no sistema.');
         }
 
-        return view('atividades.editAtividade', ['eixos' => $eixos, 'atividade' => $atividade]);
+        return view('atividades.editAtividade', ['eixos' => $eixos, 'atividade' => $atividade, 'publicos' => $publicos, 'canais' => $canais]);
     }
 
     public function updateAtividade(Request $request, $id)
@@ -95,11 +109,17 @@ class AtividadeController extends Controller
             $atividade = $this->atividade->findOrFail($id);
 
             $atividade->update($validatedData);
+
+            if ($request->has('eixo_ids')) {
+                $atividade->eixos()->sync($request->eixo_ids);
+            }
+
             return redirect()->route('atividades.index')->with('success', 'Atividade atualizada com sucesso!');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Ocorreu um erro ao atualizar a atividade. Por favor, tente novamente mais tarde.');
         }
     }
+
 
     public function deleteAtividade($id)
     {

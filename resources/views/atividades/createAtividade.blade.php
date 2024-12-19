@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-
+<link href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
 @section('title') {{ 'Nova Atividade' }} @endsection
 
 <head>
@@ -40,21 +41,32 @@
             @csrf
             <div class="row g-3">
                 <div class="col-12">
-                    <label for="eixo_id" class="form-label">Eixo:</label>
-                    <select name="eixo_id" id="eixo_id" class="form-select" required>
-                        <option value="">Selecione o Eixo</option>
+                    <label for="eixo_ids" class="form-label">Eixos:</label>
+                    <select name="eixo_ids[]" id="eixo_ids" class="form-select" required multiple>
+                        <option value="">Selecione os Eixos</option>
                         @foreach ($eixos as $eixo)
-														<option value="{{$eixo->id}}" {{old('eixo_id')==$eixo->id ? 'selected' : ''}}>
-																{{'Eixo ' . $loop->iteration. ' - ' .$eixo->nome}}
-														</option>
-                            <!-- @if (in_array($eixo->id, [1, 2, 5]))
-                                <option value="{{ $eixo->id }}" {{ old('eixo_id') == $eixo->id ? 'selected' : '' }}>
-                                    {{ 'Eixo ' . $loop->iteration . ' - ' . $eixo->nome }}
-                                </option>
-                            @endif -->
+                            <option value="{{ $eixo->id }}" {{ in_array($eixo->id, old('eixo_ids', [])) ? 'selected' : '' }}>
+                                {{ 'Eixo ' . $loop->iteration . ' - ' . $eixo->nome }}
+                            </option>
                         @endforeach
                     </select>
                 </div>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        let elemento = document.getElementById('eixo_ids');
+
+                        if (elemento) {
+                            let choices = new Choices(elemento, {
+                                removeItemButton: true,
+                                placeholder: true,
+                                searchEnabled: false,
+                                itemSelectText: '',
+                                allowHTML: true
+                            });
+                        }
+                    });
+
+                </script>
                 <div class="col-12">
                     <label for="atividade_descricao" class="form-label">Atividade:</label>
                     <textarea name="atividade_descricao" id="atividade_descricao" class="form-control" required>
@@ -68,9 +80,15 @@
                     </textarea>
                 </div>
                 <div class="mb-5">
-                    <label for="publico_alvo" class="form-label">Público Alvo:</label>
-                    <textarea name="publico_alvo" id="publico_alvo" class="form-control"
-                        required>{{ old('publico_alvo') }}</textarea>
+                    <label for="publico_id" class="form-label">Público Alvo:</label>
+                    <select name="publico_id" id="publico_id" class="form-select" required>
+                        <option value="">Selecione o Público Alvo</option>
+                        @foreach ($publicos as $publico)
+                            <option value="{{ $publico->id }}" {{ old('publico_id') == $publico->id ? 'selected' : '' }}>
+                                {{ $publico->nome }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="mb-5">
                     <label for="tipo_evento" class="form-label">Tipo de Evento:</label>
@@ -81,11 +99,16 @@
                             TeleConferência</option>
                     </select>
                 </div>
-
                 <div class="mb-5">
-                    <label for="canal_divulgacao" class="form-label">Canal de Divulgação:</label>
-                    <textarea name="canal_divulgacao" id="canal_divulgacao" class="form-control"
-                        required>{{ old('canal_divulgacao') }}</textarea>
+                    <label for="canal_id" class="form-label">Canal de Divulgação:</label>
+                    <select name="canal_id" id="canal_id" class="form-select" required>
+                        <option value="">Selecione o Canal de Divulgação</option>
+                        @foreach ($canais as $canal)
+                            <option value="{{ $canal->id }}" {{ old('canal_id') == $canal->id ? 'selected' : '' }}>
+                                {{ $canal->nome }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="col-12 col-md-6">
                     <label for="data_prevista" class="form-label">Data Prevista:</label>

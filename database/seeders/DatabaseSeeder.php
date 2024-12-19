@@ -17,7 +17,9 @@ class DatabaseSeeder extends Seeder
 			$this->call(UnidadeTipoSeeder::class);
             $this->call(DiretoriaSeeder::class);
 			$this->call(UnidadeSeeder::class);
-			$this->call(UserSeeder::class);       
+			$this->call(UserSeeder::class);
+            $this->call(PublicoSeeder::class);
+            $this->call(CanalSeeder::class);       
             $this->call(EixoSeeder::class);
             $this->call(UsuarioTipoSeeder::class);
     }

@@ -9,10 +9,20 @@ class Atividade extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['eixo_id', 'atividade_descricao','objetivo','publico_alvo','tipo_evento','canal_divulgacao','data_prevista','data_realizada','meta','realizado'];
+    protected $fillable = ['eixo_id', 'atividade_descricao','objetivo','publico_id','tipo_evento','canal_id','data_prevista','data_realizada','meta','realizado'];
 
-    public function eixo()
+    public function eixos()
     {
-           return $this->belongsTo(Eixo::class,'eixo_id','id');
+        return $this->belongsToMany(Eixo::class, 'atividade_eixos', 'atividade_id', 'eixo_id');
+    }
+
+    public function publico()
+    {
+           return $this->belongsTo(Publico::class,'publico_id');
+    }
+
+    public function canal()
+    {
+           return $this->belongsTo(Canal::class,'canal_id');
     }
 }
