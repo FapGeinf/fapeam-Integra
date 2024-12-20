@@ -24,7 +24,7 @@ class CanalSeeder extends Seeder
            ]);
 
            Canal::factory()->create([
-             "nome" => "Instagram"
+             "nome" => "Memorando"
            ]);
     }
 }
