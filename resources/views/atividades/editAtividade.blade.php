@@ -54,11 +54,13 @@
                 <div class="row g-3">
                     <div class="col-12">
                         <label for="atividade_descricao" class="form-label">Atividade:</label>
-                        <textarea name="atividade_descricao" id="atividade_descricao" class="form-control" required>{{ old('atividade_descricao', $atividade->atividade_descricao) }}</textarea>
+                        <textarea name="atividade_descricao" id="atividade_descricao" class="form-control"
+                            required>{{ old('atividade_descricao', $atividade->atividade_descricao) }}</textarea>
                     </div>
                     <div class="col-12">
                         <label for="objetivo" class="form-label">Objetivo:</label>
-                        <textarea name="objetivo" id="objetivo" class="form-control" required>{{ old('objetivo', $atividade->objetivo) }}</textarea>
+                        <textarea name="objetivo" id="objetivo" class="form-control"
+                            required>{{ old('objetivo', $atividade->objetivo) }}</textarea>
                     </div>
 
                     <div class="col-12">
@@ -70,7 +72,13 @@
                                     {{ $publico->nome }}
                                 </option>
                             @endforeach
+                            <option value="outros" {{ old('publico_id') == 'outros' ? 'selected' : '' }}>Outros</option>
                         </select>
+                    </div>
+                    <div class="col-12" id="outro-publico-container" style="display: none;">
+                        <label for="novo_publico" class="form-label">Especifique o Público:</label>
+                        <input type="text" name="novo_publico" id="novo_publico" class="form-control"
+                            value="{{ old('novo_publico') }}">
                     </div>
                     <div class="col-12">
                         <label for="canal_id" class="form-label">Canal de Divulgação:</label>
@@ -113,12 +121,12 @@
                     <div class="col-12 col-md-6">
                         <label for="meta" class="form-label">Meta:</label>
                         <input type="number" name="meta" id="meta" class="form-control" required min="0"
-                            value="{{ old('meta', $atividade->meta) }}"  oninput="mostrarUnidade()">
+                            value="{{ old('meta', $atividade->meta) }}" oninput="mostrarUnidade()">
                     </div>
                     <div class="col-12 col-md-6">
                         <label for="realizado" class="form-label">Realizado:</label>
                         <input type="number" name="realizado" id="realizado" class="form-control" required min="0"
-                            value="{{ old('realizado', $atividade->realizado) }}"  oninput="mostrarUnidade()">
+                            value="{{ old('realizado', $atividade->realizado) }}" oninput="mostrarUnidade()">
                     </div>
                     <div class="col-12 col-md-6" id="unidade-container" style="display: none;">
                         <label for="medida_id" class="form-label">Tipo de Unidade:</label>
@@ -189,5 +197,23 @@
             unidadeContainer.style.display = "none";
         }
     }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        toggleOutroPublico(); 
+
+        function toggleOutroPublico() {
+            const publicoSelect = document.getElementById('publico_id');
+            const outroPublicoContainer = document.getElementById('outro-publico-container');
+
+            if (publicoSelect.value === 'outros') {
+                outroPublicoContainer.style.display = 'block';
+            } else {
+                outroPublicoContainer.style.display = 'none';
+            }
+        }
+
+        document.getElementById('publico_id').addEventListener('change', toggleOutroPublico);
+    });
+
 </script>
 @endsection
