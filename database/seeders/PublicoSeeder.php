@@ -16,15 +16,35 @@ class PublicoSeeder extends Seeder
     public function run()
     {
            Publico::factory()->create([
-             "nome" => "Colaboradores Internos"
+             "nome" => "Alta Direção"
            ]);
 
            Publico::factory()->create([
-               "nome" => "Público Externo"
+               "nome" => "Chefias"
            ]);
 
            Publico::factory()->create([
-               "nome" => "Pesquisadores"
+               "nome" => "Colaboradores da FAPEAM"
+           ]);
+
+           Publico::factory()->create([
+               "nome" => "Ouvidoria"
+           ]);
+
+           Publico::factory()->create([
+               "nome" => "Pesquisador"
+           ]);
+
+           Publico::factory()->create([
+               "nome" => "Fornecedor"
+           ]);
+
+           Publico::factory()->create([
+                  "nome" => "Comissão da Integridade"
+           ]);
+
+           Publico::factory()->create([
+                  "nome" => "Comissão de Ética"
            ]);
     }
 }
