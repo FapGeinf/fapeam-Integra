@@ -26,13 +26,13 @@
       <div class="col-md-3 mb-4">
         <div class="card border overflow-hidden">
           <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 70px;">
-            <img class="eixo__img" src="{{ asset('img/handshake.png') }}" alt="Minha Imagem">
+            <img class="eixo__img" src="{{ asset('img/eixos/handshake.png') }}" alt="Minha Imagem">
 
              <span style="font-size:22px;">EIXO I</span>
           </h5>
       
           <div class="card-body card-fofinho p-4">
-            <div class="my-auto title-teste text-center d-flex">
+            <div class="my-auto title-teste form-control text-center d-flex">
               COMPROMETIMENTO E APOIO DA ALTA DIREÇÃO
             </div>
           </div>
@@ -48,7 +48,7 @@
           </div>
       
           <div>
-            <h5 class="bg__card_pattern w-50 mx-auto p-1 mb-0"></h5>
+            <h5 class="bg__card_pattern w-50 rounded mx-auto p-1 mb-0"></h5>
           </div>
         </div>
       </div>
@@ -57,11 +57,13 @@
       <div class="col-md-3 mb-4">
         <div class="card border overflow-hidden">
           <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 70px;">
-            EIXO <span style="" class="ms-1">II</span>
+            <img class="eixo__img2" src="{{ asset('img/eixos/notebook.png') }}" alt="Minha Imagem">
+            
+            <span style="font-size:22px;">EIXO II</span>
           </h5>
       
           <div class="card-body card-fofinho p-4">
-            <div class="my-auto title-teste text-center d-flex">
+            <div class="my-auto title-teste form-control text-center d-flex">
               INSTITUCIONALIZAÇÃO DO CÓDIGO DE CONDUTA
             </div>
           </div>
@@ -77,7 +79,7 @@
           </div>
       
           <div>
-            <h5 class="bg__card_pattern w-50 mx-auto p-1 mb-0"></h5>
+            <h5 class="bg__card_pattern w-50 rounded mx-auto p-1 mb-0"></h5>
           </div>
         </div>
       </div>
@@ -86,11 +88,13 @@
       <div class="col-md-3 mb-4">
         <div class="card border overflow-hidden">
           <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 70px;">
-            EIXO <span style="" class="ms-1">III</span>
+
+            <img class="eixo__img3" src="{{ asset('img/eixos/alert.png') }}" alt="Minha Imagem">
+            <span style="font-size:22px;">EIXO III</span>
           </h5>
       
           <div class="card-body card-fofinho p-4">
-            <div class="my-auto title-teste text-center d-flex">
+            <div class="my-auto title-teste form-control text-center d-flex">
               AVALIAÇÃO DE RISCOS
             </div>
           </div>
@@ -106,7 +110,7 @@
           </div>
       
           <div>
-            <h5 class="bg__card_pattern w-50 mx-auto p-1 mb-0"></h5>
+            <h5 class="bg__card_pattern w-50 rounded mx-auto p-1 mb-0"></h5>
           </div>
         </div>
       </div>
@@ -115,11 +119,13 @@
       <div class="col-md-3 mb-4">
         <div class="card border overflow-hidden">
           <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 70px;">
-            EIXO <span style="" class="ms-1">IV</span>
+            <img class="eixo__img3" src="{{ asset('img/eixos/equalizer.png') }}" alt="Minha Imagem">
+
+            <span style="font-size:22px;">EIXO IV</span>
           </h5>
       
           <div class="card-body card-fofinho p-4">
-            <div class="my-auto title-teste text-center d-flex">
+            <div class="my-auto title-teste form-control text-center d-flex">
               IMPLEMENTAÇÃO DOS CONTROLES INTERNOS
             </div>
           </div>
@@ -135,7 +141,7 @@
           </div>
       
           <div>
-            <h5 class="bg__card_pattern w-50 mx-auto p-1 mb-0"></h5>
+            <h5 class="bg__card_pattern w-50 rounded mx-auto p-1 mb-0"></h5>
           </div>
         </div>
       </div>
@@ -144,11 +150,13 @@
       <div class="col-md-3 mb-4">
         <div class="card border overflow-hidden">
           <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 70px;">
-            EIXO <span style="" class="ms-1">V</span>
+            <img class="eixo__img3" src="{{ asset('img/eixos/training.png') }}" alt="Minha Imagem">
+
+            <span style="font-size:22px;">EIXO V</span>
           </h5>
       
           <div class="card-body card-fofinho p-4">
-            <div class="my-auto title-teste text-center d-flex">
+            <div class="my-auto title-teste form-control text-center d-flex">
               COMUNICAÇÃO E TREINAMENTOS PERIÓDICOS
             </div>
           </div>
@@ -164,7 +172,7 @@
           </div>
       
           <div>
-            <h5 class="bg__card_pattern w-50 mx-auto p-1 mb-0"></h5>
+            <h5 class="bg__card_pattern w-50 rounded mx-auto p-1 mb-0"></h5>
           </div>
         </div>
       </div>
@@ -173,11 +181,13 @@
       <div class="col-md-3 mb-4">
         <div class="card border overflow-hidden">
           <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 70px;">
-            EIXO <span style="" class="ms-1">VI</span>
+            <img class="eixo__img3" src="{{ asset('img/eixos/loudspeaker.png') }}" alt="Minha Imagem">
+
+            <span style="font-size:22px;">EIXO VI</span>
           </h5>
       
           <div class="card-body card-fofinho p-4">
-            <div class="my-auto title-teste text-center d-flex">
+            <div class="my-auto title-teste form-control text-center d-flex">
               CANAIS DE DENÚNCIA
             </div>
           </div>
@@ -193,7 +203,7 @@
           </div>
       
           <div>
-            <h5 class="bg__card_pattern w-50 mx-auto p-1 mb-0"></h5>
+            <h5 class="bg__card_pattern w-50 rounded mx-auto p-1 mb-0"></h5>
           </div>
         </div>
       </div>
@@ -202,11 +212,13 @@
       <div class="col-md-3 mb-4">
         <div class="card border overflow-hidden">
           <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 70px;">
-            EIXO <span style="" class="ms-1">VII</span>
+            <img class="eixo__img3" src="{{ asset('img/eixos/search.png') }}" alt="Minha Imagem">
+
+            <span style="font-size:22px;">EIXO VII</span>
           </h5>
       
           <div class="card-body  card-fofinho p-4">
-            <div class="my-auto title-teste text-center d-flex">
+            <div class="my-auto title-teste form-control text-center d-flex">
               INVESTIGAÇÕES INTERNAS
             </div>
           </div>
@@ -222,7 +234,7 @@
           </div>
       
           <div>
-            <h5 class="bg__card_pattern w-50 mx-auto p-1 mb-0"></h5>
+            <h5 class="bg__card_pattern w-50 rounded mx-auto p-1 mb-0"></h5>
           </div>
         </div>
       </div>
@@ -231,11 +243,14 @@
       <div class="col-md-3 mb-4">
         <div class="card border overflow-hidden">
           <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 70px;">
-            EIXO <span style="" class="ms-1">VIII</span>
+            
+            <img class="eixo__img3" src="{{ asset('img/eixos/monitoring.png') }}" alt="Minha Imagem">
+
+            <span style="font-size:22px;">EIXO VIII</span>
           </h5>
       
           <div class="card-body card-fofinho p-4">
-            <div class="my-auto title-teste text-center d-flex">
+            <div class="my-auto form-control title-teste text-center d-flex">
               MONITORAMENTO CONTÍNUO
             </div>
           </div>
@@ -251,7 +266,7 @@
           </div>
       
           <div>
-            <h5 class="bg__card_pattern w-50 mx-auto p-1 mb-0"></h5>
+            <h5 class="bg__card_pattern w-50 rounded mx-auto p-1 mb-0"></h5>
           </div>
         </div>
       </div>
