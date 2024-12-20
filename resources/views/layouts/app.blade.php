@@ -20,7 +20,7 @@
     <nav class="navbar">
       @if(Auth::check())
         <a class="navbar-brand" style="position: absolute; top: -7px">
-          <img src="/img/logoDeconWhite-nobg-1.png" alt="logo" class="logoNavImg d-inline-block align-text-top">          
+          <img src="/img/logoDeconWhite-nobg__update.png" alt="logo" class="logoNavImg d-inline-block align-text-top">          
         </a>
         @endif
 

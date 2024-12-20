@@ -159,7 +159,7 @@ body {
 
 .navbar {
   background-color: #2272b9;
-  height: 42px;
+  height: 44px;
   position: fixed !important;
   width: 100%;
   z-index: 1;
@@ -172,11 +172,12 @@ body {
 }
 
 .logoNavImg {
-  width: 90px;
+  width: 135px;
   height: 41px;
   /* margin-left: 1.6rem; */
   margin-left: 4rem;
   transition: .1s;
+  margin-top: 4px;
 }
 
 /* .logoNavImg:hover {
