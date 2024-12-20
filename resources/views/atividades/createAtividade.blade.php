@@ -88,7 +88,12 @@
                                 {{ $publico->nome }}
                             </option>
                         @endforeach
+                        <option value="outros">Outros</option>
                     </select>
+                    <div id="outros-input-container" style="display: none; margin-top: 10px;">
+                        <label for="novo_publico" class="form-label">Insira o novo Público:</label>
+                        <input type="text" name="novo_publico" id="novo_publico" class="form-control">
+                    </div>
                 </div>
                 <div class="mb-5">
                     <label for="tipo_evento" class="form-label">Tipo de Evento:</label>
@@ -135,8 +140,8 @@
                     <label for="medida_id" class="form-label">Tipo de Unidade:</label>
                     <select name="medida_id" id="medida_id" class="form-control" required>
                         <option value="">Selecione o Tipo de Unidade</option>
-                        @foreach ($medidas as $medida )
-                        <option value="{{ $medida->id }}" {{ old('medida_id') == $medida->id ? 'selected' : '' }}>
+                        @foreach ($medidas as $medida)
+                            <option value="{{ $medida->id }}" {{ old('medida_id') == $medida->id ? 'selected' : '' }}>
                                 {{ $medida->nome }}
                             </option>
                         @endforeach
@@ -187,18 +192,34 @@
             CKEDITOR.replace('canal_divulgacao', ckeditorConfig2);
         }
     });
-   
+
     function mostrarUnidade() {
         var meta = document.getElementById('meta').value;
         var realizado = document.getElementById('realizado').value;
         var unidadeContainer = document.getElementById('unidade-container');
-        
+
         if (meta > 0 || realizado > 0) {
             unidadeContainer.style.display = 'block';
         } else {
             unidadeContainer.style.display = 'none';
         }
     }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const publicoSelect = document.getElementById('publico_id');
+        const outrosInputContainer = document.getElementById('outros-input-container');
+        const novoPublicoInput = document.getElementById('novo_publico');
+
+        publicoSelect.addEventListener('change', function () {
+            if (this.value === 'outros') {
+                outrosInputContainer.style.display = 'block';
+                novoPublicoInput.required = true; 
+            } else {
+                outrosInputContainer.style.display = 'none';
+                novoPublicoInput.required = false; 
+            }
+        });
+    });
 
 
 </script>

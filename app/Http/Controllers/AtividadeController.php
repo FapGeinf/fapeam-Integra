@@ -27,16 +27,25 @@ class AtividadeController extends Controller
             'eixo_ids.*' => 'exists:eixos,id',
             'atividade_descricao' => 'required|string',
             'objetivo' => 'required|string',
-            'publico_id' => 'nullable|exists:publicos,id',
+            'publico_id' => [
+                'nullable',
+                function ($attribute, $value, $fail) {
+                    if ($value !== 'outros' && !Publico::where('id', $value)->exists()) {
+                        $fail('O público selecionado é inválido.');
+                    }
+                },
+            ],
+            'novo_publico' => 'nullable|string|max:255',
             'tipo_evento' => 'required|string|max:255',
             'canal_id' => 'required|exists:canais,id',
             'data_prevista' => 'required|date',
             'data_realizada' => 'required|date',
             'meta' => 'required|integer|min:0',
             'realizado' => 'required|integer|min:0',
-            'medida_id' => 'nullable|exists:medida_tipos,id'
+            'medida_id' => 'nullable|exists:medida_tipos,id',
         ]);
     }
+
 
 
     public function index(Request $request)
@@ -75,6 +84,14 @@ class AtividadeController extends Controller
         $validatedData = $this->validateRules($request);
 
         try {
+            if ($request->input('publico_id') === 'outros' && $request->filled('novo_publico')) {
+                $novoPublico = Publico::create([
+                    'nome' => $request->input('novo_publico'),
+                ]);
+
+                $validatedData['publico_id'] = $novoPublico->id;
+            }
+
             $atividade = $this->atividade->create($validatedData);
 
             if ($request->has('eixo_ids')) {
@@ -85,9 +102,8 @@ class AtividadeController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Ocorreu um erro ao salvar a atividade. Por favor, tente novamente mais tarde.');
         }
-
-
     }
+
 
 
     public function editAtividade($id)
@@ -110,9 +126,14 @@ class AtividadeController extends Controller
         $validatedData = $this->validateRules($request);
 
         try {
-            $atividade = $this->atividade->findOrFail($id);
+            if ($request->input('publico_id') === 'outros' && $request->filled('novo_publico')) {
+                $novoPublico = Publico::create(['nome' => $request->input('novo_publico')]);
+                $validatedData['publico_id'] = $novoPublico->id; 
+            }
 
+            $atividade = $this->atividade->findOrFail($id);
             $atividade->update($validatedData);
+
 
             if ($request->has('eixo_ids')) {
                 $atividade->eixos()->sync($request->eixo_ids);
@@ -123,6 +144,7 @@ class AtividadeController extends Controller
             return redirect()->back()->with('error', 'Ocorreu um erro ao atualizar a atividade. Por favor, tente novamente mais tarde.');
         }
     }
+
 
 
     public function deleteAtividade($id)
