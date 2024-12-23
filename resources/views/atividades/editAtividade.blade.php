@@ -39,7 +39,7 @@
 
                 <div class="row g-3">
                     <div class="col-12">
-                        <label for="eixo_ids" class="form-label">Eixos:</label>
+                        <label for="eixo_ids" class="form-label"> <span class="asteriscoTop">*</span>Eixos:</label>
                         <select name="eixo_ids[]" id="eixo_ids" class="form-select" required multiple>
                             <option value="">Selecione os Eixos</option>
                             @foreach ($eixos as $eixo)
@@ -53,18 +53,18 @@
 
                 <div class="row g-3">
                     <div class="col-12">
-                        <label for="atividade_descricao" class="form-label">Atividade:</label>
+                        <label for="atividade_descricao" class="form-label"> <span class="asteriscoTop">*</span>Atividade:</label>
                         <textarea name="atividade_descricao" id="atividade_descricao" class="form-control"
                             required>{{ old('atividade_descricao', $atividade->atividade_descricao) }}</textarea>
                     </div>
                     <div class="col-12">
-                        <label for="objetivo" class="form-label">Objetivo:</label>
+                        <label for="objetivo" class="form-label"> <span class="asteriscoTop">*</span>Objetivo:</label>
                         <textarea name="objetivo" id="objetivo" class="form-control"
                             required>{{ old('objetivo', $atividade->objetivo) }}</textarea>
                     </div>
 
                     <div class="col-12">
-                        <label for="publico_id" class="form-label">Público Alvo:</label>
+                        <label for="publico_id" class="form-label"> <span class="asteriscoTop">*</span>Público Alvo:</label>
                         <select name="publico_id" id="publico_id" class="form-select" required>
                             <option value="">Selecione o Público Alvo</option>
                             @foreach ($publicos as $publico)
@@ -81,7 +81,7 @@
                             value="{{ old('novo_publico') }}">
                     </div>
                     <div class="col-12">
-                        <label for="canal_id" class="form-label">Canal de Divulgação:</label>
+                        <label for="canal_id" class="form-label"> <span class="asteriscoTop">*</span>Canal de Divulgação:</label>
                         <select name="canal_id" id="canal_id" class="form-select" required>
                             <option value="">Selecione o Canal de Divulgação</option>
                             @foreach ($canais as $canal)
@@ -94,7 +94,7 @@
                 </div>
                 <div class="row g-3">
                     <div class="col-12 col-md-6">
-                        <label for="tipo_evento" class="form-label">Tipo de Evento:</label>
+                        <label for="tipo_evento" class="form-label"> <span class="asteriscoTop">*</span>Tipo de Evento:</label>
                         <select name="tipo_evento" id="tipo_evento" class="form-select" required>
                             <option value="1" {{ old('tipo_evento', $atividade->tipo_evento) == '1' ? 'selected' : '' }}>
                                 Presencial
@@ -105,7 +105,7 @@
                         </select>
                     </div>
                     <div class="col-12 col-md-6">
-                        <label for="data_prevista" class="form-label">Data Prevista:</label>
+                        <label for="data_prevista" class="form-label"> <span class="asteriscoTop">*</span>Data Prevista:</label>
                         <input type="date" name="data_prevista" id="data_prevista" class="form-control" required
                             value="{{ old('data_prevista', $atividade->data_prevista) }}">
                     </div>
@@ -113,23 +113,23 @@
 
                 <div class="row g-3">
                     <div class="col-12 col-md-6">
-                        <label for="data_realizada" class="form-label">Data Realizada:</label>
+                        <label for="data_realizada" class="form-label"> <span class="asteriscoTop">*</span>Data Realizada:</label>
                         <input type="date" name="data_realizada" id="data_realizada" class="form-control"
                             min="{{ \Carbon\Carbon::today()->toDateString() }}"
                             value="{{ old('data_realizada', $atividade->data_realizada) }}">
                     </div>
                     <div class="col-12 col-md-6">
-                        <label for="meta" class="form-label">Meta:</label>
+                        <label for="meta" class="form-label"> <span class="asteriscoTop">*</span>Meta:</label>
                         <input type="number" name="meta" id="meta" class="form-control" required min="0"
                             value="{{ old('meta', $atividade->meta) }}" oninput="mostrarUnidade()">
                     </div>
                     <div class="col-12 col-md-6">
-                        <label for="realizado" class="form-label">Realizado:</label>
+                        <label for="realizado" class="form-label"> <span class="asteriscoTop">*</span>Realizado:</label>
                         <input type="number" name="realizado" id="realizado" class="form-control" required min="0"
                             value="{{ old('realizado', $atividade->realizado) }}" oninput="mostrarUnidade()">
                     </div>
                     <div class="col-12 col-md-6" id="unidade-container" style="display: none;">
-                        <label for="medida_id" class="form-label">Tipo de Unidade:</label>
+                        <label for="medida_id" class="form-label"> <span class="asteriscoTop">*</span>Tipo de Unidade:</label>
                         <select name="medida_id" id="medida_id" class="form-control" required>
                             <option value="">Selecione o Tipo de Unidade</option>
                             @foreach ($medidas as $medida)
