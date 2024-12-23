@@ -96,11 +96,11 @@
                     <div class="col-12 col-md-6">
                         <label for="tipo_evento" class="form-label">Tipo de Evento:</label>
                         <select name="tipo_evento" id="tipo_evento" class="form-select" required>
-                            <option value="Presencial" {{ old('tipo_evento', $atividade->tipo_evento) == 'Presencial' ? 'selected' : '' }}>
+                            <option value="1" {{ old('tipo_evento', $atividade->tipo_evento) == '1' ? 'selected' : '' }}>
                                 Presencial
                             </option>
-                            <option value="TeleConferência" {{ old('tipo_evento', $atividade->tipo_evento) == 'TeleConferência' ? 'selected' : '' }}>
-                                TeleConferência
+                            <option value="2" {{ old('tipo_evento', $atividade->tipo_evento) == '2' ? 'selected' : '' }}>
+                                Online
                             </option>
                         </select>
                     </div>
