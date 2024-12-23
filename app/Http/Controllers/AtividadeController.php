@@ -31,7 +31,7 @@ class AtividadeController extends Controller
                 'nullable',
                 function ($attribute, $value, $fail) {
                     if ($value !== 'outros' && !Publico::where('id', $value)->exists()) {
-                        $fail('O público selecionado é inválido.');
+                        $fail('O público selecionado não está cadastrado. Por favor, escolha um público válido.');
                     }
                 },
             ],
@@ -43,10 +43,35 @@ class AtividadeController extends Controller
             'meta' => 'required|integer|min:0',
             'realizado' => 'required|integer|min:0',
             'medida_id' => 'nullable|exists:medida_tipos,id',
+        ], [
+            'eixo_ids.required' => 'Por favor, selecione pelo menos um eixo para continuar.',
+            'eixo_ids.array' => 'Os eixos devem estar no formato correto.',
+            'eixo_ids.*.exists' => 'Alguns dos eixos selecionados não existem. Verifique sua seleção.',
+            'atividade_descricao.required' => 'Não se esqueça de informar a descrição da atividade.',
+            'atividade_descricao.string' => 'A descrição da atividade deve ser um texto simples.',
+            'objetivo.required' => 'Por favor, informe o objetivo da atividade.',
+            'objetivo.string' => 'O objetivo deve ser descrito em texto.',
+            'novo_publico.string' => 'O campo para público personalizado deve conter texto.',
+            'novo_publico.max' => 'O nome do público não pode ter mais que 255 caracteres.',
+            'tipo_evento.required' => 'É necessário informar o tipo de evento.',
+            'tipo_evento.string' => 'O tipo de evento deve ser descrito em texto.',
+            'tipo_evento.max' => 'O tipo de evento não pode ter mais que 255 caracteres.',
+            'canal_id.required' => 'Por favor, selecione um canal de divulgação.',
+            'canal_id.exists' => 'O canal de divulgação escolhido não é válido.',
+            'data_prevista.required' => 'Informe a data prevista para o evento.',
+            'data_prevista.date' => 'A data prevista deve estar no formato correto.',
+            'data_realizada.required' => 'Informe a data em que o evento foi realizado.',
+            'data_realizada.date' => 'A data realizada deve estar no formato correto.',
+            'meta.required' => 'A meta não pode ser deixada em branco.',
+            'meta.integer' => 'A meta deve ser um número inteiro.',
+            'meta.min' => 'A meta deve ser pelo menos 0.',
+            'realizado.required' => 'Informe o número de realizações.',
+            'realizado.integer' => 'O campo "Realizado" deve conter um número inteiro.',
+            'realizado.min' => 'O número de realizações deve ser pelo menos 0.',
+            'medida_id.exists' => 'O tipo de medida selecionado não é válido. Por favor, revise.',
         ]);
     }
-
-
+    
 
     public function index(Request $request)
     {
@@ -128,7 +153,7 @@ class AtividadeController extends Controller
         try {
             if ($request->input('publico_id') === 'outros' && $request->filled('novo_publico')) {
                 $novoPublico = Publico::create(['nome' => $request->input('novo_publico')]);
-                $validatedData['publico_id'] = $novoPublico->id; 
+                $validatedData['publico_id'] = $novoPublico->id;
             }
 
             $atividade = $this->atividade->findOrFail($id);
