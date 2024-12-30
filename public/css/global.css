@@ -329,13 +329,15 @@ a.btnAltSenha:hover {
   transition: 0.1s;
 }
 
-/* .liHover a:hover {
+.liHover a:hover {
   padding: 6px 6px 6px 0;
-} */
+  background-color: #2537498f;
+  border-radius: 5px;
+}
 
 .liHover .icon:hover {
   border-radius: 6px;
-  color: #2d3783;
+  /* color: #2d3783; */
 }
 
 .sidenavImg {
