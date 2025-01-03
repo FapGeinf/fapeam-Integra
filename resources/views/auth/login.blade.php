@@ -92,8 +92,8 @@
 
       <div class="loginFooter">
         <div class="helpButtons">
-          <a href="http://10.10.3.252/glpi/">Esqueceu a senha?</a>
-          <a href="http://10.10.3.252/glpi/">Primeiro Acesso?</a>
+          <a href="http://10.10.3.252/glpi/front/ticket.form.php">Esqueceu a senha?</a>
+          <a href="http://10.10.3.252/glpi/front/ticket.form.php">Primeiro Acesso?</a>
         </div> 
       </div>
 
