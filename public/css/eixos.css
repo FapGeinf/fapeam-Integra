@@ -6,6 +6,12 @@ li {
   margin-left: 0 !important;
 } */
 
+body {
+  background-image: url('/img/login/background.jpg');
+  background-size: cover;
+  /* background-position: center; */
+}
+
 .form-control {
   height: 130px;
   justify-content: center;
