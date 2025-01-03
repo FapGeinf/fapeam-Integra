@@ -69,6 +69,10 @@
     <p>
       9. Declaração de Posicionamento do Instituto Internacional de Auditores- IIA: As três linhas de defesa: Uma atualização das três linhas. Ano 2020.
     </p>
+
+    <p>
+      10. Decreto N 50.868, de 12 de dezembro de 2024, , que institui o Programa Estadual de Integridade no âmbito da Administração Pública Direta e Indireta do Poder Executivo do Estado do Amazonas, e dá outras providências.
+    </p>
    
   </div>
   <style>
