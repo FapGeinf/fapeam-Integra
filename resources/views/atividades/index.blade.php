@@ -71,44 +71,61 @@
           <th scope="col">Ações</th>
         </tr>
       </thead>
+
       <tbody>
         @foreach ($atividades as $atividade)
       <tr>
         <td style="text-align:center;">
         @foreach ($atividade->eixos as $eixo)
-      <span class="badge bg-primary">{{ $eixo->nome }}</span>
-    @endforeach
+          <span class="badge bg-primary">{{ $eixo->nome }}</span>
+        @endforeach
         </td>
+
         <td style="text-align: center">{!! $atividade->atividade_descricao !!}</td>
-        <td>{!! $atividade->objetivo !!}</td>
-        <td>
+
+        <td class="text-center">{!! $atividade->objetivo !!}</td>
+
         <!-- Exibe o nome correspondente ao id do público alvo -->
-        {{ $atividade->publico->nome ?? 'Não informado' }}
+        <td class="text-center">
+          {{ $atividade->publico->nome ?? 'Não informado' }}
         </td>
-        <td style="text-align:center;">{{$atividade->tipo_evento}}</td>
-        <td>
+
+        <td class="text-center">
+          @if($atividade->tipo_evento == 1)
+              Presencial
+          @else
+              Online
+          @endif
+      </td>
+
         <!-- Exibe o nome correspondente ao id do canal de divulgação -->
-        {{ $atividade->canal->nome ?? 'Não informado' }}
+        <td class="text-center">
+          {{ $atividade->canal->nome ?? 'Não informado' }}
         </td>
+
         <td style="text-align:center;">{{ \Carbon\Carbon::parse($atividade->data_prevista)->format('d/m/Y') }}</td>
+
         <td style="text-align:center;">
         {{ $atividade->data_realizada ? \Carbon\Carbon::parse($atividade->data_realizada)->format('d/m/Y') : 'Não realizada' }}
         </td>
+
         <td style="text-align:center;">
         {{$atividade->meta}} {{$atividade->medida->nome ?? 'N/A'}}
         </td>
+
         <td style="text-align:center;">
         {{$atividade->realizado}} {{$atividade->medida->nome ?? 'N/A'}}
         </td>
+
         <td>
         @if(Auth::user()->unidade->unidadeTipoFK == 1)
-      <div class="d-flex justify-content-start">
-        <a href="{{ route('atividades.edit', $atividade->id) }}" class="btn btn-sm btn-warning me-2"><i
-        class="bi bi-pencil"></i></a>
-        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
-        data-bs-target="#deleteModal{{ $atividade->id }}"><i class="bi bi-trash"></i></button>
-      </div>
-    @endif
+          <div class="d-flex justify-content-start">
+            <a href="{{ route('atividades.edit', $atividade->id) }}" class="btn btn-sm btn-warning me-2"><i
+            class="bi bi-pencil"></i></a>
+            <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
+            data-bs-target="#deleteModal{{ $atividade->id }}"><i class="bi bi-trash"></i></button>
+          </div>
+        @endif
         </td>
       </tr>
 
