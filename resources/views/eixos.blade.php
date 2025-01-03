@@ -9,7 +9,7 @@
 </head>
 
 <div class="form-wrapper pt-5">
-  <div class="form_create1 border">
+  <div class="form_create1">
     <div class="text-center">
       <span class="custom__span-title fw-bold">
         EIXOS DO PROGRAMA DE INTEGRIDADE
@@ -19,7 +19,7 @@
 </div>
 
 <div class="form-wrapper pt-4">
-  <div class="custom__form_create border">
+  <div class="custom__form_create">
     <div class="row">
 
       <!-- EIXO I -->
