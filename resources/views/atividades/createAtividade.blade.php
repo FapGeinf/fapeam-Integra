@@ -119,15 +119,17 @@
 
         <div class="col-12">
           <label for="canal_id" class="form-label"> <span class="asteriscoTop">*</span>Canal de Divulgação:</label>
-          <select name="canal_id" id="canal_id" class="form-select" required>
-            <option value="">Selecione o Canal de Divulgação</option>
-            @foreach ($canais as $canal)
-              <option value="{{ $canal->id }}" {{ old('canal_id') == $canal->id ? 'selected' : '' }}>
-                {{ $canal->nome }}
-              </option>
-            @endforeach
+          <select name="canal_id" id="canal_id" class="form-select" required onchange="toggleOtherField()">
+              <option value="">Selecione o Canal de Divulgação</option>
+              @foreach ($canais as $canal)
+                  <option value="{{ $canal->id }}" {{ old('canal_id') == $canal->id ? 'selected' : '' }}>
+                      {{ $canal->nome }}
+                  </option>
+              @endforeach
+              <option value="outros">Outros</option>
           </select>
-        </div>
+          <input type="text" name="outro_canal" id="outro_canal" class="form-control mt-2" style="display: none;" placeholder="Digite o outro canal">
+      </div>
         
         <div class="col-12 col-md-6">
             <label for="data_prevista" class="form-label"> <span class="asteriscoTop">*</span>Data Prevista:</label>
@@ -174,6 +176,18 @@
 </div>
 
 <script src="{{asset('ckeditor/ckeditor.js')}}"></script>
+
+<script>
+  function toggleOtherField() {
+      var select = document.getElementById('canal_id');
+      var otherField = document.getElementById('outro_canal');
+      if (select.value === 'outros') {
+          otherField.style.display = 'block';
+      } else {
+          otherField.style.display = 'none';
+      }
+  }
+</script>
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {

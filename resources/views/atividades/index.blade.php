@@ -92,9 +92,9 @@
 
         <td class="text-center">
           @if($atividade->tipo_evento == 1)
-              Presencial
+            Presencial
           @else
-              Online
+            Online
           @endif
       </td>
 

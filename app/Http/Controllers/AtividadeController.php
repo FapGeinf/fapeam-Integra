@@ -37,7 +37,15 @@ class AtividadeController extends Controller
             ],
             'novo_publico' => 'nullable|string|max:255',
             'tipo_evento' => 'required|string|max:255',
-            'canal_id' => 'required|exists:canais,id',
+            'canal_id' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if ($value !== 'outros' && !Canal::where('id', $value)->exists()) {
+                        $fail('O canal de divulgação escolhido não é válido.');
+                    }
+                },
+            ],
+            'outro_canal' => 'nullable|string|max:255',
             'data_prevista' => 'required|date',
             'data_realizada' => 'required|date',
             'meta' => 'required|integer|min:0',
@@ -71,7 +79,6 @@ class AtividadeController extends Controller
             'medida_id.exists' => 'O tipo de medida selecionado não é válido. Por favor, revise.',
         ]);
     }
-    
 
     public function index(Request $request)
     {
@@ -87,7 +94,6 @@ class AtividadeController extends Controller
 
         return view('atividades.index', ['atividades' => $atividades]);
     }
-
 
     public function showAtividade($id)
     {
@@ -117,6 +123,14 @@ class AtividadeController extends Controller
                 $validatedData['publico_id'] = $novoPublico->id;
             }
 
+            if ($request->input('canal_id') === 'outros' && $request->filled('outro_canal')) {
+                $novoCanal = Canal::create([
+                    'nome' => $request->input('outro_canal'),
+                ]);
+
+                $validatedData['canal_id'] = $novoCanal->id;
+            }
+
             $atividade = $this->atividade->create($validatedData);
 
             if ($request->has('eixo_ids')) {
@@ -128,8 +142,6 @@ class AtividadeController extends Controller
             return redirect()->back()->with('error', 'Ocorreu um erro ao salvar a atividade. Por favor, tente novamente mais tarde.');
         }
     }
-
-
 
     public function editAtividade($id)
     {
@@ -156,9 +168,13 @@ class AtividadeController extends Controller
                 $validatedData['publico_id'] = $novoPublico->id;
             }
 
+            if ($request->input('canal_id') === 'outros' && $request->filled('outro_canal')) {
+                $novoCanal = Canal::create(['nome' => $request->input('outro_canal')]);
+                $validatedData['canal_id'] = $novoCanal->id;
+            }
+
             $atividade = $this->atividade->findOrFail($id);
             $atividade->update($validatedData);
-
 
             if ($request->has('eixo_ids')) {
                 $atividade->eixos()->sync($request->eixo_ids);
@@ -169,8 +185,6 @@ class AtividadeController extends Controller
             return redirect()->back()->with('error', 'Ocorreu um erro ao atualizar a atividade. Por favor, tente novamente mais tarde.');
         }
     }
-
-
 
     public function deleteAtividade($id)
     {
