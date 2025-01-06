@@ -49,6 +49,7 @@
   </div>
 
   <div class="d-flex justify-content-center mt-4">
+  @if(auth()->user()->unidade->unidadeTipoFK == 1 || auth()->user()->unidade->unidadeTipoFK == 5 || auth()->user()->unidadeTipoFK == 2)
   <form action="{{ route('atividades.index') }}" method="POST" class="d-inline">
       @csrf
       <input type="hidden" name="eixo_id" value="2">
@@ -56,6 +57,7 @@
         Atividades
       </button>
     </form>
+    @endif
 		<button class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">Relatório</button>
 
   </div>

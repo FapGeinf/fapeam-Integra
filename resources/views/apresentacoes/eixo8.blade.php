@@ -38,19 +38,24 @@
     <div class="form_create border">
       <div class="textDP text__justify">
         <p>
-          As estratégias de monitoramento contínuo do Programa de Integridade da FAPEAM consistem no acompanhamento das ações previstas no Plano de Ação, que incluem o tratamento dos riscos à integridade, capacitação de colaboradores e disseminação da cultura da integridade, para o fortalecimento das instâncias pertinentes ao tema e da própria Fundação.
+          As estratégias de monitoramento contínuo do Programa de Integridade da FAPEAM consistem no acompanhamento das
+          ações previstas no Plano de Ação, que incluem o tratamento dos riscos à integridade, capacitação de
+          colaboradores e disseminação da cultura da integridade, para o fortalecimento das instâncias pertinentes ao
+          tema e da própria Fundação.
         </p>
       </div>
     </div>
   </div>
 
   <div class="d-flex justify-content-center mt-4">
+    @if(auth()->user()->unidade->unidadeTipoFK == 1 || auth()->user()->unidade->unidadeTipoFK == 5 || auth()->user()->unidadeTipoFK == 2)
     <a href="{{ route('atividades.index', ['eixo_id' => 8]) }}">
       <button class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">Atividades</button>
     </a>
-		<button class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">Relatório</button>
+  @endif
+    <button class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">Relatório</button>
   </div>
-	
+
 
 </body>
 

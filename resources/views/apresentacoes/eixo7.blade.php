@@ -49,9 +49,11 @@
   </div>
 
   <div class="d-flex justify-content-center mt-4">
+  @if(auth()->user()->unidade->unidadeTipoFK == 1 || auth()->user()->unidade->unidadeTipoFK == 5 || auth()->user()->unidadeTipoFK == 2)
     <a href="{{ route('atividades.index', ['eixo_id' => 7]) }}">
       <button class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">Atividades</button>
     </a>
+  @endif
 		<button class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">Relatório</button>
   </div>
 </body>
