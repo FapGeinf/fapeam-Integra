@@ -14,6 +14,12 @@
     <title>Riscos</title>
     <link rel="stylesheet" href="{{ asset('css/show.css') }}">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <style>
+        .liDP {
+            margin-left: 0 !important;
+        }
+    </style>
     <script src="/ckeditor/ckeditor.js"></script>
 </head>
 

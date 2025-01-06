@@ -2,11 +2,17 @@
 @section('content')
 
 @section('title')
-    {{ 'Tabela das Respostas' }}
+    {{ 'Detalhes da Providência' }}
 @endsection
 
 <head>
     <link rel="stylesheet" href="{{ asset('css/resp.css') }}">
+
+    <style>
+        .liDP {
+          margin-left: 0 !important;
+        }
+      </style>
 </head>
 
 <div class="container-xl p-30">

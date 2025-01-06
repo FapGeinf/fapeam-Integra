@@ -337,6 +337,10 @@ p {
   padding: 0 30px;
 }
 
+.width__custom {
+  width: 100px;
+}
+
 .nowrap__custom {
   white-space: nowrap;
 }
