@@ -86,7 +86,6 @@
             @endif
           </td>
   
-          <!-- Exibe o nome correspondente ao id do canal de divulgação -->
           <td class="text-center">
             @foreach ($atividade->canais as $canal)
               <span class="badge bg-primary">{{ $canal->nome }}</span>
