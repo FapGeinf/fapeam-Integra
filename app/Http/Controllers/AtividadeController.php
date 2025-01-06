@@ -42,7 +42,6 @@ class AtividadeController extends Controller
                 'required',
                 'array',
                 function ($attribute, $value, $fail) {
-                    // Validação para garantir que todos os canais sejam válidos ou "outros"
                     foreach ($value as $canalId) {
                         if ($canalId !== 'outros' && !Canal::where('id', $canalId)->exists()) {
                             $fail('O canal de divulgação escolhido não é válido.');
