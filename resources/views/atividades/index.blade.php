@@ -13,6 +13,14 @@
     .liDP {
       margin-left: 0 !important;
     }
+
+    .hover {
+      text-decoration: none;
+    }
+
+    .hover:hover {
+      text-decoration: underline;
+    }
   </style>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -39,7 +47,7 @@
       <span style="font-size:22px;">Lista de Atividades</span>
       
       <span style="font-size:20px;">
-        <a class="text-decoration-none" href="{{ route('eixo.mostrar', ['eixo_id' => $eixo_id]) }}">
+        <a class="hover" href="{{ route('eixo.mostrar', ['eixo_id' => $eixo_id]) }}">
           {{$eixoNome}} <i class="bi bi-arrow-return-left"></i>
         </a>
       </span>
@@ -59,7 +67,7 @@
 
         <thead>
           <tr style="white-space: nowrap; text-align:center;">
-            <th scope="col">Eixos</th>
+            <th scope="col" style="width: 280px;">Eixos</th>
             <th scope="col">Atividade</th>
             <th scope="col">Objetivo</th>
             <th scope="col">Público Alvo</th>
