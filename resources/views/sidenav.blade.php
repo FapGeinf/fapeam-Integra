@@ -8,7 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     
-    <style>
+    <!-- O CSS ESTÁ DESATIVADA A PEDIDO DE RESPONSÁVEL MAIOR. FAVOR, NÃO APAGAR! -->
+    {{-- <style>
         /* Defina a largura inicial da sidenav para garantir que ela carregue fechada */
         #appSidenav {
             width: 4rem;
@@ -34,10 +35,11 @@
             margin-left: 0; /* Remove o deslocamento do conteúdo */
         }
 
-    </style>
+    </style> --}}
 </head>
 
-<script>
+<!-- A FUNÇÃO ESTÁ DESATIVADA A PEDIDO DE RESPONSÁVEL MAIOR. FAVOR, NÃO APAGAR! -->
+{{-- <script>
     document.addEventListener('DOMContentLoaded', function () {
         const bodyClass = document.body.classList.contains('page-with-filters');
         const removeSNItens = document.body.classList.contains('changePassword');
@@ -125,18 +127,18 @@
 
         toggleButton.addEventListener("click", toggleNav);
     });
-</script>
+</script> --}}
 
 
 {{-- <body class="{{ Request::routeIs('documentos.eixos') ? 'hide-sidenav' : '' }}"> --}}
 <body>
 
     <nav class="menu-lateral" id="appSidenav">
-        <button id="toggleSidenav" class="btn-toggle" style="transition: .3s">
+        {{-- <button id="toggleSidenav" class="btn-toggle" style="transition: .3s">
             <i class="bi bi-list"></i>
-        </button>
+        </button>--}}
 
-        <hr class="spacer" style="margin-top: 4rem; color: #22539c;">
+        <hr class="spacer" style="margin-top: 1.5rem; color: #22539c;"> 
 
         <ul class="ulList">
             <li class="item-menu liHover" >

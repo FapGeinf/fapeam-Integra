@@ -310,10 +310,11 @@ a.btnAltSenha:hover {
   transition: margin-left 0.4s;
 }
 
-.conteudo{
+.conteudo {
   margin-top: 1rem;
-  padding-left: 1px;
+  padding-left: 90px;
 }
+
 .mainShow {
   margin-top: 5vh;
 }

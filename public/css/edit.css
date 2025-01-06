@@ -1,3 +1,8 @@
+body {
+  background-image: url('/img/bg-white.jpg');
+    background-size: cover;
+}
+
 .form-wrapper {
   display: flex;
   justify-content: center; /* Centraliza horizontalmente */
