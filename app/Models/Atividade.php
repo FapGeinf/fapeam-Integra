@@ -21,9 +21,9 @@ class Atividade extends Model
            return $this->belongsTo(Publico::class,'publico_id');
     }
 
-    public function canal()
+    public function canais()
     {
-           return $this->belongsTo(Canal::class,'canal_id');
+        return $this->belongsToMany(Canal::class, 'atividade_canal', 'atividade_id', 'canal_id');
     }
 
     public function medida()

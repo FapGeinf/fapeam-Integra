@@ -122,22 +122,35 @@
 
         <div class="col-12">
           <label for="canal_id" class="form-label"> <span class="asteriscoTop">*</span>Canal de Divulgação:</label>
-          <select name="canal_id" id="canal_id" class="form-select" required onchange="toggleOtherField()">
+          <select name="canal_id[]" id="canal_id" class="form-select" required multiple onchange="toggleOtherField()">
             <option value="">Selecione o Canal de Divulgação</option>
-            @foreach ($canais as $canal)
-        <option value="{{ $canal->id }}" {{ old('canal_id') == $canal->id ? 'selected' : '' }}>
-          {{ $canal->nome }}
-        </option>
-      @endforeach
-            <option value="outros">Outros</option>
+           @foreach ($canais as $canal)
+            <option value="{{ $canal->id }}" {{ in_array($canal->id, old('canal_id', [])) ? 'selected' : '' }}>
+              {{ $canal->nome }}
+            </option>
+            @endforeach
           </select>
-          <input type="text" name="outro_canal" id="outro_canal" class="form-control mt-2" style="display: none;"
-            placeholder="Digite o outro canal">
         </div>
 
-         <script>
+        <script>
           document.addEventListener('DOMContentLoaded', function () {
             let elemento = document.getElementById('eixo_ids');
+
+            if (elemento) {
+              let choices = new Choices(elemento, {
+                removeItemButton: true,
+                placeholder: true,
+                searchEnabled: false,
+                itemSelectText: '',
+                allowHTML: true
+              });
+            }
+          });
+        </script>
+
+       <script>
+          document.addEventListener('DOMContentLoaded', function () {
+            let elemento = document.getElementById('canal_id');
 
             if (elemento) {
               let choices = new Choices(elemento, {
@@ -200,18 +213,6 @@
 <script src="{{asset('ckeditor/ckeditor.js')}}"></script>
 
 <script>
-  function toggleOtherField() {
-    var select = document.getElementById('canal_id');
-    var otherField = document.getElementById('outro_canal');
-    if (select.value === 'outros') {
-      otherField.style.display = 'block';
-    } else {
-      otherField.style.display = 'none';
-    }
-  }
-</script>
-
-<script>
   document.addEventListener("DOMContentLoaded", function () {
     let ckeditorConfig = {
       extraPlugins: 'wordcount',
@@ -247,15 +248,15 @@
     }
 
     flatpickr("#data_prevista", {
-      dateFormat: "Y-m-d", 
-      altInput: true,      
-      altFormat: "d/m/Y",  
+      dateFormat: "Y-m-d",
+      altInput: true,
+      altFormat: "d/m/Y",
     });
 
     flatpickr("#data_realizada", {
-      dateFormat: "Y-m-d", 
-      altInput: true,      
-      altFormat: "d/m/Y",  
+      dateFormat: "Y-m-d",
+      altInput: true,
+      altFormat: "d/m/Y",
     });
 
 

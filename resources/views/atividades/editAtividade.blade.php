@@ -61,13 +61,13 @@
                         <textarea name="atividade_descricao" id="atividade_descricao" class="form-control"
                             required>{{ old('atividade_descricao', $atividade->atividade_descricao) }}</textarea>
                     </div>
-                    <div class="col-12">
+                <div class="col-12">
                         <label for="objetivo" class="form-label"> <span class="asteriscoTop">*</span>Objetivo:</label>
                         <textarea name="objetivo" id="objetivo" class="form-control"
                             required>{{ old('objetivo', $atividade->objetivo) }}</textarea>
-                    </div>
+                </div>
 
-                    <div class="col-12">
+                <div class="col-12">
                         <label for="publico_id" class="form-label"> <span class="asteriscoTop">*</span>Público
                             Alvo:</label>
                         <select name="publico_id" id="publico_id" class="form-select" required>
@@ -79,25 +79,41 @@
                             @endforeach
                             <option value="outros" {{ old('publico_id') == 'outros' ? 'selected' : '' }}>Outros</option>
                         </select>
-                    </div>
-                    <div class="col-12" id="outro-publico-container" style="display: none;">
+                </div>
+                <div class="col-12" id="outro-publico-container" style="display: none;">
                         <label for="novo_publico" class="form-label">Especifique o Público:</label>
                         <input type="text" name="novo_publico" id="novo_publico" class="form-control"
                             value="{{ old('novo_publico') }}">
-                    </div>
-                    <div class="col-12">
-                        <label for="canal_id" class="form-label"> <span class="asteriscoTop">*</span>Canal de
-                            Divulgação:</label>
-                        <select name="canal_id" id="canal_id" class="form-select" required>
-                            <option value="">Selecione o Canal de Divulgação</option>
-                            @foreach ($canais as $canal)
-                                <option value="{{ $canal->id }}" {{ old('canal_id', $atividade->canal_id) == $canal->id ? 'selected' : '' }}>
-                                    {{ $canal->nome }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
                 </div>
+                <div class="col-12">
+                    <label for="canal_id" class="form-label"> <span class="asteriscoTop">*</span>Canal de Divulgação:</label>
+                    <select name="canal_id[]" id="canal_id" class="form-select" required multiple onchange="toggleOtherField()">
+                        <option value="">Selecione o Canal de Divulgação</option>
+                        @foreach ($canais as $canal)
+                            <option value="{{ $canal->id }}" 
+                                {{ in_array($canal->id, old('canal_id', $atividade->canais->pluck('id')->toArray())) ? 'selected' : '' }}>
+                                {{ $canal->nome }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        let elemento = document.getElementById('canal_id');
+
+                        if (elemento) {
+                            let choices = new Choices(elemento, {
+                                removeItemButton: true,
+                                placeholder: true,
+                                searchEnabled: false,
+                                itemSelectText: '',
+                                allowHTML: true
+                            });
+                        }
+                    });
+                </script>
+
                 <div class="row g-3">
                     <div class="col-12 col-md-6">
                         <label for="tipo_evento" class="form-label"> <span class="asteriscoTop">*</span>Tipo de
@@ -221,22 +237,6 @@
         }
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
-        toggleOutroPublico();
-
-        function toggleOutroPublico() {
-            const publicoSelect = document.getElementById('publico_id');
-            const outroPublicoContainer = document.getElementById('outro-publico-container');
-
-            if (publicoSelect.value === 'outros') {
-                outroPublicoContainer.style.display = 'block';
-            } else {
-                outroPublicoContainer.style.display = 'none';
-            }
-        }
-
-        document.getElementById('publico_id').addEventListener('change', toggleOutroPublico);
-    });
 
 </script>
 @endsection

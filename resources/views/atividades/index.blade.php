@@ -85,7 +85,6 @@
 
         <td class="text-center">{!! $atividade->objetivo !!}</td>
 
-        <!-- Exibe o nome correspondente ao id do público alvo -->
         <td class="text-center">
           {{ $atividade->publico->nome ?? 'Não informado' }}
         </td>
@@ -96,11 +95,13 @@
           @else
             Online
           @endif
-      </td>
+        </td>
 
-        <!-- Exibe o nome correspondente ao id do canal de divulgação -->
+        
         <td class="text-center">
-          {{ $atividade->canal->nome ?? 'Não informado' }}
+            @foreach ($atividade->canais as $canal)
+              <span class="badge bg-primary">{{ $canal->nome }}</span>
+            @endforeach
         </td>
 
         <td style="text-align:center;">{{ \Carbon\Carbon::parse($atividade->data_prevista)->format('d/m/Y') }}</td>

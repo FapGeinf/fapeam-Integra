@@ -12,4 +12,9 @@ class Canal extends Model
     protected $fillable = ['nome'];
 
     protected $table = 'canais';
+
+    public function atividades()
+    {
+        return $this->belongsToMany(Atividade::class, 'atividade_canal', 'canal_id', 'atividade_id');
+    }
 }

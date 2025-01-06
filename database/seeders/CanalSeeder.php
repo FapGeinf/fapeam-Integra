@@ -26,5 +26,9 @@ class CanalSeeder extends Seeder
            Canal::factory()->create([
              "nome" => "Memorando"
            ]);
+
+           Canal::factory()->create([
+            "nome" => "Outros"
+           ]);
     }
 }

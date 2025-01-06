@@ -8,6 +8,7 @@ use App\Models\Eixo;
 use App\Models\Publico;
 use App\Models\Canal;
 use App\Models\MedidaTipo;
+use Illuminate\Support\Facades\Log;
 
 class AtividadeController extends Controller
 {
@@ -39,9 +40,14 @@ class AtividadeController extends Controller
             'tipo_evento' => 'required|string|max:255',
             'canal_id' => [
                 'required',
+                'array',
                 function ($attribute, $value, $fail) {
-                    if ($value !== 'outros' && !Canal::where('id', $value)->exists()) {
-                        $fail('O canal de divulgação escolhido não é válido.');
+                    // Validação para garantir que todos os canais sejam válidos ou "outros"
+                    foreach ($value as $canalId) {
+                        if ($canalId !== 'outros' && !Canal::where('id', $canalId)->exists()) {
+                            $fail('O canal de divulgação escolhido não é válido.');
+                            break;
+                        }
                     }
                 },
             ],
@@ -64,8 +70,9 @@ class AtividadeController extends Controller
             'tipo_evento.required' => 'É necessário informar o tipo de evento.',
             'tipo_evento.string' => 'O tipo de evento deve ser descrito em texto.',
             'tipo_evento.max' => 'O tipo de evento não pode ter mais que 255 caracteres.',
-            'canal_id.required' => 'Por favor, selecione um canal de divulgação.',
-            'canal_id.exists' => 'O canal de divulgação escolhido não é válido.',
+            'canal_id.required' => 'Por favor, selecione pelo menos um canal de divulgação.',
+            'canal_id.array' => 'Os canais de divulgação devem ser fornecidos como uma lista.',
+            'canal_id.exists' => 'Alguns dos canais de divulgação escolhidos não são válidos.',
             'data_prevista.required' => 'Informe a data prevista para o evento.',
             'data_prevista.date' => 'A data prevista deve estar no formato correto.',
             'data_realizada.required' => 'Informe a data em que o evento foi realizado.',
@@ -87,13 +94,14 @@ class AtividadeController extends Controller
         if ($eixo_id && in_array($eixo_id, [1, 2, 3, 4, 5, 6, 7])) {
             $atividades = $this->atividade->whereHas('eixos', function ($query) use ($eixo_id) {
                 $query->where('eixo_id', $eixo_id);
-            })->with(['publico', 'canal', 'medida'])->get();
+            })->with(['publico', 'canais', 'medida'])->get();
         } else {
-            $atividades = $this->atividade->all();
+            $atividades = $this->atividade->with(['publico', 'canais', 'medida'])->get();
         }
 
         return view('atividades.index', ['atividades' => $atividades]);
     }
+
 
     public function showAtividade($id)
     {
@@ -112,36 +120,62 @@ class AtividadeController extends Controller
 
     public function storeAtividade(Request $request)
     {
-        $validatedData = $this->validateRules($request);
+        Log::info('Dados recebidos para criação da atividade:', $request->all());
 
         try {
+            $validatedData = $this->validateRules($request);
+
             if ($request->input('publico_id') === 'outros' && $request->filled('novo_publico')) {
+                Log::info('Criando novo público', ['nome' => $request->input('novo_publico')]);
+
                 $novoPublico = Publico::create([
                     'nome' => $request->input('novo_publico'),
                 ]);
 
                 $validatedData['publico_id'] = $novoPublico->id;
+                Log::info('Novo público criado com sucesso:', ['id' => $novoPublico->id]);
             }
 
-            if ($request->input('canal_id') === 'outros' && $request->filled('outro_canal')) {
-                $novoCanal = Canal::create([
-                    'nome' => $request->input('outro_canal'),
-                ]);
 
-                $validatedData['canal_id'] = $novoCanal->id;
-            }
+            Log::info('Criando a atividade', ['dados' => $validatedData]);
 
-            $atividade = $this->atividade->create($validatedData);
+            $atividade = $this->atividade->create([
+                'atividade_descricao' => $validatedData['atividade_descricao'],
+                'objetivo' => $validatedData['objetivo'],
+                'publico_id' => $validatedData['publico_id'],
+                'tipo_evento' => $validatedData['tipo_evento'],
+                'data_prevista' => $validatedData['data_prevista'],
+                'data_realizada' => $validatedData['data_realizada'],
+                'meta' => $validatedData['meta'],
+                'realizado' => $validatedData['realizado'],
+                'medida_id' => $validatedData['medida_id'],
+            ]);
 
             if ($request->has('eixo_ids')) {
+                Log::info('Associando eixos à atividade', ['eixos' => $request->eixo_ids]);
                 $atividade->eixos()->attach($request->eixo_ids);
             }
 
+            if ($request->has('canal_id')) {
+                Log::info('Associando canais à atividade', ['canais' => $request->canal_id]);
+                $atividade->canais()->attach($validatedData['canal_id']);
+            }
+
+            Log::info('Atividade criada com sucesso', ['atividade_id' => $atividade->id]);
+
             return redirect()->route('atividades.index')->with('success', 'Atividade criada com sucesso!');
         } catch (\Exception $e) {
+            Log::error('Erro ao salvar a atividade', [
+                'error_message' => $e->getMessage(),
+                'stack_trace' => $e->getTraceAsString(),
+                'request_data' => $request->all(),
+            ]);
+
             return redirect()->back()->with('error', 'Ocorreu um erro ao salvar a atividade. Por favor, tente novamente mais tarde.');
         }
     }
+
+
 
     public function editAtividade($id)
     {
@@ -160,31 +194,64 @@ class AtividadeController extends Controller
 
     public function updateAtividade(Request $request, $id)
     {
-        $validatedData = $this->validateRules($request);
+        Log::info('Dados recebidos para atualização da atividade:', $request->all());
 
         try {
+         
+            $validatedData = $this->validateRules($request);
+
+           
             if ($request->input('publico_id') === 'outros' && $request->filled('novo_publico')) {
+                Log::info('Criando novo público', ['nome' => $request->input('novo_publico')]);
+
                 $novoPublico = Publico::create(['nome' => $request->input('novo_publico')]);
                 $validatedData['publico_id'] = $novoPublico->id;
+                Log::info('Novo público criado com sucesso:', ['id' => $novoPublico->id]);
             }
 
-            if ($request->input('canal_id') === 'outros' && $request->filled('outro_canal')) {
-                $novoCanal = Canal::create(['nome' => $request->input('outro_canal')]);
-                $validatedData['canal_id'] = $novoCanal->id;
-            }
-
+           
             $atividade = $this->atividade->findOrFail($id);
-            $atividade->update($validatedData);
 
+            Log::info('Atualizando a atividade', ['dados' => $validatedData]);
+
+         
+            $atividade->update([
+                'atividade_descricao' => $validatedData['atividade_descricao'],
+                'objetivo' => $validatedData['objetivo'],
+                'publico_id' => $validatedData['publico_id'],
+                'tipo_evento' => $validatedData['tipo_evento'],
+                'data_prevista' => $validatedData['data_prevista'],
+                'data_realizada' => $validatedData['data_realizada'],
+                'meta' => $validatedData['meta'],
+                'realizado' => $validatedData['realizado'],
+                'medida_id' => $validatedData['medida_id'],
+            ]);
+
+          
             if ($request->has('eixo_ids')) {
+                Log::info('Associando eixos à atividade', ['eixos' => $request->eixo_ids]);
                 $atividade->eixos()->sync($request->eixo_ids);
             }
 
+            if ($request->has('canal_id')) {
+                Log::info('Associando canais à atividade', ['canais' => $request->canal_id]);
+                $atividade->canais()->sync($request->canal_id);  
+            }
+
+            Log::info('Atividade atualizada com sucesso', ['atividade_id' => $atividade->id]);
+
             return redirect()->route('atividades.index')->with('success', 'Atividade atualizada com sucesso!');
         } catch (\Exception $e) {
+            Log::error('Erro ao atualizar a atividade', [
+                'error_message' => $e->getMessage(),
+                'stack_trace' => $e->getTraceAsString(),
+                'request_data' => $request->all(),
+            ]);
+
             return redirect()->back()->with('error', 'Ocorreu um erro ao atualizar a atividade. Por favor, tente novamente mais tarde.');
         }
     }
+
 
     public function deleteAtividade($id)
     {
