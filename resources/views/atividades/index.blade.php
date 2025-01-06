@@ -37,7 +37,10 @@
   <div class="col-12 border main-datatable">
     <div class="card-body d-flex justify-content-between p-2">
       <h2 class="mb-0 fw-bold">
-        <a style = "text-decoration:none; color:black;" href="{{ route('eixo.mostrar', ['eixo_id' => $eixo_id]) }}">
+        <a style="text-decoration: none; color: rgba(0, 0, 0, 0.9); border-bottom: 1px solid transparent; transition: border-color 0.3s, color 0.3s;"
+           href="{{ route('eixo.mostrar', ['eixo_id' => $eixo_id]) }}"
+           onmouseover="this.style.borderColor='#bbb'; this.style.color='rgba(0, 0, 0, 0.8)';"
+           onmouseout="this.style.borderColor='transparent'; this.style.color='rgba(0, 0, 0, 0.6)';">
           Lista de Atividades - {{$eixoNome}}
         </a>
       </h2>
@@ -47,6 +50,8 @@
     </div>
   </div>
 </div>
+
+
 
 
 <div class="container-fluid p-30">
