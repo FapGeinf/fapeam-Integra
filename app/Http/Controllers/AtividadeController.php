@@ -101,6 +101,39 @@ class AtividadeController extends Controller
         return view('atividades.index', ['atividades' => $atividades]);
     }
 
+    public function createCanal(Request $request)
+    {
+        try {
+            $request->validate([
+                'nome' => 'required|max:255'
+            ]);
+
+            if (Canal::where('nome', $request->input('nome'))->exists()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'O canal já existe.'
+                ], 400);
+            }
+
+            $canal = Canal::create([
+                'nome' => $request->input('nome')
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'canal' => $canal
+            ], 201);
+
+        } catch (\Exception $e) {
+            Log::error('Erro ao criar canal: ' . $e->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Ocorreu um erro ao tentar criar o canal. Tente novamente mais tarde.'
+            ], 500);
+        }
+    }
+
 
     public function showAtividade($id)
     {

@@ -131,16 +131,31 @@
         </div>
 
         <div class="col-12">
-          <label for="canal_id" class="form-label"> <span class="asteriscoTop">*</span>Canal de Divulgação:</label>
+          <label for="canal_id" class="form-label">
+            <span class="asteriscoTop">*</span> Canal de Divulgação:
+          </label>
           <select name="canal_id[]" id="canal_id" class="form-select" required multiple onchange="toggleOtherField()">
             <option value="">Selecione o Canal de Divulgação</option>
-           @foreach ($canais as $canal)
-            <option value="{{ $canal->id }}" {{ in_array($canal->id, old('canal_id', [])) ? 'selected' : '' }}>
-              {{ $canal->nome }}
-            </option>
+            <option value="outros">Novo Canal Divulgação (digite abaixo)</option>
+            @foreach ($canais as $canal)
+              <option value="{{ $canal->id }}" {{ in_array($canal->id, old('canal_id', [])) ? 'selected' : '' }}>
+                {{ $canal->nome }}
+              </option>
             @endforeach
           </select>
         </div>
+
+
+        <div class="col-12" id="novo_canal_div" style="display: none;">
+          <label for="novo_canal" class="form-label">
+            <span class="asteriscoTop">*</span> Novo Canal de Divulgação:
+          </label>
+          <input type="text" id="novo_canal" name="novo_canal" class="form-control" placeholder="Digite o novo canal">
+          <button type="button" class="btn btn-primary mt-2" onclick="criarCanal()">Criar Novo Canal</button>
+        </div>
+
+
+
 
         <script>
           document.addEventListener('DOMContentLoaded', function () {
@@ -158,7 +173,7 @@
           });
         </script>
 
-       <script>
+        <script>
           document.addEventListener('DOMContentLoaded', function () {
             let elemento = document.getElementById('canal_id');
 
@@ -173,6 +188,67 @@
             }
           });
         </script>
+
+
+        <script>
+          function toggleOtherField() {
+            var select = document.getElementById('canal_id');
+            var novoCanalDiv = document.getElementById('novo_canal_div');
+
+            if (select.value == 'outros') {
+              novoCanalDiv.style.display = 'block';
+            } else {
+              novoCanalDiv.style.display = 'none';
+            }
+          }
+
+
+          function criarCanal() {
+            var novoCanal = document.getElementById('novo_canal').value;
+
+            if (novoCanal.trim() !== "") {
+              fetch('{{ route('canal.criar') }}', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({ nome: novoCanal })
+              })
+                .then(response => response.json())
+                .then(data => {
+                  if (data.success) {
+                   
+                    var select = document.getElementById('canal_id');
+                    var option = document.createElement('option');
+                    option.value = data.canal.id;
+                    option.text = data.canal.nome;
+                    select.appendChild(option);
+
+                   
+                    var selectedOptions = Array.from(select.options).map(option => option.value);
+                    select.value = selectedOptions.includes(data.canal.id.toString()) ? data.canal.id : select.value;
+
+
+                    document.getElementById('novo_canal').value = '';
+                    document.getElementById('novo_canal_div').style.display = 'none';
+
+                    alert('Canal criado com sucesso!');
+                  } else {
+                    alert('Erro ao criar o canal: ' + data.message);
+                  }
+                })
+                .catch(error => {
+                  alert('Ocorreu um erro ao criar o canal');
+                  console.error('Erro:', error);
+                });
+            } else {
+              alert('Por favor, insira o nome do canal.');
+            }
+          }
+
+        </script>
+
 
         <div class="col-12 col-md-6">
           <label for="data_prevista" class="form-label"> <span class="asteriscoTop">*</span>Data Prevista:</label>

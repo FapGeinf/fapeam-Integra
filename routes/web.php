@@ -116,3 +116,4 @@ Route::prefix('atividades')->name('atividades.')->middleware('auth')->group(func
 });
 
 Route::get('/graficos',[RelatorioController::class,'graficosIndex'])->name('graficos.index')->middleware('auth');
+Route::post('/canal/criar',[AtividadeController::class,'createCanal'])->name('canal.criar');
