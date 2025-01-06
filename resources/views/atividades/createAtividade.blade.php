@@ -10,6 +10,12 @@
 
 <head>
   <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
+
+  <style>
+    .form-label {
+      margin-bottom: 0 !important;
+    }
+  </style>
 </head>
 
 <div class="alert-container mt-5">
