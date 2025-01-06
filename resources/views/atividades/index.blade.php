@@ -87,11 +87,8 @@
           </td>
   
           <td class="text-center">
-            @foreach ($atividade->canais as $canal)
-              <span class="badge bg-primary">{{ $canal->nome }}</span>
-            @endforeach
+            {{ $atividade->canal->nome ?? 'Não informado' }}
           </td>
-
   
           <td class="text-center">{{ \Carbon\Carbon::parse($atividade->data_prevista)->format('d/m/Y') }}</td>
   
