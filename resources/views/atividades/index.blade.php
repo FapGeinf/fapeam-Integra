@@ -86,6 +86,7 @@
             @endif
           </td>
   
+          <!-- Exibe o nome correspondente ao id do canal de divulgação -->
           <td class="text-center">
             {{ $atividade->canal->nome ?? 'Não informado' }}
           </td>
