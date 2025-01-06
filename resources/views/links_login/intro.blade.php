@@ -26,17 +26,23 @@
 
       <div class="links">
         
-        <div class="linksChild">
-          <a class="fw-bold" href="{{ route('apresentacao') }}" >Apresentação</a>
-        </div>
+        <a class="fw-bold" href="{{ route('apresentacao') }}">
+          <div class="linksChild">
+            Apresentação
+          </div>
+        </a>
         
-        <div class="linksChild">
-          <a class="fw-bold" href="{{ route('legislacao') }}" >Legislação</a>
-        </div>
+        <a class="fw-bold" href="{{ route('legislacao') }}">
+          <div class="linksChild">
+            Legislação
+          </div>
+        </a>
   
-        <div class="linksChild">
-          <a class="fw-bold" href="{{ route('manual') }}" >Manual</a>
-        </div>
+        <a class="fw-bold" href="{{ route('manual') }}">
+          <div class="linksChild">
+            Manual
+          </div>
+        </a>
       </div>
       
     </div>
