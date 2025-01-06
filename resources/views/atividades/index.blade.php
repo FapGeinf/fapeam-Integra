@@ -35,18 +35,15 @@
 
 <div class="container-fluid px__custom">
   <div class="col-12 border main-datatable">
-    <div class="card-body d-flex justify-content-between p-2">
-      <h2 class="mb-0 fw-bold">
-        <a style="text-decoration: none; color: rgba(0, 0, 0, 0.9); border-bottom: 1px solid transparent; transition: border-color 0.3s, color 0.3s;"
-           href="{{ route('eixo.mostrar', ['eixo_id' => $eixo_id]) }}"
-           onmouseover="this.style.borderColor='#bbb'; this.style.color='rgba(0, 0, 0, 0.8)';"
-           onmouseout="this.style.borderColor='transparent'; this.style.color='rgba(0, 0, 0, 0.6)';">
-          Lista de Atividades - {{$eixoNome}}
+    <div class="d-flex justify-content-center text-center p-2" style="flex-direction: column;">
+      <span style="font-size:22px;">Lista de Atividades</span>
+      
+      <span style="font-size:20px;">
+        <a class="text-decoration-none" href="{{ route('eixo.mostrar', ['eixo_id' => $eixo_id]) }}">
+          {{$eixoNome}} <i class="bi bi-arrow-return-left"></i>
         </a>
-      </h2>
-      @if(Auth::user()->unidade->unidadeTipoFK == 1)
-        <a href="{{ route('atividades.create') }}" class="btn btn-primary">Adicionar Atividade</a>
-      @endif
+      </span>
+      
     </div>
   </div>
 </div>
@@ -316,7 +313,7 @@
                   @foreach ($atividades->unique('id') as $atividade)
                     @foreach ($atividade->eixos as $eixo)
                       <option value="{{ $eixo->nome }}">{{ $eixo->nome }}</option>
-                      @endforeach
+                    @endforeach
                   @endforeach
                 </select>
               </div>
@@ -326,9 +323,14 @@
         `);
 
         let container = $(` 
-          <div class="d-flex justify-content-start mb-2">
+          <div class="d-flex justify-content-between align-items-center mb-3">
             <div class="me-3" id="searchContainer"></div>
             ${dropdownContainer[0].outerHTML}
+            <div>
+              @if(Auth::user()->unidade->unidadeTipoFK == 1)
+                <a href="{{ route('atividades.create') }}" class="btn btn-primary ml-2">Adicionar Atividade</a>
+              @endif
+            </div>
           </div>
         `);
 
