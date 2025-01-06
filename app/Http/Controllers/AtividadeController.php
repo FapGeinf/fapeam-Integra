@@ -89,7 +89,14 @@ class AtividadeController extends Controller
     public function index(Request $request)
     {
         $eixo_id = $request->get('eixo_id');
-
+    
+      
+        $eixoNome = null;
+        if ($eixo_id && in_array($eixo_id, [1, 2, 3, 4, 5, 6, 7])) {
+            $eixo = Eixo::find($eixo_id);
+            $eixoNome = $eixo ? $eixo->nome : null;
+        }
+    
         if ($eixo_id && in_array($eixo_id, [1, 2, 3, 4, 5, 6, 7])) {
             $atividades = $this->atividade->whereHas('eixos', function ($query) use ($eixo_id) {
                 $query->where('eixo_id', $eixo_id);
@@ -97,9 +104,10 @@ class AtividadeController extends Controller
         } else {
             $atividades = $this->atividade->with(['publico', 'canais', 'medida'])->get();
         }
-
-        return view('atividades.index', ['atividades' => $atividades]);
+    
+        return view('atividades.index', ['atividades' => $atividades, 'eixoNome' => $eixoNome, 'eixo_id' => $eixo_id]);
     }
+    
 
     public function createCanal(Request $request)
     {

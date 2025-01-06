@@ -36,13 +36,18 @@
 <div class="container-fluid px__custom">
   <div class="col-12 border main-datatable">
     <div class="card-body d-flex justify-content-between p-2">
-      <h2 class="mb-0 fw-bold">Lista de Atividades</h2>
-        @if(Auth::user()->unidade->unidadeTipoFK == 1)
-          <a href="{{ route('atividades.create') }}" class="btn btn-primary">Adicionar Atividade</a>
-        @endif
+      <h2 class="mb-0 fw-bold">
+        <a style = "text-decoration:none; color:black;" href="{{ route('eixo.mostrar', ['eixo_id' => $eixo_id]) }}">
+          Lista de Atividades - {{$eixoNome}}
+        </a>
+      </h2>
+      @if(Auth::user()->unidade->unidadeTipoFK == 1)
+        <a href="{{ route('atividades.create') }}" class="btn btn-primary">Adicionar Atividade</a>
+      @endif
     </div>
   </div>
 </div>
+
 
 <div class="container-fluid p-30">
   <div class="col-12 border main-datatable">
