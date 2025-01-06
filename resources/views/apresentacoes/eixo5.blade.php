@@ -12,6 +12,18 @@
   <link rel="stylesheet" href="{{ asset('css/eixosPages.css') }}">
 
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+    a {
+      color: #2272b9;
+    }
+
+    .poppins-regular {
+      font-family: "Poppins", serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+
     .pb__dropdown {
       padding-bottom: 4rem;
     }
@@ -23,12 +35,12 @@
   </style>
 </head>
 
-<body>
+<body class="poppins-regular">
   <div class="form-wrapper pt-5">
     <div class="form_create border">
       <div class="titleDP text-center fw-bold">
         <span>
-          Eixo V - COMUNICAÇÃO E TREINAMENTOS PERIÓDICOS
+          EIXO V - COMUNICAÇÃO E TREINAMENTOS PERIÓDICOS
         </span>
       </div>
     </div>

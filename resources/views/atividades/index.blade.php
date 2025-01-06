@@ -9,6 +9,12 @@
   {{-- <link rel="stylesheet" href="{{ asset('css/filterImplement.css') }}"> --}}
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.2.3/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+  <style>
+    .liDP {
+      margin-left: 0 !important;
+    }
+  </style>
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script type="text/javascript" charset="utf8"
     src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
@@ -99,11 +105,11 @@
             {{ $atividade->data_realizada ? \Carbon\Carbon::parse($atividade->data_realizada)->format('d/m/Y') : 'Não realizada' }}
           </td>
   
-          <td class="text-center nowrap__custom">
+          <td class="text-center">
             {{$atividade->meta}} {{$atividade->medida->nome ?? 'N/A'}}
           </td>
   
-          <td class="text-center nowrap__custom">
+          <td class="text-center">
             {{$atividade->realizado}} {{$atividade->medida->nome ?? 'N/A'}}
           </td>
   
