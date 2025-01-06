@@ -19,7 +19,7 @@
     @if(!Request::is('login'))
     <nav class="navbar">
       @if(Auth::check())
-        <a class="navbar-brand" style="position: absolute; top: -7px">
+        <a class="navbar-brand" href="{{ route('documentos.intro') }}" style="position: absolute; top: -7px">
           <img src="/img/logonav.png" alt="logo" class="logoNavImg d-inline-block align-text-top">          
         </a>
         @endif
