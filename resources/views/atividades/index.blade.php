@@ -84,7 +84,7 @@
             @else
               Online
             @endif
-        </td>
+          </td>
   
           <!-- Exibe o nome correspondente ao id do canal de divulgação -->
           <td class="text-center">
@@ -94,15 +94,15 @@
           <td class="text-center">{{ \Carbon\Carbon::parse($atividade->data_prevista)->format('d/m/Y') }}</td>
   
           <td class="text-center">
-          {{ $atividade->data_realizada ? \Carbon\Carbon::parse($atividade->data_realizada)->format('d/m/Y') : 'Não realizada' }}
+            {{ $atividade->data_realizada ? \Carbon\Carbon::parse($atividade->data_realizada)->format('d/m/Y') : 'Não realizada' }}
           </td>
   
           <td class="text-center nowrap__custom">
-          {{$atividade->meta}} {{$atividade->medida->nome ?? 'N/A'}}
+            {{$atividade->meta}} {{$atividade->medida->nome ?? 'N/A'}}
           </td>
   
           <td class="text-center nowrap__custom">
-          {{$atividade->realizado}} {{$atividade->medida->nome ?? 'N/A'}}
+            {{$atividade->realizado}} {{$atividade->medida->nome ?? 'N/A'}}
           </td>
   
           <td>
@@ -295,10 +295,10 @@
                 <select class="form-select form-select-sm mb-2" id="filterUnidade">
                   <option value="">TODOS</option>
                   @foreach ($atividades->unique('id') as $atividade)
-          @foreach ($atividade->eixos as $eixo)
-      <option value="{{ $eixo->nome }}">{{ $eixo->nome }}</option>
-      @endforeach
-          @endforeach
+                    @foreach ($atividade->eixos as $eixo)
+                      <option value="{{ $eixo->nome }}">{{ $eixo->nome }}</option>
+                      @endforeach
+                  @endforeach
                 </select>
               </div>
               <div class="mb-3" id="lengthMenuContainer"></div>
