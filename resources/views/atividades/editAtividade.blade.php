@@ -2,6 +2,9 @@
 <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
 <link href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
 
 @section('content')
 <div class="container-lg mt-5">
@@ -17,7 +20,7 @@
         @endif
         @if ($errors->any())
             <div class="alert alert-danger">
-                <ul style = "list-style:none;">
+                <ul style="list-style:none;">
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
                     @endforeach
@@ -53,7 +56,8 @@
 
                 <div class="row g-3">
                     <div class="col-12">
-                        <label for="atividade_descricao" class="form-label"> <span class="asteriscoTop">*</span>Atividade:</label>
+                        <label for="atividade_descricao" class="form-label"> <span
+                                class="asteriscoTop">*</span>Atividade:</label>
                         <textarea name="atividade_descricao" id="atividade_descricao" class="form-control"
                             required>{{ old('atividade_descricao', $atividade->atividade_descricao) }}</textarea>
                     </div>
@@ -64,7 +68,8 @@
                     </div>
 
                     <div class="col-12">
-                        <label for="publico_id" class="form-label"> <span class="asteriscoTop">*</span>Público Alvo:</label>
+                        <label for="publico_id" class="form-label"> <span class="asteriscoTop">*</span>Público
+                            Alvo:</label>
                         <select name="publico_id" id="publico_id" class="form-select" required>
                             <option value="">Selecione o Público Alvo</option>
                             @foreach ($publicos as $publico)
@@ -81,7 +86,8 @@
                             value="{{ old('novo_publico') }}">
                     </div>
                     <div class="col-12">
-                        <label for="canal_id" class="form-label"> <span class="asteriscoTop">*</span>Canal de Divulgação:</label>
+                        <label for="canal_id" class="form-label"> <span class="asteriscoTop">*</span>Canal de
+                            Divulgação:</label>
                         <select name="canal_id" id="canal_id" class="form-select" required>
                             <option value="">Selecione o Canal de Divulgação</option>
                             @foreach ($canais as $canal)
@@ -94,7 +100,8 @@
                 </div>
                 <div class="row g-3">
                     <div class="col-12 col-md-6">
-                        <label for="tipo_evento" class="form-label"> <span class="asteriscoTop">*</span>Tipo de Evento:</label>
+                        <label for="tipo_evento" class="form-label"> <span class="asteriscoTop">*</span>Tipo de
+                            Evento:</label>
                         <select name="tipo_evento" id="tipo_evento" class="form-select" required>
                             <option value="1" {{ old('tipo_evento', $atividade->tipo_evento) == '1' ? 'selected' : '' }}>
                                 Presencial
@@ -105,7 +112,8 @@
                         </select>
                     </div>
                     <div class="col-12 col-md-6">
-                        <label for="data_prevista" class="form-label"> <span class="asteriscoTop">*</span>Data Prevista:</label>
+                        <label for="data_prevista" class="form-label"> <span class="asteriscoTop">*</span>Data
+                            Prevista:</label>
                         <input type="date" name="data_prevista" id="data_prevista" class="form-control" required
                             value="{{ old('data_prevista', $atividade->data_prevista) }}">
                     </div>
@@ -113,9 +121,9 @@
 
                 <div class="row g-3">
                     <div class="col-12 col-md-6">
-                        <label for="data_realizada" class="form-label"> <span class="asteriscoTop">*</span>Data Realizada:</label>
+                        <label for="data_realizada" class="form-label"> <span class="asteriscoTop">*</span>Data
+                            Realizada:</label>
                         <input type="date" name="data_realizada" id="data_realizada" class="form-control"
-                            min="{{ \Carbon\Carbon::today()->toDateString() }}"
                             value="{{ old('data_realizada', $atividade->data_realizada) }}">
                     </div>
                     <div class="col-12 col-md-6">
@@ -129,7 +137,8 @@
                             value="{{ old('realizado', $atividade->realizado) }}" oninput="mostrarUnidade()">
                     </div>
                     <div class="col-12 col-md-6" id="unidade-container" style="display: none;">
-                        <label for="medida_id" class="form-label"> <span class="asteriscoTop">*</span>Tipo de Unidade:</label>
+                        <label for="medida_id" class="form-label"> <span class="asteriscoTop">*</span>Tipo de
+                            Unidade:</label>
                         <select name="medida_id" id="medida_id" class="form-control" required>
                             <option value="">Selecione o Tipo de Unidade</option>
                             @foreach ($medidas as $medida)
@@ -178,6 +187,20 @@
         if (document.getElementById('objetivo')) {
             CKEDITOR.replace('objetivo', ckeditorConfig);
         }
+
+        flatpickr("#data_prevista", {
+            dateFormat: "Y-m-d",
+            altInput: true,
+            altFormat: "d/m/Y",
+        });
+
+        flatpickr("#data_realizada", {
+            dateFormat: "Y-m-d",
+            altInput: true,
+            altFormat: "d/m/Y",
+        });
+
+
     });
 
     document.addEventListener('DOMContentLoaded', function () {
@@ -199,7 +222,7 @@
     }
 
     document.addEventListener('DOMContentLoaded', function () {
-        toggleOutroPublico(); 
+        toggleOutroPublico();
 
         function toggleOutroPublico() {
             const publicoSelect = document.getElementById('publico_id');
