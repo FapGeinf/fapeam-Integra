@@ -333,6 +333,14 @@ p {
   padding: 30px;
 }
 
+.px__custom {
+  padding: 0 30px;
+}
+
+.nowrap__custom {
+  white-space: nowrap;
+}
+
 .main-datatable {
   padding: 0px;
   border: 1px solid #f3f2f2;
@@ -662,3 +670,8 @@ button.secondary:hover {
     overflow-y: auto;
     transition: max-height 0.3s ease-out;
 }
+
+#tableHome2_wrapper {
+  margin-top: 1.5rem;
+}
+
