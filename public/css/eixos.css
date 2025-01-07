@@ -305,6 +305,12 @@ ol {
   font-weight: 500;
 }
 
+.card-hover-title,
+.card-hover-img {
+  font-size: 22px;
+  z-index: 2;
+}
+
 /* Estilo do botão no card alternativo */
 .card-hover button {
   background-color: #fff; /* Cor de destaque */
