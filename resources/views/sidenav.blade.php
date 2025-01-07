@@ -159,7 +159,7 @@
             
 
             <li class="item-menu liHover">
-                <a href="{{ route('documentos.eixos') }}">
+                <a href="{{ route('documentos.eixos') }}" class="{{ Request::routeIs('documentos.eixos') ? 'active-icon' : '' }}">
                     <i class="bi bi-arrow-left-right icon"></i>
                     <span class="txt-link">Eixos da Integridade</span>
                 </a>
@@ -198,7 +198,7 @@
             <hr class="spacer">
 
             <li class="item-menu liHover">
-                <a href="{{ route('historico') }}">
+                <a href="{{ route('historico') }}" class="{{ Request::routeIs('historico') ? 'active-icon' : '' }}">
                     <i class="bi bi-card-text icon"></i>
                     <span class="txt-link">Documentos</span>
                 </a>
