@@ -48,11 +48,14 @@ class EixosController extends Controller
 
        public function mostrarEixo($eixo_id)
        {
-              if (in_array($eixo_id, [1, 2, 3, 4, 5, 6, 7, 8])) {
-                     return view("apresentacoes.eixo{$eixo_id}");
-              } else {
-                     return redirect()->route('atividades.index')->with('error', 'Eixo não encontrado.');
-              }
+           $eixosValidos = [1, 2, 3, 4, 5, 6, 7, 8];
+       
+           if (in_array($eixo_id, $eixosValidos)) {
+               return view("apresentacoes.eixo{$eixo_id}");
+           }
+       
+           return redirect()->route('atividades.index')->with('error', 'Eixo não encontrado.');
        }
+       
 
 }

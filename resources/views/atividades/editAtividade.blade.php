@@ -7,91 +7,94 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
 
 @section('content')
-<div class="container-lg mt-5">
-    <div class="alert-container">
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @elseif (session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-        @endif
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul style="list-style:none;">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-    </div>
-    <div class="form-wrapper pt-4 paddingLeft">
-        <div class="form_create border">
-            <h3 class="text-center mb-3">Edite sua Atividade</h3>
-            <div class="tipWarning mb-3">
-                <span class="asteriscoTop">*</span>
-                Campos obrigatórios
+<div class="alert-container mt-5">
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+
+    @elseif (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul style="list-style:none;">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+</div>
+
+<div class="form-wrapper pt-4 paddingLeft">
+    <div class="form_create border">
+        <h3 class="text-center mb-3">Edite sua Atividade</h3>
+        <div class="tipWarning mb-3">
+            <span class="asteriscoTop">*</span>
+            Campos obrigatórios
+        </div>
+
+        <form action="{{ route('atividades.update', $atividade->id) }}" method="POST">
+            @csrf
+            @method('PUT')
+
+            <div class="row g-3">
+                <div class="col-12">
+                    <label for="eixo_ids" class="form-label"> <span class="asteriscoTop">*</span>Eixos:</label>
+                    <select name="eixo_ids[]" id="eixo_ids" class="form-select" required multiple>
+                        <option value="">Selecione os Eixos</option>
+                        @foreach ($eixos as $eixo)
+                            <option value="{{ $eixo->id }}" {{ in_array($eixo->id, old('eixo_ids', $atividade->eixos->pluck('id')->toArray())) ? 'selected' : '' }}>
+                                {{ 'Eixo ' . $loop->iteration . ' - ' . $eixo->nome }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
 
-            <form action="{{ route('atividades.update', $atividade->id) }}" method="POST">
-                @csrf
-                @method('PUT')
-
-                <div class="row g-3">
-                    <div class="col-12">
-                        <label for="eixo_ids" class="form-label"> <span class="asteriscoTop">*</span>Eixos:</label>
-                        <select name="eixo_ids[]" id="eixo_ids" class="form-select" required multiple>
-                            <option value="">Selecione os Eixos</option>
-                            @foreach ($eixos as $eixo)
-                                <option value="{{ $eixo->id }}" {{ in_array($eixo->id, old('eixo_ids', $atividade->eixos->pluck('id')->toArray())) ? 'selected' : '' }}>
-                                    {{ 'Eixo ' . $loop->iteration . ' - ' . $eixo->nome }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
+            <div class="row g-3">
+                <div class="col-12">
+                    <label for="atividade_descricao" class="form-label"> <span
+                            class="asteriscoTop">*</span>Atividade:</label>
+                    <textarea name="atividade_descricao" id="atividade_descricao" class="form-control"
+                        required>{{ old('atividade_descricao', $atividade->atividade_descricao) }}</textarea>
+                </div>
+                <div class="col-12">
+                    <label for="objetivo" class="form-label"> <span class="asteriscoTop">*</span>Objetivo:</label>
+                    <textarea name="objetivo" id="objetivo" class="form-control"
+                        required>{{ old('objetivo', $atividade->objetivo) }}</textarea>
                 </div>
 
-                <div class="row g-3">
-                    <div class="col-12">
-                        <label for="atividade_descricao" class="form-label"> <span
-                                class="asteriscoTop">*</span>Atividade:</label>
-                        <textarea name="atividade_descricao" id="atividade_descricao" class="form-control"
-                            required>{{ old('atividade_descricao', $atividade->atividade_descricao) }}</textarea>
-                    </div>
                 <div class="col-12">
-                        <label for="objetivo" class="form-label"> <span class="asteriscoTop">*</span>Objetivo:</label>
-                        <textarea name="objetivo" id="objetivo" class="form-control"
-                            required>{{ old('objetivo', $atividade->objetivo) }}</textarea>
-                </div>
-
-                <div class="col-12">
-                        <label for="publico_id" class="form-label"> <span class="asteriscoTop">*</span>Público
-                            Alvo:</label>
-                        <select name="publico_id" id="publico_id" class="form-select" required>
-                            <option value="">Selecione o Público Alvo</option>
-                            @foreach ($publicos as $publico)
-                                <option value="{{ $publico->id }}" {{ old('publico_id', $atividade->publico_id) == $publico->id ? 'selected' : '' }}>
-                                    {{ $publico->nome }}
-                                </option>
-                            @endforeach
-                            <option value="outros" {{ old('publico_id') == 'outros' ? 'selected' : '' }}>Outros</option>
-                        </select>
+                    <label for="publico_id" class="form-label"> <span class="asteriscoTop">*</span>Público
+                        Alvo:</label>
+                    <select name="publico_id" id="publico_id" class="form-select" required>
+                        <option value="">Selecione o Público Alvo</option>
+                        @foreach ($publicos as $publico)
+                            <option value="{{ $publico->id }}" {{ old('publico_id', $atividade->publico_id) == $publico->id ? 'selected' : '' }}>
+                                {{ $publico->nome }}
+                            </option>
+                        @endforeach
+                        <option value="outros" {{ old('publico_id') == 'outros' ? 'selected' : '' }}>Outros</option>
+                    </select>
                 </div>
                 <div class="col-12" id="outro-publico-container" style="display: none;">
-                        <label for="novo_publico" class="form-label">Especifique o Público:</label>
-                        <input type="text" name="novo_publico" id="novo_publico" class="form-control"
-                            value="{{ old('novo_publico') }}">
+                    <label for="novo_publico" class="form-label">Especifique o Público:</label>
+                    <input type="text" name="novo_publico" id="novo_publico" class="form-control"
+                        value="{{ old('novo_publico') }}">
                 </div>
                 <div class="col-12">
-                    <label for="canal_id" class="form-label"> <span class="asteriscoTop">*</span>Canal de Divulgação:</label>
-                    <select name="canal_id[]" id="canal_id" class="form-select" required multiple onchange="toggleOtherField()">
+                    <label for="canal_id" class="form-label"> <span class="asteriscoTop">*</span>Canal de
+                        Divulgação:</label>
+                    <select name="canal_id[]" id="canal_id" class="form-select" required multiple
+                        onchange="toggleOtherField()">
                         <option value="">Selecione o Canal de Divulgação</option>
                         @foreach ($canais as $canal)
-                            <option value="{{ $canal->id }}" 
-                                {{ in_array($canal->id, old('canal_id', $atividade->canais->pluck('id')->toArray())) ? 'selected' : '' }}>
+                            <option value="{{ $canal->id }}" {{ in_array($canal->id, old('canal_id', $atividade->canais->pluck('id')->toArray())) ? 'selected' : '' }}>
                                 {{ $canal->nome }}
                             </option>
                         @endforeach
@@ -169,9 +172,9 @@
                 <div class="d-flex justify-content-end pt-5">
                     <button type="submit" class="btn btn-md btn-primary">Enviar a Atividade</button>
                 </div>
-            </form>
-        </div>
+        </form>
     </div>
+</div>
 </div>
 
 <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>

@@ -47,11 +47,12 @@
       <span style="font-size:22px;">Lista de Atividades</span>
       
       <span style="font-size:20px;">
+      @if(isset($eixo_id) && $eixo_id)
         <a class="hover" href="{{ route('eixo.mostrar', ['eixo_id' => $eixo_id]) }}">
           {{$eixoNome}} <i class="bi bi-arrow-return-left"></i>
         </a>
       </span>
-      
+      @endif
     </div>
   </div>
 </div>

@@ -138,10 +138,10 @@
             <option value="">Selecione o Canal de Divulgação</option>
             <option value="outros">Novo Canal Divulgação (digite abaixo)</option>
             @foreach ($canais as $canal)
-              <option value="{{ $canal->id }}" {{ in_array($canal->id, old('canal_id', [])) ? 'selected' : '' }}>
-                {{ $canal->nome }}
-              </option>
-            @endforeach
+        <option value="{{ $canal->id }}" {{ in_array($canal->id, old('canal_id', [])) ? 'selected' : '' }}>
+          {{ $canal->nome }}
+        </option>
+      @endforeach
           </select>
         </div>
 
@@ -204,7 +204,7 @@
 
 
           function criarCanal() {
-            var novoCanal = document.getElementById('novo_canal').value;
+            let novoCanal = document.getElementById('novo_canal').value;
 
             if (novoCanal.trim() !== "") {
               fetch('{{ route('canal.criar') }}', {
@@ -217,38 +217,67 @@
               })
                 .then(response => response.json())
                 .then(data => {
+                  let modalContent = document.getElementById('modalMessageContent');
                   if (data.success) {
-                   
-                    var select = document.getElementById('canal_id');
-                    var option = document.createElement('option');
+                    let select = document.getElementById('canal_id');
+                    let option = document.createElement('option');
                     option.value = data.canal.id;
                     option.text = data.canal.nome;
                     select.appendChild(option);
 
-                   
-                    var selectedOptions = Array.from(select.options).map(option => option.value);
+                    let selectedOptions = Array.from(select.options).map(option => option.value);
                     select.value = selectedOptions.includes(data.canal.id.toString()) ? data.canal.id : select.value;
-
 
                     document.getElementById('novo_canal').value = '';
                     document.getElementById('novo_canal_div').style.display = 'none';
 
-                    alert('Canal criado com sucesso!');
+                    modalContent.innerHTML = 'Canal criado com sucesso!';
                   } else {
-                    alert('Erro ao criar o canal: ' + data.message);
+                    modalContent.innerHTML = 'Erro ao criar o canal: ' + data.message;
                   }
+
+                  let myModal = new bootstrap.Modal(document.getElementById('modalMessage'));
+                  myModal.show();
                 })
                 .catch(error => {
-                  alert('Ocorreu um erro ao criar o canal');
+                  let modalContent = document.getElementById('modalMessageContent');
+                  modalContent.innerHTML = 'Ocorreu um erro ao criar o canal';
+
+               
+                  let myModal = new bootstrap.Modal(document.getElementById('modalMessage'));
+                  myModal.show();
                   console.error('Erro:', error);
                 });
             } else {
-              alert('Por favor, insira o nome do canal.');
+              let modalContent = document.getElementById('modalMessageContent');
+              modalContent.innerHTML = 'Por favor, insira o nome do canal.';
+
+              
+              let myModal = new bootstrap.Modal(document.getElementById('modalMessage'));
+              myModal.show();
             }
           }
 
+
         </script>
 
+    
+        <div id="modalMessage" class="modal" tabindex="-1" aria-labelledby="modalMessageLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalMessageLabel">Mensagem</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body" id="modalMessageContent">
+                <!-- Mensagem será inserida aqui -->
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div class="col-12 col-md-6">
           <label for="data_prevista" class="form-label"> <span class="asteriscoTop">*</span>Data Prevista:</label>
