@@ -1,4 +1,7 @@
 @extends('layouts.app')
+
+@section('title') {{ 'Editar Atividade' }} @endsection
+
 <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
 <link href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>

@@ -26,9 +26,9 @@
       <div class="col-md-3 mb-4">
         <div class="card border overflow-hidden">
           <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 70px;">
-            <img class="eixo__img" src="{{ asset('img/eixos/handshake.png') }}" alt="Minha Imagem">
+            <img class="eixo__img card-hover-img" src="{{ asset('img/eixos/handshake.png') }}" alt="Minha Imagem">
 
-             <span style="font-size:22px;">EIXO I</span>
+             <span class="card-hover-title">EIXO I</span>
           </h5>
       
           <div class="card-body card-fofinho p-4">
@@ -57,9 +57,9 @@
       <div class="col-md-3 mb-4">
         <div class="card border overflow-hidden">
           <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 70px;">
-            <img class="eixo__img2" src="{{ asset('img/eixos/notebook.png') }}" alt="Minha Imagem">
+            <img class="eixo__img2 card-hover-img" src="{{ asset('img/eixos/notebook.png') }}" alt="Minha Imagem">
             
-            <span style="font-size:22px;">EIXO II</span>
+            <span class="card-hover-title">EIXO II</span>
           </h5>
       
           <div class="card-body card-fofinho p-4">
@@ -89,8 +89,8 @@
         <div class="card border overflow-hidden">
           <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 70px;">
 
-            <img class="eixo__img3" src="{{ asset('img/eixos/alert.png') }}" alt="Minha Imagem">
-            <span style="font-size:22px;">EIXO III</span>
+            <img class="eixo__img3 card-hover-title" src="{{ asset('img/eixos/alert.png') }}" alt="Minha Imagem">
+            <span class="card-hover-title">EIXO III</span>
           </h5>
       
           <div class="card-body card-fofinho p-4">
@@ -119,9 +119,9 @@
       <div class="col-md-3 mb-4">
         <div class="card border overflow-hidden">
           <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 70px;">
-            <img class="eixo__img3" src="{{ asset('img/eixos/equalizer.png') }}" alt="Minha Imagem">
+            <img class="eixo__img3 card-hover-img" src="{{ asset('img/eixos/equalizer.png') }}" alt="Minha Imagem">
 
-            <span style="font-size:22px;">EIXO IV</span>
+            <span class="card-hover-title">EIXO IV</span>
           </h5>
       
           <div class="card-body card-fofinho p-4">
@@ -150,9 +150,9 @@
       <div class="col-md-3 mb-4">
         <div class="card border overflow-hidden">
           <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 70px;">
-            <img class="eixo__img3" src="{{ asset('img/eixos/training.png') }}" alt="Minha Imagem">
+            <img class="eixo__img3 card-hover-img" src="{{ asset('img/eixos/training.png') }}" alt="Minha Imagem">
 
-            <span style="font-size:22px;">EIXO V</span>
+            <span class="card-hover-title">EIXO V</span>
           </h5>
       
           <div class="card-body card-fofinho p-4">
@@ -181,9 +181,9 @@
       <div class="col-md-3 mb-4">
         <div class="card border overflow-hidden">
           <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 70px;">
-            <img class="eixo__img3" src="{{ asset('img/eixos/loudspeaker.png') }}" alt="Minha Imagem">
+            <img class="eixo__img3 card-hover-img" src="{{ asset('img/eixos/loudspeaker.png') }}" alt="Minha Imagem">
 
-            <span style="font-size:22px;">EIXO VI</span>
+            <span class="card-hover-title">EIXO VI</span>
           </h5>
       
           <div class="card-body card-fofinho p-4">
@@ -212,9 +212,9 @@
       <div class="col-md-3 mb-4">
         <div class="card border overflow-hidden">
           <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 70px;">
-            <img class="eixo__img3" src="{{ asset('img/eixos/search.png') }}" alt="Minha Imagem">
+            <img class="eixo__img3 card-hover-img" src="{{ asset('img/eixos/search.png') }}" alt="Minha Imagem">
 
-            <span style="font-size:22px;">EIXO VII</span>
+            <span class="card-hover-title">EIXO VII</span>
           </h5>
       
           <div class="card-body  card-fofinho p-4">
@@ -244,9 +244,9 @@
         <div class="card border overflow-hidden">
           <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 70px;">
             
-            <img class="eixo__img3" src="{{ asset('img/eixos/monitoring.png') }}" alt="Minha Imagem">
+            <img class="eixo__img3 card-hover-img" src="{{ asset('img/eixos/monitoring.png') }}" alt="Minha Imagem">
 
-            <span style="font-size:22px;">EIXO VIII</span>
+            <span class="card-hover-title">EIXO VIII</span>
           </h5>
       
           <div class="card-body card-fofinho p-4">

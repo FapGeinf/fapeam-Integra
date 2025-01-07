@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title') {{ 'Nova Atividade' }} @endsection
+
 @section('content')
 <link href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
