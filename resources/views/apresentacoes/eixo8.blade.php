@@ -64,6 +64,9 @@
     <a href="{{ route('atividades.index', ['eixo_id' => 8]) }}">
       <button class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">Atividades</button>
     </a>
+    <a href="{{ route('graficos.index') }}">
+      <button class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">Gráficos</button>
+    </a>
   @endif
     <button class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">Relatório</button>
   </div>
