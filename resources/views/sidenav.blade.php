@@ -134,9 +134,12 @@
 <body>
 
     <nav class="menu-lateral" id="appSidenav">
-        {{-- <button id="toggleSidenav" class="btn-toggle" style="transition: .3s">
-            <i class="bi bi-list"></i>
-        </button>--}}
+
+        @if (Request::routeIs('documentos.intro'))
+            <a class="navbar-brand" href="{{ route('documentos.intro') }}" style="position: absolute; top: 0px; margin-left: 0;">
+                <img src="/img/logonav.png" alt="logo" class="logoNavImg d-inline-block align-text-top">          
+            </a>
+        @endif
 
         <hr class="spacer" style="margin-top: 1.5rem; color: #22539c;"> 
 
