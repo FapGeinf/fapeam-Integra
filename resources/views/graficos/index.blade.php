@@ -8,7 +8,7 @@
 @section('content')
 <div class="container-fluid mt-5">
     <div class="row d-flex justify-content-center">
-        <div class="col-lg-12 mb-4">
+        <div class="col-lg-8 mb-4">
             <div class="card p-3 shadow-sm rounded-3">
                 <div class="d-flex justify-content-between">
                     <input type="text" id="search-bar" class="form-control w-75" placeholder="Pesquise por categoria..." onkeyup="filterCharts()">
@@ -72,7 +72,6 @@
         }
     });
 
-    // Create initial charts
     Highcharts.chart('container-eixos', chartOptions('container-eixos', '', chartData.eixos, 'bar'));
     Highcharts.chart('container-publico', chartOptions('container-publico', '', chartData.publico, 'line'));
     Highcharts.chart('container-eventos', {
