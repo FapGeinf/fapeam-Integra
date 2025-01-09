@@ -4,8 +4,8 @@
 
 @section('content')
 <div class="container-fluid mt-5">
-    <div class="row justify-content-center mb-4">
-        <div class="col-lg-10">
+    <div class="row justify-content-center mb-4 no-hover">
+        <div class="col-lg-12">
             <div class="card p-3 shadow-sm rounded-3">
                 <div class="d-flex justify-content-between align-items-center">
                     <input type="text" id="search-bar" class="form-control w-75" placeholder="Pesquise por categoria...">
@@ -14,6 +14,7 @@
             </div>
         </div>
     </div>
+
 
     <div id="no-results-message" class="alert alert-warning d-none text-center" role="alert">
         Nenhum resultado encontrado.
