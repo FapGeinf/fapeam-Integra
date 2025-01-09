@@ -1,7 +1,6 @@
-
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #f8f9fa; /* Fundo claro */
+    background-color: #f8f9fa;
     color: #212529;
 }
 
@@ -13,6 +12,7 @@ body {
     border-radius: 10px;
     border: 0;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    padding: 20px;
 }
 
 .card:hover {
@@ -34,7 +34,6 @@ body {
     box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
     border-color: #007bff;
 }
-
 
 button.btn-primary {
     border-radius: 20px;
@@ -75,6 +74,7 @@ h4.card-title {
     border: 1px solid #dee2e6;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease-in-out, transform 0.2s;
+    padding: 15px;
 }
 
 .chart-card:hover {
@@ -89,15 +89,31 @@ h4.card-title {
 
     button.btn-primary {
         width: 100%;
+        padding: 10px;
     }
 
     #search-bar {
         width: 100%;
+        padding: 12px;
+    }
+
+    .info-badge {
+        font-size: 1.2rem;
     }
 }
 
 @media (min-width: 992px) {
     .card {
         height: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .card-body p {
+        font-size: 16px;
+    }
+
+    h4.card-title {
+        font-size: 16px;
     }
 }
