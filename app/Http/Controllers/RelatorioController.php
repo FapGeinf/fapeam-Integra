@@ -37,6 +37,7 @@ class RelatorioController extends Controller
     public function graficosIndex()
     {
         try {
+            $atividades = Atividade::count();
             $eixos = Eixo::all();
             $canais = Canal::all();
             $publicos = Publico::all();
@@ -123,7 +124,8 @@ class RelatorioController extends Controller
                 'graficoCanais' => $graficoCanais,
                 'eixos' => $eixos,
                 'canais' => $canais,
-                'publicos' => $publicos
+                'publicos' => $publicos,
+                'atividades' => $atividades
             ]);
         } catch (Exception $e) {
             return redirect()->route('graficos.index')->with('error', 'Ocorreu um erro ao carregar os gráficos. Tente novamente mais tarde.');
