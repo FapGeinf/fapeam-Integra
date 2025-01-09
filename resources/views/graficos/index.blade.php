@@ -8,8 +8,7 @@
         <div class="col-lg-10">
             <div class="card p-3 shadow-sm rounded-3">
                 <div class="d-flex justify-content-between align-items-center">
-                    <input type="text" id="search-bar" class="form-control w-75" placeholder="Pesquise por categoria..."
-                        onkeyup="filterCharts()">
+                    <input type="text" id="search-bar" class="form-control w-75" placeholder="Pesquise por categoria...">
                     <button class="btn btn-primary ms-3" onclick="filterCharts()">Filtrar</button>
                 </div>
             </div>
