@@ -24,7 +24,7 @@
   
       <img src="{{asset('img/Decon/bloco3.png')}}" class="imgBloco" alt="">
 
-      <div class="links">
+      <div class="links" style="z-index: 2">
         
         <a class="fw-bold" href="{{ route('apresentacao') }}">
           <div class="linksChild">
@@ -43,6 +43,31 @@
             Manual
           </div>
         </a>
+      </div>
+
+      <div class="links links-fc" style="padding-top: 8rem;">
+        <div class="dropdown linksChild-min">
+          <a class="fw-bold dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+            Home & Eixos
+          </a>
+        
+          <ul class="dropdown-menu dpMenu-button dpButton1" aria-labelledby="dropdownMenuLink">
+            <li><a class="dropdown-item" href="#" style="color: #183689;">Home</a></li>
+            <li><a class="dropdown-item" href="#" style="color: #183689;">Eixos de Integridade</a></li>
+          </ul>
+        </div>
+
+        <div class="dropdown linksChild-min">
+          <a class="fw-bold dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+            Documentos
+          </a>
+        
+          <ul class="dropdown-menu dpMenu-button dpButton2" aria-labelledby="dropdownMenuLink">
+            <li><a class="dropdown-item" href="#" style="color: #183689;">Documentos</a></li>
+            <li><a class="dropdown-item" href="#" style="color: #183689;">Relatório Geral</a></li>
+          </ul>
+        </div>
+      
       </div>
       
     </div>

@@ -49,6 +49,14 @@ body {
     text-decoration: none;
 }
 
+.links-fc a {
+    color: #fff;
+}
+
+.dropdown-item a {
+    color: #000;
+}
+
 .linksChild {
     padding: 10px 60px;
     border: 1px solid #fff;
@@ -59,6 +67,30 @@ body {
 
 .linksChild:hover {
     background-color: #ccc;
+}
+
+.linksChild-min {
+    padding: 10px 60px;
+    border: 1px solid #154792;
+    background-color: #285fb3;
+    border-radius: 7px;
+    transition: .3s;
+}
+
+.linksChild-min:hover {
+    background-color: #3068bb;
+}
+
+.dpMenu-button {
+    margin-left: -25px !important;
+}
+
+.dpButton1 {
+    padding-bottom: 7rem !important;
+}
+
+.dpButton2 {
+    padding-bottom: 7rem !important;
 }
 
 .grid {
@@ -152,6 +184,18 @@ body {
 
     .links a {
         font-size: 16px;
+    }
+
+    .menu-lateral {
+        display: none;
+    }
+
+    .dpButton1 {
+        padding-bottom: 6rem !important;
+    }
+    
+    .dpButton2 {
+        padding-bottom: 6rem !important;
     }
 }
   
