@@ -1,0 +1,103 @@
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f8f9fa; /* Fundo claro */
+    color: #212529;
+}
+
+.container-fluid {
+    padding: 20px;
+}
+
+.card {
+    border-radius: 10px;
+    border: 0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+#search-bar {
+    border-radius: 20px;
+    border: 1px solid #ced4da;
+    padding: 10px 15px;
+    font-size: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+#search-bar:focus {
+    outline: none;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+    border-color: #007bff;
+}
+
+
+button.btn-primary {
+    border-radius: 20px;
+    padding: 8px 20px;
+    font-size: 16px;
+    background: linear-gradient(90deg, #007bff, #0056b3);
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+button.btn-primary:hover {
+    background: linear-gradient(90deg, #0056b3, #003f7f);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.card-title {
+    font-weight: bold;
+    color: #495057;
+    margin-bottom: 10px;
+}
+
+.card-body p {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+
+h4.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.chart-card {
+    background: white;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out, transform 0.2s;
+}
+
+.chart-card:hover {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+}
+
+@media (max-width: 768px) {
+    .chart-card {
+        margin-bottom: 20px;
+    }
+
+    button.btn-primary {
+        width: 100%;
+    }
+
+    #search-bar {
+        width: 100%;
+    }
+}
+
+@media (min-width: 992px) {
+    .card {
+        height: 100%;
+    }
+}
