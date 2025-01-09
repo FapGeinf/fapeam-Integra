@@ -111,8 +111,8 @@
         }
     });
 
-    Highcharts.chart('container-eixos', chartOptions('container-eixos', 'Distribuição das Atividades por Eixo', chartData.eixos, 'bar'));
-    Highcharts.chart('container-publico', chartOptions('container-publico', 'Distribuição das Atividades por Público', chartData.publico, 'line'));
+    Highcharts.chart('container-eixos', chartOptions('container-eixos', '', chartData.eixos, 'bar'));
+    Highcharts.chart('container-publico', chartOptions('container-publico', '', chartData.publico, 'line'));
     Highcharts.chart('container-eventos', {
         chart: { type: 'pie' },
         title: { text: 'Distribuição das Atividades por Tipo de Evento' },
@@ -125,7 +125,7 @@
             pointFormat: '{point.name}: <b>{point.y}</b> Atividades'
         }
     });
-    Highcharts.chart('container-canais', chartOptions('container-canais', 'Distribuição das Atividades por Canal', chartData.canais, 'area'));
+    Highcharts.chart('container-canais', chartOptions('container-canais', '', chartData.canais, 'area'));
 
     function filterCharts() {
         const searchQuery = document.getElementById('search-bar').value.toLowerCase();
