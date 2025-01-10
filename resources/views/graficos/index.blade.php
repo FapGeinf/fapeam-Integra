@@ -2,13 +2,15 @@
 <link rel="stylesheet" href="{{ asset('css/graficos.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- CDN Font Awesome -->
 
+@section('title') {{ 'Gráfico de Atividades' }} @endsection
+
 @section('content')
 <div class="container-fluid mt-5">
     <div class="row justify-content-center mb-4 no-hover">
         <div class="col-lg-12">
             <div class="card p-3 shadow-sm rounded-3">
                 <div class="d-flex justify-content-between align-items-center">
-                    <input type="text" id="search-bar" class="form-control w-75" placeholder="Pesquise por categoria...">
+                    <input type="text" id="search-bar" class="form-control w-25" placeholder="Pesquise por categoria...">
                     <button class="btn btn-primary ms-3" onclick="filterCharts()">Filtrar</button>
                 </div>
             </div>
