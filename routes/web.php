@@ -115,6 +115,6 @@ Route::prefix('atividades')->name('atividades.')->middleware('auth')->group(func
     Route::delete('/delete/{id}', [AtividadeController::class, 'deleteAtividade'])->name('delete');
 });
 
-Route::get('/graficos',[RelatorioController::class,'graficosIndex'])->name('graficos.index')->middleware('auth');
+Route::get('/graficos',[RelatorioController::class,'graficosIndex'])->name('graficos.index');
 Route::post('/canal/criar',[AtividadeController::class,'createCanal'])->name('canal.criar');
 Route::get('/eixo/{eixo_id}', [EixosController::class, 'mostrarEixo'])->name('eixo.mostrar');
