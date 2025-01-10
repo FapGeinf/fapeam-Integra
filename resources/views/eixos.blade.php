@@ -23,7 +23,7 @@
     <div class="row">
 
       <!-- EIXO I -->
-      <div class="col-md-3 mb-4">
+      <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
         <div class="card border overflow-hidden">
           <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 70px;">
             <img class="eixo__img card-hover-img" src="{{ asset('img/eixos/handshake.png') }}" alt="Minha Imagem">
@@ -54,7 +54,7 @@
       </div>
 
       <!-- EIXO II -->
-      <div class="col-md-3 mb-4">
+      <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
         <div class="card border overflow-hidden">
           <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 70px;">
             <img class="eixo__img2 card-hover-img" src="{{ asset('img/eixos/notebook.png') }}" alt="Minha Imagem">
@@ -85,7 +85,7 @@
       </div>
 
       <!-- EIXO III -->
-      <div class="col-md-3 mb-4">
+      <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
         <div class="card border overflow-hidden">
           <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 70px;">
 
@@ -116,7 +116,7 @@
       </div>
 
       <!-- EIXO IV -->
-      <div class="col-md-3 mb-4">
+      <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
         <div class="card border overflow-hidden">
           <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 70px;">
             <img class="eixo__img3 card-hover-img" src="{{ asset('img/eixos/equalizer.png') }}" alt="Minha Imagem">
@@ -147,7 +147,7 @@
       </div>
 
       <!-- EIXO V -->
-      <div class="col-md-3 mb-4">
+      <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
         <div class="card border overflow-hidden">
           <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 70px;">
             <img class="eixo__img3 card-hover-img" src="{{ asset('img/eixos/training.png') }}" alt="Minha Imagem">
@@ -178,7 +178,7 @@
       </div>
 
       <!-- EIXO VI -->
-      <div class="col-md-3 mb-4">
+      <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
         <div class="card border overflow-hidden">
           <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 70px;">
             <img class="eixo__img3 card-hover-img" src="{{ asset('img/eixos/loudspeaker.png') }}" alt="Minha Imagem">
@@ -209,7 +209,7 @@
       </div>
 
       <!-- EIXO VII -->
-      <div class="col-md-3 mb-4">
+      <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
         <div class="card border overflow-hidden">
           <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 70px;">
             <img class="eixo__img3 card-hover-img" src="{{ asset('img/eixos/search.png') }}" alt="Minha Imagem">
@@ -217,7 +217,7 @@
             <span class="card-hover-title">EIXO VII</span>
           </h5>
       
-          <div class="card-body  card-fofinho p-4">
+          <div class="card-body card-fofinho p-4">
             <div class="my-auto title-teste form-control text-center d-flex">
               INVESTIGAÇÕES INTERNAS
             </div>
@@ -240,7 +240,7 @@
       </div>
 
       <!-- EIXO VIII -->
-      <div class="col-md-3 mb-4">
+      <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
         <div class="card border overflow-hidden">
           <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 70px;">
             
