@@ -47,19 +47,19 @@
 
       <div class="links__a">
         <div class="linksChild__a">
-          <a href="#">Home</a>
+          <a href="{{ route('documentos.intro') }}">Home</a>
 
           <span style="color: #fff">/</span>
 
-          <a href="#">Eixos de Integridade</a>
+          <a href="{{ route('documentos.eixos') }}">Eixos de Integridade</a>
         </div>
 
         <div class="linksChild__a">
-          <a href="#">Documentos</a>
+          <a href="{{ route('historico') }}">Documentos</a>
 
           <span style="color: #fff">/</span>
 
-          <a href="#">Relatório Geral</a>
+          <a href="{{ route('relatorios.download') }}">Relatório Geral</a>
         </div>
       </div>
     </div>
