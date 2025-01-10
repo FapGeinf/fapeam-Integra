@@ -26,25 +26,42 @@
 
       <div class="links">
         
-        <a class="fw-bold" href="{{ route('apresentacao') }}">
+        <a class="" href="{{ route('apresentacao') }}">
           <div class="linksChild">
             Apresentação
           </div>
         </a>
         
-        <a class="fw-bold" href="{{ route('legislacao') }}">
+        <a class="" href="{{ route('legislacao') }}">
           <div class="linksChild">
             Legislação
           </div>
         </a>
   
-        <a class="fw-bold" href="{{ route('manual') }}">
+        <a class="" href="{{ route('manual') }}">
           <div class="linksChild">
             Manual
           </div>
         </a>
       </div>
-      
+
+      <div class="links__a">
+        <div class="linksChild__a">
+          <a href="#">Home</a>
+
+          <span style="color: #fff">/</span>
+
+          <a href="#">Eixos de Integridade</a>
+        </div>
+
+        <div class="linksChild__a">
+          <a href="#">Documentos</a>
+
+          <span style="color: #fff">/</span>
+
+          <a href="#">Relatório Geral</a>
+        </div>
+      </div>
     </div>
   </div>
 
