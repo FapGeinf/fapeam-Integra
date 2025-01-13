@@ -4,6 +4,22 @@
 
 @section('title') {{ 'Gráfico de Atividades' }} @endsection
 
+<head>
+    <style>
+        .liDP {
+          margin-left: 0 !important;
+        }
+    
+        .hover {
+          text-decoration: none;
+        }
+    
+        .hover:hover {
+          text-decoration: underline;
+        }
+      </style>
+</head>
+
 @section('content')
 <div class="container-fluid mt-5">
     <div class="row justify-content-center mb-4 no-hover">
