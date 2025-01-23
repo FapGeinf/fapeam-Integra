@@ -66,11 +66,16 @@
           <select name="eixo_ids[]" id="eixo_ids" class="form-select" required multiple>
             <option value="">Selecione os Eixos</option>
             @foreach ($eixos as $eixo)
-        <option value="{{ $eixo->id }}" {{ in_array($eixo->id, old('eixo_ids', [])) ? 'selected' : '' }}>
-          {{ 'Eixo ' . $loop->iteration . ' - ' . $eixo->nome }}
-        </option>
-      @endforeach
+        			<option value="{{ $eixo->id }}" {{ in_array($eixo->id, old('eixo_ids', [])) ? 'selected' : '' }}>{{ 'Eixo ' . $loop->iteration . ' - ' . $eixo->nome }}</option>
+      			@endforeach
           </select>
+        </div>
+
+				<div class="col-12">
+          <label for="atividade_responsavel" class="form-label"> <span class="asteriscoTop">*</span>Responsável:</label>
+          <input name="atividade_responsavel" id="atividade_responsavel" class="form-control insert-resp">
+            {{ old('atividade_responsavel') }}
+          </input>
         </div>
 
         <script>
@@ -133,11 +138,10 @@
           </label>
           <select name="canal_id[]" id="canal_id" class="form-select" multiple onchange="toggleOtherField()">
             <option value="">Selecione o Canal de Divulgação</option>
-            <option value="outros">Novo Canal Divulgação (digite abaixo)</option>
             @foreach ($canais as $canal)
-        			<option value="{{ $canal->id }}" {{ in_array($canal->id, old('canal_id', [])) ? 'selected' : '' }}>{{ $canal->nome }}
-</option>
+        			<option value="{{ $canal->id }}" {{ in_array($canal->id, old('canal_id', [])) ? 'selected' : '' }}>{{ $canal->nome }}</option>
       			@endforeach
+						<option value="outros">Novo Canal Divulgação (digite abaixo)</option>
           </select>
         </div>
 
