@@ -68,6 +68,7 @@
               <th scope="col" style="width: 280px;">Eixos</th>
               <th scope="col">Atividade</th>
               <th scope="col">Objetivo</th>
+							<th scope="col">Responsável</th>
               <th scope="col">Público Alvo</th>
               <th scope="col">Tipo de Evento</th>
               <th scope="col">Canal de Divulgação</th>
@@ -87,6 +88,7 @@
                 @endforeach
               </td>
               <td style="text-align: center">{!! $atividade->atividade_descricao !!}</td>
+							<td style="text-align: center;">{!! $atividade->responsavel !!}</td>
               <td class="text-center">{!! $atividade->objetivo !!}</td>
               <!-- Exibe o nome correspondente ao id do público alvo -->
               <td class="text-center">
