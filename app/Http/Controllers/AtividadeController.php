@@ -99,7 +99,6 @@ class AtividadeController extends Controller
     {
         Log::info('Dados recebidos para criação da atividade:', $request->all());
         try {
-
             if ($request->input('publico_id') === 'outros' && $request->filled('novo_publico')) {
                 Log::info('Criando novo público', ['nome' => $request->input('novo_publico')]);
 
@@ -114,12 +113,12 @@ class AtividadeController extends Controller
                 $validatedData = $request->validated();
             }
 
-
             Log::info('Criando a atividade', ['dados' => $validatedData]);
 
             $atividade = $this->atividade->create([
                 'atividade_descricao' => $validatedData['atividade_descricao'],
                 'objetivo' => $validatedData['objetivo'],
+								'responsavel' => $validatedData['responsavel'] ?? null,
                 'publico_id' => $validatedData['publico_id'] ?? null,
                 'tipo_evento' => $validatedData['tipo_evento'] ?? null,
                 'data_prevista' => $validatedData['data_prevista'] ?? null,

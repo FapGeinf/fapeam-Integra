@@ -28,6 +28,7 @@ class AtividadeRequest extends FormRequest
         return [
             'eixo_ids' => 'nullable|array',
             'eixo_ids.*' => 'exists:eixos,id',
+						'responsavel' => 'nullable|string|max:255',
             'atividade_descricao' => 'required|string',
             'objetivo' => 'required|string',
             'publico_id' => [
@@ -72,7 +73,9 @@ class AtividadeRequest extends FormRequest
             'eixo_ids.required' => 'Por favor, selecione pelo menos um eixo para continuar.',
             'eixo_ids.array' => 'Os eixos devem estar no formato correto.',
             'eixo_ids.*.exists' => 'Alguns dos eixos selecionados não existem. Verifique sua seleção.',
-            'atividade_descricao.required' => 'Não se esqueça de informar a descrição da atividade.',
+						'responsavel.required' => 'Toda atividade deve possuir um responsável',
+						'responsavel.max' => 'O nome do responsável não pode ter mais que 255 caracteres',
+						'atividade_descricao.required' => 'Não se esqueça de informar a descrição da atividade.',
             'atividade_descricao.string' => 'A descrição da atividade deve ser um texto simples.',
             'objetivo.required' => 'Por favor, informe o objetivo da atividade.',
             'objetivo.string' => 'O objetivo deve ser descrito em texto.',

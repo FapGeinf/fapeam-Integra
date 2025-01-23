@@ -72,9 +72,9 @@
         </div>
 
 				<div class="col-12">
-          <label for="atividade_responsavel" class="form-label"> <span class="asteriscoTop">*</span>Responsável:</label>
-          <input name="atividade_responsavel" id="atividade_responsavel" class="form-control insert-resp">
-            {{ old('atividade_responsavel') }}
+          <label for="responsavel" class="form-label"> <span class="asteriscoTop">*</span>Responsável:</label>
+          <input name="responsavel" id="responsavel" class="form-control insert-resp">
+            {{ old('responsavel') }}
           </input>
         </div>
 
