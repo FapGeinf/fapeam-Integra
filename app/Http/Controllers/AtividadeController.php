@@ -191,10 +191,11 @@ class AtividadeController extends Controller
             $atividade = $this->atividade->findOrFail($id);
 
             Log::info('Atualizando a atividade', ['dados' => $validatedData]);
-
+						
             $atividade->update([
                 'atividade_descricao' => $validatedData['atividade_descricao'],
                 'objetivo' => $validatedData['objetivo'],
+								'responsavel' => $validatedData['responsavel'] ?? null,
                 'publico_id' => $validatedData['publico_id'],
                 'tipo_evento' => $validatedData['tipo_evento'] ?? null,
                 'data_prevista' => $validatedData['data_prevista'] ?? null,

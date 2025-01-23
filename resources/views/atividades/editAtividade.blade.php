@@ -59,6 +59,11 @@
                 </div>
             </div>
 
+						<div class="col-12">
+          		<label for="responsavel" class="form-label">Responsável:</label>
+          		<input name="responsavel" id="responsavel" class="form-control insert-resp" value="{{ old('responsavel', $atividade->responsavel) }}"></input>
+        		</div>
+
             <div class="row g-3">
                 <div class="col-12">
                     <label for="atividade_descricao" class="form-label"> <span
