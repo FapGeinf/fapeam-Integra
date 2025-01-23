@@ -73,7 +73,7 @@
                 </div>
 
                 <div class="col-12">
-                    <label for="publico_id" class="form-label"> <span class="asteriscoTop">*</span>Público
+                    <label for="publico_id" class="form-label">Público
                         Alvo:</label>
                     <select name="publico_id" id="publico_id" class="form-select">
                         <option value="">Selecione o Público Alvo</option>
@@ -91,7 +91,7 @@
                         value="{{ old('novo_publico') }}">
                 </div>
                 <div class="col-12">
-                    <label for="canal_id" class="form-label"> <span class="asteriscoTop">*</span>Canal de
+                    <label for="canal_id" class="form-label">Canal de
                         Divulgação:</label>
                     <select name="canal_id[]" id="canal_id" class="form-select" multiple
                         onchange="toggleOtherField()">
@@ -122,7 +122,7 @@
 
                 <div class="row g-3">
                     <div class="col-12 col-md-6">
-                        <label for="tipo_evento" class="form-label"> <span class="asteriscoTop">*</span>Tipo de
+                        <label for="tipo_evento" class="form-label">Tipo de
                             Evento:</label>
                         <select name="tipo_evento" id="tipo_evento" class="form-select" >
 														<option value="0" {{ old('tipo_evento', $atividade->tipo_evento) == '0' || old('tipo_evento') == null ? 'selected' : '' }}>Sem evento</option>
@@ -131,7 +131,7 @@
                         </select>
                     </div>
                     <div class="col-12 col-md-6">
-                        <label for="data_prevista" class="form-label"> <span class="asteriscoTop">*</span>Data
+                        <label for="data_prevista" class="form-label">Data
                             Prevista:</label>
                         <input type="date" name="data_prevista" id="data_prevista" class="form-control" 
                             value="{{ old('data_prevista', $atividade->data_prevista) }}">
@@ -140,18 +140,18 @@
 
                 <div class="row g-3">
                     <div class="col-12 col-md-6">
-                        <label for="data_realizada" class="form-label"> <span class="asteriscoTop">*</span>Data
+                        <label for="data_realizada" class="form-label">Data
                             Realizada:</label>
                         <input type="date" name="data_realizada" id="data_realizada" class="form-control"
                             value="{{ old('data_realizada', $atividade->data_realizada) }}">
                     </div>
                     <div class="col-12 col-md-6">
-                        <label for="meta" class="form-label"> <span class="asteriscoTop">*</span>Meta:</label>
+                        <label for="meta" class="form-label">Meta:</label>
                         <input type="number" name="meta" id="meta" class="form-control"  min="0"
                             value="{{ old('meta', $atividade->meta) }}" oninput="mostrarUnidade()">
                     </div>
                     <div class="col-12 col-md-6">
-                        <label for="realizado" class="form-label"> <span class="asteriscoTop">*</span>Realizado:</label>
+                        <label for="realizado" class="form-label">Realizado:</label>
                         <input type="number" name="realizado" id="realizado" class="form-control"  min="0"
                             value="{{ old('realizado', $atividade->realizado) }}" oninput="mostrarUnidade()">
                     </div>

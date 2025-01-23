@@ -129,13 +129,14 @@
 
         <div class="col-12">
           <label for="canal_id" class="form-label">
-            <span class="asteriscoTop">*</span> Canal de Divulgação:
+           Canal de Divulgação:
           </label>
           <select name="canal_id[]" id="canal_id" class="form-select" multiple onchange="toggleOtherField()">
             <option value="">Selecione o Canal de Divulgação</option>
             <option value="outros">Novo Canal Divulgação (digite abaixo)</option>
             @foreach ($canais as $canal)
-        			<option value="{{ $canal->id }}" {{ in_array($canal->id, old('canal_id', [])) ? 'selected' : '' }}>{{ $canal->nome }}</option>
+        			<option value="{{ $canal->id }}" {{ in_array($canal->id, old('canal_id', [])) ? 'selected' : '' }}>{{ $canal->nome }}
+</option>
       			@endforeach
           </select>
         </div>
@@ -143,7 +144,7 @@
 
         <div class="col-12" id="novo_canal_div" style="display: none;">
           <label for="novo_canal" class="form-label">
-            <span class="asteriscoTop">*</span> Novo Canal de Divulgação:
+           Novo Canal de Divulgação:
           </label>
           <input type="text" id="novo_canal" name="novo_canal" class="form-control" placeholder="Digite o novo canal">
           <button type="button" class="btn btn-primary mt-2" onclick="criarCanal()">Criar Novo Canal</button>
@@ -275,27 +276,27 @@
         </div>
 
         <div class="col-12 col-md-6">
-          <label for="data_prevista" class="form-label"> <span class="asteriscoTop">*</span>Data Prevista:</label>
+          <label for="data_prevista" class="form-label">Data Prevista:</label>
           <input type="date" name="data_prevista" id="data_prevista" class="form-control"
             value="{{ old('data_prevista') }}">
         </div>
 
         <div class="col-12 col-md-6">
           <label for="data_realizada" class="form-label">
-            <span class="asteriscoTop">*</span>Data Realizada:
+          Data Realizada:
           </label>
           <input type="date" name="data_realizada" id="data_realizada" class="form-control"
             value="{{ old('data_realizada') }}">
         </div>
 
         <div class="col-12 col-md-6">
-          <label for="meta" class="form-label"> <span class="asteriscoTop">*</span>Meta:</label>
+          <label for="meta" class="form-label">Meta:</label>
           <input type="number" name="meta" id="meta" class="form-control"  min="0" value="{{ old('meta') }}"
             oninput="mostrarUnidade()">
         </div>
 
         <div class="col-12 col-md-6">
-          <label for="realizado" class="form-label"> <span class="asteriscoTop">*</span>Realizado:</label>
+          <label for="realizado" class="form-label">Realizado:</label>
           <input type="number" name="realizado" id="realizado" class="form-control"  min="0"
             value="{{ old('realizado') }}" oninput="mostrarUnidade()">
         </div>
