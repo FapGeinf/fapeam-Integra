@@ -50,7 +50,7 @@ class AtividadeController extends Controller
     {
         try {
             $request->validate([
-                'nome' => 'required|max:255'
+                'nome' => 'max:255'
             ]);
 
             if (Canal::where('nome', $request->input('nome'))->exists()) {
@@ -98,7 +98,6 @@ class AtividadeController extends Controller
     public function storeAtividade(AtividadeRequest $request)
     {
         Log::info('Dados recebidos para criação da atividade:', $request->all());
-
         try {
 
             if ($request->input('publico_id') === 'outros' && $request->filled('novo_publico')) {
@@ -121,13 +120,13 @@ class AtividadeController extends Controller
             $atividade = $this->atividade->create([
                 'atividade_descricao' => $validatedData['atividade_descricao'],
                 'objetivo' => $validatedData['objetivo'],
-                'publico_id' => $validatedData['publico_id'],
-                'tipo_evento' => $validatedData['tipo_evento'],
-                'data_prevista' => $validatedData['data_prevista'],
-                'data_realizada' => $validatedData['data_realizada'],
-                'meta' => $validatedData['meta'],
-                'realizado' => $validatedData['realizado'],
-                'medida_id' => $validatedData['medida_id'],
+                'publico_id' => $validatedData['publico_id'] ?? null,
+                'tipo_evento' => $validatedData['tipo_evento'] ?? null,
+                'data_prevista' => $validatedData['data_prevista'] ?? null,
+                'data_realizada' => $validatedData['data_realizada'] ?? null,
+                'meta' => $validatedData['meta'] ?? null,
+                'realizado' => $validatedData['realizado'] ?? null,
+                'medida_id' => $validatedData['medida_id'] ?? null,
             ]);
 
 
@@ -149,6 +148,7 @@ class AtividadeController extends Controller
 
             return redirect()->route('atividades.index', ['eixo_id' => $eixo_id])->with('success', 'Atividade criada com sucesso!');
         } catch (\Exception $e) {
+					dd($e);
             Log::error('Erro ao salvar a atividade', [
                 'error_message' => $e->getMessage(),
                 'stack_trace' => $e->getTraceAsString(),
@@ -197,12 +197,12 @@ class AtividadeController extends Controller
                 'atividade_descricao' => $validatedData['atividade_descricao'],
                 'objetivo' => $validatedData['objetivo'],
                 'publico_id' => $validatedData['publico_id'],
-                'tipo_evento' => $validatedData['tipo_evento'],
-                'data_prevista' => $validatedData['data_prevista'],
-                'data_realizada' => $validatedData['data_realizada'],
-                'meta' => $validatedData['meta'],
-                'realizado' => $validatedData['realizado'],
-                'medida_id' => $validatedData['medida_id'],
+                'tipo_evento' => $validatedData['tipo_evento'] ?? null,
+                'data_prevista' => $validatedData['data_prevista'] ?? null,
+                'data_realizada' => $validatedData['data_realizada'] ?? null,
+                'meta' => $validatedData['meta'] ?? null,
+                'realizado' => $validatedData['realizado'] ?? null,
+                'medida_id' => $validatedData['medida_id'] ?? null,
             ]);
 
             if ($request->has('eixo_ids')) {

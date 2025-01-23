@@ -93,11 +93,13 @@
                 {{ $atividade->publico->nome ?? 'Não informado' }}
               </td>
               <td class="text-center">
-                @if($atividade->tipo_evento == 1)
-                Presencial
-                @else
-                Online
-                @endif
+								@if($atividade->tipo_evento == 1)
+    							Presencial
+								@elseif($atividade->tipo_evento == 0 || $atividade->tipo_evento === null)
+    							Sem evento
+								@else
+    							Online
+								@endif
               </td>
               <td class="text-center">
                 @foreach ($atividade->canais as $canal)

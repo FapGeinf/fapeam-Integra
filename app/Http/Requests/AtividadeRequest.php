@@ -26,7 +26,7 @@ class AtividadeRequest extends FormRequest
     public function rules()
     {
         return [
-            'eixo_ids' => 'required|array',
+            'eixo_ids' => 'nullable|array',
             'eixo_ids.*' => 'exists:eixos,id',
             'atividade_descricao' => 'required|string',
             'objetivo' => 'required|string',
@@ -39,9 +39,9 @@ class AtividadeRequest extends FormRequest
                 },
             ],
             'novo_publico' => 'nullable|string|max:255',
-            'tipo_evento' => 'required|string|max:255',
+            'tipo_evento' => 'nullable|string|max:255',
             'canal_id' => [
-                'required',
+                'nullable',
                 'array',
                 function ($attribute, $value, $fail) {
                     foreach ($value as $canalId) {
@@ -53,10 +53,10 @@ class AtividadeRequest extends FormRequest
                 },
             ],
             'outro_canal' => 'nullable|string|max:255',
-            'data_prevista' => 'required|date',
-            'data_realizada' => 'required|date',
-            'meta' => 'required|integer|min:0',
-            'realizado' => 'required|integer|min:0',
+            'data_prevista' => 'nullable|date',
+            'data_realizada' => 'nullable|date',
+            'meta' => 'nullable|integer|min:0',
+            'realizado' => 'nullable|integer|min:0',
             'medida_id' => 'nullable|exists:medida_tipos,id',
         ];
     }
@@ -78,20 +78,20 @@ class AtividadeRequest extends FormRequest
             'objetivo.string' => 'O objetivo deve ser descrito em texto.',
             'novo_publico.string' => 'O campo para público personalizado deve conter texto.',
             'novo_publico.max' => 'O nome do público não pode ter mais que 255 caracteres.',
-            'tipo_evento.required' => 'É necessário informar o tipo de evento.',
-            'tipo_evento.string' => 'O tipo de evento deve ser descrito em texto.',
+            // 'tipo_evento.required' => 'É necessário informar o tipo de evento.',
+            // 'tipo_evento.string' => 'O tipo de evento deve ser descrito em texto.',
             'tipo_evento.max' => 'O tipo de evento não pode ter mais que 255 caracteres.',
-            'canal_id.required' => 'Por favor, selecione pelo menos um canal de divulgação.',
+            // 'canal_id.required' => 'Por favor, selecione pelo menos um canal de divulgação.',
             'canal_id.array' => 'Os canais de divulgação devem ser fornecidos como uma lista.',
             'canal_id.exists' => 'Alguns dos canais de divulgação escolhidos não são válidos.',
-            'data_prevista.required' => 'Informe a data prevista para o evento.',
+            // 'data_prevista.required' => 'Informe a data prevista para o evento.',
             'data_prevista.date' => 'A data prevista deve estar no formato correto.',
-            'data_realizada.required' => 'Informe a data em que o evento foi realizado.',
+            // 'data_realizada.required' => 'Informe a data em que o evento foi realizado.',
             'data_realizada.date' => 'A data realizada deve estar no formato correto.',
-            'meta.required' => 'A meta não pode ser deixada em branco.',
+            // 'meta.required' => 'A meta não pode ser deixada em branco.',
             'meta.integer' => 'A meta deve ser um número inteiro.',
             'meta.min' => 'A meta deve ser pelo menos 0.',
-            'realizado.required' => 'Informe o número de realizações.',
+            // 'realizado.required' => 'Informe o número de realizações.',
             'realizado.integer' => 'O campo "Realizado" deve conter um número inteiro.',
             'realizado.min' => 'O número de realizações deve ser pelo menos 0.',
             'medida_id.exists' => 'O tipo de medida selecionado não é válido. Por favor, revise.',
