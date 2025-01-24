@@ -59,6 +59,11 @@
                 </div>
             </div>
 
+						<div class="col-12">
+          		<label for="responsavel" class="form-label">Responsável:</label>
+          		<input name="responsavel" id="responsavel" class="form-control insert-resp" value="{{ old('responsavel', $atividade->responsavel) }}"></input>
+        		</div>
+
             <div class="row g-3">
                 <div class="col-12">
                     <label for="atividade_descricao" class="form-label"> <span
@@ -73,9 +78,9 @@
                 </div>
 
                 <div class="col-12">
-                    <label for="publico_id" class="form-label"> <span class="asteriscoTop">*</span>Público
+                    <label for="publico_id" class="form-label">Público
                         Alvo:</label>
-                    <select name="publico_id" id="publico_id" class="form-select" required>
+                    <select name="publico_id" id="publico_id" class="form-select">
                         <option value="">Selecione o Público Alvo</option>
                         @foreach ($publicos as $publico)
                             <option value="{{ $publico->id }}" {{ old('publico_id', $atividade->publico_id) == $publico->id ? 'selected' : '' }}>
@@ -91,9 +96,9 @@
                         value="{{ old('novo_publico') }}">
                 </div>
                 <div class="col-12">
-                    <label for="canal_id" class="form-label"> <span class="asteriscoTop">*</span>Canal de
+                    <label for="canal_id" class="form-label">Canal de
                         Divulgação:</label>
-                    <select name="canal_id[]" id="canal_id" class="form-select" required multiple
+                    <select name="canal_id[]" id="canal_id" class="form-select" multiple
                         onchange="toggleOtherField()">
                         <option value="">Selecione o Canal de Divulgação</option>
                         @foreach ($canais as $canal)
@@ -122,46 +127,43 @@
 
                 <div class="row g-3">
                     <div class="col-12 col-md-6">
-                        <label for="tipo_evento" class="form-label"> <span class="asteriscoTop">*</span>Tipo de
+                        <label for="tipo_evento" class="form-label">Tipo de
                             Evento:</label>
-                        <select name="tipo_evento" id="tipo_evento" class="form-select" required>
-                            <option value="1" {{ old('tipo_evento', $atividade->tipo_evento) == '1' ? 'selected' : '' }}>
-                                Presencial
-                            </option>
-                            <option value="2" {{ old('tipo_evento', $atividade->tipo_evento) == '2' ? 'selected' : '' }}>
-                                Online
-                            </option>
+                        <select name="tipo_evento" id="tipo_evento" class="form-select" >
+														<option value="0" {{ old('tipo_evento', $atividade->tipo_evento) == '0' || old('tipo_evento') == null ? 'selected' : '' }}>Sem evento</option>
+                            <option value="1" {{ old('tipo_evento', $atividade->tipo_evento) == '1' ? 'selected' : '' }}>Presencial</option>
+                            <option value="2" {{ old('tipo_evento', $atividade->tipo_evento) == '2' ? 'selected' : '' }}>Online</option>
                         </select>
                     </div>
                     <div class="col-12 col-md-6">
-                        <label for="data_prevista" class="form-label"> <span class="asteriscoTop">*</span>Data
+                        <label for="data_prevista" class="form-label">Data
                             Prevista:</label>
-                        <input type="date" name="data_prevista" id="data_prevista" class="form-control" required
+                        <input type="date" name="data_prevista" id="data_prevista" class="form-control" 
                             value="{{ old('data_prevista', $atividade->data_prevista) }}">
                     </div>
                 </div>
 
                 <div class="row g-3">
                     <div class="col-12 col-md-6">
-                        <label for="data_realizada" class="form-label"> <span class="asteriscoTop">*</span>Data
+                        <label for="data_realizada" class="form-label">Data
                             Realizada:</label>
                         <input type="date" name="data_realizada" id="data_realizada" class="form-control"
                             value="{{ old('data_realizada', $atividade->data_realizada) }}">
                     </div>
                     <div class="col-12 col-md-6">
-                        <label for="meta" class="form-label"> <span class="asteriscoTop">*</span>Meta:</label>
-                        <input type="number" name="meta" id="meta" class="form-control" required min="0"
+                        <label for="meta" class="form-label">Meta:</label>
+                        <input type="number" name="meta" id="meta" class="form-control"  min="0"
                             value="{{ old('meta', $atividade->meta) }}" oninput="mostrarUnidade()">
                     </div>
                     <div class="col-12 col-md-6">
-                        <label for="realizado" class="form-label"> <span class="asteriscoTop">*</span>Realizado:</label>
-                        <input type="number" name="realizado" id="realizado" class="form-control" required min="0"
+                        <label for="realizado" class="form-label">Realizado:</label>
+                        <input type="number" name="realizado" id="realizado" class="form-control"  min="0"
                             value="{{ old('realizado', $atividade->realizado) }}" oninput="mostrarUnidade()">
                     </div>
                     <div class="col-12 col-md-6" id="unidade-container" style="display: none;">
                         <label for="medida_id" class="form-label"> <span class="asteriscoTop">*</span>Tipo de
                             Unidade:</label>
-                        <select name="medida_id" id="medida_id" class="form-control" required>
+                        <select name="medida_id" id="medida_id" class="form-control" >
                             <option value="">Selecione o Tipo de Unidade</option>
                             @foreach ($medidas as $medida)
                                 <option value="{{ $medida->id }}" {{ old('medida_id', $atividade->medida_id) == $medida->id ? 'selected' : '' }}>

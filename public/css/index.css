@@ -362,6 +362,10 @@ p {
   margin: 0;
 }
 
+.main-datatable .cust-datatable > tbody td{
+	word-break: inherit !important;
+}
+
 .searchInput {
   width: 70%;
   display: flex;

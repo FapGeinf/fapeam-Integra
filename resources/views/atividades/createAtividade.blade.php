@@ -66,11 +66,16 @@
           <select name="eixo_ids[]" id="eixo_ids" class="form-select" required multiple>
             <option value="">Selecione os Eixos</option>
             @foreach ($eixos as $eixo)
-        <option value="{{ $eixo->id }}" {{ in_array($eixo->id, old('eixo_ids', [])) ? 'selected' : '' }}>
-          {{ 'Eixo ' . $loop->iteration . ' - ' . $eixo->nome }}
-        </option>
-      @endforeach
+        			<option value="{{ $eixo->id }}" {{ in_array($eixo->id, old('eixo_ids', [])) ? 'selected' : '' }}>{{ 'Eixo ' . $loop->iteration . ' - ' . $eixo->nome }}</option>
+      			@endforeach
           </select>
+        </div>
+
+				<div class="col-12">
+          <label for="responsavel" class="form-label">Responsável:</label>
+          <input name="responsavel" id="responsavel" class="form-control insert-resp">
+            {{ old('responsavel') }}
+          </input>
         </div>
 
         <script>
@@ -104,14 +109,12 @@
         </div>
 
         <div class="col-12 col-md-6">
-          <label for="publico_id" class="form-label"> <span class="asteriscoTop">*</span>Público Alvo:</label>
-          <select name="publico_id" id="publico_id" class="form-select" required>
+
+          <select name="publico_id" id="publico_id" class="form-select" >
             <option value="">Selecione o Público Alvo</option>
             @foreach ($publicos as $publico)
-        <option value="{{ $publico->id }}" {{ old('publico_id') == $publico->id ? 'selected' : '' }}>
-          {{ $publico->nome }}
-        </option>
-      @endforeach
+        			<option value="{{ $publico->id }}" {{ old('publico_id') == $publico->id ? 'selected' : '' }}>{{ $publico->nome }}</option>
+      			@endforeach
             <option value="outros">Outros</option>
           </select>
 
@@ -122,35 +125,30 @@
         </div>
 
         <div class="col-12 col-md-6">
-          <label for="tipo_evento" class="form-label"> <span class="asteriscoTop">*</span>Tipo de Evento:</label>
-          <select name="tipo_evento" id="tipo_evento" class="form-select" required>
-            <option value="1" {{ old('tipo_evento') == '1' ? 'selected' : '' }}>
-              Presencial</option>
-
-            <option value="2" {{ old('tipo_evento') == '2' ? 'selected' : '' }}>
-              Online</option>
+          <select name="tipo_evento" id="tipo_evento" class="form-select">
+						<option value="0" {{ old('tipo_evento') == '0' || old('tipo_evento') === null ? 'selected' : '' }}>Sem evento</option>
+            <option value="1" {{ old('tipo_evento') == '1' ? 'selected' : '' }}>Presencial</option>
+            <option value="2" {{ old('tipo_evento') == '2' ? 'selected' : '' }}>Online</option>
           </select>
         </div>
 
         <div class="col-12">
           <label for="canal_id" class="form-label">
-            <span class="asteriscoTop">*</span> Canal de Divulgação:
+           Canal de Divulgação:
           </label>
-          <select name="canal_id[]" id="canal_id" class="form-select" required multiple onchange="toggleOtherField()">
+          <select name="canal_id[]" id="canal_id" class="form-select" multiple onchange="toggleOtherField()">
             <option value="">Selecione o Canal de Divulgação</option>
-            <option value="outros">Novo Canal Divulgação (digite abaixo)</option>
             @foreach ($canais as $canal)
-        <option value="{{ $canal->id }}" {{ in_array($canal->id, old('canal_id', [])) ? 'selected' : '' }}>
-          {{ $canal->nome }}
-        </option>
-      @endforeach
+        			<option value="{{ $canal->id }}" {{ in_array($canal->id, old('canal_id', [])) ? 'selected' : '' }}>{{ $canal->nome }}</option>
+      			@endforeach
+						<option value="outros">Novo Canal Divulgação (digite abaixo)</option>
           </select>
         </div>
 
 
         <div class="col-12" id="novo_canal_div" style="display: none;">
           <label for="novo_canal" class="form-label">
-            <span class="asteriscoTop">*</span> Novo Canal de Divulgação:
+           Novo Canal de Divulgação:
           </label>
           <input type="text" id="novo_canal" name="novo_canal" class="form-control" placeholder="Digite o novo canal">
           <button type="button" class="btn btn-primary mt-2" onclick="criarCanal()">Criar Novo Canal</button>
@@ -282,34 +280,34 @@
         </div>
 
         <div class="col-12 col-md-6">
-          <label for="data_prevista" class="form-label"> <span class="asteriscoTop">*</span>Data Prevista:</label>
-          <input type="date" name="data_prevista" id="data_prevista" class="form-control" required
+          <label for="data_prevista" class="form-label">Data Prevista:</label>
+          <input type="date" name="data_prevista" id="data_prevista" class="form-control"
             value="{{ old('data_prevista') }}">
         </div>
 
         <div class="col-12 col-md-6">
           <label for="data_realizada" class="form-label">
-            <span class="asteriscoTop">*</span>Data Realizada:
+          Data Realizada:
           </label>
           <input type="date" name="data_realizada" id="data_realizada" class="form-control"
             value="{{ old('data_realizada') }}">
         </div>
 
         <div class="col-12 col-md-6">
-          <label for="meta" class="form-label"> <span class="asteriscoTop">*</span>Meta:</label>
-          <input type="number" name="meta" id="meta" class="form-control" required min="0" value="{{ old('meta') }}"
+          <label for="meta" class="form-label">Meta:</label>
+          <input type="number" name="meta" id="meta" class="form-control"  min="0" value="{{ old('meta') }}"
             oninput="mostrarUnidade()">
         </div>
 
         <div class="col-12 col-md-6">
-          <label for="realizado" class="form-label"> <span class="asteriscoTop">*</span>Realizado:</label>
-          <input type="number" name="realizado" id="realizado" class="form-control" required min="0"
+          <label for="realizado" class="form-label">Realizado:</label>
+          <input type="number" name="realizado" id="realizado" class="form-control"  min="0"
             value="{{ old('realizado') }}" oninput="mostrarUnidade()">
         </div>
 
         <div class="col-12 col-md-6" id="unidade-container" style="display: none;">
           <label for="medida_id" class="form-label"> <span class="asteriscoTop">*</span>Tipo de Unidade:</label>
-          <select name="medida_id" id="medida_id" class="form-control" required>
+          <select name="medida_id" id="medida_id" class="form-control" >
             <option value="">Selecione o Tipo de Unidade</option>
             @foreach ($medidas as $medida)
         <option value="{{ $medida->id }}" {{ old('medida_id') == $medida->id ? 'selected' : '' }}>
