@@ -114,6 +114,7 @@
         						<div class="text-muted">Data Prevista</div>
         						<div>{{ \Carbon\Carbon::parse($atividade->data_prevista)->format('d/m/Y') }}</div>
     							</div>
+									<hr>
     							<div class="mt-2">
         						<div class="text-muted">Data Realizada</div>
         						<div>{{ $atividade->data_realizada ? \Carbon\Carbon::parse($atividade->data_realizada)->format('d/m/Y') : 'Não realizada' }}</div>
@@ -125,6 +126,7 @@
        							<div class="text-muted">Meta</div>
         						<div>{{$atividade->meta}} {{$atividade->medida->nome ?? 'N/A'}}</div>
     							</div>
+									<hr>
     							<div class="mt-2">
         						<div class="text-muted">Realizado</div>
         						<div>{{$atividade->realizado}} {{$atividade->medida->nome ?? 'N/A'}}</div>
