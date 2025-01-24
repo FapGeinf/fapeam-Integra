@@ -105,7 +105,7 @@
               </td>
               <td class="text-center">
                 @foreach ($atividade->canais as $canal)
-                <span class="badge bg-primary">{{ $canal->nome }}</span>
+                <span class="">{{ $canal->nome }}</span>
                 @endforeach
               </td>
               <td class="text-center">{{ \Carbon\Carbon::parse($atividade->data_prevista)->format('d/m/Y') }}</td>
