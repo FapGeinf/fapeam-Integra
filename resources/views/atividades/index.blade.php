@@ -88,8 +88,8 @@
                 @endforeach
               </td>
               <td style="text-align: center">{!! $atividade->atividade_descricao !!}</td>
-							<td style="text-align: center;">{!! $atividade->responsavel !!}</td>
               <td class="text-center">{!! $atividade->objetivo !!}</td>
+							<td style="text-align: center;">{!! $atividade->responsavel !!}</td>
               <!-- Exibe o nome correspondente ao id do público alvo -->
               <td class="text-center">
                 {{ $atividade->publico->nome ?? 'Não informado' }}
