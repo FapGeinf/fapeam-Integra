@@ -129,6 +129,7 @@
 						<option value="0" {{ old('tipo_evento') == '0' || old('tipo_evento') === null ? 'selected' : '' }}>Sem evento</option>
             <option value="1" {{ old('tipo_evento') == '1' ? 'selected' : '' }}>Presencial</option>
             <option value="2" {{ old('tipo_evento') == '2' ? 'selected' : '' }}>Online</option>
+            <option value="2" {{ old('tipo_evento') == '3' ? 'selected' : '' }}>Presencial e Online</option>
           </select>
         </div>
 

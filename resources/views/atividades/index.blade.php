@@ -31,14 +31,14 @@
 
 <div class="alert-container mt-5">
   @if (session('success'))
-    <div class="alert alert-success">
-    {{ session('success') }}
-    </div>
+	<div class="alert alert-success">
+	{{ session('success') }}
+	</div>
 
   @elseif (session('error'))
-    <div class="alert alert-danger">
-    {{ session('error') }}
-    </div>
+	<div class="alert alert-danger">
+	{{ session('error') }}
+	</div>
   @endif
 </div>
 
@@ -49,11 +49,11 @@
       
       <span style="font-size:20px;">
       @if(isset($eixo_id) && $eixo_id)
-        <a class="hover" href="{{ route('eixo.mostrar', ['eixo_id' => $eixo_id]) }}">
-          {{$eixoNome}} <i class="bi bi-arrow-return-left"></i>
-        </a>
-      </span>
-      @endif
+			<a class="hover" href="{{ route('eixo.mostrar', ['eixo_id' => $eixo_id]) }}">
+			  {{$eixoNome}} <i class="bi bi-arrow-return-left"></i>
+			</a>
+		  </span>
+	  @endif
     </div>
   </div>
 </div>
@@ -81,90 +81,92 @@
           </thead>
           <tbody>
             @foreach ($atividades as $atividade)
-							<tr>
-							  <td style="text-align:center;">
-								@foreach ($atividade->eixos as $eixo)
-								<span class="badge bg-primary">{{ $eixo->nome }}</span>
-								@endforeach
-							  </td>
-							  <td style="text-align: center">{!! $atividade->atividade_descricao !!}</td>
-							  <td class="text-center">{!! $atividade->objetivo !!}</td>
-											<td style="text-align: center;">{!! $atividade->responsavel !!}</td>
-							  <!-- Exibe o nome correspondente ao id do público alvo -->
-							  <td class="text-center">
-								{{ $atividade->publico->nome ?? 'Não informado' }}
-							  </td>
-							  <td class="text-center">
-												@if($atividade->tipo_evento == 1)
-												Presencial
-												@elseif($atividade->tipo_evento == 0 || $atividade->tipo_evento === null)
-												Sem evento
-												@else
-												Online
+											<tr>
+											  <td style="text-align:center;">
+												@foreach ($atividade->eixos as $eixo)
+													<span class="badge bg-primary">{{ $eixo->nome }}</span>
+												@endforeach
+											  </td>
+											  <td style="text-align: center">{!! $atividade->atividade_descricao !!}</td>
+											  <td class="text-center">{!! $atividade->objetivo !!}</td>
+															<td style="text-align: center;">{!! $atividade->responsavel !!}</td>
+											  <!-- Exibe o nome correspondente ao id do público alvo -->
+											  <td class="text-center">
+												{{ $atividade->publico->nome ?? 'Não informado' }}
+											  </td>
+												<td class="text-center">
+													@if($atividade->tipo_evento == 1)
+														Presencial
+													@elseif($atividade->tipo_evento == 2)
+														Online
+													@elseif($atividade->tipo_evento == 3)
+														Presencial e Online
+													@elseif($atividade->tipo_evento == 0 || $atividade->tipo_evento === null)
+														Sem evento
+													@endif
+												</td>
+											  <td class="text-center">
+												@foreach ($atividade->canais as $canal)
+													<span class="">{{ $canal->nome }}</span>
+												@endforeach
+											  </td>
+
+												<td class="text-center">
+												<div class="mt-2">
+												<div class="text-muted">Data Prevista</div>
+												<div>{{ \Carbon\Carbon::parse($atividade->data_prevista)->format('d/m/Y') }}</div>
+												</div>
+													<hr>
+												<div class="mt-2">
+												<div class="text-muted">Data Realizada</div>
+												<div>{{ $atividade->data_realizada ? \Carbon\Carbon::parse($atividade->data_realizada)->format('d/m/Y') : 'Não realizada' }}</div>
+												</div>
+												</td>
+
+												<td class="text-center">
+												<div class="mt-2">
+												   <div class="text-muted">Meta</div>
+												<div>{{$atividade->meta}} {{$atividade->medida->nome ?? 'N/A'}}</div>
+												</div>
+													<hr>
+												<div class="mt-2">
+												<div class="text-muted">Realizado</div>
+												<div>{{$atividade->realizado}} {{$atividade->medida->nome ?? 'N/A'}}</div>
+												</div>
+												</td>
+
+
+											  <td>
+												@if(Auth::user()->unidade->unidadeTipoFK == 1)
+													<div class="d-flex justify-content-start">
+													  <a href="{{ route('atividades.edit', $atividade->id) }}" class="btn btn-sm btn-warning me-2"><i class="bi bi-pencil"></i></a>
+													  <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $atividade->id }}"><i class="bi bi-trash"></i></button>
+													</div>
 												@endif
-							  </td>
-							  <td class="text-center">
-								@foreach ($atividade->canais as $canal)
-								<span class="">{{ $canal->nome }}</span>
-								@endforeach
-							  </td>
-
-								<td class="text-center">
-    							<div class="mt-2">
-        						<div class="text-muted">Data Prevista</div>
-        						<div>{{ \Carbon\Carbon::parse($atividade->data_prevista)->format('d/m/Y') }}</div>
-    							</div>
-									<hr>
-    							<div class="mt-2">
-        						<div class="text-muted">Data Realizada</div>
-        						<div>{{ $atividade->data_realizada ? \Carbon\Carbon::parse($atividade->data_realizada)->format('d/m/Y') : 'Não realizada' }}</div>
-    							</div>
-								</td>
-
-								<td class="text-center">
-    							<div class="mt-2">
-       							<div class="text-muted">Meta</div>
-        						<div>{{$atividade->meta}} {{$atividade->medida->nome ?? 'N/A'}}</div>
-    							</div>
-									<hr>
-    							<div class="mt-2">
-        						<div class="text-muted">Realizado</div>
-        						<div>{{$atividade->realizado}} {{$atividade->medida->nome ?? 'N/A'}}</div>
-    							</div>
-								</td>
-
-
-							  <td>
-								@if(Auth::user()->unidade->unidadeTipoFK == 1)
-								<div class="d-flex justify-content-start">
-								  <a href="{{ route('atividades.edit', $atividade->id) }}" class="btn btn-sm btn-warning me-2"><i class="bi bi-pencil"></i></a>
-								  <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $atividade->id }}"><i class="bi bi-trash"></i></button>
-								</div>
-								@endif
-							  </td>
-							</tr>
-							<!-- Modal de Confirmação de Exclusão -->
-							<div class="modal fade" id="deleteModal{{ $atividade->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $atividade->id }}" aria-hidden="true">
-							  <div class="modal-dialog modal-dialog-centered">
-								<div class="modal-content">
-								  <div class="modal-header">
-									<h5 class="modal-title" id="deleteModalLabel{{ $atividade->id }}">Confirmar Exclusão</h5>
-									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-								  </div>
-								  <div class="modal-body">
-									Tem certeza que deseja excluir esta atividade?
-								  </div>
-								  <div class="modal-footer">
-									<button type="button" class="secondary" data-bs-dismiss="modal">Cancelar</button>
-									<form action="{{ route('atividades.delete', $atividade->id) }}" method="POST">
-									  @csrf
-									  @method('DELETE')
-									  <button type="submit" class="btn btn-danger">Excluir</button>
-									</form>
-								  </div>
-								</div>
-							  </div>
-							</div>
+											  </td>
+											</tr>
+											<!-- Modal de Confirmação de Exclusão -->
+											<div class="modal fade" id="deleteModal{{ $atividade->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $atividade->id }}" aria-hidden="true">
+											  <div class="modal-dialog modal-dialog-centered">
+												<div class="modal-content">
+												  <div class="modal-header">
+													<h5 class="modal-title" id="deleteModalLabel{{ $atividade->id }}">Confirmar Exclusão</h5>
+													<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+												  </div>
+												  <div class="modal-body">
+													Tem certeza que deseja excluir esta atividade?
+												  </div>
+												  <div class="modal-footer">
+													<button type="button" class="secondary" data-bs-dismiss="modal">Cancelar</button>
+													<form action="{{ route('atividades.delete', $atividade->id) }}" method="POST">
+													  @csrf
+													  @method('DELETE')
+													  <button type="submit" class="btn btn-danger">Excluir</button>
+													</form>
+												  </div>
+												</div>
+											  </div>
+											</div>
 			@endforeach
           </tbody>
         </table>
@@ -201,10 +203,10 @@
                 <select class="form-select form-select-sm mb-2" id="filterUnidade">
                   <option value="">TODOS</option>
                   @foreach ($atividades->unique('id') as $atividade)
-                    @foreach ($atividade->eixos as $eixo)
-                      <option value="{{ $eixo->nome }}">{{ $eixo->nome }}</option>
-                    @endforeach
-                  @endforeach
+					@foreach ($atividade->eixos as $eixo)
+						  <option value="{{ $eixo->nome }}">{{ $eixo->nome }}</option>
+					@endforeach
+				  @endforeach
                 </select>
               </div>
               <div class="mb-3" id="lengthMenuContainer"></div>
@@ -218,8 +220,8 @@
             ${dropdownContainer[0].outerHTML}
             <div>
               @if(Auth::user()->unidade->unidadeTipoFK == 1)
-                <a href="{{ route('atividades.create') }}" class="primary">Adicionar Atividade</a>
-              @endif
+				<a href="{{ route('atividades.create') }}" class="primary">Adicionar Atividade</a>
+			  @endif
             </div>
           </div>
         `);
