@@ -36,7 +36,7 @@
           <div>
             <i class="bi bi-buildings-fill"></i>
             <span class="sectorTopNav">Lotado em: </span>
-            <span class="">{{ Auth::user()->unidade->unidadeNome}}</span>
+            <span class="">{{ Auth::user()->unidade->unidadeNome}} - {{Auth::user()->unidade->unidadeSigla}}</span>
           </div>
         </div>
       </div>
