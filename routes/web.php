@@ -11,6 +11,7 @@ use App\Http\Controllers\UserController;
 use App\Models\Prazo;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\RelatorioController;
+use App\Http\Controllers\IndicadorController;
 
 
 /*
@@ -115,6 +116,14 @@ Route::prefix('atividades')->name('atividades.')->middleware('auth')->group(func
     Route::delete('/delete/{id}', [AtividadeController::class, 'deleteAtividade'])->name('delete');
 });
 
+Route::prefix('indicadores')->name('indicadores.')->middleware('auth')->group(function () {
+    Route::get('/', [IndicadorController::class, 'index'])->name('index');
+    Route::post('/', [IndicadorController::class, 'index'])->name('index');
+    Route::get('/create', [IndicadorController::class, 'create'])->name('create');
+    Route::post('/store', [IndicadorController::class, 'store'])->name('store');
+    Route::get('/edit/{id}', [IndicadorController::class, 'edit'])->name('edit');
+    Route::put('/update/{id}', [IndicadorController::class, 'update'])->name('update');
+});
 Route::get('/graficos',[RelatorioController::class,'graficosIndex'])->name('graficos.index');
 Route::post('/canal/criar',[AtividadeController::class,'createCanal'])->name('canal.criar');
 Route::get('/eixo/{eixo_id}', [EixosController::class, 'mostrarEixo'])->name('eixo.mostrar');
