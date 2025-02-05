@@ -14,7 +14,7 @@ class IndicadorController extends Controller
      */
     public function index()
     {
-			$indicadores = Indicador::all();
+			$indicadores = Indicador::with('eixo')->get();
 			return view('indicadores.index', compact('indicadores'));
     }
 
@@ -37,7 +37,11 @@ class IndicadorController extends Controller
      */
     public function store(Request $request)
     {
-    	dd($request->all());
+    	$request->validate([
+				'nomeIndicador' => 'required',
+				'descricaoIndicador' => 'required',
+			]);
+			
     }
 
     public function edit($id)

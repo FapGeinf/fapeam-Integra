@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 @extends('layouts.app')
 <html lang="en">
 <head>
@@ -16,6 +16,7 @@
 					<th>ID</th>
 					<th>Nome</th>
 					<th>Descrição</th>
+					<th>Eixo</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -24,6 +25,7 @@
 					<td>{{ $indicador->id }}</td>
 					<td>{{ $indicador->nomeIndicador }}</td>
 					<td>{{ $indicador->descricaoIndicador }}</td>
+					<td>{{ $indicador->eixo->nome}}</td>
 				</tr>
 				@endforeach
 			</tbody>

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class indicador extends Model
 {
     use HasFactory;
@@ -12,10 +13,11 @@ class indicador extends Model
 
 		protected $fillable = [
 			'nomeIndicador',
-			'descricaoIndicador'
+			'descricaoIndicador',
+			'eixo_fk'
 		];
 
-		public function indicador(){
+		public function eixo(){
 			return $this->belongsTo(Eixo::class, 'eixo_fk');
 		}
 		
