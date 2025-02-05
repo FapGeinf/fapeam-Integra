@@ -117,8 +117,7 @@ Route::prefix('atividades')->name('atividades.')->middleware('auth')->group(func
 });
 
 Route::prefix('indicadores')->name('indicadores.')->middleware('auth')->group(function () {
-    Route::get('/', [IndicadorController::class, 'index'])->name('index');
-    Route::post('/', [IndicadorController::class, 'index'])->name('index');
+		Route::match(['get', 'post'], '/', [IndicadorController::class, 'index'])->name('index');
     Route::get('/create', [IndicadorController::class, 'create'])->name('create');
     Route::post('/store', [IndicadorController::class, 'store'])->name('store');
     Route::get('/edit/{id}', [IndicadorController::class, 'edit'])->name('edit');

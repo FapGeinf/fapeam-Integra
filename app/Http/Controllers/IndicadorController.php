@@ -12,9 +12,17 @@ class IndicadorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-			$indicadores = Indicador::with('eixo')->get();
+			$eixo_id = $request->get('eixo_id');
+			if ($eixo_id) {
+				$indicadores = Indicador::where('eixo_fk', $eixo_id)->with('eixo')->get();
+				dd($indicadores);
+			} else {
+				$indicadores = Indicador::with('eixo')->get();
+			}
+			dd($indicadores);
+			// $indicadores = Indicador::with('eixo')->get();
 			return view('indicadores.index', compact('indicadores'));
     }
 
