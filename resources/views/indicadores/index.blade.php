@@ -1,5 +1,7 @@
 
 @extends('layouts.app')
+@section('content')
+@section('title') {{ 'Lista de Atividades' }} @endsection
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -13,7 +15,7 @@
 		<table class="table table-bordered">
 			<thead>
 				<tr>
-					<th>ID</th>
+					<th>N°</th>
 					<th>Nome</th>
 					<th>Descrição</th>
 					<th>Eixo</th>
@@ -25,7 +27,7 @@
 					<td>{{ $indicador->id }}</td>
 					<td>{{ $indicador->nomeIndicador }}</td>
 					<td>{{ $indicador->descricaoIndicador }}</td>
-					<td>{{ $indicador->eixo->nome}}</td>
+					<td>EIXO {{$indicador->eixo->id}} - {{ $indicador->eixo->nome}}</td>
 				</tr>
 				@endforeach
 			</tbody>
@@ -33,3 +35,4 @@
 	</div>
 </body>
 </html>
+@endsection
