@@ -20,7 +20,7 @@
 			<textarea class="form-control" id="descricao" name="descricao" rows="3" required>{{ $indicador->descricaoIndicador }}</textarea>
 		</div>
 
-ter
+
 
 		<button type="submit" class="btn btn-primary">Salvar</button>
 		<a href="{{ route('indicadores.index') }}" class="btn btn-secondary">Cancelar</a>
