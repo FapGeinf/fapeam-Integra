@@ -40,14 +40,28 @@ class IndicadorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-    	$request->validate([
-				'nomeIndicador' => 'required',
-				'descricaoIndicador' => 'required',
-			]);
-			
+public function store(Request $request)
+{
+    try {
+        $request->validate([
+            'nome' => 'nullable|string|max:255',
+            'descricao' => 'nullable|string',
+            'eixo' => 'nullable|exists:eixos,id',
+        ]);
+
+        $indicador = new Indicador([
+            'nomeIndicador' => $request->get('nome'),
+            'descricaoIndicador' => $request->get('descricao'),
+            'eixo_fk' => $request->get('eixo'),
+        ]);
+
+        $indicador->save();
+        return redirect()->route('indicadores.index')->with('success', 'Indicador criado com sucesso!');
+    } catch (\Throwable $th) {
+			dd($th);
+        return redirect()->back()->withErrors(['error' => 'Erro ao criar indicador: ' . $th->getMessage()]);
     }
+}
 
     public function edit($id)
     {

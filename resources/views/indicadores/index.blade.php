@@ -32,6 +32,7 @@
 				@endforeach
 			</tbody>
 		</table>
+		<a href="{{ route('indicadores.create') }}" class="btn btn-primary">Adicionar Indicador</a>
 	</div>
 </body>
 </html>
