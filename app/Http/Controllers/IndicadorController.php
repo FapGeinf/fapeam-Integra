@@ -55,11 +55,11 @@ public function store(Request $request)
 				return view('indicadores.edit', compact('indicador', 'eixos'));
     }
 		public function update(Request $request, $id)
-		{
+		{	
 			try {
 				$request->validate([
 					'nome' => 'nullable|string|max:255',
-					'descricao' => 'nullable|string',
+					'descricao' => 'nullable|string|max:255',
 					'eixo' => 'nullable|exists:eixos,id',
 				]);
 
@@ -67,10 +67,10 @@ public function store(Request $request)
 				$indicador->nomeIndicador = $request->get('nome');
 				$indicador->descricaoIndicador = $request->get('descricao');
 				$indicador->eixo_fk = $request->get('eixo');
-
 				$indicador->save();
 				return redirect()->route('indicadores.index')->with('success', 'Indicador atualizado com sucesso!');
 			} catch (\Throwable $th) {
+				dd($th);
 				return redirect()->back()->withErrors(['error' => 'Erro ao atualizar indicador: ' . $th->getMessage()]);
 			}
 		}
