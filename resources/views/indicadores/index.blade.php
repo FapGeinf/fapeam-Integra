@@ -28,6 +28,9 @@
 					<td>{{ $indicador->nomeIndicador }}</td>
 					<td>{{ $indicador->descricaoIndicador }}</td>
 					<td>EIXO {{$indicador->eixo->id}} - {{ $indicador->eixo->nome}}</td>
+					<td>
+						<a href="{{ route('indicadores.edit', $indicador->id) }}" class="btn btn-warning btn-sm">Editar</a>
+					</td>
 				</tr>
 				@endforeach
 			</tbody>
