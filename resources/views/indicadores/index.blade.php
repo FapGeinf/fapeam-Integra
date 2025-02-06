@@ -19,6 +19,7 @@
 					<th>Nome</th>
 					<th>Descrição</th>
 					<th>Eixo</th>
+					<th>Edição</th>
 				</tr>
 			</thead>
 			<tbody>

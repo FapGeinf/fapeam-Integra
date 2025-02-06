@@ -66,6 +66,13 @@
       <button class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">Atividades</button>
     </a>
   @endif
+	<form action="{{ route('indicadores.index') }}" method="POST" class="d-inline">
+			@csrf
+			<input type="hidden" name="eixo_id" value="7">
+			<button type="submit" class="btn__bg btn__bg_color shadow-sm fw-bold">
+					Indicadores
+			</button>
+		</form>
 		<button class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">Relatório</button>
   </div>
 </body>
