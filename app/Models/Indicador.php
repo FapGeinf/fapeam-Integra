@@ -20,5 +20,9 @@ class indicador extends Model
 		public function eixo(){
 			return $this->belongsTo(Eixo::class, 'eixo_fk');
 		}
+		public function atividades()
+		{
+    	return $this->belongsToMany(Atividade::class, 'atividade_indicadores', 'indicador_id', 'atividade_id');
+		}
 		
 }

@@ -30,4 +30,8 @@ class Atividade extends Model
     {
            return $this->belongsTo(MedidaTipo::class,'medida_id');
     }
+		public function indicadores()
+		{
+    			return $this->belongsToMany(Indicador::class, 'atividade_indicadores', 'atividade_id', 'indicador_id');
+		}
 }

@@ -60,6 +60,17 @@
             </div>
 
 						<div class="col-12">
+							<select name="indicador_ids[]" id="indicador_ids" class="form-select" required multiple>
+    						<option value="">Selecione os Indicadores</option>
+    						@foreach ($indicadores as $indicador)
+        					<option value="{{ $indicador->id }}" {{ in_array($indicador->id, old('indicador_ids', [])) ? 'selected' : '' }}>
+            				{{ $indicador->nomeIndicador }}
+        					</option>
+    						@endforeach
+							</select>
+						</div>
+
+						<div class="col-12">
           		<label for="responsavel" class="form-label">Responsável:</label>
           		<input name="responsavel" id="responsavel" class="form-control insert-resp" value="{{ old('responsavel', $atividade->responsavel) }}"></input>
         		</div>
