@@ -5,6 +5,8 @@
   border-radius: 8px; /* Cantos arredondados */
 }
 
+
+
 li {
   margin-left: 1rem;
 }
@@ -67,7 +69,7 @@ a {
 }
 
 .login-page .appContent {
-  margin-left: 10rem;
+  /* margin-left: 10rem; */
   transition: margin-left 0.4s;
 }
 
@@ -164,6 +166,7 @@ body {
   width: 100%;
   z-index: 1;
   flex-wrap: nowrap !important;
+  margin-top: 1.5rem;
 }
 
 .userTopNav,
@@ -175,7 +178,7 @@ body {
   width: 135px;
   height: 41px;
   /* margin-left: 1.6rem; */
-  margin-left: 3rem;
+  /* margin-left: 3rem; */
   transition: .1s;
   margin-top: 4px;
 }
@@ -306,13 +309,13 @@ a.btnAltSenha:hover {
 }
 
 .appContent {
-  margin-left: 10.5rem;
+  /* margin-left: 10.5rem; */
   transition: margin-left 0.4s;
 }
 
 .conteudo {
   margin-top: 1rem;
-  padding-left: 90px;
+  /* padding-left: 90px; */
 }
 
 .mainShow {
