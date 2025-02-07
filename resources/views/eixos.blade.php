@@ -32,7 +32,7 @@
           </h5>
       
           <div class="card-body card-fofinho p-4">
-            <div class="my-auto title-teste form-control text-center d-flex">
+            <div class="my-auto title-teste form-control text-center fw-bold d-flex">
               COMPROMETIMENTO E APOIO DA ALTA DIREÇÃO
             </div>
           </div>
@@ -63,7 +63,7 @@
           </h5>
       
           <div class="card-body card-fofinho p-4">
-            <div class="my-auto title-teste form-control text-center d-flex">
+            <div class="my-auto title-teste form-control text-center d-flex fw-bold">
               INSTITUCIONALIZAÇÃO DO CÓDIGO DE CONDUTA
             </div>
           </div>
@@ -94,7 +94,7 @@
           </h5>
       
           <div class="card-body card-fofinho p-4">
-            <div class="my-auto title-teste form-control text-center d-flex">
+            <div class="my-auto title-teste form-control text-center d-flex fw-bold">
               AVALIAÇÃO DE RISCOS
             </div>
           </div>
@@ -125,7 +125,7 @@
           </h5>
       
           <div class="card-body card-fofinho p-4">
-            <div class="my-auto title-teste form-control text-center d-flex">
+            <div class="my-auto title-teste form-control text-center d-flex fw-bold">
               IMPLEMENTAÇÃO DOS CONTROLES INTERNOS
             </div>
           </div>
@@ -156,7 +156,7 @@
           </h5>
       
           <div class="card-body card-fofinho p-4">
-            <div class="my-auto title-teste form-control text-center d-flex">
+            <div class="my-auto title-teste form-control text-center d-flex fw-bold">
               COMUNICAÇÃO E TREINAMENTOS PERIÓDICOS
             </div>
           </div>
@@ -187,7 +187,7 @@
           </h5>
       
           <div class="card-body card-fofinho p-4">
-            <div class="my-auto title-teste form-control text-center d-flex">
+            <div class="my-auto title-teste form-control text-center d-flex fw-bold">
               CANAIS DE DENÚNCIA
             </div>
           </div>
@@ -218,7 +218,7 @@
           </h5>
       
           <div class="card-body card-fofinho p-4">
-            <div class="my-auto title-teste form-control text-center d-flex">
+            <div class="my-auto title-teste form-control text-center d-flex fw-bold">
               INVESTIGAÇÕES INTERNAS
             </div>
           </div>
@@ -250,7 +250,7 @@
           </h5>
       
           <div class="card-body card-fofinho p-4">
-            <div class="my-auto form-control title-teste text-center d-flex">
+            <div class="my-auto form-control title-teste text-center d-flex fw-bold">
               MONITORAMENTO CONTÍNUO
             </div>
           </div>
