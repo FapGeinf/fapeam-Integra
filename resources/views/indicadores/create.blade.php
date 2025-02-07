@@ -32,7 +32,7 @@
 
 			<div class="row">
 				<div class="col-12">
-					<label for="eixo" class="form-label">Eixo:</label>
+					<label for="eixo" class="form-label"><span class="asteriscoTop">*</span>Eixo:</label>
 					<select class="form-select" id="eixo" name="eixo" required>
 						@foreach($eixos as $eixo)
 							<option value="{{ $eixo->id }}">{{ $eixo->nome }}</option>
@@ -41,12 +41,12 @@
 				</div>
 
 				<div class="col-12">
-					<label for="nome" class="form-label">Título:</label>
+					<label for="nome" class="form-label"><span class="asteriscoTop">*</span>Título:</label>
 					<input type="text" class="form-control" id="nome" name="nome" required>
 				</div>
 
 				<div class="col-12">
-					<label for="descricao">Descrição:</label>
+					<label for="descricao"><span class="asteriscoTop">*</span>Descrição:</label>
 					<textarea	textarea class="form-control" id="descricao" name="descricao" rows="3" required></textarea>
 				</div>
 			</div>
