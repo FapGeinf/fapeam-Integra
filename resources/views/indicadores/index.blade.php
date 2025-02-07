@@ -5,6 +5,16 @@
 <link rel="stylesheet" href="{{ asset('css/index.css') }}">
 <link rel="stylesheet" href="{{ asset('css/atividades.css') }}">
 
+<style>
+	.form-label {
+		margin-bottom: 0 !important;
+	}
+
+	.liDP {
+		margin-left: 0 !important;
+	}
+</style>
+
 <div class="container-fluid mt-5 px__custom">
   <div class="col-12 border main-datatable">
     <div class="d-flex justify-content-center text-center p-2" style="flex-direction: column;">
