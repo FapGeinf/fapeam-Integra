@@ -140,6 +140,9 @@
 												@if(Auth::user()->unidade->unidadeTipoFK == 1)
 													<div class="d-flex justify-content-start">
 													  <a href="{{ route('atividades.edit', $atividade->id) }}" class="btn btn-sm btn-warning me-2"><i class="bi bi-pencil"></i></a>
+														<a href="{{ route('atividades.show', $atividade->id) }}" class="btn btn-sm btn-info me-2">
+                							<i class="bi bi-eye"></i>
+            								</a>
 													  <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $atividade->id }}"><i class="bi bi-trash"></i></button>
 													</div>
 												@endif
