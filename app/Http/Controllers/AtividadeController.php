@@ -94,7 +94,6 @@ class AtividadeController extends Controller
         $canais = Canal::all();
         $medidas = MedidaTipo::all();
 				$indicadores = Indicador::all();
-				dd($indicadores);
         return view('atividades.createAtividade', ['eixos' => $eixos, 'publicos' => $publicos, "canais" => $canais, 'medidas' => $medidas, 'indicadores' => $indicadores]);
     }
 
