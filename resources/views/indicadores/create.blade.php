@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title') {{ 'Criar Indicadores' }} @endsection
+@section('title') {{ 'Criar Indicador' }} @endsection
 
 @section('content')
 
@@ -14,9 +14,17 @@
 	.liDP {
 		margin-left: 0 !important;
 	}
+
+	.form-wrapper3 {
+		display: flex;
+		justify-content: center; /* Centraliza horizontalmente */
+		align-items: center; /* Centraliza verticalmente */
+		min-height: 60vh; /* Altura mínima total da viewport */
+		padding: 0 10px; /* Adiciona espaçamento à esquerda e à direita */
+	}
 </style>
 
-<div class="form-wrapper paddingLeft">
+<div class="form-wrapper3 paddingLeft">
 	<div class="form_create border">
 		<h3 style="text-align: center; margin-bottom: 5px;">
       Criar Indicador
