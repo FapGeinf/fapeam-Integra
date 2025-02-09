@@ -78,6 +78,13 @@
 					Indicadores
 			</button>
 		</form>
+
+    <a href="{{ route('riscos.index') }}">
+      <button class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">
+        Análise do Risco
+      </button>
+    </a>
+
 		<button class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">Relatório</button>
   </div>
 
