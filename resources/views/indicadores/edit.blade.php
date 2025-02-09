@@ -39,17 +39,17 @@
 					<label for="eixo" class="form-label">Eixo:</label>
 					<select class="form-select" id="eixo" name="eixo" required>
 						@foreach($eixos as $eixo)
-							<option value="{{ $eixo->id }}" {{ $eixo->id == $indicador->eixo_fk ? 'selected' : '' }}>
+							<option value="{{ $eixo->id }}"{{ $eixo->id }} - {{ $eixo->id == $indicador->eixo_fk ? 'selected' : '' }}>
 								{{ $eixo->nome }}
 							</option>
 						@endforeach
 					</select>
 				</div>
 
-				<div class="col-12">
+				{{-- <div class="col-12">
 					<label for="nome" class="form-label">Nome do Indicador:</label>
 					<input type="text" class="form-control" id="nome" name="nome" value="{{ $indicador->nomeIndicador }}" required>
-				</div>
+				</div> --}}
 
 				<div class="col-12">
 					<label for="descricao">Descrição</label>

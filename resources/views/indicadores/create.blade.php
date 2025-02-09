@@ -48,10 +48,10 @@
 					</select>
 				</div>
 
-				<div class="col-12">
+				{{-- <div class="col-12">
 					<label for="nome" class="form-label"><span class="asteriscoTop">*</span>Título:</label>
 					<input type="text" class="form-control" id="nome" name="nome" required>
-				</div>
+				</div> --}}
 
 				<div class="col-12">
 					<label for="descricao"><span class="asteriscoTop">*</span>Descrição:</label>

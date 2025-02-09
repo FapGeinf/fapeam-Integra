@@ -34,7 +34,7 @@
 				<thead>
 					<tr>
 						<th class="text-center">N°</th>
-						<th class="text-center">Nome</th>
+						{{-- <th class="text-center">Nome</th> --}}
 						<th class="text-center">Descrição</th>
 						<th class="text-center">Eixo</th>
 						<th class="text-center">Ações</th>
@@ -44,7 +44,7 @@
 					@foreach($indicadores as $indicador)
 					<tr>
 						<td>{{ $indicador->id }}</td>
-						<td>{{ $indicador->nomeIndicador }}</td>
+						{{-- <td>{{ $indicador->nomeIndicador }}</td> --}}
 						<td>{{ $indicador->descricaoIndicador }}</td>
 						<td>EIXO {{$indicador->eixo->id}} - {{ $indicador->eixo->nome}}</td>
 						<td>
