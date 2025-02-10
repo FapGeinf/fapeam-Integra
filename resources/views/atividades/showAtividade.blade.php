@@ -20,6 +20,21 @@
             </div>
 
 						<div class="row mb-3">
+							<label class="col-sm-3 fw-bold">Eixos:</label>
+							<div class="col-sm-9">
+									@if($atividade->eixos->count() > 0)
+											<ul>
+													@foreach($atividade->eixos as $eixo)
+															<li>EIXO {{$eixo->id}} - {{ $eixo->nome }}</li>
+													@endforeach
+											</ul>
+									@else
+											Nenhum eixo associado
+									@endif
+							</div>
+						</div>
+					
+						<div class="row mb-3">
 							<label class="col-sm-3 fw-bold">Responsável:</label>
 							<div class="col-sm-9">{{ $atividade->responsavel }}</div>
 						</div>
