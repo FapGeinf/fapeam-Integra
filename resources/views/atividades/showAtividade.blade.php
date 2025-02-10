@@ -1,24 +1,108 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-	<h1>Detalhes da Atividade</h1>
-	{{dd($atividade)}}
-	<div class="card">
-		<div class="card-header">
-			{{ $atividade->atividade_descricao }}
-		</div>
-		<div class="card-body">
-			<p><strong>Atividade:</strong> {!! $atividade->atividade_descricao !!}</p>
-			<p><strong>Descrição:</strong> {!!$atividade->objetivo !!}</p>
-			<p><strong>Data de Início:</strong> {{ $atividade->data_prevista }}</p>
-			<p><strong>Data de Término:</strong> {{ $atividade->data_realizada }}</p>
-			<p><strong>Meta:</strong> {{ $atividade->meta }}</p>
-			<p><strong>Realizado:</strong> {{ $atividade->realizado }}</p>
+@php
+    \Carbon\Carbon::setLocale('pt_BR'); // Define a localidade para português do Brasil
+@endphp
+<br>
+<div class="container mt-4">
+    <h1 class="mb-4 text-center">Detalhes da Atividade</h1>
 
-			<p><strong>Status:</strong> {{ $atividade->status }}</p>
-		</div>
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">{!! $atividade->atividade_descricao !!}</h5>
+        </div>
+				
+        <div class="card-body">
+            <div class="row mb-3">
+                <label class="col-sm-3 fw-bold">Objetivo:</label>
+                <div class="col-sm-9">{!! $atividade->objetivo !!}</div>
+            </div>
+
+						<div class="row mb-3">
+							<label class="col-sm-3 fw-bold">Responsável:</label>
+							<div class="col-sm-9">{{ $atividade->responsavel }}</div>
+						</div>
+
+						<div class="row mb-3">
+							<label class="col-sm-3 fw-bold">Data de Início:</label>
+							{{ \Carbon\Carbon::parse($atividade->data_prevista)->translatedFormat('d \d\e F \d\e Y') }}
+						</div>
+
+						<div class="row mb-3">
+							<label class="col-sm-3 fw-bold">Data de Término:</label>
+							{{ \Carbon\Carbon::parse($atividade->data_realizada)->translatedFormat('d \d\e F \d\e Y') }}
+						</div>
+
+						<div class="row mb-3">
+							<label class="col-sm-3 fw-bold">Tipo de Evento:</label>
+							<div class="col-sm-9">
+									@if($atividade->tipo_evento == 1)
+											Presencial
+									@elseif($atividade->tipo_evento == 2)
+											Online
+									@elseif($atividade->tipo_evento == 3)
+											Presencial e Online
+									@else
+											Sem evento
+									@endif
+							</div>
+						</div>
+
+
+            <div class="row mb-3">
+                <label class="col-sm-3 fw-bold">Público Alvo:</label>
+                <div class="col-sm-9">{{ $atividade->publico ? $atividade->publico->nome : 'Não informado' }}</div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-3 fw-bold">Canais:</label>
+                <div class="col-sm-9">
+                    @if($atividade->canais->count() > 0)
+                        <ul>
+                            @foreach($atividade->canais as $canal)
+                                <li>{{ $canal->nome }}</li>
+                            @endforeach
+                        </ul>
+                    @else
+                        Nenhum canal associado
+                    @endif
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-3 fw-bold">Indicadores:</label>
+                <div class="col-sm-9">
+                    @if($atividade->indicadores->count() > 0)
+                        <ul>
+                            @foreach($atividade->indicadores as $indicador)
+                                <li>{{ $indicador->nomeIndicador }}</li>
+                            @endforeach
+                        </ul>
+                    @else
+                        Nenhum indicador associado
+                    @endif
+                </div>
+            </div>
+
+
+						<div class="row mb-3">
+							<label class="col-sm-3 fw-bold">Meta:</label>
+							<div class="col-sm-9">
+									{{ $atividade->meta }} {{ $atividade->medida->nome ?? 'N/A' }}
+							</div>
+					</div>
+
+					<div class="row mb-3">
+						<label class="col-sm-3 fw-bold">Realizado:</label>
+						<div class="col-sm-9">
+								{{ $atividade->realizado }} {{ $atividade->medida->nome ?? 'N/A' }}
+						</div>
+					</div>
+
+        </div>
+    </div>
+
+		<div class="text-center mt-4">
+			<a href="{{ url()->previous() }}" class="btn btn-secondary"><i class="bi bi-arrow-left"></i></a>
 	</div>
-	<a href="{{ route('atividades.index') }}" class="btn btn-primary mt-3">Voltar</a>
 </div>
 @endsection
