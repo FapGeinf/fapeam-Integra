@@ -32,4 +32,10 @@ class DocumentoController extends Controller
 		   return view('links_login.intro');
 	}
 
+	public function downloadAvaliacao()
+{
+    return response()->file(storage_path('app/public/documentos/avaliacao.pdf'));
+}
+
+
 }

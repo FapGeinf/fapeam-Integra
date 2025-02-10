@@ -83,6 +83,9 @@ Route::get('/legislacao', function () {
 
 Route::get('/manual', [DocumentoController::class, 'downloadManual'])->name('manual');
 
+Route::get('/avaliacao', [DocumentoController::class, 'downloadAvaliacao'])->name('avaliacao');
+
+
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/eixos',[DocumentoController::class,'eixos'])->name('documentos.eixos')->middleware('auth');;
 
