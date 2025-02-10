@@ -34,7 +34,7 @@ class DocumentoController extends Controller
 
 	public function downloadAvaliacao()
 {
-    return response()->file(storage_path('app/public/documentos/avaliacao.pdf'));
+    return response()->file(storage_path('app/public/documentos/diagnosticoRiscos.pdf'));
 }
 
 

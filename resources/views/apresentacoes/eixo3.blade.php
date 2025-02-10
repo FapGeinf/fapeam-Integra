@@ -87,9 +87,11 @@
 
 		<button class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">Relatório</button>
 
-    <a href="{{ route('avaliacao') }}" class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">
-      Baixar Avaliação
-    </a>
+		<a href="{{ route('avaliacao') }}" class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">
+  		<i class="bi bi-download"></i> Diagnóstico de Riscos
+		</a>
+
+
   
   </div>
 
