@@ -63,23 +63,13 @@
       <div class="row g-3">
         <div class="col-12">
           <label for="eixo_ids" class="form-label"> <span class="asteriscoTop">*</span>Eixos:</label>
-          <select name="eixo_ids[]" id="eixo_ids" class="form-select" required multiple>
-            <option value="">Selecione os Eixos</option>
+          <select name="eixo_ids[]" id="eixo_ids" class="form-select" multiple>
+            <option disabled>Selecione os Eixos</option>
             @foreach ($eixos as $eixo)
         			<option value="{{ $eixo->id }}" {{ in_array($eixo->id, old('eixo_ids', [])) ? 'selected' : '' }}>{{ 'Eixo ' . $loop->iteration . ' - ' . $eixo->nome }}</option>
       			@endforeach
           </select>
         </div>
-				<div class="col-g12">
-				<select name="indicador_ids[]" id="indicador_ids" class="form-select" required multiple>
-    			<option value="">Selecione os Indicadores</option>
-    				@foreach ($indicadores as $indicador)
-        			<option value="{{ $indicador->id }}" {{ in_array($indicador->id, old('indicador_ids', [])) ? 'selected' : '' }}>
-            		{{ $indicador->nomeIndicador }}
-        			</option>
-    				@endforeach
-				</select>
-				</div>
 
 				<div class="col-12">
           <label for="responsavel" class="form-label">Responsável:</label>
@@ -303,9 +293,23 @@
           <input type="date" name="data_realizada" id="data_realizada" class="form-control"
             value="{{ old('data_realizada') }}">
         </div>
+				
+				<hr>
+
+				<div class="col-g12">
+					<label for="indicador_ids[]">Indicadores</label>
+					<select name="indicador_ids[]" id="indicador_ids" class="form-select" multiple>
+						<option disabled>Selecione os Indicadores</option>
+							@foreach ($indicadores as $indicador)
+								<option value="{{ $indicador->id }}" {{ in_array($indicador->id, old('indicador_ids', [])) ? 'selected' : '' }}>
+									{{ $indicador->nomeIndicador }}
+								</option>
+							@endforeach
+					</select>
+				</div>
 
         <div class="col-12 col-md-6">
-          <label for="meta" class="form-label">Meta:</label>
+          <label for="meta" class="form-label">Previsto:</label>
           <input type="number" name="meta" id="meta" class="form-control"  min="0" value="{{ old('meta') }}"
             oninput="mostrarUnidade()">
         </div>
@@ -417,4 +421,22 @@
     });
   });
 </script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    let elementoIndicadores = document.getElementById('indicador_ids');
+
+    if (elementoIndicadores) {
+      let choices = new Choices(elementoIndicadores, {
+        removeItemButton: true,
+        placeholder: true,
+        searchEnabled: false,
+        itemSelectText: '',
+        allowHTML: true
+      });
+    }
+  });
+</script>
+
+
 @endsection

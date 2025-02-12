@@ -59,16 +59,6 @@
                 </div>
             </div>
 
-						<div class="col-12">
-							<select name="indicador_ids[]" id="indicador_ids" class="form-select" required multiple>
-    						<option value="">Selecione os Indicadores</option>
-    						@foreach ($indicadores as $indicador)
-        					<option value="{{ $indicador->id }}" {{ in_array($indicador->id, old('indicador_ids', [])) ? 'selected' : '' }}>
-            				{{ $indicador->nomeIndicador }}
-        					</option>
-    						@endforeach
-							</select>
-						</div>
 
 						<div class="col-12">
           		<label for="responsavel" class="form-label">Responsável:</label>
@@ -154,8 +144,20 @@
                             value="{{ old('data_prevista', $atividade->data_prevista) }}">
                     </div>
                 </div>
-
+								<hr>
                 <div class="row g-3">
+										<div class="col-12">
+											<label for="indicador_ids[]">Indicadores</label>
+											<select name="indicador_ids[]" id="indicador_ids" class="form-select" required multiple>
+												<option value="">Selecione os Indicadores</optio>
+												@foreach ($indicadores as $indicador)
+													<option value="{{ $indicador->id }}" {{ in_array($indicador->id, old('indicador_ids', [])) ? 'selected' : '' }}>
+														{{ $indicador->nomeIndicador }}
+													</option>
+												@endforeach
+											</select>
+										</div>
+
                     <div class="col-12 col-md-6">
                         <label for="data_realizada" class="form-label">Data
                             Realizada:</label>
@@ -258,5 +260,21 @@
     }
 
 
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    let elementoIndicadores = document.getElementById('indicador_ids');
+
+    if (elementoIndicadores) {
+      let choices = new Choices(elementoIndicadores, {
+        removeItemButton: true,
+        placeholder: true,
+        searchEnabled: false,
+        itemSelectText: '',
+        allowHTML: true
+      });
+    }
+  });
 </script>
 @endsection
