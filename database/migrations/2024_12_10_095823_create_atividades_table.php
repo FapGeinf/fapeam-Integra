@@ -15,13 +15,13 @@ return new class extends Migration
     {
         Schema::create('atividades', function (Blueprint $table) {
             $table->id();
-            $table->text('atividade_descricao');
-            $table->text('objetivo');
-            $table->string('tipo_evento',255);
-            $table->date('data_prevista');
-            $table->date('data_realizada');
-            $table->integer('meta');
-            $table->integer('realizado');
+            $table->text('atividade_descricao')->nullable();
+            $table->text('objetivo')->nullable();
+            $table->string('tipo_evento',255)->nullable();
+            $table->date('data_prevista')->nullable();
+            $table->date('data_realizada')->nullable();
+            $table->integer('meta')->nullable();
+            $table->integer('realizado')->nullable();
             $table->timestamps();
         });
     }
