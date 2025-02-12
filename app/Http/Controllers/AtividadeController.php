@@ -168,13 +168,14 @@ class AtividadeController extends Controller
         $publicos = Publico::all();
         $canais = Canal::all();
         $medidas = MedidaTipo::all();
+				$indicadores = Indicador::all();
         $atividade = $this->atividade->findOrFail($id);
 
         if (!$atividade) {
             return redirect()->back()->with('error', 'Não foi encontrada a atividade selecionada no sistema.');
         }
 
-        return view('atividades.editAtividade', ['eixos' => $eixos, 'atividade' => $atividade, 'publicos' => $publicos, 'canais' => $canais, 'medidas' => $medidas]);
+        return view('atividades.editAtividade', ['eixos' => $eixos, 'atividade' => $atividade, 'publicos' => $publicos, 'canais' => $canais, 'medidas' => $medidas, 'indicadores' => $indicadores]);
     }
 
     public function updateAtividade(AtividadeRequest $request, $id)
