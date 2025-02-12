@@ -40,16 +40,6 @@
 						</div>
 
 						<div class="row mb-3">
-							<label class="col-sm-3 fw-bold">Data de Início:</label>
-							{{ \Carbon\Carbon::parse($atividade->data_prevista)->translatedFormat('d \d\e F \d\e Y') }}
-						</div>
-
-						<div class="row mb-3">
-							<label class="col-sm-3 fw-bold">Data de Término:</label>
-							{{ \Carbon\Carbon::parse($atividade->data_realizada)->translatedFormat('d \d\e F \d\e Y') }}
-						</div>
-
-						<div class="row mb-3">
 							<label class="col-sm-3 fw-bold">Tipo de Evento:</label>
 							<div class="col-sm-9">
 									@if($atividade->tipo_evento == 1)
@@ -83,6 +73,17 @@
                     @endif
                 </div>
             </div>
+
+						<div class="row mb-3">
+							<label class="col-sm-3 fw-bold">Data de Início:</label>
+							{{ \Carbon\Carbon::parse($atividade->data_prevista)->translatedFormat('d \d\e F \d\e Y') }}
+						</div>
+
+						<div class="row mb-3">
+							<label class="col-sm-3 fw-bold">Data de Término:</label>
+							{{ \Carbon\Carbon::parse($atividade->data_realizada)->translatedFormat('d \d\e F \d\e Y') }}
+						</div>
+
             <div class="row mb-3">
                 <label class="col-sm-3 fw-bold">Indicadores:</label>
                 <div class="col-sm-9">
@@ -100,7 +101,7 @@
 
 
 						<div class="row mb-3">
-							<label class="col-sm-3 fw-bold">Meta:</label>
+							<label class="col-sm-3 fw-bold">Previsto:</label>
 							<div class="col-sm-9">
 									{{ $atividade->meta }} {{ $atividade->medida->nome ?? 'N/A' }}
 							</div>

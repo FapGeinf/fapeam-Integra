@@ -137,13 +137,9 @@
                             <option value="3" {{ old('tipo_evento', $atividade->tipo_evento) == '3' ? 'selected' : '' }}>Presencial e Online</option>
                         </select>
                     </div>
-                    <div class="col-12 col-md-6">
-                        <label for="data_prevista" class="form-label">Data
-                            Prevista:</label>
-                        <input type="date" name="data_prevista" id="data_prevista" class="form-control" 
-                            value="{{ old('data_prevista', $atividade->data_prevista) }}">
-                    </div>
+
                 </div>
+
 								<hr>
                 <div class="row g-3">
 										<div class="col-12">
@@ -164,8 +160,14 @@
                         <input type="date" name="data_realizada" id="data_realizada" class="form-control"
                             value="{{ old('data_realizada', $atividade->data_realizada) }}">
                     </div>
+										<div class="col-12 col-md-6">
+                        <label for="data_prevista" class="form-label">Data
+                            Prevista:</label>
+                        <input type="date" name="data_prevista" id="data_prevista" class="form-control" 
+                            value="{{ old('data_prevista', $atividade->data_prevista) }}">
+                    </div>
                     <div class="col-12 col-md-6">
-                        <label for="meta" class="form-label">Meta:</label>
+                        <label for="meta" class="form-label">Previsto:</label>
                         <input type="number" name="meta" id="meta" class="form-control"  min="0"
                             value="{{ old('meta', $atividade->meta) }}" oninput="mostrarUnidade()">
                     </div>

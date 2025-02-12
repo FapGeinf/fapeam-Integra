@@ -125,7 +125,7 @@
 
 												<td class="text-center">
 												<div class="mt-2">
-												   <div class="text-muted">Meta</div>
+												   <div class="text-muted">Previsto</div>
 												<div>{{$atividade->meta}} {{$atividade->medida->nome ?? 'N/A'}}</div>
 												</div>
 													<hr>
