@@ -79,7 +79,7 @@
 			</button>
 		</form>
 
-    <a href="{{ route('riscos.index') }}">
+    <a href="{{ route('riscos.analise') }}">
       <button class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">
         Análise do Risco
       </button>
@@ -91,8 +91,6 @@
   		<i class="bi bi-download"></i> Diagnóstico de Riscos
 		</a>
 
-
-  
   </div>
 
 </body>

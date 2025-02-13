@@ -37,6 +37,9 @@ Route::get('/', function () {
 });
 
 Route::get('/index', [RiscoController::class, 'index'])->name('riscos.index');
+
+Route::get('/analise',[RiscoController::class,'analise'])->name('riscos.analise');
+
 Route::get('/risco/novo', [RiscoController::class,'create'])->name('riscos.create');
 Route::post('/risco/criar', [RiscoController::class, 'store'])->name('riscos.store');
 Route::get('/riscos/show/{id}', [RiscoController::class, 'show'])->name('riscos.show');

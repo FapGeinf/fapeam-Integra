@@ -92,6 +92,52 @@ class RiscoController extends Controller
         }
     }
 
+		public function analise()
+    {
+			
+        try {
+            $user = auth()->user();
+            $prazo = Prazo::latest()->first();
+            $user = auth()->user();
+            $tipoAcesso = $user->unidade->unidadeTipoFK;
+            $unidadeDiretoria = $user->unidade->unidadeDiretoria;
+            
+            switch ($tipoAcesso) {
+                case 1:
+                case 3:
+                case 4:
+                    $riscos = Risco::all();
+                    break;
+                case 5:
+                    $riscos = Risco::whereHas('unidade', function ($query) use ($unidadeDiretoria) {
+                        $query->where('unidadeDiretoria', $unidadeDiretoria);
+                    })->get();
+                    break;
+                default:
+                    $riscos = Risco::where('unidadeId', $user->unidade->id)->get();
+                    break;
+            }
+            
+            $riscosAbertos = $riscos->count();
+            $riscosAbertosHoje = Risco::whereDate('created_at', \Carbon\Carbon::today())->count();
+            $notificacoes = $this->filtraNotificacoes();
+            $notificacoesNaoLidas = $notificacoes->whereNull('read_at');
+            $notificacoesLidas = $notificacoes->whereNotNull('read_at');
+
+            return view('riscos.analise', [
+                'riscos' => $riscos,
+                'prazo' => $prazo ? $prazo->data : null,
+                'riscosAbertos' => $riscosAbertos,
+                'riscosAbertosHoje' => $riscosAbertosHoje,
+                'notificacoes' => $notificacoes,
+                'notificacoesNaoLidas' => $notificacoesNaoLidas,
+                'notificacoesLidas' => $notificacoesLidas,
+            ]);
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao carregar os riscos. Por favor, tente novamente.']);
+        }
+    }
+
 
 
     public function markAsRead(Request $request)
