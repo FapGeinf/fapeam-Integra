@@ -74,7 +74,7 @@
         Atividades
       </button>
     </form>
-  @endif
+  
 
 		<form action="{{ route('indicadores.index') }}" method="POST" class="d-inline">
 			@csrf
@@ -85,6 +85,7 @@
 		</form>
 		<button class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">Relatório</button>
   </div>
+  @endif
 
 </body>
 

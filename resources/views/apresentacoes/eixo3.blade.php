@@ -69,7 +69,7 @@
         Atividades
       </button>
     </form>
-    @endif
+    
 
 		<form action="{{ route('indicadores.index') }}" method="POST" class="d-inline">
 			@csrf
@@ -92,6 +92,7 @@
 		</a>
 
   </div>
+  @endif
 
 </body>
 

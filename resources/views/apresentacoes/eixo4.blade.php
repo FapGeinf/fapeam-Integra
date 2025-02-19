@@ -65,7 +65,7 @@
         Atividades
       </button>
     </form>
-    @endif
+    
 
 		
 		<form action="{{ route('indicadores.index') }}" method="POST" class="d-inline">
@@ -75,14 +75,17 @@
 					Indicadores
 			</button>
 		</form>
-
+    @endif
     <a href="{{ route('riscos.index') }}">
       <button class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">
         Análise do Risco
       </button>
     </a>
+    @if(auth()->user()->unidade->unidadeTipoFK == 1 || auth()->user()->unidade->unidadeTipoFK == 5 || auth()->user()->unidadeTipoFK == 2)
     <button class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">Relatório</button>
+    @endif
   </div>
+
 
 </body>
 
