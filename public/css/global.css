@@ -3,6 +3,7 @@
   border: none;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15); /* Sombra leve */
   border-radius: 8px; /* Cantos arredondados */
+  height: 8vh;
 }
 
 
