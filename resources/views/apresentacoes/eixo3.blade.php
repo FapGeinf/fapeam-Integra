@@ -24,13 +24,13 @@
       font-style: normal;
     }
 
-    .pb__dropdown {
+    /* .pb__dropdown {
       padding-bottom: 4rem;
-    }
+    } */
 
     .bi-key,
     .bi-door-open {
-      margin-left: 0 !important;
+      /* margin-left: 0 !important; */
     }
   </style>
 </head>

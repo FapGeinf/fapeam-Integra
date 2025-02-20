@@ -22,12 +22,12 @@
     }
 
     .pb__dropdown {
-      padding-bottom: 4rem;
+      /* padding-bottom: 4rem; */
     }
 
     .bi-key,
     .bi-door-open {
-      margin-left: 0 !important;
+      /* margin-left: 0 !important; */
     }
 
     a {

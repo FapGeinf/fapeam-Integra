@@ -3,14 +3,14 @@
   border: none;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15); /* Sombra leve */
   border-radius: 8px; /* Cantos arredondados */
-  height: 8vh;
+   height: auto;
 }
 
 
 
-li {
+/* li {
   margin-left: 1rem;
-}
+} */
 
 .alert-success {
   width: 40%;
@@ -59,9 +59,9 @@ a {
   margin-right: 4px; /* Espaçamento entre o ícone e o texto */
 }
 
-.pb__dropdown {
+/* .pb__dropdown {
   padding-bottom: 3.5rem;
-}
+} */
 
 /*css do layout App */
 .login-page .py-4 {
