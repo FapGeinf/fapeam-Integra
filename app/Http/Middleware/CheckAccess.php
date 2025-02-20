@@ -25,7 +25,8 @@ class CheckAccess
 
         $permissions = [
             '1' => ['index','analise','show','create','store','edit','update','delete','deleteMonitoramento','storeResposta','respostas','edit-monitoramentos','insert-monitoramentos','prazo','monitoramento','editMonitoramento','updateResposta','markAsRead','deleteAnexo'],
-            '2' => ['index','analise','show','storeResposta','respostas','markAsRead'],
+            '2' => ['index','analise','show','create','store','edit','update','delete','deleteMonitoramento','storeResposta','respostas','edit-monitoramentos','insert-monitoramentos','prazo','monitoramento','editMonitoramento','updateResposta','markAsRead','deleteAnexo'],
+            // '2' => ['index','analise','show','storeResposta','respostas','markAsRead'],
             '3' => ['index','analise','show','create','store','edit','update','delete','deleteMonitoramento','storeResposta','respostas','edit-monitoramentos','insert-monitoramentos','prazo','monitoramento','editMonitoramento','updateResposta','markAsRead','deleteAnexo'],
             '4' => ['index','analise','show','create','store','edit','update','delete','deleteMonitoramento','storeResposta','respostas','edit-monitoramentos','insert-monitoramentos','prazo','monitoramento','editMonitoramento','updateResposta','markAsRead','deleteAnexo'],
             '5' => ['index','analise','show','create','store','edit','update','delete','deleteMonitoramento','storeResposta','respostas','edit-monitoramentos','insert-monitoramentos','prazo','monitoramento','editMonitoramento','updateResposta','markAsRead','deleteAnexo'],

@@ -102,7 +102,8 @@
                                 </td>
                                 <td class="text-center">
                                     <div class="ms-2" style="display: flex; flex-direction: column; align-items: center;">
-                                        @if (auth()->user()->unidade->unidadeTipo->id == 1)
+																			{{-- -ESSE IF DEVE SER == 1 APENAS --}}
+                                        @if (auth()->user()->unidade->unidadeTipo->id != 10)
                                             <a href="{{ route('riscos.editMonitoramento', ['id' => $monitoramento->id]) }}" class="warning mb-2" style="font-size: 13px; white-space: nowrap;">
                                                  Editar Monitoramento
                                             </a>
