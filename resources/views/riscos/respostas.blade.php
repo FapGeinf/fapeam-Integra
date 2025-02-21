@@ -15,7 +15,7 @@
       </style>
 </head>
 
-<div class="container-xl p-30">
+<div class="container-xl p-30 pt-5">
     @if (session('error'))
         <script>
             alert('Não foi possível salvar sua resposta no momento');
