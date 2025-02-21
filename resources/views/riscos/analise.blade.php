@@ -348,7 +348,7 @@
 
 
 
-        <div class="col-12 border main-datatable">
+        <div class="col-12 border main-datatable mt-4">
 
             <div class="container-fluid">
                 <table id="tableHome" class="table cust-datatable">
