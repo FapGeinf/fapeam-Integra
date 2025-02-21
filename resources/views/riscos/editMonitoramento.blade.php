@@ -3,7 +3,7 @@
 @section('content')
 
 @section('title')
-    {{ 'Editar Monitoramento' }}
+    {{ 'Editar Controle Sugerido' }}
 @endsection
 
 <!DOCTYPE html>
@@ -12,7 +12,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário de Monitoramento</title>
+    <title>Formulário de Sugerido</title>
     <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="/ckeditor/ckeditor.js"></script>
@@ -29,7 +29,7 @@
         @if ($errors->any())
             <div class="alert alert-danger d-flex justify-content-center">
                 @foreach ($errors->all() as $error)
-                    <span class="text-center">Houve um erro ao editar esse monitoramento</span>
+                    <span class="text-center">Houve um erro ao editar esse controle sugerido</span>
                 @endforeach
             </div>
         @endif
@@ -38,7 +38,7 @@
     <div class="form-wrapper1">
         <div class="form_create border">
             <h3 style="text-align: center; margin-bottom: 20px;">
-                Editar Monitoramento
+                Editar Controle Sugerido
             </h3>
             <hr>
 
@@ -91,8 +91,7 @@
 
                 <div class="row g-3">
                     <div class="col-sm-6">
-                        <label for="inicioMonitoramento-{{ $monitoramento->id }}" class="form-label">Início do
-                            Monitoramento:</label>
+                        <label for="inicioMonitoramento-{{ $monitoramento->id }}" class="form-label">Início:</label>
                         <input type="date" class="form-control" id="inicioMonitoramento-{{ $monitoramento->id }}"
                             name="inicioMonitoramento"
                             value="{{ old('inicioMonitoramento', $monitoramento->inicioMonitoramento instanceof \Carbon\Carbon ? $monitoramento->inicioMonitoramento->format('Y-m-d') : $monitoramento->inicioMonitoramento) }}"
@@ -100,8 +99,7 @@
                     </div>
 
                     <div class="col-sm-6" id="fimMonitoramentoContainer">
-                        <label for="fimMonitoramento-{{ $monitoramento->id }}" class="form-label">Fim do
-                            Monitoramento:</label>
+                        <label for="fimMonitoramento-{{ $monitoramento->id }}" class="form-label">Fim:</label>
                         <input type="date" class="form-control" id="fimMonitoramento-{{ $monitoramento->id }}"
                             name="fimMonitoramento"
                             value="{{ old('fimMonitoramento', $monitoramento->fimMonitoramento instanceof \Carbon\Carbon ? $monitoramento->fimMonitoramento->format('Y-m-d') : $monitoramento->fimMonitoramento) }}">
@@ -201,11 +199,11 @@
 
             <div class="row g-3 mt-1 mb-2">
                 <div class="col-sm-6">
-                    <span>Início do Monitoramento:</span>
+                    <span>Início:</span>
                     <input type="text" class="form-control" value="${formattedInicioMonitoramento}" readonly>
                 </div>
                 <div class="col-sm-6">
-                    <span>Fim do Monitoramento:</span>
+                    <span>Fim:</span>
                     <input type="text" class="form-control" value="${formattedFimMonitoramento}" readonly>
                 </div>
             </div>

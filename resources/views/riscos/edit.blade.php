@@ -108,7 +108,7 @@
                 <div class="d-flex justify-content-center">
                     {{-- <div class="me-1"> --}}
                         <a href="{{ route('riscos.edit-monitoramentos', ['id' => $risco->id]) }}"
-                            class="blue-btn">Editar Monitoramentos</a>
+                            class="blue-btn">Editar Controle Sugerido</a>
                     {{-- </div> --}}
 
                     {{-- <div> --}}

@@ -108,7 +108,7 @@
                 <hr>
 
                 <div class="mt-3 text-end">
-                    <input type="button" onclick="addMonitoramentos()" value="Adicionar Monitoramento"
+                    <input type="button" onclick="addMonitoramentos()" value="Adicionar Controle Sugerido"
                         class="blue-btn">
                     <button type="button" onclick="showConfirmationModal()" class="green-btn green-btn-store"
                         data-bs-toggle="modal" data-bs-target="#confirmationModal">Salvar</button>
@@ -187,7 +187,7 @@
             let novoEventoTitulo = document.createElement('h4');
             novoEventoTitulo.style.textAlign = 'center';
             novoEventoTitulo.style.marginTop = '1rem';
-            novoEventoTitulo.textContent = 'Novo Monitoramento';
+            novoEventoTitulo.textContent = 'Novo Controle Sugerido';
             monitoramentoContainer.appendChild(novoEventoTitulo);
 
             let hrMonitoramento = document.createElement('hr');
@@ -203,7 +203,7 @@
             divLabelDel.classList.add('labelDel');
 
             let label = document.createElement('label');
-            label.textContent = `Monitoramento N° ${cont + 1}`;
+            label.textContent = `O Controle Sugerido N° ${cont + 1}`;
 
             let deleteWrapper = document.createElement('div');
             deleteWrapper.style.display = 'flex';
@@ -236,7 +236,7 @@
 
             let controleSugerido = document.createElement('textarea');
             controleSugerido.name = `monitoramentos[${cont}][monitoramentoControleSugerido]`;
-            controleSugerido.placeholder = 'Monitoramento';
+            controleSugerido.placeholder = 'Controle Sugerido';
             controleSugerido.classList = 'form-control textInput';
             controleSugerido.id = `monitoramentoControleSugerido${cont}`;
             divControleSugerido.appendChild(controleSugerido);
@@ -247,7 +247,7 @@
             novoMonitoramento.appendChild(divStatusMonitoramento);
 
             let labelStatusMonitoramento = document.createElement('label');
-            labelStatusMonitoramento.textContent = 'Status do Monitoramento:';
+            labelStatusMonitoramento.textContent = 'Status:';
             divStatusMonitoramento.appendChild(labelStatusMonitoramento);
 
             let statusMonitoramento = document.createElement('select');
@@ -286,7 +286,7 @@
             novoMonitoramento.appendChild(divIsContinuo);
 
             let labelIsContinuo = document.createElement('label');
-            labelIsContinuo.textContent = 'Monitoramento Contínuo:';
+            labelIsContinuo.textContent = 'Controle Sugerido:';
             divIsContinuo.appendChild(labelIsContinuo);
 
             let selectIsContinuo = document.createElement('select');
@@ -314,7 +314,7 @@
             divRow.appendChild(divInicioMonitoramento);
 
             let labelInicioMonitoramento = document.createElement('label');
-            labelInicioMonitoramento.textContent = 'Início do Monitoramento:';
+            labelInicioMonitoramento.textContent = 'Início:';
             divInicioMonitoramento.appendChild(labelInicioMonitoramento);
 
             let inputInicioMonitoramento = document.createElement('input');
@@ -329,7 +329,7 @@
             divRow.appendChild(divFimMonitoramento);
 
             let labelFimMonitoramento = document.createElement('label');
-            labelFimMonitoramento.textContent = 'Fim do Monitoramento:';
+            labelFimMonitoramento.textContent = 'Fim:';
             divFimMonitoramento.appendChild(labelFimMonitoramento);
 
             let inputFimMonitoramento = document.createElement('input');
@@ -465,7 +465,7 @@
                     </div>
                 </div>
 
-                <h4 class="text-center mt-4">Monitoramentos</h4>
+                <h4 class="text-center mt-4">Controles Sugeridos</h4>
                 <hr>
             `;
 
@@ -485,14 +485,14 @@
 
                 // Verifica se os campos estão vazios
                 if (!monitoramentoControleSugerido) erros.push(
-                    `O campo "Controle Sugerido" do Monitoramento N° ${i + 1} é obrigatório.`);
+                    `O campo "Controle Sugerido" N° ${i + 1} é obrigatório.`);
                 if (!statusMonitoramento) erros.push(
-                    `O campo "Status do Monitoramento" do Monitoramento N° ${i + 1} é obrigatório.`);
+                    `O campo "Status" do Controle Sugerido N° ${i + 1} é obrigatório.`);
                 if (!inicioMonitoramento) erros.push(
-                    `O campo "Início do Monitoramento" do Monitoramento N° ${i + 1} é obrigatório.`);
+                    `O campo "Início" do Controle Sugerido N° ${i + 1} é obrigatório.`);
                 let isContinuo = container.querySelector('select[name$="[isContinuo]"]').value;
                 if (isContinuo == 0 && !fimMonitoramento) {
-                    erros.push(`O campo "Fim do Monitoramento" do Monitoramento N° ${i + 1} é obrigatório.`);
+                    erros.push(`O campo "Fim" do Controle Sugerido N° ${i + 1} é obrigatório.`);
                 }
 
                 let inicioMonitoramentoDisplay = inicioMonitoramento ? formatarDataParaBrasileiro(inicioMonitoramento) :
@@ -503,7 +503,7 @@
                 modalContent += `
 
                     <div class="text-center mb-3">
-                        <div style="padding-right: 5px; font-weight: bold;">Monitoramento N° ${i + 1}</div>
+                        <div style="padding-right: 5px; font-weight: bold;">Controle Sugerido N° ${i + 1}</div>
                     </div>
                     <div class="row g-3 mb-3">
                         <div class="col-sm-12">
@@ -514,19 +514,19 @@
 
                     <div class="row g-3 mb-3">
                         <div class="col-sm-6">
-                            <div style="padding-right: 5px;">Status do Monitoramento:</div>
+                            <div style="padding-right: 5px;">Status:</div>
                             <div style="background:#f0f0f0;" class="form-control">${statusMonitoramento || '<span class="text-danger">Campo obrigatório</span>'}</div>
                         </div>
 
                         <div class="col-sm-6">
-                            <div style="padding-right: 5px;">Início do Monitoramento:</div>
+                            <div style="padding-right: 5px;">Início:</div>
                             <div style="background:#f0f0f0;" class="form-control">${inicioMonitoramentoDisplay || '<span class="text-danger">Campo obrigatório</span>'}</div>
                         </div>
                     </div>
 
                     <div class="row g-3 mb-3">
                         <div class="col-sm-6">
-                            <div style="padding-right: 5px;">Fim do Monitoramento:</div>
+                            <div style="padding-right: 5px;">Fim:</div>
                             <div style="background:#f0f0f0;" class="form-control">${fimMonitoramentoDisplay || '<span class="text-danger">Campo obrigatório</span>'}</div>
                         </div>
                     </div>
