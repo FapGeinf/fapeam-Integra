@@ -1,6 +1,7 @@
 body {
   background-image: url('/img/bg-white.jpg');
   background-size: cover;
+  background-attachment: fixed;
 }
 
 .form-wrapper {

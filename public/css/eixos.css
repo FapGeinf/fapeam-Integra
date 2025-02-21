@@ -9,7 +9,7 @@ li {
 body {
   background-image: url('/img/bg-white.jpg');
   background-size: cover;
-  /* background-position: center; */
+  background-attachment: fixed;
 }
 
 .form-control {
