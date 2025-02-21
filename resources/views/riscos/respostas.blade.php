@@ -31,7 +31,7 @@
     <div class="col-12 box-shadow">
 
         <div class="monitoramento">
-            <h4 class="text-center">Monitoramento</h4>
+            <h4 class="text-center">Risco</h4>
             <hr class="hr1" style="padding-bottom: .6rem;">
             <div class="form-control" style="background-color: #f3f3f3;">{!! $monitoramento->monitoramentoControleSugerido !!}</div>
             <hr>
@@ -287,16 +287,8 @@
                 <form action="{{ route('riscos.storeResposta', ['id' => $monitoramento->id]) }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
-                    <div class="mb-4">
-                        <!-- <label for="respostaRisco" class="form-label">Resposta</label> -->
-                        <textarea class="form-control" id="respostaRisco" name="respostaRisco" required></textarea>
-                    </div>
-                    <div class="mb-4">
-                        <label for="anexo" class="form-label">Anexar Arquivo</label>
-                        <input type="file" style="background-color: #f0f0f0;" class="form-control" id="anexo" name="anexo">
-                    </div>
-                    <div class="mb-4">
-                        <label for="statusMonitoramento-{{ $monitoramento->id }}" class="form-label">Status do Monitoramento</label>
+										<div class="mb-4">
+                        <label for="statusMonitoramento-{{ $monitoramento->id }}" class="form-label">Status do Controle Sugerido</label>
                         <select class="form-select" style="background-color: #f0f0f0;"  id="statusMonitoramento-{{ $monitoramento->id }}" name="statusMonitoramento" required>
                             <option value="NÃO IMPLEMENTADA" {{ old('statusMonitoramento', $monitoramento->statusMonitoramento) == 'NÃO IMPLEMENTADA' ? 'selected' : '' }}>
                                 NÃO IMPLEMENTADA
@@ -312,6 +304,15 @@
                             </option>
                         </select>
                     </div>
+                    <div class="mb-4">
+                        <label for="respostaRisco" class="form-label">Providências e Justificativas</label>
+                        <textarea class="form-control" id="respostaRisco" name="respostaRisco" required></textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label for="anexo" class="form-label">Anexar Arquivo</label>
+                        <input type="file" style="background-color: #f0f0f0;" class="form-control" id="anexo" name="anexo">
+                    </div>
+                    
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <button type="submit" class="btn btn-primary mb-2">Enviar</button>
                     </div>

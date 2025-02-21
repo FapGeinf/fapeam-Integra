@@ -372,14 +372,14 @@ class RiscoController extends Controller
             }
 
             return redirect()->route('riscos.show', ['id' => $risco->id])
-                ->with('success', 'Monitoramentos inseridos com sucesso');
+                ->with('success', 'Controles Sugeridos inseridos com sucesso');
         } catch (\Exception $e) {
-            Log::error('Error inserting monitoramentos:', [
+            Log::error('Error inserting Controles Sugeridos:', [
                 'exception_message' => $e->getMessage(),
                 'exception_trace' => $e->getTraceAsString(),
             ]);
 
-            return redirect()->back()->withErrors(['errors' => 'Houve um erro ao inserir monitoramentos']);
+            return redirect()->back()->withErrors(['errors' => 'Houve um erro ao inserir Controles Sugeridos']);
         }
     }
 
@@ -425,29 +425,29 @@ class RiscoController extends Controller
                 $monitoramento->anexoMonitoramento = $path;
                 $monitoramento->save();
 
-                Log::info('Novo anexo salvo no monitoramento.', ['path' => $path]);
+                Log::info('Novo anexo salvo no controle sugerido.', ['path' => $path]);
             } else {
                 Log::info('Nenhum novo anexo recebido.');
             }
 
-            Log::info('Atualização de monitoramento concluída com sucesso.');
+            Log::info('Atualização de controle sugerido concluída com sucesso.');
 
             return redirect()->route('riscos.show', ['id' => $monitoramento->riscoFK])
-                ->with('success', 'Monitoramento atualizado com sucesso!');
+                ->with('success', 'Controle Sugerido atualizado com sucesso!');
         } catch (\Illuminate\Validation\ValidationException $e) {
-            Log::error('Erro de validação ao atualizar monitoramento:', [
+            Log::error('Erro de validação ao atualizar controle sugerido:', [
                 'errors' => $e->errors(),
                 'request' => $request->all()
             ]);
             return back()->withErrors($e->errors())->withInput();
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            Log::error('Monitoramento não encontrado:', ['id' => $id]);
-            return redirect()->route('riscos.index')->with('error', 'Monitoramento não encontrado.');
+            Log::error('Controle Sugerido não encontrado:', ['id' => $id]);
+            return redirect()->route('riscos.index')->with('error', 'Controle Sugerido não encontrado.');
         } catch (\Illuminate\Contracts\Filesystem\FileNotFoundException $e) {
             Log::error('Erro ao tentar excluir o anexo antigo:', ['path' => $monitoramento->anexoMonitoramento]);
             return back()->with('error', 'Erro ao tentar excluir o anexo antigo. Por favor, tente novamente.');
         } catch (\Exception $e) {
-            Log::error('Erro inesperado ao atualizar monitoramento:', [
+            Log::error('Erro inesperado ao atualizar controle sugerido:', [
                 'message' => $e->getMessage(),
                 'trace' => $e->getTraceAsString()
             ]);
@@ -479,10 +479,10 @@ class RiscoController extends Controller
             $deleteMonitoramento = $monitoramento->delete();
 
             if (!$deleteMonitoramento) {
-                return redirect()->back()->withErrors(['errors' => 'Houve um erro ao deletar o monitoramento']);
+                return redirect()->back()->withErrors(['errors' => 'Houve um erro ao deletar o controle sugerido']);
             }
 
-            return redirect()->back()->with(['success' => 'Monitoramento deletado com sucesso']);
+            return redirect()->back()->with(['success' => 'Controle Sugerido deletado com sucesso']);
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
         }
