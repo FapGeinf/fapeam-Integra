@@ -65,7 +65,9 @@
         <table id="tableHome2" class="table cust-datatable">
           <thead>
             <tr style="white-space: nowrap; text-align:center;">
-              <th scope="col" style="width: 280px;">Eixos</th>
+              <th scope="col" style="width: 280px;" class="{{ request()->query('eixo_id') == 8 ? '' : 'd-none' }}">Eixos</th>
+
+
               <th scope="col">Atividade</th>
               <th scope="col">Objetivo</th>
 							<th scope="col">Responsável</th>
@@ -82,7 +84,7 @@
           <tbody>
             @foreach ($atividades as $atividade)
 											<tr>
-											  <td style="text-align:center;">
+											  <td style="text-align:center;" class="{{ request()->query('eixo_id') == 8 ? '' : 'd-none' }}">
 												@foreach ($atividade->eixos as $eixo)
 													<span class="badge bg-primary">{{ $eixo->nome }}</span>
 												@endforeach
