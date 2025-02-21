@@ -63,28 +63,28 @@
         <ul class="d-flex justify-content-center">
 
           <li class="li-navbar2">
-            <a href="{{ route('documentos.intro') }}" class="d-flex btn-dark-blue a-navbar">
+            <a href="{{ route('documentos.intro') }}" class="d-flex li-a a-navbar">
               <i class="bi bi-house i-navbar mt-1px"></i>
               <span class="a-span">Home</span>
             </a>
           </li>
   
           <li class="li-navbar2">
-            <a href="{{ route('documentos.intro') }}" class="d-flex btn-dark-blue a-navbar">
+            <a href="{{ route('documentos.intro') }}" class="d-flex li-a a-navbar {{ Request::routeIs('documentos.intro') ? 'li-a-active' : '' }}">
               <i class="bi bi-display i-navbar mt-1px"></i>
               <span class="a-span">Apresentação</span>
             </a>
           </li>
   
           <li class="li-navbar2">
-            <a href="{{ route('documentos.eixos') }}" class="d-flex btn-dark-blue a-navbar">
+            <a href="{{ route('documentos.eixos') }}" class="d-flex li-a a-navbar {{ Request::routeIs('documentos.eixos') ? 'li-a-active' : '' }}">
               <i class="bi bi-arrow-left-right i-navbar mt-1px"></i>
               <span class="a-span">Eixos da Integridade</span>
             </a>
           </li>
   
           <li class="li-navbar2">
-            <a href="{{ route('historico') }}" class="d-flex btn-dark-blue a-navbar">
+            <a href="{{ route('historico') }}" class="d-flex li-a a-navbar {{ Request::routeIs('historico') ? 'li-a-active' : '' }}">
               <i class="bi bi-card-text i-navbar mt-1px"></i>
               <span class="a-span">Documentos</span>
             </a>
@@ -92,7 +92,7 @@
   
           @if (Auth::user()->unidade->unidadeTipoFK == 1)
             <li class="li-navbar2">
-              <a href="{{ route('relatorios.download') }}" class="d-flex btn-dark-blue a-navbar">
+              <a href="{{ route('relatorios.download') }}" class="d-flex li-a a-navbar">
                 <i class="bi bi-archive i-navbar mt-1px"></i>
                 <span class="a-span">Relatório Geral</span>
               </a>

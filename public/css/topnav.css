@@ -39,27 +39,20 @@ ul {
   margin-left: 3.5rem;
 }
 
-/* .a-span {
-  text-decoration: underline;
-} */
+.li-navbar2 a {
+  transition: .2s;
+}
 
-/* .a-navbar:hover {
-  text-decoration: underline !important;
-} */
+.li-a:hover {
+  background-color: #1a3d7c;
+  border-radius: 2px;
+}
+
+.li-a-active {
+  background-color: #1a3d7c;
+  border-radius: 2px;
+}
 
 .bar {
   color: #fff;
 }
-/* 
-.btn-dark-blue {
-  color: #fff !important;
-  border: 1px solid #fff;
-  text-decoration: none;
-  border-radius: 4px;
-  padding: 2px 4px;
-  cursor: pointer;
-  font-size: 11px;
-  background-color: #2272b9;
-  margin-right: 10px;
-  transition: background-color 0.3s;
-} */
