@@ -35,7 +35,7 @@
         @endif
     </div>
 
-    <div class="form-wrapper">
+    <div class="form-wrapper1">
         <div class="form_create border">
             <h3 style="text-align: center; margin-bottom: 20px;">
                 Editar Monitoramento
@@ -121,13 +121,13 @@
                 <hr class="mt-4">
 
                 <div class="d-flex justify-content-center pt-2">
-                    <div class="me-1">
-                        <a href="{{ route('riscos.index') }}" class="btn btn-primary">Voltar</a>
+                    <div class="blue-btn1">
+                        <a href="{{ route('riscos.index') }}" style="text-decoration: none; color: #fff;">Voltar</a>
                     </div>
 
                     <div>
                         <button type="button" onclick="showConfirmationModal()"
-                            class="btn btn-primary btn-success">Salvar Edição</button>
+                            class="green-btn">Salvar Edição</button>
                     </div>
                 </div>
 
