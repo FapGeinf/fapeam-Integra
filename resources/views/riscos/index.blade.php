@@ -26,8 +26,7 @@
 
     <body>
 
-        <hr class="pt-5">
-        <div class="container-fluid p-30">
+        <div class="container-fluid pt-5 p-30">
 
             @if (session('success'))
                 <div class="alert alert-success">
