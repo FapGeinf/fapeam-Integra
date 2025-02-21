@@ -163,7 +163,7 @@ body {
     }
 
     .imgBloco {
-        width: 740px;
+        width: 700px;
         margin-left: 15rem;
     }
 
@@ -173,6 +173,15 @@ body {
         padding: 10px 50px;
     }
 
+    .linksChild {
+        padding: 10px 40px;
+        font-size: 14px;
+    }
+
+    .linksChild__a {
+        padding: 10px 20px;
+    }
+
     .links__a {
         display: flex;
         margin-top: 10rem;
@@ -180,11 +189,11 @@ body {
     }
 
     .links a {
-        font-size: 16px;
+        font-size: 14px;
     }
 
     .links__a a {
-        font-size: 16px;
+        font-size: 14px;
     }
 }
   
