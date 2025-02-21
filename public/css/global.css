@@ -6,11 +6,14 @@
    height: auto;
 }
 
-
-
 /* li {
   margin-left: 1rem;
 } */
+
+.btnAltSenha,
+.btnSair {
+  font-size: 14px !important;
+}
 
 .alert-success {
   width: 40%;
@@ -48,6 +51,7 @@ a {
   display: flex;
   align-items: center;
   transition: color 0.3s;
+  font-size: 14px !important;
 }
 
 /*.nav-link.dropdown-toggle:hover {
