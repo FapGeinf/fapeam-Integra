@@ -105,7 +105,7 @@
 																			{{-- -ESSE IF DEVE SER == 1 APENAS --}}
                                         @if (auth()->user()->unidade->unidadeTipo->id != 10)
                                             <a href="{{ route('riscos.editMonitoramento', ['id' => $monitoramento->id]) }}" class="warning mb-2" style="font-size: 13px; white-space: nowrap;">
-                                                 Controle Sugerido
+                                                Editar Controle Sugerido
                                             </a>
                                         @endif
                                             <a href="{{ route('riscos.respostas', ['id' => $monitoramento->id]) }}" class="primary" style="font-size: 13px; white-space: nowrap;">

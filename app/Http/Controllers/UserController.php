@@ -20,30 +20,32 @@ class UserController extends Controller
 
     public function insertUser(Request $request)
     {
-           try{
-
+        try {
             $request->validate([
                 'name' => 'required|string|max:255',
                 'email' => 'required|email|unique:users,email',
-                'cpf' => 'required|unique:users,cpf', 
+                'cpf' => 'required|unique:users,cpf',
                 'password' => 'required|string|confirmed|min:8',
-                'unidadeIdFK' => 'required|exists:unidades,id', 
+                'unidadeIdFK' => 'required|exists:unidades,id',
             ]);
-
+    
+            $cpf = preg_replace('/\D/', '', $request->cpf); 
+    
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
-                'cpf' => $request->cpf,
-                'password' => Hash::make($request->password),
+                'cpf' => $cpf, 
                 'unidadeIdFK' => $request->unidadeIdFK,
+                'password' => Hash::make($request->password),
             ]);
-
-            return redirect()->back()->with('success','Foi inserido um usuario com sucesso');
-              
-           }catch(Exception $e){
-             return redirect()->back()->withErrors('Houve um erro inesperado ao inserir um novo usuario. Tente Novamente')->withInput();
-           }
+    
+            return redirect()->back()->with('success', 'Foi inserido um usuario com sucesso');
+            
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors('Houve um erro inesperado ao inserir um novo usuario. Tente Novamente')->withInput();
+        }
     }
+    
 
     public function updateUser(Request $request, $id)
     {
