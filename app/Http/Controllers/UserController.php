@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -15,6 +16,33 @@ class UserController extends Controller
         $users = User::all();
 
         return view('users.painel', ['users' => $users]);
+    }
+
+    public function insertUser(Request $request)
+    {
+           try{
+
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|unique:users,email',
+                'cpf' => 'required|unique:users,cpf', 
+                'password' => 'required|string|confirmed|min:8',
+                'unidadeIdFK' => 'required|exists:unidades,id', 
+            ]);
+
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'cpf' => $request->cpf,
+                'password' => Hash::make($request->password),
+                'unidadeIdFK' => $request->unidadeIdFK,
+            ]);
+
+            return redirect()->back()->with('success','Foi inserido um usuario com sucesso');
+              
+           }catch(Exception $e){
+             return redirect()->back()->withErrors('Houve um erro inesperado ao inserir um novo usuario. Tente Novamente')->withInput();
+           }
     }
 
     public function updateUser(Request $request, $id)

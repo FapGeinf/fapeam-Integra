@@ -63,6 +63,7 @@ Route::delete('riscos/delete-anexo/${respostaId}', [RiscoController::class, 'del
 Route::get('/painel', [UserController::class, 'painel'])->name('usuarios.index');
 Route::put('/user/update/{id}', [UserController::class, 'updateUser'])->name('user.update');
 Route::delete('/user/delete/{id}', [UserController::class, 'deleteUser'])->name('user.destroy');
+Route::post('/users/store',[UserController::class,'insertUser'])->name('users.store');
 
 Route::get('/user/alterar-senha', [UserController::class, 'changePassword'])->name('users.password');
 Route::post('/user/alterar-senha',[UserController::class,'updatePassword'])->name('users.password');
