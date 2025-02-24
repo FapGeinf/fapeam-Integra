@@ -33,7 +33,7 @@
 </head>
 
 <body>
-    <div class="error-message">
+    <div class="error-message pt-5">
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul style="list-style-type:none;">
