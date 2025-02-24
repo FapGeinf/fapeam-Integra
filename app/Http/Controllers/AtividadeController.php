@@ -34,9 +34,9 @@ class AtividadeController extends Controller
 
             $atividades = $this->atividade->whereHas('eixos', function ($query) use ($eixo_id) {
                 $query->where('eixo_id', $eixo_id);
-            })->with(['publico', 'canais', 'medida'])->get();
+            })->with(['publico', 'canais', 'medida'])->orderBy('data_prevista','asc')->get();
         } else {
-            $atividades = $this->atividade->with(['publico', 'canais', 'medida'])->get();
+            $atividades = $this->atividade->with(['publico', 'canais', 'medida'])->orderBy('data_prevista','asc')->get();
         }
 
         return view('atividades.index', [
