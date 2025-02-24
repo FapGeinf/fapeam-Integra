@@ -60,61 +60,76 @@
                 <div class="row g-3">
                     <div class="col-sm-6">
                         <label for="statusMonitoramento-{{ $monitoramento->id }}" class="form-label">Status:</label>
-                        <select class="form-select" id="statusMonitoramento-{{ $monitoramento->id }}"
-                            name="statusMonitoramento" required>
-                            <option value="NÃO IMPLEMENTADA"
-                                {{ old('statusMonitoramento', $monitoramento->statusMonitoramento) == 'NÃO IMPLEMENTADA' ? 'selected' : '' }}>
-                                NÃO IMPLEMENTADA</option>
-                            <option value="EM IMPLEMENTAÇÃO"
-                                {{ old('statusMonitoramento', $monitoramento->statusMonitoramento) == 'EM IMPLEMENTAÇÃO' ? 'selected' : '' }}>
-                                EM IMPLEMENTAÇÃO</option>
-                            <option value="IMPLEMENTADA PARCIALMENTE"
-                                {{ old('statusMonitoramento', $monitoramento->statusMonitoramento) == 'IMPLEMENTADA PARCIALMENTE' ? 'selected' : '' }}>
-                                IMPLEMENTADA PARCIALMENTE</option>
-                            <option value="IMPLEMENTADA"
-                                {{ old('statusMonitoramento', $monitoramento->statusMonitoramento) == 'IMPLEMENTADA' ? 'selected' : '' }}>
-                                IMPLEMENTADA</option>
-                        </select>
+												<select class="form-select" id="statusMonitoramento-{{ $monitoramento->id }}"
+														name="statusMonitoramento" required
+														@if(auth()->user()->unidade->unidadeTipoFK != 1) disabled @endif>
+														<option value="NÃO IMPLEMENTADA"
+																{{ old('statusMonitoramento', $monitoramento->statusMonitoramento) == 'NÃO IMPLEMENTADA' ? 'selected' : '' }}>
+																NÃO IMPLEMENTADA</option>
+														<option value="EM IMPLEMENTAÇÃO"
+																{{ old('statusMonitoramento', $monitoramento->statusMonitoramento) == 'EM IMPLEMENTAÇÃO' ? 'selected' : '' }}>
+																EM IMPLEMENTAÇÃO</option>
+														<option value="IMPLEMENTADA PARCIALMENTE"
+																{{ old('statusMonitoramento', $monitoramento->statusMonitoramento) == 'IMPLEMENTADA PARCIALMENTE' ? 'selected' : '' }}>
+																IMPLEMENTADA PARCIALMENTE</option>
+														<option value="IMPLEMENTADA"
+																{{ old('statusMonitoramento', $monitoramento->statusMonitoramento) == 'IMPLEMENTADA' ? 'selected' : '' }}>
+																IMPLEMENTADA</option>
+												</select>
+												@if(auth()->user()->unidade->unidadeTipoFK != 1)
+														<input type="hidden" name="statusMonitoramento" value="{{ old('statusMonitoramento', $monitoramento->statusMonitoramento) }}">
+												@endif
                     </div>
 
                     <div class="col-sm-6">
-                        <label for="isContinuo-{{ $monitoramento->id }}" class="form-label">É Contínuo?</label>
-                        <select class="form-select" id="isContinuo-{{ $monitoramento->id }}" name="isContinuo"
-                            required>
-                            <option value="0"
-                                {{ old('isContinuo', $monitoramento->isContinuo) == 0 ? 'selected' : '' }}>Não</option>
-                            <option value="1"
-                                {{ old('isContinuo', $monitoramento->isContinuo) == 1 ? 'selected' : '' }}>Sim</option>
-                        </select>
-                    </div>
+											<label for="isContinuo-{{ $monitoramento->id }}" class="form-label">É Contínuo?</label>
+											<select class="form-select" id="isContinuo-{{ $monitoramento->id }}" name="isContinuo" required
+													@if(auth()->user()->unidade->unidadeTipoFK != 1) disabled @endif>
+													<option value="0" {{ old('isContinuo', $monitoramento->isContinuo) == 0 ? 'selected' : '' }}>Não</option>
+													<option value="1" {{ old('isContinuo', $monitoramento->isContinuo) == 1 ? 'selected' : '' }}>Sim</option>
+											</select>
+											@if(auth()->user()->unidade->unidadeTipoFK != 1)
+													<input type="hidden" name="isContinuo" value="{{ old('isContinuo', $monitoramento->isContinuo) }}">
+											@endif
+									</div>
                 </div>
 
                 <div class="row g-3">
-                    <div class="col-sm-6">
-                        <label for="inicioMonitoramento-{{ $monitoramento->id }}" class="form-label">Início:</label>
-                        <input type="date" class="form-control" id="inicioMonitoramento-{{ $monitoramento->id }}"
-                            name="inicioMonitoramento"
-                            value="{{ old('inicioMonitoramento', $monitoramento->inicioMonitoramento instanceof \Carbon\Carbon ? $monitoramento->inicioMonitoramento->format('Y-m-d') : $monitoramento->inicioMonitoramento) }}"
-                            required>
-                    </div>
+										<div class="col-sm-6">
+												<label for="inicioMonitoramento-{{ $monitoramento->id }}" class="form-label">Início:</label>
+												<input type="date" class="form-control" id="inicioMonitoramento-{{ $monitoramento->id }}"
+														name="inicioMonitoramento"
+														value="{{ old('inicioMonitoramento', $monitoramento->inicioMonitoramento instanceof \Carbon\Carbon ? $monitoramento->inicioMonitoramento->format('Y-m-d') : $monitoramento->inicioMonitoramento) }}"
+														required
+														@if(auth()->user()->unidade->unidadeTipoFK != 1) disabled @endif>
+												@if(auth()->user()->unidade->unidadeTipoFK != 1)
+														<input type="hidden" name="inicioMonitoramento" value="{{ old('inicioMonitoramento', $monitoramento->inicioMonitoramento) }}">
+												@endif
+										</div>
 
-                    <div class="col-sm-6" id="fimMonitoramentoContainer">
-                        <label for="fimMonitoramento-{{ $monitoramento->id }}" class="form-label">Fim:</label>
-                        <input type="date" class="form-control" id="fimMonitoramento-{{ $monitoramento->id }}"
-                            name="fimMonitoramento"
-                            value="{{ old('fimMonitoramento', $monitoramento->fimMonitoramento instanceof \Carbon\Carbon ? $monitoramento->fimMonitoramento->format('Y-m-d') : $monitoramento->fimMonitoramento) }}">
-                    </div>
-                </div>
+										<div class="col-sm-6" id="fimMonitoramentoContainer">
+												<label for="fimMonitoramento-{{ $monitoramento->id }}" class="form-label">Fim:</label>
+												<input type="date" class="form-control" id="fimMonitoramento-{{ $monitoramento->id }}"
+														name="fimMonitoramento"
+														value="{{ old('fimMonitoramento', $monitoramento->fimMonitoramento instanceof \Carbon\Carbon ? $monitoramento->fimMonitoramento->format('Y-m-d') : $monitoramento->fimMonitoramento) }}"
+														@if(auth()->user()->unidade->unidadeTipoFK != 1) disabled @endif>
+												@if(auth()->user()->unidade->unidadeTipoFK != 1)
+														<input type="hidden" name="fimMonitoramento" value="{{ old('fimMonitoramento', $monitoramento->fimMonitoramento) }}">
+												@endif
+										</div>
+								</div>
 
-                <div class="row g-3">
-                    <div class="col-sm-12">
-                        <label for="anexoMonitoramento-{{ $monitoramento->id }}" class="form-label">Anexo:</label>
-                        <input type="file" class="form-control" id="anexoMonitoramento-{{ $monitoramento->id }}" name="anexoMonitoramento">
-                        @if($monitoramento->anexoMonitoramento)
-                            <p class="mt-2">Arquivo atual: <a href="{{ asset('storage/' . $monitoramento->anexoMonitoramento) }}" target="_blank">{{ $monitoramento->anexoMonitoramento }}</a></p>
-                        @endif
-                    </div>
-                </div>
+								<div class="row g-3">
+									<div class="col-sm-12">
+											<label for="anexoMonitoramento-{{ $monitoramento->id }}" class="form-label">Anexo:</label>
+											<input type="file" class="form-control" id="anexoMonitoramento-{{ $monitoramento->id }}"
+													name="anexoMonitoramento"
+													@if(auth()->user()->unidade->unidadeTipoFK != 1) disabled @endif>
+											@if($monitoramento->anexoMonitoramento)
+													<p class="mt-2">Arquivo atual: <a href="{{ asset('storage/' . $monitoramento->anexoMonitoramento) }}" target="_blank">{{ $monitoramento->anexoMonitoramento }}</a></p>
+											@endif
+									</div>
+							</div>
 
                 <hr class="mt-4">
 
