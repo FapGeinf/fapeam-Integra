@@ -1,5 +1,18 @@
 @extends('layouts.app')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.cpf').mask('000.000.000-00');
 
+        $('form').submit(function() {
+            $('#cpf').each(function() {
+                var cpf = $(this).val().replace(/\D/g, '');  
+                $(this).val(cpf);  
+            });
+        });
+    });
+</script>
 @section('content')
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
     <div class="container mt-5">
@@ -7,7 +20,7 @@
             <div class="col-md-10">
                 <div class="card p-30">
                     <div class="row g-3 me-2 mt-4">
-                    <div class="col-md-4 d-flex align-items-end justify-content-centermt-3">
+                    <div class="col-md-4 d-flex align-items-end justify-content-center mt-3">
                         <div class="dropdown">
                             <button class="btn btn-sm btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                 Ações
@@ -20,6 +33,26 @@
                                 </li>
                             </ul>
                         </div>
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
+                        @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
+                        @if (session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
                     </div>
                     <div class="card-body">
                         <table class="table table-striped">
@@ -57,6 +90,7 @@
                                         </td>
                                     </tr>
 
+                                    <!-- Modal Editar Usuário -->
                                     <div class="modal fade" id="editUserModal-{{ $user->id }}" tabindex="-1"
                                         aria-labelledby="editUserModalLabel-{{ $user->id }}" aria-hidden="true">
                                         <div class="modal-dialog">
@@ -86,7 +120,7 @@
 
                                                         <div class="mb-3">
                                                             <label for="cpf" class="form-label">CPF</label>
-                                                            <input type="text" class="form-control" id="cpf"
+                                                            <input type="text" class="form-control cpf" id="cpf"
                                                                 name="cpf" value="{{ old('cpf', $user->cpf) }}">
                                                         </div>
 
@@ -128,7 +162,6 @@
                                         </div>
                                     </div>
 
-
                                     <div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createUserModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
@@ -151,7 +184,7 @@
 
                                                         <div class="mb-3">
                                                             <label for="cpf" class="form-label">CPF</label>
-                                                            <input type="text" class="form-control" id="cpf" name="cpf" required>
+                                                            <input type="text" class="form-control cpf" id="cpf" name="cpf" required>
                                                         </div>
 
                                                         <div class="mb-3">
@@ -183,8 +216,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-
 
                                     <!-- Modal de Exclusão -->
                                     <div class="modal fade" id="deleteUserModal-{{ $user->id }}" tabindex="-1"

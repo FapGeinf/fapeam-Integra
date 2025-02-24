@@ -4,6 +4,7 @@ use App\Events\PrazoProximo;
 use App\Http\Controllers\AtividadeController;
 use App\Http\Controllers\DocumentoController;
 use App\Http\Controllers\EixosController;
+use App\Http\Middleware\isAdmin;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RiscoController;
 use App\Http\Controllers\StatusController;
@@ -60,10 +61,10 @@ Route::delete('riscos/delete-anexo/${respostaId}', [RiscoController::class, 'del
 
 
 
-Route::get('/painel', [UserController::class, 'painel'])->name('usuarios.index');
-Route::put('/user/update/{id}', [UserController::class, 'updateUser'])->name('user.update');
-Route::delete('/user/delete/{id}', [UserController::class, 'deleteUser'])->name('user.destroy');
-Route::post('/users/store',[UserController::class,'insertUser'])->name('users.store');
+Route::get('/painel', [UserController::class, 'painel'])->name('usuarios.index')->middleware(['auth',isAdmin::class]);
+Route::put('/user/update/{id}', [UserController::class, 'updateUser'])->name('user.update')->middleware(['auth',isAdmin::class]);
+Route::delete('/user/delete/{id}', [UserController::class, 'deleteUser'])->name('user.destroy')->middleware(['auth',isAdmin::class]);
+Route::post('/users/store',[UserController::class,'insertUser'])->name('users.store')->middleware(['auth',isAdmin::class]);
 
 Route::get('/user/alterar-senha', [UserController::class, 'changePassword'])->name('users.password');
 Route::post('/user/alterar-senha',[UserController::class,'updatePassword'])->name('users.password');
