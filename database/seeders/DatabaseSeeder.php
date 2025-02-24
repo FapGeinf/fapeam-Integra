@@ -23,5 +23,7 @@ class DatabaseSeeder extends Seeder
             $this->call(EixoSeeder::class);
             $this->call(UsuarioTipoSeeder::class);
             $this->call(MedidaTipoSeeder::class);
+            $this->call(InsercaoNovoUsuarioTipo::class);
+            $this->call(AdministradorSeeder::class);
     }
 }
