@@ -131,6 +131,15 @@ hr {
   max-width: 800px; /* Largura máxima do formulário */
 }
 
+.form_create1 {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 100%; /* Largura total do contêiner pai */
+  max-width: 600px; /* Largura máxima do formulário */
+}
+
 .form_create .textInput {
   width: 100%;
   padding: 8px;

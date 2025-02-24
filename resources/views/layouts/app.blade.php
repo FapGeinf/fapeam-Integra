@@ -48,7 +48,7 @@
       </ul>
     </div>
 
-    <nav class="navbar">
+    <nav class="navbar" style="{{ Request::routeIs('register') ? 'margin-top: 0;' : '' }}">
       <div>
         @if(Auth::check())
         <a class="navbar-brand" href="{{ route('documentos.intro') }}" style="position: absolute; top: -7px">
