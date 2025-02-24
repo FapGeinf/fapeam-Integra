@@ -15,7 +15,7 @@
 	}
 </style>
 
-<div class="container-fluid mt-5 px__custom">
+<div class="container-fluid mt-5 pt-3 px__custom">
   <div class="col-12 border main-datatable">
     <div class="d-flex justify-content-center text-center p-2" style="flex-direction: column;">
       <span style="font-size:22px;">Indicadores</span>
