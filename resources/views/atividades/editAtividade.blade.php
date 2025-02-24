@@ -41,7 +41,7 @@
 
 <div class="form-wrapper pt-4 paddingLeft">
   <div class="form_create border">
-    <h3 class="text-center mb-3">Edite sua Atividade</h3>
+    <h3 class="text-center">Edite sua Atividade</h3>
 
     <div class="tipWarning mb-3">
       <span class="asteriscoTop">*</span>
