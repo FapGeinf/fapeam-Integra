@@ -25,7 +25,7 @@
 
     <form method="POST" action="{{ route('register') }}">
       @csrf
-      <div class="row g-3">
+      <div class="row">
         <div class="col-sm-12">
           <label for="name">Nome:</label>
           <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" placeholder="ex: Julliany Souza de Lima" autofocus>
@@ -38,7 +38,7 @@
         </div>
       </div>
 
-      <div class="row g-3">
+      <div class="row">
         <div class="col-sm-12">
           <label for="cpf">CPF:</label>
           <input id="cpf" type="text" class="form-control @error('cpf') is-invalid @enderror" name="cpf" value="{{ old('cpf') }}" required autocomplete="cpf" placeholder="000.000.000-00">
@@ -62,7 +62,7 @@
         </div>
       </div>
 
-      <div class="row g-3">
+      <div class="row">
         <div class="col-sm-12">
           <label for="unidadeIdFK">Unidade:</label>
           <select name="unidadeIdFK" id="unidadeIdFK" class="form-control form-select @error('unidadeIdFK') is-invalid @enderror">
@@ -79,7 +79,7 @@
         </div>
       </div>
 
-      <div class="row g-3">
+      <div class="row">
         <div class="col-sm-12">
           <label for="password">Senha:</label>
           <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Mínimo de 8 caracteres (letras e números)">
