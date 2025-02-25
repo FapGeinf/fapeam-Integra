@@ -27,8 +27,6 @@ class AtividadeController extends Controller
     {
         $eixo_id = $request->get('eixo_id');
         $eixoNome = null;
-        $canais = Canal::all();
-        $publicos = Publico::all();
         
         if ($eixo_id && in_array($eixo_id, [1, 2, 3, 4, 5, 6, 7])) {
             $eixo = Eixo::find($eixo_id);
@@ -44,9 +42,7 @@ class AtividadeController extends Controller
         return view('atividades.index', [
             'atividades' => $atividades,
             'eixoNome' => $eixoNome,
-            'eixo_id' => $eixo_id,
-            'canais' => $canais,
-            'publicos' => $publicos
+            'eixo_id' => $eixo_id
         ]);
     }
 
