@@ -653,6 +653,23 @@ class RiscoController extends Controller
         return view('riscos.respostas', ['monitoramento' => $monitoramento, 'respostas' => $respostas]);
     }
 
+		public function homologar($id)
+		{
+			dd("chegou a cair aqui pelo menos");
+			try {
+				$resposta = Resposta::findOrFail($id);
+
+				$resposta->update([
+					'homologadoDiretoria' => 1
+				]);
+
+				return redirect()->back()->with('success', 'Providência validada com sucesso.');
+			} catch (\Exception $e) {
+
+				return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao validar a providência.']);
+			}
+		}
+
     public function insertPrazo(Request $request)
     {
         try {

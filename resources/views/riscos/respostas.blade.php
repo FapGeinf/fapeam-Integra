@@ -109,6 +109,12 @@
                                         <i class="bi bi-pen"></i>
                                     </button>
 
+																		<button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
+																			data-bs-target="#homologacaoModal"
+																			onclick="setHomologacao({{ $resposta->id }})">
+																			<i class="bi bi-check-circle"></i> Homologar
+																		</button>
+																	
                                     <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
                                         data-bs-target="#deleteAnexoModal"
                                         onclick="setDeleteAnexo({{ $resposta->id }})">
@@ -122,6 +128,12 @@
                                         onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)">
                                         <i class="bi bi-pen"></i>
                                     </button>
+
+																		<button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
+																			data-bs-target="#homologacaoModal"
+																			onclick="setHomologacao({{ $resposta->id }})">
+																			<i class="bi bi-check-circle"></i> Homologar
+																		</button>
                                 </div>
                             @endif
 
@@ -186,6 +198,11 @@
                                         onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)">
                                         <i class="bi bi-pen"></i>
                                     </button>
+																		<button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
+																			data-bs-target="#homologacaoModal"
+																			onclick="setHomologacao({{ $resposta->id }})">
+																			<i class="bi bi-check-circle"></i> Homologar
+																		</button>
 
                                     <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
                                         data-bs-target="#deleteAnexoModal"
@@ -194,12 +211,20 @@
                                     </button>
                                 </div>
                             @else
+														{{--Eu acho que aqui --}}
                                 <div class="text-end">
                                     <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
                                         data-bs-target="#editRespostaModal"
                                         onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)">
                                         <i class="bi bi-pen"></i>
                                     </button>
+
+																		<button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
+																			data-bs-target="#homologacaoModal"
+																			onclick="setHomologacao({{ $resposta->id }})">
+																			<i class="bi bi-check-circle"></i> Homologar
+																		</button>
+																	
                                 </div>
                             @endif
 
@@ -322,6 +347,28 @@
     </div>
 </div>
 
+					<div class="modal fade" id="homologacaoModal" tabindex="-1" aria-labelledby="homologacaoModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+									<div class="modal-content">
+											<div class="modal-header">
+													<h5 class="modal-title" id="homologacaoModalLabel">Confirmar Homologação</h5>
+													<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+											</div>
+											<div class="modal-body">
+													<p>Tem certeza que deseja homologar esta resposta?</p>
+											</div>
+											<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+													<form id="homologacaoForm" action="{{ route('respostas.homologar') }}" method="POST">
+															@csrf
+															<input type="hidden" id="homologacaoRespostaId" name="resposta_id" value="">
+															<button type="submit" class="btn btn-success">Homologar</button>
+													</form>
+											</div>
+									</div>
+							</div>
+					</div>
+
 
 
 
@@ -415,5 +462,9 @@
 
 
     }
+		function setHomologacao(respostaId) {
+    		document.getElementById('homologacaoRespostaId').value = respostaId;
+		}
 </script>
+
 @endsection
