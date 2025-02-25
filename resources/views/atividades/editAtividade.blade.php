@@ -1,20 +1,16 @@
 @extends('layouts.app')
-
 @section('title') {{ 'Editar Atividade' }} @endsection
-
 <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
-<link href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
-
+<link href="{{ asset('css/choices.min.css') }}" rel="stylesheet">
+<script src="{{ asset('js/choices.min.js') }}"></script>
+<link rel="stylesheet" href="{{ asset('css/flatpickr.min.css') }}">
+<script src="{{ asset('js/flatpickr.js') }}"></script>
+<script src="{{ asset('js/pt.js') }}"></script>
 <style>
   .cke_top {
     background-color: #f8f8f8 !important;
   }
 </style>
-
 @section('content')
 <div class="alert-container mt-5">
   @if (session('success'))
@@ -123,21 +119,7 @@
           </select>
         </div>
 
-        <script>
-          document.addEventListener('DOMContentLoaded', function () {
-            let elemento = document.getElementById('canal_id');
-
-            if (elemento) {
-              let choices = new Choices(elemento, {
-                removeItemButton: true,
-                placeholder: true,
-                searchEnabled: false,
-                itemSelectText: '',
-                allowHTML: true
-              });
-            }
-          });
-        </script>
+        <script src="{{ asset('js/choicesCanal.js') }}"></script>
 
         <div class="row g-3">
           <div class="col-12 col-md-6">
@@ -209,84 +191,7 @@
   </div>
 </div>
 </div>
-
 <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    let ckeditorConfig = {
-      extraPlugins: 'wordcount',
-      wordcount: {
-        showCharCount: true,
-        maxCharCount: 10000,
-        charCountMsg: 'Caracteres restantes: {0}',
-        maxCharCountMsg: 'Você atingiu o limite máximo de caracteres permitidos.'
-      }
-    };
-
-    let ckeditorConfig2 = {
-      extraPlugins: 'wordcount',
-      wordcount: {
-        showCharCount: true,
-        maxCharCount: 255,
-        charCountMsg: 'Caracteres restantes: {0}',
-        maxCharCountMsg: 'Você atingiu o limite máximo de caracteres permitidos.'
-      }
-    };
-
-    if (document.getElementById('atividade_descricao')) {
-      CKEDITOR.replace('atividade_descricao', ckeditorConfig);
-    }
-    if (document.getElementById('objetivo')) {
-      CKEDITOR.replace('objetivo', ckeditorConfig);
-    }
-
-    flatpickr("#data_prevista", {
-      dateFormat: "Y-m-d",
-      altInput: true,
-      altFormat: "d/m/Y",
-    });
-
-    flatpickr("#data_realizada", {
-      dateFormat: "Y-m-d",
-      altInput: true,
-      altFormat: "d/m/Y",
-    });
-  });
-
-  document.addEventListener('DOMContentLoaded', function () {
-    let elemento = document.getElementById('eixo_ids');
-    if (elemento) {
-      new Choices(elemento);
-    }
-  });
-
-  function mostrarUnidade() {
-    var meta = document.getElementById('meta').value;
-    var realizado = document.getElementById('realizado').value;
-    var unidadeContainer = document.getElementById('unidade-container');
-    if (meta != "" && realizado != "") {
-      unidadeContainer.style.display = "block";
-
-    } else {
-      unidadeContainer.style.display = "none";
-    }
-  }
-</script>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    let elementoIndicadores = document.getElementById('indicador_ids');
-
-    if (elementoIndicadores) {
-      let choices = new Choices(elementoIndicadores, {
-        removeItemButton: true,
-        placeholder: true,
-        searchEnabled: false,
-        itemSelectText: '',
-        allowHTML: true
-      });
-    }
-  });
-</script>
+<script src="{{ asset('js/editAtividade.js') }}"></script>
+<script src="{{asset('js/indicadoresChoices.js')}}"></script>
 @endsection
