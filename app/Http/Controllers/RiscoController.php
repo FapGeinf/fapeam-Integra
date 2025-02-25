@@ -653,22 +653,25 @@ class RiscoController extends Controller
         return view('riscos.respostas', ['monitoramento' => $monitoramento, 'respostas' => $respostas]);
     }
 
-		public function homologar($id)
-		{
-			dd("chegou a cair aqui pelo menos");
-			try {
-				$resposta = Resposta::findOrFail($id);
+	public function homologar($id)
+    {
+        try {
+            $resposta = Resposta::findOrFail($id);
 
-				$resposta->update([
-					'homologadoDiretoria' => 1
-				]);
+            $resposta->update([
+                'homologadaDiretoria' => 1
+            ]);
 
-				return redirect()->back()->with('success', 'Providência validada com sucesso.');
-			} catch (\Exception $e) {
+            return redirect()->back()->with('success', 'Resposta homologada com sucesso!');
+        } catch (Exception $e) {
+            Log::error('Erro ao homologar resposta: ' . $e->getMessage(), [
+                'id' => $id,
+                'stack' => $e->getTraceAsString()
+            ]);
 
-				return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao validar a providência.']);
-			}
-		}
+            return redirect()->back()->with('error', 'Ocorreu um erro ao tentar homologar a resposta. Tente novamente.');
+        }
+    }
 
     public function insertPrazo(Request $request)
     {

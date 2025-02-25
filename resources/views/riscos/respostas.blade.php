@@ -2,7 +2,7 @@
 @section('content')
 
 @section('title')
-    {{ 'Detalhes da Providência' }}
+{{ 'Detalhes da Providência' }}
 @endsection
 
 <head>
@@ -10,30 +10,31 @@
 
     <style>
         .liDP {
-          margin-left: 0 !important;
+            margin-left: 0 !important;
         }
-      </style>
+    </style>
 </head>
 
-<div class="container-xl p-30 pt-5">
+<div class="container-xl p-30">
     @if (session('error'))
-        <script>
-            alert('Não foi possível salvar sua resposta no momento');
-        </script>
+    <script>
+        alert('Não foi possível salvar sua resposta no momento');
+    </script>
     @endif
 
     @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
     @endif
 
     <div class="col-12 box-shadow">
 
         <div class="monitoramento">
-            <h4 class="text-center">Risco</h4>
+            <h4 class="text-center">Monitoramento</h4>
             <hr class="hr1" style="padding-bottom: .6rem;">
-            <div class="form-control" style="background-color: #f3f3f3;">{!! $monitoramento->monitoramentoControleSugerido !!}</div>
+            <div class="form-control" style="background-color: #f3f3f3;">
+                {!! $monitoramento->monitoramentoControleSugerido !!}</div>
             <hr>
         </div>
 
@@ -42,237 +43,214 @@
 
         <div class="chat-box">
             @if ($respostas->count() > 0)
-                @php
-                    $lastSetor = null;
-                    $alignmentClass = 'align-left';
-                @endphp
+            @php
+            $lastSetor = null;
+            $alignmentClass = 'align-left';
+            @endphp
 
-                @foreach ($respostas as $resposta)
-                    @php
-                        $currentSetor = $resposta->user->unidade->id;
-                        $isLeftAligned = $alignmentClass === 'align-left';
-                    @endphp
+            @foreach ($respostas as $resposta)
+            @php
+            $currentSetor = $resposta->user->unidade->id;
+            $isLeftAligned = $alignmentClass === 'align-left';
+            @endphp
 
-                    @if ($lastSetor === $currentSetor)
-                        <div
-                            class="message {{ $isLeftAligned ? 'other-message' : 'another-message' }} {{ $alignmentClass }}">
-                            <div class="p-1">
-                                <div class="d-flex row">
-                                    <div class="dataSector"
-                                        style="text-align: left; {{ $alignmentClass === 'align-right' ? 'background-color: #d9d9d9cc;' : '' }}">
-                                        <div>
-                                            Criado em:
-                                            <i class="bi bi-clock"></i>
-                                            <span class="dataSpan">
-                                                {{ $resposta->created_at->format('d/m/Y') }}
-                                                às
-                                                {{ $resposta->created_at->format('H:i') }}
-                                            </span>
-                                        </div>
-                                        <div>
-                                            Lotação:
-                                            <i class="bi bi-building"></i>
-                                            <span class="dataSpan">
-                                                {{ $resposta->user->unidade->unidadeNome }}
-                                            </span>
-                                        </div>
-                                        <div>
-                                            Perfil:
-                                            <i class="bi bi-person"></i>
-                                            <span class="dataSpan">
-                                                {{ $resposta->user->name }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
+            @if ($lastSetor === $currentSetor)
+            <div class="message {{ $isLeftAligned ? 'other-message' : 'another-message' }} {{ $alignmentClass }}">
+                <div class="p-1">
+                    <div class="d-flex row">
+                        <div class="dataSector" style="text-align: left; {{ $alignmentClass === 'align-right' ? 'background-color: #d9d9d9cc;' : '' }}">
+                            <div>
+                                Criado em:
+                                <i class="bi bi-clock"></i>
+                                <span class="dataSpan">
+                                    {{ $resposta->created_at->format('d/m/Y') }}
+                                    às
+                                    {{ $resposta->created_at->format('H:i') }}
+                                </span>
                             </div>
-
-                            <hr class="hr2">
-
-                            <div class="form-control fStyle mb-2" style="text-align: left;">
-                                <p style="background-color: #f0f0f0;">{!! $resposta->respostaRisco !!}</p>
+                            <div>
+                                Lotação:
+                                <i class="bi bi-building"></i>
+                                <span class="dataSpan">
+                                    {{ $resposta->user->unidade->unidadeNome }}
+                                </span>
                             </div>
-
-                            @if ($resposta->anexo)
-                                <div class="text-end">
-                                    <a href="{{ Storage::url($resposta->anexo) }}" class="btn btn-info btn-sm"
-                                        target="_blank">
-                                        <i class="bi bi-eye"></i>
-                                    </a>
-                                    <a href="{{ Storage::url($resposta->anexo) }}" class="btn btn-primary btn-sm"
-                                        download>
-                                        <i class="bi bi-download"></i>
-                                    </a>
-                                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#editRespostaModal"
-                                        onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)">
-                                        <i class="bi bi-pen"></i>
-                                    </button>
-
-																		<button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-																			data-bs-target="#homologacaoModal"
-																			onclick="setHomologacao({{ $resposta->id }})">
-																			<i class="bi bi-check-circle"></i> Homologar
-																		</button>
-																	
-                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#deleteAnexoModal"
-                                        onclick="setDeleteAnexo({{ $resposta->id }})">
-                                        <i class="bi bi-trash"></i> Excluir Anexo
-                                    </button>
-                                </div>
-                            @else
-                                <div class="text-end">
-                                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#editRespostaModal"
-                                        onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)">
-                                        <i class="bi bi-pen"></i>
-                                    </button>
-
-																		<button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-																			data-bs-target="#homologacaoModal"
-																			onclick="setHomologacao({{ $resposta->id }})">
-																			<i class="bi bi-check-circle"></i> Homologar
-																		</button>
-                                </div>
-                            @endif
-
-                        </div>
-                    @else
-                        @php
-                            $alignmentClass = $isLeftAligned ? 'align-right' : 'align-left';
-                        @endphp
-
-                        <div
-                            class="message {{ $alignmentClass === 'align-left' ? 'other-message' : 'another-message' }} {{ $alignmentClass }}">
-                            <div class="p-1">
-                                <div class="d-flex row">
-                                    <div class="dataSector"
-                                        style="text-align: left; {{ $alignmentClass === 'align-right' ? 'background-color: #d9d9d9cc;' : '' }}">
-                                        <div>
-                                            Criado em:
-                                            <i class="bi bi-clock"></i>
-                                            <span class="dataSpan">
-                                                {{ $resposta->created_at->format('d/m/Y') }}
-                                                às
-                                                {{ $resposta->created_at->format('H:i') }}
-                                            </span>
-                                        </div>
-                                        <div>
-                                            Lotação:
-                                            <i class="bi bi-building"></i>
-                                            <span class="dataSpan">
-                                                {{ $resposta->user->unidade->unidadeNome }}
-                                            </span>
-                                        </div>
-                                        <div>
-                                            Perfil:
-                                            <i class="bi bi-person"></i>
-                                            <span class="dataSpan">
-                                                {{ $resposta->user->name }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <hr class="hr2">
-
-                            <div class="form-control fStyle mb-2" style="text-align: left;">
-                                <p style="background-color: #f0f0f0;">{!! $resposta->respostaRisco !!}</p>
-                            </div>
-
-
-                            @if ($resposta->anexo)
-                                <div class="text-end">
-                                    <a href="{{ Storage::url($resposta->anexo) }}" class="btn btn-info btn-sm"
-                                        target="_blank">
-                                        <i class="bi bi-eye"></i>
-                                    </a>
-                                    <a href="{{ Storage::url($resposta->anexo) }}" class="btn btn-primary btn-sm"
-                                        download>
-                                        <i class="bi bi-download"></i>
-                                    </a>
-                                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#editRespostaModal"
-                                        onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)">
-                                        <i class="bi bi-pen"></i>
-                                    </button>
-																		<button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-																			data-bs-target="#homologacaoModal"
-																			onclick="setHomologacao({{ $resposta->id }})">
-																			<i class="bi bi-check-circle"></i> Homologar
-																		</button>
-
-                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#deleteAnexoModal"
-                                        onclick="setDeleteAnexo({{ $resposta->id }})">
-                                        <i class="bi bi-trash"></i> Excluir Anexo
-                                    </button>
-                                </div>
-                            @else
-														{{--Eu acho que aqui --}}
-                                <div class="text-end">
-                                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#editRespostaModal"
-                                        onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)">
-                                        <i class="bi bi-pen"></i>
-                                    </button>
-
-																		<button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-																			data-bs-target="#homologacaoModal"
-																			onclick="setHomologacao({{ $resposta->id }})">
-																			<i class="bi bi-check-circle"></i> Homologar
-																		</button>
-																	
-                                </div>
-                            @endif
-
-                        </div>
-                    @endif
-
-                    @php
-                        $lastSetor = $currentSetor;
-                    @endphp
-                    <div class="modal fade" id="deleteAnexoModal" tabindex="-1"
-                        aria-labelledby="deleteAnexoModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteAnexoModalLabel">Confirmar Exclusão do Anexo
-                                    </h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>Tem certeza que deseja excluir o anexo?</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Cancelar</button>
-                                    <form action="{{ route('riscos.deleteAnexo', $resposta->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Excluir Anexo</button>
-                                    </form>
-                                </div>
+                            <div>
+                                Perfil:
+                                <i class="bi bi-person"></i>
+                                <span class="dataSpan">
+                                    {{ $resposta->user->name }}
+                                </span>
                             </div>
                         </div>
                     </div>
-                @endforeach
+                </div>
+
+                <hr class="hr2">
+
+                <div class="form-control fStyle mb-2" style="text-align: left;">
+                    <p style="background-color: #f0f0f0;">{!! $resposta->respostaRisco !!}</p>
+                </div>
+
+                @if ($resposta->anexo)
+                <div class="text-end">
+                    <a href="{{ Storage::url($resposta->anexo) }}" class="btn btn-info btn-sm" target="_blank">
+                        <i class="bi bi-eye"></i>
+                    </a>
+                    <a href="{{ Storage::url($resposta->anexo) }}" class="btn btn-primary btn-sm" download>
+                        <i class="bi bi-download"></i>
+                    </a>
+                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editRespostaModal" onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)">
+                        <i class="bi bi-pen"></i>
+                    </button>
+
+                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteAnexoModal" onclick="setDeleteAnexo({{ $resposta->id }})">
+                        <i class="bi bi-trash"></i> Excluir Anexo
+                    </button>
+                </div>
+                @else
+                <div class="text-end">
+
+                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editRespostaModal" onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)">
+                        <i class="bi bi-pen"></i> Editar
+                    </button>
+
+                    <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#homologacaoModal{{ $resposta->id }}">
+                        Homologar
+                    </button>
+                </div>
+                @endif
+
+            </div>
             @else
-                <p class="text-center">Não há respostas disponíveis para este risco.</p>
+            @php
+            $alignmentClass = $isLeftAligned ? 'align-right' : 'align-left';
+            @endphp
+
+            <div class="message {{ $alignmentClass === 'align-left' ? 'other-message' : 'another-message' }} {{ $alignmentClass }}">
+                <div class="p-1">
+                    <div class="d-flex row">
+                        <div class="dataSector" style="text-align: left; {{ $alignmentClass === 'align-right' ? 'background-color: #d9d9d9cc;' : '' }}">
+                            <div>
+                                Criado em:
+                                <i class="bi bi-clock"></i>
+                                <span class="dataSpan">
+                                    {{ $resposta->created_at->format('d/m/Y') }}
+                                    às
+                                    {{ $resposta->created_at->format('H:i') }}
+                                </span>
+                            </div>
+                            <div>
+                                Lotação:
+                                <i class="bi bi-building"></i>
+                                <span class="dataSpan">
+                                    {{ $resposta->user->unidade->unidadeNome }}
+                                </span>
+                            </div>
+                            <div>
+                                Perfil:
+                                <i class="bi bi-person"></i>
+                                <span class="dataSpan">
+                                    {{ $resposta->user->name }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="hr2">
+
+                <div class="form-control fStyle mb-2" style="text-align: left;">
+                    <p style="background-color: #f0f0f0;">{!! $resposta->respostaRisco !!}</p>
+                </div>
+
+                @if ($resposta->anexo)
+                <div class="text-end">
+                    <a href="{{ Storage::url($resposta->anexo) }}" class="btn btn-info btn-sm" target="_blank">
+                        <i class="bi bi-eye"></i>
+                    </a>
+                    <a href="{{ Storage::url($resposta->anexo) }}" class="btn btn-primary btn-sm" download>
+                        <i class="bi bi-download"></i>
+                    </a>
+                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editRespostaModal" onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)">
+                        <i class="bi bi-pen"></i>
+                    </button>
+
+                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteAnexoModal" onclick="setDeleteAnexo({{ $resposta->id }})">
+                        <i class="bi bi-trash"></i> Excluir Anexo
+                    </button>
+                </div>
+                @else
+                <div class="text-end">
+                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editRespostaModal" onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)">
+                        <i class="bi bi-pen"></i>
+                    </button>
+                    <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#homologacaoModal{{ $resposta->id }}">
+                        Homologar
+                    </button>
+                </div>
+                @endif
+            </div>
+            @endif
+            @php
+            $lastSetor = $currentSetor;
+            @endphp
+            <div class="modal fade" id="deleteAnexoModal" tabindex="-1" aria-labelledby="deleteAnexoModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteAnexoModalLabel">Confirmar Exclusão do Anexo
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Tem certeza que deseja excluir o anexo?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <form action="{{ route('riscos.deleteAnexo', $resposta->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Excluir Anexo</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="homologacaoModal{{ $resposta->id }}" tabindex="-1" aria-labelledby="homologacaoModalLabel{{ $resposta->id }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="homologacaoModalLabel{{ $resposta->id }}">Confirmar Homologação
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Você tem certeza de que deseja homologar esta resposta?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <form action="{{ route('riscos.homologar', $resposta->id) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <button type="submit" class="btn btn-success">Homologar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+            @else
+            <p class="text-center">Não há respostas disponíveis para este risco.</p>
             @endif
             <div class="container d-flex justify-content-center mt-4">
-                <button type="button" class="reply-btn" data-bs-toggle="modal"
-                    data-bs-target="#respostaModal">Responder</button>
+                <button type="button" class="reply-btn" data-bs-toggle="modal" data-bs-target="#respostaModal">Responder</button>
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="editRespostaModal" tabindex="-1" aria-labelledby="editRespostaModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="editRespostaModal" tabindex="-1" aria-labelledby="editRespostaModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -309,12 +287,20 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('riscos.storeResposta', ['id' => $monitoramento->id]) }}" method="POST"
-                    enctype="multipart/form-data">
+                <form action="{{ route('riscos.storeResposta', ['id' => $monitoramento->id]) }}" method="POST" enctype="multipart/form-data">
                     @csrf
-										<div class="mb-4">
-                        <label for="statusMonitoramento-{{ $monitoramento->id }}" class="form-label">Status do Controle Sugerido</label>
-                        <select class="form-select" style="background-color: #f0f0f0;"  id="statusMonitoramento-{{ $monitoramento->id }}" name="statusMonitoramento" required>
+                    <div class="mb-4">
+                        <!-- <label for="respostaRisco" class="form-label">Resposta</label> -->
+                        <textarea class="form-control" id="respostaRisco" name="respostaRisco" required></textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label for="anexo" class="form-label">Anexar Arquivo</label>
+                        <input type="file" style="background-color: #f0f0f0;" class="form-control" id="anexo" name="anexo">
+                    </div>
+                    <div class="mb-4">
+                        <label for="statusMonitoramento-{{ $monitoramento->id }}" class="form-label">Status do
+                            Monitoramento</label>
+                        <select class="form-select" style="background-color: #f0f0f0;" id="statusMonitoramento-{{ $monitoramento->id }}" name="statusMonitoramento" required>
                             <option value="NÃO IMPLEMENTADA" {{ old('statusMonitoramento', $monitoramento->statusMonitoramento) == 'NÃO IMPLEMENTADA' ? 'selected' : '' }}>
                                 NÃO IMPLEMENTADA
                             </option>
@@ -329,15 +315,6 @@
                             </option>
                         </select>
                     </div>
-                    <div class="mb-4">
-                        <label for="respostaRisco" class="form-label">Providências e Justificativas</label>
-                        <textarea class="form-control" id="respostaRisco" name="respostaRisco" required></textarea>
-                    </div>
-                    <div class="mb-4">
-                        <label for="anexo" class="form-label">Anexar Arquivo</label>
-                        <input type="file" style="background-color: #f0f0f0;" class="form-control" id="anexo" name="anexo">
-                    </div>
-                    
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <button type="submit" class="btn btn-primary mb-2">Enviar</button>
                     </div>
@@ -347,67 +324,46 @@
     </div>
 </div>
 
-					<div class="modal fade" id="homologacaoModal" tabindex="-1" aria-labelledby="homologacaoModalLabel" aria-hidden="true">
-							<div class="modal-dialog">
-									<div class="modal-content">
-											<div class="modal-header">
-													<h5 class="modal-title" id="homologacaoModalLabel">Confirmar Homologação</h5>
-													<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-											</div>
-											<div class="modal-body">
-													<p>Tem certeza que deseja homologar esta resposta?</p>
-											</div>
-											<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-													<form id="homologacaoForm" action="{{ route('respostas.homologar') }}" method="POST">
-															@csrf
-															<input type="hidden" id="homologacaoRespostaId" name="resposta_id" value="">
-															<button type="submit" class="btn btn-success">Homologar</button>
-													</form>
-											</div>
-									</div>
-							</div>
-					</div>
 
 
 
 
+{{--
+    <script src="/ckeditor/ckeditor.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            CKEDITOR.replace('respostaRisco', {
+                extraPlugins: 'wordcount',
+                wordcount: {
+                    showCharCount: true,
+                    maxCharCount: 4500,
+                    maxCharCountMsg: 'Você atingiu o limite máximo de caracteres permitidos.',
+                    charCountMsg: 'Caracteres restantes: {0}'
+                }
+            });
 
-{{-- <script src="/ckeditor/ckeditor.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        CKEDITOR.replace('respostaRisco', {
-            extraPlugins: 'wordcount',
-            wordcount: {
-                showCharCount: true,
-                maxCharCount: 4500,
-                maxCharCountMsg: 'Você atingiu o limite máximo de caracteres permitidos.',
-                charCountMsg: 'Caracteres restantes: {0}'
-            }
+            document.addEventListener('shown.bs.modal', function (event) {
+                const modalId = event.target.id;
+                if (modalId === 'editRespostaModal') {
+                    CKEDITOR.replace('editRespostaRisco', {
+                        extraPlugins: 'wordcount',
+                        wordcount: {
+                            showCharCount: true,
+                            maxCharCount: 4500,
+                            maxCharCountMsg: 'Você atingiu o limite máximo de caracteres permitidos.',
+                            charCountMsg: 'Caracteres restantes: {0}'
+                        }
+                    });
+                }
+            });
         });
 
-        document.addEventListener('shown.bs.modal', function(event) {
-            const modalId = event.target.id;
-            if (modalId === 'editRespostaModal') {
-                CKEDITOR.replace('editRespostaRisco', {
-                    extraPlugins: 'wordcount',
-                    wordcount: {
-                        showCharCount: true,
-                        maxCharCount: 4500,
-                        maxCharCountMsg: 'Você atingiu o limite máximo de caracteres permitidos.',
-                        charCountMsg: 'Caracteres restantes: {0}'
-                    }
-                });
-            }
-        });
-    });
-
-    function editResposta(id, respostaRisco) {
-        document.getElementById('editRespostaId').value = id;
-        CKEDITOR.instances['editRespostaRisco'].setData(respostaRisco);
-    }
-</script>
-@endsection --}}
+        function editResposta(id, respostaRisco) {
+            document.getElementById('editRespostaId').value = id;
+            CKEDITOR.instances['editRespostaRisco'].setData(respostaRisco);
+        }
+    </script>
+    @endsection --}}
 
 <script src="/ckeditor/ckeditor.js"></script>
 <script>
@@ -462,9 +418,5 @@
 
 
     }
-		function setHomologacao(respostaId) {
-    		document.getElementById('homologacaoRespostaId').value = respostaId;
-		}
 </script>
-
 @endsection
