@@ -1,16 +1,10 @@
 @extends('layouts.app')
-
-@section('content')
-
-@section('title') {{ 'Lista de Atividades' }} @endsection
-
-<head>
-  <link rel="stylesheet" href="{{ asset('css/index.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/atividades.css') }}">
-  {{-- <link rel="stylesheet" href="{{ asset('css/filterImplement.css') }}"> --}}
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.2.3/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
-  <style>
+<link rel="stylesheet" href="{{ asset('css/index.css') }}">
+<link rel="stylesheet" href="{{ asset('css/atividades.css') }}">
+<script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
+<script src="{{ asset('js/dataTables.min.js') }}"></script>
+<link rel="stylesheet" href="{{ asset('css/dataTables.dataTables.min.css') }}">
+<style>
     .liDP {
       margin-left: 0 !important;
     }
@@ -22,13 +16,9 @@
     .hover:hover {
       text-decoration: underline;
     }
-  </style>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script type="text/javascript" charset="utf8"
-    src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
-</head>
-
+</style>
+@section('title') {{ 'Lista de Atividades' }} @endsection
+@section('content')
 <div class="alert-container mt-5">
   @if (session('success'))
 	<div class="alert alert-success">
@@ -185,7 +175,7 @@
     let table = $('#tableHome2').DataTable({
       order: [[6, "asc"]],
       language: {
-        url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
+        url: '{{ asset('js/pt_br-datatable.json') }}',
         search: "Procurar:",
         info: 'Mostrando página _PAGE_ de _PAGES_',
         infoEmpty: 'Sem monitoramentos disponíveis no momento',
@@ -194,53 +184,8 @@
         paginate: { next: "Próximo", previous: "Anterior" },
         responsive: true
       },
-      initComplete: function () {
-        let searchBox = $('#tableHome2_filter');
-
-        let dropdownContainer = $(` 
-          <div class="dropdown mt-3 d-none">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Filtros
-            </button>
-            <div class="dropdown-menu p-3" id="filtersContent" style="min-width: 300px;">
-              <div class="mb-3">
-                <label for="filterUnidade" class="form-label">Filtrar por Eixo:</label>
-                <select class="form-select form-select-sm mb-2" id="filterUnidade">
-                  <option value="">TODOS</option>
-                  @foreach ($atividades->unique('id') as $atividade)
-					@foreach ($atividade->eixos as $eixo)
-						  <option value="{{ $eixo->nome }}">{{ $eixo->nome }}</option>
-					@endforeach
-				  @endforeach
-                </select>
-              </div>
-              <div class="mb-3" id="lengthMenuContainer"></div>
-            </div>
-          </div>
-        `);
-
-        let container = $(` 
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <div class="me-3" id="searchContainer"></div>
-            ${dropdownContainer[0].outerHTML}
-            <div>
-              @if(Auth::user()->unidade->unidadeTipoFK == 1)
-				<a href="{{ route('atividades.create') }}" class="primary">Adicionar Atividade</a>
-			  @endif
-            </div>
-          </div>
-        `);
-
-        searchBox.before(container);
-        $('#searchContainer').append(searchBox);
-        $('#lengthMenuContainer').append($('#tableHome2_length'));
-
-        $('#filterUnidade').on('change', function () {
-          let val = $.fn.dataTable.util.escapeRegex($(this).val());
-          table.column(1).search(val ? '^' + val + '$' : '', true, false).draw();
-        });
-      }
     });
+    
   });
 </script>
 @endsection
