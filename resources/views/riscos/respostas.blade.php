@@ -16,11 +16,13 @@
 </head>
 
 <div class="container-xl p-30">
-    @if (session('error'))
-    <script>
-        alert('Não foi possível salvar sua resposta no momento');
-    </script>
-    @endif
+
+
+		@if (session('error'))
+				<div class="alert alert-danger">
+						{{ session('error') }}
+				</div>
+		@endif
 
     @if (session('success'))
     <div class="alert alert-success">
@@ -75,14 +77,21 @@
                                     {{ $resposta->user->unidade->unidadeNome }}
                                 </span>
                             </div>
-                            <div>
-                                Perfil:
-                                <i class="bi bi-person"></i>
-                                <span class="dataSpan">
-                                    {{ $resposta->user->name }}
-                                </span>
-                            </div>
-                        </div>
+														<div>
+																Perfil:
+																<i class="bi bi-person"></i>
+																<span class="dataSpan">
+																		{{ $resposta->user->name }}
+																</span>
+														</div>
+														@if($resposta->homologadoDiretoria != NULL)
+															<div>
+																<span class="dataSpan">
+																		{{ $resposta->homologadoDiretoria }}
+																</span>
+															</div>
+														@endif
+													</div>
                     </div>
                 </div>
 
@@ -107,6 +116,12 @@
                     <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteAnexoModal" onclick="setDeleteAnexo({{ $resposta->id }})">
                         <i class="bi bi-trash"></i> Excluir Anexo
                     </button>
+
+										@if(Auth::user()->usuario_tipo_fk == 2)
+                    	<button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#homologacaoModal{{ $resposta->id }}">
+                      	  Homologar
+                    	</button>
+										@endif
                 </div>
                 @else
                 <div class="text-end">
@@ -115,9 +130,11 @@
                         <i class="bi bi-pen"></i> Editar
                     </button>
 
-                    <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#homologacaoModal{{ $resposta->id }}">
-                        Homologar
-                    </button>
+										@if(Auth::user()->usuario_tipo_fk == 2)
+                    	<button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#homologacaoModal{{ $resposta->id }}">
+                      	  Homologar
+                    	</button>
+										@endif
                 </div>
                 @endif
 
@@ -147,14 +164,21 @@
                                     {{ $resposta->user->unidade->unidadeNome }}
                                 </span>
                             </div>
-                            <div>
-                                Perfil:
-                                <i class="bi bi-person"></i>
-                                <span class="dataSpan">
-                                    {{ $resposta->user->name }}
-                                </span>
-                            </div>
-                        </div>
+														<div>
+																Perfil:
+																<i class="bi bi-person"></i>
+																<span class="dataSpan">
+																		{{ $resposta->user->name }}
+																</span>
+														</div>
+														@if($resposta->homologadoDiretoria != NULL)
+															<div>
+																<span class="dataSpan">
+																		{{ $resposta->homologadoDiretoria }}
+																</span>
+															</div>
+														@endif
+													</div>
                     </div>
                 </div>
 
@@ -179,15 +203,24 @@
                     <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteAnexoModal" onclick="setDeleteAnexo({{ $resposta->id }})">
                         <i class="bi bi-trash"></i> Excluir Anexo
                     </button>
+										@if(Auth::user()->usuario_tipo_fk == 2)
+                    	<button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#homologacaoModal{{ $resposta->id }}">
+                      	  Homologar
+                    	</button>
+										@endif
                 </div>
                 @else
                 <div class="text-end">
                     <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editRespostaModal" onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)">
                         <i class="bi bi-pen"></i>
                     </button>
-                    <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#homologacaoModal{{ $resposta->id }}">
-                        Homologar
-                    </button>
+										
+										@if(Auth::user()->usuario_tipo_fk == 2)
+                    	<button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#homologacaoModal{{ $resposta->id }}">
+                      	  Homologar
+                    	</button>
+										@endif
+									
                 </div>
                 @endif
             </div>
@@ -325,45 +358,6 @@
 </div>
 
 
-
-
-
-{{--
-    <script src="/ckeditor/ckeditor.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            CKEDITOR.replace('respostaRisco', {
-                extraPlugins: 'wordcount',
-                wordcount: {
-                    showCharCount: true,
-                    maxCharCount: 4500,
-                    maxCharCountMsg: 'Você atingiu o limite máximo de caracteres permitidos.',
-                    charCountMsg: 'Caracteres restantes: {0}'
-                }
-            });
-
-            document.addEventListener('shown.bs.modal', function (event) {
-                const modalId = event.target.id;
-                if (modalId === 'editRespostaModal') {
-                    CKEDITOR.replace('editRespostaRisco', {
-                        extraPlugins: 'wordcount',
-                        wordcount: {
-                            showCharCount: true,
-                            maxCharCount: 4500,
-                            maxCharCountMsg: 'Você atingiu o limite máximo de caracteres permitidos.',
-                            charCountMsg: 'Caracteres restantes: {0}'
-                        }
-                    });
-                }
-            });
-        });
-
-        function editResposta(id, respostaRisco) {
-            document.getElementById('editRespostaId').value = id;
-            CKEDITOR.instances['editRespostaRisco'].setData(respostaRisco);
-        }
-    </script>
-    @endsection --}}
 
 <script src="/ckeditor/ckeditor.js"></script>
 <script>
