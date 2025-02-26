@@ -42,16 +42,14 @@ class RiscoController extends Controller
             switch ($tipoAcesso) {
                 case 1:
                 case 3:
-                case 4:
-                    $riscos = Risco::all();
-                    break;
-            
+									$riscos = Risco::all();
+									break;
+								case 4:
                 case 5:
                     $riscos = Risco::whereHas('unidade', function ($query) use ($unidadeDiretoria) {
                         $query->where('unidadeDiretoria', $unidadeDiretoria);
                     })->get();
                     break;
-            
                 default:
                     $riscos = Risco::where('unidadeId', $user->unidade->id)->get();
                     break;
@@ -653,25 +651,38 @@ class RiscoController extends Controller
         return view('riscos.respostas', ['monitoramento' => $monitoramento, 'respostas' => $respostas]);
     }
 
-	public function homologar($id)
-    {
-        try {
-            $resposta = Resposta::findOrFail($id);
+		public function homologar($id)
+		{
+				try {
+						$resposta = Resposta::findOrFail($id);
+						$user = Auth::user();
+						$nome = $user->name;
+						$cpf = $user->cpf;
+						$cpfMascarado = substr($cpf, 0, 3) . '.***.***-' . substr($cpf, -2); // Mascarando o CPF
+		
+						$dataHora = now()->format('d-m-Y H:i:s');
+		
+						$dataConcat = "Homologado em {$dataHora} {$nome} id {$user->id} cpf {$cpfMascarado}";
 
-            $resposta->update([
-                'homologadaDiretoria' => 1
-            ]);
-
-            return redirect()->back()->with('success', 'Resposta homologada com sucesso!');
-        } catch (Exception $e) {
-            Log::error('Erro ao homologar resposta: ' . $e->getMessage(), [
-                'id' => $id,
-                'stack' => $e->getTraceAsString()
-            ]);
-
-            return redirect()->back()->with('error', 'Ocorreu um erro ao tentar homologar a resposta. Tente novamente.');
-        }
-    }
+						if ($user->usuario_tipo_fk == 2 && $resposta->homologadoDiretoria == NULL ) {
+								$resposta->update([
+										'homologadoDiretoria' => $dataConcat
+								]);
+								return redirect()->back()->with('success', 'Resposta homologada com sucesso!')->with('homologacao', $dataConcat);
+						} else if($resposta->homologadoDiretoria != NULL) {
+								return redirect()->back()->with('error', 'A providência ja está homologada');
+						}else{
+							return redirect()->back()->with('error', 'Você não tem permissão para homologar');
+						}
+				} catch (Exception $e) {
+						Log::error('Erro ao homologar resposta: ' . $e->getMessage(), [
+								'id' => $id,
+								'stack' => $e->getTraceAsString()
+						]);
+						return redirect()->back()->with('error', 'Ocorreu um erro ao tentar homologar a resposta. Tente novamente.');
+				}
+		}
+		
 
     public function insertPrazo(Request $request)
     {
@@ -705,6 +716,6 @@ class RiscoController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('checkAccess');
+        // $this->middleware('checkAccess');
     }
 }
