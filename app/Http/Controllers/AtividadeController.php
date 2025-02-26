@@ -39,10 +39,15 @@ class AtividadeController extends Controller
             $atividades = $this->atividade->with(['publico', 'canais', 'medida'])->orderBy('data_prevista','asc')->get();
         }
 
+        $publicos = Publico::all();
+        $canais = Canal::all();
+
         return view('atividades.index', [
             'atividades' => $atividades,
             'eixoNome' => $eixoNome,
-            'eixo_id' => $eixo_id
+            'eixo_id' => $eixo_id,
+            'publicos' => $publicos,
+            'canais' => $canais
         ]);
     }
 

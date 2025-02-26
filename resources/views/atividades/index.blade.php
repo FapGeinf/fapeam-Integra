@@ -51,6 +51,43 @@
 <div class="container-fluid p-30">
   <div class="col-12 border main-datatable">
     <div class="container-fluid">
+          <div class="row g-3 align-items-end">
+          <div class="col-md-3">
+              <label for="filter-publico" class="fw-bold">Tipo de Público</label>
+              <select name="filter-publico" id="filter-publico" class="form-select pointer">
+                  <option value="">Escolha um Tipo</option>
+                  @foreach ($publicos as $publico)
+                      <option value="{{ $publico->nome }}">{{ $publico->nome }}</option>
+                  @endforeach
+              </select>
+          </div>
+
+          <div class="col-md-3">
+              <label for="filter-canal" class="fw-bold">Tipo de Canal de Divulgação</label>
+              <select name="filter-canal" id="filter-canal" class="form-select pointer">
+                  <option value="">Escolha um Tipo</option>
+                  @foreach ($canais as $canal)
+                      <option value="{{ $canal->nome }}">{{ $canal->nome }}</option>
+                  @endforeach
+              </select>
+          </div>
+
+          <div class="col-md-3">
+               <label for="filter-evento" class="fw-bold">Tipo de Evento:</label>
+               <select name="filter-evento" id="filter-evento" class="form-select pointer">
+                       <option value="">Escolha uma opção</option>
+                       <option value="Presencial">Presencial</option>
+                       <option value="Online">Online</option>
+                       <option value="Presencial e Online">Presencial e Online</option>
+               </select>
+          </div>
+
+          @if(Auth::user()->unidadeIdFK == 1)
+              <div class="col-md-3 d-flex align-items-end">
+                  <a href="{{ route('atividades.create') }}" class="btn btn-md btn-primary">Inserir Atividade</a>
+              </div>
+          @endif
+      </div>
       <div class="table-responsive">
         <table id="tableHome2" class="table cust-datatable">
           <thead>
@@ -171,21 +208,39 @@
 </div>
 
 <script>
-  $(document).ready(function () {
-    let table = $('#tableHome2').DataTable({
-      order: [[6, "asc"]],
-      language: {
-        url: '{{ asset('js/pt_br-datatable.json') }}',
-        search: "Procurar:",
-        info: 'Mostrando página _PAGE_ de _PAGES_',
-        infoEmpty: 'Sem monitoramentos disponíveis no momento',
-        infoFiltered: '(Filtrados do total de _MAX_ monitoramentos)',
-        zeroRecords: 'Nada encontrado. Se achar que isso é um erro, contate o suporte.',
-        paginate: { next: "Próximo", previous: "Anterior" },
-        responsive: true
-      },
-    });
-    
+  $(document).ready(function(){
+      let table = $('#tableHome2').DataTable({
+          order: [[6, "asc"]],
+          autoWidth: false,  
+          columnDefs: [
+              { targets: "_all", defaultContent: "" } 
+          ],
+          language: {
+              url: '{{ asset('js/pt_br-datatable.json') }}',
+              search: "Procurar:",
+              info: 'Mostrando página _PAGE_ de _PAGES_',
+              infoEmpty: 'Sem monitoramentos disponíveis no momento',
+              infoFiltered: '(Filtrados do total de _MAX_ monitoramentos)',
+              zeroRecords: 'Nada encontrado. Se achar que isso é um erro, contate o suporte.',
+              paginate: { next: "Próximo", previous: "Anterior" },
+              responsive: true
+          }
+      });
+
+      $('#filter-canal').on('change', function () {
+          let canal = $(this).val();
+          table.column(6).search(canal).draw(); 
+      });
+
+      $('#filter-publico').on('change',function(){
+         let publico = $(this).val();
+         table.column(4).search(publico).draw();
+      });
+
+      $('#filter-evento').on('change',function(){
+        let evento = $(this).val();
+        table.column(5).search(evento).draw();
+      })
   });
 </script>
 @endsection
