@@ -14,7 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('respostas', function (Blueprint $table) {
-						$table->boolean('homologadoDiretoria')->nullable();
+						$table->string('homologadoDiretoria')->nullable();
+						$table->softDeletes();	
         });
     }
 
@@ -27,6 +28,7 @@ return new class extends Migration
     {
         Schema::table('respostas', function (Blueprint $table) {
             $table->dropColumn('homologadoDiretoria');
+						$table->dropSoftDeletes();
         });
     }
 };
