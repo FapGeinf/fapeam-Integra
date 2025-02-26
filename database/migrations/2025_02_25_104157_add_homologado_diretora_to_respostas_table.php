@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('respostas', function (Blueprint $table) {
-						$table->boolean('homologadoDiretoria')->nullable();
+						$table->string('homologadoDiretoria')->nullable();
         });
     }
 
