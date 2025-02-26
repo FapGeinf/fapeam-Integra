@@ -61,7 +61,7 @@
   </div>
 
   <div class="d-flex justify-content-center mt-4">
-  @if(auth()->user()->unidade->unidadeTipoFK == 1 || auth()->user()->unidade->unidadeTipoFK == 5 || auth()->user()->unidadeTipoFK == 2)
+  @if(auth()->user()->unidade->unidadeTipoFK == 1 || auth()->user()->unidade->unidadeTipoFK == 3 || auth()->user()->unidade->unidadeTipoFK == 4)
   <form action="{{ route('atividades.index') }}" method="POST" class="d-inline">
       @csrf
       <input type="hidden" name="eixo_id" value="3">
@@ -79,20 +79,19 @@
 			</button>
 		</form>
 
-    <a href="{{ route('riscos.analise') }}">
-      <button class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">
-        Análise do Risco
-      </button>
-    </a>
-
 		<button class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">Relatório</button>
 
 		<a href="{{ route('avaliacao') }}" class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">
   		<i class="bi bi-download"></i> Diagnóstico de Riscos
 		</a>
-
+    @endif
+    <a href="{{ route('riscos.analise') }}">
+      <button class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">
+        Análise do Risco
+      </button>
+    </a>
   </div>
-  @endif
+
 
 </body>
 

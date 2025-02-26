@@ -57,7 +57,7 @@
   </div>
 
   <div class="d-flex justify-content-center mt-4">
-  @if(auth()->user()->unidade->unidadeTipoFK == 1 || auth()->user()->unidade->unidadeTipoFK == 5 || auth()->user()->unidadeTipoFK == 2)
+  @if(auth()->user()->unidade->unidadeTipoFK == 1 || auth()->user()->unidade->unidadeTipoFK == 3 || auth()->user()->unidade->unidadeTipoFK == 4)
     <form action="{{ route('atividades.index') }}" method="POST" class="d-inline">
       @csrf
       <input type="hidden" name="eixo_id" value="4">
@@ -76,14 +76,15 @@
 			</button>
 		</form>
     @endif
+    
+    @if(auth()->user()->unidade->unidadeTipoFK == 1 || auth()->user()->unidade->unidadeTipoFK == 3 || auth()->user()->unidade->unidadeTipoFK == 4)
+    <button class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">Relatório</button>
+    @endif
     <a href="{{ route('riscos.index') }}">
       <button class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">
         Análise do Risco
       </button>
     </a>
-    @if(auth()->user()->unidade->unidadeTipoFK == 1 || auth()->user()->unidade->unidadeTipoFK == 5 || auth()->user()->unidadeTipoFK == 2)
-    <button class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">Relatório</button>
-    @endif
   </div>
 
 

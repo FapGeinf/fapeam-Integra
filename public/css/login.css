@@ -327,6 +327,15 @@ input[type=checkbox], label {
   box-shadow: 0 0 0 0.25rem #3c62ad;
 }
 
+.form-control {
+  /* background-color: #f0f0f0; */
+  border-radius: 0 !important;
+}
+
+.form-select {
+  border-radius: 0 !important;
+}
+
 @media only screen and (max-width: 1760px) {
   .form {
     padding-top: 1rem;
