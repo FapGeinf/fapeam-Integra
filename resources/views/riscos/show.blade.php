@@ -5,13 +5,6 @@
     {{ 'Detalhes do Risco' }}
 @endsection
 
-<!doctype html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Riscos</title>
     <link rel="stylesheet" href="{{ asset('css/show.css') }}">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -20,8 +13,9 @@
             margin-left: 0 !important;
         }
     </style>
+
     <script src="/ckeditor/ckeditor.js"></script>
-</head>
+
 
 <body>
     @if (session('error'))
@@ -100,22 +94,26 @@
                                         </div>
                                     @endif
                                 </td>
+
+
                                 <td class="text-center">
-                                    <div class="ms-2 gap-2" style="display: flex; flex-direction: column; align-items: center;">
+                                    <div class="ms-2 gap-1" style="display: flex; align-items: center;">
 									{{-- -ESSE IF DEVE SER == 1 APENAS --}}
                                         @if (auth()->user()->unidade->unidadeTipo->id != 10)
-                                            <a href="{{ route('riscos.editMonitoramento', ['id' => $monitoramento->id]) }}" class="warning mb-2" style="font-size: 13px; white-space: nowrap;">
-                                                Editar Controle Sugerido
+                                            <a href="{{ route('riscos.editMonitoramento', ['id' => $monitoramento->id]) }}" class="warning" style="font-size: 13px; white-space: nowrap;">
+                                                <i class="bi bi-pencil"></i>
                                             </a>
                                         @endif
                                             <a href="{{ route('riscos.respostas', ['id' => $monitoramento->id]) }}" class="primary" style="font-size: 13px; white-space: nowrap;">
-                                             Visualizar Providências
+                                                <i class="bi bi-eye"></i>
                                             </a>
-                                            <button type="button" class="btn btn-md btn-danger" data-bs-toggle="modal" data-bs-target="#excluirMonitoramento{{ $monitoramento->id }}">
-                                                    Excluir Controle Sugerido
+                                            <button type="button" class="danger" data-bs-toggle="modal" data-bs-target="#excluirMonitoramento{{ $monitoramento->id }}" style="font-size: 13px;">
+                                                <i class="bi bi-trash"></i>
                                             </button>
                                     </div>
                                 </td>
+
+
                             </tr>
                             <div class="modal fade" id="excluirMonitoramento{{ $monitoramento->id }}" tabindex="-1" aria-labelledby="excluirMonitoramentoLabel" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -151,15 +149,6 @@
             </div>
         </div>
     </div>
-
-    <!-- <footer class="rodape">
-        <div class="riskLevelDiv">
-            <span>Nível de Risco (Avaliação):</span>
-            <span class="mode riskLevel1">Baixo</span>
-            <span class="mode riskLevel2">Médio</span>
-            <span class="mode riskLevel3">Alto</span>
-        </div>
-    </footer> -->
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script> -->
