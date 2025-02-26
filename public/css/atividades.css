@@ -71,3 +71,39 @@ a.btn-add {
 a.btn-add:hover {
   background-color: #0056b3;
 }
+
+.pointer {
+  cursor: pointer;
+}
+
+/* BOTÕES DE PAGINAÇÃO */
+.dataTables_wrapper .dataTables_info {
+  line-height: 39px;
+  padding-bottom: 2rem;
+}
+
+div.dt-container .dt-paging .dt-paging-button.current {
+  background: #f0f0f0 !important;
+  transition: .2s ease !important;
+}
+
+div.dt-container .dt-paging .dt-paging-button.current:hover {
+  background-color: #d2d2d2 !important;
+}
+
+.dataTables_wrapper .dataTables_paginate {
+  padding-top: 1rem !important;
+}
+
+div.dt-container .dt-paging .dt-paging-button {
+  background-color: #ececec !important;
+  border-radius:5px !important;
+  padding: 0.1em .6em !important;
+}
+
+div.dt-container .dt-paging .dt-paging-button:hover {
+  color: #000 !important;
+  background: #d2d2d2 !important;
+  border: 1px solid transparent !important;
+}
+/* BOTÕES DE PAGINAÇÃO END */

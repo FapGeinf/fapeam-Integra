@@ -84,7 +84,7 @@
 
           @if(Auth::user()->unidadeIdFK == 1)
               <div class="col-md-3 d-flex align-items-end">
-                  <a href="{{ route('atividades.create') }}" class="btn btn-md btn-primary">Inserir Atividade</a>
+                  <a href="{{ route('atividades.create') }}" class="blue-btn">Inserir Atividade</a>
               </div>
           @endif
       </div>
