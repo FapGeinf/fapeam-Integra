@@ -491,6 +491,15 @@ table.dataTable thead th, table.dataTable thead td {
     padding-right: 2rem !important;
   }
 
+  .form-control {
+    /* background-color: #f0f0f0; */
+    border-radius: 0 !important;
+  }
+
+  .form-select {
+    border-radius: 0 !important;
+  }
+
 /* FIM FILTROS */
 
 /* BOTÕES DE PAGINAÇÃO */
