@@ -101,8 +101,8 @@
                                     @endif
                                 </td>
                                 <td class="text-center">
-                                    <div class="ms-2" style="display: flex; flex-direction: column; align-items: center;">
-																			{{-- -ESSE IF DEVE SER == 1 APENAS --}}
+                                    <div class="ms-2 gap-2" style="display: flex; flex-direction: column; align-items: center;">
+									{{-- -ESSE IF DEVE SER == 1 APENAS --}}
                                         @if (auth()->user()->unidade->unidadeTipo->id != 10)
                                             <a href="{{ route('riscos.editMonitoramento', ['id' => $monitoramento->id]) }}" class="warning mb-2" style="font-size: 13px; white-space: nowrap;">
                                                 Editar Controle Sugerido
@@ -110,10 +110,34 @@
                                         @endif
                                             <a href="{{ route('riscos.respostas', ['id' => $monitoramento->id]) }}" class="primary" style="font-size: 13px; white-space: nowrap;">
                                              Visualizar Providências
-                                        </a>
+                                            </a>
+                                            <button type="button" class="btn btn-md btn-danger" data-bs-toggle="modal" data-bs-target="#excluirMonitoramento{{ $monitoramento->id }}">
+                                                    Excluir Controle Sugerido
+                                            </button>
                                     </div>
                                 </td>
                             </tr>
+                            <div class="modal fade" id="excluirMonitoramento{{ $monitoramento->id }}" tabindex="-1" aria-labelledby="excluirMonitoramentoLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="excluirMonitoramentoLabel">Confirmar Exclusão do Controle Sugerido</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Tem certeza que deseja excluir o Controle Sugerido?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                            <form action="{{ route('riscos.deleteMonitoramento', $monitoramento->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger">Excluir Monitoramento</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         @endforeach
                     </tbody>
                 </table>
