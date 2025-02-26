@@ -470,8 +470,8 @@
                             console.log("Adicionando filtro de unidade...");
                             var selectUnidade = $('<select id="filterUnidade" class="form-select form-select-sm divFilterUnidade"><option value="">Todas as Unidades</option></select>');
 
-                            @foreach ($riscos->unique('unidade.unidadeNome') as $risco)
-                                selectUnidade.append('<option value="{{ $risco->unidade->unidadeNome }}">{{ $risco->unidade->unidadeNome }}</option>');
+                            @foreach ($unidades as $unidade)
+                                selectUnidade.append('<option value="{{ $unidade->unidadeSigla }}">{{ $unidade->unidadeSigla }}</option>');
                             @endforeach
 
                             var labelUnidades = $('<label for="filterUnidade" class="labelUnidade d-block">Unidades:</label>');
@@ -523,8 +523,8 @@
 
                         $('#filterUnidade').on('change', function () {
                             console.log("Filtro de unidade alterado.");
-                            var val = $.fn.dataTable.util.escapeRegex($(this).val());
-                            table.column(2).search(val ? '^' + val + '$' : '', true, false).draw();
+                            var val = $(this).val();
+                            table.column(2).search(val).draw();
                         });
 
                         $('#filterAvaliação').on('change', function () {

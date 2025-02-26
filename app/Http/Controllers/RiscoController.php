@@ -75,6 +75,7 @@ class RiscoController extends Controller
 
             $notificacoesNaoLidas = $notificacoes->whereNull('read_at');
             $notificacoesLidas = $notificacoes->whereNotNull('read_at');
+            $unidades = Unidade::all();
 
             return view('riscos.index', [
                 'riscos' => $riscos,
@@ -84,6 +85,7 @@ class RiscoController extends Controller
                 'notificacoes' => $notificacoes,
                 'notificacoesNaoLidas' => $notificacoesNaoLidas,
                 'notificacoesLidas' => $notificacoesLidas,
+                'unidades' => $unidades
             ]);
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao carregar os riscos. Por favor, tente novamente.']);
@@ -122,6 +124,8 @@ class RiscoController extends Controller
             $notificacoesNaoLidas = $notificacoes->whereNull('read_at');
             $notificacoesLidas = $notificacoes->whereNotNull('read_at');
 
+            $unidades = Unidade::all();
+
             return view('riscos.analise', [
                 'riscos' => $riscos,
                 'prazo' => $prazo ? $prazo->data : null,
@@ -130,7 +134,9 @@ class RiscoController extends Controller
                 'notificacoes' => $notificacoes,
                 'notificacoesNaoLidas' => $notificacoesNaoLidas,
                 'notificacoesLidas' => $notificacoesLidas,
+                'unidades' => $unidades
             ]);
+
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao carregar os riscos. Por favor, tente novamente.']);
         }
