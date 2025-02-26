@@ -16,7 +16,7 @@ class InsercaoNovoUsuarioTipo extends Seeder
     public function run()
     {
            UsuarioTipo::factory()->create([
-                'nome' => 'Administrador'
+                'tipo' => 'Administrador'
            ]);
     }
 }
