@@ -167,15 +167,16 @@
 
                 <td>
                 @if(Auth::user()->unidade->unidadeTipoFK == 1)
-                  <div class="d-flex justify-content-center">
-                    <a href="{{ route('atividades.edit', $atividade->id) }}" class="btn btn-sm btn-warning me-2"><i class="bi bi-pencil"></i></a>
-                    <a href="{{ route('atividades.show', $atividade->id) }}" class="btn btn-sm btn-info me-2">
+                  <div class="d-flex justify-content-center gap-1">
+                    <a href="{{ route('atividades.edit', $atividade->id) }}" class="warning" style="font-size: 13px;"><i class="bi bi-pencil"></i></a>
+                    <a href="{{ route('atividades.show', $atividade->id) }}" class="primary">
                       <i class="bi bi-eye"></i>
                     </a>
-                    <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $atividade->id }}"><i class="bi bi-trash"></i></button>
+                    <button type="button" class="danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $atividade->id }}"><i class="bi bi-trash"></i></button>
                   </div>
                 @endif
                 </td>
+
               </tr>
               <!-- Modal de Confirmação de Exclusão -->
               <div class="modal fade" id="deleteModal{{ $atividade->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $atividade->id }}" aria-hidden="true">
