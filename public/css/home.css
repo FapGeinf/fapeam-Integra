@@ -194,18 +194,7 @@ body {
 
     .links__a {
         display: none;
-        /* display: flex; */
-        /* margin-top: 10rem;
-        margin-left: 14rem; */
     }
-
-    /* .links a {
-        font-size: 14px;
-    }
-
-    .links__a a {
-        font-size: 14px;
-    } */
 }
   
 @media only screen and (max-width: 1140px) {
