@@ -38,8 +38,7 @@
         flex-direction: column;
         background-color: #f1f3f5;
         border-top-left-radius: 10px;
-        border-top-right-radius: 10px"
-        >
+        border-top-right-radius: 10px">
             <h3 class="fw-bold my-2">Lista de Atividades</h3>
 
 
