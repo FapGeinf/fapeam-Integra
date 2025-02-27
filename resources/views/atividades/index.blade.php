@@ -98,7 +98,7 @@
 
 
                 @if(Auth::user()->unidadeIdFK == 1)
-                <div class="col-md-3 d-flex align-items-end">
+                <div class="d-flex justify-content-end">
                     <a href="{{ route('atividades.create') }}" class="blue-btn">Inserir Atividade</a>
                 </div>
                 @endif

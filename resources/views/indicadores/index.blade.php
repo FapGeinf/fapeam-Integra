@@ -34,7 +34,7 @@
 		<div class="col-12 border__custom main-datatable">
 			<div class="container-fluid pt-4 pb-4">
 				<div class="mb-4 text-end">
-					<a href="{{ route('indicadores.create') }}" class="primary">Adicionar Indicador</a>
+					<a href="{{ route('indicadores.create') }}" class="blue-btn">Adicionar Indicador</a>
 				</div>
 				
 				<table id="indicadores-table" class="table table-bordered table-striped">
