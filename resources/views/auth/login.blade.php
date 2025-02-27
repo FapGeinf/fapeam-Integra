@@ -94,6 +94,7 @@
         <div class="helpButtons">
           <a href="http://10.10.3.252/glpi/front/ticket.form.php">Esqueceu a senha?</a>
           <a href="http://10.10.3.252/glpi/front/ticket.form.php">Primeiro Acesso?</a>
+          <a href="{{ route('versionamentos.public') }}">Ver Ultimas Atualizações do Sistema</a>
         </div> 
       </div>
 

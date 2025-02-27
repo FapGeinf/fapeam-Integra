@@ -136,11 +136,12 @@ Route::prefix('indicadores')->name('indicadores.')->middleware('auth')->group(fu
 
 Route::middleware(['auth',isAdmin::class])->prefix('versionamentos')->name('versionamentos.')->group(function(){
     Route::get('/',[VersionamentoController::class,'index'])->name('index');
-    Route::get('/public',[VersionamentoController::class,'publicVersionamentos'])->name('public');
     Route::post('/store',[VersionamentoController::class,'storeVersionamento'])->name('store');
     Route::put('/{id}/update',[VersionamentoController::class,'editVersionamento'])->name('update');
     Route::delete('/{id}/delete',[VersionamentoController::class,'destroyVersionamento'])->name('destroy');
 });
+
+Route::get('/versionamentos/public',[VersionamentoController::class,'publicVersionamentos'])->name('versionamentos.public');
 
 Route::get('/graficos',[RelatorioController::class,'graficosIndex'])->name('graficos.index');
 Route::post('/canal/criar',[AtividadeController::class,'createCanal'])->name('canal.criar');
