@@ -179,7 +179,7 @@ body {
 
     .links {
         margin-left: 14rem;
-        margin-top: 3rem;
+        margin-top: 6rem;
         padding: 10px 50px;
     }
 
@@ -193,18 +193,19 @@ body {
     }
 
     .links__a {
-        display: flex;
-        margin-top: 10rem;
-        margin-left: 14rem;
+        display: none;
+        /* display: flex; */
+        /* margin-top: 10rem;
+        margin-left: 14rem; */
     }
 
-    .links a {
+    /* .links a {
         font-size: 14px;
     }
 
     .links__a a {
         font-size: 14px;
-    }
+    } */
 }
   
 @media only screen and (max-width: 1140px) {
