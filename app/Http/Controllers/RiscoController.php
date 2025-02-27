@@ -42,28 +42,36 @@ class RiscoController extends Controller
             switch ($tipoAcesso) {
                 case 1:
                 case 3:
+									//Depliance pode ver tudo a qualquer hora
 									$riscos = Risco::all();
 									break;
 								case 4:
+									//Case do gab da presidencia
 									if($user->usuario_tipo_fk == 1){
+										//Se for presidente, pode ver todos os riscos
 										$riscos = Risco::all();
 									}else{
+										//Se for apenas gestor, so pode ver os riscos da unidade Gab
 										$riscos = Risco::where('unidadeId', $user->unidade->id)->get();
 									}
 									break;
                 case 5:
+									//case da diretoria 
 									if($user->usuario_tipo_fk == 2){
+										//Se for diretora, pode ver todos os riscos de todos os setores daquela diretoria
                     $riscos = Risco::whereHas('unidade', function ($query) use ($unidadeDiretoria) {
 											$query->where('unidadeDiretoria', $unidadeDiretoria);
 									})->get();
 									}else{
+										//Se for apenas gestor, so pode ver os riscos da sua unidade gab
 										$riscos = Risco::where('unidadeId', $user->unidade->id)->get();
 									}   
 									break; 
                 default:
+										// Gestor setor apenas
                     $riscos = Risco::where('unidadeId', $user->unidade->id)->get();
                     break;
-            }
+            	}
 
             $riscosAbertos = $riscos->count();
 
