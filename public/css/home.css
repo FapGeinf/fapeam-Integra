@@ -20,7 +20,7 @@ body {
 }
 
 .borderRadius {
-    background-image: url('/img/Decon/tela_inicial.png');
+    background-image: url('/img/Decon/tela_inicial-both.png');
     background-size: cover;
 }
 
@@ -167,15 +167,7 @@ body {
     display: none;
 }
 
-@media only screen and (max-width: 1366px) {
-    .menu-lateral {
-        display: none;
-    }
-
-    .imgBloco {
-        width: 700px;
-        margin-left: 15rem;
-    }
+@media only screen and (max-width: 1380px) {
 
     .links {
         margin-left: 14rem;
@@ -190,10 +182,6 @@ body {
 
     .linksChild__a {
         padding: 10px 20px;
-    }
-
-    .links__a {
-        display: none;
     }
 }
   
