@@ -221,6 +221,8 @@
     </div>
 </div>
 
+<x-back-button/>
+
 <script>
     $(document).ready(function() {
         let table = $('#tableHome2').DataTable({

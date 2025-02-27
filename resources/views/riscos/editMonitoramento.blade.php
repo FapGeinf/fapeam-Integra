@@ -153,6 +153,8 @@
         </div>
     </div>
 
+    <x-back-button/>
+
     <script>
         function showConfirmationModal() {
             let monitoramentoControleSugerido = CKEDITOR.instances[

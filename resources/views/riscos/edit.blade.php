@@ -147,6 +147,8 @@
         </div>
     </div>
 
+    <x-back-button/>
+
     <script>
         function showConfirmationModal() {
             // Captura dos dados do formulário

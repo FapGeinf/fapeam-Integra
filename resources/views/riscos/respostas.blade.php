@@ -357,7 +357,7 @@
     </div>
 </div>
 
-
+<x-back-button/>
 
 <script src="/ckeditor/ckeditor.js"></script>
 <script>

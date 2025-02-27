@@ -210,6 +210,8 @@
 </div>
 </div>
 
+<x-back-button/>
+
 <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 
 <script>

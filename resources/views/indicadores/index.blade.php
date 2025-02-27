@@ -66,6 +66,8 @@
 	</div>
 </div>
 
+<x-back-button/>
+
 <script>
 	$(document).ready(function() {
 			let table = $('#indicadores-table').DataTable({
