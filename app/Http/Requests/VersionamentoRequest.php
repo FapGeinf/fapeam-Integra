@@ -13,7 +13,7 @@ class VersionamentoRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,21 @@ class VersionamentoRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'titulo' => 'required|string|max:255',
+            'descricao' => 'required|string'
         ];
     }
+
+        public function messages()
+    {
+        return [
+            'titulo.required' => 'É obrigatório a inserção de um título para o versionamento',
+            'titulo.string' => 'O título deve ser um texto',
+            'titulo.max' => 'O título não deve exceder 255 caracteres',
+
+            'descricao.required' => 'A descrição é obrigatória',
+            'descricao.string' => 'A descrição deve ser um texto',
+        ];
+    }
+
 }
