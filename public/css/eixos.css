@@ -352,3 +352,10 @@ ol {
 .btn-light {
   width: 170px;
 }
+
+@media only screen and (max-width:  1366px) {
+  .custom__form_create,
+  .form_create1 {
+    max-width: 1000px;
+  }
+}
