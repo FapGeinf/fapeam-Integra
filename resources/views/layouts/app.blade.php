@@ -97,6 +97,12 @@
                 <span class="a-span">Relatório Geral</span>
               </a>
             </li>
+            <li class="li-navbar2">
+                <a href="{{ route('usuarios.index') }}" class="d-flex li-a a-navbar">
+                    <i class="bi bi-people i-navbar mt-1px"></i>
+                    <span class="a-span">Usuários</span>
+                </a>
+            </li>
           @endif
         </ul>
       </div>
