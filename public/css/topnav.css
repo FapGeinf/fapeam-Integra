@@ -45,6 +45,7 @@ ul {
 
 .li-a-active {
   border-radius: 2px;
+  padding: 0 3px;
   border: 1px solid #fff;
 }
 

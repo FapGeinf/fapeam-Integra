@@ -13,7 +13,6 @@ body {
 }
 
 .form-control {
-  /* background-color: #f0f0f0; */
   border-radius: 0 !important;
 }
 
@@ -196,7 +195,6 @@ ol li {
 }
 
 .card {
-  /* border: 1px solid #ccc; */
   background-color: #f7f7f7;
   transition: .2s;
 }
@@ -255,32 +253,27 @@ ol {
   font-size: 35px;
   font-weight: bold;
   flex-direction: column;
-  /* font-family: Georgia, 'Times New Roman', Times, serif; */
-  color: #1e2a3a; /* Cor do título do card */
+  color: #1e2a3a;
 }
 
 .title-teste {
   font-size: 16px;
   /* font-weight: bold; */
   flex-direction: column;
-  /* font-family: Georgia, 'Times New Roman', Times, serif; */
-  color: #0c326f; /* Cor do título do card */
+  color: #0c326f;
 }
 
-/* Estilo para o card original */
 .card {
   position: relative;
-  /* border-radius: 12px; */
   overflow: hidden;
-  background: #ffffff; /* Cor do card */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
   border: none;
 }
 
 .card:hover {
-  /* transform: translateY(-8px); */
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); /* Aumenta a sombra ao passar o mouse */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
 .card-hover {
@@ -289,7 +282,7 @@ ol {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #22539c; /* Cor de fundo escura */
+  background-color: #22539c;
   color: white;
   display: flex;
   flex-direction: column;
@@ -298,10 +291,8 @@ ol {
   text-align: center;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
-  /* z-index: 1; */
 }
 
-/* Exibe o card alternativo ao passar o mouse */
 .card:hover .card-hover {
   opacity: 1;
 }
