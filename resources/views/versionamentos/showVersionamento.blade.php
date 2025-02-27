@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.guest')
 @section('content')
 <link href="{{ asset('css/dataTables.dataTables.min.css') }}" rel="stylesheet" />
 <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
@@ -62,5 +62,38 @@
                 </div>
             </div>
         </div>
+        <div class="text-center mt-4">
+            <a href="{{ route('login')}}" class="btn btn-secondary"><i class="bi bi-arrow-left"></i></a>
+        </div>
     </div>
 </div>
+<script>
+$(document).ready(function() {
+    let table = $('#versionamentosTable').DataTable({
+        order: [[2, "asc"]],
+        autoWidth: false,
+        columnDefs: [{
+            targets: "_all",
+            defaultContent: ""
+        }],
+        language: {
+            url: '{{ asset('js/pt_br-datatable.json') }}',
+            search: "Procurar:",
+            info: 'Mostrando página _PAGE_ de _PAGES_',
+            infoEmpty: 'Sem registros disponíveis no momento',
+            infoFiltered: '(Filtrados do total de _MAX_ registros)',
+            zeroRecords: 'Nada encontrado. Se achar que isso é um erro, contate o suporte.',
+            paginate: {
+                next: "Próximo",
+                previous: "Anterior"
+            }
+        }
+    });
+
+    $('#filter-data').on('change', function() {
+        let order = $(this).val();
+        table.order([2, order]).draw();
+    });
+});
+</script>
+@endsection
