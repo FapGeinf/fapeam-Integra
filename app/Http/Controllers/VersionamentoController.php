@@ -23,6 +23,12 @@ class VersionamentoController extends Controller
         return view('versionamentos.index', compact('versionamentos'));
     }
 
+    public function publicVersionamentos()
+    {
+           $versionamentos = $this->versionamentoService->versionamentosOrderByDate();
+           return view('versionamentos.showVersionamento',compact('versionamentos'));
+    }
+
     public function storeVersionamento(VersionamentoRequest $request)
     {
         try {
