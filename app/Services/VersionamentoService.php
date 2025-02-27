@@ -18,6 +18,11 @@ class VersionamentoService
         return Versionamento::findOrFail($id);
     }
 
+    public function versionamentosOrderByDate()
+    {
+           return  Versionamento::orderBy('created_at')->get();
+    }
+
     public function insertVersionamento(array $data) 
     {
         return Versionamento::create($data);
