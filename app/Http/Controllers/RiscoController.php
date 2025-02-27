@@ -42,36 +42,42 @@ class RiscoController extends Controller
             switch ($tipoAcesso) {
                 case 1:
                 case 3:
+									//Depliance pode ver tudo a qualquer hora
 									$riscos = Risco::all();
 									break;
 								case 4:
+									//Case do gab da presidencia
+									if($user->usuario_tipo_fk == 1){
+										//Se for presidente, pode ver todos os riscos
+										$riscos = Risco::all();
+									}else{
+										//Se for apenas gestor, so pode ver os riscos da unidade Gab
+										$riscos = Risco::where('unidadeId', $user->unidade->id)->get();
+									}
+									break;
                 case 5:
+									//case da diretoria 
+									if($user->usuario_tipo_fk == 2){
+										//Se for diretora, pode ver todos os riscos de todos os setores daquela diretoria
                     $riscos = Risco::whereHas('unidade', function ($query) use ($unidadeDiretoria) {
-                        $query->where('unidadeDiretoria', $unidadeDiretoria);
-                    })->get();
-                    break;
+											$query->where('unidadeDiretoria', $unidadeDiretoria);
+									})->get();
+									}else{
+										//Se for apenas gestor, so pode ver os riscos da sua unidade gab
+										$riscos = Risco::where('unidadeId', $user->unidade->id)->get();
+									}   
+									break; 
                 default:
+										// Gestor setor apenas
                     $riscos = Risco::where('unidadeId', $user->unidade->id)->get();
                     break;
-            }
-            
-          
-            
-
-            // if ($user->unidade->unidadeTipoFK == 1  && $user->unidade->unidadeTipoFK == 2) {
-            //     $riscos = Risco::all();
-            // } else {
-            //     $riscos = Risco::where('unidadeId', $user->unidade->id)->get();
-            // }
+            	}
 
             $riscosAbertos = $riscos->count();
 
-
             $riscosAbertosHoje = Risco::whereDate('created_at', \Carbon\Carbon::today())->count();
 
-
             $notificacoes = $this->filtraNotificacoes();
-
 
             $notificacoesNaoLidas = $notificacoes->whereNull('read_at');
             $notificacoesLidas = $notificacoes->whereNotNull('read_at');
@@ -102,21 +108,47 @@ class RiscoController extends Controller
             $tipoAcesso = $user->unidade->unidadeTipoFK;
             $unidadeDiretoria = $user->unidade->unidadeDiretoria;
             
-            switch ($tipoAcesso) {
-                case 1:
-                case 3:
-                case 4:
-                    $riscos = Risco::all();
-                    break;
-                case 5:
-                    $riscos = Risco::whereHas('unidade', function ($query) use ($unidadeDiretoria) {
-                        $query->where('unidadeDiretoria', $unidadeDiretoria);
-                    })->get();
-                    break;
-                default:
-                    $riscos = Risco::where('unidadeId', $user->unidade->id)->get();
-                    break;
-            }
+            // switch ($tipoAcesso) {
+            //     case 1:
+            //     case 3:
+            //     case 4:
+            //         $riscos = Risco::all();
+            //         break;
+            //     case 5:
+            //         $riscos = Risco::whereHas('unidade', function ($query) use ($unidadeDiretoria) {
+            //             $query->where('unidadeDiretoria', $unidadeDiretoria);
+            //         })->get();
+            //         break;
+            //     default:
+            //         $riscos = Risco::where('unidadeId', $user->unidade->id)->get();
+            //         break;
+            // }
+
+						switch ($tipoAcesso) {
+							case 1:
+							case 3:
+								$riscos = Risco::all();
+								break;
+							case 4:
+								if($user->usuario_tipo_fk == 1){
+									$riscos = Risco::all();
+								}else{
+									$riscos = Risco::where('unidadeId', $user->unidade->id)->get();
+								}
+								break;
+							case 5:
+								if($user->usuario_tipo_fk == 2){
+									$riscos = Risco::whereHas('unidade', function ($query) use ($unidadeDiretoria) {
+										$query->where('unidadeDiretoria', $unidadeDiretoria);
+								})->get();
+								}else{
+									$riscos = Risco::where('unidadeId', $user->unidade->id)->get();
+								}   
+								break; 
+							default:
+									$riscos = Risco::where('unidadeId', $user->unidade->id)->get();
+									break;
+					}
             
             $riscosAbertos = $riscos->count();
             $riscosAbertosHoje = Risco::whereDate('created_at', \Carbon\Carbon::today())->count();
