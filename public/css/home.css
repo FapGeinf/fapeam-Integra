@@ -170,8 +170,8 @@ body {
 @media only screen and (max-width: 1380px) {
 
     .links {
-        margin-left: 14rem;
-        margin-top: 6rem;
+        margin-left: 21rem;
+        margin-top: 7rem;
         padding: 10px 50px;
     }
 
@@ -187,7 +187,7 @@ body {
   
 @media only screen and (max-width: 1140px) {
     .borderRadius {
-        background-image: url('/img/Decon/inicial_limpo.png');
+        background-image: url('/img/Decon/inicial_limpo-min.png');
         background-size: cover;
     }
 
@@ -201,6 +201,10 @@ body {
 
       .links a {
         font-size: 13px;
+      }
+
+      .linksChild {
+        font-size: 10px;
       }
 
 
