@@ -18,6 +18,10 @@ a.secondary,
   transition: background-color 0.3s;
 }
 
+select.dt-input {
+  background-color: #f1f3f5 !important;
+}
+
 .danger {
   color: #fff;
   background-color: #d6360e;
