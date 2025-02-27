@@ -51,7 +51,7 @@
 <div class="container-fluid p-30">
     <div class="col-12 border main-datatable">
         <div class="container-fluid">
-            <div class="row g-3 align-items-end">
+            <div class="row g-3  align-items-end">
                 <div class="col-md-2">
                     <label for="filter-publico" class="fw-bold">Tipo de Público</label>
                     <select name="filter-publico" id="filter-publico" class="form-select pointer">
@@ -98,12 +98,10 @@
                 @endif
             </div>
             <div class="table-responsive">
-                <table id="tableHome2" class="table cust-datatable">
+                <table id="tableHome2" class="table cust-datatable mb-5">
                     <thead>
                         <tr style="white-space: nowrap; text-align:center;">
                             <th scope="col" style="width: 280px;" class="{{ request()->query('eixo_id') == 8 ? '' : 'd-none' }}">Eixos</th>
-
-
                             <th scope="col">Atividade</th>
                             <th scope="col">Objetivo</th>
                             <th scope="col">Responsável</th>
@@ -188,7 +186,6 @@
                             </td>
 
                         </tr>
-                        <!-- Modal de Confirmação de Exclusão -->
                         <div class="modal fade" id="deleteModal{{ $atividade->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $atividade->id }}" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
@@ -230,8 +227,7 @@
                 defaultContent: ""
             }],
             language: {
-                url: '{{ asset('
-                js / pt_br - datatable.json ') }}',
+                url: '{{ asset('js/pt_br-datatable.json') }}',
                 search: "Procurar:",
                 info: 'Mostrando página _PAGE_ de _PAGES_',
                 infoEmpty: 'Sem monitoramentos disponíveis no momento',
