@@ -26,7 +26,7 @@
 				background-color: #f1f3f5;
 		border-top-left-radius: 10px;
 		border-top-right-radius: 10px;">
-		<h3 class="fw-bold my-2">Indicadores</h3>
+		<h3 class="fw-bold my-3">Indicadores</h3>
 	</div>
 	</div>
 	
