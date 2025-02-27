@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <link href="{{ asset('css/dataTables.dataTables.min.css') }}" rel="stylesheet" />
-<script src="{{ asset('js/jquery-3.7.1.min.js') }}"></script>
+<script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
 <script src="{{ asset('js/dataTables.min.js') }}"></script>
 <link rel="stylesheet" href="{{ asset('css/index.css') }}">
     
