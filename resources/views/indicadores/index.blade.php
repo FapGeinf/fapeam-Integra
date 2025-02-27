@@ -18,7 +18,7 @@
 <div class="px__custom pt-5">
   <div class="col-12 border__custom main-datatable" style="border-bottom: 0 !important; border-top-left-radius: 10px; border-top-right-radius: 10px">
     <div class="d-flex justify-content-center text-center p-2" 
-		style="
+			style="
 				flex-direction: column;
 				background-color: #f1f3f5;
         border-top-left-radius: 10px;

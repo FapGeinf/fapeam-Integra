@@ -34,11 +34,12 @@
 
 <div class="px__custom pt-4">
     <div class="col-12 border__custom main-datatable" style="border-bottom: 0 !important; border-top-left-radius: 10px; border-top-right-radius: 10px">
-        <div class="d-flex justify-content-center text-center p-2" style="
-        flex-direction: column;
-        background-color: #f1f3f5;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px">
+        <div class="d-flex justify-content-center text-center p-2"
+            style="
+                flex-direction: column;
+                background-color: #f1f3f5;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px">
             <h3 class="fw-bold my-2">Lista de Atividades</h3>
 
 
