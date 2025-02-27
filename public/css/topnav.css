@@ -43,14 +43,9 @@ ul {
   transition: .2s;
 }
 
-.li-a:hover {
-  background-color: #1a3d7c;
-  border-radius: 2px;
-}
-
 .li-a-active {
-  background-color: #1a3d7c;
   border-radius: 2px;
+  border: 1px solid #fff;
 }
 
 .bar {

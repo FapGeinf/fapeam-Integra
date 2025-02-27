@@ -283,7 +283,6 @@ ol {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); /* Aumenta a sombra ao passar o mouse */
 }
 
-/* Estilo do card alternativo com fundo escuro */
 .card-hover {
   position: absolute;
   top: 0;
@@ -299,8 +298,7 @@ ol {
   text-align: center;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
-  z-index: 1;
-  /* border-radius: 12px; */
+  /* z-index: 1; */
 }
 
 /* Exibe o card alternativo ao passar o mouse */
@@ -320,9 +318,8 @@ ol {
   z-index: 2;
 }
 
-/* Estilo do botão no card alternativo */
 .card-hover button {
-  background-color: #fff; /* Cor de destaque */
+  background-color: #fff;
   border: none;
   padding: 10px 20px;
   font-size: 16px;
@@ -331,7 +328,6 @@ ol {
   transition: background-color 0.3s ease;
 }
 
-/* Ajustes nos outros cards */
 .card-body {
   padding: 30px;
 }
