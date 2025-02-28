@@ -22,7 +22,7 @@
         @csrf
 
         <fieldset>
-          <legend class="mb-4">Alterar Senha</legend>
+          <h3 class="mb-4 text-center">Alterar Senha</h3>
             @if (session('status'))
               <div class="alert alert-success" role="alert">
                 {{ session('status') }}
@@ -41,7 +41,7 @@
               @enderror
           </div>
 
-          <div class="form-group mb-2">
+          <div class="form-group mb-4">
             <label for="newPasswordInput">Nova senha:</label>
             <input name="new_password" type="password" class="form-control @error('new_password') is-invalid @enderror" id="newPasswordInput">
               @error('new_password')
@@ -49,8 +49,8 @@
               @enderror
           </div>
 
-          <div class="form-group mb-2">
-            <label for="confirmNewPasswordInput" class="form-label">Confirme a nova senha:</label>
+          <div class="form-group mb-4">
+            <label for="confirmNewPasswordInput" class="">Confirme a nova senha:</label>
             <input name="new_password_confirmation" type="password" class="form-control" id="confirmNewPasswordInput">
           </div>
 
