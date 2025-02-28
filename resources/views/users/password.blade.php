@@ -6,9 +6,16 @@
 
 <head>
   <link rel="stylesheet" href="{{ asset('css/store.css') }}">
+
+  <style>
+    body {
+      background-image: url('/img/bg-white.jpg');
+      background-size: cover;
+    }
+  </style>
 </head>
 
-<div class="container mt-5 d-flex justify-content-center">
+<div class="container d-flex justify-content-center" style="margin-top: 5rem;">
   <div class="card col-6 border-1 shadow">
     <div class="card-body">
       <form action="{{ route('users.password') }}" method="POST">

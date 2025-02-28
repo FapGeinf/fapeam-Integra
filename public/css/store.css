@@ -5,9 +5,10 @@
     border-radius: 0 !important;
   }
 
-  .appContent {
+  /* .appContent {
     margin-left: 10rem;
-  }
+  } */
+   
     .poppins-regular {
       font-family: "Poppins", sans-serif;
       font-weight: 400;
