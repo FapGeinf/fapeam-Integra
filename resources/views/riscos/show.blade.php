@@ -98,18 +98,18 @@
 
                                 <td class="text-center">
                                     <div class="ms-2 gap-1" style="display: flex; align-items: center;">
-									{{-- -ESSE IF DEVE SER == 1 APENAS --}}
-                                        @if (auth()->user()->unidade->unidadeTipo->id != 10)
+																			{{-- -ESSE IF DEVE SER == 1 APENAS --}}
+                                        @if (auth()->user()->unidade->unidadeTipo->id == 1)
                                             <a href="{{ route('riscos.editMonitoramento', ['id' => $monitoramento->id]) }}" class="warning" style="font-size: 13px; white-space: nowrap;">
                                                 <i class="bi bi-pencil"></i>
                                             </a>
+																						<button type="button" class="danger" data-bs-toggle="modal" data-bs-target="#excluirMonitoramento{{ $monitoramento->id }}" style="font-size: 13px;">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
                                         @endif
                                             <a href="{{ route('riscos.respostas', ['id' => $monitoramento->id]) }}" class="primary" style="font-size: 13px; white-space: nowrap;">
                                                 <i class="bi bi-eye"></i>
                                             </a>
-                                            <button type="button" class="danger" data-bs-toggle="modal" data-bs-target="#excluirMonitoramento{{ $monitoramento->id }}" style="font-size: 13px;">
-                                                <i class="bi bi-trash"></i>
-                                            </button>
                                     </div>
                                 </td>
 
