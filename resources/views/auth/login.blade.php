@@ -27,28 +27,7 @@
 <body class="login-page">
 
  <div class="grid">
-  <div class="order__right centered no__overflow borderRadius">
-
-    {{-- <div class="links">
-      <div class="linksChild">
-        <i class="fas fa-tv"></i>
-        <a href="{{ route('apresentacao') }}" target="_blank">Apresentação</a>
-      </div>
-      
-      <div class="linksChild">
-        <i class="fas fa-balance-scale"></i>
-        <a href="{{ route('legislacao') }}" target="_blank">Legislação</a>
-      </div>
-
-      <div class="linksChild">
-        <i class="fas fa-book"></i>
-        <a href="{{ route('manual') }}" target="_blank">Manual</a>
-      </div>
-    </div> --}}
-
-    {{-- LINK FLUTUANTE --}}
-    {{-- <img class="img" src="{{ asset('img/login/integracao.png') }}" alt="picture"> --}}
-  </div>
+  <div class="order__right centered no__overflow borderRadius"></div>
   
   <div class="order__left centered">
      <div class="form">
@@ -94,33 +73,18 @@
         <div class="helpButtons">
           <a href="http://10.10.3.252/glpi/front/ticket.form.php">Esqueceu a senha?</a>
           <a href="http://10.10.3.252/glpi/front/ticket.form.php">Primeiro Acesso?</a>
-          <a href="{{ route('versionamentos.public') }}">Ver Ultimas Atualizações do Sistema</a>
         </div> 
       </div>
-
-      {{-- <hr> --}}
-
-      <!-- <div class="loginButtonsDiv">
-
-        <div class="loginButtons">
-          <i class="fas fa-tv"></i>
-          <a href="{{ route('apresentacao') }}" target="_blank">Apresentação</a>
-        </div>
-
-        <div class="loginButtons">
-          <i class="fas fa-balance-scale"></i>
-          <a href="{{ route('legislacao') }}" target="_blank">Legislação</a>
-        </div>
-        
-        <div class="loginButtons">
-          <i class="fas fa-book"></i>
-          <a href="{{ route('manual') }}" target="_blank">Manual</a>
-        </div>
-
-      </div> -->
       
       <div class="footerLogo">
-        <span>&copy;2024 FAPEAM</span>
+        <span>&copy;2025 FAPEAM - Versão 1.0</span>
+      </div>
+
+      <div class="version">
+        <span>
+          <a href="{{ route('versionamentos.public') }}" style="color: #152d6e; text-decoration: none;">Ver últimas atualizações do sistema</a>
+        </span>
+        <i class="fas fa-arrow-right version-logo"></i>
       </div>
 
     </div>
