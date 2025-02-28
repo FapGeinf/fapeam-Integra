@@ -22,7 +22,7 @@
         @csrf
 
         <fieldset>
-          <legend class="mb-4">Alterar Senha</legend>
+          <h3 class="mb-4 text-center">Alterar Senha</h3>
             @if (session('status'))
               <div class="alert alert-success" role="alert">
                 {{ session('status') }}
