@@ -408,7 +408,8 @@ input[type=checkbox], label {
     font-size: 14px;
   }
 
-  .helpButtons a {
+  .helpButtons a,
+  .version span {
     font-size: 12px;
   }
 
@@ -481,7 +482,8 @@ input[type=checkbox], label {
     width: 37%;
   }
 
-  .helpButtons a {
+  .helpButtons a,
+  .version span {
     font-size: 11px;
   }
 
@@ -553,7 +555,8 @@ input[type=checkbox], label {
     width: 37%;
   }
 
-  .helpButtons a {
+  .helpButtons a,
+  .version span {
     font-size: 11px;
   }
 
@@ -625,7 +628,8 @@ input[type=checkbox], label {
     width: 37%;
   }
 
-  .helpButtons a {
+  .helpButtons a,
+  .version span {
     font-size: 11px;
   }
 
@@ -697,7 +701,8 @@ input[type=checkbox], label {
     width: 37%;
   }
 
-  .helpButtons a {
+  .helpButtons a,
+  .version span {
     font-size: 11px;
   }
 
@@ -782,7 +787,8 @@ input[type=checkbox], label {
     font-size: 11px;
   }
 
-  .helpButtons a {
+  .helpButtons a,
+  .version span {
     font-size: 10px;
   }
 
