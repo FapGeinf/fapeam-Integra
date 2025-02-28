@@ -62,9 +62,9 @@
                 </div>
             </div>
         </div>
-        <div class="text-center mt-4">
-            <a href="{{ route('login')}}" class="btn btn-secondary"><i class="bi bi-arrow-left"></i></a>
-        </div>
+
+        <x-back-button/>
+        
     </div>
 </div>
 <script>
