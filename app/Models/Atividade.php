@@ -9,7 +9,7 @@ class Atividade extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['eixo_id', 'atividade_descricao','objetivo','publico_id','tipo_evento','canal_id','data_prevista','data_realizada','meta','realizado', 'medida_id','responsavel'];
+    protected $fillable = ['eixo_id', 'atividade_descricao','objetivo','publico_id','tipo_evento','canal_id','data_prevista','data_realizada','meta','realizado', 'medida_id','responsavel'.'justificativa'];
 
     public function eixos()
     {
