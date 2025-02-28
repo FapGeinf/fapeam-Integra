@@ -49,7 +49,6 @@
                     data-bs-target="#confirmationModal">Salvar</button>
             </div>
 
-            <!-- Modal de Confirmação -->
             <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog modal-lg modal-dialog-centered">
