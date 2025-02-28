@@ -256,20 +256,11 @@ body {
 
 .helpButtons a {
   color: #000;
-  text-decoration: underline;
-  transition: .2s;
+  text-decoration: none;
 }
 
 .helpButtons a:hover {
-  opacity: .8;
-}
-
-.footerLogo {
-  color: #717171;
-  display: flex;
-  justify-content: center;
-  font-weight: bold;
-  margin-top: 7rem;
+  text-decoration: underline;
 }
 
 .justify__space_between {
@@ -335,6 +326,44 @@ input[type=checkbox], label {
 .form-select {
   border-radius: 0 !important;
 }
+
+.footerLogo {
+  color: #5e5e5e;
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  margin-top: 7rem;
+}
+
+.version {
+  display: flex;
+  justify-content: center;
+}
+
+.version span {
+  font-weight: bold;
+  font-size: 13px;
+  color: #183689;
+  /* text-decoration: underline; */
+}
+
+.version span:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.version-logo {
+  color: #152d6e;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin-left: 3px !important;
+  font-size: 11px !important;
+}
+
+/* .version-logo span a {
+  color: #152d6e !important;
+} */
 
 @media only screen and (max-width: 1760px) {
   .form {
