@@ -16,7 +16,7 @@
 </head>
 
 <div class="container d-flex justify-content-center" style="margin-top: 5rem;">
-  <div class="card col-6 border-1 shadow">
+  <div class="card col-6 border-1" style="box-shadow: 0 0 10px rgba(0, 0, 0, .05);">
     <div class="card-body">
       <form action="{{ route('users.password') }}" method="POST">
         @csrf
