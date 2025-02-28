@@ -167,11 +167,17 @@ body {
     display: none;
 }
 
+@media only screen and (max-width: 1600px) {
+    .links {
+        margin-left: 19rem;
+    }
+}
+
 @media only screen and (max-width: 1380px) {
 
     .links {
         margin-left: 21rem;
-        margin-top: 7rem;
+        margin-top: 9rem;
         padding: 10px 50px;
     }
 
@@ -197,16 +203,15 @@ body {
         display: flex;
         margin-left: 0;
         position: absolute;
-      }
+    }
 
-      .links a {
-        font-size: 13px;
-      }
+    .links a {
+    font-size: 13px;
+    }
 
-      .linksChild {
-        font-size: 10px;
-      }
-
+    .linksChild {
+    font-size: 10px;
+    }
 
     .imgBloco {
         margin-left: 0;
