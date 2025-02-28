@@ -5,7 +5,7 @@
 <script src="{{ asset('js/dataTables.min.js') }}"></script>
 <link rel="stylesheet" href="{{ asset('css/index.css') }}">
     
-<div class="container-xl vh-100 d-flex align-items-center justify-content-center mt-5 mb-5">
+<div class="container-xl d-flex align-items-center justify-content-center mt-5 mb-5">
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card rounded-2 shadow-sm border-1">
