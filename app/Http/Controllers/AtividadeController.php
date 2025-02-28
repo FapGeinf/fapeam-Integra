@@ -103,7 +103,7 @@ class AtividadeController extends Controller
     }
 
     public function storeAtividade(AtividadeRequest $request)
-{
+    {
     Log::info('Dados recebidos para criação da atividade:', $request->all());
     try {
         if ($request->input('publico_id') === 'outros' && $request->filled('novo_publico')) {
@@ -133,6 +133,7 @@ class AtividadeController extends Controller
             'meta' => $validatedData['meta'] ?? null,
             'realizado' => $validatedData['realizado'] ?? null,
             'medida_id' => $validatedData['medida_id'] ?? null,
+            'justificativa' => $validatedData['justificativa'] ?? null
         ]);
 
         if ($request->has('eixo_ids')) {
@@ -213,6 +214,7 @@ class AtividadeController extends Controller
             'meta' => $validatedData['meta'] ?? null,
             'realizado' => $validatedData['realizado'] ?? null,
             'medida_id' => $validatedData['medida_id'] ?? null,
+            'justificativa' => $validatedData['justificativa'] ?? null
         ]);
 
         if ($request->has('eixo_ids')) {

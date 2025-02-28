@@ -91,6 +91,11 @@
           </textarea>
         </div>
 
+        <div class="col-12 d-none">
+          <label for="justificativa" class="form-label">Justificativa (Opcional) :</label>
+          <textarea name="justificativa" id="justificativa" class="form-control">{{ old('justificativa',$atividade->justificativa) }}</textarea>
+        </div>
+
         <div class="col-12">
           <label for="publico_id" class="">Público Alvo:</label>
           
@@ -241,6 +246,9 @@
     }
     if (document.getElementById('objetivo')) {
       CKEDITOR.replace('objetivo', ckeditorConfig);
+    }
+    if(document.getElementById('justificativa')){
+       CKEDITOR.replace('justificativa',ckeditorConfig);
     }
 
     flatpickr("#data_prevista", {
