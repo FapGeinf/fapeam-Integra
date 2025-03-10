@@ -233,6 +233,8 @@ class AtividadeController extends Controller
             if ($request->has('indicador_ids')) {
                 Log::info('Associando indicadores à atividade', ['indicadores' => $request->indicador_ids]);
                 $atividade->indicadores()->sync($request->indicador_ids);
+            }else{
+                $atividade->indicadores()->detach();
             }
 
             $eixo_id = $atividade->eixos->first()->id ?? null;
