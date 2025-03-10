@@ -549,7 +549,7 @@ class RiscoController extends Controller
 
             $request->validate([
                 'respostaRisco' => 'required|string|max:5000',
-                'anexo' => 'nullable|file|mimes:jpg,png,pdf|max:51200'
+                'anexo' => 'nullable|file|mimes:jpg,png,pdf|max:102400'
             ]);
 
             $filePath = null;
@@ -621,7 +621,7 @@ class RiscoController extends Controller
 
         $request->validate([
             'respostaRisco' => 'required|string|max:5000',
-            'anexo' => 'nullable|file|mimes:jpg,png,pdf|max:51200',
+            'anexo' => 'nullable|file|mimes:jpg,png,pdf|max:102400',
         ]);
 
         try {

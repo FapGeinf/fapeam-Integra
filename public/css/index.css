@@ -340,6 +340,10 @@ p {
   padding: 30px;
 }
 
+.border__custom {
+  border: 1px solid #c6c8ca !important;
+}
+
 .px__custom {
   padding: 0 30px;
 }

@@ -59,6 +59,7 @@ class AtividadeRequest extends FormRequest
             'meta' => 'nullable|integer|min:0',
             'realizado' => 'nullable|integer|min:0',
             'medida_id' => 'nullable|exists:medida_tipos,id',
+            'justificativa' => 'nullable|string'
         ];
     }
 
@@ -98,6 +99,7 @@ class AtividadeRequest extends FormRequest
             'realizado.integer' => 'O campo "Realizado" deve conter um número inteiro.',
             'realizado.min' => 'O número de realizações deve ser pelo menos 0.',
             'medida_id.exists' => 'O tipo de medida selecionado não é válido. Por favor, revise.',
+            'justificativa.string' => 'O campo justificativa deve ser um texto'
         ];
     }
 }

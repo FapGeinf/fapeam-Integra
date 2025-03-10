@@ -13,11 +13,11 @@
 	<div class="box margin-top-4 bg-white border-bottom-none mx-auto">
 		<div class="row mt-3">
 			<div class="text-center">
-				<h3>Detalhes da Atividade</h3>
+				<h3 class="fw-bold">Detalhes da Atividade:</h3>
 			</div>
-			<div class="col-12 text-center fs-18">
+			<h3 class="col-12 text-center fw-bold" style="color: #6f7983">
 				{!! $atividade->atividade_descricao !!}
-			</div>
+			</h3>
 		</div>
 	</div>
 
@@ -160,11 +160,5 @@
 
 </div>
 
-
-
-
-
-<div class="text-center mt-4">
-	<a href="{{ url()->previous() }}" class="btn btn-secondary"><i class="bi bi-arrow-left"></i></a>
-</div>
+<x-back-button/>
 @endsection

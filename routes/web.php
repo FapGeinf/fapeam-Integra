@@ -13,6 +13,7 @@ use App\Models\Prazo;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\RelatorioController;
 use App\Http\Controllers\IndicadorController;
+use App\Http\Controllers\VersionamentoController;
 
 
 /*
@@ -132,6 +133,16 @@ Route::prefix('indicadores')->name('indicadores.')->middleware('auth')->group(fu
     Route::get('/edit/{id}', [IndicadorController::class, 'edit'])->name('edit');
     Route::put('/update/{id}', [IndicadorController::class, 'update'])->name('update');
 });
+
+Route::middleware(['auth',isAdmin::class])->prefix('versionamentos')->name('versionamentos.')->group(function(){
+    Route::get('/',[VersionamentoController::class,'index'])->name('index');
+    Route::post('/store',[VersionamentoController::class,'storeVersionamento'])->name('store');
+    Route::put('/{id}/update',[VersionamentoController::class,'editVersionamento'])->name('update');
+    Route::delete('/{id}/delete',[VersionamentoController::class,'destroyVersionamento'])->name('destroy');
+});
+
+Route::get('/versionamentos/public',[VersionamentoController::class,'publicVersionamentos'])->name('versionamentos.public');
+
 Route::get('/graficos',[RelatorioController::class,'graficosIndex'])->name('graficos.index');
 Route::post('/canal/criar',[AtividadeController::class,'createCanal'])->name('canal.criar');
 Route::get('/eixo/{eixo_id}', [EixosController::class, 'mostrarEixo'])->name('eixo.mostrar');

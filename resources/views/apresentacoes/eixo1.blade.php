@@ -77,7 +77,12 @@
     <button class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">Relatório</button>
   </div>
   @endif
+
+  <x-back-button/>
+
 </body>
+
+
 
 </html>
 

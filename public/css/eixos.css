@@ -27,11 +27,11 @@ body {
 
 .custom__form_create {
   background-color: #f8fafc00;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  /* border-radius: 5px; */
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
   padding: 20px;
   width: 100%;
-  max-width: 1140px;
+  max-width: 1190px;
 }
 
 .custom__no-bg {
@@ -161,11 +161,11 @@ body {
 
 .form_create1 {
   background-color: #203d8d00;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  /* border-radius: 5px; */
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
   padding: 10px;
   width: 100%;
-  max-width: 1140px;
+  max-width: 1190px;
 }
 
 ul, ol {
@@ -351,4 +351,11 @@ ol {
 
 .btn-light {
   width: 170px;
+}
+
+@media only screen and (max-width:  1366px) {
+  .custom__form_create,
+  .form_create1 {
+    max-width: 1000px;
+  }
 }

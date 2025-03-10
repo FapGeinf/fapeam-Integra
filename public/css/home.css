@@ -20,7 +20,7 @@ body {
 }
 
 .borderRadius {
-    background-image: url('/img/Decon/tela_inicial.png');
+    background-image: url('/img/Decon/tela_inicial-both.png');
     background-size: cover;
 }
 
@@ -167,19 +167,17 @@ body {
     display: none;
 }
 
-@media only screen and (max-width: 1366px) {
-    .menu-lateral {
-        display: none;
+@media only screen and (max-width: 1600px) {
+    .links {
+        margin-left: 19rem;
     }
+}
 
-    .imgBloco {
-        width: 700px;
-        margin-left: 15rem;
-    }
+@media only screen and (max-width: 1380px) {
 
     .links {
-        margin-left: 14rem;
-        margin-top: 6rem;
+        margin-left: 21rem;
+        margin-top: 9rem;
         padding: 10px 50px;
     }
 
@@ -191,15 +189,11 @@ body {
     .linksChild__a {
         padding: 10px 20px;
     }
-
-    .links__a {
-        display: none;
-    }
 }
   
 @media only screen and (max-width: 1140px) {
     .borderRadius {
-        background-image: url('/img/Decon/inicial_limpo.png');
+        background-image: url('/img/Decon/inicial_limpo-min.png');
         background-size: cover;
     }
 
@@ -209,12 +203,15 @@ body {
         display: flex;
         margin-left: 0;
         position: absolute;
-      }
+    }
 
-      .links a {
-        font-size: 13px;
-      }
+    .links a {
+    font-size: 13px;
+    }
 
+    .linksChild {
+    font-size: 10px;
+    }
 
     .imgBloco {
         margin-left: 0;

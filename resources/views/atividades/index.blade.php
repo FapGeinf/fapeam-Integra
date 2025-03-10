@@ -32,12 +32,18 @@
     @endif
 </div>
 
-<div class="container-fluid px__custom pt-4">
-    <div class="col-12 border main-datatable">
-        <div class="d-flex justify-content-center text-center p-2" style="flex-direction: column;">
-            <span style="font-size:22px;">Lista de Atividades</span>
+<div class="px__custom pt-4">
+    <div class="col-12 border__custom main-datatable" style="border-bottom: 0 !important; border-top-left-radius: 10px; border-top-right-radius: 10px">
+        <div class="d-flex justify-content-center text-center p-2"
+            style="
+                flex-direction: column;
+                background-color: #f1f3f5;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px">
+            <h3 class="fw-bold my-2">Lista de Atividades</h3>
 
-            <span style="font-size:20px;">
+
+            <span class="fw-bold" style="font-size:20px;">
                 @if(isset($eixo_id) && $eixo_id)
                 <a class="hover" href="{{ route('eixo.mostrar', ['eixo_id' => $eixo_id]) }}">EIXO {{$eixo_id}} -
                     {{$eixoNome}} <i class="bi bi-arrow-return-left"></i>
@@ -48,8 +54,8 @@
     </div>
 </div>
 
-<div class="container-fluid p-30">
-    <div class="col-12 border main-datatable">
+<div class="px__custom">
+    <div class="col-12 border__custom main-datatable">
         <div class="container-fluid">
             <div class="row g-3  align-items-end">
                 <div class="col-md-2">
@@ -92,7 +98,7 @@
 
 
                 @if(Auth::user()->unidadeIdFK == 1)
-                <div class="col-md-3 d-flex align-items-end">
+                <div class="d-flex justify-content-end">
                     <a href="{{ route('atividades.create') }}" class="blue-btn">Inserir Atividade</a>
                 </div>
                 @endif
@@ -214,6 +220,8 @@
         </div>
     </div>
 </div>
+
+<x-back-button/>
 
 <script>
     $(document).ready(function() {

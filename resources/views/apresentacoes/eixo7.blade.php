@@ -84,6 +84,8 @@
       </body>
     @endif
 
+    <x-back-button/>
+
   </html>
 
 @endsection

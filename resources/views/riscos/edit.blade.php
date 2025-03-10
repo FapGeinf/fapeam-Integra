@@ -1,23 +1,12 @@
 @extends('layouts.app')
-
+<link rel="stylesheet" href="{{ asset('css/edit.css') }}">
+<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 @section('content')
-
 @section('title')
     {{ 'Editar Formulário' }}
 @endsection
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário de Risco</title>
-    <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script src="/ckeditor/ckeditor.js"></script>
-</head>
-
-<body>
     @if (session('error'))
         <script>
             alert('{{ session(' error ') }}');
@@ -72,12 +61,13 @@
 
 
                 <div class="row g-3">
+
                     <div class="col-sm-3 col-md-3">
-                        <label style="white-space: nowrap;" for="nivel_de_risco">Nivel de Risco:</label>
+                        <label style="white-space: nowrap;" for="nivel_de_risco">Nível de Risco:</label>
                         <select name="nivel_de_risco" id="nivel_de_risco" class="form-select form-control" required>
-                            <option value="1">Baixo</option>
-                            <option value="2">Médio</option>
-                            <option value="3">Alto</option>
+                            <option value="1" @selected(old('nivel_de_risco', $risco->nivel_de_risco) == 1)>Baixo</option>
+                            <option value="2" @selected(old('nivel_de_risco', $risco->nivel_de_risco) == 2)>Médio</option>
+                            <option value="3" @selected(old('nivel_de_risco', $risco->nivel_de_risco) == 3)>Alto</option>
                         </select>
                     </div>
 
@@ -108,7 +98,7 @@
                 <div class="d-flex justify-content-center">
                     {{-- <div class="me-1"> --}}
                         <a href="{{ route('riscos.edit-monitoramentos', ['id' => $risco->id]) }}"
-                            class="blue-btn">Editar Controle Sugerido</a>
+                            class="blue-btn">Adicionar Monitoramentos</a>
                     {{-- </div> --}}
 
                     {{-- <div> --}}
@@ -116,7 +106,6 @@
                             Edição</button>
                     {{-- </div> --}}
                 </div>
-
 
 
                 <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel"
@@ -146,99 +135,7 @@
             </form>
         </div>
     </div>
-
-    <script>
-        function showConfirmationModal() {
-            // Captura dos dados do formulário
-            let riscoAno = document.getElementById('riscoAno').value;
-            let responsavelRisco = document.getElementById('responsavelRisco').value;
-            let riscoEvento = CKEDITOR.instances.riscoEvento.getData();
-            let riscoCausa = CKEDITOR.instances.riscoCausa.getData();
-            let riscoConsequencia = CKEDITOR.instances.riscoConsequencia.getData();
-            let nivel_de_risco = document.getElementById('nivel_de_risco').value;
-            let unidadeId = document.querySelector('[name="unidadeId"]').options[document.querySelector(
-                '[name="unidadeId"]').selectedIndex].text;
-
-            // Construção do HTML para o modal de confirmação
-            let modalContent = `
-
-                <div class="row g-3 mb-3">
-                    <div class="col-sm-4">
-                        <div>Ano:</div>
-                        <div class="modalBg form-control">${riscoAno}</div>
-                    </div>
-
-                    <div class="col-sm-8">
-                        <div>Unidade:</div>
-                        <div class="modalBg form-control">${unidadeId}</div>
-                    </div>
-                </div>
-
-                <div class="row g-3 mb-3">
-                    <div class="col-sm-12">
-                        <div>Responsável:</div>
-                        <div class="modalBg form-control">${responsavelRisco}</div>
-                    </div>
-                </div>
-
-                <div class="row g-3 mb-3">
-                    <div class="col-sm-12">
-                        <div>Evento de Risco:</div>
-                        <div class="modalBg form-control">${riscoEvento}</div>
-                    </div>
-                </div>
-
-                <div class="row g-3 mb-3">
-                    <div class="col-sm-12">
-                        <div>Causa do Risco:</div>
-                        <div class="modalBg form-control">${riscoCausa}</div>
-                    </div>
-                </div>
-
-                <div class="row g-3 mb-3">
-                    <div class="col-sm-12">
-                        <div>Causa da consequência:</div>
-                        <div class="modalBg form-control">${riscoConsequencia}</div>
-                    </div>
-                </div>
-
-                <hr>
-                <p class="text-center mb-0">Deseja realmente salvar as alterações?</p>
-            `;
-
-            // Inserção do conteúdo no modal de confirmação
-            document.getElementById('modalContent').innerHTML = modalContent;
-
-            // Exibir o modal de confirmação
-            let confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
-            confirmationModal.show();
-        }
-
-        function submitForm() {
-            document.getElementById('formCreate').submit();
-        }
-
-        document.addEventListener("DOMContentLoaded", function() {
-            var ckeditorConfig = {
-                extraPlugins: 'wordcount',
-                wordcount: {
-                    showCharCount: true,
-                    maxCharCount: 10000,
-                    maxCharCountMsg: 'Você atingiu o limite máximo de caracteres permitidos.',
-                    charCountMsg: 'Caracteres restantes: {0}'
-                }
-            };
-            CKEDITOR.replace('riscoEvento',ckeditorConfig);
-            CKEDITOR.replace('riscoCausa',ckeditorConfig);
-            CKEDITOR.replace('riscoConsequencia',ckeditorConfig);
-        });
-
-
-    </script>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-
-</html>
+    <x-back-button/>
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('js/editRisco.js') }}"></script>
 @endsection

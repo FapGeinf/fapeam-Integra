@@ -91,6 +91,11 @@
           </textarea>
         </div>
 
+        <div class="col-12 d-none">
+          <label for="justificativa" class="form-label">Justificativa (Opcional) :</label>
+          <textarea name="justificativa" id="justificativa" class="form-control">{{ old('justificativa',$atividade->justificativa) }}</textarea>
+        </div>
+
         <div class="col-12">
           <label for="publico_id" class="">Público Alvo:</label>
           
@@ -159,7 +164,7 @@
         <div class="row g-3">
           <div class="col-12">
             <label for="indicador_ids">Indicadores:</label>
-            <select name="indicador_ids[]" id="indicador_ids" class="form-select" required multiple>
+            <select name="indicador_ids[]" id="indicador_ids" class="form-select" multiple>
               <option value="">Selecione os Indicadores</optio>
               @foreach ($indicadores as $indicador)
                 <option value="{{ $indicador->id }}" {{ in_array($indicador->id, old('indicador_ids', $atividade->indicadores->pluck('id')->toArray())) ? 'selected' : '' }}>
@@ -210,6 +215,8 @@
 </div>
 </div>
 
+<x-back-button/>
+
 <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 
 <script>
@@ -239,6 +246,9 @@
     }
     if (document.getElementById('objetivo')) {
       CKEDITOR.replace('objetivo', ckeditorConfig);
+    }
+    if(document.getElementById('justificativa')){
+       CKEDITOR.replace('justificativa',ckeditorConfig);
     }
 
     flatpickr("#data_prevista", {
