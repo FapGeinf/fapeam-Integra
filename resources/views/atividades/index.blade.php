@@ -180,7 +180,7 @@
 
 
                             <td>
-                                @if(Auth::user()->unidade->unidadeTipoFK == 1)
+                                @if(Auth::user()->unidade->unidadeTipoFK == 1 || Auth::user()->usuario_tipo_fk == 1)
                                 <div class="d-flex justify-content-center gap-1">
                                     <a href="{{ route('atividades.edit', $atividade->id) }}" class="warning" style="font-size: 13px;"><i class="bi bi-pencil"></i></a>
                                     <a href="{{ route('atividades.show', $atividade->id) }}" class="primary">
