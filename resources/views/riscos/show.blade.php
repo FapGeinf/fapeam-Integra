@@ -64,6 +64,7 @@
                             <th scope="col" class="text-center text-light">Data:</th>
                             <th scope="col" class="text-center text-light tBorder">Situação:</th>
                             <th scope="col" class="text-center text-light">Anexo:</th>
+                            <th scope="col" class="text-center text-light">Modificado:</th>
                             <th scope="col" class="text-center text-light">Opções:</th>
                         </tr>
                     </thead>
@@ -95,6 +96,7 @@
                                     @endif
                                 </td>
 
+																<td class="text13 pb-1 tBorder text-center">{!!  \Carbon\Carbon::parse($monitoramento->updated_at)->format('d/m/Y H:i:s') !!}</td>
 
                                 <td class="text-center">
                                     <div class="ms-2 gap-1" style="display: flex; align-items: center;">
