@@ -5,32 +5,33 @@ use App\Models\Monitoramento;
 use Exception;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Risco;
 
 
 class MonitoramentoService
 {
-    
+
     public function storeMonitoramento(array $validatedData, $riscoId)
     {
         $monitoramentosCriados = [];
-    
 
-        $monitoramentos = isset($validatedData['monitoramentos']) ? $validatedData['monitoramentos'] : [$validatedData]; 
-    
+
+        $monitoramentos = isset($validatedData['monitoramentos']) ? $validatedData['monitoramentos'] : [$validatedData];
+
         foreach ($monitoramentos as $monitoramentoData) {
             $isContinuo = filter_var($monitoramentoData['isContinuo'], FILTER_VALIDATE_BOOLEAN);
-    
+
             if (!$isContinuo && isset($monitoramentoData['fimMonitoramento']) && $monitoramentoData['fimMonitoramento'] <= $monitoramentoData['inicioMonitoramento']) {
                 throw new Exception("O fim do monitoramento não pode ser anterior ao início.");
             }
-    
+
             $path = null;
             if (!empty($monitoramentoData['anexoMonitoramento']) && $monitoramentoData['anexoMonitoramento']->isValid()) {
                 $file = $monitoramentoData['anexoMonitoramento'];
                 $filename = time() . '_' . $file->getClientOriginalName();
                 $path = $file->storeAs('public/anexos', $filename);
             }
-    
+
             $monitoramento = Monitoramento::create([
                 'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'] ?? null,
                 'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
@@ -40,15 +41,15 @@ class MonitoramentoService
                 'riscoFK' => $riscoId,
                 'anexoMonitoramento' => $path
             ]);
-    
+
             $monitoramentosCriados[] = $monitoramento;
         }
-    
+
         return [
             'monitoramentos' => $monitoramentosCriados
         ];
     }
-    
+
 
 
     public function updateMonitoramento($id, array $validatedData)
@@ -96,6 +97,24 @@ class MonitoramentoService
     {
         $monitoramento = Monitoramento::findOrFail($id);
         return $monitoramento->delete();
+    }
+
+    public function formEditMonitoramentos($id)
+    {
+        return $risco = Risco::findOrFail($id);
+        ;
+    }
+
+    public function formEditMonitoramento($id)
+    {
+
+        $monitoramento = Monitoramento::findOrFail($id);
+
+        Log::info('Editando monitoramento:', [
+            'monitoramento' => $monitoramento->toArray(),
+        ]);
+
+        return $monitoramento;
     }
 
 

@@ -1,40 +1,30 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Events\NovaRespostaCriada;
-use App\Events\PrazoProximo;
+use App\Http\Requests\insertPrazoRequest;
 use App\Http\Requests\StoreMonitoramentoRequest;
 use App\Http\Requests\StoreRespostaRequest;
 use App\Http\Requests\StoreRiscoRequest;
 use App\Http\Requests\UpdateMonitoramentosRequest;
 use App\Http\Requests\UpdateRespostaRequest;
 use App\Services\MonitoramentoService;
+use App\Services\PrazoService;
 use App\Services\RespostaService;
 use App\Services\RiscoService;
 use Illuminate\Http\Request;
-use app\Http\Middleware\VerifyCsrfToken;
 use App\Mail\ResponseNotification;
-use App\Models\Risco;
-use App\Models\Unidade;
 use App\Models\Monitoramento;
 use App\Models\Notification;
 use App\Models\Resposta;
-use App\Models\Prazo;
 use App\Models\User;
-use Carbon\Carbon;
 use Exception;
-use FFI\Exception as FFIException;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Storage;
-use App\Models\Diretoria;
 
 class RiscoController extends Controller
 {
-    protected $riscoService, $monitoramentoService, $respostaService;
+    protected $riscoService, $monitoramentoService, $respostaService, $prazoService;
+
     public function index()
     {
         try {
@@ -105,7 +95,7 @@ class RiscoController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $risco =  $this->riscoService->updateRisco($request->all(), $id);
+            $risco = $this->riscoService->updateRisco($request->all(), $id);
             return redirect()->route('riscos.show', ['id' => $risco->id])->with('success', 'Risco editado com sucesso');
         } catch (Exception $e) {
             return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao atualizar o risco.'])->withInput();
@@ -114,23 +104,17 @@ class RiscoController extends Controller
 
     public function editMonitoramentos($id)
     {
-        $risco = Risco::findOrFail($id);
+        $risco = $this->monitoramentoService->formEditMonitoramentos($id);
         return view('riscos.monitoramentos', compact('risco'));
     }
 
     public function editMonitoramento2($id)
     {
-        $monitoramento = Monitoramento::findOrFail($id);
-
-        Log::info('Editando monitoramento:', [
-            'monitoramento' => $monitoramento->toArray(),
-        ]);
-
+        $monitoramento = $this->monitoramentoService->formEditMonitoramento($id);
         return view('riscos.editMonitoramento', [
             'monitoramento' => $monitoramento,
         ]);
     }
-
 
     public function insertMonitoramentos(StoreMonitoramentoRequest $request, $id)
     {
@@ -224,18 +208,18 @@ class RiscoController extends Controller
                 'resposta_id' => $resposta->id,
                 'monitoramento_id' => $monitoramento->id
             ]);
-    
+
             return redirect()->route('riscos.respostas', $id)->with('success', 'Respostas adicionadas com sucesso');
         } catch (Exception $e) {
             Log::error('Error storing resposta', [
                 'error' => $e->getMessage(),
                 'monitoramento_id' => $id
             ]);
-    
+
             return redirect()->back()->withErrors(['errors' => $e->getMessage()])->withInput();
         }
     }
-    
+
     public function updateResposta(UpdateRespostaRequest $request, $id)
     {
 
@@ -287,41 +271,24 @@ class RiscoController extends Controller
     }
 
 
-    public function insertPrazo(Request $request)
+    public function insertPrazo(insertPrazoRequest $request)
     {
         try {
-            $request->validate([
-                'data' => 'required|date'
-            ]);
-
-            $prazoExistente = Prazo::first();
-
-            if ($prazoExistente) {
-                $prazoExistente->delete();
-            }
-
-            $novoPrazo = Prazo::create([
-                'data' => $request->data
-            ]);
-
-            if (!$novoPrazo) {
-                return redirect()->back()->with('error', 'Erro ao inserir um Prazo');
-            }
-
-            event(new PrazoProximo($novoPrazo));
-
+            $validatedData = $request->validated();
+            $this->prazoService->insertPrazo($validatedData);
             return redirect()->back()->with('success', 'Prazo Inserido com sucesso');
         } catch (Exception $e) {
             return redirect()->back()->with('error', 'Um erro ocorreu: ' . $e->getMessage())->withInput();
         }
     }
 
-    public function __construct(RiscoService $riscoService, MonitoramentoService $monitoramentoService, RespostaService $respostaService)
+    public function __construct(RiscoService $riscoService, MonitoramentoService $monitoramentoService, RespostaService $respostaService, PrazoService $prazoService)
     {
         $this->middleware('auth');
         $this->riscoService = $riscoService;
         $this->monitoramentoService = $monitoramentoService;
         $this->respostaService = $respostaService;
+        $this->prazoService = $prazoService;
         // $this->middleware('checkAccess');
     }
 }
