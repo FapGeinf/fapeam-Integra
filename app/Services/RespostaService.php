@@ -75,13 +75,6 @@ class RespostaService
         }
     }
 
-    /**
-     * Generate the notification message for users.
-     *
-     * @param  User   $user
-     * @param  string $formattedDateTime
-     * @return string
-     */
     private function generateNotificationMessage($user, $formattedDateTime)
     {
         return '<div><span>Nova mensagem!</span><br><br><div><span>Usuário: </span>' . htmlspecialchars($user->name) . '</div>' .
