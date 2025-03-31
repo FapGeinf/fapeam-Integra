@@ -36,8 +36,8 @@
 
 			<div class="row">
 				<div class="col-12">
-					<label for="eixo" class="form-label">Eixo:</label>
-					<select class="form-select" id="eixo" name="eixo" required>
+					<label for="eixo_fk" class="form-label">Eixo:</label>
+					<select class="form-select" id="eixo_fk" name="eixo_fk" required>
 						@foreach($eixos as $eixo)
 							<option value="{{ $eixo->id }}"{{ $eixo->id }} - {{ $eixo->id == $indicador->eixo_fk ? 'selected' : '' }}>
 								{{ $eixo->nome }}
@@ -52,8 +52,8 @@
 				</div> --}}
 
 				<div class="col-12">
-					<label for="descricao">Descrição</label>
-					<textarea class="form-control" id="descricao" name="descricao" rows="3" required>{{ $indicador->descricaoIndicador }}</textarea>
+					<label for="descricaoIndicador">Descrição</label>
+					<textarea class="form-control" id="descricaoIndicador" name="descricaoIndicador" rows="3" required>{{ $indicador->descricaoIndicador }}</textarea>
 				</div>
 			</div>
 

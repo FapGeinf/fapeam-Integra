@@ -40,8 +40,8 @@
 
 			<div class="row">
 				<div class="col-12">
-					<label for="eixo" class="form-label"><span class="asteriscoTop">*</span>Eixo:</label>
-					<select class="form-select" id="eixo" name="eixo" required>
+					<label for="eixo_fk" class="form-label"><span class="asteriscoTop">*</span>Eixo:</label>
+					<select class="form-select" id="eixo_fk" name="eixo_fk" required>
 						@foreach($eixos as $eixo)
 							<option value="{{ $eixo->id }}">{{ $eixo->nome }}</option>
 						@endforeach
@@ -54,8 +54,8 @@
 				</div> --}}
 
 				<div class="col-12">
-					<label for="descricao"><span class="asteriscoTop">*</span>Descrição:</label>
-					<textarea	textarea class="form-control" id="descricao" name="descricao" rows="3" required></textarea>
+					<label for="descricaoIndicador"><span class="asteriscoTop">*</span>Descrição:</label>
+					<textarea	textarea class="form-control" id="descricaoIndicador" name="descricaoIndicador" rows="3" required></textarea>
 				</div>
 			</div>
 
