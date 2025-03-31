@@ -65,7 +65,7 @@ Route::delete('riscos/delete-anexo/${respostaId}', [RiscoController::class, 'del
 
 Route::get('/painel', [UserController::class, 'painel'])->name('usuarios.index')->middleware(['auth',isAdmin::class]);
 Route::put('/user/update/{id}', [UserController::class, 'updateUser'])->name('user.update')->middleware(['auth',isAdmin::class]);
-Route::delete('/user/delete/{id}', [UserController::class, 'deleteUser'])->name('user.destroy')->middleware(['auth',isAdmin::class]);
+Route::delete('/user/delete/{id}', [UserController::class, 'destroy'])->name('user.destroy')->middleware(['auth',isAdmin::class]);
 Route::post('/users/store',[UserController::class,'insertUser'])->name('users.store')->middleware(['auth',isAdmin::class]);
 
 Route::get('/user/alterar-senha', [UserController::class, 'changePassword'])->name('users.password');
