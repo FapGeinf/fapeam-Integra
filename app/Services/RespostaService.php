@@ -36,7 +36,8 @@ class RespostaService
                 'anexo' => $filePath,
             ]);
             $monitoramento->update([
-                'statusMonitoramento' => $validatedData['statusMonitoramento']
+                'statusMonitoramento' => (int) 
+                    $validatedData['statusMonitoramento']
             ]);
 
             Log::info('Monitoramento status updated', [
@@ -112,7 +113,7 @@ class RespostaService
             Storage::disk('public')->delete($resposta->anexo);
 
             $resposta->anexo = null;
-           
+
             return $resposta->save();
 
             Log::info('Anexo deleted and Resposta updated for ID: ' . $id);
@@ -139,7 +140,7 @@ class RespostaService
             $user = Auth::user();
 
             $cpf = $user->cpf;
-            $cpfMascarado = substr($cpf, 0, 3) . '.***.***-' . substr($cpf, -2); 
+            $cpfMascarado = substr($cpf, 0, 3) . '.***.***-' . substr($cpf, -2);
 
             $dataHora = now()->format('d-m-Y H:i:s');
             $dataConcat = "Homologado em {$dataHora} {$user->name} id {$user->id} cpf {$cpfMascarado}";

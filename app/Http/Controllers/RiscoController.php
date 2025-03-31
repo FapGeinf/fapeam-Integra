@@ -226,7 +226,7 @@ class RiscoController extends Controller
         try {
             $validatedData = $request->validated();
             $resposta = $this->respostaService->updateResposta($id, $validatedData);
-            return redirect()->route('riscos.respostas', ['id' => $resposta->respostaMonitoramentoFK])
+            return redirect()->route('riscos.respostas', ['id' => $resposta->respostaMonitoramentoFk])
                 ->with('success', 'Resposta atualizada com sucesso!');
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return redirect()->back()->withErrors(['error' => 'Resposta não encontrada.']);
