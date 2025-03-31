@@ -349,6 +349,7 @@
                     <form action="{{ route('riscos.storeResposta', ['id' => $monitoramento->id]) }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
+                        <input type="hidden" name="respostaMonitoramentoFk" value="{{ $monitoramento->id }}">
                         <div class="mb-4">
                             <!-- <label for="respostaRisco" class="form-label">Resposta</label> -->
                             <textarea class="form-control" id="respostaRisco" name="respostaRisco" required></textarea>

@@ -31,7 +31,7 @@ class RespostaService
 
             $resposta = Resposta::create([
                 'respostaRisco' => $validatedData['respostaRisco'],
-                'respostaMonitoramentoFK' => $monitoramento->id,
+                'respostaMonitoramentoFk' => $validatedData['respostaMonitoramentoFk'],
                 'user_id' => auth()->id(),
                 'anexo' => $filePath,
             ]);

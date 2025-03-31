@@ -25,7 +25,8 @@ class StoreRespostaRequest extends FormRequest
     {
         return [
             'respostaRisco' => 'required|string|max:5000',
-            'statusMonitoramento' => 'required|integer', // Adicionado aqui
+            'statusMonitoramento' => 'required',
+            'respostaMonitoramentoFk' => 'required|exists:monitoramentos,id',
             'anexo' => 'nullable|file|mimes:jpg,png,pdf|max:102400'
         ];
     }
@@ -40,10 +41,14 @@ class StoreRespostaRequest extends FormRequest
             'statusMonitoramento.required' => 'O campo "Status do Monitoramento" é obrigatório.',
             'statusMonitoramento.integer' => 'O campo "Status do Monitoramento" deve ser um número inteiro.',
 
+            'respostaMonitoramentoFk.required' => 'O campo "Monitoramento" é obrigatório.',
+            'respostaMonitoramentoFk.exists' => 'O campo "Monitoramento" deve referir-se a um monitoramento válido.',
+
             'anexo.file' => 'O campo "Anexo" deve ser um arquivo.',
             'anexo.mimes' => 'O campo "Anexo" deve ser um arquivo do tipo: jpg, png, pdf.',
             'anexo.max' => 'O campo "Anexo" não pode ultrapassar 100MB.',
         ];
     }
+
 
 }
