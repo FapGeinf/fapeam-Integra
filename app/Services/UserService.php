@@ -3,6 +3,7 @@
 
 namespace App\Services;
 use App\Models\User;
+use Exception;
 use Illuminate\Support\Facades\Hash;
 use Auth;
 
@@ -68,7 +69,7 @@ class UserService
         $user = Auth::user();
 
         if (!Hash::check($data['old_password'], $user->password)) {
-            return 'A senha atual está incorreta';
+            throw new Exception('A senha antiga não confere');
         }
 
         $user->update([
