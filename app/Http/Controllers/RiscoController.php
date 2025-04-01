@@ -164,7 +164,7 @@ class RiscoController extends Controller
                 'message' => $e->getMessage(),
                 'trace' => $e->getTraceAsString()
             ]);
-            return back()->with('error', 'Ocorreu um erro inesperado. Por favor, tente novamente.')->withInput();
+            return back()->with('error', 'Ocorreu um erro inesperado ao atualizar o Controle Sugerido. Por favor, tente novamente.')->withInput();
         }
     }
 
@@ -180,7 +180,7 @@ class RiscoController extends Controller
             $this->monitoramentoService->deleteMonitoramento($id);
             return redirect()->back()->with(['success' => 'Controle Sugerido deletado com sucesso']);
         } catch (Exception $e) {
-            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
+            return redirect()->back()->withErrors('Houve um erro inesperado ao deletar o controle sugerido');
         }
     }
 
@@ -216,7 +216,7 @@ class RiscoController extends Controller
                 'monitoramento_id' => $id
             ]);
 
-            return redirect()->back()->withErrors(['errors' => $e->getMessage()])->withInput();
+            return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao salvar a resposta. Tente novamente mais tarde.'])->withInput();
         }
     }
 
@@ -278,7 +278,7 @@ class RiscoController extends Controller
             $this->prazoService->insertPrazo($validatedData);
             return redirect()->back()->with('success', 'Prazo Inserido com sucesso');
         } catch (Exception $e) {
-            return redirect()->back()->with('error', 'Um erro ocorreu: ' . $e->getMessage())->withInput();
+            return redirect()->back()->with('error', 'Houve um erro inesperado ao inserir um novo prazo, tente novamente.')->withInput();
         }
     }
 

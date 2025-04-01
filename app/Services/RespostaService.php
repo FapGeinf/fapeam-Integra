@@ -71,6 +71,7 @@ class RespostaService
                 'exception_message' => $e->getMessage(),
                 'exception_trace' => $e->getTraceAsString(),
             ]);
+            throw new Exception('Erro ao salvar a resposta:',$e->getMessage());
         }
     }
 
@@ -117,6 +118,7 @@ class RespostaService
             Log::info('Anexo deleted and Resposta updated for ID: ' . $id);
         } else {
             Log::info('No anexo found for Resposta ID: ' . $id);
+            throw new Exception('Não foi encontrado nenhum anexo para esta providência');
         }
     }
 
