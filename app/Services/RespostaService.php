@@ -71,8 +71,6 @@ class RespostaService
                 'exception_message' => $e->getMessage(),
                 'exception_trace' => $e->getTraceAsString(),
             ]);
-
-            throw $e;
         }
     }
 
