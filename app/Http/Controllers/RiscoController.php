@@ -549,11 +549,8 @@ class RiscoController extends Controller
 
             $request->validate([
                 'respostaRisco' => 'required|string|max:5000',
-                'anexo' => 'nullable|file|mimes:jpg,png,pdf|max:102400',
-                'statusMonitoramento' => 'required|in:NÃO IMPLEMENTADA,EM IMPLEMENTAÇÃO,IMPLEMENTADA PARCIALMENTE,IMPLEMENTADA'
+                'anexo' => 'nullable|file|mimes:jpg,png,pdf|max:102400'
             ]);
-            
-
 
             $filePath = null;
             if ($request->hasFile('anexo')) {
@@ -570,16 +567,14 @@ class RiscoController extends Controller
                 'anexo' => $filePath
             ]);
 
-            Log::info('Valor recebido para statusMonitoramento', ['status' => $request->input('statusMonitoramento')]);
-
             $monitoramento->update([
                 'statusMonitoramento' => $request->input('statusMonitoramento')
             ]);
 
-            $monitoramento->touch();
-            
-            Log::info('Novo valor de statusMonitoramento salvo', ['monitoramento_id' => $monitoramento->id, 'novo_status' => $monitoramento->statusMonitoramento]);
-            
+            Log::info('Updated statusMonitoramento', [
+                'monitoramento_id' => $monitoramento->id,
+                'new_status' => $monitoramento->statusMonitoramento
+            ]);
 
             Log::info('Resposta created', ['resposta_id' => $resposta->id]);
 
@@ -645,14 +640,9 @@ class RiscoController extends Controller
                 $resposta->anexo = $request->file('anexo')->store('anexos', 'public');
             }
 
-            $monitoramento = Monitoramento::findOrFail($resposta->respostaMonitoramentoFk);
-            
-            $monitoramento->touch();
-
-           
             $resposta->save();
 
-            return redirect()->route('riscos.respostas', ['id' => $resposta->respostaMonitoramentoFk])
+            return redirect()->route('riscos.respostas', ['id' => $resposta->respostaMonitoramentoFK])
                 ->with('success', 'Resposta atualizada com sucesso!');
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return redirect()->back()->withErrors(['error' => 'Resposta não encontrada.']);

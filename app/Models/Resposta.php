@@ -10,7 +10,7 @@ class Resposta extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['respostaRisco', 'respostaMonitoramentoFk', 'user_id','anexo','homologadoDiretoria'];
+    protected $fillable = ['respostaRisco', 'respostaMonitoramentoFK', 'user_id','anexo','homologadoDiretoria'];
 
     public function user()
     {
@@ -19,7 +19,7 @@ class Resposta extends Model
 
     public function monitoramento()
     {
-        return $this->belongsTo(Monitoramento::class, 'respostaMonitoramentoFk', 'id');
+        return $this->belongsTo(Monitoramento::class, 'respostaMonitoramentoFK', 'id');
     }
 }
 
