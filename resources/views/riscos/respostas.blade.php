@@ -353,7 +353,6 @@
                                 Monitoramento</label>
                             <select class="form-select" style="background-color: #f0f0f0;"
                                 id="statusMonitoramento-{{ $monitoramento->id }}" name="statusMonitoramento" required>
-                                <option value="" disabled {{ old('statusMonitoramento') ? '' : 'selected' }}>Selecione um status</option>
                                 <option value="NÃO IMPLEMENTADA" {{ old('statusMonitoramento', $monitoramento->statusMonitoramento) == 'NÃO IMPLEMENTADA' ? 'selected' : '' }}>
                                     NÃO IMPLEMENTADA
                                 </option>
