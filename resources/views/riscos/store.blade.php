@@ -248,38 +248,10 @@
             divStatusMonitoramento.classList = 'form-group';
             novoMonitoramento.appendChild(divStatusMonitoramento);
 
-            let labelStatusMonitoramento = document.createElement('label');
-            labelStatusMonitoramento.textContent = 'Status:';
-            divStatusMonitoramento.appendChild(labelStatusMonitoramento);
-
-            let statusMonitoramento = document.createElement('select');
+            let statusMonitoramento = document.createElement('input');
+            statusMonitoramento.type = 'hidden';
             statusMonitoramento.name = `monitoramentos[${cont}][statusMonitoramento]`;
-            statusMonitoramento.classList = 'form-select';
-
-            let options = [{
-                    value: "NÃO IMPLEMENTADA",
-                    text: "NÃO IMPLEMENTADA"
-                },
-                {
-                    value: "EM IMPLEMENTAÇÃO",
-                    text: "EM IMPLEMENTAÇÃO"
-                },
-                {
-                    value: "IMPLEMENTADA PARCIALMENTE",
-                    text: "IMPLEMENTADA PARCIALMENTE"
-                },
-                {
-                    value: "IMPLEMENTADA",
-                    text: "IMPLEMENTADA"
-                }
-            ];
-
-            options.forEach(function(optionData) {
-                let option = document.createElement('option');
-                option.value = optionData.value;
-                option.textContent = optionData.text;
-                statusMonitoramento.appendChild(option);
-            });
+            statusMonitoramento.value = "NÃO IMPLEMENTADA"; 
 
             divStatusMonitoramento.appendChild(statusMonitoramento);
 
@@ -356,20 +328,6 @@
                 }
             });
 
-
-            let divAnexo = document.createElement('div');
-            divAnexo.classList.add('form-group');
-            let labelAnexo = document.createElement('label');
-            labelAnexo.textContent = 'Anexo (se houver):';
-            divAnexo.appendChild(labelAnexo);
-
-            let anexo = document.createElement('input');
-            anexo.name = `monitoramentos[${cont}][anexoMonitoramento]`;
-            anexo.type = 'file';
-            anexo.classList.add('form-control');
-            divAnexo.appendChild(anexo);
-
-            novoMonitoramento.appendChild(divAnexo);
 
             monitoramentosDiv.appendChild(monitoramentoContainer);
 
@@ -481,15 +439,11 @@
             for (let i = 0; i < monitoramentoContainers.length; i++) {
                 let container = monitoramentoContainers[i];
                 let monitoramentoControleSugerido = CKEDITOR.instances[`monitoramentoControleSugerido${i}`].getData();
-                let statusMonitoramento = container.querySelector('select[name$="[statusMonitoramento]"]').value;
                 let inicioMonitoramento = container.querySelector('input[name$="[inicioMonitoramento]"]').value;
                 let fimMonitoramento = container.querySelector('input[name$="[fimMonitoramento]"]').value;
 
-                // Verifica se os campos estão vazios
                 if (!monitoramentoControleSugerido) erros.push(
                     `O campo "Controle Sugerido" N° ${i + 1} é obrigatório.`);
-                if (!statusMonitoramento) erros.push(
-                    `O campo "Status" do Controle Sugerido N° ${i + 1} é obrigatório.`);
                 if (!inicioMonitoramento) erros.push(
                     `O campo "Início" do Controle Sugerido N° ${i + 1} é obrigatório.`);
                 let isContinuo = container.querySelector('select[name$="[isContinuo]"]').value;
@@ -515,11 +469,6 @@
                     </div>
 
                     <div class="row g-3 mb-3">
-                        <div class="col-sm-6">
-                            <div style="padding-right: 5px;">Status:</div>
-                            <div style="background:#f0f0f0;" class="form-control">${statusMonitoramento || '<span class="text-danger">Campo obrigatório</span>'}</div>
-                        </div>
-
                         <div class="col-sm-6">
                             <div style="padding-right: 5px;">Início:</div>
                             <div style="background:#f0f0f0;" class="form-control">${inicioMonitoramentoDisplay || '<span class="text-danger">Campo obrigatório</span>'}</div>

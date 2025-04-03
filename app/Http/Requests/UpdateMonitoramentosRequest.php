@@ -29,7 +29,6 @@ class UpdateMonitoramentosRequest extends FormRequest
             'isContinuo' => 'nullable|boolean',
             'inicioMonitoramento' => 'nullable|date',
             'fimMonitoramento' => 'nullable|date|after_or_equal:inicioMonitoramento',
-            'anexoMonitoramento' => 'nullable|file|mimes:jpeg,png,pdf|max:51200'
         ];
     }
 
@@ -46,10 +45,6 @@ class UpdateMonitoramentosRequest extends FormRequest
             
             'fimMonitoramento.date' => 'A data de fim do monitoramento deve ser válida.',
             'fimMonitoramento.after_or_equal' => 'A data de fim deve ser igual ou posterior à data de início.',
-            
-            'anexoMonitoramento.file' => 'O anexo deve ser um arquivo.',
-            'anexoMonitoramento.mimes' => 'O anexo deve estar nos formatos: JPEG, PNG ou PDF.',
-            'anexoMonitoramento.max' => 'O anexo não pode ultrapassar 50MB.',
         ];
     }
 }

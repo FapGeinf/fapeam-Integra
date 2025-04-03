@@ -30,7 +30,6 @@ class StoreMonitoramentoRequest extends FormRequest
             'monitoramentos.*.inicioMonitoramento' => 'required|date',
             'monitoramentos.*.fimMonitoramento' => 'nullable|date|after_or_equal:monitoramentos.*.inicioMonitoramento',
             'monitoramentos.*.isContinuo' => 'required|boolean',
-            'monitoramentos.*.anexoMonitoramento' => 'nullable|file|mimes:pdf,doc,docx,jpg,png|max:51200',
         ];
     }
 
@@ -51,9 +50,6 @@ class StoreMonitoramentoRequest extends FormRequest
             'monitoramentos.*.fimMonitoramento.after_or_equal' => 'A data de fim do monitoramento deve ser igual ou posterior à data de início.',
             'monitoramentos.*.isContinuo.required' => 'O campo de monitoramento contínuo é obrigatório.',
             'monitoramentos.*.isContinuo.boolean' => 'O campo de monitoramento contínuo deve ser verdadeiro ou falso.',
-            'monitoramentos.*.anexoMonitoramento.file' => 'O anexo do monitoramento deve ser um arquivo.',
-            'monitoramentos.*.anexoMonitoramento.mimes' => 'O anexo deve estar nos formatos: PDF, DOC, DOCX, JPG ou PNG.',
-            'monitoramentos.*.anexoMonitoramento.max' => 'O anexo não pode ultrapassar 50MB.',
         ];
     }
 }

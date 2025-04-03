@@ -10,7 +10,7 @@ class Monitoramento extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['monitoramentoControleSugerido', 'statusMonitoramento','inicioMonitoramento','fimMonitoramento', 'riscoFK','isContinuo','anexoMonitoramento'];
+    protected $fillable = ['monitoramentoControleSugerido', 'statusMonitoramento','inicioMonitoramento','fimMonitoramento', 'riscoFK','isContinuo'];
 
     public function risco()
     {

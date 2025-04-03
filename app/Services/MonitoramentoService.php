@@ -24,13 +24,7 @@ class MonitoramentoService
                 throw new Exception("O fim do monitoramento não pode ser anterior ao início.");
             }
 
-            $path = null;
-            if (!empty($monitoramentoData['anexoMonitoramento']) && $monitoramentoData['anexoMonitoramento']->isValid()) {
-                $file = $monitoramentoData['anexoMonitoramento'];
-                $filename = time() . '_' . $file->getClientOriginalName();
-                $path = $file->storeAs('public/anexos', $filename);
-            }
-
+           
             $monitoramento = Monitoramento::create([
                 'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'] ?? null,
                 'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
@@ -38,7 +32,6 @@ class MonitoramentoService
                 'fimMonitoramento' => $monitoramentoData['fimMonitoramento'] ?? null,
                 'isContinuo' => $isContinuo,
                 'riscoFK' => $riscoId,
-                'anexoMonitoramento' => $path
             ]);
 
             $monitoramentosCriados[] = $monitoramento;
@@ -64,29 +57,6 @@ class MonitoramentoService
         ]);
 
         Log::info('Monitoramento atualizado:', $monitoramento->toArray());
-
-        if (!empty($validatedData['anexoMonitoramento']) && $validatedData['anexoMonitoramento']->isValid()) {
-            Log::info('Novo anexo recebido.');
-
-            if ($monitoramento->anexoMonitoramento) {
-                Storage::delete($monitoramento->anexoMonitoramento);
-                Log::info('Anexo antigo excluído:', ['path' => $monitoramento->anexoMonitoramento]);
-            }
-
-            $file = $validatedData['anexoMonitoramento'];
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $path = $file->storeAs('public/anexos', $filename);
-
-            Log::info('Novo arquivo enviado:', ['filename' => $filename, 'path' => $path]);
-
-            $monitoramento->anexoMonitoramento = $path;
-            $monitoramento->save();
-
-            Log::info('Novo anexo salvo no monitoramento.', ['path' => $path]);
-        } else {
-            Log::info('Nenhum novo anexo recebido.');
-        }
-
         Log::info('Atualização de monitoramento concluída com sucesso.');
 
         return $monitoramento;

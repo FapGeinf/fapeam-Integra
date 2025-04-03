@@ -172,13 +172,7 @@ class RiscoService
                 throw new Exception('Fim do monitoramento não pode ser anterior ao início do monitoramento.');
             }
 
-            $path = null;
-            if (isset($monitoramentoData['anexoMonitoramento']) && $monitoramentoData['anexoMonitoramento']) {
-                $file = $monitoramentoData['anexoMonitoramento'];
-                $filename = time() . '_' . $file->getClientOriginalName();
-                $path = $file->storeAs('public/anexos', $filename);
-            }
-
+            
             $monitoramento = Monitoramento::create([
                 'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
                 'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
@@ -186,7 +180,6 @@ class RiscoService
                 'fimMonitoramento' => $monitoramentoData['fimMonitoramento'] ?? null,
                 'isContinuo' => $isContinuo,
                 'riscoFK' => $risco->id,
-                'anexoMonitoramento' => $path
             ]);
         }
 

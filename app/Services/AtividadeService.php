@@ -18,14 +18,14 @@ class AtividadeService
     {
         $eixoNome = null;
 
-        if ($eixo_id && in_array($eixo_id, [1, 2, 3, 4, 5, 6, 7, 8])) {
+        if ($eixo_id && in_array($eixo_id, [1, 2, 3, 4, 5, 6, 7])) {
             $eixo = Eixo::find($eixo_id);
             $eixoNome = $eixo ? $eixo->nome : null;
 
             $atividades = Atividade::whereHas('eixos', function ($query) use ($eixo_id) {
                 $query->where('eixo_id', $eixo_id);
             })->with(['publico', 'canais', 'medida'])->orderBy('data_prevista', 'asc')->get();
-        } else {
+        } elseif($eixo_id == 8) {
             $atividades = Atividade::with(['publico', 'canais', 'medida'])->orderBy('data_prevista', 'asc')->get();
         }
 

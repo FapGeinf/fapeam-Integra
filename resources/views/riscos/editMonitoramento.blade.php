@@ -95,13 +95,6 @@
                     </div>
                 </div>
 
-                <div class="row g-3">
-                    <div class="col-sm-12">
-                        <label for="anexoMonitoramento-{{ $monitoramento->id }}" class="form-label">Anexo:</label>
-                        <input type="file" class="form-control" id="anexoMonitoramento-{{ $monitoramento->id }}"
-                            name="anexoMonitoramento">
-                    </div>
-                </div>
 
                 <hr class="mt-4">
 
@@ -145,7 +138,6 @@
         function showConfirmationModal() {
             let monitoramentoControleSugerido = CKEDITOR.instances[
                 'monitoramentoControleSugerido-{{ $monitoramento->id }}'].getData();
-            let statusMonitoramento = document.getElementById('statusMonitoramento-{{ $monitoramento->id }}').value;
             let isContinuo = document.getElementById('isContinuo-{{ $monitoramento->id }}').value;
             let inicioMonitoramento = document.getElementById('inicioMonitoramento-{{ $monitoramento->id }}').value;
             let fimMonitoramento = document.getElementById('fimMonitoramento-{{ $monitoramento->id }}').value;
@@ -172,11 +164,6 @@
                     </div>
 
                     <div class="row g-3 mt-1">
-                        <div class="col-sm-6">
-                            <span>Situação:</span>
-                            <input type="text" class="form-control" value="${statusMonitoramento}" readonly>
-                        </div>
-
                         <div class="col-sm-6">
                             <span>É continuo?</span>
                             <input type="text" class="form-control" value="${isContinuo === '1' ? 'Sim' : 'Não'}" readonly>
