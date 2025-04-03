@@ -296,12 +296,6 @@ class RiscoController extends Controller
                     throw new \Exception('Fim do monitoramento não pode ser anterior ao início do monitoramento.');
                 }
 
-                $path = null;
-                if ($request->hasFile("monitoramentos.$index.anexoMonitoramento")) {
-                    $file = $request->file("monitoramentos.$index.anexoMonitoramento");
-                    $filename = time() . '_' . $file->getClientOriginalName();
-                    $path = $file->storeAs('public/anexos', $filename);
-                }
 
                 $monitoramento = Monitoramento::create([
                     'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
@@ -310,7 +304,6 @@ class RiscoController extends Controller
                     'fimMonitoramento' => $monitoramentoData['fimMonitoramento'] ?? null,
                     'isContinuo' => $isContinuo,
                     'riscoFK' => $risco->id,
-                    'anexoMonitoramento' => $path // Armazena o caminho do arquivo diretamente
                 ]);
             }
 
@@ -320,8 +313,6 @@ class RiscoController extends Controller
             return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao criar o risco. Por favor, tente novamente.']);
         }
     }
-
-
 
 
     public function edit($id)
@@ -389,13 +380,6 @@ class RiscoController extends Controller
                     throw new \Exception('Fim do monitoramento não pode ser anterior ao início do monitoramento.');
                 }
 
-                $path = null;
-                if ($request->hasFile("monitoramentos.$index.anexoMonitoramento")) {
-                    $file = $request->file("monitoramentos.$index.anexoMonitoramento");
-                    $filename = time() . '_' . $file->getClientOriginalName();
-                    $path = $file->storeAs('public/anexos', $filename);
-                }
-
                 $monitoramento = Monitoramento::create([
                     'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
                     'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
@@ -403,7 +387,6 @@ class RiscoController extends Controller
                     'fimMonitoramento' => $monitoramentoData['fimMonitoramento'] ?? null,
                     'isContinuo' => $isContinuo,
                     'riscoFK' => $risco->id,
-                    'anexoMonitoramento' => $path
                 ]);
             }
 
@@ -443,28 +426,6 @@ class RiscoController extends Controller
 
             Log::info('Monitoramento atualizado:', $monitoramento->toArray());
 
-
-            if ($request->hasFile('anexoMonitoramento')) {
-                Log::info('Novo anexo recebido.');
-
-                if ($monitoramento->anexoMonitoramento) {
-                    Storage::delete($monitoramento->anexoMonitoramento);
-                    Log::info('Anexo antigo excluído:', ['path' => $monitoramento->anexoMonitoramento]);
-                }
-
-                $file = $request->file('anexoMonitoramento');
-                $filename = time() . '_' . $file->getClientOriginalName();
-                $path = $file->storeAs('public/anexos', $filename);
-
-                Log::info('Novo arquivo enviado:', ['filename' => $filename, 'path' => $path]);
-
-                $monitoramento->anexoMonitoramento = $path;
-                $monitoramento->save();
-
-                Log::info('Novo anexo salvo no controle sugerido.', ['path' => $path]);
-            } else {
-                Log::info('Nenhum novo anexo recebido.');
-            }
 
             Log::info('Atualização de controle sugerido concluída com sucesso.');
 

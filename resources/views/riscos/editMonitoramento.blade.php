@@ -95,14 +95,6 @@
                     </div>
                 </div>
 
-                <div class="row g-3">
-                    <div class="col-sm-12">
-                        <label for="anexoMonitoramento-{{ $monitoramento->id }}" class="form-label">Anexo:</label>
-                        <input type="file" class="form-control" id="anexoMonitoramento-{{ $monitoramento->id }}"
-                            name="anexoMonitoramento">
-                    </div>
-                </div>
-
                 <hr class="mt-4">
 
                 <div class="d-flex justify-content-center pt-2">
