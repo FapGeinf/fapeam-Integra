@@ -4,14 +4,12 @@ namespace App\Services;
 
 use App\Models\Atividade;
 use Exception;
-use Illuminate\Http\Request;
 use App\Models\Eixo;
 use App\Models\Publico;
 use App\Models\Canal;
 use App\Models\MedidaTipo;
 use App\Models\Indicador;
 use Illuminate\Support\Facades\Log;
-use App\Http\Requests\AtividadeRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Throwable;
