@@ -12,6 +12,10 @@ use App\Models\MedidaTipo;
 use App\Models\Indicador;
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\AtividadeRequest;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
+use Throwable;
+
 
 class AtividadeService
 {
@@ -115,13 +119,13 @@ class AtividadeService
                 'eixo_id' => $eixo_id,
                 'atividade' => $atividade
             ];
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (QueryException $e) {
             Log::error('Erro no banco de dados ao inserir uma atividade', [
                 'error' => $e->getMessage(),
                 'dados' => $data,
             ]);
             throw new Exception('Erro ao salvar a atividade. Verifique os campos e tente novamente.');
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             Log::error('Erro inesperado ao inserir uma atividade', [
                 'error' => $e->getMessage(),
                 'dados' => $data,
@@ -167,7 +171,7 @@ class AtividadeService
                 Log::info('Novo público criado com sucesso', ['id' => $novoPublico->id]);
             }
 
-            $atividade = $this->show($id); // findOrFail já lida com erro se não encontrar
+            $atividade = $this->show($id);
 
             Log::info('Atualizando a atividade', ['id' => $id, 'dados' => $data]);
 
@@ -208,7 +212,7 @@ class AtividadeService
                 'eixo_id' => $eixo_id,
                 'atividade' => $atividade
             ];
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (QueryException $e) {
             Log::error("Erro no banco de dados ao atualizar a atividade ID {$id}.", ['error' => $e->getMessage(), 'data' => $data]);
             throw new Exception('Erro ao atualizar a atividade. Tente novamente.');
         } catch (Exception $e) {
@@ -220,9 +224,30 @@ class AtividadeService
 
     public function delete($id)
     {
-        $atividade = $this->show($id);
-        return $atividade->delete();
-    }
+        try {
+            $atividade = $this->show($id);
 
+            if (!$atividade) {
+                throw new ModelNotFoundException("Atividade com ID {$id} não encontrada.");
+            }
+
+            if (!$atividade->delete()) {
+                throw new Exception("Erro ao excluir a atividade com ID {$id}.");
+            }
+
+            Log::info("Atividade excluída com sucesso", ['atividade_id' => $id]);
+
+            return true;
+        } catch (ModelNotFoundException $e) {
+            Log::warning("Atividade não encontrada", ['error' => $e->getMessage()]);
+            throw new Exception('Atividade não encontrada'); 
+        } catch (QueryException $e) {
+            Log::error("Erro no banco ao excluir atividade", ['error' => $e->getMessage()]);
+            throw new Exception("Erro ao excluir a atividade. Verifique se há registros relacionados.", 500);
+        } catch (Throwable $e) {
+            Log::error("Erro inesperado ao excluir atividade", ['error' => $e->getMessage()]);
+            throw new Exception("Ocorreu um erro inesperado ao excluir a atividade.", 500);
+        }
+    }
 
 }
