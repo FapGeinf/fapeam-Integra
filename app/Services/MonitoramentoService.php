@@ -12,54 +12,70 @@ class MonitoramentoService
 
     public function storeMonitoramento(array $validatedData, $riscoId)
     {
-        $monitoramentosCriados = [];
+        try {
+            $monitoramentosCriados = [];
 
+            $monitoramentos = isset($validatedData['monitoramentos']) ? $validatedData['monitoramentos'] : [$validatedData];
 
-        $monitoramentos = isset($validatedData['monitoramentos']) ? $validatedData['monitoramentos'] : [$validatedData];
+            foreach ($monitoramentos as $monitoramentoData) {
+                $isContinuo = filter_var($monitoramentoData['isContinuo'], FILTER_VALIDATE_BOOLEAN);
 
-        foreach ($monitoramentos as $monitoramentoData) {
-            $isContinuo = filter_var($monitoramentoData['isContinuo'], FILTER_VALIDATE_BOOLEAN);
+                if (!$isContinuo && isset($monitoramentoData['fimMonitoramento']) && $monitoramentoData['fimMonitoramento'] <= $monitoramentoData['inicioMonitoramento']) {
+                    throw new Exception("O fim do monitoramento não pode ser anterior ao início.");
+                }
 
-            if (!$isContinuo && isset($monitoramentoData['fimMonitoramento']) && $monitoramentoData['fimMonitoramento'] <= $monitoramentoData['inicioMonitoramento']) {
-                throw new Exception("O fim do monitoramento não pode ser anterior ao início.");
+                $monitoramento = Monitoramento::create([
+                    'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'] ?? null,
+                    'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
+                    'inicioMonitoramento' => $monitoramentoData['inicioMonitoramento'],
+                    'fimMonitoramento' => $monitoramentoData['fimMonitoramento'] ?? null,
+                    'isContinuo' => $isContinuo,
+                    'riscoFK' => $riscoId,
+                ]);
+
+                $monitoramentosCriados[] = $monitoramento;
             }
 
-           
-            $monitoramento = Monitoramento::create([
-                'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'] ?? null,
-                'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
-                'inicioMonitoramento' => $monitoramentoData['inicioMonitoramento'],
-                'fimMonitoramento' => $monitoramentoData['fimMonitoramento'] ?? null,
-                'isContinuo' => $isContinuo,
-                'riscoFK' => $riscoId,
+            return ['monitoramentos' => $monitoramentosCriados];
+
+        } catch (Exception $e) {
+            Log::error('Erro ao criar monitoramento', [
+                'error' => $e->getMessage(),
+                'data' => $validatedData,
+                'user_id' => auth()->id()
             ]);
-
-            $monitoramentosCriados[] = $monitoramento;
+            throw new Exception("Erro ao criar monitoramento.");
         }
-
-        return [
-            'monitoramentos' => $monitoramentosCriados
-        ];
     }
 
 
 
     public function updateMonitoramento($id, array $validatedData)
     {
-        $monitoramento = Monitoramento::findOrFail($id);
+        try {
+            $monitoramento = Monitoramento::findOrFail($id);
 
-        $monitoramento->update([
-            'monitoramentoControleSugerido' => $validatedData['monitoramentoControleSugerido'] ?? $monitoramento->monitoramentoControleSugerido,
-            'statusMonitoramento' => $validatedData['statusMonitoramento'] ?? $monitoramento->statusMonitoramento,
-            'isContinuo' => $validatedData['isContinuo'] ?? $monitoramento->isContinuo,
-            'inicioMonitoramento' => $validatedData['inicioMonitoramento'] ?? $monitoramento->inicioMonitoramento,
-            'fimMonitoramento' => $validatedData['fimMonitoramento'] ?? $monitoramento->fimMonitoramento,
-        ]);
+            $monitoramento->update([
+                'monitoramentoControleSugerido' => $validatedData['monitoramentoControleSugerido'] ?? $monitoramento->monitoramentoControleSugerido,
+                'statusMonitoramento' => $validatedData['statusMonitoramento'] ?? $monitoramento->statusMonitoramento,
+                'isContinuo' => $validatedData['isContinuo'] ?? $monitoramento->isContinuo,
+                'inicioMonitoramento' => $validatedData['inicioMonitoramento'] ?? $monitoramento->inicioMonitoramento,
+                'fimMonitoramento' => $validatedData['fimMonitoramento'] ?? $monitoramento->fimMonitoramento,
+            ]);
 
-        Log::info('Monitoramento atualizado:', $monitoramento->toArray());
-        Log::info('Atualização de monitoramento concluída com sucesso.');
+            Log::info('Monitoramento atualizado:', $monitoramento->toArray());
+            return $monitoramento;
 
-        return $monitoramento;
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            throw new Exception("Monitoramento não encontrado para o ID: {$id}");
+        } catch (Exception $e) {
+            Log::error('Erro ao atualizar o monitotoramento', [
+                'error' => $e->getMessage(),
+                'data' => $validatedData,
+                'user_id' => auth()->id()
+            ]);
+            throw new Exception("Erro ao atualizar monitoramento." );
+        }
     }
 
     public function deleteMonitoramento($id)
@@ -71,7 +87,6 @@ class MonitoramentoService
     public function formEditMonitoramentos($id)
     {
         return $risco = Risco::findOrFail($id);
-        ;
     }
 
     public function formEditMonitoramento($id)

@@ -29,13 +29,13 @@ class DocumentoController extends Controller
 
 	public function intro()
 	{
-		   return view('links_login.intro');
+		return view('links_login.intro');
 	}
 
 	public function downloadAvaliacao()
-{
-    return response()->file(storage_path('app/public/documentos/diagnosticoRiscos.pdf'));
-}
+	{
+		return response()->file(storage_path('app/public/documentos/diagnosticoRiscos.pdf'));
+	}
 
 
 }

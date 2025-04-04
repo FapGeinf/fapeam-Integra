@@ -57,7 +57,7 @@ class AtividadeController extends Controller
             $validatedData = $request->validated();
             $atividade = $this->atividade->store($validatedData);
             return redirect()->route('atividades.index', ['eixo_id' => $atividade['eixo_id']])->with('success', 'Atividade criada com sucesso!');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             dd($e);
             Log::error('Erro ao salvar a atividade', [
                 'error_message' => $e->getMessage(),
@@ -85,7 +85,7 @@ class AtividadeController extends Controller
             $atividade = $this->atividade->updateAtividade($id, $validatedData);
 
             return redirect()->route('atividades.index', ['eixo_id' => $atividade['eixo_id']])->with('success', 'Atividade atualizada com sucesso!');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::error('Erro ao atualizar a atividade', [
                 'error_message' => $e->getMessage(),
                 'stack_trace' => $e->getTraceAsString(),
@@ -101,7 +101,7 @@ class AtividadeController extends Controller
         try {
             $this->atividade->delete($id);
             return redirect()->route('atividades.index')->with('success', 'Atividade deletada com sucesso!');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return redirect()->back()->with('error', 'Ocorreu um erro ao excluir a atividade. Por favor, tente novamente mais tarde.');
         }
     }

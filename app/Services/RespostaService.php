@@ -71,7 +71,7 @@ class RespostaService
                 'exception_message' => $e->getMessage(),
                 'exception_trace' => $e->getTraceAsString(),
             ]);
-            throw new Exception('Erro ao salvar a resposta:',$e->getMessage());
+            throw new Exception('Erro ao salvar a providência:');
         }
     }
 
@@ -85,42 +85,63 @@ class RespostaService
 
     public function updateResposta($id, array $validatedData)
     {
-        $resposta = Resposta::findOrFail($id);
+        try {
+            $resposta = Resposta::findOrFail($id);
 
-        $resposta->respostaRisco = $validatedData['respostaRisco'];
+            $resposta->respostaRisco = $validatedData['respostaRisco'];
 
-        if (isset($validatedData['anexo'])) {
-            if ($resposta->anexo) {
-                Storage::disk('public')->delete($resposta->anexo);
+            if (isset($validatedData['anexo'])) {
+                if ($resposta->anexo) {
+                    Storage::disk('public')->delete($resposta->anexo);
+                }
+                $resposta->anexo = $validatedData['anexo']->store('anexos', 'public');
             }
-            $resposta->anexo = $validatedData['anexo']->store('anexos', 'public');
+
+            $resposta->save();
+
+            return $resposta;
+
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            throw new Exception("Não foi encontrada uma providência com esta $id");
+        } catch (Exception $e) {
+            Log::error('Houve um erro ao atualizar a providência', [
+                'error' => $e->getMessage(),
+                'data' => $validatedData,
+                'user_id' => auth()->id()
+            ]);
+            throw new Exception('Houve um erro ao atualizar a providência.');
         }
-
-        $resposta->save();
-
-        return $resposta;
     }
+
 
     public function deleteAnexo($id)
     {
-
-        $resposta = Resposta::findOrFail($id);
-
-        if ($resposta->anexo) {
-            Log::info('Anexo found: ' . $resposta->anexo . ' for Resposta ID: ' . $id);
-
+        try {
+            $resposta = Resposta::findOrFail($id);
+    
+            if (!$resposta->anexo) {
+                Log::warning("Nenhum anexo encontrado para a Resposta ID: {$id}");
+                throw new Exception("Não foi encontrado nenhum anexo para esta providência.");
+            }
+    
+            Log::info("Anexo encontrado: {$resposta->anexo} para Resposta ID: {$id}");
+    
             Storage::disk('public')->delete($resposta->anexo);
-
             $resposta->anexo = null;
-
-            return $resposta->save();
-
-            Log::info('Anexo deleted and Resposta updated for ID: ' . $id);
-        } else {
-            Log::info('No anexo found for Resposta ID: ' . $id);
-            throw new Exception('Não foi encontrado nenhum anexo para esta providência');
+            $resposta->save();
+    
+            Log::info("Anexo excluído e Resposta atualizada para ID: {$id}");
+    
+            return response()->json(['message' => 'Anexo removido com sucesso.'], 200);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            Log::error("Erro: Resposta ID {$id} não encontrada.");
+            throw new Exception("Resposta não encontrada para o ID: {$id}");
+        } catch (Exception $e) {
+            Log::error("Erro ao excluir anexo para Resposta ID: {$id}. Detalhes: " . $e->getMessage());
+            throw new Exception("Erro ao excluir o anexo.");
         }
     }
+    
 
     public function show($id)
     {
@@ -156,8 +177,8 @@ class RespostaService
                 throw new Exception('Você não tem permissão para homologar');
             }
         } catch (Exception $e) {
-            Log::error("Erro ao homologar resposta: {$e->getMessage()}");
-            throw $e;
+            Log::error("Erro ao homologar providência: {$e->getMessage()}");
+            throw new Exception('Houve um erro inesperado ao homologar a providência:');
         }
     }
 

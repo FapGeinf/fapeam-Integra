@@ -2,27 +2,14 @@
 
 namespace App\Services;
 
-use App\Events\NovaRespostaCriada;
-use App\Events\PrazoProximo;
-use Illuminate\Http\Request;
-use app\Http\Middleware\VerifyCsrfToken;
-use App\Mail\ResponseNotification;
 use App\Models\Risco;
 use App\Models\Unidade;
 use App\Models\Monitoramento;
 use App\Models\Notification;
-use App\Models\Resposta;
 use App\Models\Prazo;
-use App\Models\User;
 use Carbon\Carbon;
 use Exception;
-use FFI\Exception as FFIException;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Storage;
-use App\Models\Diretoria;
 
 class RiscoService
 {
@@ -154,41 +141,51 @@ class RiscoService
 
     public function storeRisco(array $validatedData)
     {
-        $risco = Risco::create([
-            'responsavelRisco' => $validatedData['responsavelRisco'],
-            'riscoEvento' => $validatedData['riscoEvento'],
-            'riscoCausa' => $validatedData['riscoCausa'],
-            'riscoConsequencia' => $validatedData['riscoConsequencia'],
-            'nivel_de_risco' => (int) $validatedData['nivel_de_risco'],
-            'unidadeId' => $validatedData['unidadeId'],
-            'riscoAno' => $validatedData['riscoAno'],
-            'userIdRisco' => auth()->id()
-        ]);
+        try {
+            $risco = Risco::create([
+                'responsavelRisco' => $validatedData['responsavelRisco'],
+                'riscoEvento' => $validatedData['riscoEvento'],
+                'riscoCausa' => $validatedData['riscoCausa'],
+                'riscoConsequencia' => $validatedData['riscoConsequencia'],
+                'nivel_de_risco' => (int) $validatedData['nivel_de_risco'],
+                'unidadeId' => $validatedData['unidadeId'],
+                'riscoAno' => $validatedData['riscoAno'],
+                'userIdRisco' => auth()->id()
+            ]);
 
-        foreach ($validatedData['monitoramentos'] as $index => $monitoramentoData) {
-            $isContinuo = filter_var($monitoramentoData['isContinuo'], FILTER_VALIDATE_BOOLEAN);
+            $monitoramentos = [];
 
-            if (!$isContinuo && isset($monitoramentoData['fimMonitoramento']) && $monitoramentoData['fimMonitoramento'] <= $monitoramentoData['inicioMonitoramento']) {
-                throw new Exception('Fim do monitoramento não pode ser anterior ao início do monitoramento.');
+            foreach ($validatedData['monitoramentos'] as $index => $monitoramentoData) {
+                $isContinuo = filter_var($monitoramentoData['isContinuo'], FILTER_VALIDATE_BOOLEAN);
+
+                if (!$isContinuo && isset($monitoramentoData['fimMonitoramento']) && $monitoramentoData['fimMonitoramento'] <= $monitoramentoData['inicioMonitoramento']) {
+                    throw new \Exception("Erro no monitoramento #{$index}: Fim do monitoramento não pode ser anterior ao início.");
+                }
+
+                $monitoramentos[] = Monitoramento::create([
+                    'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
+                    'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
+                    'inicioMonitoramento' => $monitoramentoData['inicioMonitoramento'],
+                    'fimMonitoramento' => $monitoramentoData['fimMonitoramento'] ?? null,
+                    'isContinuo' => $isContinuo,
+                    'riscoFK' => $risco->id,
+                ]);
             }
 
-            
-            $monitoramento = Monitoramento::create([
-                'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
-                'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
-                'inicioMonitoramento' => $monitoramentoData['inicioMonitoramento'],
-                'fimMonitoramento' => $monitoramentoData['fimMonitoramento'] ?? null,
-                'isContinuo' => $isContinuo,
-                'riscoFK' => $risco->id,
+            return [
+                'risco' => $risco,
+                'monitoramentos' => $monitoramentos
+            ];
+        } catch (Exception $e) {
+            Log::error('Erro ao criar o risco', [
+                'error' => $e->getMessage(),
+                'data' => $validatedData,
+                'user_id' => auth()->id(),
             ]);
+            throw new Exception("Erro ao criar risco.");
         }
-
-        return [
-            'risco' => $risco,
-            'monitoramentos' => $risco->monitoramentos
-        ];
-
     }
+
 
     public function editFormRisco($id)
     {
@@ -203,10 +200,22 @@ class RiscoService
 
     public function updateRisco(array $data, $id)
     {
-        $risco = Risco::findOrFail($id);
-        $risco->update($data);
-        return $risco; 
+        try {
+            $risco = Risco::findOrFail($id);
+            $risco->update($data);
+            return $risco;
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            throw new Exception("Risco não encontrado para o ID: {$id}");
+        } catch (Exception $e) {
+            Log::error('Erro ao atualizar o risco',[
+                'error' => $e->getMessage(),
+                'data' => $data,
+                'user_id' => auth()->id()
+            ]);
+            throw new Exception("Erro ao atualizar risco. " );
+        }
     }
+
 
 
     public function deleteRisco($id)

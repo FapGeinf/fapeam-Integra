@@ -6,6 +6,7 @@ use App\Http\Requests\InsertIndicadorRequest;
 use App\Services\IndicadorService;
 use Illuminate\Http\Request;
 use Log;
+use Throwable;
 class IndicadorController extends Controller
 {
 	protected $indicadorService;
@@ -33,7 +34,7 @@ class IndicadorController extends Controller
 			$validatedData = $request->validated();
 			$this->indicadorService->insertIndicador($validatedData);
 			return redirect()->route('indicadores.index')->with('success', 'Indicador criado com sucesso!');
-		} catch (\Throwable $th) {
+		} catch (Throwable $th) {
 			Log::error('Erro ao criar indicador: '.$th->getMessage());
 			return redirect()->back()->withErrors(['error' => 'Houve um erro inesperado ao inserir um novo indicador, tente novamente']);
 		}
@@ -51,7 +52,7 @@ class IndicadorController extends Controller
 			$validatedData = $request->validated();
 			$this->indicadorService->updateIndicador($id, $validatedData);
 			return redirect()->route('indicadores.index')->with('success', 'Indicador atualizado com sucesso!');
-		} catch (\Throwable $th) {
+		} catch (Throwable $th) {
             Log::error('Erro ao atualizar indicador: '. $th->getMessage());
 			return redirect()->back()->withErrors(['error' => 'Houve um erro inesperado ao atualizar o indicador, tente novamente.']);
 		}
