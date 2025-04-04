@@ -8,6 +8,7 @@ use App\Services\CanalService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\AtividadeRequest;
+use Exception;
 
 class AtividadeController extends Controller
 {
