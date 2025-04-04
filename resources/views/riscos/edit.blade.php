@@ -62,16 +62,34 @@
 
                 <div class="row g-3">
 
-                    <div class="col-sm-3 col-md-3">
-                        <label style="white-space: nowrap;" for="nivel_de_risco">Nível de Risco:</label>
-                        <select name="nivel_de_risco" id="nivel_de_risco" class="form-select form-control" required>
-                            <option value="1" @selected(old('nivel_de_risco', $risco->nivel_de_risco) == 1)>Baixo</option>
-                            <option value="2" @selected(old('nivel_de_risco', $risco->nivel_de_risco) == 2)>Médio</option>
-                            <option value="3" @selected(old('nivel_de_risco', $risco->nivel_de_risco) == 3)>Alto</option>
-                        </select>
+                    <div class="col-sm-4 col-md-4">
+                        <label for="probabilidade">Probabilidade:<span class="asterisco">*</span></label>
+                        <input type="number" name="probabilidade" id="probabilidade" class="form-control"
+                            min="1" max="5" required
+                            value="{{ old('probabilidade', $risco->probabilidade) }}">
                     </div>
 
-                    <div class="col-sm-9 col-md-9">
+                    <div class="col-sm-4 col-md-4">
+                        <label for="impacto">Impacto:<span class="asterisco">*</span></label>
+                        <input type="number" name="impacto" id="impacto" class="form-control"
+                            min="1" max="5" required
+                            value="{{ old('impacto', $risco->impacto) }}">
+                    </div>
+
+                    <div class="col-sm-4 col-md-4">
+                        <label for="nivel_de_risco">Nível de Risco (automático):</label>
+                        <div id="riscoVisual" class="form-control" style="height: 38px; font-weight: bold;">
+                            <span id="riscoLabel">-</span>
+                        </div>
+                        <input type="hidden" name="nivel_de_risco" id="nivel_de_risco"
+                            value="{{ old('nivel_de_risco', $risco->nivel_de_risco) }}" required>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <small class="text-muted">* Os valores de <strong>probabilidade</strong> e <strong>impacto</strong> devem estar entre <strong>1 e 5</strong>.</small>
+                    </div>
+
+                    <div class="col-sm-12 col-md-12">
                         <label for="unidadeId">Unidade:</label>
                         <select name="unidadeId" class="form-select form-control" required>
                             <option selected disabled>Selecione uma unidade</option>
@@ -84,6 +102,51 @@
                         </select>
                     </div>
                 </div>
+
+                <script>
+                    const probabilidade = document.getElementById('probabilidade');
+                    const impacto = document.getElementById('impacto');
+                    const riscoLabel = document.getElementById('riscoLabel');
+                    const nivelDeRiscoInput = document.getElementById('nivel_de_risco');
+
+                    function calcularNivelDeRisco() {
+                        const p = parseInt(probabilidade.value) || 0;
+                        const i = parseInt(impacto.value) || 0;
+                        const resultado = p * i;
+
+                        let texto = '-';
+                        let cor = '';
+                        let nivel = '';
+
+                        if (resultado >= 15) {
+                            texto = 'Alto (' + resultado + ')';
+                            cor = 'red';
+                            nivel = '3';
+                        } else if (resultado >= 5) {
+                            texto = 'Médio (' + resultado + ')';
+                            cor = 'orange';
+                            nivel = '2';
+                        } else if (resultado > 0) {
+                            texto = 'Baixo (' + resultado + ')';
+                            cor = 'green';
+                            nivel = '1';
+                        }
+
+                        riscoLabel.textContent = texto;
+                        riscoLabel.style.color = cor;
+                        nivelDeRiscoInput.value = nivel;
+                    }
+
+                    probabilidade.addEventListener('input', calcularNivelDeRisco);
+                    impacto.addEventListener('input', calcularNivelDeRisco);
+
+                    window.addEventListener('load', function () {
+                        if (probabilidade.value && impacto.value) {
+                            calcularNivelDeRisco();
+                        }
+                    });
+                </script>
+
 
 
 
