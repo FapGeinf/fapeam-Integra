@@ -142,12 +142,17 @@ class RiscoService
     public function storeRisco(array $validatedData)
     {
         try {
+            $probabilidade = isset($validatedData['probabilidade']) && (int) $validatedData['probabilidade'];
+            $impacto = isset($validatedData['impacto']) && (int) $validatedData['impacto'];
+            $nivel_de_risco = $probabilidade * $impacto;
             $risco = Risco::create([
                 'responsavelRisco' => $validatedData['responsavelRisco'],
                 'riscoEvento' => $validatedData['riscoEvento'],
                 'riscoCausa' => $validatedData['riscoCausa'],
                 'riscoConsequencia' => $validatedData['riscoConsequencia'],
-                'nivel_de_risco' => (int) $validatedData['nivel_de_risco'],
+                'probabilidade' => $probabilidade,
+                'impacto' => $impacto,
+                'nivel_de_risco' => $nivel_de_risco,
                 'unidadeId' => $validatedData['unidadeId'],
                 'riscoAno' => $validatedData['riscoAno'],
                 'userIdRisco' => auth()->id()

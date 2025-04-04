@@ -29,6 +29,8 @@ class StoreRiscoRequest extends FormRequest
             'riscoCausa' => 'max:9000',
             'riscoConsequencia' => 'max:9000',
             'riscoAno' => 'required',
+            'probabilidade' => 'required|integer',
+            'impacto' => 'required|integer',
             'nivel_de_risco' => 'required|integer',
             'unidadeId' => 'required|exists:unidades,id',
             'monitoramentos' => 'required|array|min:1',
