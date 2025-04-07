@@ -116,7 +116,8 @@
                                                         <i class="bi bi-trash"></i> Excluir Anexo
                                                     </button>
 
-                                                    @if(Auth::user()->usuario_tipo_fk == 2)
+                                                    @if((Auth::user()->usuario_tipo_fk == 2 || Auth::user()->usuario_tipo_fk == 1) && $resposta->homologadoDiretoria == NULL)
+
                                                         <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal"
                                                             data-bs-target="#homologacaoModal{{ $resposta->id }}">
                                                             Homologar
@@ -132,7 +133,8 @@
                                                         <i class="bi bi-pen"></i> Editar
                                                     </button>
 
-                                                    @if(Auth::user()->usuario_tipo_fk == 2)
+                                                    @if((Auth::user()->usuario_tipo_fk == 2 || Auth::user()->usuario_tipo_fk == 1) && $resposta->homologadoDiretoria == NULL)
+
                                                         <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal"
                                                             data-bs-target="#homologacaoModal{{ $resposta->id }}">
                                                             Homologar
@@ -211,7 +213,8 @@
                                                         data-bs-target="#deleteAnexoModal" onclick="setDeleteAnexo({{ $resposta->id }})">
                                                         <i class="bi bi-trash"></i> Excluir Anexo
                                                     </button>
-                                                    @if(Auth::user()->usuario_tipo_fk == 2)
+                                                    @if((Auth::user()->usuario_tipo_fk == 2 || Auth::user()->usuario_tipo_fk == 1) && $resposta->homologadoDiretoria == NULL)
+
                                                         <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal"
                                                             data-bs-target="#homologacaoModal{{ $resposta->id }}">
                                                             Homologar
@@ -226,7 +229,8 @@
                                                         <i class="bi bi-pen"></i>
                                                     </button>
 
-                                                    @if(Auth::user()->usuario_tipo_fk == 2)
+                                                    @if((Auth::user()->usuario_tipo_fk == 2 || Auth::user()->usuario_tipo_fk == 1) && $resposta->homologadoDiretoria == NULL)
+
                                                         <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal"
                                                             data-bs-target="#homologacaoModal{{ $resposta->id }}">
                                                             Homologar
