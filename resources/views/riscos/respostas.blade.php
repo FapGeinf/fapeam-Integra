@@ -316,8 +316,11 @@
                             <textarea class="form-control" id="editRespostaRisco" name="respostaRisco" required></textarea>
                         </div>
                         <div class="mb-4">
-                            <label for="editRespostaAnexo" class="form-label">Anexar Arquivo</label>
+                            <label for="editRespostaAnexo" class="form-label d-block">
+                                Anexar Arquivo 
+                            </label>
                             <input type="file" class="form-control" id="editRespostaAnexo" name="anexo">
+                            <small class="form-text text-muted"><span class="text-danger">*</span>Apenas um arquivo pode ser anexado</small>
                         </div>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <button type="submit" class="success">Salvar</button>
@@ -340,17 +343,7 @@
                         enctype="multipart/form-data">
                         @csrf
                         <div class="mb-4">
-                            <!-- <label for="respostaRisco" class="form-label">Resposta</label> -->
-                            <textarea class="form-control" id="respostaRisco" name="respostaRisco" required></textarea>
-                        </div>
-                        <div class="mb-4">
-                            <label for="anexo" class="form-label">Anexar Arquivo</label>
-                            <input type="file" style="background-color: #f0f0f0;" class="form-control" id="anexo"
-                                name="anexo">
-                        </div>
-                        <div class="mb-4">
-                            <label for="statusMonitoramento-{{ $monitoramento->id }}" class="form-label">Status do
-                                Monitoramento</label>
+                            <label for="statusMonitoramento-{{ $monitoramento->id }}" class="form-label">Status:</label>
                             <select class="form-select" style="background-color: #f0f0f0;"
                                 id="statusMonitoramento-{{ $monitoramento->id }}" name="statusMonitoramento" required>
                                 <option value="NÃO IMPLEMENTADA" {{ old('statusMonitoramento', $monitoramento->statusMonitoramento) == 'NÃO IMPLEMENTADA' ? 'selected' : '' }}>
@@ -366,6 +359,17 @@
                                     IMPLEMENTADA
                                 </option>
                             </select>
+                        </div>
+                        <div class="mb-4">
+                            <label for="respostaRisco" class="form-label">Providência:</label>
+                            <textarea class="form-control" id="respostaRisco" name="respostaRisco" required></textarea>
+                        </div>
+                        <div class="mb-4">
+                            <label for="anexo" class="form-label d-block">
+                                Anexar Arquivo:
+                            </label>
+                            <input type="file" class="form-control" id="anexo" name="anexo" style="background-color: #f0f0f0;">
+                            <small class="form-text text-muted"><span class="text-danger">*</span>Apenas um arquivo pode ser anexado</small>
                         </div>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <button type="submit" class="btn btn-primary mb-2">Enviar</button>
