@@ -266,6 +266,8 @@ class RiscoController extends Controller
                 'riscoCausa' => 'max:9000',
                 'riscoConsequencia' => 'max:9000',
                 'riscoAno' => 'required',
+                'probabilidade' => 'required|integer',
+                'impacto' => 'required|integer',
                 'nivel_de_risco' => 'required|integer',
                 'unidadeId' => 'required|exists:unidades,id',
                 'monitoramentos' => 'required|array|min:1',
@@ -277,16 +279,23 @@ class RiscoController extends Controller
                 'monitoramentos.*.anexoMonitoramento' => 'nullable|file|mimes:jpeg,png,pdf|max:51200'
             ]);
 
+         
+            $probabilidade = isset($validatedData['probabilidade']) && (int) $validatedData['probabilidade'];
+            $impacto = isset($validatedData['impacto']) && (int) $validatedData['impacto'];
+            $nivel_de_risco = $probabilidade * $impacto;
+
             // Criação do risco
             $risco = Risco::create([
                 'responsavelRisco' => $validatedData['responsavelRisco'],
                 'riscoEvento' => $validatedData['riscoEvento'],
                 'riscoCausa' => $validatedData['riscoCausa'],
                 'riscoConsequencia' => $validatedData['riscoConsequencia'],
-                'nivel_de_risco' => (int)$validatedData['nivel_de_risco'], // Converter para inteiro
-                'unidadeId' => $validatedData['unidadeId'],
+                'probabilidade' => $probabilidade,
+                'impacto' => $impacto,
+                'nivel_de_risco' => $nivel_de_risco, 
                 'riscoAno' => $validatedData['riscoAno'],
-                'userIdRisco' => auth()->id()
+                'userIdRisco' => auth()->id(),
+                'unidadeId' => $validatedData['unidadeId']
             ]);
 
             foreach ($validatedData['monitoramentos'] as $index => $monitoramentoData) {
