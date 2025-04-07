@@ -319,7 +319,7 @@ class RiscoController extends Controller
             return redirect()->route('riscos.index')->with('success', 'Risco criado com sucesso!');
         } catch (\Exception $e) {
             Log::error('Erro ao criar risco: ' . $e->getMessage());
-            return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao criar o risco. Por favor, tente novamente.']);
+            return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao criar o risco. Por favor, tente novamente.'])->withInput();
         }
     }
 
