@@ -9,7 +9,7 @@
 @section('title')
     {{ 'Detalhes da Providência' }}
 @endsection
-<div class="container-xl p-30">
+<div class="container-xl p-30 mt-5">
     @if (session('error'))
         <div class="alert alert-danger">
             {{ session('error') }}
