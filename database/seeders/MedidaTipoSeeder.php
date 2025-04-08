@@ -20,7 +20,7 @@ class MedidaTipoSeeder extends Seeder
             ]);
 
             MedidaTipo::factory()->create([
-                 "nome" => "Setor(es)"
+                 "nome" => "Relatório(s)"
             ]);
     }
 }

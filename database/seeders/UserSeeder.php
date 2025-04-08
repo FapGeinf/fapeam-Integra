@@ -79,7 +79,7 @@ class UserSeeder extends Seeder
             'email' => 'gestorditec@mail.com',
             'email_verified_at' => now(),
             'cpf' => '00000000004',
-            'unidadeIdFK' => '6',
+            'unidadeIdFK' => '29',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
             'remember_token' => Str::random(10)
         ]);
@@ -89,7 +89,16 @@ class UserSeeder extends Seeder
             'email' => 'gestordaf@mail.com',
             'email_verified_at' => now(),
             'cpf' => '00000000005',
-            'unidadeIdFK' => '5',
+            'unidadeIdFK' => '28',
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'remember_token' => Str::random(10)
+        ]);
+        User::factory()->create([
+            'name' => 'Presidente Teste',
+            'email' => 'presidenteteste@mail.com',
+            'email_verified_at' => now(),
+            'cpf' => '00000000006',
+            'unidadeIdFK' => '30',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
             'remember_token' => Str::random(10)
         ]);
