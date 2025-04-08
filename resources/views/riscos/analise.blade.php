@@ -19,11 +19,13 @@
           margin-left: 0 !important;
         }
 
+        /* CURSOR PADRÃO, SEM INDICAÇÃO DE CLIQUE */
         #tableHome tbody tr:nth-child(odd) td,
         #tableHome tbody tr:nth-child(even) td {
             cursor:auto;
         }
 
+        /* REMOVE O HOVER DESNECESSÁRIO */
         #tableHome tbody tr:nth-child(even) td:nth-child(-n+6) {
             background-color: #fff !important;
             border-right: 0;
