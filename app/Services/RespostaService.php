@@ -161,42 +161,42 @@ class RespostaService
             $user = Auth::user();
             $nome = $user->name;
             $cpf = $user->cpf;
-            $cpfMascarado = substr($cpf, 0, 3) . '.***.***-' . substr($cpf, -2); // Mascarando o CPF
-
+            $cpfMascarado = substr($cpf, 0, 3) . '.***.***-' . substr($cpf, -2);
+    
             $dataHora = now()->format('d-m-Y H:i:s');
             $dataConcat = "Homologado em {$dataHora} pelo usuário de {$nome}, id {$user->id} e cpf {$cpfMascarado}";
-
-            $mensagem = '';
+    
             if ($user->usuario_tipo_fk == 2) {
                 if ($resposta->homologadoDiretoria === null) {
                     $resposta->homologadoDiretoria = $dataConcat;
-                    $mensagem = 'Resposta homologada com sucesso pela diretoria!';
                 } else {
-                    return redirect()->back()->with('error', 'A providência já está homologada pela diretoria.');
+                    throw new Exception('A providência já está homologada pela diretoria.');
                 }
-
+    
             } elseif ($user->usuario_tipo_fk == 1) {
                 if ($resposta->homologadaPresidencia === null) {
                     $resposta->homologadaPresidencia = $dataConcat;
-                    $mensagem = 'Resposta homologada com sucesso pela presidência!';
                 } else {
-                    return redirect()->back()->with('error', 'A providência já está homologada pela presidência.');
+                    throw new Exception('A providência já está homologada pela presidência.');
                 }
-
+    
             } else {
-                return redirect()->back()->with('error', 'Você não tem permissão para homologar.');
+                throw new Exception('Você não tem permissão para homologar.');
             }
-
+    
             if (!empty($resposta->homologadoDiretoria) && !empty($resposta->homologadaPresidencia)) {
                 $resposta->homologacaoCompleta = true;
             }
-
-            return $resposta->save();
-            
+    
+            $resposta->save();
+    
+            return true;
+    
         } catch (Exception $e) {
             Log::error("Erro ao homologar providência: {$e->getMessage()}");
-            throw new Exception('Houve um erro inesperado ao homologar a providência:');
+            throw new Exception('Houve um erro inesperado ao homologar a providência.');
         }
     }
+    
 
 }
