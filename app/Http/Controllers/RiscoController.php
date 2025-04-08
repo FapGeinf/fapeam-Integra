@@ -271,13 +271,11 @@ class RiscoController extends Controller
                 'monitoramentos.*.anexoMonitoramento' => 'nullable|file|mimes:jpeg,png,pdf|max:51200'
             ]);
 
-
-            $probabilidade = isset($validatedData['probabilidade']) && (int) $validatedData['probabilidade'];
-            $impacto = isset($validatedData['impacto']) && (int) $validatedData['impacto'];
-            $nivel_de_risco = $probabilidade * $impacto;
-
+            $probabilidade = isset($validatedData['probabilidade']) ? (int) $validatedData['probabilidade'] : 0;
+            $impacto = isset($validatedData['impacto']) ? (int) $validatedData['impacto'] : 0;
+            
             $valor_nivel_de_risco = $probabilidade * $impacto;
-
+            
             if ($valor_nivel_de_risco >= 15) {
                 $nivel_de_risco = 3; 
             } elseif ($valor_nivel_de_risco >= 5) {
@@ -287,6 +285,7 @@ class RiscoController extends Controller
             } else {
                 $nivel_de_risco = 0; 
             }
+            
 
             // Criação do risco
             $risco = Risco::create([

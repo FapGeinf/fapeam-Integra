@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded',function(){
+document.addEventListener('DOMContentLoaded', function () {
     const probabilidade = document.getElementById('probabilidade');
     const impacto = document.getElementById('impacto');
     const riscoLabel = document.getElementById('riscoLabel');
@@ -34,4 +34,6 @@ document.addEventListener('DOMContentLoaded',function(){
 
     probabilidade.addEventListener('input', calcularNivelDeRisco);
     impacto.addEventListener('input', calcularNivelDeRisco);
-})
+
+    calcularNivelDeRisco();
+});
