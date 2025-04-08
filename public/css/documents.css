@@ -7,7 +7,7 @@
 }
 
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: "Verdana","Roboto", sans-serif;
   font-weight: 400;
   font-style: normal;
 
@@ -142,8 +142,8 @@ a img:hover {
 }
 
 .central-text:hover {
-  transform: translateY(-10px);
-  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.3);
+  /* transform: translateY(-10px); */
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2);
 }
 
 .central-text:before,
@@ -196,18 +196,18 @@ a img:hover {
   font-size: 1.1rem;
   color: #444;
   line-height: 1.6;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   position: relative;
-  padding-left: 1.5rem; /* Menor que o padding anterior para mais clareza */
+  padding-left: 1rem; /* Menor que o padding anterior para mais clareza */
 }
 
-.central-text ul li:before {
-  content: '•'; /* Marcador personalizado */
-  color: #007acc; /* Azul mais claro */
+/* .central-text ul li:before {
+  content: '•';
+  color: #007acc;
   position: absolute;
   left: 0;
-  font-size: 1.5rem; /* Tamanho do marcador */
-}
+  font-size: 1.5rem;
+} */
 
 .central-text a {
   color: #007acc; /* Azul claro */
@@ -266,7 +266,7 @@ a img:hover {
   }
 }
 
-@media only screen and (max-width: 1366px) and (max-height: 768px) {
+@media only screen and (max-width: 1366px) {
   .apresentacao span {
     font-size: 25px;
     font-weight: bold;
@@ -274,10 +274,10 @@ a img:hover {
   }
 
   .central-text {
-    max-height: 50vh;
+    max-height: 70vh;
     max-width: 1100px;
     overflow-y: scroll;  
-    margin: 4rem auto 1rem auto;
+    margin: 2rem auto 1rem auto;
   }
 }
 

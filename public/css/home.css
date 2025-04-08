@@ -4,25 +4,35 @@
     font-style: normal;
   }
   
+
+  .form-control {
+    /* background-color: #f0f0f0; */
+    border-radius: 0 !important;
+  }
+
+  .form-select {
+    border-radius: 0 !important;
+  }
+
 body {
     font-family: "Poppins", sans-serif !important;
     background-color: #fff !important;
 }
 
 .borderRadius {
-    background-image: url('/img/login/tela-full.png');
+    background-image: url('/img/Decon/tela_inicial-both.png');
     background-size: cover;
 }
 
 .imgBloco {
-    width: 600px;
+    /* width: 600px; */
     margin-left: 27rem;
 }
 
 /* REMOVE AS CONFIGURAÇÕES DO GLOBAL.CSS */
-.login-page .appContent {
+/* .login-page .appContent {
     margin-left: 0 !important;
-}
+} */
 
 .appContent {
     margin-left: 0 !important;
@@ -39,26 +49,53 @@ body {
     display: flex;
     margin-left: 28rem;
     position: absolute;
+    margin-top: 7rem;
+}
+
+.links__a {
+    gap: 1rem;
+    z-index: 1;
+    display: flex;
+    margin-left: 28rem;
+    position: absolute;
+    margin-top: 10rem;
+}
+
+.links__a a {
+    font-size: 20px;
+    text-decoration: none;
+    color: #fff;
+}
+
+.links__a a:hover {
+    text-decoration: underline;
 }
 
 .links a {
-    color: #fff;
+    color: #183689;
     font-size: 20px;
+    font-weight: bold;
     text-decoration: none;
 }
 
 .linksChild {
-    padding: 6px;
-    border-radius: 5px;
-    transition: .2s;
-    border: 1px solid #2d4790;
-    background-color: #2d4790;
-    width: 160px;
-    text-align: center;
+    padding: 10px 60px;
+    border: 1px solid #fff;
+    background-color: #fff;
+    border-radius: 7px;
+    transition: .3s;
+}
+
+.linksChild__a {
+    padding: 10px 60px;
+    border: 1px solid #f9fafc;
+    background-color: #1d4683;
+    border-radius: 7px;
+    transition: .3s;
 }
 
 .linksChild:hover {
-    background-color: #13285e;
+    background-color: #ccc;
 }
 
 .grid {
@@ -86,18 +123,6 @@ body {
     display: flex;
     align-items: center;
     overflow: hidden;
-}
-
-.logo {
-    text-align: center;
-}
-
-.logo img {
-    height: 100%;
-}
-
-.img {
-    height: 60%;
 }
 
 .button-container {
@@ -137,23 +162,68 @@ body {
 .arrowButton:hover {
     background-color: #13285e;
 }
+
+.links__a {
+    display: none;
+}
+
+@media only screen and (max-width: 1600px) {
+    .links {
+        margin-left: 19rem;
+    }
+}
+
+@media only screen and (max-width: 1380px) {
+
+    .links {
+        margin-left: 21rem;
+        margin-top: 9rem;
+        padding: 10px 50px;
+    }
+
+    .linksChild {
+        padding: 10px 40px;
+        font-size: 14px;
+    }
+
+    .linksChild__a {
+        padding: 10px 20px;
+    }
+}
   
 @media only screen and (max-width: 1140px) {
     .borderRadius {
-        background-image: url('/img/login/tela-clean-1190.png');
+        background-image: url('/img/Decon/inicial_limpo-min.png');
         background-size: cover;
     }
 
     .links {
-        gap: 2rem;
+        gap: 1rem;
         z-index: 1;
         display: flex;
         margin-left: 0;
         position: absolute;
-        
-      }
+    }
+
+    .links a {
+    font-size: 13px;
+    }
+
+    .linksChild {
+    font-size: 10px;
+    }
 
     .imgBloco {
         margin-left: 0;
+        width: 60%;
+    }
+
+    .links__a {
+        margin-top: 10rem;
+        margin-left: 0rem;
+    }
+
+    .links__a a {
+        font-size: 13px;
     }
 }

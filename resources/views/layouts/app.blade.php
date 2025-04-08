@@ -5,40 +5,106 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="shortcut icon" href="{{ asset('img/logoDeconWhiteMin.png') }}">
   <link rel="stylesheet" href="{{asset('css/global.css')}}">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-  rel="stylesheet">
+  <link rel="stylesheet" href="{{asset('css/topnav.css')}}">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<title>{{ config('', 'Íntegra') }} | @yield('title')</title>
 	@vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .mt-1px {
+      margin-top: 1px;
+    }
+  </style>
 </head>
 
 <body>
 	<div id="app">
     @if(!Request::is('login'))
-    <nav class="navbar">
-      @if(Auth::check())
-        <a class="navbar-brand" style="position: absolute; top: -7px">
-          <img src="/img/logoDeconWhite-nobg-1.png" alt="logo" class="logoNavImg d-inline-block align-text-top">          
-        </a>
+
+    <div class="bg-topnav container-fluid fixed-top">
+      <ul class="d-flex justify-content-center">
+
+        @if(Auth::check())
+          <li class="li-navbar">
+            <i class="bi bi-person-workspace i-navbar text-light"></i>
+            <span class="a-navbar fw-bold">Usuário:</span>
+            <span class="a-navbar">{{ Auth::user()->name }}</span>
+          </li>
+
+          <li class="li-navbar">
+            <i class="bi bi-buildings-fill i-navbar text-light"></i>
+            <span class="a-navbar fw-bold">Lotado em:</span>
+            <span class="a-navbar">{{ Auth::user()->unidade->unidadeNome}}</span>
+          </li>
         @endif
 
-      <div class="navbar-brand">
-        @if(Auth::check())
-        <div id="navbarDropdown">
-          <div>
-            <i class="bi bi-person-workspace"></i>
-            <span class="userTopNav">Usuário: </span>
-            <span class="">{{ Auth::user()->name }}</span>
-          </div>
+      </ul>
+    </div>
 
-          <div>
-            <i class="bi bi-buildings-fill"></i>
-            <span class="sectorTopNav">Lotado em: </span>
-            <span class="">{{ Auth::user()->unidade->unidadeNome}}</span>
-          </div>
-        </div>
+    <nav class="navbar" style="{{ Request::routeIs('register') ? 'margin-top: 0;' : '' }}">
+      <div>
+        @if(Auth::check())
+        <a class="navbar-brand" href="{{ route('documentos.intro') }}" style="position: absolute; top: -7px">
+          <img src="/img/logonav.png" alt="logo" class="logoNavImg d-inline-block align-text-top">          
+        </a>
+        @endif
+      </div>
+      
+
+      <div class="navbar-brand" style="margin-left: 2rem;">
+        @if(Auth::check())
+        <ul class="d-flex justify-content-center">
+
+          <li class="li-navbar2">
+            <a href="{{ route('documentos.intro') }}" class="d-flex li-a a-navbar {{ Request::routeIs('documentos.intro') ? 'li-a-active' : '' }}">
+              <i class="bi bi-house i-navbar mt-1px"></i>
+              <span class="a-span">Home</span>
+            </a>
+          </li>
+  
+          {{-- <li class="li-navbar2 {{ Request::routeIs('documentos.intro') ? 'd-none' : '' }}">
+            <a href="{{ route('documentos.intro') }}" class="d-flex li-a a-navbar {{ Request::routeIs('documentos.intro') ? 'd-none' : '' }}">
+              <i class="bi bi-display i-navbar mt-1px"></i>
+              <span class="a-span">Apresentação</span>
+            </a>
+          </li> --}}
+  
+          <li class="li-navbar2">
+            <a href="{{ route('documentos.eixos') }}" class="d-flex li-a a-navbar {{ Request::routeIs('documentos.eixos') ? 'li-a-active' : '' }}">
+              <i class="bi bi-arrow-left-right i-navbar mt-1px"></i>
+              <span class="a-span">Eixos da Integridade</span>
+            </a>
+          </li>
+  
+          <li class="li-navbar2">
+            <a href="{{ route('historico') }}" class="d-flex li-a a-navbar {{ Request::routeIs('historico') ? 'li-a-active' : '' }}">
+              <i class="bi bi-card-text i-navbar mt-1px"></i>
+              <span class="a-span">Documentos</span>
+            </a>
+          </li>
+  
+          @if (Auth::user()->unidade->unidadeTipoFK == 1)
+            <li class="li-navbar2">
+              <a href="{{ route('relatorios.download') }}" class="d-flex li-a a-navbar">
+                <i class="bi bi-archive i-navbar mt-1px"></i>
+                <span class="a-span">Relatório Geral</span>
+              </a>
+            </li>
+            <li class="li-navbar2">
+                <a href="{{ route('usuarios.index') }}" class="d-flex li-a a-navbar">
+                    <i class="bi bi-people i-navbar mt-1px"></i>
+                    <span class="a-span">Usuários</span>
+                </a>
+            </li>
+          @endif
+        </ul>
       </div>
 
 			<div class="nav-item dropdown">
@@ -72,9 +138,9 @@
     </nav>
 
     <div>
-      @if(!Auth::guest())
+      {{-- @if(!Auth::guest())
 		    @include('sidenav')
-		  @endif
+		  @endif --}}
     </div>
     @endif
 
@@ -84,8 +150,6 @@
       </section>
 		</main>
 	</div>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 </body>
 
 </html>

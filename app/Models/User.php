@@ -23,7 +23,8 @@ class User extends Authenticatable
         'email',
         'password',
         'cpf',
-        'unidadeIdFK'
+        'unidadeIdFK',
+				'usuario_tipo_fk'
     ];
 
     /**
@@ -51,7 +52,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Unidade::class, 'unidadeIdFK');
     }
-
+		public function tipo()
+		{
+            return $this->belongsTo(UsuarioTipo::class, 'usuario_tipo_fk');
+		}
     public function riscos()
     {
         return $this->hasMany(Risco::class, 'userIdRisco');

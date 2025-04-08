@@ -42,41 +42,46 @@ class RiscoController extends Controller
             switch ($tipoAcesso) {
                 case 1:
                 case 3:
-                case 4:
-                    $riscos = Risco::all();
-                    break;
-            
+									//Depliance pode ver tudo a qualquer hora
+									$riscos = Risco::all();
+									break;
+								case 4:
+									//Case do gab da presidencia
+									if($user->usuario_tipo_fk == 1){
+										//Se for presidente, pode ver todos os riscos
+										$riscos = Risco::all();
+									}else{
+										//Se for apenas gestor, so pode ver os riscos da unidade Gab
+										$riscos = Risco::where('unidadeId', $user->unidade->id)->get();
+									}
+									break;
                 case 5:
+									//case da diretoria 
+									if($user->usuario_tipo_fk == 2){
+										//Se for diretora, pode ver todos os riscos de todos os setores daquela diretoria
                     $riscos = Risco::whereHas('unidade', function ($query) use ($unidadeDiretoria) {
-                        $query->where('unidadeDiretoria', $unidadeDiretoria);
-                    })->get();
-                    break;
-            
+											$query->where('unidadeDiretoria', $unidadeDiretoria);
+									})->get();
+									}else{
+										//Se for apenas gestor, so pode ver os riscos da sua unidade gab
+										$riscos = Risco::where('unidadeId', $user->unidade->id)->get();
+									}   
+									break; 
                 default:
+										// Gestor setor apenas
                     $riscos = Risco::where('unidadeId', $user->unidade->id)->get();
                     break;
-            }
-            
-          
-            
-
-            // if ($user->unidade->unidadeTipoFK == 1  && $user->unidade->unidadeTipoFK == 2) {
-            //     $riscos = Risco::all();
-            // } else {
-            //     $riscos = Risco::where('unidadeId', $user->unidade->id)->get();
-            // }
+            	}
 
             $riscosAbertos = $riscos->count();
 
-
             $riscosAbertosHoje = Risco::whereDate('created_at', \Carbon\Carbon::today())->count();
-
 
             $notificacoes = $this->filtraNotificacoes();
 
-
             $notificacoesNaoLidas = $notificacoes->whereNull('read_at');
             $notificacoesLidas = $notificacoes->whereNotNull('read_at');
+            $unidades = Unidade::all();
 
             return view('riscos.index', [
                 'riscos' => $riscos,
@@ -86,7 +91,84 @@ class RiscoController extends Controller
                 'notificacoes' => $notificacoes,
                 'notificacoesNaoLidas' => $notificacoesNaoLidas,
                 'notificacoesLidas' => $notificacoesLidas,
+                'unidades' => $unidades
             ]);
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao carregar os riscos. Por favor, tente novamente.']);
+        }
+    }
+
+		public function analise()
+    {
+			
+        try {
+            $user = auth()->user();
+            $prazo = Prazo::latest()->first();
+            $user = auth()->user();
+            $tipoAcesso = $user->unidade->unidadeTipoFK;
+            $unidadeDiretoria = $user->unidade->unidadeDiretoria;
+            
+            // switch ($tipoAcesso) {
+            //     case 1:
+            //     case 3:
+            //     case 4:
+            //         $riscos = Risco::all();
+            //         break;
+            //     case 5:
+            //         $riscos = Risco::whereHas('unidade', function ($query) use ($unidadeDiretoria) {
+            //             $query->where('unidadeDiretoria', $unidadeDiretoria);
+            //         })->get();
+            //         break;
+            //     default:
+            //         $riscos = Risco::where('unidadeId', $user->unidade->id)->get();
+            //         break;
+            // }
+
+						switch ($tipoAcesso) {
+							case 1:
+							case 3:
+								$riscos = Risco::all();
+								break;
+							case 4:
+								if($user->usuario_tipo_fk == 1){
+									$riscos = Risco::all();
+								}else{
+									$riscos = Risco::where('unidadeId', $user->unidade->id)->get();
+								}
+								break;
+							case 5:
+								if($user->usuario_tipo_fk == 2){
+									$riscos = Risco::whereHas('unidade', function ($query) use ($unidadeDiretoria) {
+										$query->where('unidadeDiretoria', $unidadeDiretoria);
+								})->get();
+								}else{
+									$riscos = Risco::where('unidadeId', $user->unidade->id)->get();
+								}   
+								break; 
+							default:
+									$riscos = Risco::where('unidadeId', $user->unidade->id)->get();
+									break;
+					}
+            
+            $riscosAbertos = $riscos->count();
+            $riscosAbertosHoje = Risco::whereDate('created_at', \Carbon\Carbon::today())->count();
+            $notificacoes = $this->filtraNotificacoes();
+            $notificacoesNaoLidas = $notificacoes->whereNull('read_at');
+            $notificacoesLidas = $notificacoes->whereNotNull('read_at');
+
+            $unidades = Unidade::all();
+
+            return view('riscos.analise', [
+                'riscos' => $riscos,
+                'prazo' => $prazo ? $prazo->data : null,
+                'riscosAbertos' => $riscosAbertos,
+                'riscosAbertosHoje' => $riscosAbertosHoje,
+                'notificacoes' => $notificacoes,
+                'notificacoesNaoLidas' => $notificacoesNaoLidas,
+                'notificacoesLidas' => $notificacoesLidas,
+                'unidades' => $unidades
+            ]);
+
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao carregar os riscos. Por favor, tente novamente.']);
         }
@@ -184,6 +266,8 @@ class RiscoController extends Controller
                 'riscoCausa' => 'max:9000',
                 'riscoConsequencia' => 'max:9000',
                 'riscoAno' => 'required',
+                'probabilidade' => 'required|integer',
+                'impacto' => 'required|integer',
                 'nivel_de_risco' => 'required|integer',
                 'unidadeId' => 'required|exists:unidades,id',
                 'monitoramentos' => 'required|array|min:1',
@@ -195,16 +279,23 @@ class RiscoController extends Controller
                 'monitoramentos.*.anexoMonitoramento' => 'nullable|file|mimes:jpeg,png,pdf|max:51200'
             ]);
 
+         
+            $probabilidade = isset($validatedData['probabilidade']) && (int) $validatedData['probabilidade'];
+            $impacto = isset($validatedData['impacto']) && (int) $validatedData['impacto'];
+            $nivel_de_risco = $probabilidade * $impacto;
+
             // Criação do risco
             $risco = Risco::create([
                 'responsavelRisco' => $validatedData['responsavelRisco'],
                 'riscoEvento' => $validatedData['riscoEvento'],
                 'riscoCausa' => $validatedData['riscoCausa'],
                 'riscoConsequencia' => $validatedData['riscoConsequencia'],
-                'nivel_de_risco' => (int)$validatedData['nivel_de_risco'], // Converter para inteiro
-                'unidadeId' => $validatedData['unidadeId'],
+                'probabilidade' => $probabilidade,
+                'impacto' => $impacto,
+                'nivel_de_risco' => $nivel_de_risco, 
                 'riscoAno' => $validatedData['riscoAno'],
-                'userIdRisco' => auth()->id()
+                'userIdRisco' => auth()->id(),
+                'unidadeId' => $validatedData['unidadeId']
             ]);
 
             foreach ($validatedData['monitoramentos'] as $index => $monitoramentoData) {
@@ -214,12 +305,6 @@ class RiscoController extends Controller
                     throw new \Exception('Fim do monitoramento não pode ser anterior ao início do monitoramento.');
                 }
 
-                $path = null;
-                if ($request->hasFile("monitoramentos.$index.anexoMonitoramento")) {
-                    $file = $request->file("monitoramentos.$index.anexoMonitoramento");
-                    $filename = time() . '_' . $file->getClientOriginalName();
-                    $path = $file->storeAs('public/anexos', $filename);
-                }
 
                 $monitoramento = Monitoramento::create([
                     'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
@@ -228,18 +313,15 @@ class RiscoController extends Controller
                     'fimMonitoramento' => $monitoramentoData['fimMonitoramento'] ?? null,
                     'isContinuo' => $isContinuo,
                     'riscoFK' => $risco->id,
-                    'anexoMonitoramento' => $path // Armazena o caminho do arquivo diretamente
                 ]);
             }
 
             return redirect()->route('riscos.index')->with('success', 'Risco criado com sucesso!');
         } catch (\Exception $e) {
             Log::error('Erro ao criar risco: ' . $e->getMessage());
-            return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao criar o risco. Por favor, tente novamente.']);
+            return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao criar o risco. Por favor, tente novamente.'])->withInput();
         }
     }
-
-
 
 
     public function edit($id)
@@ -307,13 +389,6 @@ class RiscoController extends Controller
                     throw new \Exception('Fim do monitoramento não pode ser anterior ao início do monitoramento.');
                 }
 
-                $path = null;
-                if ($request->hasFile("monitoramentos.$index.anexoMonitoramento")) {
-                    $file = $request->file("monitoramentos.$index.anexoMonitoramento");
-                    $filename = time() . '_' . $file->getClientOriginalName();
-                    $path = $file->storeAs('public/anexos', $filename);
-                }
-
                 $monitoramento = Monitoramento::create([
                     'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
                     'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
@@ -321,19 +396,18 @@ class RiscoController extends Controller
                     'fimMonitoramento' => $monitoramentoData['fimMonitoramento'] ?? null,
                     'isContinuo' => $isContinuo,
                     'riscoFK' => $risco->id,
-                    'anexoMonitoramento' => $path
                 ]);
             }
 
             return redirect()->route('riscos.show', ['id' => $risco->id])
-                ->with('success', 'Monitoramentos inseridos com sucesso');
+                ->with('success', 'Controles Sugeridos inseridos com sucesso');
         } catch (\Exception $e) {
-            Log::error('Error inserting monitoramentos:', [
+            Log::error('Error inserting Controles Sugeridos:', [
                 'exception_message' => $e->getMessage(),
                 'exception_trace' => $e->getTraceAsString(),
             ]);
 
-            return redirect()->back()->withErrors(['errors' => 'Houve um erro ao inserir monitoramentos']);
+            return redirect()->back()->withErrors(['errors' => 'Houve um erro ao inserir Controles Sugeridos']);
         }
     }
 
@@ -362,46 +436,24 @@ class RiscoController extends Controller
             Log::info('Monitoramento atualizado:', $monitoramento->toArray());
 
 
-            if ($request->hasFile('anexoMonitoramento')) {
-                Log::info('Novo anexo recebido.');
-
-                if ($monitoramento->anexoMonitoramento) {
-                    Storage::delete($monitoramento->anexoMonitoramento);
-                    Log::info('Anexo antigo excluído:', ['path' => $monitoramento->anexoMonitoramento]);
-                }
-
-                $file = $request->file('anexoMonitoramento');
-                $filename = time() . '_' . $file->getClientOriginalName();
-                $path = $file->storeAs('public/anexos', $filename);
-
-                Log::info('Novo arquivo enviado:', ['filename' => $filename, 'path' => $path]);
-
-                $monitoramento->anexoMonitoramento = $path;
-                $monitoramento->save();
-
-                Log::info('Novo anexo salvo no monitoramento.', ['path' => $path]);
-            } else {
-                Log::info('Nenhum novo anexo recebido.');
-            }
-
-            Log::info('Atualização de monitoramento concluída com sucesso.');
+            Log::info('Atualização de controle sugerido concluída com sucesso.');
 
             return redirect()->route('riscos.show', ['id' => $monitoramento->riscoFK])
-                ->with('success', 'Monitoramento atualizado com sucesso!');
+                ->with('success', 'Controle Sugerido atualizado com sucesso!');
         } catch (\Illuminate\Validation\ValidationException $e) {
-            Log::error('Erro de validação ao atualizar monitoramento:', [
+            Log::error('Erro de validação ao atualizar controle sugerido:', [
                 'errors' => $e->errors(),
                 'request' => $request->all()
             ]);
             return back()->withErrors($e->errors())->withInput();
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            Log::error('Monitoramento não encontrado:', ['id' => $id]);
-            return redirect()->route('riscos.index')->with('error', 'Monitoramento não encontrado.');
+            Log::error('Controle Sugerido não encontrado:', ['id' => $id]);
+            return redirect()->route('riscos.index')->with('error', 'Controle Sugerido não encontrado.');
         } catch (\Illuminate\Contracts\Filesystem\FileNotFoundException $e) {
             Log::error('Erro ao tentar excluir o anexo antigo:', ['path' => $monitoramento->anexoMonitoramento]);
             return back()->with('error', 'Erro ao tentar excluir o anexo antigo. Por favor, tente novamente.');
         } catch (\Exception $e) {
-            Log::error('Erro inesperado ao atualizar monitoramento:', [
+            Log::error('Erro inesperado ao atualizar controle sugerido:', [
                 'message' => $e->getMessage(),
                 'trace' => $e->getTraceAsString()
             ]);
@@ -433,10 +485,10 @@ class RiscoController extends Controller
             $deleteMonitoramento = $monitoramento->delete();
 
             if (!$deleteMonitoramento) {
-                return redirect()->back()->withErrors(['errors' => 'Houve um erro ao deletar o monitoramento']);
+                return redirect()->back()->withErrors(['errors' => 'Houve um erro ao deletar o controle sugerido']);
             }
 
-            return redirect()->back()->with(['success' => 'Monitoramento deletado com sucesso']);
+            return redirect()->back()->with(['success' => 'Controle Sugerido deletado com sucesso']);
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
         }
@@ -467,7 +519,7 @@ class RiscoController extends Controller
 
             $request->validate([
                 'respostaRisco' => 'required|string|max:5000',
-                'anexo' => 'nullable|file|mimes:jpg,png,pdf|max:51200'
+                'anexo' => 'nullable|file|mimes:jpg,png,pdf|max:102400'
             ]);
 
             $filePath = null;
@@ -539,7 +591,7 @@ class RiscoController extends Controller
 
         $request->validate([
             'respostaRisco' => 'required|string|max:5000',
-            'anexo' => 'nullable|file|mimes:jpg,png,pdf|max:51200',
+            'anexo' => 'nullable|file|mimes:jpg,png,pdf|max:102400',
         ]);
 
         try {
@@ -607,6 +659,39 @@ class RiscoController extends Controller
         return view('riscos.respostas', ['monitoramento' => $monitoramento, 'respostas' => $respostas]);
     }
 
+		public function homologar($id)
+		{
+				try {
+						$resposta = Resposta::findOrFail($id);
+						$user = Auth::user();
+						$nome = $user->name;
+						$cpf = $user->cpf;
+						$cpfMascarado = substr($cpf, 0, 3) . '.***.***-' . substr($cpf, -2); // Mascarando o CPF
+		
+						$dataHora = now()->format('d-m-Y H:i:s');
+		
+						$dataConcat = "Homologado em {$dataHora} {$nome} id {$user->id} cpf {$cpfMascarado}";
+
+						if (($user->usuario_tipo_fk == 1 || $user->usuario_tipo_fk == 2) && $resposta->homologadoDiretoria == NULL) {
+								$resposta->update([
+										'homologadoDiretoria' => $dataConcat
+								]);
+								return redirect()->back()->with('success', 'Resposta homologada com sucesso!')->with('homologacao', $dataConcat);
+						} else if($resposta->homologadoDiretoria != NULL) {
+								return redirect()->back()->with('error', 'A providência ja está homologada');
+						}else{
+							return redirect()->back()->with('error', 'Você não tem permissão para homologar');
+						}
+				} catch (Exception $e) {
+						Log::error('Erro ao homologar resposta: ' . $e->getMessage(), [
+								'id' => $id,
+								'stack' => $e->getTraceAsString()
+						]);
+						return redirect()->back()->with('error', 'Ocorreu um erro ao tentar homologar a resposta. Tente novamente.');
+				}
+		}
+		
+
     public function insertPrazo(Request $request)
     {
         try {
@@ -639,6 +724,6 @@ class RiscoController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('checkAccess');
+        // $this->middleware('checkAccess');
     }
 }

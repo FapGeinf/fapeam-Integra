@@ -256,20 +256,11 @@ body {
 
 .helpButtons a {
   color: #000;
-  text-decoration: underline;
-  transition: .2s;
+  text-decoration: none;
 }
 
 .helpButtons a:hover {
-  opacity: .8;
-}
-
-.footerLogo {
-  color: #717171;
-  display: flex;
-  justify-content: center;
-  font-weight: bold;
-  margin-top: 7rem;
+  text-decoration: underline;
 }
 
 .justify__space_between {
@@ -327,6 +318,53 @@ input[type=checkbox], label {
   box-shadow: 0 0 0 0.25rem #3c62ad;
 }
 
+.form-control {
+  /* background-color: #f0f0f0; */
+  border-radius: 0 !important;
+}
+
+.form-select {
+  border-radius: 0 !important;
+}
+
+.footerLogo {
+  color: #5e5e5e;
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  margin-top: 7rem;
+}
+
+.version {
+  display: flex;
+  justify-content: center;
+}
+
+.version span {
+  font-weight: bold;
+  font-size: 13px;
+  color: #183689;
+  /* text-decoration: underline; */
+}
+
+.version span:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.version-logo {
+  color: #152d6e;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin-left: 3px !important;
+  font-size: 11px !important;
+}
+
+/* .version-logo span a {
+  color: #152d6e !important;
+} */
+
 @media only screen and (max-width: 1760px) {
   .form {
     padding-top: 1rem;
@@ -370,7 +408,8 @@ input[type=checkbox], label {
     font-size: 14px;
   }
 
-  .helpButtons a {
+  .helpButtons a,
+  .version span {
     font-size: 12px;
   }
 
@@ -398,7 +437,7 @@ input[type=checkbox], label {
   }
 
   .footerLogo {
-    font-size: 10px;
+    font-size: 11px;
     margin-top: 2rem;
   }
 }
@@ -443,7 +482,8 @@ input[type=checkbox], label {
     width: 37%;
   }
 
-  .helpButtons a {
+  .helpButtons a,
+  .version span {
     font-size: 11px;
   }
 
@@ -471,7 +511,7 @@ input[type=checkbox], label {
   }
 
   .footerLogo {
-    font-size: 10px;
+    font-size: 11px;
     margin-top: 2rem;
   }
 }
@@ -515,7 +555,8 @@ input[type=checkbox], label {
     width: 37%;
   }
 
-  .helpButtons a {
+  .helpButtons a,
+  .version span {
     font-size: 11px;
   }
 
@@ -543,7 +584,7 @@ input[type=checkbox], label {
   }
 
   .footerLogo {
-    font-size: 10px;
+    font-size: 11px;
     margin-top: 2rem;
   }
 }
@@ -587,7 +628,8 @@ input[type=checkbox], label {
     width: 37%;
   }
 
-  .helpButtons a {
+  .helpButtons a,
+  .version span {
     font-size: 11px;
   }
 
@@ -615,7 +657,7 @@ input[type=checkbox], label {
   }
 
   .footerLogo {
-    font-size: 10px;
+    font-size: 11px;
     margin-top: 2rem;
   }
 }
@@ -659,7 +701,8 @@ input[type=checkbox], label {
     width: 37%;
   }
 
-  .helpButtons a {
+  .helpButtons a,
+  .version span {
     font-size: 11px;
   }
 
@@ -683,7 +726,7 @@ input[type=checkbox], label {
   }
 
   .footerLogo {
-    font-size: 10px;
+    font-size: 11px;
     margin-top: 2rem;
   }
 }
@@ -744,7 +787,8 @@ input[type=checkbox], label {
     font-size: 11px;
   }
 
-  .helpButtons a {
+  .helpButtons a,
+  .version span {
     font-size: 10px;
   }
 

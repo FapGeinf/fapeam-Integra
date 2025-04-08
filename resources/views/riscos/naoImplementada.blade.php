@@ -87,6 +87,8 @@
         </div>
     </div>
 
+    <x-back-button/>
+
     <!-- <footer class="rodape">
         <div class="riskLevelDiv">
             <span>Nível de Risco (Avaliação):</span>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -17,23 +18,53 @@ class UserController extends Controller
         return view('users.painel', ['users' => $users]);
     }
 
+    public function insertUser(Request $request)
+    {
+        try {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|unique:users,email',
+                'cpf' => 'required|unique:users,cpf',
+                'password' => 'required|string|confirmed|min:8',
+                'unidadeIdFK' => 'required|exists:unidades,id',
+            ]);
+    
+            $cpf = preg_replace('/\D/', '', $request->cpf); 
+    
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'cpf' => $cpf, 
+                'unidadeIdFK' => $request->unidadeIdFK,
+                'password' => Hash::make($request->password),
+            ]);
+    
+            return redirect()->back()->with('success', 'Foi inserido um usuario com sucesso');
+            
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors('Houve um erro inesperado ao inserir um novo usuario. Tente Novamente')->withInput();
+        }
+    }
+    
+		private function removeMask($cpf){
+			$cpf = preg_replace('/\D/','', $cpf);
+			return $cpf;
+		}
+
     public function updateUser(Request $request, $id)
     {
 
         $user = User::findOrFail($id);
-
         $rules = [
             'name' => 'nullable|string',
             'email' => 'nullable|email|unique:users,email,' . $user->id,
-            'cpf' => 'nullable|digits:11|unique:users,cpf,' . $user->id,
+            'cpf' => 'nullable|unique:users,cpf,' . $user->id,
             'password' => 'nullable|min:8',
             'password_confirmation' => 'nullable|required_with:password|same:password|min:8',
             'unidadeIdFK' => 'nullable|exists:unidades,id',
         ];
 
-
         $validator = Validator::make($request->all(), $rules);
-
 
         if ($request->filled('password') && !$request->filled('password_confirmation')) {
             $validator->errors()->add('password_confirmation', 'A confirmação da senha é obrigatória quando a senha é fornecida.');
@@ -59,7 +90,7 @@ class UserController extends Controller
         }
 
         if ($request->filled('cpf')) {
-            $data['cpf'] = $request->input('cpf');
+            $data['cpf'] = $this->removeMask($request->input('cpf'));
         }
 
         if ($request->filled('unidadeIdFK')) {

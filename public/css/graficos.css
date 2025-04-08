@@ -1,0 +1,146 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f8f9fa;
+    color: #212529;
+}
+
+.container-fluid {
+    padding: 20px;
+}
+
+.card {
+    border-radius: 12px;
+    border: 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 20px;
+    background-color: white;
+}
+
+.card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+#search-bar {
+    border-radius: 20px;
+    border: 1px solid #ced4da;
+    padding: 12px 18px;
+    font-size: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+#search-bar:focus {
+    outline: none;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+    border-color: #007bff;
+}
+
+button.btn-primary {
+    border-radius: 20px;
+    padding: 8px 20px;
+    font-size: 16px;
+    background: linear-gradient(90deg, #007bff, #0056b3);
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+button.btn-primary:hover {
+    background: linear-gradient(90deg, #0056b3, #003f7f);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.card-title {
+    font-weight: bold;
+    color: #495057;
+    margin-bottom: 10px;
+}
+
+.card-body p {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+
+h4.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.chart-card {
+    background: white;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out, transform 0.2s;
+    padding: 15px;
+    border-radius: 12px;
+}
+
+.chart-card:hover {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+}
+
+#no-results-message {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.info-badge {
+    font-size: 1.3rem;
+    font-weight: bold;
+    border-radius: 50px;
+    padding: 8px 20px;
+    color: white;
+}
+
+.form-control {
+    /* background-color: #f0f0f0; */
+    border-radius: 0 !important;
+  }
+
+@media (max-width: 768px) {
+    .chart-card {
+        margin-bottom: 20px;
+    }
+
+    button.btn-primary {
+        width: 100%;
+        padding: 12px;
+    }
+
+    #search-bar {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .info-badge {
+        font-size: 1.4rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .card {
+        height: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .card-body p {
+        font-size: 16px;
+    }
+
+    h4.card-title {
+        font-size: 16px;
+    }
+}
+
+.no-hover .card:hover,
+.no-hover .chart-card:hover {
+    transform: none;
+    box-shadow: none;
+}
+

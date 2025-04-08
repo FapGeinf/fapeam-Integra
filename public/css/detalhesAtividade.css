@@ -1,0 +1,48 @@
+body {
+  background-image: url('/img/bg-white.jpg');
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.poppins-regular {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.margin-top-4 {
+  margin-top: 4rem !important;
+}
+
+.p-30 {
+  padding: 30px;
+}
+
+.box {
+  max-width: 900px;
+}
+
+.border-top-none {
+  border-width: 0 1px 1px 1px;
+  border-style: solid;
+  border-color: #DEE2E6;
+}
+
+.fs-18 {
+  font-size: 18px;
+}
+
+.margin-30 {
+  margin: 30px;
+}
+
+.border-bottom-none {
+  border-width: 1px 1px 0 1px;
+  border-style: solid;
+  border-color: #DEE2E6;
+}
+
+.form-control,
+.form-select {
+  border-radius: 0 !important;
+}

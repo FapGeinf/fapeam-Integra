@@ -1,3 +1,6 @@
+{{-- @extends('layouts.app') --}}
+{{-- @section('content') --}}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +22,7 @@
       <div class="apresentacao2">
         <span class="mainData">
           <div>
-            <a href="{{ route('documentos.newHome') }}" class="tooltip" data-tooltip="Voltar para HOME">
+            <a href="{{ route('documentos.intro') }}" class="tooltip" data-tooltip="Voltar para HOME">
               <img src="{{ asset('img/house-icon-modified3.png') }}" alt="House Icon" style="margin-right: .5rem;">
             </a>
           
@@ -34,8 +37,10 @@
 
   <div class="central-text">
 
+    <p>Bem-vindo(a) ao Sistema Íntegra!</p>
+
     <p class="noMB">
-    O <strong>Sistema Íntegra</strong> é uma ferramenta do Programa de Integridade da Fundação de Amparo à Pesquisa do Estado do Amazonas – FAPEAM.
+    O Sistema Íntegra é uma ferramenta do Programa de Integridade da Fundação de Amparo à Pesquisa do Estado do Amazonas – FAPEAM.
     Sua finalidade é aprimorar as rotinas e sistemas de controle interno preventivo e corretivo, buscando assegurar a legalidade, legitimidade, economicidade, eficiência, publicidade e transparência da gestão administrativa, proporcionando apoio à Alta Administração na gestão dos recursos públicos e ao atendimento às legislações vigentes.
     </p>
 
@@ -43,7 +48,7 @@
     Esta ferramenta acompanha as rotinas administrativas, com intuito de direcionar, monitorar e avaliar a efetividade do Programa de Integridade, conforme os eixos estabelecidos:
     </p>
 
-    <p>
+    
     <ul>
         <li>I – Comprometimento e Apoio da Alta Direção;</li>
         <li>II – Institucionalização do Código de Conduta;</li>
@@ -54,7 +59,7 @@
         <li>VII – Investigações Internas;</li>
         <li>VIII – Monitoramento Contínuo.</li>
     </ul>
-    </p>
+    
 
     <p>
     Contamos com sua contribuição para prevenir, detectar e remediar fraudes e atos de corrupção em apoio à boa governança.

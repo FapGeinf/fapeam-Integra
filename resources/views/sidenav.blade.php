@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -6,8 +7,9 @@
     <link rel="stylesheet" href="{{ asset('css/global.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-
-    <style>
+    
+    <!-- O CSS ESTÁ DESATIVADA A PEDIDO DE RESPONSÁVEL MAIOR. FAVOR, NÃO APAGAR! -->
+    {{-- <style>
         /* Defina a largura inicial da sidenav para garantir que ela carregue fechada */
         #appSidenav {
             width: 4rem;
@@ -33,10 +35,11 @@
             margin-left: 0; /* Remove o deslocamento do conteúdo */
         }
 
-    </style>
+    </style> --}}
 </head>
 
-<script>
+<!-- A FUNÇÃO ESTÁ DESATIVADA A PEDIDO DE RESPONSÁVEL MAIOR. FAVOR, NÃO APAGAR! -->
+{{-- <script>
     document.addEventListener('DOMContentLoaded', function () {
         const bodyClass = document.body.classList.contains('page-with-filters');
         const removeSNItens = document.body.classList.contains('changePassword');
@@ -124,37 +127,42 @@
 
         toggleButton.addEventListener("click", toggleNav);
     });
-</script>
+</script> --}}
 
 
-<body class="{{ Request::routeIs('documentos.eixos') ? 'hide-sidenav' : '' }}">
+{{-- <body class="{{ Request::routeIs('documentos.eixos') ? 'hide-sidenav' : '' }}"> --}}
+<body>
 
     <nav class="menu-lateral" id="appSidenav">
-        <button id="toggleSidenav" class="btn-toggle" style="transition: .3s">
-            <i class="bi bi-list"></i>
-        </button>
 
-        <hr class="spacer" style="margin-top: 4rem; color: #22539c;">
+        @if (Request::routeIs('documentos.intro'))
+            <a class="navbar-brand" href="{{ route('documentos.intro') }}" style="position: absolute; top: 0px; margin-left: 0;">
+                <img src="/img/logonav.png" alt="logo" class="logoNavImg d-inline-block align-text-top">          
+            </a>
+        @endif
+
+        <hr class="spacer" style="margin-top: 1.5rem; color: #22539c;"> 
 
         <ul class="ulList">
-            <li class="item-menu liHover">
-                <a href="{{ route('documentos.eixos') }}"
-                    class="{{ Request::routeIs('documentos.eixos') ? 'active-icon' : '' }}">
+            <li class="item-menu liHover" >
+                <a href="{{ route('documentos.intro') }}"
+                    class="{{ Request::routeIs('documentos.intro') ? 'active-icon' : '' }}">
                     <i class="bi bi-house icon"></i>
                     <span class="txt-link">Home</span>
                 </a>
             </li>
 
-            <li class="item-menu liHover">
-                <a href="{{ route('documentos.newHome') }}"
-                    class="{{ Request::routeIs('documentos.newHome') ? 'active-icon' : '' }}">
-                    <i class="bi bi-question-circle icon"></i>
+            <li class="item-menu liHover" style="{{ Request::routeIs('documentos.intro') ? 'display: none;' : '' }}">
+
+                <a href="{{ route('documentos.intro') }}" class="{{ Request::routeIs('documentos.intro') ? 'active-icon' : '' }}">
+                    <i class="bi bi-display icon"></i>
                     <span class="txt-link">Apresentação</span>
                 </a>
             </li>
+            
 
             <li class="item-menu liHover">
-                <a href="{{ route('documentos.eixos') }}">
+                <a href="{{ route('documentos.eixos') }}" class="{{ Request::routeIs('documentos.eixos') ? 'active-icon' : '' }}">
                     <i class="bi bi-arrow-left-right icon"></i>
                     <span class="txt-link">Eixos da Integridade</span>
                 </a>
@@ -193,7 +201,7 @@
             <hr class="spacer">
 
             <li class="item-menu liHover">
-                <a href="{{ route('historico') }}">
+                <a href="{{ route('historico') }}" class="{{ Request::routeIs('historico') ? 'active-icon' : '' }}">
                     <i class="bi bi-card-text icon"></i>
                     <span class="txt-link">Documentos</span>
                 </a>

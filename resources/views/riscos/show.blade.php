@@ -5,17 +5,17 @@
     {{ 'Detalhes do Risco' }}
 @endsection
 
-<!doctype html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Riscos</title>
     <link rel="stylesheet" href="{{ asset('css/show.css') }}">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <style>
+        .liDP {
+            margin-left: 0 !important;
+        }
+    </style>
+
     <script src="/ckeditor/ckeditor.js"></script>
-</head>
+
 
 <body>
     @if (session('error'))
@@ -24,7 +24,7 @@
         </script>
     @endif
 
-    <div class="container-fluid p-30">
+    <div class="container-fluid p-30 mt-5">
         <div class="col-12 border box-shadow">
             <h5 class="text-center mb-2">Detalhamento do Risco Inerente</h5>
 
@@ -64,6 +64,7 @@
                             <th scope="col" class="text-center text-light">Data:</th>
                             <th scope="col" class="text-center text-light tBorder">Situação:</th>
                             <th scope="col" class="text-center text-light">Anexo:</th>
+                            <th scope="col" class="text-center text-light">Modificado:</th>
                             <th scope="col" class="text-center text-light">Opções:</th>
                         </tr>
                     </thead>
@@ -94,19 +95,49 @@
                                         </div>
                                     @endif
                                 </td>
+
+																<td class="text13 pb-1 tBorder text-center">{!!  \Carbon\Carbon::parse($monitoramento->updated_at)->format('d/m/Y H:i:s') !!}</td>
+
                                 <td class="text-center">
-                                    <div class="ms-2" style="display: flex; flex-direction: column; align-items: center;">
+                                    <div class="ms-2 gap-1" style="display: flex; align-items: center;">
+																			{{-- -ESSE IF DEVE SER == 1 APENAS --}}
                                         @if (auth()->user()->unidade->unidadeTipo->id == 1)
-                                            <a href="{{ route('riscos.editMonitoramento', ['id' => $monitoramento->id]) }}" class="warning mb-2" style="font-size: 13px; white-space: nowrap;">
-                                                 Editar Monitoramento
+                                            <a href="{{ route('riscos.editMonitoramento', ['id' => $monitoramento->id]) }}" class="warning" style="font-size: 13px; white-space: nowrap;">
+                                                <i class="bi bi-pencil"></i>
                                             </a>
+																						<button type="button" class="danger" data-bs-toggle="modal" data-bs-target="#excluirMonitoramento{{ $monitoramento->id }}" style="font-size: 13px;">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
                                         @endif
                                             <a href="{{ route('riscos.respostas', ['id' => $monitoramento->id]) }}" class="primary" style="font-size: 13px; white-space: nowrap;">
-                                             Visualizar Providências
-                                        </a>
+                                                <i class="bi bi-eye"></i>
+                                            </a>
                                     </div>
                                 </td>
+
+
                             </tr>
+                            <div class="modal fade" id="excluirMonitoramento{{ $monitoramento->id }}" tabindex="-1" aria-labelledby="excluirMonitoramentoLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="excluirMonitoramentoLabel">Confirmar Exclusão do Controle Sugerido</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Tem certeza que deseja excluir o Controle Sugerido?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                            <form action="{{ route('riscos.deleteMonitoramento', $monitoramento->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger">Excluir Monitoramento</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         @endforeach
                     </tbody>
                 </table>
@@ -114,24 +145,17 @@
                 <div class="text-center mb-4">
                     @if (Auth::user()->unidade->unidadeTipoFK == 1)
                         <a href="{{ route('riscos.edit', $risco->id) }}" class="warning">Editar Risco</a>
-                        <a href="{{ route('riscos.edit-monitoramentos', ['id' => $risco->id]) }}" class="primary">Adicionar Monitoramentos</a>
+                        <a href="{{ route('riscos.edit-monitoramentos', ['id' => $risco->id]) }}" class="primary">Adicionar Controles Sugeridos</a>
                     @endif
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- <footer class="rodape">
-        <div class="riskLevelDiv">
-            <span>Nível de Risco (Avaliação):</span>
-            <span class="mode riskLevel1">Baixo</span>
-            <span class="mode riskLevel2">Médio</span>
-            <span class="mode riskLevel3">Alto</span>
-        </div>
-    </footer> -->
+    <x-back-button/>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script> -->
 
 </body>
 

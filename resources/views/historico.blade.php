@@ -6,6 +6,12 @@
 
 <head>
   <link rel="stylesheet" href="{{ asset('css/historico.css') }}">
+
+  <style>
+    .liDP {
+          margin-left: 0 !important;
+        }
+      </style>
 </head>
 
 <div class="form-wrapper pt-5">
@@ -83,7 +89,7 @@
   </div>
 </div>
 
-
+<x-back-button/>
 
 <script>
   function toggleDropdown(menuId) {

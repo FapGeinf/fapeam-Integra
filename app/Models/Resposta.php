@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Resposta extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
-    protected $fillable = ['respostaRisco', 'respostaMonitoramentoFK', 'user_id','anexo'];
+    protected $fillable = ['respostaRisco', 'respostaMonitoramentoFK', 'user_id','anexo','homologadoDiretoria'];
 
     public function user()
     {
@@ -21,4 +22,6 @@ class Resposta extends Model
         return $this->belongsTo(Monitoramento::class, 'respostaMonitoramentoFK', 'id');
     }
 }
+
+
 

@@ -19,11 +19,11 @@
       <div class="apresentacao2">
         <span class="mainData">
           <div>
-            <a href="#" class="tooltip" data-tooltip="Voltar para HOME">
+            <a href="{{ route('documentos.intro') }}" class="tooltip" data-tooltip="Voltar para HOME">
               <img src="{{ asset('img/house-icon-modified3.png') }}" alt="House Icon" style="margin-right: .5rem;">
             </a>
           
-            <a href="#" class="tooltip" data-tooltip="Manual do Usuário">
+            <a href="{{ route('manual') }}" class="tooltip" data-tooltip="Manual do Usuário">
               <img src="{{ asset('img/manual-icon3.png') }}" alt="Manual Icon">
             </a>
           </div>
@@ -68,6 +68,10 @@
 
     <p>
       9. Declaração de Posicionamento do Instituto Internacional de Auditores- IIA: As três linhas de defesa: Uma atualização das três linhas. Ano 2020.
+    </p>
+
+    <p>
+      10. Decreto n° 50.868, de 12 de dezembro de 2024, que institui o Programa Estadual de Integridade no âmbito da Administração Pública Direta e Indireta do Poder Executivo do Estado do Amazonas, e dá outras providências.
     </p>
    
   </div>
