@@ -16,33 +16,27 @@ class NovasUnidadesSeeder extends Seeder
     public function run()
     {
            Unidade::factory()->create([
-             'unidadeNome' => 'Gabinete DAF',
-             'unidadeSigla' => 'GAB-DAF',
-             'unidadeTipoFK' => 2
+             'unidadeNome' => ' DIRETORIA ADMINISTRATIVO-FINANCEIRA',
+             'unidadeSigla' => 'DAF',
+						 'unidadeEmail' => 'diretoriaadministrativafinanceira@email.com',
+             'unidadeTipoFK' => 5,
+						 'unidadeDiretoria' => '1',
            ]);
 
            Unidade::factory()->create([
-               'unidadeNome' => 'Gabinete DITEC',
-               'unidadeSigla' => 'GAB-DITEC',
-               'unidadeTipoFK' => 2
+               'unidadeNome' => 'DIRETORIA TECNICO-CIENTIFICA',
+               'unidadeSigla' => 'DITEC',
+							 'unidadeEmail' => 'diretoriatecnicacientifica@email.com',
+               'unidadeTipoFK' => 5,
+							 'unidadeDiretoria' => '2',
            ]);
 
            Unidade::factory()->create([
-               'unidadeNome' => 'Gabinete PRESIDÊNCIA',
-               'unidadeSigla' => 'GAB-PRES',
-               'unidadeTipoFK' => 2
-           ]);
-
-           Unidade::factory()->create([
-               'unidadeNome' => 'Asseroria da Presidência',
-               'unidadeSigla' => 'ASSPRED',
-               'unidadeTipoFK' => 2
-           ]);
-
-           Unidade::factory()->create([
-                 'unidadeNome' => 'Departamento de Planejamento e Avaliação Institucional da Presidência',
-                 'unidadeSigla' => 'DEPLAVI',
-                 'unidadeTipoFK' => 2
+               'unidadeNome' => 'PRESIDÊNCIA',
+               'unidadeSigla' => 'PRES',
+							 'unidadeEmail' => 'presidenciafap@email.com',
+               'unidadeTipoFK' => 4,
+							 'unidadeDiretoria' => '3',
            ]);
     }
 }

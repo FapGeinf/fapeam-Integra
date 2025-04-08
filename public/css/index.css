@@ -258,6 +258,10 @@ thead tr th {
   text-align: center;
 }
 
+table.dataTable {
+  border-collapse: collapse !important;
+}
+
 /* FILTRO DE PESQUISA INÍCIO */
 #searchDiv {
   display: flex;

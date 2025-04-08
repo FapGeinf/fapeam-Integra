@@ -81,7 +81,7 @@
                     });
                 </script>
 
-                {{-- <button id="notificationButton" type="button" class="purple-btn position-relative ms-3"
+                {{-- <button id="notificationButton" type="button" class="purple-btn position-relative ms-3"f
                     data-bs-toggle="modal" data-bs-target="#notificationModal">
                     <i class="bi bi-bell"></i>
                     <span id="notificationBadge"
@@ -454,7 +454,7 @@
                         var actionDropdownButton = $('<button class="btnAdd dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Ações</button>');
                         var actionDropdownMenu = $('<ul style="min-height: 97px;" class="dropdown-menu text-center p-3"></ul>');
 
-                        @if (Auth::user()->unidade->unidadeTipoFK == 1 || Auth::user()->unidade->unidadeTipoFK == 4)
+                        @if (Auth::user()->unidade->unidadeTipoFK !== 2  || Auth::user()->unidade->unidadeTipoFK !== 5)
                             var newRiskButton = $('<li style="margin-left: 0; "><a href="{{ route('riscos.create') }}" class="btnAdd text-decoration-none"><i class="bi bi-plus-lg"></i> Novo Risco</a></li>');
                             var insertDeadlineButton = $('<li style="margin-left: 0;"><button type="button" class="mt-2 green-btn" data-bs-toggle="modal" data-bs-target="#prazoModal"><i class="bi bi-plus-lg"></i> Inserir Prazo</button></li>');
                             actionDropdownMenu.append(newRiskButton, insertDeadlineButton);
