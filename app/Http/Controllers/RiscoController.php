@@ -38,40 +38,32 @@ class RiscoController extends Controller
             $user = auth()->user();
             $tipoAcesso = $user->unidade->unidadeTipoFK;
             $unidadeDiretoria = $user->unidade->unidadeDiretoria;
-            
+
             switch ($tipoAcesso) {
                 case 1:
                 case 3:
-									//Depliance pode ver tudo a qualquer hora
-									$riscos = Risco::all();
-									break;
-								case 4:
-									//Case do gab da presidencia
-									if($user->usuario_tipo_fk == 1){
-										//Se for presidente, pode ver todos os riscos
-										$riscos = Risco::all();
-									}else{
-										//Se for apenas gestor, so pode ver os riscos da unidade Gab
-										$riscos = Risco::where('unidadeId', $user->unidade->id)->get();
-									}
-									break;
+                    $riscos = Risco::all();
+                    break;
+                case 4:
+                    if ($user->usuario_tipo_fk == 1) {
+                        $riscos = Risco::all();
+                    } else {
+                        $riscos = Risco::where('unidadeId', $user->unidade->id)->get();
+                    }
+                    break;
                 case 5:
-									//case da diretoria 
-									if($user->usuario_tipo_fk == 2){
-										//Se for diretora, pode ver todos os riscos de todos os setores daquela diretoria
-                    $riscos = Risco::whereHas('unidade', function ($query) use ($unidadeDiretoria) {
-											$query->where('unidadeDiretoria', $unidadeDiretoria);
-									})->get();
-									}else{
-										//Se for apenas gestor, so pode ver os riscos da sua unidade gab
-										$riscos = Risco::where('unidadeId', $user->unidade->id)->get();
-									}   
-									break; 
+                    if ($user->usuario_tipo_fk == 2) {
+                        $riscos = Risco::whereHas('unidade', function ($query) use ($unidadeDiretoria) {
+                            $query->where('unidadeDiretoria', $unidadeDiretoria);
+                        })->get();
+                    } else {
+                        $riscos = Risco::where('unidadeId', $user->unidade->id)->get();
+                    }
+                    break;
                 default:
-										// Gestor setor apenas
                     $riscos = Risco::where('unidadeId', $user->unidade->id)->get();
                     break;
-            	}
+            }
 
             $riscosAbertos = $riscos->count();
 
@@ -98,16 +90,16 @@ class RiscoController extends Controller
         }
     }
 
-		public function analise()
+    public function analise()
     {
-			
+
         try {
             $user = auth()->user();
             $prazo = Prazo::latest()->first();
             $user = auth()->user();
             $tipoAcesso = $user->unidade->unidadeTipoFK;
             $unidadeDiretoria = $user->unidade->unidadeDiretoria;
-            
+
             // switch ($tipoAcesso) {
             //     case 1:
             //     case 3:
@@ -124,32 +116,32 @@ class RiscoController extends Controller
             //         break;
             // }
 
-						switch ($tipoAcesso) {
-							case 1:
-							case 3:
-								$riscos = Risco::all();
-								break;
-							case 4:
-								if($user->usuario_tipo_fk == 1){
-									$riscos = Risco::all();
-								}else{
-									$riscos = Risco::where('unidadeId', $user->unidade->id)->get();
-								}
-								break;
-							case 5:
-								if($user->usuario_tipo_fk == 2){
-									$riscos = Risco::whereHas('unidade', function ($query) use ($unidadeDiretoria) {
-										$query->where('unidadeDiretoria', $unidadeDiretoria);
-								})->get();
-								}else{
-									$riscos = Risco::where('unidadeId', $user->unidade->id)->get();
-								}   
-								break; 
-							default:
-									$riscos = Risco::where('unidadeId', $user->unidade->id)->get();
-									break;
-					}
-            
+            switch ($tipoAcesso) {
+                case 1:
+                case 3:
+                    $riscos = Risco::all();
+                    break;
+                case 4:
+                    if ($user->usuario_tipo_fk == 1) {
+                        $riscos = Risco::all();
+                    } else {
+                        $riscos = Risco::where('unidadeId', $user->unidade->id)->get();
+                    }
+                    break;
+                case 5:
+                    if ($user->usuario_tipo_fk == 2) {
+                        $riscos = Risco::whereHas('unidade', function ($query) use ($unidadeDiretoria) {
+                            $query->where('unidadeDiretoria', $unidadeDiretoria);
+                        })->get();
+                    } else {
+                        $riscos = Risco::where('unidadeId', $user->unidade->id)->get();
+                    }
+                    break;
+                default:
+                    $riscos = Risco::where('unidadeId', $user->unidade->id)->get();
+                    break;
+            }
+
             $riscosAbertos = $riscos->count();
             $riscosAbertosHoje = Risco::whereDate('created_at', \Carbon\Carbon::today())->count();
             $notificacoes = $this->filtraNotificacoes();
@@ -279,7 +271,7 @@ class RiscoController extends Controller
                 'monitoramentos.*.anexoMonitoramento' => 'nullable|file|mimes:jpeg,png,pdf|max:51200'
             ]);
 
-         
+
             $probabilidade = isset($validatedData['probabilidade']) && (int) $validatedData['probabilidade'];
             $impacto = isset($validatedData['impacto']) && (int) $validatedData['impacto'];
             $nivel_de_risco = $probabilidade * $impacto;
@@ -292,7 +284,7 @@ class RiscoController extends Controller
                 'riscoConsequencia' => $validatedData['riscoConsequencia'],
                 'probabilidade' => $probabilidade,
                 'impacto' => $impacto,
-                'nivel_de_risco' => $nivel_de_risco, 
+                'nivel_de_risco' => $nivel_de_risco,
                 'riscoAno' => $validatedData['riscoAno'],
                 'userIdRisco' => auth()->id(),
                 'unidadeId' => $validatedData['unidadeId']
@@ -573,7 +565,7 @@ class RiscoController extends Controller
 
 
             return redirect()->route('riscos.respostas', $id)->with('success', 'Respostas adicionadas com sucesso');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::error('Error storing resposta', [
                 'error' => $e->getMessage(),
                 'monitoramento_id' => $monitoramento->id
@@ -659,38 +651,57 @@ class RiscoController extends Controller
         return view('riscos.respostas', ['monitoramento' => $monitoramento, 'respostas' => $respostas]);
     }
 
-		public function homologar($id)
-		{
-				try {
-						$resposta = Resposta::findOrFail($id);
-						$user = Auth::user();
-						$nome = $user->name;
-						$cpf = $user->cpf;
-						$cpfMascarado = substr($cpf, 0, 3) . '.***.***-' . substr($cpf, -2); // Mascarando o CPF
-		
-						$dataHora = now()->format('d-m-Y H:i:s');
-		
-						$dataConcat = "Homologado em {$dataHora} {$nome} id {$user->id} cpf {$cpfMascarado}";
+    public function homologar($id)
+    {
+        try {
+            $resposta = Resposta::findOrFail($id);
+            $user = Auth::user();
+            $nome = $user->name;
+            $cpf = $user->cpf;
+            $cpfMascarado = substr($cpf, 0, 3) . '.***.***-' . substr($cpf, -2); // Mascarando o CPF
 
-						if ($user->usuario_tipo_fk == 2 && $resposta->homologadoDiretoria == NULL ) {
-								$resposta->update([
-										'homologadoDiretoria' => $dataConcat
-								]);
-								return redirect()->back()->with('success', 'Resposta homologada com sucesso!')->with('homologacao', $dataConcat);
-						} else if($resposta->homologadoDiretoria != NULL) {
-								return redirect()->back()->with('error', 'A providência ja está homologada');
-						}else{
-							return redirect()->back()->with('error', 'Você não tem permissão para homologar');
-						}
-				} catch (Exception $e) {
-						Log::error('Erro ao homologar resposta: ' . $e->getMessage(), [
-								'id' => $id,
-								'stack' => $e->getTraceAsString()
-						]);
-						return redirect()->back()->with('error', 'Ocorreu um erro ao tentar homologar a resposta. Tente novamente.');
-				}
-		}
-		
+            $dataHora = now()->format('d-m-Y H:i:s');
+            $dataConcat = "Homologado em {$dataHora} pelo usuário de {$nome}, id {$user->id} e cpf {$cpfMascarado}";
+
+            $mensagem = '';
+            if ($user->usuario_tipo_fk == 2) {
+                if ($resposta->homologadoDiretoria === null) {
+                    $resposta->homologadoDiretoria = $dataConcat;
+                    $mensagem = 'Resposta homologada com sucesso pela diretoria!';
+                } else {
+                    return redirect()->back()->with('error', 'A providência já está homologada pela diretoria.');
+                }
+
+            } elseif ($user->usuario_tipo_fk == 1) {
+                if ($resposta->homologadaPresidencia === null) {
+                    $resposta->homologadaPresidencia = $dataConcat;
+                    $mensagem = 'Resposta homologada com sucesso pela presidência!';
+                } else {
+                    return redirect()->back()->with('error', 'A providência já está homologada pela presidência.');
+                }
+
+            } else {
+                return redirect()->back()->with('error', 'Você não tem permissão para homologar.');
+            }
+
+            if (!empty($resposta->homologadoDiretoria) && !empty($resposta->homologadaPresidencia)) {
+                $resposta->homologacaoCompleta = true;
+            }
+
+            $resposta->save();
+
+            return redirect()->back()->with('success', $mensagem)->with('homologacao', $dataConcat);
+
+        } catch (Exception $e) {
+            Log::error('Erro ao homologar resposta: ' . $e->getMessage(), [
+                'id' => $id,
+                'stack' => $e->getTraceAsString()
+            ]);
+            return redirect()->back()->with('error', 'Ocorreu um erro ao tentar homologar a resposta. Tente novamente.');
+        }
+    }
+
+
 
     public function insertPrazo(Request $request)
     {
