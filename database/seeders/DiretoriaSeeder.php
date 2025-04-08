@@ -24,8 +24,14 @@ class DiretoriaSeeder extends Seeder
             'diretoriaNome' => 'Diretoria Técnico-Científica',
         ]);
         Diretoria::factory()->create([
-            'diretoriaSigla' => 'PRESIDENCIA',
-            'diretoriaNome' => 'Presidência',
+            'diretoriaSigla' => 'GABINETE',
+            'diretoriaNome' => 'Gabinete',
         ]);
+
+        Diretoria::factory()->create([
+            'diretoriaSigla' => 'DEPLAVI',
+            'diretoriaNome' => 'Departamento de Planejamento e Avaliação Institucional'
+        ]);
+    
     }
 }
