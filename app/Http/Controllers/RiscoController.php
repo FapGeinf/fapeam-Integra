@@ -672,7 +672,7 @@ class RiscoController extends Controller
 		
 						$dataConcat = "Homologado em {$dataHora} {$nome} id {$user->id} cpf {$cpfMascarado}";
 
-						if (($user->usuario_tipo_fk == 1 || $user->usuario_tipo_fk == 2) && $resposta->homologadoDiretoria == NULL) {
+						if ($user->usuario_tipo_fk == 2 && $resposta->homologadoDiretoria == NULL ) {
 								$resposta->update([
 										'homologadoDiretoria' => $dataConcat
 								]);
