@@ -276,6 +276,18 @@ class RiscoController extends Controller
             $impacto = isset($validatedData['impacto']) && (int) $validatedData['impacto'];
             $nivel_de_risco = $probabilidade * $impacto;
 
+            $valor_nivel_de_risco = $probabilidade * $impacto;
+
+            if ($valor_nivel_de_risco >= 15) {
+                $nivel_de_risco = 3; 
+            } elseif ($valor_nivel_de_risco >= 5) {
+                $nivel_de_risco = 2; 
+            } elseif ($valor_nivel_de_risco > 0) {
+                $nivel_de_risco = 1; 
+            } else {
+                $nivel_de_risco = 0; 
+            }
+
             // Criação do risco
             $risco = Risco::create([
                 'responsavelRisco' => $validatedData['responsavelRisco'],
