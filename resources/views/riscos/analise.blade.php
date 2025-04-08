@@ -18,7 +18,30 @@
     .liDP {
           margin-left: 0 !important;
         }
+
+        #tableHome tbody tr:nth-child(odd) td,
+        #tableHome tbody tr:nth-child(even) td {
+            cursor:auto;
+        }
+
+        #tableHome tbody tr:nth-child(odd) td:hover,
+        #tableHome tbody tr:nth-child(even) td:hover {
+
+        }
+
+        #tableHome tbody tr:nth-child(even) td {
+            background-color: #fff !important;
+            border-right: 0;
+        }
+
+        #tableHome tbody tr:nth-child(odd) td {
+            background-color: #f3f3f3 !important;
+            border-right: 0px;
+        }
       </style>
+
+
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
 </head>
@@ -28,35 +51,18 @@
     <div class="container-fluid p-30">
 
         @if (session('success'))
-            <div class="alert alert-success">
+            <div class="alert alert-success text-center">
                 {{ session('success') }}
             </div>
         @endif
 
         @if (session('error'))
-            <div class="alert alert-danger">
+            <div class="alert alert-danger text-center auto-dismiss">
                 {{ session('error') }}
             </div>
         @endif
 
-        <div class="">
-            {{-- @if (Auth::user()->unidade->unidadeTipoFK == 1 || Auth::user()->unidade->unidadeTipoFK == 4)
-
-            <a href="{{ route('riscos.create') }}" class="blue-btn me-2">
-                    <i class="bi bi-plus-lg"></i> Novo Risco
-                </a>
-
-                <button type="button" class="green-btn me-2" data-bs-toggle="modal" data-bs-target="#prazoModal">
-                    <i class="bi bi-plus-lg"></i> inserir Prazo
-                </button>
-
-            @endif
-            
-            <p class="spanThatLooksLikeABtn" id="prazo"
-                data-prazo="{{ \Carbon\Carbon::parse($prazo)->format('Y-m-d') }}">
-                Prazo Final: {{ \Carbon\Carbon::parse($prazo)->format('d/m/Y') }}
-            </p> --}}
-
+        <div>
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     const prazoElement = document.getElementById('prazo');
@@ -79,17 +85,6 @@
                     }
                 });
             </script>
-
-            {{-- <button id="notificationButton" type="button" class="purple-btn position-relative ms-3"
-                data-bs-toggle="modal" data-bs-target="#notificationModal">
-                <i class="bi bi-bell"></i>
-                <span id="notificationBadge"
-                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                    data-count="{{ $notificacoes->whereNull('read_at')->count() }}">
-                    {{ $notificacoes->whereNull('read_at')->count() }}
-                    <span class="visually-hidden">unread messages</span>
-                </span>
-            </button> --}}
 
             <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel"
             aria-hidden="true">
@@ -346,8 +341,6 @@
             });
         </script>
 
-
-
         <div class="col-12 border main-datatable mt-4">
 
             <div class="container-fluid">
@@ -366,7 +359,7 @@
 
                     <tbody>
                         @foreach ($riscos as $risco)
-                            <tr style="cursor: pointer;">
+                            <tr>
                                 <td style="white-space:nowrap;">{{ $risco->id }}</td>
                                 <td style="white-space: nowrap;">{!! $risco->responsavelRisco !!}</td>
                                 <td style="word-wrap:break-word;">{!! $risco->unidade->unidadeSigla !!}</td>
@@ -389,15 +382,6 @@
     </div>
 
     <x-back-button/>
-
-    <!-- <footer class="rodape">
-        <div class="riskLevelDiv">
-            <span>Nível de Risco (Avaliação):</span>
-            <span class="mode riskLevel1">Baixo</span>
-            <span class="mode riskLevel2">Médio</span>
-            <span class="mode riskLevel3">Alto</span>
-        </div>
-    </footer> -->
 
     <div class="modal fade" id="prazoModal" tabindex="-1" aria-labelledby="prazoModalLabel" aria-hidden="true">
         <div class="modal-dialog">
