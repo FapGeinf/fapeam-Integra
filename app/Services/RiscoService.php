@@ -142,9 +142,21 @@ class RiscoService
     public function storeRisco(array $validatedData)
     {
         try {
-            $probabilidade = isset($validatedData['probabilidade']) && (int) $validatedData['probabilidade'];
-            $impacto = isset($validatedData['impacto']) && (int) $validatedData['impacto'];
-            $nivel_de_risco = $probabilidade * $impacto;
+            $probabilidade = isset($validatedData['probabilidade']) ? (int) $validatedData['probabilidade'] : 0;
+            $impacto = isset($validatedData['impacto']) ? (int) $validatedData['impacto'] : 0;
+    
+            $valor_nivel_de_risco = $probabilidade * $impacto;
+    
+            if ($valor_nivel_de_risco >= 15) {
+                $nivel_de_risco = 3; 
+            } elseif ($valor_nivel_de_risco >= 5) {
+                $nivel_de_risco = 2; 
+            } elseif ($valor_nivel_de_risco > 0) {
+                $nivel_de_risco = 1; 
+            } else {
+                $nivel_de_risco = 0; 
+            }
+    
             $risco = Risco::create([
                 'responsavelRisco' => $validatedData['responsavelRisco'],
                 'riscoEvento' => $validatedData['riscoEvento'],
@@ -157,16 +169,20 @@ class RiscoService
                 'riscoAno' => $validatedData['riscoAno'],
                 'userIdRisco' => auth()->id()
             ]);
-
+    
             $monitoramentos = [];
-
+    
             foreach ($validatedData['monitoramentos'] as $index => $monitoramentoData) {
                 $isContinuo = filter_var($monitoramentoData['isContinuo'], FILTER_VALIDATE_BOOLEAN);
-
-                if (!$isContinuo && isset($monitoramentoData['fimMonitoramento']) && $monitoramentoData['fimMonitoramento'] <= $monitoramentoData['inicioMonitoramento']) {
-                    throw new \Exception("Erro no monitoramento #{$index}: Fim do monitoramento não pode ser anterior ao início.");
+    
+                if (
+                    !$isContinuo &&
+                    isset($monitoramentoData['fimMonitoramento']) &&
+                    $monitoramentoData['fimMonitoramento'] <= $monitoramentoData['inicioMonitoramento']
+                ) {
+                    throw new Exception("Erro no monitoramento #{$index}: Fim do monitoramento não pode ser anterior ao início.");
                 }
-
+    
                 $monitoramentos[] = Monitoramento::create([
                     'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
                     'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
@@ -176,7 +192,7 @@ class RiscoService
                     'riscoFK' => $risco->id,
                 ]);
             }
-
+    
             return [
                 'risco' => $risco,
                 'monitoramentos' => $monitoramentos
@@ -190,6 +206,7 @@ class RiscoService
             throw new Exception("Erro ao criar risco.");
         }
     }
+    
 
 
     public function editFormRisco($id)

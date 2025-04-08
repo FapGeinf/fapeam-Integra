@@ -1,5 +1,4 @@
 function showConfirmationModal() {
-    // Captura dos dados do formulário
     let riscoAno = document.getElementById('riscoAno').value;
     let responsavelRisco = document.getElementById('responsavelRisco').value;
     let riscoEvento = CKEDITOR.instances.riscoEvento.getData();
@@ -9,7 +8,6 @@ function showConfirmationModal() {
     let unidadeId = document.querySelector('[name="unidadeId"]').options[document.querySelector(
         '[name="unidadeId"]').selectedIndex].text;
 
-    // Construção do HTML para o modal de confirmação
     let modalContent = `
 
         <div class="row g-3 mb-3">
@@ -56,10 +54,8 @@ function showConfirmationModal() {
         <p class="text-center mb-0">Deseja realmente salvar as alterações?</p>
     `;
 
-    // Inserção do conteúdo no modal de confirmação
     document.getElementById('modalContent').innerHTML = modalContent;
 
-    // Exibir o modal de confirmação
     let confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
     confirmationModal.show();
 }

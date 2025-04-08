@@ -1,12 +1,12 @@
 @extends('layouts.app')
 <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
 <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+<script src="{{ asset('js/riscos/editNivelRisco.js') }}"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 @section('content')
-@section('title')
-    {{ 'Editar Formulário' }}
-@endsection
-
+    @section('title')
+        {{ 'Editar Formulário' }}
+    @endsection
     @if (session('error'))
         <script>
             alert('{{ session(' error ') }}');
@@ -44,35 +44,35 @@
 
                     <div class="col-sm-8 col-md-8 mQuery">
                         <label for="name">Responsável do Risco:</label>
-                        <input type="text" id="responsavelRisco" name="responsavelRisco"
-                            class="form-control dataValue"
+                        <input type="text" id="responsavelRisco" name="responsavelRisco" class="form-control dataValue"
                             value="{{ $risco->responsavelRisco ?? old('responsavelRisco') }}" maxlength="100">
                     </div>
                 </div>
 
                 <label id="first" for="riscoEvento">Evento:</label>
-                <textarea name="riscoEvento" class="textInput" required>{{ $risco->riscoEvento ?? old('riscoEvento') }}</textarea>
+                <textarea name="riscoEvento" class="textInput"
+                    required>{{ $risco->riscoEvento ?? old('riscoEvento') }}</textarea>
 
                 <label for="riscoCausa">Causa:</label>
-                <textarea name="riscoCausa" class="textInput" required>{{ $risco->riscoCausa ?? old('riscoCausa') }}</textarea>
+                <textarea name="riscoCausa" class="textInput"
+                    required>{{ $risco->riscoCausa ?? old('riscoCausa') }}</textarea>
 
                 <label for="riscoConsequencia">Consequência:</label>
-                <textarea name="riscoConsequencia" class="textInput" required>{{ $risco->riscoConsequencia ?? old('riscoConsequencia') }}</textarea>
+                <textarea name="riscoConsequencia" class="textInput"
+                    required>{{ $risco->riscoConsequencia ?? old('riscoConsequencia') }}</textarea>
 
 
                 <div class="row g-3">
 
                     <div class="col-sm-4 col-md-4">
                         <label for="probabilidade">Probabilidade:<span class="asterisco">*</span></label>
-                        <input type="number" name="probabilidade" id="probabilidade" class="form-control"
-                            min="1" max="5" required
-                            value="{{ old('probabilidade', $risco->probabilidade) }}">
+                        <input type="number" name="probabilidade" id="probabilidade" class="form-control" min="1" max="5"
+                            required value="{{ old('probabilidade', $risco->probabilidade) }}">
                     </div>
 
                     <div class="col-sm-4 col-md-4">
                         <label for="impacto">Impacto:<span class="asterisco">*</span></label>
-                        <input type="number" name="impacto" id="impacto" class="form-control"
-                            min="1" max="5" required
+                        <input type="number" name="impacto" id="impacto" class="form-control" min="1" max="5" required
                             value="{{ old('impacto', $risco->impacto) }}">
                     </div>
 
@@ -86,7 +86,8 @@
                     </div>
 
                     <div class="col-sm-12">
-                        <small class="text-muted">* Os valores de <strong>probabilidade</strong> e <strong>impacto</strong> devem estar entre <strong>1 e 5</strong>.</small>
+                        <small class="text-muted">* Os valores de <strong>probabilidade</strong> e <strong>impacto</strong>
+                            devem estar entre <strong>1 e 5</strong>.</small>
                     </div>
 
                     <div class="col-sm-12 col-md-12">
@@ -94,8 +95,7 @@
                         <select name="unidadeId" class="form-select form-control" required>
                             <option selected disabled>Selecione uma unidade</option>
                             @foreach ($unidades as $unidade)
-                                <option value="{{ $unidade->id }}"
-                                    {{ isset($risco) && $risco->unidadeId == $unidade->id ? 'selected' : '' }}>
+                                <option value="{{ $unidade->id }}" {{ isset($risco) && $risco->unidadeId == $unidade->id ? 'selected' : '' }}>
                                     {{ $unidade->unidadeNome }}
                                 </option>
                             @endforeach
@@ -103,71 +103,13 @@
                     </div>
                 </div>
 
-                <script>
-                    const probabilidade = document.getElementById('probabilidade');
-                    const impacto = document.getElementById('impacto');
-                    const riscoLabel = document.getElementById('riscoLabel');
-                    const nivelDeRiscoInput = document.getElementById('nivel_de_risco');
-
-                    function calcularNivelDeRisco() {
-                        const p = parseInt(probabilidade.value) || 0;
-                        const i = parseInt(impacto.value) || 0;
-                        const resultado = p * i;
-
-                        let texto = '-';
-                        let cor = '';
-                        let nivel = '';
-
-                        if (resultado >= 15) {
-                            texto = 'Alto (' + resultado + ')';
-                            cor = 'red';
-                            nivel = '3';
-                        } else if (resultado >= 5) {
-                            texto = 'Médio (' + resultado + ')';
-                            cor = 'orange';
-                            nivel = '2';
-                        } else if (resultado > 0) {
-                            texto = 'Baixo (' + resultado + ')';
-                            cor = 'green';
-                            nivel = '1';
-                        }
-
-                        riscoLabel.textContent = texto;
-                        riscoLabel.style.color = cor;
-                        nivelDeRiscoInput.value = nivel;
-                    }
-
-                    probabilidade.addEventListener('input', calcularNivelDeRisco);
-                    impacto.addEventListener('input', calcularNivelDeRisco);
-
-                    window.addEventListener('load', function () {
-                        if (probabilidade.value && impacto.value) {
-                            calcularNivelDeRisco();
-                        }
-                    });
-                </script>
-
-
-
-
                 <hr id="hr5">
 
-                {{-- <span id="tip">
-                                <i class="bi bi-exclamation-circle-fill"></i>
-                                Dica: Revise sua edição antes de salvar
-                            </span> --}}
-
-
                 <div class="d-flex justify-content-center">
-                    {{-- <div class="me-1"> --}}
-                        <a href="{{ route('riscos.edit-monitoramentos', ['id' => $risco->id]) }}"
-                            class="blue-btn">Adicionar Monitoramentos</a>
-                    {{-- </div> --}}
-
-                    {{-- <div> --}}
-                        <button type="button" onclick="showConfirmationModal()" class="green-btn">Salvar
-                            Edição</button>
-                    {{-- </div> --}}
+                    <a href="{{ route('riscos.edit-monitoramentos', ['id' => $risco->id]) }}" class="blue-btn">Adicionar
+                        Monitoramentos</a>
+                    <button type="button" onclick="showConfirmationModal()" class="green-btn">Salvar
+                        Edição</button>
                 </div>
 
 
@@ -177,8 +119,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="confirmationModalLabel">Confirmação de Edição</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <div id="modalContent">
@@ -186,19 +127,16 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary"
-                                    data-bs-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                 <button type="button" onclick="submitForm()" class="btn btn-primary">Salvar</button>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
             </form>
         </div>
     </div>
-    <x-back-button/>
+    <x-back-button />
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('js/editRisco.js') }}"></script>
 @endsection
