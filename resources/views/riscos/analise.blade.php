@@ -24,23 +24,20 @@
             cursor:auto;
         }
 
-        #tableHome tbody tr:nth-child(odd) td:hover,
-        #tableHome tbody tr:nth-child(even) td:hover {
-
-        }
-
-        #tableHome tbody tr:nth-child(even) td {
+        #tableHome tbody tr:nth-child(even) td:nth-child(-n+6) {
             background-color: #fff !important;
             border-right: 0;
         }
 
-        #tableHome tbody tr:nth-child(odd) td {
+        #tableHome tbody tr:nth-child(odd) td:nth-child(-n+6) {
             background-color: #f3f3f3 !important;
-            border-right: 0px;
+            border-right: 0;
+        }
+
+        .btnAdd {
+            display: none;
         }
       </style>
-
-
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
