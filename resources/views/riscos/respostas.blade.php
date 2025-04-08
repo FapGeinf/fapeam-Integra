@@ -411,7 +411,31 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmar Envio</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Status:</strong> <span id="confirmStatus"></span></p>
+                <p><strong>Providência:</strong></p>
+                <div id="confirmResposta" class="border rounded p-3" style="background-color: #f8f9fa;"></div>
+                <p class="mt-3"><strong>Anexo:</strong> <span id="confirmAnexo"></span></p>
+                <p class="text-warning mt-3">Tem certeza que deseja enviar essa resposta?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancelConfirm">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="confirmSend">Confirmar e Enviar</button>
+            </div>
+        </div>
+    </div>
+</div>
 <x-back-button />
 <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 <script src="{{ asset('js/respostas.js') }}"></script>
+<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('js/modais/modalConfirmacaoProvidencia.js') }}"></script>
 @endsection
