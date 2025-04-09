@@ -212,7 +212,7 @@ a.reply-btn:hover {
   color: white;
   border: none;
   padding: 5px 10px;
-  font-size: 13px;
+  font-size: 12px;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
@@ -254,7 +254,7 @@ a.reply-btn:hover {
 .highlighted-btn {
   border: none;
   padding: 5px 10px;
-  font-size: 13px;
+  font-size: 12px;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
