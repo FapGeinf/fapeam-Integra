@@ -34,7 +34,7 @@
                         alert.remove();
                     }, 500);
                 });
-            }, 4000);
+            }, 5000);
         });
     </script>
 
@@ -63,7 +63,7 @@
                     @if ($lastSetor === $currentSetor)
                         <div class="message {{ $isLeftAligned ? 'other-message' : 'another-message' }} {{ $alignmentClass }}">
                             <div class="p-1">
-                                <div class="d-flex row">
+                                <div class="d-flex row mb-3">
                                     <div class="dataSector" style="text-align: left; {{ $alignmentClass === 'align-right' ? 'background-color: #d9d9d9cc;' : '' }}">
                                         <div>
                                             Criado em:
@@ -102,52 +102,58 @@
                                 </div>
                             </div>
 
-                            <hr class="hr2">
-
                             <div class="form-control fStyle mb-2" style="text-align: left;">
                                 <p style="background-color: #f0f0f0;">{!! $resposta->respostaRisco !!}</p>
                             </div>
 
                             @if ($resposta->anexo)
-                                <div class="text-end">
-                                    <a href="{{ Storage::url($resposta->anexo) }}" class="btn btn-info btn-sm" target="_blank">
-                                        <i class="bi bi-eye"></i>
-                                    </a>
-
-                                    <a href="{{ Storage::url($resposta->anexo) }}" class="btn btn-primary btn-sm" download>
-                                        <i class="bi bi-download"></i>
-                                    </a>
-
-                                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editRespostaModal" onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)">
-                                        <i class="bi bi-pen"></i>
+                                <div class="custom-actions-wrapper" id="actionsWrapper{{ $resposta->id }}">
+                                    <button class="custom-actions-btn" onclick="toggleActionsMenu({{ $resposta->id }})">
+                                        Ações <i class="bi bi-chevron-down"></i>
                                     </button>
-
-                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteAnexoModal" onclick="setDeleteAnexo({{ $resposta->id }})">
-                                        <i class="bi bi-trash"></i> Excluir Anexo
-                                    </button>
-
-                                    @if (Auth::user()->usuario_tipo_fk == 2)
-                                        <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#homologacaoModal{{ $resposta->id }}">
-                                            Homologar
-                                        </button>
-                                    @endif
+                                
+                                    <div class="custom-actions-menu">
+                                        <a href="{{ Storage::url($resposta->anexo) }}" target="_blank">
+                                            <i class="bi bi-eye me-2"></i>Visualizar
+                                        </a>
+                                
+                                        <a href="{{ Storage::url($resposta->anexo) }}" download>
+                                            <i class="bi bi-download me-2"></i>Baixar
+                                        </a>
+                                
+                                        <a href="#" onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)" data-bs-toggle="modal" data-bs-target="#editRespostaModal">
+                                            <i class="bi bi-pen me-2"></i>Editar
+                                        </a>
+                                    </div>
                                 </div>
+
+                                <span style="color: #949494; margin-left: 4px; margin-right: 4px;">|</span>
+                            
+                                <button type="button" class="highlighted-btn highlight-danger me-1" data-bs-toggle="modal" data-bs-target="#deleteAnexoModal" onclick="setDeleteAnexo({{ $resposta->id }})">
+                                    <i class="bi bi-trash me-1"></i>Excluir Anexo
+                                </button>
+                            
+                                @if (Auth::user()->usuario_tipo_fk == 2)
+                                    <button type="button" class="highlighted-btn highlight-success" data-bs-toggle="modal" data-bs-target="#homologacaoModal{{ $resposta->id }}">
+                                        <i class="bi bi-check-circle me-1"></i>Homologar
+                                    </button>
+                                @endif
 
                             @else
                                 <div class="text-end">
-                                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editRespostaModal" onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)">
-                                        <i class="bi bi-pen"></i> Editar
+                                    <button type="button" class="highlighted-btn highlighted-warning" data-bs-toggle="modal" data-bs-target="#editRespostaModal" onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)">
+                                        <i class="bi bi-pen me-1"></i>Editar
                                     </button>
 
                                     @if (Auth::user()->usuario_tipo_fk == 2 && $resposta->homologadoDiretoria == null)
-                                        <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#homologacaoModal{{ $resposta->id }}">
-                                            Homologar
+                                        <button type="button" class="highlighted-btn highlight-success" data-bs-toggle="modal" data-bs-target="#homologacaoModal{{ $resposta->id }}">
+                                            <i class="bi bi-check-circle me-1"></i>Homologar
                                         </button>
                                     @endif
 
                                     @if (Auth::user()->usuario_tipo_fk == 1 && $resposta->homologadaPresidencia === null)
-                                        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#homologacaoPresidenciaModal{{ $resposta->id }}">
-                                            Homologar (Presidência)
+                                        <button type="button" class="highlighted-btn highlight-success" data-bs-toggle="modal" data-bs-target="#homologacaoPresidenciaModal{{ $resposta->id }}">
+                                            <i class="bi bi-check-circle me-1"></i>Homologar (Presidência)
                                         </button>
                                     @endif
                                 </div>
@@ -215,15 +221,15 @@
 
                                     <div class="custom-actions-menu">
                                         <a href="{{ Storage::url($resposta->anexo) }}" target="_blank">
-                                            <i class="bi bi-eye me-1"></i>Visualizar
+                                            <i class="bi bi-eye me-2"></i>Visualizar
                                         </a>
 
                                         <a href="{{ Storage::url($resposta->anexo) }}" download>
-                                            <i class="bi bi-download me-1"></i>Baixar
+                                            <i class="bi bi-download me-2"></i>Baixar
                                         </a>
 
                                         <a href="#" onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)" data-bs-toggle="modal" data-bs-target="#editRespostaModal">
-                                            <i class="bi bi-pen me-1"></i>Editar
+                                            <i class="bi bi-pen me-2"></i>Editar
                                         </a>
                                     </div>
                                 </div>
@@ -244,19 +250,19 @@
 
                             @else
                                 <div class="text-end">
-                                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editRespostaModal" onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)">
-                                        <i class="bi bi-pen"></i>
+                                    <button type="button" class="highlighted-btn highlight-warning me-1" data-bs-toggle="modal" data-bs-target="#editRespostaModal" onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)">
+                                        <i class="bi bi-pen me-1"></i>Editar
                                     </button>
 
                                     @if (Auth::user()->usuario_tipo_fk == 2 && $resposta->homologadoDiretoria == null)
-                                        <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#homologacaoModal{{ $resposta->id }}">
-                                            Homologar
+                                        <button type="button" class="highlighted-btn highlight-success" data-bs-toggle="modal" data-bs-target="#homologacaoModal{{ $resposta->id }}">
+                                            <i class="bi bi-check-circle me-1"></i>Homologar
                                         </button>
                                     @endif
 
                                     @if (Auth::user()->usuario_tipo_fk == 1 && $resposta->homologadaPresidencia === null)
-                                        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#homologacaoPresidenciaModal{{ $resposta->id }}">
-                                            Homologar (Presidência)
+                                        <button type="button" class="highlighted-btn highlight-success" data-bs-toggle="modal" data-bs-target="#homologacaoPresidenciaModal{{ $resposta->id }}">
+                                            <i class="bi bi-check-circle me-1"></i>Homologar (Presidência)
                                         </button>
                                     @endif
                                 </div>
@@ -272,8 +278,7 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteAnexoModalLabel">Confirmar Exclusão do Anexo
-                                    </h5>
+                                    <h5 class="modal-title" id="deleteAnexoModalLabel">Confirmar Exclusão do Anexo</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
 
