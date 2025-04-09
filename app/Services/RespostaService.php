@@ -88,6 +88,8 @@ class RespostaService
         try {
             $resposta = Resposta::findOrFail($id);
 
+            $monitoramento = Monitoramento::findOrFail($resposta->respostaMonitoramentoFk);
+
             $resposta->respostaRisco = $validatedData['respostaRisco'];
 
             if (isset($validatedData['anexo'])) {
@@ -96,6 +98,10 @@ class RespostaService
                 }
                 $resposta->anexo = $validatedData['anexo']->store('anexos', 'public');
             }
+
+            $monitoramento->update([
+                'statusMonitoramento' => $validatedData['statusMonitoramento']
+            ]);
 
             $resposta->save();
 

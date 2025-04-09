@@ -338,40 +338,9 @@
                     @method('PUT')
                     <input type="hidden" id="editRespostaId" name="id">
                     <div class="mb-4">
-                        <label for="editRespostaRisco" class="form-label">Resposta</label>
-                        <textarea class="form-control" id="editRespostaRisco" name="respostaRisco" required></textarea>
-                    </div>
-                    <div class="mb-4">
-                        <label for="editRespostaAnexo" class="form-label d-block">
-                            Anexar Arquivo
-                        </label>
-                        <input type="file" class="form-control" id="editRespostaAnexo" name="anexo">
-                        <small class="form-text text-muted"><span class="text-danger">*</span>Apenas um arquivo pode
-                            ser anexado</small>
-                    </div>
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button type="submit" class="success">Salvar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="respostaModal" tabindex="-1" aria-labelledby="respostaModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="respostaModalLabel">Responder</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ route('riscos.storeResposta', ['id' => $monitoramento->id]) }}" method="POST"
-                    enctype="multipart/form-data">
-                    @csrf
-                    <div class="mb-4">
-                        <label for="statusMonitoramento-{{ $monitoramento->id }}" class="form-label">Status:</label>
+                        <label for="statusMonitoramento" class="form-label">Status:</label>
                         <select class="form-select" style="background-color: #f0f0f0;"
-                            id="statusMonitoramento-{{ $monitoramento->id }}" name="statusMonitoramento" required>
+                            id="statusMonitoramento" name="statusMonitoramento" required>
                             <option value="NÃO IMPLEMENTADA"
                                 {{ old('statusMonitoramento', $monitoramento->statusMonitoramento) == 'NÃO IMPLEMENTADA' ? 'selected' : '' }}>
                                 NÃO IMPLEMENTADA
@@ -391,6 +360,80 @@
                         </select>
                     </div>
                     <div class="mb-4">
+                        <label for="editRespostaRisco" class="form-label">Resposta</label>
+                        <textarea class="form-control" id="editRespostaRisco" name="respostaRisco" required></textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label for="editRespostaAnexo" class="form-label d-block">
+                            Anexar Arquivo
+                        </label>
+                        <input type="file" class="form-control" id="editRespostaAnexo" name="anexo">
+                        <small class="form-text text-muted"><span class="text-danger">*</span>Apenas um arquivo pode
+                            ser anexado</small>
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button type="button" class="btn btn-primary" id="abrirEditConfirmacaoBtn">
+                            Salvar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="editConfirmacaoModal" tabindex="-1" aria-labelledby="editConfirmacaoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmar Edição</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Status:</strong> <span id="editConfirmStatus" class="mb-3"></span></p>
+                <textarea id="editConfirmProvidencia" class="form-control mb-3" rows="6" readonly></textarea>
+                <p><strong>Anexo:</strong> <span id="editConfirmAnexo" class="mb-3"></span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
+                <button type="button" class="btn btn-primary" id="confirmarEdicaoBtn">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="respostaModal" tabindex="-1" aria-labelledby="respostaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="respostaModalLabel">Responder</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('riscos.storeResposta', ['id' => $monitoramento->id]) }}" method="POST"
+                    enctype="multipart/form-data">
+                    @csrf
+                    <div class="mb-4">
+                        <label for="statusMonitoramento" class="form-label">Status:</label>
+                        <select class="form-select" style="background-color: #f0f0f0;"
+                            id="statusMonitoramento" name="statusMonitoramento" required>
+                            <option value="NÃO IMPLEMENTADA"
+                                {{ old('statusMonitoramento') == 'NÃO IMPLEMENTADA' ? 'selected' : '' }}>
+                                NÃO IMPLEMENTADA
+                            </option>
+                            <option value="EM IMPLEMENTAÇÃO"
+                                {{ old('statusMonitoramento') == 'EM IMPLEMENTAÇÃO' ? 'selected' : '' }}>
+                                EM IMPLEMENTAÇÃO
+                            </option>
+                            <option value="IMPLEMENTADA PARCIALMENTE"
+                                {{ old('statusMonitoramento') == 'IMPLEMENTADA PARCIALMENTE' ? 'selected' : '' }}>
+                                IMPLEMENTADA PARCIALMENTE
+                            </option>
+                            <option value="IMPLEMENTADA"
+                                {{ old('statusMonitoramento') == 'IMPLEMENTADA' ? 'selected' : '' }}>
+                                IMPLEMENTADA
+                            </option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
                         <label for="respostaRisco" class="form-label">Providência:</label>
                         <textarea class="form-control" id="respostaRisco" name="respostaRisco" required></textarea>
                     </div>
@@ -404,14 +447,41 @@
                             ser anexado</small>
                     </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button type="submit" class="btn btn-primary mb-2">Enviar</button>
+                        <button type="button" class="btn btn-primary mb-2" id="abrirConfirmacaoBtn">Enviar</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+<div class="modal fade" id="confirmacaoModal" tabindex="-1" aria-labelledby="confirmacaoModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmacaoModalLabel">Confirme sua resposta</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Status selecionado:</strong> <span id="confirmStatus" class="mb-3"></span></p>
+        <p><strong>Providência:</strong></p>
+        <textarea id="confirmProvidencia"
+        class="form-control mb-3"
+        rows="6"
+        readonly
+        style="white-space: pre-wrap; background-color: #f8f9fa;"></textarea>
+        <p><strong>Anexo:</strong> <span id="confirmAnexo" class="mt-3"></span></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar e corrigir</button>
+        <button type="button" class="btn btn-primary" id="confirmarEnvioBtn">Confirmar e Enviar</button>
+      </div>
+    </div>
+  </div>
+</div>
 <x-back-button />
 <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 <script src="{{ asset('js/respostas.js') }}"></script>
+<script src="{{ asset('js/modais/storeProvidencia.js') }}"></script>
+<script src="{{ asset('js/modais/editProvidencia.js') }}"></script>
+<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 @endsection
