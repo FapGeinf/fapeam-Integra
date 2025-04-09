@@ -400,54 +400,6 @@
         </div>
     </div>
 </div>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const abrirConfirmacaoBtn = document.getElementById("abrirEditConfirmacaoBtn"); 
-    const confirmarEdicaoBtn = document.getElementById("confirmarEdicaoBtn"); 
-    const form = document.querySelector("#editRespostaForm");
-
-    const selectStatus = document.querySelector('#statusMonitoramento');
-    const inputAnexo = document.querySelector('#editRespostaAnexo');
-
-    const spanStatus = document.getElementById("editConfirmStatus");
-    const spanProvidencia = document.getElementById("editConfirmProvidencia");
-    const spanAnexo = document.getElementById("editConfirmAnexo");
-
-    const editRespostaModalEl = document.getElementById('editRespostaModal');
-    const editConfirmacaoModalEl = document.getElementById('editConfirmacaoModal');
-
-    const editRespostaModal = new bootstrap.Modal(editRespostaModalEl);
-    const editConfirmacaoModal = new bootstrap.Modal(editConfirmacaoModalEl);
-
-    abrirConfirmacaoBtn.addEventListener("click", function () {
-        let providenciaContent = '';
-        if (typeof CKEDITOR !== 'undefined' && CKEDITOR.instances['editRespostaRisco']) {
-            providenciaContent = CKEDITOR.instances['editRespostaRisco'].getData();
-        } else {
-            providenciaContent = document.querySelector('#editRespostaRisco').value;
-        }
-
-        spanStatus.textContent = selectStatus.options[selectStatus.selectedIndex].text;
-        spanProvidencia.textContent = providenciaContent.replace(/<[^>]+>/g, '') || 'Não preenchido';
-        spanAnexo.textContent = inputAnexo.files.length > 0 ? inputAnexo.files[0].name : 'Nenhum arquivo selecionado';
-
-        editRespostaModalEl.addEventListener('hidden.bs.modal', function handler() {
-            editConfirmacaoModal.show();
-            editRespostaModalEl.removeEventListener('hidden.bs.modal', handler);
-        });
-
-        editRespostaModal.hide();
-    });
-
-    confirmarEdicaoBtn.addEventListener("click", function () {
-        form.submit();
-    });
-
-    editConfirmacaoModalEl.addEventListener('hidden.bs.modal', function () {
-        editRespostaModal.show();
-    });
-});
-</script>
 <div class="modal fade" id="respostaModal" tabindex="-1" aria-labelledby="respostaModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
@@ -526,59 +478,10 @@ document.addEventListener("DOMContentLoaded", function () {
     </div>
   </div>
 </div>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const abrirConfirmacaoBtn = document.getElementById("abrirConfirmacaoBtn");
-        const confirmarEnvioBtn = document.getElementById("confirmarEnvioBtn");
-        const form = document.querySelector("#respostaModal form");
-
-        const selectStatus = document.querySelector('[name="statusMonitoramento"]');
-        const inputAnexo = document.querySelector('[name="anexo"]');
-
-        const spanStatus = document.getElementById("confirmStatus");
-        const spanProvidencia = document.getElementById("confirmProvidencia");
-        const spanAnexo = document.getElementById("confirmAnexo");
-
-        const respostaModalEl = document.getElementById('respostaModal');
-        const confirmacaoModalEl = document.getElementById('confirmacaoModal');
-
-        const respostaModal = new bootstrap.Modal(respostaModalEl);
-        const confirmacaoModal = new bootstrap.Modal(confirmacaoModalEl);
-
-        abrirConfirmacaoBtn.addEventListener("click", function () {
-            let providenciaContent = '';
-            if (typeof CKEDITOR !== 'undefined' && CKEDITOR.instances['respostaRisco']) {
-                providenciaContent = CKEDITOR.instances['respostaRisco'].getData();
-            } else {
-                providenciaContent = document.querySelector('[name="respostaRisco"]').value;
-            }
-
-            spanStatus.textContent = selectStatus.options[selectStatus.selectedIndex].text;
-            spanProvidencia.textContent = providenciaContent.replace(/<[^>]+>/g, '') || 'Não preenchido';
-            spanAnexo.textContent = inputAnexo.files.length > 0 ? inputAnexo.files[0].name : 'Nenhum arquivo selecionado';
-
-         
-            respostaModalEl.addEventListener('hidden.bs.modal', function handler() {
-                confirmacaoModal.show();
-                respostaModalEl.removeEventListener('hidden.bs.modal', handler);
-            });
-
-            respostaModal.hide();
-        });
-
-      
-        confirmarEnvioBtn.addEventListener("click", function () {
-            form.submit();
-        });
-
-      
-        confirmacaoModalEl.addEventListener('hidden.bs.modal', function () {
-            respostaModal.show();
-        });
-    });
-</script>
 <x-back-button />
 <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 <script src="{{ asset('js/respostas.js') }}"></script>
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('js/modais/storeProvidencia.js') }}"></script>
+<script src="{{ asset('js/modais/editProvidencia.js') }}"></script>
 @endsection
