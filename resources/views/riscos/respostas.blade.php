@@ -176,7 +176,7 @@
                                         <div>
                                             Lotação:
                                             <i class="bi bi-building"></i>
-                                            <span class="dataSpan">
+                                            <span class="dataSpan text-uppercase">
                                                 {{ $resposta->user->unidade->unidadeNome }}
                                             </span>
                                         </div>
@@ -210,7 +210,7 @@
                                 <!-- Menu customizado -->
                                 <div class="custom-actions-wrapper" id="actionsWrapper{{ $resposta->id }}">
                                     <button class="custom-actions-btn" onclick="toggleActionsMenu({{ $resposta->id }})">
-                                        Ações <i class="bi bi-chevron-down"></i>
+                                        Ações <i class="bi bi-chevron-down" style="font-size: 11px;"></i>
                                     </button>
 
                                     <div class="custom-actions-menu">
