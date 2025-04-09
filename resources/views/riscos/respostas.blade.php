@@ -287,11 +287,11 @@
                                 </div>
 
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="button" class="footer-btn footer-secondary" data-bs-dismiss="modal">Cancelar</button>
                                     <form action="{{ route('riscos.deleteAnexo', $resposta->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Excluir Anexo</button>
+                                        <button type="submit" class="footer-btn footer-danger">Excluir Anexo</button>
                                     </form>
                                 </div>
                             </div>
@@ -311,11 +311,11 @@
                                 </div>
 
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="button" class="footer-btn footer-secondary" data-bs-dismiss="modal">Cancelar</button>
                                     <form action="{{ route('riscos.homologar', $resposta->id) }}" method="POST">
                                         @csrf
                                         @method('PUT')
-                                        <button type="submit" class="btn btn-success">Homologar</button>
+                                        <button type="submit" class="footer-btn footer-success">Homologar</button>
                                     </form>
                                 </div>
                             </div>
@@ -335,12 +335,12 @@
                                 </div>
 
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="button" class="footer-btn footer-secondary" data-bs-dismiss="modal">Cancelar</button>
                                     <form action="{{ route('riscos.homologar', $resposta->id) }}" method="POST">
                                         @csrf
                                         @method('PUT')
-                                        <button type="submit" class="btn btn-primary">Homologar
-                                            (Presidência)
+                                        <button type="submit" class="footer-btn footer-success">
+                                            Homologar (Presidência)
                                         </button>
                                     </form>
                                 </div>
@@ -375,7 +375,7 @@
                     <input type="hidden" id="editRespostaId" name="id">
 
                     <div class="mb-4">
-                        <label for="statusMonitoramento" class="form-label">Status:</label>
+                        <label for="statusMonitoramento" class="">Status:</label>
                         <select class="form-select" style="background-color: #f0f0f0;" id="statusMonitoramento" name="statusMonitoramento" required>
                             <option value="NÃO IMPLEMENTADA"
                                 {{ old('statusMonitoramento', $monitoramento->statusMonitoramento) == 'NÃO IMPLEMENTADA' ? 'selected' : '' }}>
@@ -400,22 +400,19 @@
                     </div>
 
                     <div class="mb-4">
-                        <label for="editRespostaRisco" class="form-label">Resposta</label>
+                        <label for="editRespostaRisco" class="">Resposta:</label>
                         <textarea class="form-control" id="editRespostaRisco" name="respostaRisco" required></textarea>
                     </div>
 
                     <div class="mb-4">
-                        <label for="editRespostaAnexo" class="form-label d-block">
-                            Anexar Arquivo
-                        </label>
-
+                        <label for="editRespostaAnexo" class="d-block">Anexar Arquivo:</label>
                         <input type="file" class="form-control" id="editRespostaAnexo" name="anexo">
                         <small class="form-text text-muted"><span class="text-danger">*</span>Apenas um arquivo pode ser anexado</small>
                     </div>
 
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button type="button" class="btn btn-primary" id="abrirEditConfirmacaoBtn">
-                            Salvar
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-3">
+                        <button type="button" class="highlighted-btn-lg highlight-success" id="abrirEditConfirmacaoBtn">
+                            Salvar Edição
                         </button>
                     </div>
                 </form>

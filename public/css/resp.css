@@ -292,6 +292,15 @@ button.secondary:hover {
   display: block;
 }
 
+.highlighted-btn-lg {
+  border: none;
+  padding: 7px 12px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
 .highlighted-btn {
   border: none;
   padding: 5px 10px;
@@ -452,4 +461,54 @@ button.secondary:hover {
 .fStyle {
   font-size: 13px;
   word-wrap: break-word;
+}
+
+/* MODAL */
+
+.footer-btn {
+  border: none;
+  padding: 5px 10px;
+  font-size: 13px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.footer-secondary {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+}
+.footer-secondary:hover {
+  background-color: #5c636a;
+}
+
+.footer-warning {
+  background-color: #ffc107;
+  color: #24170c;
+  border: none;
+}
+
+.footer-warning:hover {
+  background-color: #ffca2c;
+}
+
+.footer-danger {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+}
+
+.footer-danger:hover {
+  background-color: #c82333;
+}
+
+.footer-success {
+  background-color: #28a745;
+  color: white;
+  border: none;
+}
+
+.footer-success:hover {
+  background-color: #218838;
 }
