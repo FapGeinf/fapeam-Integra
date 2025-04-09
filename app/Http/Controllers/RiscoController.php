@@ -535,7 +535,7 @@ class RiscoController extends Controller
 
             $resposta = Resposta::create([
                 'respostaRisco' => $request->respostaRisco,
-                'respostaMonitoramentoFK' => $monitoramento->id,
+                'respostaMonitoramentoFk' => $monitoramento->id,
                 'user_id' => auth()->id(),
                 'anexo' => $filePath
             ]);
@@ -600,6 +600,7 @@ class RiscoController extends Controller
         try {
 
             $resposta = Resposta::findOrFail($id);
+            $monitoramento = Monitoramento::findOrFail($resposta->respostaMonitoramentoFk);
 
 
             $resposta->respostaRisco = $request->input('respostaRisco');
@@ -613,9 +614,16 @@ class RiscoController extends Controller
                 $resposta->anexo = $request->file('anexo')->store('anexos', 'public');
             }
 
+
+            if ($monitoramento && $request->filled('statusMonitoramento')) {
+                $monitoramento->update([
+                    'statusMonitoramento' => $request->input('statusMonitoramento')
+                ]);
+            }
+
             $resposta->save();
 
-            return redirect()->route('riscos.respostas', ['id' => $resposta->respostaMonitoramentoFK])
+            return redirect()->route('riscos.respostas', ['id' => $resposta->respostaMonitoramentoFk])
                 ->with('success', 'Resposta atualizada com sucesso!');
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return redirect()->back()->withErrors(['error' => 'Resposta não encontrada.']);

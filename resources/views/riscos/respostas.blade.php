@@ -338,40 +338,9 @@
                     @method('PUT')
                     <input type="hidden" id="editRespostaId" name="id">
                     <div class="mb-4">
-                        <label for="editRespostaRisco" class="form-label">Resposta</label>
-                        <textarea class="form-control" id="editRespostaRisco" name="respostaRisco" required></textarea>
-                    </div>
-                    <div class="mb-4">
-                        <label for="editRespostaAnexo" class="form-label d-block">
-                            Anexar Arquivo
-                        </label>
-                        <input type="file" class="form-control" id="editRespostaAnexo" name="anexo">
-                        <small class="form-text text-muted"><span class="text-danger">*</span>Apenas um arquivo pode
-                            ser anexado</small>
-                    </div>
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button type="submit" class="success">Salvar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="respostaModal" tabindex="-1" aria-labelledby="respostaModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="respostaModalLabel">Responder</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ route('riscos.storeResposta', ['id' => $monitoramento->id]) }}" method="POST"
-                    enctype="multipart/form-data">
-                    @csrf
-                    <div class="mb-4">
-                        <label for="statusMonitoramento-{{ $monitoramento->id }}" class="form-label">Status:</label>
+                        <label for="statusMonitoramento" class="form-label">Status:</label>
                         <select class="form-select" style="background-color: #f0f0f0;"
-                            id="statusMonitoramento-{{ $monitoramento->id }}" name="statusMonitoramento" required>
+                            id="statusMonitoramento" name="statusMonitoramento" required>
                             <option value="NÃO IMPLEMENTADA"
                                 {{ old('statusMonitoramento', $monitoramento->statusMonitoramento) == 'NÃO IMPLEMENTADA' ? 'selected' : '' }}>
                                 NÃO IMPLEMENTADA
@@ -391,6 +360,128 @@
                         </select>
                     </div>
                     <div class="mb-4">
+                        <label for="editRespostaRisco" class="form-label">Resposta</label>
+                        <textarea class="form-control" id="editRespostaRisco" name="respostaRisco" required></textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label for="editRespostaAnexo" class="form-label d-block">
+                            Anexar Arquivo
+                        </label>
+                        <input type="file" class="form-control" id="editRespostaAnexo" name="anexo">
+                        <small class="form-text text-muted"><span class="text-danger">*</span>Apenas um arquivo pode
+                            ser anexado</small>
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button type="button" class="btn btn-primary" id="abrirEditConfirmacaoBtn">
+                            Salvar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="editConfirmacaoModal" tabindex="-1" aria-labelledby="editConfirmacaoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmar Edição</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Status:</strong> <span id="editConfirmStatus" class="mb-3"></span></p>
+                <textarea id="editConfirmProvidencia" class="form-control mb-3" rows="6" readonly></textarea>
+                <p><strong>Anexo:</strong> <span id="editConfirmAnexo" class="mb-3"></span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
+                <button type="button" class="btn btn-primary" id="confirmarEdicaoBtn">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const abrirConfirmacaoBtn = document.getElementById("abrirEditConfirmacaoBtn"); 
+    const confirmarEdicaoBtn = document.getElementById("confirmarEdicaoBtn"); 
+    const form = document.querySelector("#editRespostaForm");
+
+    const selectStatus = document.querySelector('#statusMonitoramento');
+    const inputAnexo = document.querySelector('#editRespostaAnexo');
+
+    const spanStatus = document.getElementById("editConfirmStatus");
+    const spanProvidencia = document.getElementById("editConfirmProvidencia");
+    const spanAnexo = document.getElementById("editConfirmAnexo");
+
+    const editRespostaModalEl = document.getElementById('editRespostaModal');
+    const editConfirmacaoModalEl = document.getElementById('editConfirmacaoModal');
+
+    const editRespostaModal = new bootstrap.Modal(editRespostaModalEl);
+    const editConfirmacaoModal = new bootstrap.Modal(editConfirmacaoModalEl);
+
+    abrirConfirmacaoBtn.addEventListener("click", function () {
+        let providenciaContent = '';
+        if (typeof CKEDITOR !== 'undefined' && CKEDITOR.instances['editRespostaRisco']) {
+            providenciaContent = CKEDITOR.instances['editRespostaRisco'].getData();
+        } else {
+            providenciaContent = document.querySelector('#editRespostaRisco').value;
+        }
+
+        spanStatus.textContent = selectStatus.options[selectStatus.selectedIndex].text;
+        spanProvidencia.textContent = providenciaContent.replace(/<[^>]+>/g, '') || 'Não preenchido';
+        spanAnexo.textContent = inputAnexo.files.length > 0 ? inputAnexo.files[0].name : 'Nenhum arquivo selecionado';
+
+        editRespostaModalEl.addEventListener('hidden.bs.modal', function handler() {
+            editConfirmacaoModal.show();
+            editRespostaModalEl.removeEventListener('hidden.bs.modal', handler);
+        });
+
+        editRespostaModal.hide();
+    });
+
+    confirmarEdicaoBtn.addEventListener("click", function () {
+        form.submit();
+    });
+
+    editConfirmacaoModalEl.addEventListener('hidden.bs.modal', function () {
+        editRespostaModal.show();
+    });
+});
+</script>
+<div class="modal fade" id="respostaModal" tabindex="-1" aria-labelledby="respostaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="respostaModalLabel">Responder</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('riscos.storeResposta', ['id' => $monitoramento->id]) }}" method="POST"
+                    enctype="multipart/form-data">
+                    @csrf
+                    <div class="mb-4">
+                        <label for="statusMonitoramento" class="form-label">Status:</label>
+                        <select class="form-select" style="background-color: #f0f0f0;"
+                            id="statusMonitoramento" name="statusMonitoramento" required>
+                            <option value="NÃO IMPLEMENTADA"
+                                {{ old('statusMonitoramento') == 'NÃO IMPLEMENTADA' ? 'selected' : '' }}>
+                                NÃO IMPLEMENTADA
+                            </option>
+                            <option value="EM IMPLEMENTAÇÃO"
+                                {{ old('statusMonitoramento') == 'EM IMPLEMENTAÇÃO' ? 'selected' : '' }}>
+                                EM IMPLEMENTAÇÃO
+                            </option>
+                            <option value="IMPLEMENTADA PARCIALMENTE"
+                                {{ old('statusMonitoramento') == 'IMPLEMENTADA PARCIALMENTE' ? 'selected' : '' }}>
+                                IMPLEMENTADA PARCIALMENTE
+                            </option>
+                            <option value="IMPLEMENTADA"
+                                {{ old('statusMonitoramento') == 'IMPLEMENTADA' ? 'selected' : '' }}>
+                                IMPLEMENTADA
+                            </option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
                         <label for="respostaRisco" class="form-label">Providência:</label>
                         <textarea class="form-control" id="respostaRisco" name="respostaRisco" required></textarea>
                     </div>
@@ -404,38 +495,90 @@
                             ser anexado</small>
                     </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button type="submit" class="btn btn-primary mb-2">Enviar</button>
+                        <button type="button" class="btn btn-primary mb-2" id="abrirConfirmacaoBtn">Enviar</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
-<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-md modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Confirmar Envio</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-            </div>
-            <div class="modal-body">
-                <p><strong>Status:</strong> <span id="confirmStatus"></span></p>
-                <p><strong>Providência:</strong></p>
-                <div id="confirmResposta" class="border rounded p-3" style="background-color: #f8f9fa;"></div>
-                <p class="mt-3"><strong>Anexo:</strong> <span id="confirmAnexo"></span></p>
-                <p class="text-warning mt-3">Tem certeza que deseja enviar essa resposta?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancelConfirm">Cancelar</button>
-                <button type="button" class="btn btn-primary" id="confirmSend">Confirmar e Enviar</button>
-            </div>
-        </div>
+<div class="modal fade" id="confirmacaoModal" tabindex="-1" aria-labelledby="confirmacaoModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmacaoModalLabel">Confirme sua resposta</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Status selecionado:</strong> <span id="confirmStatus" class="mb-3"></span></p>
+        <p><strong>Providência:</strong></p>
+        <textarea id="confirmProvidencia"
+        class="form-control mb-3"
+        rows="6"
+        readonly
+        style="white-space: pre-wrap; background-color: #f8f9fa;"></textarea>
+        <p><strong>Anexo:</strong> <span id="confirmAnexo" class="mt-3"></span></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar e corrigir</button>
+        <button type="button" class="btn btn-primary" id="confirmarEnvioBtn">Confirmar e Enviar</button>
+      </div>
     </div>
+  </div>
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const abrirConfirmacaoBtn = document.getElementById("abrirConfirmacaoBtn");
+        const confirmarEnvioBtn = document.getElementById("confirmarEnvioBtn");
+        const form = document.querySelector("#respostaModal form");
+
+        const selectStatus = document.querySelector('[name="statusMonitoramento"]');
+        const inputAnexo = document.querySelector('[name="anexo"]');
+
+        const spanStatus = document.getElementById("confirmStatus");
+        const spanProvidencia = document.getElementById("confirmProvidencia");
+        const spanAnexo = document.getElementById("confirmAnexo");
+
+        const respostaModalEl = document.getElementById('respostaModal');
+        const confirmacaoModalEl = document.getElementById('confirmacaoModal');
+
+        const respostaModal = new bootstrap.Modal(respostaModalEl);
+        const confirmacaoModal = new bootstrap.Modal(confirmacaoModalEl);
+
+        abrirConfirmacaoBtn.addEventListener("click", function () {
+            let providenciaContent = '';
+            if (typeof CKEDITOR !== 'undefined' && CKEDITOR.instances['respostaRisco']) {
+                providenciaContent = CKEDITOR.instances['respostaRisco'].getData();
+            } else {
+                providenciaContent = document.querySelector('[name="respostaRisco"]').value;
+            }
+
+            spanStatus.textContent = selectStatus.options[selectStatus.selectedIndex].text;
+            spanProvidencia.textContent = providenciaContent.replace(/<[^>]+>/g, '') || 'Não preenchido';
+            spanAnexo.textContent = inputAnexo.files.length > 0 ? inputAnexo.files[0].name : 'Nenhum arquivo selecionado';
+
+         
+            respostaModalEl.addEventListener('hidden.bs.modal', function handler() {
+                confirmacaoModal.show();
+                respostaModalEl.removeEventListener('hidden.bs.modal', handler);
+            });
+
+            respostaModal.hide();
+        });
+
+      
+        confirmarEnvioBtn.addEventListener("click", function () {
+            form.submit();
+        });
+
+      
+        confirmacaoModalEl.addEventListener('hidden.bs.modal', function () {
+            respostaModal.show();
+        });
+    });
+</script>
 <x-back-button />
 <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 <script src="{{ asset('js/respostas.js') }}"></script>
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('js/modais/modalConfirmacaoProvidencia.js') }}"></script>
 @endsection
