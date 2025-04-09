@@ -202,8 +202,6 @@ a.reply-btn:hover {
 
 /* PÁGINA DE RESPOSTAS */
 
-
-
 .custom-actions-wrapper {
   position: relative;
   display: inline-block;
@@ -217,6 +215,11 @@ a.reply-btn:hover {
   font-size: 13px;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.custom-actions-btn:hover {
+  background-color: #565e64;
 }
 
 .custom-actions-menu {
@@ -249,11 +252,12 @@ a.reply-btn:hover {
 }
 
 .highlighted-btn {
+  border: none;
+  padding: 5px 10px;
   font-size: 13px;
-  padding: 6px 12px;
   border-radius: 4px;
-  margin-left: 6px;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .highlight-danger {

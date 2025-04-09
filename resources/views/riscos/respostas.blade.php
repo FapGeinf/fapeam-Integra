@@ -225,9 +225,10 @@
                                         <a href="#" onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)" data-bs-toggle="modal" data-bs-target="#editRespostaModal">
                                             <i class="bi bi-pen me-1"></i>Editar
                                         </a>
-
                                     </div>
                                 </div>
+
+                                <span style="color: #949494;">|</span>
                             
                                 <!-- Botões importantes destacados -->
                                 <button type="button" class="highlighted-btn highlight-danger" data-bs-toggle="modal" data-bs-target="#deleteAnexoModal" onclick="setDeleteAnexo({{ $resposta->id }})">
