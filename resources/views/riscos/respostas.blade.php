@@ -433,7 +433,7 @@
             </div>
 
             <div class="modal-body">
-                <p class="mb-0">Status:</p>
+                <label class="mb-0">Status:</label>
                 <span id="editConfirmStatus" class="form-control" style="background-color: #f0f0f0;"></span>
 
                 <label class="d-block pt-4">Providência:</label>
@@ -445,8 +445,8 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="highlighted-btn-lg footer-secondary" data-bs-dismiss="modal">Voltar</button>
-                <button type="button" class="highlighted-btn-lg highlight-success" id="confirmarEdicaoBtn">Confirmar</button>
+                <button type="button" class="highlighted-btn-lg footer-secondary" data-bs-dismiss="modal">Voltar e corrigir</button>
+                <button type="button" class="highlighted-btn-lg highlight-success" id="confirmarEdicaoBtn">Confirmar e enviar</button>
             </div>
         </div>
     </div>
@@ -465,7 +465,7 @@
                 <form action="{{ route('riscos.storeResposta', ['id' => $monitoramento->id]) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-4">
-                        <label for="statusMonitoramento" class="form-label">Status:</label>
+                        <label for="statusMonitoramento">Status:</label>
                         <select class="form-select" style="background-color: #f0f0f0;"
                             id="statusMonitoramento" name="statusMonitoramento" required>
                             <option value="NÃO IMPLEMENTADA"
@@ -491,21 +491,19 @@
                     </div>
 
                     <div class="mb-4">
-                        <label for="respostaRisco" class="form-label">Providência:</label>
+                        <label for="respostaRisco">Providência:</label>
                         <textarea class="form-control" id="respostaRisco" name="respostaRisco" required></textarea>
                     </div>
 
                     <div class="mb-4">
-                        <label for="anexo" class="form-label d-block">
-                            Anexar Arquivo:
-                        </label>
+                        <label for="anexo" class="">Anexar Arquivo:</label>
 
                         <input type="file" class="form-control" id="anexo" name="anexo" style="background-color: #f0f0f0;">
                         <small class="form-text text-muted"><span class="text-danger">*</span>Apenas um arquivo pode ser anexado</small>
                     </div>
 
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button type="button" class="btn btn-primary mb-2" id="abrirConfirmacaoBtn">Enviar</button>
+                    <div class="modal-footer justify-content-md-end p-0">
+                        <button type="button" class="highlighted-btn-lg highlight-success mt-2" id="abrirConfirmacaoBtn">Enviar</button>
                     </div>
                 </form>
             </div>
@@ -517,20 +515,25 @@
   <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
+
         <h5 class="modal-title" id="confirmacaoModalLabel">Confirme sua resposta</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
       </div>
 
       <div class="modal-body">
-        <p><strong>Status selecionado:</strong> <span id="confirmStatus" class="mb-3"></span></p>
-        <p><strong>Providência:</strong></p>
-        <textarea id="confirmProvidencia" class="form-control mb-3" rows="6" readonly style="white-space: pre-wrap; background-color: #f8f9fa;"></textarea>
-        <p><strong>Anexo:</strong> <span id="confirmAnexo" class="mt-3"></span></p>
+        <label class="mb-0 d-block">Status selecionado:</label>
+        <span id="confirmStatus" class="form-control" style="background-color: #f0f0f0;"></span>
+
+        <label class="d-block pt-4">Providência:</label>
+        <div id="confirmProvidencia" class="form-control mb-3" style="background-color: #f0f0f0;"></div>
+
+        <label class="d-block pt-2">Anexo:</label>
+        <span id="confirmAnexo" class="form-control mb-2" style="background-color: #f0f0f0;"></span>
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar e corrigir</button>
-        <button type="button" class="btn btn-primary" id="confirmarEnvioBtn">Confirmar e Enviar</button>
+        <button type="button" class="highlighted-btn-lg footer-secondary" data-bs-dismiss="modal">Voltar e corrigir</button>
+        <button type="button" class="highlighted-btn-lg highlight-success" id="confirmarEnvioBtn">Confirmar e enviar</button>
       </div>
     </div>
   </div>
@@ -595,5 +598,36 @@
         });
     });
 </script>
+
+<script>
+    // Ao clicar no botão "Enviar", pega os dados e exibe no modal de confirmação
+    document.addEventListener('DOMContentLoaded', function () {
+        const abrirConfirmacaoBtn = document.getElementById('abrirConfirmacaoBtn');
+
+        if (abrirConfirmacaoBtn) {
+            abrirConfirmacaoBtn.addEventListener('click', function () {
+                // Pega o valor do select
+                const status = document.getElementById('statusMonitoramento').value;
+
+                // Pega o conteúdo formatado do CKEditor
+                const providenciaHtml = CKEDITOR.instances['respostaRisco'].getData();
+
+                // Pega o nome do arquivo (se houver)
+                const anexoInput = document.getElementById('anexo');
+                const anexo = anexoInput.files.length > 0 ? anexoInput.files[0].name : 'Nenhum arquivo selecionado';
+
+                // Insere os valores no modal de confirmação
+                document.getElementById('confirmStatus').textContent = status;
+                document.getElementById('confirmProvidencia').innerHTML = providenciaHtml;
+                document.getElementById('confirmAnexo').textContent = anexo;
+
+                // Abre o modal de confirmação
+                const modal = new bootstrap.Modal(document.getElementById('confirmacaoModal'));
+                modal.show();
+            });
+        }
+    });
+</script>
+
 
 @endsection
