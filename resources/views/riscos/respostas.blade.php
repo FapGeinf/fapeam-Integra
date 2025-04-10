@@ -141,7 +141,7 @@
 
                             @else
                                 <div class="text-end">
-                                    <button type="button" class="highlighted-btn highlighted-warning" data-bs-toggle="modal" data-bs-target="#editRespostaModal" onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)">
+                                    <button type="button" class="highlighted-btn highlight-warning" data-bs-toggle="modal" data-bs-target="#editRespostaModal" onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)">
                                         <i class="bi bi-pen me-1"></i>Editar
                                     </button>
 
@@ -406,16 +406,16 @@
 
                     <div class="mb-4">
                         <label for="editRespostaAnexo" class="d-block">Anexar Arquivo:</label>
-                        <input type="file" class="form-control" id="editRespostaAnexo" name="anexo">
+                        <input type="file" class="form-control" id="editRespostaAnexo" name="anexo" style="background-color: #f0f0f0;">
                         <small class="form-text text-muted"><span class="text-danger">*</span>Apenas um arquivo pode ser anexado</small>
                     </div>
 
                     <div class="modal-footer p-0">
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
-                        <button type="button" class="highlighted-btn-lg highlight-success" id="abrirEditConfirmacaoBtn">
-                            Salvar Edição
-                        </button>
-                    </div>
+                            <button type="button" class="highlighted-btn-lg highlight-success" id="abrirEditConfirmacaoBtn">
+                                Salvar Edição
+                            </button>
+                        </div>
                     </div>
                     
                 </form>
@@ -433,9 +433,14 @@
             </div>
 
             <div class="modal-body">
-                <p><strong>Status:</strong> <span id="editConfirmStatus" class="mb-3"></span></p>
-                <textarea id="editConfirmProvidencia" class="form-control mb-3" rows="6" readonly></textarea>
-                <p><strong>Anexo:</strong> <span id="editConfirmAnexo" class="mb-3"></span></p>
+                <p class="mb-0">Status:</p>
+                <span id="editConfirmStatus" class="form-control" style="background-color: #f0f0f0;"></span>
+
+                <label class="d-block pt-4">Providência:</label>
+                <div id="editConfirmProvidencia" class="form-control mb-3" readonly style="background-color: #f0f0f0;"></div>
+
+                <label class="d-block pt-2">Anexo:</label>
+                <span id="editConfirmAnexo" class="form-control mb-2" style="background-color: #f0f0f0;"></span>
             </div>
 
             <div class="modal-footer">
@@ -465,14 +470,17 @@
                                 {{ old('statusMonitoramento') == 'NÃO IMPLEMENTADA' ? 'selected' : '' }}>
                                 NÃO IMPLEMENTADA
                             </option>
+
                             <option value="EM IMPLEMENTAÇÃO"
                                 {{ old('statusMonitoramento') == 'EM IMPLEMENTAÇÃO' ? 'selected' : '' }}>
                                 EM IMPLEMENTAÇÃO
                             </option>
+
                             <option value="IMPLEMENTADA PARCIALMENTE"
                                 {{ old('statusMonitoramento') == 'IMPLEMENTADA PARCIALMENTE' ? 'selected' : '' }}>
                                 IMPLEMENTADA PARCIALMENTE
                             </option>
+                            
                             <option value="IMPLEMENTADA"
                                 {{ old('statusMonitoramento') == 'IMPLEMENTADA' ? 'selected' : '' }}>
                                 IMPLEMENTADA
