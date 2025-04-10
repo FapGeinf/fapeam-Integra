@@ -38,14 +38,14 @@
         });
     </script>
 
-    <div class="col-12 box-shadow mb-3">
+    <div class="col-12 box-shadow border mb-3">
         <h5 class="text-center mb-3">Monitoramento</h5>
         <div class="form-control" style="background-color: #f3f3f3;">
             {!! $monitoramento->monitoramentoControleSugerido !!}
         </div>
     </div>
 
-    <div class="col-12 box-shadow">
+    <div class="col-12 box-shadow border">
         <h5 class="text-center mb-3">Providência</h5>
         <div class="chat-box">
             @if ($respostas->count() > 0)
