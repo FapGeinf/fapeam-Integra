@@ -55,6 +55,29 @@ font-style: normal;
   margin-bottom: 30px;
 }
 
+.button-download {
+  background-color: #FFFFFF;
+  color: #111827;
+  text-align: center;
+  text-decoration: none #D1D5DB solid;
+  text-decoration-thickness: auto;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+}
+
+.button-download:hover {
+  background-color: rgb(249,250,251);
+}
+
+.button-download:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.button-download:focus-visible {
+  box-shadow: none;
+}
+
 .background-verde {
   background-color: green;
 }
@@ -204,6 +227,21 @@ a.btn-add:hover {
 .fontBold {
   color: #000;
   font-weight: bold;
+}
+
+.custom-actions-btn {
+  background-color: #0d6efd;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.custom-actions-btn:hover {
+  background-color: #0b5eda;
 }
 
 /* PÁGINA DE RESPOSTAS */
