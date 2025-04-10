@@ -16,7 +16,7 @@ class NovasUnidadesSeeder extends Seeder
     public function run()
     {
            Unidade::factory()->create([
-             'unidadeNome' => ' DIRETORIA ADMINISTRATIVO-FINANCEIRA',
+             'unidadeNome' => 'Diretoria Administrativo-Financeira',
              'unidadeSigla' => 'DAF',
 						 'unidadeEmail' => 'diretoriaadministrativafinanceira@email.com',
              'unidadeTipoFK' => 5,
@@ -24,7 +24,7 @@ class NovasUnidadesSeeder extends Seeder
            ]);
 
            Unidade::factory()->create([
-               'unidadeNome' => 'DIRETORIA TECNICO-CIENTIFICA',
+               'unidadeNome' => 'Diretoria Técnico-Cientifica',
                'unidadeSigla' => 'DITEC',
 							 'unidadeEmail' => 'diretoriatecnicacientifica@email.com',
                'unidadeTipoFK' => 5,
@@ -32,7 +32,7 @@ class NovasUnidadesSeeder extends Seeder
            ]);
 
            Unidade::factory()->create([
-               'unidadeNome' => 'PRESIDÊNCIA',
+               'unidadeNome' => 'Presidência',
                'unidadeSigla' => 'PRES',
 							 'unidadeEmail' => 'presidenciafap@email.com',
                'unidadeTipoFK' => 4,
