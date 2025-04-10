@@ -68,7 +68,7 @@
                                         <div>
                                             Criado em:
                                             <i class="bi bi-clock"></i>
-                                            <span class="dataSpan">
+                                            <span class="dataSpan text-uppercase">
                                                 {{ $resposta->created_at->format('d/m/Y') }}
                                                     às
                                                 {{ $resposta->created_at->format('H:i') }}
@@ -86,7 +86,7 @@
                                         <div>
                                             Perfil:
                                             <i class="bi bi-person"></i>
-                                            <span class="dataSpan">
+                                            <span class="dataSpan text-uppercase">
                                                 {{ $resposta->user->name }}
                                             </span>
                                         </div>
@@ -172,7 +172,7 @@
                                         <div>
                                             Criado em:
                                             <i class="bi bi-clock"></i>
-                                            <span class="dataSpan">
+                                            <span class="dataSpan text-uppercase">
                                                 {{ $resposta->created_at->format('d/m/Y') }}
                                                 às
                                                 {{ $resposta->created_at->format('H:i') }}
@@ -190,7 +190,7 @@
                                         <div>
                                             Perfil:
                                             <i class="bi bi-person"></i>
-                                            <span class="dataSpan">
+                                            <span class="dataSpan text-uppercase">
                                                 {{ $resposta->user->name }}
                                             </span>
                                         </div>
