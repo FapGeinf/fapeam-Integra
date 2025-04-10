@@ -410,11 +410,14 @@
                         <small class="form-text text-muted"><span class="text-danger">*</span>Apenas um arquivo pode ser anexado</small>
                     </div>
 
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-3">
+                    <div class="modal-footer p-0">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
                         <button type="button" class="highlighted-btn-lg highlight-success" id="abrirEditConfirmacaoBtn">
                             Salvar Edição
                         </button>
                     </div>
+                    </div>
+                    
                 </form>
             </div>
         </div>
@@ -422,7 +425,7 @@
 </div>
 
 <div class="modal fade" id="editConfirmacaoModal" tabindex="-1" aria-labelledby="editConfirmacaoModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Confirmar Edição</h5>
@@ -436,8 +439,8 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
-                <button type="button" class="btn btn-primary" id="confirmarEdicaoBtn">Confirmar</button>
+                <button type="button" class="highlighted-btn-lg footer-secondary" data-bs-dismiss="modal">Voltar</button>
+                <button type="button" class="highlighted-btn-lg highlight-success" id="confirmarEdicaoBtn">Confirmar</button>
             </div>
         </div>
     </div>
