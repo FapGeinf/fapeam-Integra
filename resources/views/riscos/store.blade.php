@@ -92,16 +92,13 @@
                         <label for="probabilidade">Probabilidade:<span class="asterisco">*</span></label>
                         <input type="number" name="probabilidade" id="probabilidade" class="form-control" min="1"
                             max="5" required value="{{ old('probabilidade') }}" style="background-color: #f0f0f0;">
+                            <small class="text-muted"><span class="asterisco">*</span>Os valores de <strong>probabilidade</strong> e
+                                <strong>impacto</strong> devem estar entre <strong>1 a 5</strong>.</small>
                     </div>
 
                     <div class="col-sm-6 col-md-6">
                         <label for="impacto">Impacto:<span class="asterisco">*</span></label>
                         <input type="number" name="impacto" id="impacto" class="form-control" min="1" max="5" required value="{{ old('impacto') }}" style="background-color: #f0f0f0;">
-                    </div>
-
-                    <div class="col-sm-12">
-                        <small class="text-muted">* Os valores de <strong>probabilidade</strong> e
-                            <strong>impacto</strong> devem estar entre <strong>1 a 5</strong>.</small>
                     </div>
 
                     <div class="col-sm-6 col-md-6">
