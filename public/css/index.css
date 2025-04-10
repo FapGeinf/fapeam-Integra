@@ -122,6 +122,20 @@ table, tr,th, td {
   margin-right: 0;
 }
 
+.green-btn-date {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.green-btn-date:hover {
+  background-color: #218838;
+}
 
 .blue-btn {
   background-color: #0056b3;
