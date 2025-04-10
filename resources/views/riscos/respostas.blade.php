@@ -78,7 +78,7 @@
                                         <div>
                                             Lotação:
                                             <i class="bi bi-building"></i>
-                                            <span class="dataSpan">
+                                            <span class="dataSpan text-uppercase">
                                                 {{ $resposta->user->unidade->unidadeNome }}
                                             </span>
                                         </div>
