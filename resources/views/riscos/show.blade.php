@@ -12,6 +12,8 @@
     .liDP {
         margin-left: 0 !important;
     }
+
+
 </style>
 
 <script src="/ckeditor/ckeditor.js"></script>
@@ -108,22 +110,60 @@
                                 <td class="text13 pb-1 tBorder text-center">{!!  \Carbon\Carbon::parse($monitoramento->updated_at)->format('d/m/Y H:i:s') !!}</td>
 
                                 <td class="text-center">
-                                    <div class="ms-2 gap-1" style="display: flex; align-items: center;">
-                                        {{-- -ESSE IF DEVE SER == 1 APENAS --}}
-                                        @if (auth()->user()->unidade->unidadeTipo->id == 1)
-                                            <a href="{{ route('riscos.editMonitoramento', ['id' => $monitoramento->id]) }}" class="warning" style="font-size: 13px; white-space: nowrap;">
-                                                <i class="bi bi-pencil"></i>
-                                            </a>
-                                                <button type="button" class="danger" data-bs-toggle="modal" data-bs-target="#excluirMonitoramento{{ $monitoramento->id }}" style="font-size: 13px;">
-                                                <i class="bi bi-trash"></i>
-                                            </button>
-                                        @endif
-                                            <a href="{{ route('riscos.respostas', ['id' => $monitoramento->id]) }}" class="custom-actions-btn">
-                                                <i class="bi bi-eye"></i>
-                                            </a>
+                                    <div class="custom-actions-wrapper" id="actionsWrapper{{ $monitoramento->id }}">
+                                        <button type="button" onclick="toggleActionsMenu({{ $monitoramento->id }})" class="custom-actions-btn">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+                                        <div class="custom-actions-menu">
+                                            <ul>
+                                                @if (auth()->user()->unidade->unidadeTipo->id == 1)
+                                                    <li>
+                                                        <a href="{{ route('riscos.editMonitoramento', ['id' => $monitoramento->id]) }}">
+                                                            <i class="bi bi-pencil me-2"></i>Editar
+                                                        </a>
+                                                    </li>
+
+                                                    <li>
+                                                        <button type="button" class="danger" data-bs-toggle="modal" data-bs-target="#excluirMonitoramento{{ $monitoramento->id }}">
+                                                            <i class="bi bi-trash me-2"></i>Excluir
+                                                        </button>
+                                                    </li>
+                                                @endif
+                                                <li>
+                                                    <a href="{{ route('riscos.respostas', ['id' => $monitoramento->id]) }}">
+                                                        <i class="bi bi-eye me-2"></i>Visualizar
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </td>
+                                
                             </tr>
+
+                            <script>
+                                function toggleActionsMenu(id) {
+                                    const wrapper = document.getElementById(`actionsWrapper${id}`);
+                                    wrapper.classList.toggle('open');
+                            
+                                    // Fecha outros menus abertos
+                                    document.querySelectorAll('.custom-actions-wrapper').forEach((el) => {
+                                        if (el.id !== `actionsWrapper${id}`) {
+                                            el.classList.remove('open');
+                                        }
+                                    });
+                                }
+                            
+                                // Fecha o dropdown ao clicar fora
+                                window.addEventListener('click', function (e) {
+                                    document.querySelectorAll('.custom-actions-wrapper').forEach(wrapper => {
+                                        if (!wrapper.contains(e.target)) {
+                                            wrapper.classList.remove('open');
+                                        }
+                                    });
+                                });
+                            </script>
+                            
 
                             <div class="modal fade" id="excluirMonitoramento{{ $monitoramento->id }}" tabindex="-1" aria-labelledby="excluirMonitoramentoLabel" aria-hidden="true">
                                 <div class="modal-dialog">
