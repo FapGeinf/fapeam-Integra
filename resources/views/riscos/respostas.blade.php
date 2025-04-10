@@ -437,7 +437,8 @@
                 <span id="editConfirmStatus" class="form-control" style="background-color: #f0f0f0;"></span>
 
                 <label class="d-block pt-4">Providência:</label>
-                <div id="editConfirmProvidencia" class="form-control mb-3" readonly style="background-color: #f0f0f0;"></div>
+                <div id="editConfirmProvidencia" class="form-control mb-3" style="background-color: #f0f0f0;"></div>
+
 
                 <label class="d-block pt-2">Anexo:</label>
                 <span id="editConfirmAnexo" class="form-control mb-2" style="background-color: #f0f0f0;"></span>
@@ -450,6 +451,7 @@
         </div>
     </div>
 </div>
+
 
 <div class="modal fade" id="respostaModal" tabindex="-1" aria-labelledby="respostaModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -563,4 +565,35 @@
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('js/modais/storeProvidencia.js') }}"></script>
 <script src="{{ asset('js/modais/editProvidencia.js') }}"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Quando o botão de salvar for clicado
+        document.getElementById('abrirEditConfirmacaoBtn').addEventListener('click', function () {
+            // Garante que o CKEditor está carregado
+            if (CKEDITOR.instances['editRespostaRisco']) {
+                const providenciaHTML = CKEDITOR.instances['editRespostaRisco'].getData();
+
+                // Preenche o conteúdo formatado no div do modal de confirmação
+                document.getElementById('editConfirmProvidencia').innerHTML = providenciaHTML;
+
+                // Preenche o status selecionado
+                const status = document.getElementById('statusMonitoramento').value;
+                document.getElementById('editConfirmStatus').textContent = status;
+
+                // Nome do anexo (se houver)
+                const anexoInput = document.getElementById('editRespostaAnexo');
+                const anexoNome = anexoInput.files.length > 0 ? anexoInput.files[0].name : 'Nenhum arquivo selecionado';
+                document.getElementById('editConfirmAnexo').textContent = anexoNome;
+
+                // Abre o modal de confirmação
+                const confirmModal = new bootstrap.Modal(document.getElementById('editConfirmacaoModal'));
+                confirmModal.show();
+            } else {
+                alert('Erro ao carregar conteúdo do CKEditor.');
+            }
+        });
+    });
+</script>
+
 @endsection
