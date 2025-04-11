@@ -12,8 +12,6 @@
     .liDP {
         margin-left: 0 !important;
     }
-
-
 </style>
 
 <script src="/ckeditor/ckeditor.js"></script>
@@ -117,6 +115,7 @@
                                         <div class="custom-actions-menu">
                                             <ul>
                                                 @if (auth()->user()->unidade->unidadeTipo->id == 1)
+
                                                     <li>
                                                         <a href="{{ route('riscos.editMonitoramento', ['id' => $monitoramento->id]) }}">
                                                             <i class="bi bi-pencil me-2"></i>Editar
@@ -124,9 +123,12 @@
                                                     </li>
 
                                                     <li>
-                                                        <button type="button" class="danger" data-bs-toggle="modal" data-bs-target="#excluirMonitoramento{{ $monitoramento->id }}">
+                                                        <a href="#" 
+                                                           data-bs-toggle="modal" 
+                                                           data-bs-target="#excluirMonitoramento{{ $monitoramento->id }}" 
+                                                           style="cursor: pointer;">
                                                             <i class="bi bi-trash me-2"></i>Excluir
-                                                        </button>
+                                                        </a>
                                                     </li>
                                                 @endif
                                                 <li>
