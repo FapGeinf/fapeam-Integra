@@ -376,7 +376,7 @@
 
                     <div class="mb-4">
                         <label for="statusMonitoramento" class="">Status:</label>
-                        <select class="form-select" style="background-color: #f0f0f0;" id="statusMonitoramento" name="statusMonitoramento" required>
+                        <select class="form-select input-enabled" id="statusMonitoramento" name="statusMonitoramento" required>
                             <option value="NÃO IMPLEMENTADA"
                                 {{ old('statusMonitoramento', $monitoramento->statusMonitoramento) == 'NÃO IMPLEMENTADA' ? 'selected' : '' }}>
                                 NÃO IMPLEMENTADA
@@ -406,7 +406,7 @@
 
                     <div class="mb-4">
                         <label for="editRespostaAnexo" class="d-block">Anexar Arquivo:</label>
-                        <input type="file" class="form-control" id="editRespostaAnexo" name="anexo" style="background-color: #f0f0f0;">
+                        <input type="file" class="form-control input-enabled" id="editRespostaAnexo" name="anexo">
                         <small class="form-text text-muted"><span class="text-danger">*</span>Apenas um arquivo pode ser anexado</small>
                     </div>
 
@@ -434,14 +434,14 @@
 
             <div class="modal-body">
                 <label class="mb-0">Status:</label>
-                <span id="editConfirmStatus" class="form-control" style="background-color: #f0f0f0;"></span>
+                <span id="editConfirmStatus" class="form-control input-disabled"></span>
 
                 <label class="d-block pt-4">Providência:</label>
-                <div id="editConfirmProvidencia" class="form-control mb-3" style="background-color: #f0f0f0;"></div>
+                <div id="editConfirmProvidencia" class="form-control input-disabled mb-3"></div>
 
 
                 <label class="d-block pt-2">Anexo:</label>
-                <span id="editConfirmAnexo" class="form-control mb-2" style="background-color: #f0f0f0;"></span>
+                <span id="editConfirmAnexo" class="form-control input-disabled mb-2"></span>
             </div>
 
             <div class="modal-footer">
@@ -466,8 +466,7 @@
                     @csrf
                     <div class="mb-4">
                         <label for="statusMonitoramento">Status:</label>
-                        <select class="form-select" style="background-color: #f0f0f0;"
-                            id="statusMonitoramento" name="statusMonitoramento" required>
+                        <select class="form-select input-enabled" id="statusMonitoramento" name="statusMonitoramento" required>
                             <option value="NÃO IMPLEMENTADA"
                                 {{ old('statusMonitoramento') == 'NÃO IMPLEMENTADA' ? 'selected' : '' }}>
                                 NÃO IMPLEMENTADA
@@ -498,7 +497,7 @@
                     <div class="mb-4">
                         <label for="anexo" class="">Anexar Arquivo:</label>
 
-                        <input type="file" class="form-control" id="anexo" name="anexo" style="background-color: #f0f0f0;">
+                        <input type="file" class="form-control input-enabled" id="anexo" name="anexo">
                         <small class="form-text text-muted"><span class="text-danger">*</span>Apenas um arquivo pode ser anexado</small>
                     </div>
 
@@ -522,13 +521,13 @@
 
       <div class="modal-body">
         <label class="mb-0 d-block">Status selecionado:</label>
-        <span id="confirmStatus" class="form-control" style="background-color: #f0f0f0;"></span>
+        <span id="confirmStatus" class="form-control input-disabled"></span>
 
         <label class="d-block pt-4">Providência:</label>
-        <div id="confirmProvidencia" class="form-control mb-3" style="background-color: #f0f0f0;"></div>
+        <div id="confirmProvidencia" class="form-control input-disabled mb-3"></div>
 
         <label class="d-block pt-2">Anexo:</label>
-        <span id="confirmAnexo" class="form-control mb-2" style="background-color: #f0f0f0;"></span>
+        <span id="confirmAnexo" class="form-control input-disabled mb-2"></span>
       </div>
 
       <div class="modal-footer">

@@ -21,13 +21,17 @@ body {
 }
 
 .form-control {
-  /* background-color: #f0f0f0; */
+  /* background-color: #f9f9f9 !important; */
   border-radius: 0 !important;
   border: 1px solid #ccc !important;
 }
 
 .input-enabled {
   background-color: #f9f9f9 !important;
+}
+
+.input-disabled {
+  background-color: #f0f0f0 !important;
 }
 
 .form-select {
