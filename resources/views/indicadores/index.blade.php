@@ -4,6 +4,7 @@
 
 <link rel="stylesheet" href="{{ asset('css/show.css') }}">
 <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
+<link rel="stylesheet" href="{{ asset('css/dropdown.css') }}">
 <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
 <script src="{{ asset('js/dataTables.min.js') }}"></script>
 <link rel="stylesheet" href="{{ asset('css/dataTables.dataTables.min.css') }}">
@@ -15,55 +16,6 @@
 
 	.liDP {
 		margin-left: 0 !important;
-	}
-
-	.custom-actions-wrapper {
-		position: relative;
-		display: inline-block;
-	}
-
-	.custom-actions-btn {
-		background-color: #6c757d;
-		color: white;
-		border: none;
-		padding: 5px 10px;
-		font-size: 12px;
-		border-radius: 4px;
-		cursor: pointer;
-		transition: background-color 0.3s;
-	}
-
-	.custom-actions-btn:hover {
-		background-color: #565e64;
-	}
-
-	.custom-actions-menu {
-		display: none;
-		position: absolute;
-		right: 0;
-		z-index: 1000;
-		background-color: #fff;
-		border: 1px solid #ccc;
-		min-width: 150px;
-		border-radius: 4px;
-		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-	}
-
-	.custom-actions-menu a {
-		display: block;
-		padding: 8px 12px;
-		font-size: 13px;
-		color: #333;
-		text-align: start;
-		text-decoration: none;
-	}
-
-	.custom-actions-menu a:hover {
-		background-color: #f2f2f2;
-	}
-
-	.custom-actions-wrapper.open .custom-actions-menu {
-		display: block;
 	}
 </style>
 
@@ -96,7 +48,7 @@
 
 						<td>EIXO {{$indicador->eixo->id}} - {{ $indicador->eixo->nome}}</td>
 
-						<td class="d-flex justify-content-center">
+						<td class="d-flex justify-content-center" style="border-left: none; border-bottom: none;">
 							<div class="custom-actions-wrapper" id="actionsWrapper{{ $indicador->id }}">
 
 								<button type="button" onclick="toggleActionsMenu({{ $indicador->id }})" class="custom-actions-btn">
