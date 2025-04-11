@@ -5,6 +5,7 @@
 @section('content')
 
 <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
+<link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
 
 <style>
 	.form-label {
@@ -40,8 +41,9 @@
 
 			<div class="row">
 				<div class="col-12">
-					<label for="eixo" class="form-label"><span class="asteriscoTop">*</span>Eixo:</label>
-					<select class="form-select" id="eixo" name="eixo" required>
+					<label for="eixo"><span class="asteriscoTop">*</span>Eixo:</label>
+
+					<select class="form-select input-enabled" id="eixo" name="eixo" required>
 						@foreach($eixos as $eixo)
 							<option value="{{ $eixo->id }}">{{ $eixo->nome }}</option>
 						@endforeach
@@ -53,14 +55,16 @@
 					<input type="text" class="form-control" id="nome" name="nome" required>
 				</div> --}}
 
-				<div class="col-12">
+				<div class="col-12 mb-3">
 					<label for="descricao"><span class="asteriscoTop">*</span>Descrição:</label>
-					<textarea	textarea class="form-control" id="descricao" name="descricao" rows="3" required></textarea>
+					<textarea	textarea class="form-control input-enabled" id="descricao" name="descricao" rows="3" required></textarea>
 				</div>
 			</div>
 
+			<hr>
+
 			<div class="d-flex justify-content-end mt-3">
-				<button type="submit" class="blue-btn me-0">Salvar</button>
+				<button type="submit" class="highlighted-btn-lg highlight-success me-0">Salvar Indicador</button>
 			</div>
 		</form>
 	</div>
