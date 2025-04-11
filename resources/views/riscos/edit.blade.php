@@ -3,6 +3,15 @@
 <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 <script src="{{ asset('js/auto-dismiss.js') }}"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+    .mt-1px {
+        margin-top: 4px !important;
+    }
+
+    .li-navbar2 {
+        margin-top: 5px !important;
+    }
+</style>
 @section('content')
 
 @section('title') {{ 'Editar Formulário' }} @endsection
