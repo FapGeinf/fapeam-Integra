@@ -7,6 +7,16 @@
 @section('content')
 @section('title', 'Editar Monitoramentos')
 
+<style>
+    .mt-1px {
+        margin-top: 4px;
+    }
+
+    .li-navbar2 {
+        margin-top: 5px;
+    }
+</style>
+
 <div class="form-wrapper pt-4 paddingLeft">
     <div class="form_create">
         <h3 style="text-align: center; margin-bottom: 10px;">Formulário de Monitoramentos</h3>
