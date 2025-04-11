@@ -46,7 +46,7 @@
                 <!-- Monitoramentos serão adicionados aqui dinamicamente -->
             </div>
 
-            <hr class="mx-auto">
+            <hr class="mx-auto pb-3">
 
             <div class="d-flex justify-content-center">
                 <div class="buttons">
