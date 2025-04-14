@@ -24,7 +24,7 @@ class User extends Authenticatable
         'password',
         'cpf',
         'unidadeIdFK',
-				'usuario_tipo_fk'
+        'usuario_tipo_fk'
     ];
 
     /**
@@ -45,17 +45,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-		public function findForPassport($username) {
-			return $this->where('cpf', $username)->first();
-		}
+    public function findForPassport($username)
+    {
+        return $this->where('cpf', $username)->first();
+    }
     public function unidade()
     {
         return $this->belongsTo(Unidade::class, 'unidadeIdFK');
     }
-		public function tipo()
-		{
-            return $this->belongsTo(UsuarioTipo::class, 'usuario_tipo_fk');
-		}
+    public function tipo()
+    {
+        return $this->belongsTo(UsuarioTipo::class, 'usuario_tipo_fk');
+    }
     public function riscos()
     {
         return $this->hasMany(Risco::class, 'userIdRisco');

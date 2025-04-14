@@ -27,4 +27,9 @@ class Unidade extends Model
         return $this->hasMany(User::class, 'unidadeIdFK');
 
     }
+
+	public function diretoria()
+	{
+		   return $this->belongsTo(Diretoria::class, 'unidadeDiretoria');
+	}
 }
