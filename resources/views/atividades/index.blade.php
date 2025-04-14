@@ -207,7 +207,7 @@
                                         <button type="button" onclick="toggleActionsMenu({{ $atividade->id }})" class="custom-actions-btn">
                                             <i class="bi bi-three-dots-vertical"></i>
                                         </button>
-                                        
+
                                         <div class="custom-actions-menu">
                                             <ul>
                                                 <li>
@@ -215,14 +215,16 @@
                                                         <i class="bi bi-pencil me-2"></i>Editar
                                                     </a>
                                                 </li>
+
+                                                <li>
+                                                    <a href="#" class="text-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $atividade->id }}">
+                                                        <i class="bi bi-trash me-2"></i>Excluir
+                                                    </a>
+                                                </li>
+
                                                 <li>
                                                     <a href="{{ route('atividades.show', $atividade->id) }}">
                                                         <i class="bi bi-eye me-2"></i>Visualizar
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $atividade->id }}">
-                                                        <i class="bi bi-trash me-2"></i>Excluir
                                                     </a>
                                                 </li>
                                             </ul>

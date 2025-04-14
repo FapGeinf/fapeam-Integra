@@ -123,7 +123,7 @@
                                                     </li>
 
                                                     <li>
-                                                        <a href="#" 
+                                                        <a href="#" class="text-danger"
                                                            data-bs-toggle="modal" 
                                                            data-bs-target="#excluirMonitoramento{{ $monitoramento->id }}" 
                                                            style="cursor: pointer;">
