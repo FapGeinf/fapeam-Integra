@@ -51,7 +51,7 @@
     <div class="container-fluid p-30">
 
         @if (session('success'))
-            <div class="alert alert-success text-center">
+            <div class="alert alert-success text-center auto-dismiss">
                 {{ session('success') }}
             </div>
         @endif
