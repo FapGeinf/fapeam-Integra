@@ -4,6 +4,14 @@ body {
   background-attachment: fixed;
 }
 
+label, input, .form-control, .form-select {
+  font-size: 13px !important;
+}
+
+.choices__list--dropdown .choices__item, .choices__list[aria-expanded] .choices__item {
+  font-size: 13px !important;
+}
+
 .text13 {
   font-size: 13px;
 }
