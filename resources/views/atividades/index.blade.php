@@ -111,13 +111,7 @@
                     </select>
                 </div>
             
-                @if(Auth::user()->unidadeIdFK == 1)
-                    <div class="col-12 d-flex justify-content-end mt-2">
-                        <a href="{{ route('atividades.create') }}" class="btn btn-primary">
-                            Inserir Atividade
-                        </a>
-                    </div>
-                @endif
+                
             </div>
         </div>
     </div>
@@ -127,6 +121,14 @@
 	<div class="col-12 border box-shadow">
         <div class="justify-content-center">
             <div class="table-responsive">
+                @if(Auth::user()->unidadeIdFK == 1)
+                    <div class="col-12 d-flex justify-content-start pb-2">
+                        <a href="{{ route('atividades.create') }}" class="highlighted-btn-lg highlight-blue text-decoration-none">
+                            Inserir Atividade
+                        </a>
+                    </div>
+                @endif
+
                 <table id="tableHome2" class="table table-striped cust-datatable mb-5">
                     <thead>
                         <tr style="white-space: nowrap;">
