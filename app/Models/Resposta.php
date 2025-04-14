@@ -19,7 +19,7 @@ class Resposta extends Model
 
     public function monitoramento()
     {
-        return $this->belongsTo(Monitoramento::class, 'respostaMonitoramentoFK', 'id');
+        return $this->belongsTo(Monitoramento::class, 'respostaMonitoramentoFk');
     }
 }
 
