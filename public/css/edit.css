@@ -399,19 +399,6 @@ a.reply-btn:hover {
   /* margin-top: 3rem; */
 }
 
-.alert-danger {
-  width: 40%;
-  justify-content: center;
-  display: flex;
-  
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 0;
-  /* margin: 0; */
-  height: 0%;
-}
-
 .modalP {
   padding-right: 5px;
 }
