@@ -6,7 +6,7 @@
 <link href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script src="{{ asset('js/auto-dismiss') }}"></script>
+<script src="{{ asset('js/auto-dismiss.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
 @section('title') {{ 'Nova Atividade' }} @endsection
@@ -21,10 +21,11 @@
 
   .choices__inner {
     border: 1px solid #ccc;
+    padding: 0.375rem 0.75rem;
   }
 </style>
 
-<div class="alert-container">
+<div class="alert-container pt-5">
   @if (session('success'))
   <div class="alert alert-success text-center auto-dismiss">
     {{ session('success') }}
@@ -337,9 +338,9 @@
     <div class="col-12 col-md-6" id="unidade-container" style="display: none;">
       <label for="medida_id" class=""> <span class="asteriscoTop">*</span>Tipo de Unidade:</label>
 
-      <select name="medida_id" id="medida_id" class="form-control">
+      <select name="medida_id" id="medida_id" class="form-control form-select">
 
-      <option value="">Selecione o Tipo de Unidade</option>
+      <option value="">Selecione o tipo de unidade</option>
       @foreach ($medidas as $medida)
         <option value="{{ $medida->id }}" {{ old('medida_id') == $medida->id ? 'selected' : '' }}>
           {{ $medida->nome }}
