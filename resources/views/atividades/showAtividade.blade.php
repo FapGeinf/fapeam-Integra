@@ -2,7 +2,7 @@
 
 @section('content')
 @php
-    \Carbon\Carbon::setLocale('pt_BR'); // Define a localidade para português do Brasil
+    \Carbon\Carbon::setLocale('pt_BR');
 @endphp
 
 <link rel="stylesheet" href="{{ asset('css/detalhesAtividade.css') }}">
