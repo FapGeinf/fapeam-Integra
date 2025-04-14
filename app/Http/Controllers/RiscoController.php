@@ -282,6 +282,12 @@ class RiscoController extends Controller
         }
     }
 
+    public function indexRespostas()
+    {
+            $dados = $this->respostaService->respostasDiretoria();
+            return view('respostas.index',$dados);
+    }
+
     public function __construct(RiscoService $riscoService, MonitoramentoService $monitoramentoService, RespostaService $respostaService, PrazoService $prazoService)
     {
         $this->middleware('auth');

@@ -146,3 +146,5 @@ Route::get('/versionamentos/public',[VersionamentoController::class,'publicVersi
 Route::get('/graficos',[RelatorioController::class,'graficosIndex'])->name('graficos.index');
 Route::post('/canal/criar',[AtividadeController::class,'createCanal'])->name('canal.criar');
 Route::get('/eixo/{eixo_id}', [EixosController::class, 'mostrarEixo'])->name('eixo.mostrar');
+
+Route::get('/respostas/index',[RiscoController::class,'indexRespostas'])->name('respostas.index');

@@ -5,6 +5,7 @@ use App\Models\Risco;
 use App\Models\Monitoramento;
 use App\Models\Notification;
 use App\Models\Resposta;
+use App\Models\Unidade;
 use App\Models\User;
 use Carbon\Carbon;
 use Exception;
@@ -202,6 +203,26 @@ class RespostaService
             Log::error("Erro ao homologar providência: {$e->getMessage()}");
             throw new Exception('Houve um erro inesperado ao homologar a providência.');
         }
+    }
+
+    public function respostasDiretoria()
+    {
+        $user = Auth::user();
+        $diretoriaId = $user->unidade->unidadeDiretoria;
+        $unidades = Unidade::where('unidadeDiretoria', $diretoriaId)->get();
+        $respostas = Resposta::whereHas('monitoramento.risco.unidade', function ($query) use ($diretoriaId) {
+            $query->where('unidadeDiretoria', $diretoriaId);
+        })
+        ->with(['monitoramento.risco.unidade.diretoria', 'user'])
+        ->get();
+
+        return [
+            'user' => $user,
+            'diretoriaId' => $diretoriaId,
+            'unidades' => $unidades,
+            'respostas' => $respostas
+        ];
+
     }
     
 
