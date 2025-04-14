@@ -4,6 +4,10 @@ body {
   background-attachment: fixed;
 }
 
+.text13 {
+  font-size: 13px;
+}
+
 .form-wrapper {
   display: flex;
   justify-content: center; /* Centraliza horizontalmente */

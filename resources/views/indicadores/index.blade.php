@@ -31,7 +31,7 @@
 		<div>
 			<table id="indicadores-table" class="table table-bordered table-striped">
 				<thead>
-					<tr>
+					<tr class="text13">
 						<th class="text-center text-light">N°</th>
 						<th class="text-center text-light">Descrição</th>
 						<th class="text-center text-light">Eixo</th>
@@ -41,10 +41,10 @@
 
 				<tbody>
 					@foreach($indicadores as $indicador)
-					<tr>
-						<td>{{ $indicador->id }}</td>
+					<tr class="text13">
+						<td class="text-center">{{ $indicador->id }}</td>
 
-						<td>{{ $indicador->descricaoIndicador }}</td>
+						<td class="text-center">{{ $indicador->descricaoIndicador }}</td>
 
 						<td>EIXO {{$indicador->eixo->id}} - {{ $indicador->eixo->nome}}</td>
 
