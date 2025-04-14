@@ -277,7 +277,6 @@
 
     </script>
 
-
     <div id="modalMessage" class="modal" tabindex="-1" aria-labelledby="modalMessageLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -300,14 +299,14 @@
     <div class="col-12 col-md-6">
       <label for="data_prevista" class="">Data Prevista:</label>
       <input type="date" name="data_prevista" id="data_prevista" class="form-control input-enabled"
-      value="{{ old('data_prevista') }}">
+      value="{{ old('data_prevista') }}" placeholder="00/00/0000">
     </div>
 
     <div class="col-12 col-md-6">
       <label for="data_realizada" class="">Data Realizada:</label>
 
       <input type="date" name="data_realizada" id="data_realizada" class="form-control input-enabled"
-      value="{{ old('data_realizada') }}">
+      value="{{ old('data_realizada') }}" placeholder="00/00/0000">
     </div>
 
     <div class="col-12">
@@ -326,13 +325,13 @@
     <div class="col-12 col-md-6">
       <label for="meta" class="">Previsto:</label>
       <input type="number" name="meta" id="meta" class="form-control input-enabled" min="0" value="{{ old('meta') }}"
-      oninput="mostrarUnidade()">
+      oninput="mostrarUnidade()" placeholder="Apenas números">
     </div>
 
     <div class="col-12 col-md-6">
       <label for="realizado" class="">Realizado:</label>
       <input type="number" name="realizado" id="realizado" class="form-control input-enabled" min="0"
-      value="{{ old('realizado') }}" oninput="mostrarUnidade()">
+      value="{{ old('realizado') }}" oninput="mostrarUnidade()" placeholder="Apenas números">
     </div>
 
     <div class="col-12 col-md-6" id="unidade-container" style="display: none;">
