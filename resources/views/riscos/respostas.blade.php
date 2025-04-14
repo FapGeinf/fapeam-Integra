@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/resp.css') }}">
+<script src="{{ asset('js/auto-dismiss.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybBogGzS3lA4KuTk5aLr7x0E2UksdQRVvoxMfooAo8Pz7F6k/" crossorigin="anonymous"></script>
 
 <style>
@@ -23,20 +24,6 @@
             {{ session('success') }}
         </div>
     @endif
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(function() {
-                document.querySelectorAll('.auto-dismiss').forEach(function(alert) {
-                    alert.style.transition = 'opacity 0.5s';
-                    alert.style.opacity = '0';
-                    setTimeout(function() {
-                        alert.remove();
-                    }, 500);
-                });
-            }, 5000);
-        });
-    </script>
 
     <div class="col-12 box-shadow border mb-3">
         <h5 class="text-center mb-3">Monitoramento</h5>
