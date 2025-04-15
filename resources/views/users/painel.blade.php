@@ -17,6 +17,11 @@
   .li-navbar2 {
         margin-top: 5px !important;
     }
+
+    .dataTables_info,
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+        font-size: 13px;
+    }
 </style>
 
 <script>
