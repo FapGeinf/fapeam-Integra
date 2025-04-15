@@ -5,78 +5,95 @@
     <meta charset="UTF-8">
     <title>Relatório do Eixo</title>
     <style>
+        /* Fonte e estilo global */
         body {
-            font-family: 'DejaVu Sans', sans-serif;
-            font-size: 12px;
-            margin: 30px;
+            font-family: 'Arial', sans-serif;
+            font-size: 14px;
+            margin: 40px;
             color: #333;
-            line-height: 1.5;
+            line-height: 1.6;
+            background-color: #ffffff; /* Alterado para fundo branco */
         }
 
         h2 {
             text-align: center;
-            font-size: 18px;
-            margin-bottom: 20px;
-            color: #2a2a2a;
+            font-size: 22px;
+            margin-bottom: 30px;
+            color: #2c3e50;
             font-weight: bold;
         }
 
+        /* Estilo do bloco de atividades */
         .atividade {
-            border: 1px solid #ccc;
-            border-radius: 8px;
+            background-color: #ffffff; /* Fundo branco simples */
             padding: 20px;
-            margin-bottom: 25px;
-            background-color: #fafafa;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
         }
 
+        /* Título da atividade */
         .atividade h3 {
-            background-color: #e9ecef;
-            padding: 10px;
-            font-size: 14px;
-            border-radius: 6px;
+            font-size: 16px;
+            background-color: #2980b9;
+            color: white;
+            padding: 12px;
             margin-top: 0;
-            color: #007bff;
             font-weight: bold;
         }
 
+        /* Estilo dos campos */
         .campo {
-            margin-bottom: 12px;
-            font-size: 12px;
+            margin-bottom: 16px;
+            font-size: 14px;
+            color: #555;
         }
 
         .campo strong {
             display: inline-block;
-            width: 160px;
+            width: 180px;
             font-weight: bold;
-            color: #495057;
+            color: #333;
+        }
+
+        .campo span {
+            color: #2980b9;
+            font-weight: bold;
         }
 
         p {
             margin-top: 5px;
-            margin-bottom: 10px;
-            text-align: justify;
-            font-size: 12px;
-            color: #555;
-        }
-
-        .campo p {
-            margin: 0;
-        }
-
-        .atividade .campo {
             margin-bottom: 12px;
+            text-align: justify;
+            color: #666;
         }
 
-        .campo span {
-            font-weight: normal;
-            color: #555;
+        /* Responsividade para dispositivos menores */
+        @media (max-width: 768px) {
+            body {
+                margin: 20px;
+                font-size: 12px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            .campo strong {
+                width: 150px;
+            }
+
+            .atividade {
+                padding: 15px;
+            }
+
+            .atividade h3 {
+                font-size: 14px;
+                padding: 10px;
+            }
         }
 
-        .campo:last-child {
-            margin-bottom: 0;
-        }
-
+        /* Estilo para tabelas ou outros elementos */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -85,38 +102,23 @@
 
         table th,
         table td {
-            padding: 8px;
-            border: 1px solid #ccc;
+            padding: 12px;
+            border: 1px solid #ddd;
             text-align: left;
+            color: #555;
         }
 
         table th {
-            background-color: #f7f7f7;
+            background-color: #f9fafb;
             font-weight: bold;
         }
 
-        @media (max-width: 768px) {
-            body {
-                margin: 10px;
-                font-size: 10px;
-            }
+        table td {
+            background-color: #ffffff;
+        }
 
-            h2 {
-                font-size: 16px;
-            }
-
-            .campo strong {
-                width: 140px;
-            }
-
-            .atividade {
-                padding: 15px;
-            }
-
-            .atividade h3 {
-                font-size: 13px;
-                padding: 8px;
-            }
+        table tr:nth-child(even) td {
+            background-color: #f9f9f9;
         }
     </style>
 </head>
