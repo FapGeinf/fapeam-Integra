@@ -28,7 +28,7 @@ label, input, .form-control, .form-select {
   display: flex;
   justify-content: center; /* Centraliza horizontalmente */
   align-items: center; /* Centraliza verticalmente */
-  min-height: 90vh; /* Altura mínima total da viewport */
+  /* min-height: 90vh; Altura mínima total da viewport */
   padding: 0 10px; /* Adiciona espaçamento à esquerda e à direita */
 }
 
