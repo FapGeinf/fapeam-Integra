@@ -39,7 +39,9 @@
         border: 1px solid #ccc !important;
     }
 
-    
+    div.dt-container div.dt-layout-row  {
+        font-size: 13px;
+    }
 </style>
 
 <div class="alert-container pt-5">
