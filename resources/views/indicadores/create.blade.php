@@ -20,8 +20,9 @@
 		display: flex;
 		justify-content: center; /* Centraliza horizontalmente */
 		align-items: center; /* Centraliza verticalmente */
-		min-height: 60vh; /* Altura mínima total da viewport */
+		/* min-height: 60vh;  Altura mínima total da viewport */
 		padding: 0 10px; /* Adiciona espaçamento à esquerda e à direita */
+		padding-top: 2rem;
 	}
 </style>
 
