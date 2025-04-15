@@ -1,51 +1,49 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <title>Relatório do Eixo</title>
     <style>
-        /* Fonte e estilo global */
         body {
             font-family: 'Arial', sans-serif;
-            font-size: 14px;
-            margin: 40px;
+            font-size: 12pt; 
+            margin: 3cm; 
             color: #333;
             line-height: 1.6;
-            background-color: #ffffff; /* Alterado para fundo branco */
+            background-color: #ffffff;
         }
 
         h2 {
             text-align: center;
-            font-size: 22px;
-            margin-bottom: 30px;
+            font-size: 16pt;
+            margin-bottom: 40px;
             color: #2c3e50;
             font-weight: bold;
         }
 
-        /* Estilo do bloco de atividades */
         .atividade {
-            background-color: #ffffff; /* Fundo branco simples */
+            background-color: #ffffff;
             padding: 20px;
             margin-bottom: 30px;
             border: 1px solid #ddd;
             box-sizing: border-box;
+            border-radius: 5px; 
         }
 
-        /* Título da atividade */
         .atividade h3 {
-            font-size: 16px;
+            font-size: 14pt; 
             background-color: #2980b9;
             color: white;
-            padding: 12px;
+            padding: 15px;
             margin-top: 0;
             font-weight: bold;
+            border-radius: 5px;
         }
 
-        /* Estilo dos campos */
         .campo {
-            margin-bottom: 16px;
-            font-size: 14px;
+            margin-bottom: 18px;
+            font-size: 12pt;
             color: #555;
         }
 
@@ -66,21 +64,21 @@
             margin-bottom: 12px;
             text-align: justify;
             color: #666;
+            font-size: 12pt;
         }
 
-        /* Responsividade para dispositivos menores */
         @media (max-width: 768px) {
             body {
                 margin: 20px;
-                font-size: 12px;
+                font-size: 11pt;
             }
 
             h2 {
-                font-size: 20px;
+                font-size: 14pt;
             }
 
             .campo strong {
-                width: 150px;
+                width: 140px;
             }
 
             .atividade {
@@ -88,24 +86,24 @@
             }
 
             .atividade h3 {
-                font-size: 14px;
-                padding: 10px;
+                font-size: 12pt;
+                padding: 12px;
             }
         }
 
-        /* Estilo para tabelas ou outros elementos */
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            border: 1px solid #ddd;
         }
 
-        table th,
-        table td {
-            padding: 12px;
+        table th, table td {
+            padding: 10px;
             border: 1px solid #ddd;
             text-align: left;
             color: #555;
+            font-size: 12pt;
         }
 
         table th {
@@ -119,6 +117,10 @@
 
         table tr:nth-child(even) td {
             background-color: #f9f9f9;
+        }
+
+        table th, table td {
+            border-width: 0.5px;
         }
     </style>
 </head>
