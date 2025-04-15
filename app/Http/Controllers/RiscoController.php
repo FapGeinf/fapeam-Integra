@@ -241,19 +241,19 @@ class RiscoController extends Controller
 
             $probabilidade = isset($validatedData['probabilidade']) ? (int) $validatedData['probabilidade'] : 0;
             $impacto = isset($validatedData['impacto']) ? (int) $validatedData['impacto'] : 0;
-            
+
             $valor_nivel_de_risco = $probabilidade * $impacto;
-            
+
             if ($valor_nivel_de_risco >= 15) {
-                $nivel_de_risco = 3; 
+                $nivel_de_risco = 3;
             } elseif ($valor_nivel_de_risco >= 5) {
-                $nivel_de_risco = 2; 
+                $nivel_de_risco = 2;
             } elseif ($valor_nivel_de_risco > 0) {
-                $nivel_de_risco = 1; 
+                $nivel_de_risco = 1;
             } else {
-                $nivel_de_risco = 0; 
+                $nivel_de_risco = 0;
             }
-            
+
 
             // Criação do risco
             $risco = Risco::create([
@@ -718,6 +718,21 @@ class RiscoController extends Controller
             return redirect()->back()->with('error', 'Um erro ocorreu: ' . $e->getMessage());
         }
     }
+
+    public function indexRespostas()
+    {
+        $user = Auth::user();
+        $diretoriaId = $user->unidade->unidadeDiretoria;
+        $unidades = Unidade::where('unidadeDiretoria', $diretoriaId)->get();
+        $respostas = Resposta::whereHas('monitoramento.risco.unidade', function ($query) use ($diretoriaId) {
+            $query->where('unidadeDiretoria', $diretoriaId);
+        })
+        ->with(['monitoramento.risco.unidade.diretoria', 'user'])
+        ->get();
+    
+        return view('respostas.index', compact('respostas', 'unidades'));
+    }
+    
 
     public function __construct()
     {

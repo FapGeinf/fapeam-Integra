@@ -1,9 +1,15 @@
 @extends('layouts.app')
-<link rel="stylesheet" href="{{ asset('css/index.css') }}">
-<link rel="stylesheet" href="{{ asset('css/atividades.css') }}">
+@section('title') {{ 'Lista de Atividades' }} @endsection
+@section('content')
+
+<link rel="stylesheet" href="{{ asset('css/show.css') }}">
+<link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
+<link rel="stylesheet" href="{{ asset('css/dropdown.css') }}">
 <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
 <script src="{{ asset('js/dataTables.min.js') }}"></script>
+<script src="{{ asset('js/auto-dismiss') }}"></script>
 <link rel="stylesheet" href="{{ asset('css/dataTables.dataTables.min.css') }}">
+
 <style>
     .liDP {
         margin-left: 0 !important;
@@ -16,114 +22,131 @@
     .hover:hover {
         text-decoration: underline;
     }
+
+    .f-size {
+        font-size: 13px;
+    }
+
+    .input-enabled {
+        background-color: #f9f9f9 !important;
+    }
+
+    .input-disabled {
+        background-color: #f0f0f0 !important;
+    }
+
+    .border-grey {
+        border: 1px solid #ccc !important;
+    }
+
+    
 </style>
-@section('title') {{ 'Lista de Atividades' }} @endsection
-@section('content')
-<div class="alert-container mt-5">
+
+<div class="alert-container">
     @if (session('success'))
-    <div class="alert alert-success">
+    <div class="alert alert-success text-center auto-dismiss">
         {{ session('success') }}
     </div>
 
     @elseif (session('error'))
-    <div class="alert alert-danger">
+    <div class="alert alert-danger text-center auto-dismiss">
         {{ session('error') }}
     </div>
     @endif
 </div>
 
-<div class="px__custom pt-4">
-    <div class="col-12 border__custom main-datatable" style="border-bottom: 0 !important; border-top-left-radius: 10px; border-top-right-radius: 10px">
-        <div class="d-flex justify-content-center text-center p-2"
-            style="
-                flex-direction: column;
-                background-color: #f1f3f5;
-                border-top-left-radius: 10px;
-                border-top-right-radius: 10px">
-            <h3 class="fw-bold my-2">Lista de Atividades</h3>
+<div class="container-xxl pt-5" style="max-width: 1500px !important;">
+	<div class="col-12 border box-shadow">
+        <div class="justify-content-center">
+             <h5 class="text-center mb-1">Lista de Atividades</h5>
 
-
-            <span class="fw-bold" style="font-size:20px;">
+            <div class="text-center">
+                <span class="fw-bold">
                 @if(isset($eixo_id) && $eixo_id)
-                <a class="hover" href="{{ route('eixo.mostrar', ['eixo_id' => $eixo_id]) }}">EIXO {{$eixo_id}} -
-                    {{$eixoNome}} <i class="bi bi-arrow-return-left"></i>
-                </a>
-            </span>
-            @endif
-        </div>
-    </div>
-</div>
+                    <a class="hover" href="{{ route('eixo.mostrar', ['eixo_id' => $eixo_id]) }}">EIXO {{$eixo_id}} -
+                        {{$eixoNome}} <i class="bi bi-arrow-return-left"></i>
+                    </a>
+                </span>
+                @endif
+            </div>
 
-<div class="px__custom">
-    <div class="col-12 border__custom main-datatable">
-        <div class="container-fluid">
-            <div class="row g-3  align-items-end">
-                <div class="col-md-2">
-                    <label for="filter-publico" class="fw-bold">Tipo de Público</label>
-                    <select name="filter-publico" id="filter-publico" class="form-select pointer">
-                        <option value="">Escolha um Tipo</option>
+            <div class="row g-3 mt-3 align-items-end">
+
+                <div class="col-12 col-sm-6 col-md-3">
+                    <label for="filter-publico" class="f-size">Tipo de público:</label>
+                    <select name="filter-publico" id="filter-publico" class="form-select input-enabled f-size border-grey">
+                        <option disabled>Escolha um tipo</option>
                         @foreach ($publicos as $publico)
-                        <option value="{{ $publico->nome }}">{{ $publico->nome }}</option>
+                            <option value="{{ $publico->nome }}">{{ $publico->nome }}</option>
                         @endforeach
                     </select>
                 </div>
-
-                <div class="col-md-2">
-                    <label for="filter-canal" class="fw-bold">Tipo de Canal de Divulgação</label>
-                    <select name="filter-canal" id="filter-canal" class="form-select pointer">
-                        <option value="">Escolha um Tipo</option>
+            
+                <div class="col-12 col-sm-6 col-md-3">
+                    <label for="filter-canal" class="f-size">Tipo de canal de divulgação:</label>
+                    <select name="filter-canal" id="filter-canal" class="form-select input-enabled f-size border-grey">
+                        <option disabled>Escolha um tipo</option>
                         @foreach ($canais as $canal)
-                        <option value="{{ $canal->nome }}">{{ $canal->nome }}</option>
+                            <option value="{{ $canal->nome }}">{{ $canal->nome }}</option>
                         @endforeach
                     </select>
                 </div>
-
-                <div class="col-md-2">
-                    <label for="filter-evento" class="fw-bold">Tipo de Evento:</label>
-                    <select name="filter-evento" id="filter-evento" class="form-select pointer">
-                        <option value="">Escolha uma opção</option>
+            
+                <div class="col-12 col-sm-6 col-md-3">
+                    <label for="filter-evento" class="f-size">Tipo de evento:</label>
+                    <select name="filter-evento" id="filter-evento" class="form-select input-enabled f-size border-grey">
+                        <option disabled>Escolha uma opção</option>
                         <option value="Presencial">Presencial</option>
                         <option value="Online">Online</option>
                         <option value="Presencial e Online">Presencial e Online</option>
                     </select>
                 </div>
-
-                <div class="col-md-2">
-                    <label for="filter-data" class="fw-bold">Ordenar por Data Prevista</label>
-                    <select name="filter-data" id="filter-data" class="form-select pointer">
+            
+                <div class="col-12 col-sm-6 col-md-3">
+                    <label for="filter-data" class="f-size">Ordenar por data prevista:</label>
+                    <select name="filter-data" id="filter-data" class="form-select input-enabled f-size border-grey">
+                        <option disabled>Escolha uma opção</option>
                         <option value="asc">Mais Antiga</option>
                         <option value="desc">Mais Recente</option>
                     </select>
                 </div>
-
-
-                @if(Auth::user()->unidadeIdFK == 1)
-                <div class="d-flex justify-content-end">
-                    <a href="{{ route('atividades.create') }}" class="blue-btn">Inserir Atividade</a>
-                </div>
-                @endif
+            
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-xxl" style="max-width: 1500px !important;">
+	<div class="col-12 border box-shadow">
+        <div class="justify-content-center">
             <div class="table-responsive">
-                <table id="tableHome2" class="table cust-datatable mb-5">
+                @if(Auth::user()->unidadeIdFK == 1)
+                    <div class="col-12 d-flex justify-content-start pb-2">
+                        <a href="{{ route('atividades.create') }}" class="highlighted-btn-lg highlight-blue text-decoration-none">
+                            Inserir Atividade
+                        </a>
+                    </div>
+                @endif
+
+                <table id="tableHome2" class="table table-striped cust-datatable mb-5">
                     <thead>
-                        <tr style="white-space: nowrap; text-align:center;">
+                        <tr style="white-space: nowrap;">
                             <th scope="col" style="width: 280px;" class="{{ request()->query('eixo_id') == 8 ? '' : 'd-none' }}">Eixos</th>
-                            <th scope="col">Atividade</th>
-                            <th scope="col">Objetivo</th>
-                            <th scope="col">Responsável</th>
-                            <th scope="col">Público Alvo</th>
-                            <th scope="col">Tipo de Evento</th>
-                            <th scope="col">Canal de Divulgação</th>
-                            <th scope="col">Datas</th>
-                            <!-- <th scope="col">Data Realizada</th> -->
-                            <th scope="col">Meta</th>
-                            <!-- <th scope="col">Realizado</th> -->
-                            <th scope="col">Ações</th>
+                            <th scope="col" class="text-center text-light">Atividade</th>
+                            <th scope="col" class="text-center text-light">Objetivo</th>
+                            <th scope="col" class="text-center text-light">Responsável</th>
+                            <th scope="col" class="text-center text-light">Público Alvo</th>
+                            <th scope="col" class="text-center text-light">Tipo de Evento</th>
+                            <th scope="col" class="text-center text-light">Canal de Divulgação</th>
+                            <th scope="col" class="text-center text-light">Datas</th>
+                            <th scope="col" class="text-center text-light">Meta</th>
+                            <th scope="col" class="text-center text-light">Ações</th>
                         </tr>
                     </thead>
+
                     <tbody>
                         @foreach ($atividades as $atividade)
-                        <tr>
+                        <tr class="text13">
                             <td style="text-align:center;" class="{{ request()->query('eixo_id') == 8 ? '' : 'd-none' }}">
                                 @foreach ($atividade->eixos as $eixo)
                                 <span class="badge bg-primary">{{ $eixo->nome }}</span>
@@ -179,7 +202,40 @@
                             </td>
 
 
-                            <td>
+                            <td class="text-center">
+                                @if(Auth::user()->unidade->unidadeTipoFK == 1 || Auth::user()->usuario_tipo_fk == 1)
+                                    <div class="custom-actions-wrapper" id="actionsWrapper{{ $atividade->id }}">
+                                        <button type="button" onclick="toggleActionsMenu({{ $atividade->id }})" class="custom-actions-btn">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+
+                                        <div class="custom-actions-menu">
+                                            <ul>
+                                                <li>
+                                                    <a href="{{ route('atividades.edit', $atividade->id) }}">
+                                                        <i class="bi bi-pencil me-2"></i>Editar
+                                                    </a>
+                                                </li>
+
+                                                <li>
+                                                    <a href="#" class="text-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $atividade->id }}">
+                                                        <i class="bi bi-trash me-2"></i>Excluir
+                                                    </a>
+                                                </li>
+
+                                                <li>
+                                                    <a href="{{ route('atividades.show', $atividade->id) }}">
+                                                        <i class="bi bi-eye me-2"></i>Visualizar
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                @endif
+                            </td>
+                            
+                            
+                            {{-- <td>
                                 @if(Auth::user()->unidade->unidadeTipoFK == 1 || Auth::user()->usuario_tipo_fk == 1)
                                 <div class="d-flex justify-content-center gap-1">
                                     <a href="{{ route('atividades.edit', $atividade->id) }}" class="warning" style="font-size: 13px;"><i class="bi bi-pencil"></i></a>
@@ -189,7 +245,7 @@
                                     <button type="button" class="danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $atividade->id }}"><i class="bi bi-trash"></i></button>
                                 </div>
                                 @endif
-                            </td>
+                            </td> --}}
 
                         </tr>
                         <div class="modal fade" id="deleteModal{{ $atividade->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $atividade->id }}" aria-hidden="true">
@@ -270,4 +326,31 @@
         })
     });
 </script>
+
+<script>
+	function toggleActionsMenu(id) {
+		const wrapper = document.getElementById(`actionsWrapper${id}`);
+
+		// Alterna o menu atual
+		wrapper.classList.toggle('open');
+
+		// Fecha os outros menus abertos
+		document.querySelectorAll('.custom-actions-wrapper').forEach((el) => {
+			if (el.id !== `actionsWrapper${id}`) {
+				el.classList.remove('open');
+			}
+		});
+	}
+
+	// Fecha o dropdown ao clicar fora
+	window.addEventListener('click', function (e) {
+		document.querySelectorAll('.custom-actions-wrapper').forEach(wrapper => {
+			if (!wrapper.contains(e.target)) {
+				wrapper.classList.remove('open');
+			}
+		});
+	});
+</script>
+
+
 @endsection

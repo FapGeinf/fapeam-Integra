@@ -9,23 +9,14 @@
 
   <style>
     .liDP {
-          margin-left: 0 !important;
-        }
-      </style>
+      margin-left: 0 !important;
+    }
+  </style>
 </head>
 
 <div class="form-wrapper pt-5">
-  <div class="form_create1 border">
-    <div class="titleDP text-center">
-      <span>
-        Documentos do Programa de Integridade
-      </span>
-    </div>
-  </div>
-</div>
-
-<div class="form-wrapper pt-4">
   <div class="form_create border">
+    <h5 class="text-center mb-5">Documentos do Programa de Integridade</h5>
 
     <div class="dropdown-container">
       <button class="dropdown-button form-select" onclick="toggleDropdown('dropdownMenu1')">

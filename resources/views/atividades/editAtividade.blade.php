@@ -3,33 +3,43 @@
 @section('title') {{ 'Editar Atividade' }} @endsection
 
 <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
+<link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
 <link href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
+<script src="{{ asset('js/auto-dismiss.js') }}"></script>
 
 <style>
   .cke_top {
     background-color: #f8f8f8 !important;
+  }
+  
+  .mt-1px {
+    margin-top: 4px !important;
+  }
+
+  .li-navbar2 {
+    margin-top: 5px !important;
   }
 </style>
 
 @section('content')
 <div class="alert-container mt-5">
   @if (session('success'))
-    <div class="alert alert-success">
+    <div class="alert alert-success text-center auto-dismiss">
       {{ session('success') }}
     </div>
 
   @elseif (session('error'))
-    <div class="alert alert-danger">
+    <div class="alert alert-danger text-center auto-dismiss">
       {{ session('error') }}
     </div>
   @endif
 
   @if ($errors->any())
-    <div class="alert alert-danger">
+    <div class="alert alert-danger text-center auto-dismiss">
       <ul style="list-style:none;">
         @foreach ($errors->all() as $error)
           <li>{{ $error }}</li>
@@ -67,15 +77,14 @@
         </div>
       </div>
 
-
-      <div class="col-12">
+      <div class="col-12 mt-2">
         <label for="responsavel" class="">Responsável:</label>
-        <input name="responsavel" id="responsavel" class="form-control insert-resp" value="{{ old('responsavel', $atividade->responsavel) }}">
+        <input name="responsavel" id="responsavel" class="form-control input-enabled" value="{{ old('responsavel', $atividade->responsavel) }}">
         </input>
       </div>
 
       <div class="row g-3">
-        <div class="col-12">
+        <div class="col-12 mt-4">
           <label for="atividade_descricao" class=""><span class="asteriscoTop">*</span>Atividade:</label>
 
           <textarea name="atividade_descricao" id="atividade_descricao" class="form-control" required>
@@ -92,13 +101,12 @@
         </div>
 
         <div class="col-12 d-none">
-          <label for="justificativa" class="form-label">Justificativa (Opcional) :</label>
+          <label for="justificativa" class="">Justificativa (Opcional) :</label>
           <textarea name="justificativa" id="justificativa" class="form-control">{{ old('justificativa',$atividade->justificativa) }}</textarea>
         </div>
 
-        <div class="col-12">
+        <div class="col-12 col-md-6">
           <label for="publico_id" class="">Público Alvo:</label>
-          
           <select name="publico_id" id="publico_id" class="form-select">
             <option value="">Selecione o Público Alvo</option>
               @foreach ($publicos as $publico)
@@ -110,13 +118,26 @@
           </select>
         </div>
 
+        <div class="col-12 col-md-6">
+          <label for="tipo_evento" class="">Tipo de Evento:</label>
+          <select name="tipo_evento" id="tipo_evento" class="form-select" >
+            <option value="0" {{ old('tipo_evento', $atividade->tipo_evento) == '0' || old('tipo_evento') == null ? 'selected' : '' }}>Sem evento</option>
+
+            <option value="1" {{ old('tipo_evento', $atividade->tipo_evento) == '1' ? 'selected' : '' }}>Presencial</option>
+
+            <option value="2" {{ old('tipo_evento', $atividade->tipo_evento) == '2' ? 'selected' : '' }}>Online</option>
+
+            <option value="3" {{ old('tipo_evento', $atividade->tipo_evento) == '3' ? 'selected' : '' }}>Presencial e Online</option>
+          </select>
+        </div>
+
         <div class="col-12" id="outro-publico-container" style="display: none;">
-          <label for="novo_publico" class="form-label">Especifique o Público:</label>
+          <label for="novo_publico" class="">Especifique o Público:</label>
           <input type="text" name="novo_publico" id="novo_publico" class="form-control" value="{{ old('novo_publico') }}">
         </div>
 
-        <div class="col-12">
-          <label for="canal_id" class="form-label">Canal de Divulgação:</label>
+        <div class="col-12 mt-1">
+          <label for="canal_id" class="">Canal de Divulgação:</label>
 
           <select name="canal_id[]" id="canal_id" class="form-select" multiple onchange="toggleOtherField()">
             <option value="">Selecione o Canal de Divulgação</option>
@@ -145,24 +166,7 @@
         </script>
 
         <div class="row g-3">
-          <div class="col-12 col-md-6">
-            <label for="tipo_evento" class="">Tipo de Evento:</label>
-            <select name="tipo_evento" id="tipo_evento" class="form-select" >
-              <option value="0" {{ old('tipo_evento', $atividade->tipo_evento) == '0' || old('tipo_evento') == null ? 'selected' : '' }}>Sem evento</option>
-
-              <option value="1" {{ old('tipo_evento', $atividade->tipo_evento) == '1' ? 'selected' : '' }}>Presencial</option>
-
-              <option value="2" {{ old('tipo_evento', $atividade->tipo_evento) == '2' ? 'selected' : '' }}>Online</option>
-
-              <option value="3" {{ old('tipo_evento', $atividade->tipo_evento) == '3' ? 'selected' : '' }}>Presencial e Online</option>
-            </select>
-          </div>
-        </div>
-
-        <hr>
-
-        <div class="row g-3">
-          <div class="col-12">
+          <div class="col-12 mt-1">
             <label for="indicador_ids">Indicadores:</label>
             <select name="indicador_ids[]" id="indicador_ids" class="form-select" multiple>
               <option value="">Selecione os Indicadores</optio>
@@ -176,26 +180,26 @@
 
           <div class="col-12 col-md-6">
             <label for="data_realizada" class="">Data Realizada:</label>
-            <input type="date" name="data_realizada" id="data_realizada" class="form-control" value="{{ old('data_realizada', $atividade->data_realizada) }}">
+            <input type="date" name="data_realizada" id="data_realizada" class="form-control input-enabled" value="{{ old('data_realizada', $atividade->data_realizada) }}">
           </div>
 
           <div class="col-12 col-md-6">
             <label for="data_prevista" class="">Data Prevista:</label>
-            <input type="date" name="data_prevista" id="data_prevista" class="form-control" value="{{ old('data_prevista', $atividade->data_prevista) }}">
+            <input type="date" name="data_prevista" id="data_prevista" class="form-control input-enabled" value="{{ old('data_prevista', $atividade->data_prevista) }}">
           </div>
 
           <div class="col-12 col-md-6">
             <label for="meta" class="">Previsto:</label>
-            <input type="number" name="meta" id="meta" class="form-control"  min="0" value="{{ old('meta', $atividade->meta) }}" oninput="mostrarUnidade()">
+            <input type="number" name="meta" id="meta" class="form-control input-enabled"  min="0" value="{{ old('meta', $atividade->meta) }}" oninput="mostrarUnidade()">
           </div>
 
           <div class="col-12 col-md-6">
             <label for="realizado" class="">Realizado:</label>
-            <input type="number" name="realizado" id="realizado" class="form-control"  min="0" value="{{ old('realizado', $atividade->realizado) }}" oninput="mostrarUnidade()">
+            <input type="number" name="realizado" id="realizado" class="form-control input-enabled"  min="0" value="{{ old('realizado', $atividade->realizado) }}" oninput="mostrarUnidade()">
           </div>
 
           <div class="col-12 col-md-6" id="unidade-container" style="display: none;">
-            <label for="medida_id" class="form-label"> <span class="asteriscoTop">*</span>Tipo de Unidade:</label>
+            <label for="medida_id" class=""> <span class="asteriscoTop">*</span>Tipo de Unidade:</label>
             <select name="medida_id" id="medida_id" class="form-control" >
               <option value="">Selecione o Tipo de Unidade</option>
               @foreach ($medidas as $medida)
@@ -207,8 +211,8 @@
           </div>
         </div>
 
-      <div class="d-flex justify-content-end pt-5">
-        <button type="submit" class="btn btn-md btn-primary">Enviar a Atividade</button>
+      <div class="d-flex justify-content-end pt-4">
+        <button type="submit" class="highlighted-btn-lg highlight-success">Salvar Edição</button>
       </div>
     </form>
   </div>

@@ -5,6 +5,7 @@
 @section('content')
 
 <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
+<link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
 
 <style>
 	.form-label {
@@ -19,8 +20,9 @@
 		display: flex;
 		justify-content: center; /* Centraliza horizontalmente */
 		align-items: center; /* Centraliza verticalmente */
-		min-height: 60vh; /* Altura mínima total da viewport */
+		/* min-height: 60vh;  Altura mínima total da viewport */
 		padding: 0 10px; /* Adiciona espaçamento à esquerda e à direita */
+		padding-top: 2rem;
 	}
 </style>
 
@@ -51,15 +53,17 @@
 					<input type="text" class="form-control" id="nome" name="nome" value="{{ $indicador->nomeIndicador }}" required>
 				</div> --}}
 
-				<div class="col-12">
+				<div class="col-12 mb-3">
 					<label for="descricao">Descrição</label>
-					<textarea class="form-control" id="descricao" name="descricao" rows="3" required>{{ $indicador->descricaoIndicador }}</textarea>
+					<textarea class="form-control input-enabled" id="descricao" name="descricao" rows="3" required>{{ $indicador->descricaoIndicador }}</textarea>
 				</div>
 			</div>
 
-			<div class="d-flex justify-content-end mt-3">
-				<button type="submit" class="blue-btn">Salvar</button>
-				<a href="{{ route('indicadores.index') }}" class="grey-btn me-0">Cancelar</a>
+			<hr>
+
+			<div class="d-flex justify-content-end mt-4">
+				<a href="{{ route('indicadores.index') }}" class="highlighted-btn-lg highlight-btn-lg highlight-grey text-decoration-none me-2">Cancelar</a>
+				<button type="submit" class="highlighted-btn-lg highlight-success">Salvar Edição</button>
 			</div>
 			
 		</form>

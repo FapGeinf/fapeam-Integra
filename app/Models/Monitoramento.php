@@ -19,7 +19,7 @@ class Monitoramento extends Model
 
     public function respostas()
     {
-        return $this->hasMany(Resposta::class, 'respostaMonitoramentoFK', 'id');
+        return $this->hasMany(Resposta::class, 'respostaMonitoramentoFk');
     }
 
 
