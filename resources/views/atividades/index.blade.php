@@ -28,7 +28,7 @@
     }
 
     .input-enabled {
-        background-color: #f9f9f9 !important;
+        background-color: #f8fafc !important;
     }
 
     .input-disabled {
@@ -42,7 +42,7 @@
     
 </style>
 
-<div class="alert-container">
+<div class="alert-container pt-5">
     @if (session('success'))
     <div class="alert alert-success text-center auto-dismiss">
         {{ session('success') }}
@@ -290,6 +290,7 @@
                 targets: "_all",
                 defaultContent: ""
             }],
+            
             language: {
                 url: '{{ asset('js/pt_br-datatable.json') }}',
                 search: "Procurar:",

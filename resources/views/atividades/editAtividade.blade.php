@@ -12,8 +12,8 @@
 <script src="{{ asset('js/auto-dismiss.js') }}"></script>
 
 <style>
-  .cke_top {
-    background-color: #f8f8f8 !important;
+  .cke_top, .cke_bottom {
+    background-color: #f8fafc !important;
   }
   
   .mt-1px {

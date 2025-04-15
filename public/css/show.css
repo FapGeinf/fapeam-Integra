@@ -4,6 +4,18 @@ body {
   background-attachment: fixed;
 }
 
+table, tr,th, td {
+  border: 1px solid #b0b0b0 !important;
+}
+
+.text13 {
+  font-size: 13px;
+}
+
+label, input, .form-control, .form-select {
+  font-size: 13px !important;
+}
+
 .poppins-regular {
   font-family: "Poppins", sans-serif;
   font-weight: 400;
@@ -141,15 +153,15 @@ font-style: normal;
 
 
 .table th {
-  background-color: #08558c;
+  background-color: #08558c !important;
 }
 
-.table td {
+/* .table td {
   background-color: #f2f2f2;
-}
+} */
 
 .table .tBorder {
-  border-right: 1px solid #b0b0b0;
+  border-right: 1px solid #b0b0b0 !important;
 }
 
 .text-center {

@@ -24,7 +24,7 @@
 
 		<div class="justify-content-center">
 			<h5 class="text-center mb-1">Indicadores</h5>
-			<a class="justify-content-center align-items-center d-flex text-decoration-none highlighted-btn-sm highlight-blue mx-auto" href="{{ route('indicadores.create') }}" style="width: 18%;">
+			<a class="justify-content-center align-items-center d-flex text-decoration-none highlighted-btn-sm highlight-blue mx-auto" href="{{ route('indicadores.create') }}" style="width: 200px;">
 				<i class="bi bi-plus-circle me-1"></i>Adicionar Indicador</a>
 		</div>
 		

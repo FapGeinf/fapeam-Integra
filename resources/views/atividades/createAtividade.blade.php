@@ -22,6 +22,7 @@
   .choices__inner {
     border: 1px solid #ccc;
     padding: 0.375rem 0.75rem;
+    background-color: #f8fafc;
   }
 </style>
 

@@ -47,7 +47,7 @@ font-style: normal;
 
 .cke_top,
 .cke_bottom {
-  background-color: #f9f9f9 !important;
+  background-color: #f8fafc !important;
 }
 
 .border-grey {
@@ -360,7 +360,7 @@ button.secondary:hover {
 }
 
 .input-enabled {
-  background-color: #f9f9f9 !important;
+  background-color: #f8fafc !important;
 }
 
 .input-disabled {

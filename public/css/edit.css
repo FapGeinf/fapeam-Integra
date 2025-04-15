@@ -39,7 +39,7 @@ label, input, .form-control, .form-select {
 }
 
 .input-enabled {
-  background-color: #f9f9f9 !important;
+  background-color: #f8fafc !important;
 }
 
 .input-disabled {
@@ -106,11 +106,11 @@ hr {
 
 /* EDITOR DE TEXTO */
 .cke_top {
-  background: #f9f9f9 !important;
+  background: #f8fafc !important;
 }
 
 .cke_bottom {
-  background: #f9f9f9 !important;
+  background: #f8fafc !important;
 }
 
 .tipWarning {
