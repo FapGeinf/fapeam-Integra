@@ -39,7 +39,11 @@
 				<label class="">Responsável:</label>
 
 				<div class="form-control input-disabled">
-					{{ $atividade->responsavel }}
+					@if(!empty($atividade->responsavel))
+						{{ $atividade->responsavel }}
+					@else
+						<span>Não inserido</span>
+					@endif
 				</div>
 			</div>
 
