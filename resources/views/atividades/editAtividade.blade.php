@@ -15,6 +15,14 @@
   .cke_top {
     background-color: #f8f8f8 !important;
   }
+  
+  .mt-1px {
+    margin-top: 4px !important;
+  }
+
+  .li-navbar2 {
+    margin-top: 5px !important;
+  }
 </style>
 
 @section('content')
