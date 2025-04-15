@@ -13,6 +13,7 @@ use App\Models\Monitoramento;
 use App\Models\Unidade;
 use App\Models\Canal;
 use App\Models\Publico;
+use Log;
 
 
 
@@ -41,14 +42,14 @@ class RelatorioController extends Controller
             $eixos = Eixo::all();
             $canais = Canal::all();
             $publicos = Publico::all();
-    
+
             $atividades = Atividade::with('eixos', 'publico', 'canais')->get();
 
             $eixosCount = [];
             $publicoCount = [];
             $eventosCount = [];
             $canaisCount = [];
-    
+
             foreach ($atividades as $atividade) {
                 foreach ($atividade->eixos as $eixo) {
                     if (!isset($eixosCount[$eixo->id])) {
@@ -56,7 +57,7 @@ class RelatorioController extends Controller
                     }
                     $eixosCount[$eixo->id]++;
                 }
-    
+
                 $publico = $atividade->publico;
                 if ($publico) {
                     if (!isset($publicoCount[$publico->id])) {
@@ -64,7 +65,7 @@ class RelatorioController extends Controller
                     }
                     $publicoCount[$publico->id]++;
                 }
-    
+
                 $tipoEventoId = $atividade->tipo_evento;
                 if ($tipoEventoId) {
                     if (!isset($eventosCount[$tipoEventoId])) {
@@ -72,7 +73,7 @@ class RelatorioController extends Controller
                     }
                     $eventosCount[$tipoEventoId]++;
                 }
-    
+
                 foreach ($atividade->canais as $canal) {
                     if (!isset($canaisCount[$canal->id])) {
                         $canaisCount[$canal->id] = 0;
@@ -80,7 +81,7 @@ class RelatorioController extends Controller
                     $canaisCount[$canal->id]++;
                 }
             }
-    
+
             $graficoEixos = [];
             foreach ($eixosCount as $eixoId => $count) {
                 $eixo = Eixo::find($eixoId);
@@ -89,7 +90,7 @@ class RelatorioController extends Controller
                     'y' => $count,
                 ];
             }
-    
+
             $graficoPublico = [];
             foreach ($publicoCount as $publicoId => $count) {
                 $publicoObj = Publico::find($publicoId);
@@ -98,7 +99,7 @@ class RelatorioController extends Controller
                     'y' => $count,
                 ];
             }
-    
+
             $graficoEventos = [];
             foreach ($eventosCount as $eventoId => $count) {
                 $nomeEvento = $eventoId == 1 ? 'Presencial' : 'Online';
@@ -107,7 +108,7 @@ class RelatorioController extends Controller
                     'y' => $count,
                 ];
             }
-    
+
             $graficoCanais = [];
             foreach ($canaisCount as $canalId => $count) {
                 $canalObj = Canal::find($canalId);
@@ -116,7 +117,7 @@ class RelatorioController extends Controller
                     'y' => $count,
                 ];
             }
-    
+
             return view('graficos.index', [
                 'graficoEixos' => $graficoEixos,
                 'graficoPublico' => $graficoPublico,
@@ -131,6 +132,33 @@ class RelatorioController extends Controller
             return redirect()->route('graficos.index')->with('error', 'Ocorreu um erro ao carregar os gráficos. Tente novamente mais tarde.');
         }
     }
-    
+
+    public function relatoriosPorEixo($id)
+    {
+        try {
+            $atividades = Atividade::whereHas('eixos', function ($query) use ($id) {
+                $query->where('eixos.id', $id);
+            })->orderBy('data_prevista')->get();
+
+            $eixo = Eixo::findOrFail($id);
+
+            $eixoNome = $eixo->nome;
+
+            if (!$atividades) {
+                return redirect()->back()->with('error', 'Não foi encontrada atividades com este eixo');
+            }
+            $html = view('relatorios.relatoriosEixos', compact('atividades','eixoNome'))->render();
+
+            $pdf = Pdf::loadHTML($html)->setPaper('A4', 'portrait');
+
+            return $pdf->download('relatorio_do_eixo_'.$eixoNome.'.pdf');
+        } catch (Exception $e) {
+            Log::error('Houve um erro ao fazer o downloado do relatorio por eixo', [
+                'error' => $e->getMessage()
+            ]);
+            return redirect()->back()->withErrors('Houve um erro inesperado ao fazer o download do relatorio por eixo');
+        }
+    }
+
 }
 

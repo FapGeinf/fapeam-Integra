@@ -79,7 +79,7 @@
 			</button>
 		</form>
 
-		<button class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">Relatório</button>
+		<a href="{{ route('relatorios.eixos', ['id' => 2]) }}" class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">Relatório</a>
 
   </div>
   @endif

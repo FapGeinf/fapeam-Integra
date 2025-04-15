@@ -79,7 +79,7 @@
 			</button>
 		</form>
 
-		<button class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">Relatório</button>
+		<a href="{{ route('relatorios.eixos', ['id' => 3]) }}" class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">Relatório</a>
 
 		<a href="{{ route('avaliacao') }}" class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">
   		<i class="bi bi-download"></i> Diagnóstico de Riscos

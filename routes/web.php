@@ -148,3 +148,4 @@ Route::post('/canal/criar',[AtividadeController::class,'createCanal'])->name('ca
 Route::get('/eixo/{eixo_id}', [EixosController::class, 'mostrarEixo'])->name('eixo.mostrar');
 
 Route::get('/respostas/index',[RiscoController::class,'indexRespostas'])->name('respostas.index');
+Route::get('/relatorios/eixos/{id}',[RelatorioController::class,'relatoriosPorEixo'])->name('relatorios.eixos');
