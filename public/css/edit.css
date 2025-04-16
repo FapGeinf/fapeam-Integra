@@ -252,7 +252,7 @@ hr {
 
 /* Estilo para a numeração dos monitoramentos */
 .numeration {
-  font-weight: bold;
+  /* font-weight: bold; */
   margin-right: 5px;
 }
 

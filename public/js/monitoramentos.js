@@ -153,7 +153,7 @@ function showConfirmationModal() {
 
         modalContent += `
             <div>
-                <div class="fw-bold mb-3">Monitoramento N° ${i + 1}</div>
+                <div class="mb-3">Monitoramento N° ${i + 1}</div>
             </div>
 
             <div class="row g-3 mb-3">

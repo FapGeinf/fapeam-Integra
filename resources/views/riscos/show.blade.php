@@ -39,6 +39,7 @@
                             <th scope="col" style="width: 100px;" class="text-center text-light">Avaliação:</th>
                         </tr>
                     </thead>
+                    
                     <tbody>
                         <tr class="text13">
                             <td class="text-center pb-1 tBorder">{!! $risco->id !!}</td>
