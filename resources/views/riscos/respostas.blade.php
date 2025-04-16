@@ -2,16 +2,12 @@
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/resp.css') }}">
 <script src="{{ asset('js/auto-dismiss.js') }}"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybBogGzS3lA4KuTk5aLr7x0E2UksdQRVvoxMfooAo8Pz7F6k/" crossorigin="anonymous"></script>
-
 <style>
     .liDP {
         margin-left: 0 !important;
     }
 </style>
-
 @section('title') {{ 'Detalhes da Providência' }} @endsection
-
 <div class="container-general p-30 mt-5">
     @if (session('error'))
         <div class="alert alert-danger text-center auto-dismiss">
@@ -525,95 +521,10 @@
   </div>
 </div>
 <x-back-button />
-
-<script>
-    function toggleActionsMenu(id) {
-        const wrapper = document.getElementById(`actionsWrapper${id}`);
-        wrapper.classList.toggle('open');
-        
-        // Fecha outros menus se necessário
-        document.querySelectorAll('.custom-actions-wrapper').forEach((el) => {
-            if (el.id !== `actionsWrapper${id}`) {
-                el.classList.remove('open');
-            }
-        });
-    }
-
-    // Fecha ao clicar fora
-    window.addEventListener('click', function (e) {
-        document.querySelectorAll('.custom-actions-wrapper').forEach(wrapper => {
-            if (!wrapper.contains(e.target)) {
-                wrapper.classList.remove('open');
-            }
-        });
-    });
-</script>
-
 <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 <script src="{{ asset('js/respostas.js') }}"></script>
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('js/modais/storeProvidencia.js') }}"></script>
 <script src="{{ asset('js/modais/editProvidencia.js') }}"></script>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Quando o botão de salvar for clicado
-        document.getElementById('abrirEditConfirmacaoBtn').addEventListener('click', function () {
-            // Garante que o CKEditor está carregado
-            if (CKEDITOR.instances['editRespostaRisco']) {
-                const providenciaHTML = CKEDITOR.instances['editRespostaRisco'].getData();
-
-                // Preenche o conteúdo formatado no div do modal de confirmação
-                document.getElementById('editConfirmProvidencia').innerHTML = providenciaHTML;
-
-                // Preenche o status selecionado
-                const status = document.getElementById('statusMonitoramento').value;
-                document.getElementById('editConfirmStatus').textContent = status;
-
-                // Nome do anexo (se houver)
-                const anexoInput = document.getElementById('editRespostaAnexo');
-                const anexoNome = anexoInput.files.length > 0 ? anexoInput.files[0].name : 'Nenhum arquivo selecionado';
-                document.getElementById('editConfirmAnexo').textContent = anexoNome;
-
-                // Abre o modal de confirmação
-                const confirmModal = new bootstrap.Modal(document.getElementById('editConfirmacaoModal'));
-                confirmModal.show();
-            } else {
-                alert('Erro ao carregar conteúdo do CKEditor.');
-            }
-        });
-    });
-</script>
-
-<script>
-    // Ao clicar no botão "Enviar", pega os dados e exibe no modal de confirmação
-    document.addEventListener('DOMContentLoaded', function () {
-        const abrirConfirmacaoBtn = document.getElementById('abrirConfirmacaoBtn');
-
-        if (abrirConfirmacaoBtn) {
-            abrirConfirmacaoBtn.addEventListener('click', function () {
-                // Pega o valor do select
-                const status = document.getElementById('statusMonitoramento').value;
-
-                // Pega o conteúdo formatado do CKEditor
-                const providenciaHtml = CKEDITOR.instances['respostaRisco'].getData();
-
-                // Pega o nome do arquivo (se houver)
-                const anexoInput = document.getElementById('anexo');
-                const anexo = anexoInput.files.length > 0 ? anexoInput.files[0].name : 'Nenhum arquivo selecionado';
-
-                // Insere os valores no modal de confirmação
-                document.getElementById('confirmStatus').textContent = status;
-                document.getElementById('confirmProvidencia').innerHTML = providenciaHtml;
-                document.getElementById('confirmAnexo').textContent = anexo;
-
-                // Abre o modal de confirmação
-                const modal = new bootstrap.Modal(document.getElementById('confirmacaoModal'));
-                modal.show();
-            });
-        }
-    });
-</script>
-
-
+<script src="{{ asset('js/wrapper/customActions.js') }}"></script>
 @endsection

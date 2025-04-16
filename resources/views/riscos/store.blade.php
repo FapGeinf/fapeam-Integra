@@ -173,13 +173,5 @@
 
     <script src="{{ asset('js/storeRisco.js') }}"></script>
 
-
-
-
-
-
-
-
-
 </body>
 @endsection
