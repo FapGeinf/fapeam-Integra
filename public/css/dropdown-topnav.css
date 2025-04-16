@@ -3,8 +3,8 @@
   display: inline-block;
 }
 
-.custom-actions-btn {
-  background-color: #6c757d;
+.custom-actions-btn-topnav {
+  background-color: #2266a1;
   color: white;
   border: none;
   padding: 5px 10px;
@@ -15,8 +15,8 @@
   transition: background-color 0.3s;
 }
 
-.custom-actions-btn:hover {
-  background-color: #565e64;
+.custom-actions-btn-topnav:hover {
+  background-color: #216097;
 }
 
 .custom-actions-menu {

@@ -102,7 +102,7 @@
       </div>
 
 			<div class="custom-actions-wrapper" id="actionsWrapperConta">
-        <button type="button" onclick="toggleActionsMenu('Conta')" class="custom-actions-btn">
+        <button type="button" onclick="toggleActionsMenu('Conta')" class="custom-actions-btn-topnav">
             <span>Conta</span>
             <i class="bi bi-caret-down" style="font-size: 11px;"></i>
         </button>
@@ -114,7 +114,7 @@
               <a href="{{ route('users.password') }}" onclick="event.preventDefault(); document.getElementById('alterar-form').submit();">
                 <i class="bi bi-key me-2"></i>Alterar Senha
               </a>
-              
+
               <form id="alterar-form" action="{{ route('users.password') }}" method="GET" class="d-none">
                 @csrf
               </form>
