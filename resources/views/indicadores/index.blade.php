@@ -17,6 +17,10 @@
 	.liDP {
 		margin-left: 0 !important;
 	}
+
+	div.dt-container div.dt-layout-row {
+		font-size: 13px;
+	}
 </style>
 
 <div class="container-xxl pt-5">
@@ -48,7 +52,7 @@
 
 						<td>EIXO {{$indicador->eixo->id}} - {{ $indicador->eixo->nome}}</td>
 
-						<td class="d-flex justify-content-center" style="border-left: none; border-bottom: none;">
+						<td class="d-flex justify-content-center" style="border: none !important;">
 							<div class="custom-actions-wrapper" id="actionsWrapper{{ $indicador->id }}">
 
 								<button type="button" onclick="toggleActionsMenu({{ $indicador->id }})" class="custom-actions-btn">
