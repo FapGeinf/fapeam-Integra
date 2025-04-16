@@ -65,7 +65,7 @@
 			<hr>
 
 			<div class="d-flex justify-content-end mt-3">
-				<button type="submit" class="highlighted-btn-lg highlight-success me-0">Salvar Indicador</button>
+				<button type="submit" class="highlighted-btn-sm highlight-success me-0">Salvar Indicador</button>
 			</div>
 		</form>
 	</div>

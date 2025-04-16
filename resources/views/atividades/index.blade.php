@@ -124,7 +124,7 @@
             <div class="table-responsive">
                 @if(Auth::user()->unidadeIdFK == 1)
                     <div class="col-12 d-flex justify-content-start pb-2">
-                        <a href="{{ route('atividades.create') }}" class="highlighted-btn-lg highlight-blue text-decoration-none">
+                        <a href="{{ route('atividades.create') }}" class="highlighted-btn-sm highlight-blue text-decoration-none">
                             Inserir Atividade
                         </a>
                     </div>

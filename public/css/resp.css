@@ -308,6 +308,15 @@ button.secondary:hover {
   transition: background-color 0.3s;
 }
 
+.highlighted-btn-sm {
+  border: none !important;
+  padding: 5px 10px !important;
+  font-size: 13px !important;
+  border-radius: 4px !important;
+  cursor: pointer !important;
+  transition: background-color 0.3s !important;
+}
+
 .highlighted-btn {
   border: none;
   padding: 5px 10px;

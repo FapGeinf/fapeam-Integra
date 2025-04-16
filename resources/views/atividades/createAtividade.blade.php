@@ -351,7 +351,7 @@
     </div>
 
     <div class="d-flex justify-content-end pt-4">
-      <button type="submit" class="highlighted-btn-lg highlight-success me-0">Enviar a Atividade</button>
+      <button type="submit" class="highlighted-btn-sm highlight-success me-0">Enviar a Atividade</button>
     </div>
 
     </div>

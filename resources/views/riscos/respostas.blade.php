@@ -399,7 +399,7 @@
 
                     <div class="modal-footer p-0">
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
-                            <button type="button" class="highlighted-btn-lg highlight-success" id="abrirEditConfirmacaoBtn">
+                            <button type="button" class="highlighted-btn-sm highlight-success" id="abrirEditConfirmacaoBtn">
                                 Salvar Edição
                             </button>
                         </div>
@@ -432,8 +432,8 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="highlighted-btn-lg footer-secondary" data-bs-dismiss="modal">Voltar e corrigir</button>
-                <button type="button" class="highlighted-btn-lg highlight-success" id="confirmarEdicaoBtn">Confirmar e enviar</button>
+                <button type="button" class="highlighted-btn-sm footer-secondary" data-bs-dismiss="modal">Voltar e corrigir</button>
+                <button type="button" class="highlighted-btn-sm highlight-success" id="confirmarEdicaoBtn">Confirmar e enviar</button>
             </div>
         </div>
     </div>
@@ -489,7 +489,7 @@
                     </div>
 
                     <div class="modal-footer justify-content-md-end p-0">
-                        <button type="button" class="highlighted-btn-lg highlight-success mt-2" id="abrirConfirmacaoBtn">Enviar</button>
+                        <button type="button" class="highlighted-btn-sm highlight-success mt-2" id="abrirConfirmacaoBtn">Enviar</button>
                     </div>
                 </form>
             </div>
@@ -518,8 +518,8 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="highlighted-btn-lg footer-secondary" data-bs-dismiss="modal">Voltar e corrigir</button>
-        <button type="button" class="highlighted-btn-lg highlight-success" id="confirmarEnvioBtn">Confirmar e enviar</button>
+        <button type="button" class="highlighted-btn-sm footer-secondary" data-bs-dismiss="modal">Voltar e corrigir</button>
+        <button type="button" class="highlighted-btn-sm highlight-success" id="confirmarEnvioBtn">Confirmar e enviar</button>
       </div>
     </div>
   </div>

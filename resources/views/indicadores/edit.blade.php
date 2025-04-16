@@ -62,8 +62,8 @@
 			<hr>
 
 			<div class="d-flex justify-content-end mt-4">
-				<a href="{{ route('indicadores.index') }}" class="highlighted-btn-lg highlight-btn-lg highlight-grey text-decoration-none me-2">Cancelar</a>
-				<button type="submit" class="highlighted-btn-lg highlight-success me-0">Salvar Edição</button>
+				<a href="{{ route('indicadores.index') }}" class="highlighted-btn-sm highlight-btn-lg highlight-grey text-decoration-none me-2">Cancelar</a>
+				<button type="submit" class="highlighted-btn-sm highlight-success me-0">Salvar Edição</button>
 			</div>
 			
 		</form>

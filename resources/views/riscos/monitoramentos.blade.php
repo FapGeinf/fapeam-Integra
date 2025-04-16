@@ -50,14 +50,14 @@
 
             <div class="d-flex justify-content-center">
                 <div class="buttons">
-                    <button type="button" class="highlighted-btn-lg highlight-blue" onclick="addMonitoramento()">Adicionar Monitoramento</button>
+                    <button type="button" class="highlighted-btn-sm highlight-blue" onclick="addMonitoramento()">Adicionar Monitoramento</button>
                     <button type="button" class="close-btn" onclick="fecharFormulario()">Remover</button>
                 </div>
 
                 <span class="my-auto me-2" style="color: #ccc;">|</span>
 
                 <div>
-                    <button type="button" onclick="showConfirmationModal()" class="highlighted-btn-lg highlight-success" data-bs-toggle="modal" data-bs-target="#confirmationModal">Salvar</button>
+                    <button type="button" onclick="showConfirmationModal()" class="highlighted-btn-sm highlight-success" data-bs-toggle="modal" data-bs-target="#confirmationModal">Salvar</button>
                 </div>
             </div>
 
@@ -74,8 +74,8 @@
 
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="highlighted-btn-lg highlight-grey" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="button" onclick="submitForm()" class="highlighted-btn-lg highlight-success" id="btnEdit">Confirmar Edição</button>
+                            <button type="button" class="highlighted-btn-sm highlight-grey" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" onclick="submitForm()" class="highlighted-btn-sm highlight-success" id="btnEdit">Confirmar Edição</button>
                         </div>
                     </div>
                 </div>

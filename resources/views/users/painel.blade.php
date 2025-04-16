@@ -214,8 +214,8 @@
                                             </div>
 
                                             <div class="modal-footer p-0 pt-2">
-                                                <button type="button" class="highlighted-btn-lg highlight-grey" data-bs-dismiss="modal">Cancelar</button>
-                                                <button type="submit" class="highlighted-btn-lg highlight-success">Salvar</button>
+                                                <button type="button" class="highlighted-btn-sm highlight-grey" data-bs-dismiss="modal">Cancelar</button>
+                                                <button type="submit" class="highlighted-btn-sm highlight-success">Salvar</button>
                                             </div>
                                         </form>
                                     </div>
@@ -270,8 +270,8 @@
                                             </div>
 
                                             <div class="modal-footer p-0 pt-2">
-                                                <button type="button" class="highlighted-btn-lg highlight-grey" data-bs-dismiss="modal">Cancelar</button>
-                                                <button type="submit" class="highlighted-btn-lg highlight-success">Cadastrar</button>
+                                                <button type="button" class="highlighted-btn-sm highlight-grey" data-bs-dismiss="modal">Cancelar</button>
+                                                <button type="submit" class="highlighted-btn-sm highlight-success">Cadastrar</button>
                                             </div>
                                         </form>
                                     </div>
@@ -294,11 +294,11 @@
                                     </div>
 
                                     <div class="modal-footer">
-                                        <button type="button" class="highlighted-btn-lg highlight-grey" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="button" class="highlighted-btn-sm highlight-grey" data-bs-dismiss="modal">Cancelar</button>
                                         <form action="{{ route('user.destroy', $user->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="highlighted-btn-lg highlight-danger">Excluir</button>
+                                            <button type="submit" class="highlighted-btn-sm highlight-danger">Excluir</button>
                                         </form>
                                     </div>
                                 </div>

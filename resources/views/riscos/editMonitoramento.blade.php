@@ -110,8 +110,8 @@
             <hr class="mt-4 mx-auto">
 
             <div class="d-flex justify-content-end pt-2">
-                <a href="{{ route('riscos.index') }}" class="highlighted-btn-lg highlight-grey text-decoration-none me-2">Voltar</a>
-                <button type="button" onclick="showConfirmationModal()" class="highlighted-btn-lg highlight-success">Salvar Edição</button>
+                <a href="{{ route('riscos.index') }}" class="highlighted-btn-sm highlight-grey text-decoration-none me-2">Voltar</a>
+                <button type="button" onclick="showConfirmationModal()" class="highlighted-btn-sm highlight-success">Salvar Edição</button>
             </div>
 
             <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel"
@@ -130,8 +130,8 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="highlighted-btn-lg highlight-grey" data-bs-dismiss="modal">Voltar e corrigir</button>
-                            <button type="button" onclick="submitForm()" class="highlighted-btn-lg highlight-success">Confirmar edição</button>
+                            <button type="button" class="highlighted-btn-sm highlight-grey" data-bs-dismiss="modal">Voltar e corrigir</button>
+                            <button type="button" onclick="submitForm()" class="highlighted-btn-sm highlight-success">Confirmar edição</button>
                         </div>
                     </div>
                 </div>
