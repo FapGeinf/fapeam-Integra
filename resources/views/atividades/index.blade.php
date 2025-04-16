@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="{{ asset('css/dropdown.css') }}">
 <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
 <script src="{{ asset('js/dataTables.min.js') }}"></script>
-<script src="{{ asset('js/auto-dismiss') }}"></script>
+<script src="{{ asset('js/auto-dismiss.js') }}"></script>
 <link rel="stylesheet" href="{{ asset('css/dataTables.dataTables.min.css') }}">
 
 <style>
