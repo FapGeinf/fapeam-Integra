@@ -69,13 +69,6 @@
             </a>
           </li>
   
-          {{-- <li class="li-navbar2 {{ Request::routeIs('documentos.intro') ? 'd-none' : '' }}">
-            <a href="{{ route('documentos.intro') }}" class="d-flex li-a a-navbar {{ Request::routeIs('documentos.intro') ? 'd-none' : '' }}">
-              <i class="bi bi-display i-navbar mt-1px"></i>
-              <span class="a-span">Apresentação</span>
-            </a>
-          </li> --}}
-  
           <li class="li-navbar2">
             <a href="{{ route('documentos.eixos') }}" class="d-flex li-a a-navbar {{ Request::routeIs('documentos.eixos') ? 'li-a-active' : '' }}">
               <i class="bi bi-arrow-left-right i-navbar mt-1px"></i>
