@@ -1,80 +1,59 @@
 .dropdown-menu {
-  background-color: #f8f9fa; /* Cor de fundo clara */
+  background-color: #f8f9fa;
   border: none;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15); /* Sombra leve */
-  border-radius: 8px; /* Cantos arredondados */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
    height: auto;
 }
-
-/* li {
-  margin-left: 1rem;
-} */
 
 .btnAltSenha,
 .btnSair {
   font-size: 14px !important;
 }
 
-.alert-success {
-  width: 40%;
+.alert-success,
+.alert-warning,
+.alert-danger {
+  width: 50%;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
 }
 
-/* .liDP a:hover {
-  text-decoration: underline;
-} */
-
 a {
   color: #2272b9;
 }
 
-/* Estilo dos itens do dropdown */
 .dropdown-item {
-  color: #343a40; /* Cor do texto */
-  padding: 10px 20px; /* Espaçamento para melhor visualização */
-  transition: background-color 0.3s, color 0.3s; /* Transição suave */
+  color: #343a40;
+  padding: 10px 20px;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .dropdown-item:hover {
-  /* border: 1px solid #ccc; */
   border-radius: 10px;
   background-color: #e9ecef;
   color: #007bff;
 }
 
-/* Estilo para o ícone e a aba do dropdown */
 .nav-link.dropdown-toggle {
-  color: #fff; /* Cor do texto do botão */
-  /* font-weight: bold; */
+  color: #fff;
   display: flex;
   align-items: center;
   transition: color 0.3s;
   font-size: 14px !important;
 }
 
-/*.nav-link.dropdown-toggle:hover {
-  color: #007bff;  Cor do texto ao passar o mouse
-}
- */
-/* Ajuste do ícone para combinar com o texto */
 .nav-link.dropdown-toggle .bi-person {
-  margin-right: 4px; /* Espaçamento entre o ícone e o texto */
+  margin-right: 4px;
 }
 
-/* .pb__dropdown {
-  padding-bottom: 3.5rem;
-} */
-
-/*css do layout App */
 .login-page .py-4 {
   padding-top: 0 !important;
   padding-bottom: 0 !important;
 }
 
 .login-page .appContent {
-  /* margin-left: 10rem; */
   transition: margin-left 0.4s;
 }
 
@@ -82,11 +61,9 @@ a {
   text-align: center;
 }
 
-/* Estilo do botão de expandir/recolher */
 .btn-toggle {
   position: fixed;
   top: 45px;
-  /*  left: 260px; Ajuste conforme a largura inicial da sidenav */
   background-color: #22539c;
   color: #fff;
   border: none;
@@ -99,7 +76,7 @@ a {
 }
 
 .menu-lateral.collapsed {
-  width: 80px; /* Largura quando recolhida */
+  width: 80px;
 }
 
 .menu-lateral.collapsed .txt-link {
@@ -107,9 +84,8 @@ a {
 }
 
 .btn-toggle.collapsed {
-  left: 90px; /* Posicione o botão quando a sidenav está recolhida */
+  left: 90px;
 }
-
 
 .dataUser {
   color: #fff;
@@ -121,8 +97,6 @@ a {
   margin-bottom: 1.5rem;
   width: 100% !important;
 }
-
-/* FONT STYLE */
 
 #welcome {
   color: #fff;
@@ -137,7 +111,6 @@ a {
   font-style: normal;
 }
 
-
 body {
   font-family: "Poppins", sans-serif;
   font-weight: 400;
@@ -147,8 +120,6 @@ body {
 .flex-container {
   margin-top: 0.5rem !important;
 }
-
-/* FONTE STYLE */
 
 .bottom {
   position: absolute;
@@ -179,15 +150,9 @@ body {
 .logoNavImg {
   width: 135px;
   height: 41px;
-  /* margin-left: 1.6rem; */
-  /* margin-left: 3rem; */
   transition: .1s;
   margin-top: 4px;
 }
-
-/* .logoNavImg:hover {
-  opacity: .6;
-} */
 
 a.navbar-brand:nth-child(1) {
   margin-left: .9rem;
@@ -256,8 +221,6 @@ a.navbar-brand:nth-child(1) {
   display: flex;
   font-size: 0.8rem;
   cursor:text;
-  /* align-items: baseline;
-  white-space: nowrap; */
   flex-direction: column;
   position: absolute;
   left: 260px;
@@ -283,24 +246,12 @@ a.navbar-brand:nth-child(1) {
 }
 
  a.btnSair {
-  /* color: #fff; */
   text-decoration: none;
 }
-
-/*
-a.btnSair:hover {
-  text-decoration: underline;
-} */
 
  a.btnAltSenha {
-  /* color: #fff; */
   text-decoration: none;
 }
-
-/*
-a.btnAltSenha:hover {
-  text-decoration: underline;
-} */
 
 .nav-item i {
   color: #fff;
@@ -311,13 +262,11 @@ a.btnAltSenha:hover {
 }
 
 .appContent {
-  /* margin-left: 10.5rem; */
   transition: margin-left 0.4s;
 }
 
 .conteudo {
   margin-top: 1rem;
-  /* padding-left: 90px; */
 }
 
 .mainShow {
@@ -343,7 +292,6 @@ a.btnAltSenha:hover {
 
 .liHover .icon:hover {
   border-radius: 6px;
-  /* color: #2d3783; */
 }
 
 .sidenavImg {
@@ -391,7 +339,6 @@ a.btnAltSenha:hover {
 }
 
 nav.menu-lateral {
-  /* font-family: "Lato", sans-serif; */
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -439,7 +386,6 @@ ul li.item-menu {
 
 .ulList {
   padding-left: 0;
-  /* padding-top: 4rem; */
 }
 
 ul li.item-menu a {
@@ -486,5 +432,3 @@ ul li.item-menu.btn-sair {
     opacity: 1;
   }
 }
-
-/* FIM CSS SIDENAV */
