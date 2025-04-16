@@ -7,6 +7,7 @@
 <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="{{ asset('js/auto-dismiss.js') }}"></script>
+<link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
 @section('title') {{ 'Nova Atividade' }} @endsection
@@ -349,8 +350,8 @@
       </select>
     </div>
 
-    <div class="d-flex justify-content-end pt-3">
-      <button type="submit" class="highlighted-btn-lg highlight-blue me-0">Enviar a Atividade</button>
+    <div class="d-flex justify-content-end pt-4">
+      <button type="submit" class="highlighted-btn-lg highlight-success me-0">Enviar a Atividade</button>
     </div>
 
     </div>
