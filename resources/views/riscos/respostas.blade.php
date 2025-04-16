@@ -6,6 +6,10 @@
     .liDP {
         margin-left: 0 !important;
     }
+
+    .modal-content {
+        background-color: #fff;
+    }
 </style>
 @section('title') {{ 'Detalhes da Providência' }} @endsection
 <div class="container-general p-30 mt-5">
