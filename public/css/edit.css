@@ -16,6 +16,10 @@ label, input, .form-control, .form-select {
   font-size: 13px;
 }
 
+.choices__inner {
+  background-color: #f8fafc !important;
+}
+
 .form-wrapper {
   display: flex;
   justify-content: center; /* Centraliza horizontalmente */
@@ -184,7 +188,7 @@ hr {
 .form_create select, .dataValue {
   width: 100%;
   padding: 8px;
-  background-color: #f9f9f9;
+  background-color: #f8fafc;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
