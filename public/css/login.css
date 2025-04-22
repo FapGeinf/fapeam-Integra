@@ -404,7 +404,7 @@ input[type=checkbox], label {
 
   .helpButtons a,
   .version span {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   input, button, select, optgroup, textarea {
