@@ -4,6 +4,7 @@
 <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
 <script src="{{ asset('js/dataTables.min.js') }}"></script>
 <link rel="stylesheet" href="{{ asset('css/dataTables.dataTables.min.css') }}">
+<script src="{{ asset('js/atividades/indexAtividades.js') }}"></script>
 <style>
     .liDP {
         margin-left: 0 !important;
@@ -235,52 +236,4 @@
     </div>
 
     <x-back-button />
-
-    <script>
-        $(document).ready(function () {
-            let table = $('#tableHome2').DataTable({
-                order: [
-                    [7, "asc"]
-                ],
-                autoWidth: false,
-                columnDefs: [{
-                    targets: "_all",
-                    defaultContent: ""
-                }],
-                language: {
-                    url: '{{ asset('js/pt_br-datatable.json') }}',
-                    search: "Procurar:",
-                    info: 'Mostrando página _PAGE_ de _PAGES_',
-                    infoEmpty: 'Sem monitoramentos disponíveis no momento',
-                    infoFiltered: '(Filtrados do total de _MAX_ monitoramentos)',
-                    zeroRecords: 'Nada encontrado. Se achar que isso é um erro, contate o suporte.',
-                    paginate: {
-                        next: "Próximo",
-                        previous: "Anterior"
-                    },
-                    responsive: true
-                }
-            });
-
-            $('#filter-data').on('change', function () {
-                let order = $(this).val();
-                table.order([7, order]).draw();
-            });
-
-            $('#filter-canal').on('change', function () {
-                let canal = $(this).val();
-                table.column(6).search(canal).draw();
-            });
-
-            $('#filter-publico').on('change', function () {
-                let publico = $(this).val();
-                table.column(4).search(publico).draw();
-            });
-
-            $('#filter-evento').on('change', function () {
-                let evento = $(this).val();
-                table.column(5).search(evento).draw();
-            })
-        });
-    </script>
 @endsection

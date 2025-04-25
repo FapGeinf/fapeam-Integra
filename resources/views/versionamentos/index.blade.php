@@ -4,6 +4,7 @@
 <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
 <script src="{{ asset('js/dataTables.min.js') }}"></script>
 <link rel="stylesheet" href="{{ asset('css/dataTables.dataTables.min.css') }}">
+<script src="{{ asset('js/versionamentos/indexVersionamentos.js') }}"></script>
 <style>
     .liDP {
         margin-left: 0 !important;
@@ -156,31 +157,4 @@
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function() {
-        let table = $('#tableHome2').DataTable({
-            order: [
-                [7, "asc"]
-            ],
-            autoWidth: false,
-            columnDefs: [{
-                targets: "_all",
-                defaultContent: ""
-            }],
-            language: {
-                url: '{{ asset('js/pt_br-datatable.json') }}',
-                search: "Procurar:",
-                info: 'Mostrando página _PAGE_ de _PAGES_',
-                infoEmpty: 'Sem monitoramentos disponíveis no momento',
-                infoFiltered: '(Filtrados do total de _MAX_ monitoramentos)',
-                zeroRecords: 'Nada encontrado. Se achar que isso é um erro, contate o suporte.',
-                paginate: {
-                    next: "Próximo",
-                    previous: "Anterior"
-                },
-                responsive: true
-            }
-        });
-    });
-</script>
 @endsection
