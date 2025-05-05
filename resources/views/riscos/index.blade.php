@@ -499,6 +499,23 @@
                         dropdownMenu.append(labelAvaliacoes).append(selectAvaliacao);
                     }
 
+                                        
+                    var filtroMonitoramentoRespondido = $(`
+                        <div class="mb-3 mt-3">
+                            <label for="filterMonitoramentoRespondido" class="form-label d-block">Opções:</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="filterMonitoramentoRespondido">
+                                <label class="form-check-label" for="filterMonitoramentoRespondido">
+                                    Mostrar Apenas Riscos que contem controle sugeridos com providências.
+                                </label>
+                            </div>
+                        </div>
+                    `);
+
+
+
+                    dropdownMenu.append(filtroMonitoramentoRespondido);
+
                     // Modificação para adicionar classes ao seletor de paginação
                     $('.dataTables_length select').addClass('mt-2 select__pag');
 
@@ -520,6 +537,7 @@
                     var prazoContainer = $('<p class="spanThatLooksLikeABtn" id="prazo" data-prazo="{{ \Carbon\Carbon::parse($prazo)->format('Y-m-d') }}">Prazo Final: <strong>{{ \Carbon\Carbon::parse($prazo)->format('d/m/Y') }}</strong></p>');
                     searchAndPrazoContainer.append(prazoContainer);
 
+
                     divContainer.append(searchAndPrazoContainer);
 
                     $(table.table().container()).prepend(divContainer);
@@ -534,6 +552,15 @@
                         console.log("Filtro de avaliação alterado.");
                         var val = $.fn.dataTable.util.escapeRegex($(this).val());
                         table.column(6).search(val ? '^' + val + '$' : '', true, false).draw();
+                    });
+
+                     $('#filterMonitoramentoRespondido').on('change', function () {
+                        console.log("Filtro por monitoramentos respondidos ativado.");
+                        if (this.checked) {
+                            table.column(7).search('^[1-9][0-9]*$', true, false).draw(); 
+                        } else {
+                            table.column(7).search('', true, false).draw();
+                        }
                     });
                 }
             });
