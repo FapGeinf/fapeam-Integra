@@ -4,6 +4,7 @@ use App\Events\PrazoProximo;
 use App\Http\Controllers\AtividadeController;
 use App\Http\Controllers\DocumentoController;
 use App\Http\Controllers\EixosController;
+use App\Http\Controllers\LogController;
 use App\Http\Middleware\isAdmin;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RiscoController;
@@ -149,3 +150,5 @@ Route::get('/eixo/{eixo_id}', [EixosController::class, 'mostrarEixo'])->name('ei
 
 Route::get('/respostas/index',[RiscoController::class,'indexRespostas'])->name('respostas.index');
 Route::get('/relatorios/eixos/{id}',[RelatorioController::class,'relatoriosPorEixo'])->name('relatorios.eixos');
+
+Route::get('/logs',[LogController::class, 'indexLogs'])->name('logs');
