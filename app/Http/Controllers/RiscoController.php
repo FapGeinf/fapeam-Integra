@@ -34,34 +34,35 @@ class RiscoController extends Controller
     {
         try {
             $user = auth()->user();
+
             $prazo = Prazo::latest()->first();
-            $user = auth()->user();
+
             $tipoAcesso = $user->unidade->unidadeTipoFK;
             $unidadeDiretoria = $user->unidade->unidadeDiretoria;
 
             switch ($tipoAcesso) {
                 case 1:
                 case 3:
-                    $riscos = Risco::all();
+                    $riscos = Risco::with('monitoramentos.respostas')->get();
                     break;
                 case 4:
                     if ($user->usuario_tipo_fk == 1) {
-                        $riscos = Risco::all();
+                        $riscos = Risco::with('monitoramentos.respostas')->get();
                     } else {
-                        $riscos = Risco::where('unidadeId', $user->unidade->id)->get();
+                        $riscos = Risco::where('unidadeId', $user->unidade->id)->with('monitoramentos.respostas')->get();
                     }
                     break;
                 case 5:
                     if ($user->usuario_tipo_fk == 2) {
                         $riscos = Risco::whereHas('unidade', function ($query) use ($unidadeDiretoria) {
                             $query->where('unidadeDiretoria', $unidadeDiretoria);
-                        })->get();
+                        })->with('monitoramentos.respostas')->get();
                     } else {
-                        $riscos = Risco::where('unidadeId', $user->unidade->id)->get();
+                        $riscos = Risco::where('unidadeId', $user->unidade->id)->with('monitoramentos.respostas')->get();
                     }
                     break;
                 default:
-                    $riscos = Risco::where('unidadeId', $user->unidade->id)->get();
+                    $riscos = Risco::where('unidadeId', $user->unidade->id)->with('monitoramentos.respostas')->get();
                     break;
             }
 
@@ -73,7 +74,20 @@ class RiscoController extends Controller
 
             $notificacoesNaoLidas = $notificacoes->whereNull('read_at');
             $notificacoesLidas = $notificacoes->whereNotNull('read_at');
+
             $unidades = Unidade::all();
+
+            foreach ($riscos as $risco) {
+                $respondidos = 0;
+
+                foreach ($risco->monitoramentos as $monitoramento) {
+                    if ($monitoramento->respostas->isNotEmpty()) {
+                        $respondidos++;
+                    }
+                }
+
+                $risco->monitoramentos_respondidos_count = $respondidos;
+            }
 
             return view('riscos.index', [
                 'riscos' => $riscos,
@@ -89,6 +103,7 @@ class RiscoController extends Controller
             return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao carregar os riscos. Por favor, tente novamente.']);
         }
     }
+
 
     public function analise()
     {
@@ -232,11 +247,19 @@ class RiscoController extends Controller
     public function show($id)
     {
         try {
-            $risco = Risco::with(['monitoramentos'])->findOrFail($id);
+            $risco = Risco::with('monitoramentos.respostas')->find($id);
+            foreach ($risco->monitoramentos as $monitoramento) {
+                if ($monitoramento->respostas->isNotEmpty()) {
+                    $monitoramento->update([
+                        'monitoramentoRespondido' => true
+                    ]);
+                }
+            }
             return view('riscos.show', [
                 'risco' => $risco,
                 'monitoramentos' => $risco->monitoramentos
             ]);
+
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao carregar os dados do risco.']);
         }
@@ -665,10 +688,25 @@ class RiscoController extends Controller
 
     public function respostas($id)
     {
-        $monitoramento = Monitoramento::with('respostas')->findorFail($id);
+        $monitoramento = Monitoramento::with('respostas')->findOrFail($id);
+        $homologacaoCompleta = $monitoramento->respostas->every(function ($resposta) {
+            return $resposta->homologadaPresidencia && $resposta->homologadoDiretoria;
+        });
+
+        if ($homologacaoCompleta) {
+            foreach ($monitoramento->respostas as $resposta) {
+                $resposta->update(['homologacaoCompleta' => 1]);
+            }
+        }
+    
         $respostas = Resposta::where('respostaMonitoramentoFK', $monitoramento->id)->get();
-        return view('riscos.respostas', ['monitoramento' => $monitoramento, 'respostas' => $respostas]);
+    
+        return view('riscos.respostas', [
+            'monitoramento' => $monitoramento,
+            'respostas' => $respostas
+        ]);
     }
+    
 
     public function homologar($id)
     {
@@ -759,12 +797,12 @@ class RiscoController extends Controller
         $respostas = Resposta::whereHas('monitoramento.risco.unidade', function ($query) use ($diretoriaId) {
             $query->where('unidadeDiretoria', $diretoriaId);
         })
-        ->with(['monitoramento.risco.unidade.diretoria', 'user'])
-        ->get();
-    
+            ->with(['monitoramento.risco.unidade.diretoria', 'user'])
+            ->get();
+
         return view('respostas.index', compact('respostas', 'unidades'));
     }
-    
+
 
     public function __construct()
     {

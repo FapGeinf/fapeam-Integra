@@ -360,6 +360,7 @@
                             <th>Causa</th>
                             <th>Consequência</th>
                             <th style="width: 100px;">Classificação do Risco</th>
+                            <th>Controles Sugeridos com Providência(s)</th> 
                         </tr>
                     </thead>
 
@@ -380,6 +381,7 @@
                                 @else
                                     <td class="bg-alto riscoAvaliacao"><span class="fontBold">Alto</span></td>
                                 @endif
+                                <td>{{ $risco->monitoramentos_respondidos_count }}</td>
                             </tr>
                         @endforeach
                     </tbody>
