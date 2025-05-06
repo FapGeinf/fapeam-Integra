@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Atividade;
+use App\Services\LogService;
 use Illuminate\Http\Request;
 use App\Models\Eixo;
 use App\Models\Publico;
@@ -11,16 +12,20 @@ use App\Models\MedidaTipo;
 use App\Models\Indicador;
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\AtividadeRequest;
+use Auth;
 
 class AtividadeController extends Controller
 {
     protected $atividade;
     protected $eixo;
 
-    public function __construct(Atividade $atividade, Eixo $eixo)
+    protected $log;
+
+    public function __construct(Atividade $atividade, Eixo $eixo, LogService $log)
     {
         $this->atividade = $atividade;
         $this->eixo = $eixo;
+        $this->log = $log;
     }
 
     public function index(Request $request)
@@ -41,6 +46,13 @@ class AtividadeController extends Controller
 
         $publicos = Publico::all();
         $canais = Canal::all();
+
+        $username = Auth::user()->name;
+        $this->log->insertLog([
+            'acao' => 'Acesso',
+            'descricao' => "O usuário $username acessou a pagina de atividades do eixo $eixoNome",
+            'user_id' => Auth::user()->id
+        ]);
 
         return view('atividades.index', [
             'atividades' => $atividades,
@@ -89,6 +101,12 @@ class AtividadeController extends Controller
     public function showAtividade($id)
     {
         $atividade = $this->atividade->findOrFail($id);
+        $username = Auth::user()->name;
+        $this->log->insertLog([
+            'acao' => 'Acesso',
+            'descricao' => "O usuário $username acessou a página da Atividade com id $id e eixo {$atividade->eixo->nome}",
+            'user_id' => Auth::user()->id
+        ]);
         return view('atividades.showAtividade', ['atividade' => $atividade]);
     }
 
@@ -99,6 +117,14 @@ class AtividadeController extends Controller
         $canais = Canal::all();
         $medidas = MedidaTipo::all();
         $indicadores = Indicador::all();
+
+        $username = Auth::user()->name;
+        $this->log->insertLog([
+            'acao' => 'Acesso',
+            'descricao' => "O usuário $username acessou a página de inserção de atividades",
+            'user_id' => Auth::user()->id
+        ]);
+
         return view('atividades.createAtividade', ['eixos' => $eixos, 'publicos' => $publicos, "canais" => $canais, 'medidas' => $medidas, 'indicadores' => $indicadores]);
     }
 
@@ -152,11 +178,23 @@ class AtividadeController extends Controller
             } else {
                 $atividade->indicadores()->detach();
             }
-            
+
 
             $eixo_id = $atividade->eixos->first()->id ?? null;
 
             Log::info('Atividade criada com sucesso', ['atividade_id' => $atividade->id]);
+
+
+            if (Auth::check()) {
+                $user = Auth::user();
+                $eixoNome = optional($atividade->eixos->first())->nome ?? 'sem eixo';
+            
+                $this->log->insertLog([
+                    'acao' => 'Inserção',
+                    'descricao' => "O usuário {$user->name} inseriu uma nova atividade de eixo {$eixoNome}",
+                    'user_id' => $user->id
+                ]);
+            }
 
             return redirect()->route('atividades.index', ['eixo_id' => $eixo_id])->with('success', 'Atividade criada com sucesso!');
         } catch (\Exception $e) {
@@ -179,6 +217,17 @@ class AtividadeController extends Controller
         $medidas = MedidaTipo::all();
         $indicadores = Indicador::all();
         $atividade = $this->atividade->findOrFail($id);
+
+        if(Auth::check()){
+           $username = Auth::user()->name;
+           $eixoNome = $atividade->eixos->first()->nome;
+
+           $this->log->insertLog([
+               'acao' => 'Acesso',
+               'descricao' => "O usuário de nome $username está acessando a pagina edição da atividade de id $id e com eixo de $eixoNome",
+               'user_id' => Auth::user()->id
+           ]);
+        }
 
         if (!$atividade) {
             return redirect()->back()->with('error', 'Não foi encontrada a atividade selecionada no sistema.');
@@ -233,11 +282,22 @@ class AtividadeController extends Controller
             if ($request->has('indicador_ids')) {
                 Log::info('Associando indicadores à atividade', ['indicadores' => $request->indicador_ids]);
                 $atividade->indicadores()->sync($request->indicador_ids);
-            }else{
+            } else {
                 $atividade->indicadores()->detach();
             }
 
             $eixo_id = $atividade->eixos->first()->id ?? null;
+
+            if(Auth::check()){
+                $username = Auth::user()->name;
+                $eixoNome = $atividade->eixos->first()->nome;
+     
+                $this->log->insertLog([
+                    'acao' => 'Atualização',
+                    'descricao' => "O usuário de nome $username estar atualizando a atividade de id $id e com eixo de $eixoNome",
+                    'user_id' => Auth::user()->id
+                ]);
+             }
 
             Log::info('Atividade atualizada com sucesso', ['atividade_id' => $atividade->id]);
 
@@ -259,6 +319,14 @@ class AtividadeController extends Controller
         try {
             $atividade = $this->atividade->findOrFail($id);
             $atividade->delete();
+            if (Auth::check()) {
+                $user = Auth::user();
+                $this->log->insertLog([
+                    'acao' => 'Inserção',
+                    'descricao' => "O usuário {$user->name} excluiu uma atividade de $id do eixo {$atividade->eixos->first()->nome}",
+                    'user_id' => $user->id
+                ]);
+            }
             return redirect()->route('atividades.index')->with('success', 'Atividade deletada com sucesso!');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Ocorreu um erro ao excluir a atividade. Por favor, tente novamente mais tarde.');
