@@ -376,6 +376,7 @@ input[type=checkbox], label {
 
   .form {
     transition: .2s;
+    width: 345px;
   }
 
   .inputImp {
@@ -391,10 +392,15 @@ input[type=checkbox], label {
   }
 
   .input-icon i {
-    padding: 13px;
+    padding: 10px;
+  }
+
+  .rememberMe {
+    font-size: 12px;
   }
 
   .inputLogin {
+    font-size: 12px ;
     width: 39%;
   }
 
@@ -404,7 +410,7 @@ input[type=checkbox], label {
 
   .helpButtons a,
   .version span {
-    font-size: 14px;
+    font-size: 12px;
   }
 
   input, button, select, optgroup, textarea {
@@ -431,27 +437,301 @@ input[type=checkbox], label {
   }
 
   .footerLogo {
+    font-size: 11px;
+    margin-top: 2rem;
+  }
+}
+
+@media only screen and (max-width:  1600px) {
+  .form {
+    padding-top: 2rem;
+  }
+
+  .order__left {
+    padding: 15px;
+  }
+
+  .form {
+    transition: .2s;
+    width: 330px;
+  }
+
+  .inputImp {
+    padding: 7px;
+    font-size: 12px;
+  }
+
+  .inputImp i {
+    padding: 6px;
+  }
+
+  .input-icon input {
+    padding-left: 28px;
+  }
+
+  .input-icon i {
+    padding: 9px;
+  }
+
+  .rememberMe {
+    font-size: 11px;
+  }
+
+  .inputLogin {
+    font-size: 12px ;
+    width: 37%;
+  }
+
+  .helpButtons a,
+  .version span {
+    font-size: 11px;
+  }
+
+  input, button, select, optgroup, textarea {
+    font-size: 12px;
+  }
+
+  .logo {
+    height: 74px;
+  }
+
+  .logo img {
+    height: 80%;
+  }
+
+  .loginButtonsDiv {
+    display: block;
+  }
+
+  .loginButtons {
+    margin-bottom: .5rem;
+    font-size: 12px;
+    padding: 3px;
+    text-align: center;
+  }
+
+  .footerLogo {
+    font-size: 11px;
     margin-top: 2rem;
   }
 }
 
 @media only screen and (max-width:  1472px) {
   .form {
-    width: 345px;
+    padding-top: 3rem;
+  }
+
+  .order__left {
+    padding: 15px;
+  }
+
+  .form {
+    transition: .2s;
+    width: 300px;
+  }
+
+  .inputImp {
+    padding: 6px;
+  }
+
+  .inputImp i {
+    padding: 6px;
+  }
+
+  .input-icon input {
+    padding-left: 25px;
+  }
+
+  .input-icon i {
+    padding: 8px;
+  }
+
+  .rememberMe {
+    font-size: 11px;
+  }
+
+  .inputLogin {
+    font-size: 12px ;
+    width: 37%;
+  }
+
+  .helpButtons a,
+  .version span {
+    font-size: 11px;
+  }
+
+  input, button, select, optgroup, textarea {
+    font-size: 12px;
+  }
+
+  .logo {
+    height: 74px;
   }
 
   .logo img {
-    width: 70%;
+    height: 75%;
+  }
+
+  .loginButtonsDiv {
+    display: block;
+  }
+
+  .loginButtons {
+    margin-bottom: .5rem;
+    font-size: 12px;
+    padding: 3px;
+    text-align: center;
+  }
+
+  .footerLogo {
+    font-size: 11px;
+    margin-top: 2rem;
   }
 }
 
 @media only screen and (max-width:  1376px) {
   .form {
-    width: 330px;
+    padding-top: 3rem;
+  }
+
+  .order__left {
+    padding: 15px;
+  }
+
+  .form {
+    transition: .2s;
+    width: 300px;
+  }
+
+  .inputImp {
+    padding: 6px;
+  }
+
+  .inputImp i {
+    padding: 6px;
+  }
+
+  .input-icon input {
+    padding-left: 25px;
+  }
+
+  .input-icon i {
+    padding: 8px;
+  }
+
+  .rememberMe {
+    font-size: 11px;
+  }
+
+  .inputLogin {
+    font-size: 12px ;
+    width: 37%;
+  }
+
+  .helpButtons a,
+  .version span {
+    font-size: 11px;
+  }
+
+  input, button, select, optgroup, textarea {
+    font-size: 12px;
+  }
+
+  .logo {
+    height: 74px;
+  }
+
+  .logo img {
+    height: 70%;
+  }
+
+  .loginButtonsDiv {
+    display: block;
+  }
+
+  .loginButtons {
+    margin-bottom: .5rem;
+    font-size: 12px;
+    padding: 3px;
+    text-align: center;
+  }
+
+  .footerLogo {
+    font-size: 11px;
+    margin-top: 2rem;
   }
 }
 
-@media only screen and (max-width:  1320px) {
+@media only screen and (max-width: 1280px) {
+  .form {
+    padding-top: 1rem;
+  }
+
+  .order__left {
+    padding: 15px;
+  }
+
+  .form {
+    transition: .2s;
+    width: 300px;
+  }
+
+  .inputImp {
+    padding: 4px;
+  }
+
+  .inputImp i {
+    padding: 6px;
+  }
+
+  .input-icon input {
+    padding-left: 25px;
+  }
+
+  .input-icon i {
+    padding: 6px;
+  }
+
+  .rememberMe {
+    font-size: 11px;
+  }
+
+  .inputLogin {
+    font-size: 12px ;
+    width: 37%;
+  }
+
+  .helpButtons a,
+  .version span {
+    font-size: 11px;
+  }
+
+  input, button, select, optgroup, textarea {
+    font-size: 12px;
+  }
+
+  .logo {
+    height: 74px;
+  }
+
+  .loginButtonsDiv {
+    display: block;
+  }
+
+  .loginButtons {
+    margin-bottom: .5rem;
+    font-size: 12px;
+    padding: 3px;
+    text-align: center;
+  }
+
+  .footerLogo {
+    font-size: 11px;
+    margin-top: 2rem;
+  }
+}
+
+@media only screen and (max-width:  1216px) {
   body {
     display: flex;
     align-items: center;
@@ -470,23 +750,46 @@ input[type=checkbox], label {
     background-color: transparent;
   }
 
+  .rememberMe {
+    font-size: 10px;
+  }
+
+  .inputImp {
+    font-size: 10px;
+    padding: 6px;
+  }
+
+  .input-icon i {
+    font-size: 12px;
+    padding: 7px;
+  }
+
   .no__overflow {
     display: none;
   }
 
   .form {
-    width: 400px;
+    width: 360px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
     margin: 0 auto;
     background-color: #f8fafc;
     transition: .2s;
-    padding: 2rem;
+    padding: 1rem;
     border-radius: 10px;
   }
 
   .loginButton input {
-    margin-top: 2rem;
+    margin-top: .5rem;
     margin-bottom: 0;
+  }
+
+  .loginButtons {
+    font-size: 11px;
+  }
+
+  .helpButtons a,
+  .version span {
+    font-size: 10px;
   }
 
   .grid {
@@ -494,8 +797,7 @@ input[type=checkbox], label {
   }
 
   .logo img {
-    margin-bottom: 2rem;
-    width: 70%;
+    margin-top: 2rem;
   }
   
   .order__right {

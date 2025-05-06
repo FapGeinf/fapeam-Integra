@@ -6,7 +6,6 @@
   <link rel="shortcut icon" href="{{ asset('img/logoDeconWhiteMin.png') }}">
   <link rel="stylesheet" href="{{asset('css/global.css')}}">
   <link rel="stylesheet" href="{{asset('css/topnav.css')}}">
-  <link rel="stylesheet" href="{{asset('css/dropdown-topnav.css')}}">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -70,6 +69,13 @@
             </a>
           </li>
   
+          {{-- <li class="li-navbar2 {{ Request::routeIs('documentos.intro') ? 'd-none' : '' }}">
+            <a href="{{ route('documentos.intro') }}" class="d-flex li-a a-navbar {{ Request::routeIs('documentos.intro') ? 'd-none' : '' }}">
+              <i class="bi bi-display i-navbar mt-1px"></i>
+              <span class="a-span">Apresentação</span>
+            </a>
+          </li> --}}
+  
           <li class="li-navbar2">
             <a href="{{ route('documentos.eixos') }}" class="d-flex li-a a-navbar {{ Request::routeIs('documentos.eixos') ? 'li-a-active' : '' }}">
               <i class="bi bi-arrow-left-right i-navbar mt-1px"></i>
@@ -101,37 +107,33 @@
         </ul>
       </div>
 
-			<div class="custom-actions-wrapper" id="actionsWrapperConta">
-        <button type="button" onclick="toggleActionsMenu('Conta')" class="custom-actions-btn-topnav">
-            <span>Conta</span>
-            <i class="bi bi-caret-down" style="font-size: 11px;"></i>
-        </button>
-      
-        <div class="custom-actions-menu">
-          <ul>
+			<div class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle btnSair" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+					<i class="bi bi-person"></i> <span style="margin-right: 5px;">Conta</span>
+				</a>
 
-            <li>
-              <a href="{{ route('users.password') }}" onclick="event.preventDefault(); document.getElementById('alterar-form').submit();">
-                <i class="bi bi-key me-2"></i>Alterar Senha
-              </a>
+        <ul class="dropdown-menu pb__dropdown dropdown-menu-end" aria-labelledby="userDropdown">
+          <li class="mb-1 liDP">
+            <i class="bi bi-key" style="color: #22539c; margin-left: 1rem;"></i>
 
-              <form id="alterar-form" action="{{ route('users.password') }}" method="GET" class="d-none">
-                @csrf
-              </form>
-            </li>
-      
-            <li>
-              <a href="{{ route('logout') }}" class="" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                <i class="bi bi-door-open me-2"></i>Sair
-              </a>
-              <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                @csrf
-              </form>
-            </li>
-          </ul>
-        </div>
-      </div>
-      
+            <a class="btnAltSenha" href="{{ route('users.password') }}" onclick="event.preventDefault(); document.getElementById('alterar-form').submit();">Alterar Senha</a>
+            <form id="alterar-form" action="{{route('users.password')}}" method="GET" class="d-none">
+              @csrf
+            </form>
+          </li>
+
+          <li class="liDP">
+            <i class="bi bi-door-open" style="color: #22539c; margin-left: 1rem;"></i>
+
+            <a class="btnSair" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+              Sair
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+              @csrf
+            </form>
+          </li>
+        </ul>
+    	</div>
     @endif
     </nav>
 
@@ -148,32 +150,6 @@
       </section>
 		</main>
 	</div>
-
-  <script>
-    function toggleActionsMenu(id) {
-      const wrapper = document.getElementById(`actionsWrapper${id}`);
-  
-      // Alterna o menu atual
-      wrapper.classList.toggle('open');
-  
-      // Fecha os outros menus abertos
-      document.querySelectorAll('.custom-actions-wrapper').forEach((el) => {
-        if (el.id !== `actionsWrapper${id}`) {
-          el.classList.remove('open');
-        }
-      });
-    }
-  
-    // Fecha o dropdown ao clicar fora
-    window.addEventListener('click', function (e) {
-      document.querySelectorAll('.custom-actions-wrapper').forEach(wrapper => {
-        if (!wrapper.contains(e.target)) {
-          wrapper.classList.remove('open');
-        }
-      });
-    });
-  </script>
-  
 </body>
 
 </html>

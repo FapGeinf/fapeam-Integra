@@ -1,13 +1,8 @@
 @extends('layouts.app')
-@section('title') {{ 'Lista de Atividades' }} @endsection
-@section('content')
-
-<link rel="stylesheet" href="{{ asset('css/show.css') }}">
-<link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
-<link rel="stylesheet" href="{{ asset('css/dropdown.css') }}">
+<link rel="stylesheet" href="{{ asset('css/index.css') }}">
+<link rel="stylesheet" href="{{ asset('css/atividades.css') }}">
 <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
 <script src="{{ asset('js/dataTables.min.js') }}"></script>
-<script src="{{ asset('js/auto-dismiss.js') }}"></script>
 <link rel="stylesheet" href="{{ asset('css/dataTables.dataTables.min.css') }}">
 <script src="{{ asset('js/atividades/indexAtividades.js') }}"></script>
 <style>
@@ -21,26 +16,6 @@
 
     .hover:hover {
         text-decoration: underline;
-    }
-
-    .f-size {
-        font-size: 13px;
-    }
-
-    .input-enabled {
-        background-color: #f8fafc !important;
-    }
-
-    .input-disabled {
-        background-color: #f0f0f0 !important;
-    }
-
-    .border-grey {
-        border: 1px solid #ccc !important;
-    }
-
-    div.dt-container div.dt-layout-row  {
-        font-size: 13px;
     }
 </style>
 @section('title') {{ 'Lista de Atividades' }} @endsection

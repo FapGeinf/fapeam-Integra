@@ -4,26 +4,10 @@ body {
   background-attachment: fixed;
 }
 
-table, tr,th, td {
-  border: 1px solid #b0b0b0 !important;
-}
-
-.text13 {
-  font-size: 13px;
-}
-
-label, input, .form-control, .form-select {
-  font-size: 13px !important;
-}
-
 .poppins-regular {
   font-family: "Poppins", sans-serif;
   font-weight: 400;
   font-style: normal;
-}
-
-.choices__inner {
-  background-color: #f8fafc !important;
 }
 
 .form-control {
@@ -57,55 +41,6 @@ table, tr,th, td {
   border: 1px solid #b0b0b0;
 }
 
-.custom-actions-wrapper {
-  position: relative;
-  display: inline-block;
-}
-
-.custom-actions-btn {
-  background-color: #6c757d;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  font-size: 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.custom-actions-btn:hover {
-  background-color: #565e64;
-}
-
-.custom-actions-menu {
-  display: none;
-  position: absolute;
-  right: 0;
-  z-index: 1000;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  min-width: 150px;
-  border-radius: 4px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.custom-actions-menu a {
-  display: block;
-  padding: 8px 12px;
-  font-size: 13px;
-  color: #333;
-  text-align: start;
-  text-decoration: none;
-}
-
-.custom-actions-menu a:hover {
-  background-color: #f2f2f2;
-}
-
-.custom-actions-wrapper.open .custom-actions-menu {
-  display: block;
-}
-
 body {
 font-family: "Poppins", sans-serif;
 font-weight: 400;
@@ -118,29 +53,6 @@ font-style: normal;
   background-color: #fff;
   padding: 20px;
   margin-bottom: 30px;
-}
-
-.button-download {
-  background-color: #FFFFFF;
-  color: #111827;
-  text-align: center;
-  text-decoration: none #D1D5DB solid;
-  text-decoration-thickness: auto;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  cursor: pointer;
-}
-
-.button-download:hover {
-  background-color: rgb(249,250,251);
-}
-
-.button-download:focus {
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-}
-
-.button-download:focus-visible {
-  box-shadow: none;
 }
 
 .background-verde {
@@ -157,15 +69,15 @@ font-style: normal;
 
 
 .table th {
-  background-color: #08558c !important;
+  background-color: #08558c;
 }
 
-/* .table td {
+.table td {
   background-color: #f2f2f2;
-} */
+}
 
 .table .tBorder {
-  border-right: 1px solid #b0b0b0 !important;
+  border-right: 1px solid #b0b0b0;
 }
 
 .text-center {
@@ -293,21 +205,6 @@ a.btn-add:hover {
   color: #000;
   font-weight: bold;
 }
-
-/* .custom-actions-btn {
-  background-color: #0d6efd;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  font-size: 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.custom-actions-btn:hover {
-  background-color: #0b5eda;
-} */
 
 /* PÁGINA DE RESPOSTAS */
 

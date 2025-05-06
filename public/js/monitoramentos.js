@@ -12,7 +12,7 @@ function addMonitoramento() {
 
     let numeration = document.createElement('span');
     numeration.classList.add('numeration');
-    numeration.textContent = `Monitoramento Nº ${cont + 1}:`;
+    numeration.textContent = `Monitoramento Nº ${cont + 1}`;
     monitoramentoDiv.appendChild(numeration);
 
     let controleSugerido = document.createElement('textarea');
@@ -27,7 +27,7 @@ function addMonitoramento() {
     statusMonitoramento.value = "NÃO IMPLEMENTADA"; // Valor padrão
 
     let divIsContinuo = document.createElement('div');
-    divIsContinuo.classList.add('form-group', 'pt-3');
+    divIsContinuo.classList.add('form-group');
     let labelIsContinuo = document.createElement('label');
     labelIsContinuo.textContent = 'Monitoramento Contínuo:';
     divIsContinuo.appendChild(labelIsContinuo);
@@ -59,7 +59,7 @@ function addMonitoramento() {
     let inicioMonitoramento = document.createElement('input');
     inicioMonitoramento.type = 'date';
     inicioMonitoramento.name = `monitoramentos[${cont}][inicioMonitoramento]`;
-    inicioMonitoramento.classList.add('form-control', 'input-enabled');
+    inicioMonitoramento.classList.add('form-control');
     inicioMonitoramento.required = true;
     colDiv1.appendChild(inicioMonitoramentoLabel);
     colDiv1.appendChild(inicioMonitoramento);
@@ -71,7 +71,7 @@ function addMonitoramento() {
     let fimMonitoramento = document.createElement('input');
     fimMonitoramento.type = 'date';
     fimMonitoramento.name = `monitoramentos[${cont}][fimMonitoramento]`;
-    fimMonitoramento.classList.add('form-control', 'input-enabled');
+    fimMonitoramento.classList.add('form-control');
     colDiv2.appendChild(fimMonitoramentoLabel);
     colDiv2.appendChild(fimMonitoramento);
 
@@ -104,6 +104,10 @@ function addMonitoramento() {
 
     cont++;
     updateCounter();
+
+
+
+
 }
 
 function fecharFormulario() {
@@ -152,29 +156,28 @@ function showConfirmationModal() {
             "Data não definida";
 
         modalContent += `
-            <div>
-                <div class="mb-3">Monitoramento N° ${i + 1}</div>
-            </div>
-
-            <div class="row g-3 mb-3">
-                <div class="col-sm-12">
-                    <div style="padding-right: 5px;">Controle Sugerido:</div>
-                    <div style="background:#f0f0f0;" class="form-control">${monitoramentoControleSugerido || '<span class="text-danger">Campo obrigatório</span>'}</div>
-                </div>
-            </div>
-
-            <div class="row g-3 mt-3 mb-3">
-                <div class="col-sm-6">
-                    <div style="padding-right: 5px;">Início do Monitoramento:</div>
-                    <div style="background:#f0f0f0;" class="form-control">${inicioMonitoramentoDisplay || '<span class="text-danger">Campo obrigatório</span>'}</div>
-                </div>
-
-                <div class="col-sm-6">
-                    <div style="padding-right: 5px;">Fim do Monitoramento:</div>
-                    <div style="background:#f0f0f0;" class="form-control">${fimMonitoramentoDisplay || '<span class="text-danger">Campo obrigatório</span>'}</div>
-                </div>
-            </div>
-        `;
+    <div class="text-center mb-3">
+        <div style="padding-right: 5px; font-weight: bold;">Monitoramento N° ${i + 1}</div>
+    </div>
+    <div class="row g-3 mb-3">
+        <div class="col-sm-12">
+            <div style="padding-right: 5px;">Controle Sugerido:</div>
+            <div style="background:#f0f0f0;" class="form-control">${monitoramentoControleSugerido || '<span class="text-danger">Campo obrigatório</span>'}</div>
+        </div>
+    </div>
+    <div class="row g-3 mb-3">
+        <div class="col-sm-6">
+            <div style="padding-right: 5px;">Início do Monitoramento:</div>
+            <div style="background:#f0f0f0;" class="form-control">${inicioMonitoramentoDisplay || '<span class="text-danger">Campo obrigatório</span>'}</div>
+        </div>
+    </div>
+    <div class="row g-3 mb-3">
+        <div class="col-sm-6">
+            <div style="padding-right: 5px;">Fim do Monitoramento:</div>
+            <div style="background:#f0f0f0;" class="form-control">${fimMonitoramentoDisplay || '<span class="text-danger">Campo obrigatório</span>'}</div>
+        </div>
+    </div>
+`;
     }
 
     let modalContentDiv = document.getElementById('modalContent');
@@ -199,10 +202,13 @@ function showConfirmationModal() {
     }
 }
 
+
+
 function formatarDataParaBrasileiro(data) {
     let partes = data.split('-');
     return `${partes[2]}/${partes[1]}/${partes[0]}`;
 }
+
 
 function submitForm() {
     document.getElementById('formCreate').submit();

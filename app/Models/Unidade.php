@@ -29,6 +29,6 @@ class Unidade extends Model
 
 	public function diretoria()
 	{
-		   return $this->belongsTo(Diretoria::class, 'unidadeDiretoria');
+		   return $this->belongsTo(Diretoria::class,'unidadeDiretoria');
 	}
 }

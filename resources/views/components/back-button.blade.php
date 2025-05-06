@@ -17,18 +17,10 @@
 </style>
 
 <div class="text-center mt-4">
-  <a class="back-button" href="#" onclick="goBack()">
-    <i class="bi bi-arrow-left"></i>
-    Voltar para página anterior
-  </a>
-</div>
 
-<script>
-function goBack() {
-    if (window.history.length > 1) {
-        window.history.back();
-    } else {
-        window.location.href = '/'; // ou outra página específica
-    }
-}
-</script>
+	<a class="back-button" href="{{ url()->previous() }}">
+		<i class="bi bi-arrow-left"></i>
+    Voltar para página anterior
+	</a>
+
+</div>

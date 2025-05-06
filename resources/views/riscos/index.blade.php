@@ -154,8 +154,8 @@
                                                     @foreach ($notificacoesNaoLidas->take(10) as $notificacao)
                                                         <li class="list-group-item d-flex align-items-center notification-item">
                                                             <div class="form-check form-check-inline">
-                                                                <input class="form-check-input notification-checkbox"
-                                                                    type="checkbox" name="notification_ids[]"
+                                                                <input class="form-check-input notification-checkbox" type="checkbox"
+                                                                    name="notification_ids[]"
                                                                     id="notificationCheck{{ $notificacao->id }}"
                                                                     value="{{ $notificacao->id }}">
                                                                 <label class="form-check-label ms-2"
@@ -272,123 +272,49 @@
 
 
 
-
-
-
-
-
-        </div>
-
-        <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-lg">
+        <div class="modal fade" id="prazoModal" tabindex="-1" aria-labelledby="prazoModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header" style="background-color: #007bff; color: #fff;">
-                        <h5 class="modal-title" id="notificationModalLabel">Notificações</h5>
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="prazoModalLabel">Novo Prazo</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+
                     <div class="modal-body">
-                        @if ($notificacoesNaoLidas->isEmpty() && $notificacoesLidas->isEmpty())
-                            <p class="text-center">Sem notificações.</p>
-                        @else
-                            <form id="markAsReadForm" method="POST" action="{{ route('riscos.markAsRead') }}">
-                                @csrf
-                                @if (!$notificacoesNaoLidas->isEmpty())
-                                    <div class="mb-4">
-                                        <h6 class="text-primary">Não Lidas</h6>
-                                        <div class="card">
-                                            <ul class="list-group list-group-flush" id="unreadNotifications">
-                                                @foreach ($notificacoesNaoLidas->take(10) as $notificacao)
-                                                    <li class="list-group-item d-flex align-items-center notification-item">
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input notification-checkbox" type="checkbox"
-                                                                name="notification_ids[]"
-                                                                id="notificationCheck{{ $notificacao->id }}"
-                                                                value="{{ $notificacao->id }}">
-                                                            <label class="form-check-label ms-2"
-                                                                for="notificationCheck{{ $notificacao->id }}">Marcar
-                                                                como lida</label>
-                                                        </div>
-                                                        <div class="ms-3">
-                                                            @if (is_null($notificacao->monitoramentoId))
-                                                                <span>{!! $notificacao->message !!}</span>
-                                                            @else
-                                                                <span>{!! $notificacao->message !!}</span>
-                                                                <a href="{{ route('riscos.respostas', ['id' => $notificacao->monitoramentoId]) }}"
-                                                                    class="text-decoration-none">Ver a Resposta</a>
-                                                            @endif
-                                                        </div>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                            @if ($notificacoesNaoLidas->count() > 10)
-                                                <button class="btn btn-link" id="showMoreUnread">Mostrar mais</button>
-                                            @endif
+                        <form action="{{ route('riscos.prazo') }}" id="prazoForm" method="POST">
+                            @csrf
+                            <div class="mb-3">
+                                <label for="data" class="form-label">Data:</label>
+                                <input type="date" class="form-control" id="data" name="data" required>
+                            </div>
 
-                                        </div>
-
-                                        <div style="display: flex; justify-content: end;">
-                                            <button type="submit" class="btn btn-primary text-end mt-3">Salvar seleção</button>
-                                        </div>
-
-                                    </div>
-                                @endif
-                                @if (!$notificacoesLidas->isEmpty())
-                                    <div>
-                                        <h6 class="text-muted">Lidas</h6>
-                                        <div class="card">
-                                            <ul class="list-group list-group-flush" id="readNotifications">
-                                                @foreach ($notificacoesLidas->take(10) as $notificacao)
-                                                    <li class="list-group-item d-flex align-items-center notification-item">
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox"
-                                                                id="notificationCheck{{ $notificacao->id }}" checked disabled>
-                                                            <label class="form-check-label ms-2"
-                                                                for="notificationCheck{{ $notificacao->id }}">Lida</label>
-                                                        </div>
-                                                        <div class="ms-3">
-                                                            @if (is_null($notificacao->monitoramentoId))
-                                                                <span>{!! $notificacao->message !!}</span>
-                                                            @else
-                                                                <span>{!! $notificacao->message !!}</span>
-                                                                <a href="{{ route('riscos.respostas', ['id' => $notificacao->monitoramentoId]) }}"
-                                                                    class="text-decoration-none">Ver a Resposta</a>
-                                                            @endif
-                                                        </div>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                            @if ($notificacoesLidas->count() > 10)
-                                                <button class="btn btn-link" id="showMoreRead">Mostrar mais</button>
-                                            @endif
-                                        </div>
-                                    </div>
-                                @endif
-                            </form>
-                        @endif
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                            <div class="text-end mt-4">
+                                <button type="submit" class="btn btn-primary">Salvar Prazo</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
 
         <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                document.getElementById('notificationModal').addEventListener('show.bs.modal', function () {
-                    const notificationBadge = document.getElementById('notificationBadge');
-                    const unreadCount = parseInt(notificationBadge.dataset.count, 10);
-                    notificationBadge.textContent = unreadCount;
-                    notificationBadge.dataset.count = unreadCount;
-                });
+            $(document).ready(function () {
+                console.log("Inicializando DataTable...");
 
-                document.getElementById('showMoreUnread')?.addEventListener('click', function () {
-                    const notifications = document.getElementById('unreadNotifications');
-                    notifications.classList.toggle('expanded');
-                    this.textContent = notifications.classList.contains('expanded') ? 'Mostrar menos' :
-                        'Mostrar mais';
-                });
+                var table = $('#tableHome').DataTable({
+                    language: {
+                        url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
+                        search: "Procurar:",
+                        lengthMenu: "Paginação: _MENU_",
+                        info: 'Mostrando página _PAGE_ de _PAGES_',
+                        infoEmpty: 'Sem relatórios de risco disponíveis no momento',
+                        infoFiltered: '(Filtrados do total de _MAX_ relatórios)',
+                        zeroRecords: 'Nada encontrado. Se achar que isso é um erro, contate o suporte.',
+                        paginate: {
+                            next: "Próximo",
+                            previous: "Anterior"
+                        }
+                    },
 
                     initComplete: function () {
                         console.log("DataTable inicializado com sucesso.");

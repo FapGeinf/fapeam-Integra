@@ -1,27 +1,43 @@
 @extends('layouts.app')
-@section('title') {{ 'Detalhes da Atividade' }} @endsection
 
 @section('content')
 @php
-    \Carbon\Carbon::setLocale('pt_BR');
+    \Carbon\Carbon::setLocale('pt_BR'); // Define a localidade para português do Brasil
 @endphp
 
-{{-- <link rel="stylesheet" href="{{ asset('css/detalhesAtividade.css') }}"> --}}
-<link rel="stylesheet" href="{{ asset('css/edit.css') }}">
+<link rel="stylesheet" href="{{ asset('css/detalhesAtividade.css') }}">
 
-<div class="form-wrapper pt-4 paddingLeft">
-	<div class="form_create border">
-		<h3 class="text-center">Detalhes da Atividade</h3>
+@section('title') {{ 'Detalhes da Atividade' }} @endsection
 
-		<h5 class="col-12 text-center fw-bold" style="color: #6f7983">
-			{!! $atividade->atividade_descricao !!}
-		</h5>
+<div class="margin-30">
+	<div class="box margin-top-4 bg-white border-bottom-none mx-auto">
+		<div class="row mt-3">
+			<div class="text-center">
+				<h3 class="fw-bold">Detalhes da Atividade:</h3>
+			</div>
+			<h3 class="col-12 text-center fw-bold" style="color: #6f7983">
+				{!! $atividade->atividade_descricao !!}
+			</h3>
+		</div>
+	</div>
+
+<div class="box mx-auto">
+	<div class="p-30 bg-white border-top-none box-shadow">
 
 		<div class="row g-3">
 			<div class="col-12">
-				<label class="">Eixos:</label>
+				<label class="fw-bold">Objetivo:</label>
+				<div class="form-control pb-0">
+					{!! $atividade->objetivo !!}
+				</div>
+			</div>
+		</div>
 
-				<div class="form-control input-disabled">
+		<div class="row g-3 mt-1">
+			<div class="col-12">
+				<label class="fw-bold">Eixos:</label>
+
+				<div class="form-control">
 					@if($atividade->eixos->count() > 0)
 					<ul>
 						@foreach($atividade->eixos as $eixo)
@@ -34,58 +50,46 @@
 					@endif
 				</div>
 			</div>
+		</div>
 
+		<div class="row g-3 mt-1">
 			<div class="col-12">
-				<label class="">Responsável:</label>
-
-				<div class="form-control input-disabled">
-					@if(!empty($atividade->responsavel))
-						{{ $atividade->responsavel }}
-					@else
-						<span>Não inserido</span>
-					@endif
+				<label class="fw-bold">Responsável:</label>
+				<div class="form-control">
+					{{ $atividade->responsavel }}
 				</div>
 			</div>
+		</div>
 
-			<div class="col-12">
-				<label class="">Objetivo:</label>
+		<div class="row g-3 mt-1">
 
-				<div class="form-control input-disabled pb-0">
-					{!! $atividade->objetivo !!}
-				</div>
-			</div>
-
-			<div class="col-12 col-sm-6">
-				<label class="">Público Alvo:</label>
-
-				<div class="form-control input-disabled">
-					{{ $atividade->publico ? $atividade->publico->nome : 'Não informado' }}
-				</div>
-			</div>
-
-			<div class="col-12 col-sm-6">
-				<label class="">Tipo de evento:</label>
-
-				<div class="form-control input-disabled">
+			<div class="col-12 col-sm-4">
+				<label class="fw-bold">Tipo de evento:</label>
+				<div class="form-control">
 					@if($atividade->tipo_evento == 1)
 						Presencial
-
 					@elseif($atividade->tipo_evento == 2)
 						Online
-
 					@elseif($atividade->tipo_evento == 3)
 						Presencial e Online
-
 					@else
 						Sem evento
 					@endif
 				</div>
 			</div>
 
-			<div class="col-12">
-				<label class="">Canais:</label>
+			<div class="col-12 col-sm-4">
+				<label class="fw-bold">Público Alvo:</label>
 
-				<div class="form-control input-disabled">
+				<div class="form-control">
+					{{ $atividade->publico ? $atividade->publico->nome : 'Não informado' }}
+				</div>
+			</div>
+
+			<div class="col-12 col-sm-4">
+				<label class="fw-bold">Canais:</label>
+
+				<div class="form-control">
 					@if($atividade->canais->count() > 0)
 						<ul>
 							@foreach($atividade->canais as $canal)
@@ -97,11 +101,30 @@
 					@endif
 				</div>
 			</div>
+		</div>
 
+		<div class="row g-3 mt-1">
+			<div class="col-12 col-sm-6">
+				<label class="fw-bold">Data Início:</label>
+
+				<div class="form-control">
+					{{ \Carbon\Carbon::parse($atividade->data_prevista)->translatedFormat('d \d\e F \d\e Y') }}
+				</div>
+			</div>
+
+			<div class="col-12 col-sm-6">
+				<label class="fw-bold">Data Término:</label>
+				<div class="form-control">
+					{{ \Carbon\Carbon::parse($atividade->data_realizada)->translatedFormat('d \d\e F \d\e Y') }}
+				</div>
+			</div>
+		</div>
+
+		<div class="row g-3 mt-1">
 			<div class="col-12">
-				<label class="">Indicadores:</label>
+				<label for="" class="fw-bold">Indicadores:</label>
 
-				<div class="form-control input-disabled">
+				<div class="form-control">
 					@if($atividade->indicadores->count() > 0)
 						<ul>
 							@foreach($atividade->indicadores as $indicador)
@@ -113,31 +136,28 @@
 					@endif
 				</div>
 			</div>
+		</div>
 
+		<div class="row g-3 mt-1">
 			<div class="col-12 col-sm-6">
-				<label class="">Previsto:</label>
+				<label for="" class="fw-bold">Previsto:</label>
 
-				<div class="form-control input-disabled">
+				<div class="form-control">
 					{{ $atividade->meta }} {{ $atividade->medida->nome ?? 'N/A' }}
 				</div>
 			</div>
 
 			<div class="col-12 col-sm-6">
-				<label class="">Realizado:</label>
-				<div class="form-control input-disabled">
+				<label for="" class="fw-bold">Realizado:</label>
+				<div class="form-control">
 					{{ $atividade->realizado }} {{ $atividade->medida->nome ?? 'N/A' }}
 				</div>
 			</div>
-
-			<div class="col-12 col-sm-6">
-				<label class="">Data Término:</label>
-				<div class="form-control input-disabled">
-					{{ \Carbon\Carbon::parse($atividade->data_realizada)->translatedFormat('d \d\e F \d\e Y') }}
-				</div>
-			</div>
-
 		</div>
+
 	</div>
+</div>
+
 </div>
 
 <x-back-button/>
