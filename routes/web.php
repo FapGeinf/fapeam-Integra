@@ -152,3 +152,4 @@ Route::get('/respostas/index',[RiscoController::class,'indexRespostas'])->name('
 Route::get('/relatorios/eixos/{id}',[RelatorioController::class,'relatoriosPorEixo'])->name('relatorios.eixos');
 
 Route::get('/logs',[LogController::class, 'indexLogs'])->name('logs');
+Route::post('/logs/relatorios',[LogController::class, 'gerarRelatorioPorDia'])->name('relatorio');

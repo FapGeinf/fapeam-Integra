@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="{{ asset('css/dataTables.dataTables.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/index.css') }}">
 <link rel="stylesheet" href="{{ asset('css/atividades.css') }}">
+<script src="{{ asset('js/logs/logsTable.js') }}"></script>
 
 @section('title') {{ 'Lista de Logs' }} @endsection
 
@@ -32,14 +33,29 @@
     <div class="container-fluid p-30">
         <div class="col-12 border main-datatable">
             <div class="container-fluid">
-                <div class="row g-3 align-items-end">
+
+                <form action="{{ route('logs.relatorioPorDia') }}" method="POST" class="row g-3 align-items-end mb-4">
+                    @csrf
+                    <div class="col-md-4">
+                        <label for="created_at" class="form-label">Selecione uma data:</label>
+                        <input type="date" name="created_at" id="created_at" class="form-control" required>
+                        @error('created_at')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-primary">Gerar Relatório</button>
+                    </div>
+                </form>
+
+                <div class="row">
                     <div class="table-responsive">
                         <table id="logsTable" class="table cust-datatable mb-5">
                             <thead>
                                 <tr>
-                                    <th>Acao</th>
-                                    <th>Descricao</th>
-                                    <th>Usuario</th>
+                                    <th>Ação</th>
+                                    <th>Descrição</th>
+                                    <th>Usuário</th>
                                     <th>Data</th>
                                 </tr>
                             </thead>
@@ -49,25 +65,15 @@
                                         <td>{{ $log->acao }}</td>
                                         <td>{{ $log->descricao }}</td>
                                         <td>{{ $log->user->name }}</td>
-                                        <!-- Assuming you have a relationship to the User model -->
                                         <td>{{ $log->created_at->format('d/m/Y H:i') }}</td>
-                                        <!-- Assuming created_at is available -->
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
-    <script>
-        $(document).ready(function () {
-            $('#logsTable').DataTable({
-                "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/pt_br.json" // Adjust the language if necessary
-                }
-            });
-        });
-    </script>
 @endsection
