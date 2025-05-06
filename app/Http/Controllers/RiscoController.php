@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\NovaRespostaCriada;
 use App\Events\PrazoProximo;
+use App\Services\LogService;
 use Illuminate\Http\Request;
 use app\Http\Middleware\VerifyCsrfToken;
 use App\Mail\ResponseNotification;
@@ -30,6 +31,8 @@ use App\Models\Diretoria;
 
 class RiscoController extends Controller
 {
+
+    protected $log;
     public function index()
     {
         try {
@@ -88,6 +91,13 @@ class RiscoController extends Controller
 
                 $risco->monitoramentos_respondidos_count = $respondidos;
             }
+
+            $usuarioNome = Auth::user()->name;
+            $this->log->insertLog([
+                'acao' => 'Acesso',
+                'descricao' => "O usuario $usuarioNome acessou a tela de Riscos",
+                'user_id' => Auth::user()->id
+            ]);
 
             return view('riscos.index', [
                 'riscos' => $riscos,
@@ -237,13 +247,6 @@ class RiscoController extends Controller
         }
     }
 
-
-
-
-
-
-
-
     public function show($id)
     {
         try {
@@ -255,6 +258,12 @@ class RiscoController extends Controller
                     ]);
                 }
             }
+            $usuarioNome = Auth::user()->name;
+            $this->log->insertLog([
+                'acao' => 'Acesso',
+                'descricao' => "O usuario $usuarioNome acessou a o risco de $id",
+                'user_id' => Auth::user()->id
+            ]);
             return view('riscos.show', [
                 'risco' => $risco,
                 'monitoramentos' => $risco->monitoramentos
@@ -269,6 +278,12 @@ class RiscoController extends Controller
     public function create()
     {
         $unidades = Unidade::all();
+        $usuarioNome = Auth::user()->name;
+        $this->log->insertLog([
+            'acao' => 'Acesso',
+            'descricao' => "O usuario $usuarioNome acessou a tela de inserção de Riscos",
+            'user_id' => Auth::user()->id
+        ]);
         return view('riscos.store', ['unidades' => $unidades]);
     }
 
@@ -342,6 +357,13 @@ class RiscoController extends Controller
                 ]);
             }
 
+            $usuarioNome = Auth::user()->name;
+            $this->log->insertLog([
+                'acao' => 'Inserção',
+                'descricao' => "O usuario $usuarioNome inseriu um risco de id $risco->id",
+                'user_id' => Auth::user()->id
+            ]);
+
             return redirect()->route('riscos.index')->with('success', 'Risco criado com sucesso!');
         } catch (\Exception $e) {
             Log::error('Erro ao criar risco: ' . $e->getMessage());
@@ -354,6 +376,12 @@ class RiscoController extends Controller
     {
         $unidades = Unidade::all();
         $risco = Risco::findOrFail($id);
+        $usuarioNome = Auth::user()->name;
+        $this->log->insertLog([
+            'acao' => 'Acesso',
+            'descricao' => "O usuario $usuarioNome acessou a tela de edição do risco de $id",
+            'user_id' => Auth::user()->id
+        ]);
         return view('riscos.edit', ['risco' => $risco, 'unidades' => $unidades]);
     }
 
@@ -361,6 +389,13 @@ class RiscoController extends Controller
     {
         try {
             $risco = Risco::findOrFail($id);
+
+            $usuarioNome = Auth::user()->name;
+            $this->log->insertLog([
+                'acao' => 'Atualização',
+                'descricao' => "O usuario $usuarioNome atualizou o Risco de $id",
+                'user_id' => Auth::user()->id
+            ]);
 
             $risco->update($request->all());
 
@@ -380,11 +415,9 @@ class RiscoController extends Controller
     {
         $monitoramento = Monitoramento::findOrFail($id);
 
-
         Log::info('Editando monitoramento:', [
             'monitoramento' => $monitoramento->toArray(),
         ]);
-
         return view('riscos.editMonitoramento', [
             'monitoramento' => $monitoramento,
         ]);
@@ -425,6 +458,14 @@ class RiscoController extends Controller
                 ]);
             }
 
+
+            $usuarioNome = Auth::user()->name;
+            $this->log->insertLog([
+                'acao' => 'Inserção',
+                'descricao' => "O usuario $usuarioNome inseriu uma lista de monitoramentos",
+                'user_id' => Auth::user()->id
+            ]);
+
             return redirect()->route('riscos.show', ['id' => $risco->id])
                 ->with('success', 'Controles Sugeridos inseridos com sucesso');
         } catch (\Exception $e) {
@@ -464,6 +505,14 @@ class RiscoController extends Controller
 
             Log::info('Atualização de controle sugerido concluída com sucesso.');
 
+
+            $usuarioNome = Auth::user()->name;
+            $this->log->insertLog([
+                'acao' => 'Atualização',
+                'descricao' => "O usuario $usuarioNome atualizou um controle sugerido de $id",
+                'user_id' => Auth::user()->id
+            ]);
+
             return redirect()->route('riscos.show', ['id' => $monitoramento->riscoFK])
                 ->with('success', 'Controle Sugerido atualizado com sucesso!');
         } catch (\Illuminate\Validation\ValidationException $e) {
@@ -500,6 +549,14 @@ class RiscoController extends Controller
             return redirect()->back()->withErrors(['errors' => 'Houve um erro ao deletar o risco']);
         }
 
+
+        $usuarioNome = Auth::user()->name;
+        $this->log->insertLog([
+            'acao' => 'Exclusão',
+            'descricao' => "O usuario $usuarioNome deletou um risco de $id",
+            'user_id' => Auth::user()->id
+        ]);
+
         return redirect()->back()->with(['success' => 'Risco Deletado com sucesso']);
     }
 
@@ -513,6 +570,13 @@ class RiscoController extends Controller
             if (!$deleteMonitoramento) {
                 return redirect()->back()->withErrors(['errors' => 'Houve um erro ao deletar o controle sugerido']);
             }
+
+            $usuarioNome = Auth::user()->name;
+            $this->log->insertLog([
+                'acao' => 'Exclusão',
+                'descricao' => "O usuario $usuarioNome deletou um controle sugerido de $id",
+                'user_id' => Auth::user()->id
+            ]);
 
             return redirect()->back()->with(['success' => 'Controle Sugerido deletado com sucesso']);
         } catch (\Exception $e) {
@@ -596,7 +660,12 @@ class RiscoController extends Controller
                 Log::info('Notification created', ['notification_id' => $notification->id, 'user_id' => $user->id]);
             }
 
-
+            $usuarioNome = Auth::user()->name;
+            $this->log->insertLog([
+                'acao' => 'Acesso',
+                'descricao' => "O usuario $usuarioNome inseriu uma nova providência de id $resposta->id",
+                'user_id' => Auth::user()->id
+            ]);
 
             return redirect()->route('riscos.respostas', $id)->with('success', 'Respostas adicionadas com sucesso');
         } catch (Exception $e) {
@@ -646,6 +715,13 @@ class RiscoController extends Controller
 
             $resposta->save();
 
+            $usuarioNome = Auth::user()->name;
+            $this->log->insertLog([
+                'acao' => 'Atualização',
+                'descricao' => "O usuario $usuarioNome atualizou a resposta de $id",
+                'user_id' => Auth::user()->id
+            ]);
+
             return redirect()->route('riscos.respostas', ['id' => $resposta->respostaMonitoramentoFk])
                 ->with('success', 'Resposta atualizada com sucesso!');
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
@@ -676,6 +752,13 @@ class RiscoController extends Controller
                 Log::info('No anexo found for Resposta ID: ' . $id);
             }
 
+            $usuarioNome = Auth::user()->name;
+            $this->log->insertLog([
+                'acao' => 'Exclusão',
+                'descricao' => "O usuario $usuarioNome deletou o anexo da resposta $id",
+                'user_id' => Auth::user()->id
+            ]);
+
             return redirect()->back()->with('success', 'Anexo deletado com sucesso');
         } catch (Exception $e) {
 
@@ -698,15 +781,22 @@ class RiscoController extends Controller
                 $resposta->update(['homologacaoCompleta' => 1]);
             }
         }
-    
+
         $respostas = Resposta::where('respostaMonitoramentoFK', $monitoramento->id)->get();
-    
+
+        $usuarioNome = Auth::user()->name;
+        $this->log->insertLog([
+            'acao' => 'Acesso',
+            'descricao' => "O usuario $usuarioNome acessou a tela de Controle Sugerido com id $id",
+            'user_id' => Auth::user()->id
+        ]);
+
         return view('riscos.respostas', [
             'monitoramento' => $monitoramento,
             'respostas' => $respostas
         ]);
     }
-    
+
 
     public function homologar($id)
     {
@@ -747,6 +837,13 @@ class RiscoController extends Controller
 
             $resposta->save();
 
+            $usuarioNome = Auth::user()->name;
+            $this->log->insertLog([
+                'acao' => 'Homologação',
+                'descricao' => "O usuario $usuarioNome homologou a resposta de $id",
+                'user_id' => Auth::user()->id
+            ]);
+
             return redirect()->back()->with('success', $mensagem)->with('homologacao', $dataConcat);
 
         } catch (Exception $e) {
@@ -783,6 +880,13 @@ class RiscoController extends Controller
 
             event(new PrazoProximo($novoPrazo));
 
+            $usuarioNome = Auth::user()->name;
+            $this->log->insertLog([
+                'acao' => 'Inserção',
+                'descricao' => "O usuario $usuarioNome inseriu um novo prazo",
+                'user_id' => Auth::user()->id
+            ]);
+
             return redirect()->back()->with('success', 'Prazo Inserido com sucesso');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Um erro ocorreu: ' . $e->getMessage());
@@ -800,13 +904,20 @@ class RiscoController extends Controller
             ->with(['monitoramento.risco.unidade.diretoria', 'user'])
             ->get();
 
+        $usuarioNome = Auth::user()->name;
+        $this->log->insertLog([
+            'acao' => 'Acesso',
+            'descricao' => "O usuario $usuarioNome acessou a tela de providências da diretoria de $diretoriaId",
+            'user_id' => Auth::user()->id
+        ]);
         return view('respostas.index', compact('respostas', 'unidades'));
     }
 
 
-    public function __construct()
+    public function __construct(LogService $log)
     {
         $this->middleware('auth');
         // $this->middleware('checkAccess');
+        $this->log = $log;
     }
 }

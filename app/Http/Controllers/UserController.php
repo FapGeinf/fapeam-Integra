@@ -2,19 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\LogService;
 use Exception;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Auth;
 
 
 class UserController extends Controller
 {
+    protected $log;
     public function painel()
     {
         $users = User::all();
-
+        $usuarioNome = Auth::user()->name;
+        $this->log->insertLog([
+            'acao' => 'Acesso',
+            'descricao' => "O usuario $usuarioNome acessou a tela de usuários",
+            'user_id' => Auth::user()->id
+        ]);
         return view('users.painel', ['users' => $users]);
     }
 
@@ -28,28 +36,36 @@ class UserController extends Controller
                 'password' => 'required|string|confirmed|min:8',
                 'unidadeIdFK' => 'required|exists:unidades,id',
             ]);
-    
-            $cpf = preg_replace('/\D/', '', $request->cpf); 
-    
+
+            $cpf = preg_replace('/\D/', '', $request->cpf);
+
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
-                'cpf' => $cpf, 
+                'cpf' => $cpf,
                 'unidadeIdFK' => $request->unidadeIdFK,
                 'password' => Hash::make($request->password),
             ]);
-    
+
+            $usuarioNome = Auth::user()->name;
+            $this->log->insertLog([
+                'acao' => 'Inserção',
+                'descricao' => "O usuario $usuarioNome inseriu um novo usuario de $user->nome no sistema",
+                'user_id' => Auth::user()->id
+            ]);
+
             return redirect()->back()->with('success', 'Foi inserido um usuario com sucesso');
-            
+
         } catch (Exception $e) {
             return redirect()->back()->withErrors('Houve um erro inesperado ao inserir um novo usuario. Tente Novamente')->withInput();
         }
     }
-    
-		private function removeMask($cpf){
-			$cpf = preg_replace('/\D/','', $cpf);
-			return $cpf;
-		}
+
+    private function removeMask($cpf)
+    {
+        $cpf = preg_replace('/\D/', '', $cpf);
+        return $cpf;
+    }
 
     public function updateUser(Request $request, $id)
     {
@@ -104,6 +120,13 @@ class UserController extends Controller
 
         $user->update($data);
 
+        $usuarioNome = Auth::user()->name;
+        $this->log->insertLog([
+            'acao' => 'Atualização',
+            'descricao' => "O usuario $usuarioNome atualizou um usuario de nome $user->nome e id $user->id no sistema",
+            'user_id' => Auth::user()->id
+        ]);
+
 
         return redirect()->route('usuarios.index')->with('success', 'Usuário atualizado com sucesso');
     }
@@ -131,7 +154,7 @@ class UserController extends Controller
             'password' => Hash::make($request->new_password)
         ]);
         //return back()->with('status', 'Senha alterada com sucesso');
-				return redirect()->route('riscos.index')->with('status', 'Senha alterada com sucesso');
+        return redirect()->route('riscos.index')->with('status', 'Senha alterada com sucesso');
     }
 
 
@@ -141,6 +164,12 @@ class UserController extends Controller
         try {
             $user = User::findOrFail($id);
             $user->delete();
+            $usuarioNome = Auth::user()->name;
+            $this->log->insertLog([
+                'acao' => 'Exclusão',
+                'descricao' => "O usuario $usuarioNome deletou um usuario de nome $user->nome e id $user->id no sistema",
+                'user_id' => Auth::user()->id
+            ]);
 
             return redirect()->back()->with('success', 'User deleted successfully.');
         } catch (\Exception $e) {
@@ -148,8 +177,9 @@ class UserController extends Controller
         }
     }
 
-    public function __construct()
+    public function __construct(LogService $log)
     {
         $this->middleware('auth');
+        $this->log = $log;
     }
 }
