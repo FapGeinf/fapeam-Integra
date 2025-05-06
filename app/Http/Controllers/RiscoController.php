@@ -175,6 +175,13 @@ class RiscoController extends Controller
 
             $unidades = Unidade::all();
 
+            $usuarioNome = Auth::user()->name;
+            $this->log->insertLog([
+                'acao' => 'Acesso',
+                'descricao' => "O usuario $usuarioNome acessou a tela de Riscos",
+                'user_id' => Auth::user()->id
+            ]);
+
             return view('riscos.analise', [
                 'riscos' => $riscos,
                 'prazo' => $prazo ? $prazo->data : null,
