@@ -47,18 +47,17 @@
             <tr>
                 <th>Usuário</th>
                 <th>Ação</th>
-                <th>IP</th>
-                <th>Data</th>
                 <th>Detalhes</th>
+                <th>Data</th>
             </tr>
         </thead>
         <tbody>
             @forelse($logs as $log)
                 <tr>
-                    <td>{{ $log->user->name ?? 'Desconhecido') }}</td>
+                    <td>{{ $log->user->name ?? 'Desconhecido' }}</td>
                     <td>{{ $log->acao }}</td>
-                    <td>{{ \Carbon\Carbon::parse($log->created_at)->format('d/m/Y H:i') }}</td>
                     <td>{{ $log->descricao }}</td>
+                    <td>{{ \Carbon\Carbon::parse($log->created_at)->format('d/m/Y H:i') }}</td>  
                 </tr>
             @empty
                 <tr>

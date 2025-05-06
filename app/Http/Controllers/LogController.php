@@ -34,7 +34,7 @@ class LogController extends Controller
                         $dataSelecionada->copy()->endOfDay()
                   ])->orderBy('created_at', 'asc')->get();
 
-                  $pdf = Pdf::loadView('pdfs.relatorioLogs', compact('logs'));
+                  $pdf = Pdf::loadView('relatorios.relatorioLogs', compact('logs'));
 
                   $nomeArquivo = 'relatorio_logs_' . $dataSelecionada->format('d_m_Y') . '.pdf';
 

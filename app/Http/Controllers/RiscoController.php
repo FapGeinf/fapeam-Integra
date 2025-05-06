@@ -350,7 +350,7 @@ class RiscoController extends Controller
                 $isContinuo = filter_var($monitoramentoData['isContinuo'], FILTER_VALIDATE_BOOLEAN);
 
                 if (!$isContinuo && isset($monitoramentoData['fimMonitoramento']) && $monitoramentoData['fimMonitoramento'] <= $monitoramentoData['inicioMonitoramento']) {
-                    throw new \Exception('Fim do monitoramento não pode ser anterior ao início do monitoramento.');
+                    throw new Exception('Fim do monitoramento não pode ser anterior ao início do monitoramento.');
                 }
 
 

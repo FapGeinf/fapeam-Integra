@@ -34,7 +34,7 @@
         <div class="col-12 border main-datatable">
             <div class="container-fluid">
 
-                <form action="{{ route('logs.relatorioPorDia') }}" method="POST" class="row g-3 align-items-end mb-4">
+                <form action="{{ route('relatorio') }}" method="POST" class="row g-3 align-items-end mb-4">
                     @csrf
                     <div class="col-md-4">
                         <label for="created_at" class="form-label">Selecione uma data:</label>
@@ -64,7 +64,7 @@
                                     <tr>
                                         <td>{{ $log->acao }}</td>
                                         <td>{{ $log->descricao }}</td>
-                                        <td>{{ $log->user->name }}</td>
+                                        <td>{{ $log->user->name ?? '-'}}</td>
                                         <td>{{ $log->created_at->format('d/m/Y H:i') }}</td>
                                     </tr>
                                 @endforeach
