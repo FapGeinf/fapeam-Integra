@@ -151,5 +151,5 @@ Route::get('/eixo/{eixo_id}', [EixosController::class, 'mostrarEixo'])->name('ei
 Route::get('/respostas/index',[RiscoController::class,'indexRespostas'])->name('respostas.index');
 Route::get('/relatorios/eixos/{id}',[RelatorioController::class,'relatoriosPorEixo'])->name('relatorios.eixos');
 
-Route::get('/logs',[LogController::class, 'indexLogs'])->name('logs');
-Route::post('/logs/relatorios',[LogController::class, 'gerarRelatorioPorDia'])->name('relatorio');
+Route::get('/logs',[LogController::class, 'indexLogs'])->name('logs')->middleware(['auth',isAdmin::class]);
+Route::post('/logs/relatorios',[LogController::class, 'gerarRelatorioPorDia'])->name('relatorio')->middleware(['auth',isAdmin::class]);
