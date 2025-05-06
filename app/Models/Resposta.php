@@ -10,7 +10,7 @@ class Resposta extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['respostaRisco', 'respostaMonitoramentoFk', 'user_id', 'anexo', 'homologadoDiretoria','homologadaDiretoria','homologadaCompleta'];
+    protected $fillable = ['respostaRisco', 'respostaMonitoramentoFk', 'user_id','anexo','homologadoDiretoria','homologadaPresidencia'];
 
     public function user()
     {

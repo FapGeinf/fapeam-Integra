@@ -25,7 +25,7 @@
 @section('content')
     <div class="error-message pt-5">
         @if ($errors->any())
-            <div class="alert alert-danger">
+            <div class="alert alert-danger text-center auto-dismiss">
                 <ul style="list-style-type:none;">
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -50,13 +50,13 @@
                 @csrf
 
                 <div class="row g-3">
-                    <div class="col-sm-4 col-md-3">
+                    <div class="col-12 col-sm-4 col-md-3">
                         <label for="riscoAno">Insira o Ano:<span class="asterisco">*</span></label>
                         <input type="text" id="riscoAno" name="riscoAno" class="form-control dataValue" placeholder="0000"
                             minlength="4" maxlength="4" required value="{{ old('riscoAno') }}">
                     </div>
 
-                    <div class="col-sm-4 col-md-9 selectUnidade">
+                    <div class="col-12 col-sm-4 col-md-9 selectUnidade">
                         <label for="unidadeId">Unidade:<span class="asterisco">*</span></label>
                         <select name="unidadeId" id="unidadeId" class="form-control form-select" required>
                             <option disabled {{ old('unidadeId') ? '' : 'selected' }}>Escolha uma unidade</option>

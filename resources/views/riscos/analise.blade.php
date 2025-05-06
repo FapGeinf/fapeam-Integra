@@ -11,6 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
+    <script src="{{ asset('js/auto-dismiss.js') }}"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.2.3/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
 
@@ -50,7 +51,7 @@
     <div class="container-fluid p-30">
 
         @if (session('success'))
-            <div class="alert alert-success text-center">
+            <div class="alert alert-success">
                 {{ session('success') }}
             </div>
         @endif
@@ -345,7 +346,7 @@
             <div class="container-fluid">
                 <table id="tableHome" class="table cust-datatable">
                     <thead>
-                        <tr>
+                        <tr class="text13">
                             <th>N°</th>
                             <th>Responsável</th>
                             <th style="white-space:nowrap; width: 100px;">Unidade</th>
@@ -358,7 +359,7 @@
 
                     <tbody>
                         @foreach ($riscos as $risco)
-                            <tr>
+                            <tr style="cursor: pointer;">
                                 <td style="white-space:nowrap;">{{ $risco->id }}</td>
                                 <td style="white-space: nowrap;">{!! $risco->responsavelRisco !!}</td>
                                 <td style="word-wrap:break-word;">{!! $risco->unidade->unidadeSigla !!}</td>

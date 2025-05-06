@@ -43,7 +43,7 @@
 
           @error('cpf')
           <span class="invalid-feedback" role="alert">
-            <span class="">Usuário não encontrado</span>
+            <span class="fw-bold">Usuário não encontrado</span>
           </span>
           @enderror
         </div>
@@ -54,7 +54,7 @@
 
           @error('password')
           <span class="invalid-feedback" role="alert">
-            <strong>Senha incorreta</strong>
+            <span class="fw-bold">Senha incorreta</span>
           </span>
           @enderror
         </div>

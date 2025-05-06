@@ -3,6 +3,15 @@
 <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 <script src="{{ asset('js/riscos/editNivelRisco.js') }}"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+    .mt-1px {
+        margin-top: 4px !important;
+    }
+
+    .li-navbar2 {
+        margin-top: 5px !important;
+    }
+</style>
 @section('content')
     @section('title')
         {{ 'Editar Formulário' }}
@@ -12,23 +21,16 @@
             alert('{{ session(' error ') }}');
         </script>
     @endif
+</div>
 
-    <div class="error-message alertShow pt-4">
-        @if ($errors->any())
-            <div class="alert alert-danger d-flex justify-content-center">
-                @foreach ($errors->all() as $error)
-                    <span class="text-center">Houve um erro ao editar esse risco</span>
-                @endforeach
-            </div>
-        @endif
-    </div>
+<div class="form-wrapper pt-4">
+    <div class="form_create border">
+        <h3 class="text-center mb-5">Editar Formulário de Risco</h3>
 
-    <div class="form-wrapper pt-4">
-        <div class="form_create border">
-            <h3 style="text-align: center; margin-bottom: 20px;">
-                Editar Formulário de Risco
-            </h3>
-            <hr>
+        <form action="{{ route('riscos.update', ['id' => $risco->id]) }}" method="post" id="formCreate">
+            @csrf
+            @method('PUT')
+            <input type="hidden" name="risco_id" value="{{ $risco->id }}">
 
             <form action="{{ route('riscos.update', ['id' => $risco->id]) }}" method="post" id="formCreate">
                 @csrf
@@ -49,6 +51,13 @@
                     </div>
                 </div>
 
+                <div class="col-12 col-sm-8 col-md-8 mQuery">
+                    <label for="name">Responsável do Risco:</label>
+                    <input type="text" id="responsavelRisco" name="responsavelRisco" class="form-control input-enabled dataValue" value="{{ $risco->responsavelRisco ?? old('responsavelRisco') }}" maxlength="100">
+                </div>
+            </div>
+
+            <div class="col-12 mb-4">
                 <label id="first" for="riscoEvento">Evento:</label>
                 <textarea name="riscoEvento" class="textInput"
                     required>{{ $risco->riscoEvento ?? old('riscoEvento') }}</textarea>
@@ -112,6 +121,11 @@
                         Edição</button>
                 </div>
 
+                <div class="col-12 col-sm-4 col-md-4">
+                    <label for="nivel_de_risco">Nível de Risco (automático):</label>
+                    <div id="riscoVisual" class="form-control input-disabled" style="height: 38px; font-weight: bold;">
+                        <span id="riscoLabel">-</span>
+                    </div>
 
                 <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel"
                     aria-hidden="true">
@@ -130,6 +144,11 @@
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                 <button type="button" onclick="submitForm()" class="btn btn-primary">Salvar</button>
                             </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" onclick="submitForm()" class="btn btn-primary">Salvar</button>
                         </div>
                     </div>
                 </div>

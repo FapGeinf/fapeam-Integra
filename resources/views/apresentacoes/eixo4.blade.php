@@ -78,7 +78,7 @@
     @endif
     
     @if(auth()->user()->unidade->unidadeTipoFK == 1 || auth()->user()->unidade->unidadeTipoFK == 3 || auth()->user()->unidade->unidadeTipoFK == 4)
-    <button class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">Relatório</button>
+    <a href="{{ route('relatorios.eixos', ['id' => 4]) }}" class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">Relatório</a>
     @endif
     <a href="{{ route('riscos.index') }}">
       <button class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">

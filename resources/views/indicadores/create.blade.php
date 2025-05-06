@@ -5,6 +5,7 @@
 @section('content')
 
 <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
+<link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
 
 <style>
 	.form-label {
@@ -19,8 +20,9 @@
 		display: flex;
 		justify-content: center; /* Centraliza horizontalmente */
 		align-items: center; /* Centraliza verticalmente */
-		min-height: 60vh; /* Altura mínima total da viewport */
+		/* min-height: 60vh;  Altura mínima total da viewport */
 		padding: 0 10px; /* Adiciona espaçamento à esquerda e à direita */
+		padding-top: 2rem;
 	}
 </style>
 
@@ -59,8 +61,10 @@
 				</div>
 			</div>
 
+			<hr>
+
 			<div class="d-flex justify-content-end mt-3">
-				<button type="submit" class="blue-btn me-0">Salvar</button>
+				<button type="submit" class="highlighted-btn-sm highlight-success me-0">Salvar Indicador</button>
 			</div>
 		</form>
 	</div>
