@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Jobs\DeleteOldLogs;
 
 class DocumentoController extends Controller
 {
@@ -29,6 +30,7 @@ class DocumentoController extends Controller
 
 	public function intro()
 	{
+		   DeleteOldLogs::dispatch();
 		   return view('links_login.intro');
 	}
 
