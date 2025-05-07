@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Services;
 
 use App\Models\Atividade;
@@ -21,6 +20,7 @@ class AtividadeService
     public function indexAtividades($eixo_id)
     {
         $eixoNome = null;
+        $atividades = collect(); 
     
         if ($eixo_id && in_array($eixo_id, [1, 2, 3, 4, 5, 6, 7])) {
             $eixo = Eixo::find($eixo_id);
@@ -31,8 +31,6 @@ class AtividadeService
             })->with(['publico', 'canais', 'medida'])->orderBy('data_prevista', 'asc')->get();
         } elseif ($eixo_id == 8) {
             $atividades = Atividade::with(['publico', 'canais', 'medida'])->orderBy('data_prevista', 'asc')->get();
-        } else {
-            $atividades = collect(); 
         }
     
         $publicos = Publico::all();
@@ -47,6 +45,29 @@ class AtividadeService
         ];
     }
     
+
+    public function show($id)
+    {
+        return Atividade::findOrFail($id);
+    }
+
+    public function createFormAtividade()
+    {
+        $eixos = Eixo::all();
+        $publicos = Publico::all();
+        $canais = Canal::all();
+        $medidas = MedidaTipo::all();
+        $indicadores = Indicador::all();
+
+        return [
+            'eixos' => $eixos,
+            'publicos' => $publicos,
+            "canais" => $canais,
+            'medidas' => $medidas,
+            'indicadores' => $indicadores
+        ];
+    }
+
     public function store(array $data)
     {
         try {
