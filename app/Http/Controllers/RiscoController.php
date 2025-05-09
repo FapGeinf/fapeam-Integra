@@ -1,11 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Events\NovaRespostaCriada;
 use App\Events\PrazoProximo;
 use App\Services\LogService;
 use App\Services\MonitoramentoService;
+use App\Services\RespostaService;
 use Illuminate\Http\Request;
 use app\Http\Middleware\VerifyCsrfToken;
 use App\Mail\ResponseNotification;
@@ -16,21 +15,16 @@ use App\Models\Notification;
 use App\Models\Resposta;
 use App\Models\Prazo;
 use App\Models\User;
-use Carbon\Carbon;
 use Exception;
-use FFI\Exception as FFIException;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Storage;
-use App\Models\Diretoria;
 use App\Services\RiscoService;
 
 class RiscoController extends Controller
 {
 
-    protected $log, $risco, $monitoramento;
+    protected $log, $risco, $monitoramento, $resposta;
 
     public function index()
     {
@@ -206,7 +200,7 @@ class RiscoController extends Controller
             ]);
 
             $result = $this->monitoramento->insertMonitoramentos($validatedData, $id);
-        
+
             $usuarioNome = Auth::user()->name;
             $this->log->insertLog([
                 'acao' => 'Inserção',
@@ -226,7 +220,7 @@ class RiscoController extends Controller
         }
     }
 
-        public function atualizaMonitoramento(Request $request, $id)
+    public function atualizaMonitoramento(Request $request, $id)
     {
         try {
             $validatedData = $request->validate([
@@ -295,77 +289,24 @@ class RiscoController extends Controller
 
     public function storeResposta(Request $request, $id)
     {
-        $monitoramento = Monitoramento::findOrFail($id);
-        $risco = Risco::findOrFail($monitoramento->riscoFK);
-
         try {
-            Log::info('Storing resposta for monitoramento', ['monitoramento_id' => $monitoramento->id]);
-
-            $request->validate([
+            Log::info('Storing resposta for monitoramento', ['monitoramento_id' => $id]);
+            $validatedData = $request->validate([
                 'respostaRisco' => 'required|string|max:5000',
                 'anexo' => 'nullable|file|mimes:jpg,png,pdf|max:102400'
             ]);
-
-            $filePath = null;
-            if ($request->hasFile('anexo')) {
-                $filePath = $request->file('anexo')->store('anexos', 'public');
-                Log::info('File uploaded', ['file_path' => $filePath]);
-            } else {
-                Log::info('No file uploaded');
-            }
-
-            $resposta = Resposta::create([
-                'respostaRisco' => $request->respostaRisco,
-                'respostaMonitoramentoFk' => $monitoramento->id,
-                'user_id' => auth()->id(),
-                'anexo' => $filePath
-            ]);
-
-            $monitoramento->update([
-                'statusMonitoramento' => $request->input('statusMonitoramento')
-            ]);
-
-            Log::info('Updated statusMonitoramento', [
-                'monitoramento_id' => $monitoramento->id,
-                'new_status' => $monitoramento->statusMonitoramento
-            ]);
-
-            Log::info('Resposta created', ['resposta_id' => $resposta->id]);
-
-
-            $allUsers = User::all();
-
-            Log::info('Attaching notification to users', ['user_count' => $allUsers->count()]);
-
-            foreach ($allUsers as $user) {
-                $formattedDateTime = Carbon::parse($resposta->created_at)->format('d/m/Y \à\s H:i');
-                $message = '<div><span>Nova mensagem!</span><br><br><div><span>Usuário: </span>' . htmlspecialchars($user->name) . '</div>' .
-                    '<div><span>Unidade: </span>' . ($user->unidade ? htmlspecialchars($user->unidade->unidadeNome) : 'Desconhecida') . '</div>' .
-                    '<div><span>Data do envio: </span>' . htmlspecialchars($formattedDateTime) . '</div><br>' .
-                    '</div>';
-
-                $notification = Notification::create([
-                    'message' => $message,
-                    'global' => false,
-                    'monitoramentoId' => $monitoramento->id,
-                    'user_id' => $user->id
-                ]);
-
-                Log::info('Notification created', ['notification_id' => $notification->id, 'user_id' => $user->id]);
-            }
-
+            $resposta = $this->resposta->insertRespostas($id, $validatedData);
             $usuarioNome = Auth::user()->name;
             $this->log->insertLog([
                 'acao' => 'Acesso',
                 'descricao' => "O usuario $usuarioNome inseriu uma nova providência de id $resposta->id",
                 'user_id' => Auth::user()->id
             ]);
-
             return redirect()->route('riscos.respostas', $id)->with('success', 'Respostas adicionadas com sucesso');
         } catch (Exception $e) {
             Log::error('Error storing resposta', [
                 'error' => $e->getMessage(),
-                'monitoramento_id' => $monitoramento->id
+                'monitoramento_id' => $id
             ]);
             return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
         }
@@ -373,37 +314,14 @@ class RiscoController extends Controller
 
     public function updateResposta(Request $request, $id)
     {
-
-        $request->validate([
-            'respostaRisco' => 'required|string|max:5000',
-            'anexo' => 'nullable|file|mimes:jpg,png,pdf|max:102400',
-        ]);
-
         try {
 
-            $resposta = Resposta::findOrFail($id);
-            $monitoramento = Monitoramento::findOrFail($resposta->respostaMonitoramentoFk);
+            $validatedData = $request->validate([
+                'respostaRisco' => 'required|string|max:5000',
+                'anexo' => 'nullable|file|mimes:jpg,png,pdf|max:102400',
+            ]);
 
-
-            $resposta->respostaRisco = $request->input('respostaRisco');
-
-
-            if ($request->hasFile('anexo')) {
-                if ($resposta->anexo) {
-                    Storage::disk('public')->delete($resposta->anexo);
-                }
-
-                $resposta->anexo = $request->file('anexo')->store('anexos', 'public');
-            }
-
-
-            if ($monitoramento && $request->filled('statusMonitoramento')) {
-                $monitoramento->update([
-                    'statusMonitoramento' => $request->input('statusMonitoramento')
-                ]);
-            }
-
-            $resposta->save();
+            $resposta = $this->resposta->updateResposta($id, $validatedData);
 
             $usuarioNome = Auth::user()->name;
             $this->log->insertLog([
@@ -416,7 +334,7 @@ class RiscoController extends Controller
                 ->with('success', 'Resposta atualizada com sucesso!');
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return redirect()->back()->withErrors(['error' => 'Resposta não encontrada.']);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::error('Erro ao atualizar a resposta: ' . $e->getMessage());
             return redirect()->back()->withErrors(['error' => 'Ocorreu um erro ao atualizar a resposta. Por favor, tente novamente.']);
         }
@@ -425,23 +343,7 @@ class RiscoController extends Controller
     public function deleteAnexo(Request $request, $id)
     {
         try {
-            Log::info('Attempting to delete anexo for Resposta with ID: ' . $id);
-
-            $resposta = Resposta::findOrFail($id);
-
-            if ($resposta->anexo) {
-                Log::info('Anexo found: ' . $resposta->anexo . ' for Resposta ID: ' . $id);
-
-                Storage::disk('public')->delete($resposta->anexo);
-
-                $resposta->anexo = null;
-                $resposta->save();
-
-                Log::info('Anexo deleted and Resposta updated for ID: ' . $id);
-            } else {
-                Log::info('No anexo found for Resposta ID: ' . $id);
-            }
-
+            $this->resposta->destroyAnexo($id);
             $usuarioNome = Auth::user()->name;
             $this->log->insertLog([
                 'acao' => 'Exclusão',
@@ -458,74 +360,22 @@ class RiscoController extends Controller
         }
     }
 
-
     public function respostas($id)
     {
-        $monitoramento = Monitoramento::with('respostas')->findOrFail($id);
-        $homologacaoCompleta = $monitoramento->respostas->every(function ($resposta) {
-            return $resposta->homologadaPresidencia && $resposta->homologadoDiretoria;
-        });
-
-        if ($homologacaoCompleta) {
-            foreach ($monitoramento->respostas as $resposta) {
-                $resposta->update(['homologacaoCompleta' => 1]);
-            }
-        }
-
-        $respostas = Resposta::where('respostaMonitoramentoFK', $monitoramento->id)->get();
-
+        $dados = $this->resposta->showRespostas($id);
         $usuarioNome = Auth::user()->name;
         $this->log->insertLog([
             'acao' => 'Acesso',
             'descricao' => "O usuario $usuarioNome acessou a tela de Controle Sugerido com id $id",
             'user_id' => Auth::user()->id
         ]);
-
-        return view('riscos.respostas', [
-            'monitoramento' => $monitoramento,
-            'respostas' => $respostas
-        ]);
+        return view('riscos.respostas', $dados);
     }
-
 
     public function homologar($id)
     {
         try {
-            $resposta = Resposta::findOrFail($id);
-            $user = Auth::user();
-            $nome = $user->name;
-            $cpf = $user->cpf;
-            $cpfMascarado = substr($cpf, 0, 3) . '.***.***-' . substr($cpf, -2); // Mascarando o CPF
-
-            $dataHora = now()->format('d-m-Y H:i:s');
-            $dataConcat = "Homologado em {$dataHora} pelo usuário de {$nome}, id {$user->id} e cpf {$cpfMascarado}";
-
-            $mensagem = '';
-            if ($user->usuario_tipo_fk == 2) {
-                if ($resposta->homologadoDiretoria === null) {
-                    $resposta->homologadoDiretoria = $dataConcat;
-                    $mensagem = 'Resposta homologada com sucesso pela diretoria!';
-                } else {
-                    return redirect()->back()->with('error', 'A providência já está homologada pela diretoria.');
-                }
-
-            } elseif ($user->usuario_tipo_fk == 1) {
-                if ($resposta->homologadaPresidencia === null) {
-                    $resposta->homologadaPresidencia = $dataConcat;
-                    $mensagem = 'Resposta homologada com sucesso pela presidência!';
-                } else {
-                    return redirect()->back()->with('error', 'A providência já está homologada pela presidência.');
-                }
-
-            } else {
-                return redirect()->back()->with('error', 'Você não tem permissão para homologar.');
-            }
-
-            if (!empty($resposta->homologadoDiretoria) && !empty($resposta->homologadaPresidencia)) {
-                $resposta->homologacaoCompleta = true;
-            }
-
-            $resposta->save();
+            $homologacao = $this->resposta->homologacaoResposta($id);
 
             $usuarioNome = Auth::user()->name;
             $this->log->insertLog([
@@ -534,8 +384,9 @@ class RiscoController extends Controller
                 'user_id' => Auth::user()->id
             ]);
 
-            return redirect()->back()->with('success', $mensagem)->with('homologacao', $dataConcat);
-
+            return redirect()->back()
+                ->with('success', $homologacao['mensagem'])
+                ->with('homologacao', $homologacao['dataConcat']);
         } catch (Exception $e) {
             Log::error('Erro ao homologar resposta: ' . $e->getMessage(), [
                 'id' => $id,
@@ -544,8 +395,6 @@ class RiscoController extends Controller
             return redirect()->back()->with('error', 'Ocorreu um erro ao tentar homologar a resposta. Tente novamente.');
         }
     }
-
-
 
     public function insertPrazo(Request $request)
     {
@@ -578,38 +427,35 @@ class RiscoController extends Controller
             ]);
 
             return redirect()->back()->with('success', 'Prazo Inserido com sucesso');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return redirect()->back()->with('error', 'Um erro ocorreu: ' . $e->getMessage());
         }
     }
 
     public function indexRespostas()
     {
-        $user = Auth::user();
-        $diretoriaId = $user->unidade->unidadeDiretoria;
-        $unidades = Unidade::where('unidadeDiretoria', $diretoriaId)->get();
-        $respostas = Resposta::whereHas('monitoramento.risco.unidade', function ($query) use ($diretoriaId) {
-            $query->where('unidadeDiretoria', $diretoriaId);
-        })
-            ->with(['monitoramento.risco.unidade.diretoria', 'user'])
-            ->get();
+        $dados = $this->resposta->indexRespostas();
+        $diretoriaId = $dados['diretoriaId'];
 
         $usuarioNome = Auth::user()->name;
+
         $this->log->insertLog([
             'acao' => 'Acesso',
-            'descricao' => "O usuario $usuarioNome acessou a tela de providências da diretoria de $diretoriaId",
+            'descricao' => "O usuário $usuarioNome acessou a tela de providências da diretoria de ID {$diretoriaId}",
             'user_id' => Auth::user()->id
         ]);
-        return view('respostas.index', compact('respostas', 'unidades'));
+
+        return view('respostas.index',$dados);
     }
 
 
-    public function __construct(LogService $log, RiscoService $risco, MonitoramentoService $monitoramento)
+    public function __construct(LogService $log, RiscoService $risco, MonitoramentoService $monitoramento, RespostaService $resposta)
     {
         $this->middleware('auth');
         // $this->middleware('checkAccess');
         $this->log = $log;
         $this->risco = $risco;
         $this->monitoramento = $monitoramento;
+        $this->resposta = $resposta;
     }
 }

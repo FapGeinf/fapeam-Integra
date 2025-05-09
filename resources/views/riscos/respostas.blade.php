@@ -116,8 +116,8 @@
 
                                 <span style="color: #949494; margin-left: 4px; margin-right: 4px;">|</span>
                             
-                                <button type="button" class="highlighted-btn highlight-danger me-1" data-bs-toggle="modal" data-bs-target="#deleteAnexoModal" onclick="setDeleteAnexo({{ $resposta->id }})">
-                                    <i class="bi bi-trash me-1"></i>Excluir Anexo
+                               <button type="button" class="highlighted-btn highlight-danger" data-bs-toggle="modal" data-bs-target="#deleteAnexoModal{{ $resposta->id }}">
+                                        <i class="bi bi-trash me-1"></i>Excluir Anexo
                                 </button>
                             
                                 @if (Auth::user()->usuario_tipo_fk == 2)
@@ -222,11 +222,11 @@
                                 </div>
 
                                 <span style="color: #949494;">|</span>
-                            
-                                <!-- Botões importantes destacados -->
-                                <button type="button" class="highlighted-btn highlight-danger" data-bs-toggle="modal" data-bs-target="#deleteAnexoModal" onclick="setDeleteAnexo({{ $resposta->id }})">
-                                    <i class="bi bi-trash me-1"></i>Excluir Anexo
+                                                            
+                                <button type="button" class="highlighted-btn highlight-danger" data-bs-toggle="modal" data-bs-target="#deleteAnexoModal{{ $resposta->id }}">
+                                        <i class="bi bi-trash me-1"></i>Excluir Anexo
                                 </button>
+
                             
                                 @if (Auth::user()->usuario_tipo_fk == 2)
                                     <button type="button" class="highlighted-btn highlight-success" data-bs-toggle="modal" data-bs-target="#homologacaoModal{{ $resposta->id }}">
@@ -261,21 +261,19 @@
                         $lastSetor = $currentSetor;
                     @endphp
 
-                    <div class="modal fade" id="deleteAnexoModal" tabindex="-1" aria-labelledby="deleteAnexoModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="deleteAnexoModal{{ $resposta->id }}" tabindex="-1" aria-labelledby="deleteAnexoModalLabel{{ $resposta->id }}" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteAnexoModalLabel">Confirmar Exclusão do Anexo</h5>
+                                    <h5 class="modal-title" id="deleteAnexoModalLabel{{ $resposta->id }}">Confirmar Exclusão do Anexo</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-
                                 <div class="modal-body">
                                     <p>Tem certeza que deseja excluir o anexo?</p>
                                 </div>
-
                                 <div class="modal-footer">
                                     <button type="button" class="footer-btn footer-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                    <form action="{{ route('riscos.deleteAnexo', $resposta->id) }}" method="POST">
+                                    <form method="POST" action="{{ route('riscos.deleteAnexo', $resposta->id) }}">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="footer-btn footer-danger">Excluir Anexo</button>
