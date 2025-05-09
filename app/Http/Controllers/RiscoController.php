@@ -24,182 +24,43 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Diretoria;
-
-
-
-
+use App\Services\RiscoService;
 
 class RiscoController extends Controller
 {
 
-    protected $log;
+    protected $log, $risco;
     public function index()
     {
         try {
-            $user = auth()->user();
-
-            $prazo = Prazo::latest()->first();
-
-            $tipoAcesso = $user->unidade->unidadeTipoFK;
-            $unidadeDiretoria = $user->unidade->unidadeDiretoria;
-
-            switch ($tipoAcesso) {
-                case 1:
-                case 3:
-                    $riscos = Risco::with('monitoramentos.respostas')->get();
-                    break;
-                case 4:
-                    if ($user->usuario_tipo_fk == 1) {
-                        $riscos = Risco::with('monitoramentos.respostas')->get();
-                    } else {
-                        $riscos = Risco::where('unidadeId', $user->unidade->id)->with('monitoramentos.respostas')->get();
-                    }
-                    break;
-                case 5:
-                    if ($user->usuario_tipo_fk == 2) {
-                        $riscos = Risco::whereHas('unidade', function ($query) use ($unidadeDiretoria) {
-                            $query->where('unidadeDiretoria', $unidadeDiretoria);
-                        })->with('monitoramentos.respostas')->get();
-                    } else {
-                        $riscos = Risco::where('unidadeId', $user->unidade->id)->with('monitoramentos.respostas')->get();
-                    }
-                    break;
-                default:
-                    $riscos = Risco::where('unidadeId', $user->unidade->id)->with('monitoramentos.respostas')->get();
-                    break;
-            }
-
-            $riscosAbertos = $riscos->count();
-
-            $riscosAbertosHoje = Risco::whereDate('created_at', \Carbon\Carbon::today())->count();
-
-            $notificacoes = $this->filtraNotificacoes();
-
-            $notificacoesNaoLidas = $notificacoes->whereNull('read_at');
-            $notificacoesLidas = $notificacoes->whereNotNull('read_at');
-
-            $unidades = Unidade::all();
-
-            foreach ($riscos as $risco) {
-                $respondidos = 0;
-
-                foreach ($risco->monitoramentos as $monitoramento) {
-                    if ($monitoramento->respostas->isNotEmpty()) {
-                        $respondidos++;
-                    }
-                }
-
-                $risco->monitoramentos_respondidos_count = $respondidos;
-            }
-
+            $dados = $this->risco->indexRiscos();
             $usuarioNome = Auth::user()->name;
             $this->log->insertLog([
                 'acao' => 'Acesso',
                 'descricao' => "O usuario $usuarioNome acessou a tela de Riscos",
                 'user_id' => Auth::user()->id
             ]);
-
-            return view('riscos.index', [
-                'riscos' => $riscos,
-                'prazo' => $prazo ? $prazo->data : null,
-                'riscosAbertos' => $riscosAbertos,
-                'riscosAbertosHoje' => $riscosAbertosHoje,
-                'notificacoes' => $notificacoes,
-                'notificacoesNaoLidas' => $notificacoesNaoLidas,
-                'notificacoesLidas' => $notificacoesLidas,
-                'unidades' => $unidades
-            ]);
-        } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao carregar os riscos. Por favor, tente novamente.']);
+            return view('riscos.index', $dados);
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Ocorreu um erro ao carregar os riscos. Por favor, tente novamente.']);
         }
     }
-
-
     public function analise()
     {
 
         try {
-            $user = auth()->user();
-            $prazo = Prazo::latest()->first();
-            $user = auth()->user();
-            $tipoAcesso = $user->unidade->unidadeTipoFK;
-            $unidadeDiretoria = $user->unidade->unidadeDiretoria;
-
-            // switch ($tipoAcesso) {
-            //     case 1:
-            //     case 3:
-            //     case 4:
-            //         $riscos = Risco::all();
-            //         break;
-            //     case 5:
-            //         $riscos = Risco::whereHas('unidade', function ($query) use ($unidadeDiretoria) {
-            //             $query->where('unidadeDiretoria', $unidadeDiretoria);
-            //         })->get();
-            //         break;
-            //     default:
-            //         $riscos = Risco::where('unidadeId', $user->unidade->id)->get();
-            //         break;
-            // }
-
-            switch ($tipoAcesso) {
-                case 1:
-                case 3:
-                    $riscos = Risco::all();
-                    break;
-                case 4:
-                    if ($user->usuario_tipo_fk == 1) {
-                        $riscos = Risco::all();
-                    } else {
-                        $riscos = Risco::where('unidadeId', $user->unidade->id)->get();
-                    }
-                    break;
-                case 5:
-                    if ($user->usuario_tipo_fk == 2) {
-                        $riscos = Risco::whereHas('unidade', function ($query) use ($unidadeDiretoria) {
-                            $query->where('unidadeDiretoria', $unidadeDiretoria);
-                        })->get();
-                    } else {
-                        $riscos = Risco::where('unidadeId', $user->unidade->id)->get();
-                    }
-                    break;
-                default:
-                    $riscos = Risco::where('unidadeId', $user->unidade->id)->get();
-                    break;
-            }
-
-            $riscosAbertos = $riscos->count();
-            $riscosAbertosHoje = Risco::whereDate('created_at', \Carbon\Carbon::today())->count();
-            $notificacoes = $this->filtraNotificacoes();
-            $notificacoesNaoLidas = $notificacoes->whereNull('read_at');
-            $notificacoesLidas = $notificacoes->whereNotNull('read_at');
-
-            $unidades = Unidade::all();
-
+            $dados = $this->risco->indexAnalise();
             $usuarioNome = Auth::user()->name;
             $this->log->insertLog([
                 'acao' => 'Acesso',
                 'descricao' => "O usuario $usuarioNome acessou a tela de Riscos",
                 'user_id' => Auth::user()->id
             ]);
-
-            return view('riscos.analise', [
-                'riscos' => $riscos,
-                'prazo' => $prazo ? $prazo->data : null,
-                'riscosAbertos' => $riscosAbertos,
-                'riscosAbertosHoje' => $riscosAbertosHoje,
-                'notificacoes' => $notificacoes,
-                'notificacoesNaoLidas' => $notificacoesNaoLidas,
-                'notificacoesLidas' => $notificacoesLidas,
-                'unidades' => $unidades
-            ]);
-
-        } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao carregar os riscos. Por favor, tente novamente.']);
+            return view('riscos.analise', $dados);
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Ocorreu um erro ao carregar os riscos. Por favor, tente novamente.']);
         }
     }
-
-
-
     public function markAsRead(Request $request)
     {
         $notificationIds = $request->input('notification_ids');
@@ -211,89 +72,32 @@ class RiscoController extends Controller
 
         return redirect()->route('riscos.index')->with('error', 'Erro ao marcar notificações como lidas.');
     }
-
-
-
-    private function filtraNotificacoes()
-    {
-        try {
-            $user = auth()->user();
-
-            if (!$user->unidade || !$user->unidade->unidadeTipo) {
-                Log::info('Usuário não possui uma unidade ou tipo de unidade associada', ['user_id' => $user->id]);
-                return collect();
-            }
-
-            $unidadeTipo = $user->unidade->unidadeTipo->id;
-
-            switch ($unidadeTipo) {
-                case 1:
-                    $notificacoes = Notification::where('global', false)
-                        ->where('user_id', $user->id)
-                        ->get();
-                    break;
-
-                case 2:
-                    $notificacoes = Notification::where('global', false)
-                        ->where('user_id', $user->id)
-                        ->whereHas('monitoramento.risco.unidade', function ($query) use ($user) {
-                            $query->where('unidadeId', $user->unidade->id);
-                        })
-                        ->get();
-                    break;
-
-                default:
-                    Log::info('Tipo de unidade não reconhecido', ['user_id' => $user->id, 'unidade_tipo' => $unidadeTipo]);
-                    return collect();
-            }
-
-            return $notificacoes;
-        } catch (Exception $e) {
-            Log::error('Erro ao filtrar notificações', ['error' => $e->getMessage()]);
-            return collect();
-        }
-    }
-
     public function show($id)
     {
         try {
-            $risco = Risco::with('monitoramentos.respostas')->find($id);
-            foreach ($risco->monitoramentos as $monitoramento) {
-                if ($monitoramento->respostas->isNotEmpty()) {
-                    $monitoramento->update([
-                        'monitoramentoRespondido' => true
-                    ]);
-                }
-            }
+            $dados = $this->risco->showRisco($id);
             $usuarioNome = Auth::user()->name;
             $this->log->insertLog([
                 'acao' => 'Acesso',
                 'descricao' => "O usuario $usuarioNome acessou a o risco de $id",
                 'user_id' => Auth::user()->id
             ]);
-            return view('riscos.show', [
-                'risco' => $risco,
-                'monitoramentos' => $risco->monitoramentos
-            ]);
-
-        } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao carregar os dados do risco.']);
+            return view('riscos.show', $dados);
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors('Ocorreu um erro ao carregar os dados do risco.');
         }
     }
-
-
     public function create()
     {
-        $unidades = Unidade::all();
+        $dados = $this->risco->formStoreRisco();
         $usuarioNome = Auth::user()->name;
         $this->log->insertLog([
             'acao' => 'Acesso',
             'descricao' => "O usuario $usuarioNome acessou a tela de inserção de Riscos",
             'user_id' => Auth::user()->id
         ]);
-        return view('riscos.store', ['unidades' => $unidades]);
+        return view('riscos.store', $dados);
     }
-
     public function store(Request $request)
     {
         try {
@@ -315,101 +119,57 @@ class RiscoController extends Controller
                 'monitoramentos.*.isContinuo' => 'required|boolean',
                 'monitoramentos.*.anexoMonitoramento' => 'nullable|file|mimes:jpeg,png,pdf|max:51200'
             ]);
-
-            $probabilidade = isset($validatedData['probabilidade']) ? (int) $validatedData['probabilidade'] : 0;
-            $impacto = isset($validatedData['impacto']) ? (int) $validatedData['impacto'] : 0;
-
-            $valor_nivel_de_risco = $probabilidade * $impacto;
-
-            if ($valor_nivel_de_risco >= 15) {
-                $nivel_de_risco = 3;
-            } elseif ($valor_nivel_de_risco >= 5) {
-                $nivel_de_risco = 2;
-            } elseif ($valor_nivel_de_risco > 0) {
-                $nivel_de_risco = 1;
-            } else {
-                $nivel_de_risco = 0;
-            }
-
-
-            // Criação do risco
-            $risco = Risco::create([
-                'responsavelRisco' => $validatedData['responsavelRisco'],
-                'riscoEvento' => $validatedData['riscoEvento'],
-                'riscoCausa' => $validatedData['riscoCausa'],
-                'riscoConsequencia' => $validatedData['riscoConsequencia'],
-                'probabilidade' => $probabilidade,
-                'impacto' => $impacto,
-                'nivel_de_risco' => $nivel_de_risco,
-                'riscoAno' => $validatedData['riscoAno'],
-                'userIdRisco' => auth()->id(),
-                'unidadeId' => $validatedData['unidadeId']
-            ]);
-
-            foreach ($validatedData['monitoramentos'] as $index => $monitoramentoData) {
-                $isContinuo = filter_var($monitoramentoData['isContinuo'], FILTER_VALIDATE_BOOLEAN);
-
-                if (!$isContinuo && isset($monitoramentoData['fimMonitoramento']) && $monitoramentoData['fimMonitoramento'] <= $monitoramentoData['inicioMonitoramento']) {
-                    throw new Exception('Fim do monitoramento não pode ser anterior ao início do monitoramento.');
-                }
-
-
-                $monitoramento = Monitoramento::create([
-                    'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
-                    'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
-                    'inicioMonitoramento' => $monitoramentoData['inicioMonitoramento'],
-                    'fimMonitoramento' => $monitoramentoData['fimMonitoramento'] ?? null,
-                    'isContinuo' => $isContinuo,
-                    'riscoFK' => $risco->id,
-                ]);
-            }
-
+            $risco = $this->risco->insertRisco($validatedData);
             $usuarioNome = Auth::user()->name;
             $this->log->insertLog([
                 'acao' => 'Inserção',
                 'descricao' => "O usuario $usuarioNome inseriu um risco de id $risco->id",
                 'user_id' => Auth::user()->id
             ]);
-
             return redirect()->route('riscos.index')->with('success', 'Risco criado com sucesso!');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::error('Erro ao criar risco: ' . $e->getMessage());
-            return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao criar o risco. Por favor, tente novamente.'])->withInput();
+            return redirect()->back()->withErrors('Ocorreu um erro ao criar o risco. Por favor, tente novamente.')->withInput();
         }
     }
-
-
     public function edit($id)
     {
-        $unidades = Unidade::all();
-        $risco = Risco::findOrFail($id);
+        $dados = $this->risco->formEditRisco($id);
         $usuarioNome = Auth::user()->name;
         $this->log->insertLog([
             'acao' => 'Acesso',
             'descricao' => "O usuario $usuarioNome acessou a tela de edição do risco de $id",
             'user_id' => Auth::user()->id
         ]);
-        return view('riscos.edit', ['risco' => $risco, 'unidades' => $unidades]);
+        return view('riscos.edit', $dados);
     }
 
     public function update(Request $request, $id)
     {
         try {
-            $risco = Risco::findOrFail($id);
-
+            $risco = $this->risco->updateRisco($id, $request->all());
             $usuarioNome = Auth::user()->name;
             $this->log->insertLog([
                 'acao' => 'Atualização',
                 'descricao' => "O usuario $usuarioNome atualizou o Risco de $id",
                 'user_id' => Auth::user()->id
             ]);
-
-            $risco->update($request->all());
-
             return redirect()->route('riscos.show', ['id' => $risco->id])->with('success', 'Risco editado com sucesso');
-        } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['errors' => 'Ocorreu um erro ao atualizar o risco.']);
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors('Ocorreu um erro ao atualizar o risco.');
         }
+    }
+
+    public function delete($id)
+    {
+        $this->risco->deleteRisco($id);
+        $usuarioNome = Auth::user()->name;
+        $this->log->insertLog([
+            'acao' => 'Exclusão',
+            'descricao' => "O usuario $usuarioNome deletou um risco de $id",
+            'user_id' => Auth::user()->id
+        ]);
+        return redirect()->back()->with(['success' => 'Risco Deletado com sucesso']);
     }
 
     public function editMonitoramentos($id)
@@ -430,14 +190,10 @@ class RiscoController extends Controller
         ]);
     }
 
-
-
-
     public function insertMonitoramentos(Request $request, $id)
     {
-        $risco = Risco::findOrFail($id);
-
         try {
+            $risco = Risco::findOrFail($id);
             $validatedData = $request->validate([
                 'monitoramentos' => 'required|array',
                 'monitoramentos.*.monitoramentoControleSugerido' => 'max:9000',
@@ -543,29 +299,6 @@ class RiscoController extends Controller
         }
     }
 
-
-
-
-    public function delete($id)
-    {
-        $risco = Risco::findorFail($id);
-
-        $deleteRisco = $risco->delete();
-
-        if (!$deleteRisco) {
-            return redirect()->back()->withErrors(['errors' => 'Houve um erro ao deletar o risco']);
-        }
-
-
-        $usuarioNome = Auth::user()->name;
-        $this->log->insertLog([
-            'acao' => 'Exclusão',
-            'descricao' => "O usuario $usuarioNome deletou um risco de $id",
-            'user_id' => Auth::user()->id
-        ]);
-
-        return redirect()->back()->with(['success' => 'Risco Deletado com sucesso']);
-    }
 
     public function deleteMonitoramento($id)
     {
@@ -921,10 +654,11 @@ class RiscoController extends Controller
     }
 
 
-    public function __construct(LogService $log)
+    public function __construct(LogService $log, RiscoService $risco)
     {
         $this->middleware('auth');
         // $this->middleware('checkAccess');
         $this->log = $log;
+        $this->risco = $risco;
     }
 }
