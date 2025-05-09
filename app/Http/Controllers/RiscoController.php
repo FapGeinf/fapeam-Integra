@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\NovaRespostaCriada;
 use App\Events\PrazoProximo;
 use App\Services\LogService;
+use App\Services\MonitoramentoService;
 use Illuminate\Http\Request;
 use app\Http\Middleware\VerifyCsrfToken;
 use App\Mail\ResponseNotification;
@@ -29,7 +30,8 @@ use App\Services\RiscoService;
 class RiscoController extends Controller
 {
 
-    protected $log, $risco;
+    protected $log, $risco, $monitoramento;
+
     public function index()
     {
         try {
@@ -174,13 +176,13 @@ class RiscoController extends Controller
 
     public function editMonitoramentos($id)
     {
-        $risco = Risco::findOrFail($id);
+        $risco = $this->monitoramento->formInsertMonitoramentos($id);
         return view('riscos.monitoramentos', compact('risco'));
     }
 
     public function editMonitoramento2($id)
     {
-        $monitoramento = Monitoramento::findOrFail($id);
+        $monitoramento = $this->monitoramento->findMonitoramentoById($id);
 
         Log::info('Editando monitoramento:', [
             'monitoramento' => $monitoramento->toArray(),
@@ -193,7 +195,6 @@ class RiscoController extends Controller
     public function insertMonitoramentos(Request $request, $id)
     {
         try {
-            $risco = Risco::findOrFail($id);
             $validatedData = $request->validate([
                 'monitoramentos' => 'required|array',
                 'monitoramentos.*.monitoramentoControleSugerido' => 'max:9000',
@@ -204,24 +205,8 @@ class RiscoController extends Controller
                 'monitoramentos.*.anexoMonitoramento' => 'nullable|file|mimes:pdf,doc,docx,jpg,png|max:51200',
             ]);
 
-            foreach ($validatedData['monitoramentos'] as $index => $monitoramentoData) {
-                $isContinuo = filter_var($monitoramentoData['isContinuo'], FILTER_VALIDATE_BOOLEAN);
-
-                if (!$isContinuo && isset($monitoramentoData['fimMonitoramento']) && $monitoramentoData['fimMonitoramento'] <= $monitoramentoData['inicioMonitoramento']) {
-                    throw new \Exception('Fim do monitoramento não pode ser anterior ao início do monitoramento.');
-                }
-
-                $monitoramento = Monitoramento::create([
-                    'monitoramentoControleSugerido' => $monitoramentoData['monitoramentoControleSugerido'],
-                    'statusMonitoramento' => $monitoramentoData['statusMonitoramento'],
-                    'inicioMonitoramento' => $monitoramentoData['inicioMonitoramento'],
-                    'fimMonitoramento' => $monitoramentoData['fimMonitoramento'] ?? null,
-                    'isContinuo' => $isContinuo,
-                    'riscoFK' => $risco->id,
-                ]);
-            }
-
-
+            $result = $this->monitoramento->insertMonitoramentos($validatedData, $id);
+        
             $usuarioNome = Auth::user()->name;
             $this->log->insertLog([
                 'acao' => 'Inserção',
@@ -229,9 +214,9 @@ class RiscoController extends Controller
                 'user_id' => Auth::user()->id
             ]);
 
-            return redirect()->route('riscos.show', ['id' => $risco->id])
+            return redirect()->route('riscos.show', ['id' => $id])
                 ->with('success', 'Controles Sugeridos inseridos com sucesso');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::error('Error inserting Controles Sugeridos:', [
                 'exception_message' => $e->getMessage(),
                 'exception_trace' => $e->getTraceAsString(),
@@ -241,10 +226,10 @@ class RiscoController extends Controller
         }
     }
 
-    public function atualizaMonitoramento(Request $request, $id)
+        public function atualizaMonitoramento(Request $request, $id)
     {
         try {
-            $request->validate([
+            $validatedData = $request->validate([
                 'monitoramentoControleSugerido' => 'required|string',
                 'statusMonitoramento' => 'required|string',
                 'isContinuo' => 'required|boolean',
@@ -253,21 +238,7 @@ class RiscoController extends Controller
                 'anexoMonitoramento' => 'nullable|file|mimes:jpeg,png,pdf|max:51200'
             ]);
 
-            $monitoramento = Monitoramento::findOrFail($id);
-
-            $monitoramento->update([
-                'monitoramentoControleSugerido' => $request->input('monitoramentoControleSugerido'),
-                'statusMonitoramento' => $request->input('statusMonitoramento'),
-                'isContinuo' => $request->input('isContinuo'),
-                'inicioMonitoramento' => $request->input('inicioMonitoramento'),
-                'fimMonitoramento' => $request->input('fimMonitoramento'),
-            ]);
-
-            Log::info('Monitoramento atualizado:', $monitoramento->toArray());
-
-
-            Log::info('Atualização de controle sugerido concluída com sucesso.');
-
+            $monitoramento = $this->monitoramento->updateMonitoramento($id, $validatedData);
 
             $usuarioNome = Auth::user()->name;
             $this->log->insertLog([
@@ -278,38 +249,22 @@ class RiscoController extends Controller
 
             return redirect()->route('riscos.show', ['id' => $monitoramento->riscoFK])
                 ->with('success', 'Controle Sugerido atualizado com sucesso!');
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            Log::error('Erro de validação ao atualizar controle sugerido:', [
-                'errors' => $e->errors(),
+        } catch (Exception $e) {
+            Log::error('Erro ao atualizar controle sugerido:', [
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
                 'request' => $request->all()
             ]);
-            return back()->withErrors($e->errors())->withInput();
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            Log::error('Controle Sugerido não encontrado:', ['id' => $id]);
-            return redirect()->route('riscos.index')->with('error', 'Controle Sugerido não encontrado.');
-        } catch (\Illuminate\Contracts\Filesystem\FileNotFoundException $e) {
-            Log::error('Erro ao tentar excluir o anexo antigo:', ['path' => $monitoramento->anexoMonitoramento]);
-            return back()->with('error', 'Erro ao tentar excluir o anexo antigo. Por favor, tente novamente.');
-        } catch (\Exception $e) {
-            Log::error('Erro inesperado ao atualizar controle sugerido:', [
-                'message' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
-            ]);
-            return back()->with('error', 'Ocorreu um erro inesperado. Por favor, tente novamente.')->withInput();
+
+            return back()->with('error', 'Ocorreu um erro ao atualizar o controle sugerido.')->withInput();
         }
     }
 
 
     public function deleteMonitoramento($id)
     {
-        $monitoramento = Monitoramento::findOrFail($id);
-
         try {
-            $deleteMonitoramento = $monitoramento->delete();
-
-            if (!$deleteMonitoramento) {
-                return redirect()->back()->withErrors(['errors' => 'Houve um erro ao deletar o controle sugerido']);
-            }
+            $this->monitoramento->destroyMonitoramento($id);
 
             $usuarioNome = Auth::user()->name;
             $this->log->insertLog([
@@ -319,11 +274,10 @@ class RiscoController extends Controller
             ]);
 
             return redirect()->back()->with(['success' => 'Controle Sugerido deletado com sucesso']);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
         }
     }
-
 
     private function sendEmail(Resposta $resposta, Monitoramento $monitoramento, Notification $notification)
     {
@@ -416,10 +370,6 @@ class RiscoController extends Controller
             return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
         }
     }
-
-
-
-
 
     public function updateResposta(Request $request, $id)
     {
@@ -654,11 +604,12 @@ class RiscoController extends Controller
     }
 
 
-    public function __construct(LogService $log, RiscoService $risco)
+    public function __construct(LogService $log, RiscoService $risco, MonitoramentoService $monitoramento)
     {
         $this->middleware('auth');
         // $this->middleware('checkAccess');
         $this->log = $log;
         $this->risco = $risco;
+        $this->monitoramento = $monitoramento;
     }
 }

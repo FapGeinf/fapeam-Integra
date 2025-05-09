@@ -18,15 +18,21 @@
 
 
     <body>
-        @if (session('error'))
-            <script>
-                alert('{{ session('error') }}');
-            </script>
-        @endif
-
+       
         <div class="container-xxl pt-5">
             <div class="col-12 border box-shadow">
                 <h5 class="text-center mb-3">Detalhamento do Risco Inerente</h5>
+                @if (session('success'))
+                    <div class="alert alert-success text-center auto-dismiss">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if (session('error'))
+                    <div class="alert alert-danger text-center auto-dismiss">
+                        {{ session('error') }}
+                    </div>
+                @endif
 
                 <div>
                     <table class="table table-bordered mb-4">
