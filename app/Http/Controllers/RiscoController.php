@@ -1,19 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Events\PrazoProximo;
 use App\Services\LogService;
 use App\Services\MonitoramentoService;
+use App\Services\PrazoService;
 use App\Services\RespostaService;
 use Illuminate\Http\Request;
-use app\Http\Middleware\VerifyCsrfToken;
 use App\Mail\ResponseNotification;
-use App\Models\Risco;
-use App\Models\Unidade;
 use App\Models\Monitoramento;
 use App\Models\Notification;
 use App\Models\Resposta;
-use App\Models\Prazo;
 use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -24,7 +20,7 @@ use App\Services\RiscoService;
 class RiscoController extends Controller
 {
 
-    protected $log, $risco, $monitoramento, $resposta;
+    protected $log, $risco, $monitoramento, $resposta, $prazo;
 
     public function index()
     {
@@ -399,25 +395,11 @@ class RiscoController extends Controller
     public function insertPrazo(Request $request)
     {
         try {
-            $request->validate([
+            $validatedData = $request->validate([
                 'data' => 'required|date'
             ]);
 
-            $prazoExistente = Prazo::first();
-
-            if ($prazoExistente) {
-                $prazoExistente->delete();
-            }
-
-            $novoPrazo = Prazo::create([
-                'data' => $request->data
-            ]);
-
-            if (!$novoPrazo) {
-                return redirect()->back()->with('error', 'Erro ao inserir um Prazo');
-            }
-
-            event(new PrazoProximo($novoPrazo));
+            $this->prazo->storePrazo($validatedData);
 
             $usuarioNome = Auth::user()->name;
             $this->log->insertLog([
@@ -449,7 +431,7 @@ class RiscoController extends Controller
     }
 
 
-    public function __construct(LogService $log, RiscoService $risco, MonitoramentoService $monitoramento, RespostaService $resposta)
+    public function __construct(LogService $log, RiscoService $risco, MonitoramentoService $monitoramento, RespostaService $resposta, PrazoService $prazo)
     {
         $this->middleware('auth');
         // $this->middleware('checkAccess');
@@ -457,5 +439,6 @@ class RiscoController extends Controller
         $this->risco = $risco;
         $this->monitoramento = $monitoramento;
         $this->resposta = $resposta;
+        $this->prazo = $prazo;
     }
 }
