@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdatePasswordRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Services\LogService;
 use App\Services\UserService;
 use Exception;
@@ -40,18 +43,12 @@ class UserController extends Controller
         }
     }
 
-    public function insertUser(Request $request)
+    public function insertUser(StoreUserRequest $request)
     {
         try {
-            $request->validate([
-                'name' => 'required|string|max:255',
-                'email' => 'required|email|unique:users,email',
-                'cpf' => 'required|unique:users,cpf',
-                'password' => 'required|string|confirmed|min:8',
-                'unidadeIdFK' => 'required|exists:unidades,id',
-            ]);
-
-            $this->userService->storeNewUser($request->all());
+            
+            $validatedData = $request->validated();
+            $this->userService->storeNewUser($validatedData);
 
             $usuarioNome = Auth::user()->name;
             $this->log->insertLog([
@@ -69,27 +66,14 @@ class UserController extends Controller
         }
     }
 
-    public function updateUser(Request $request, $id)
+    public function updateUser(UpdateUserRequest $request, $id)
     {
         try {
             $user = $this->userService->returnUserById($id);
 
-            $rules = [
-                'name' => 'nullable|string',
-                'email' => 'nullable|email|unique:users,email,' . $user->id,
-                'cpf' => 'nullable|unique:users,cpf,' . $user->id,
-                'password' => 'nullable|min:8',
-                'password_confirmation' => 'nullable|required_with:password|same:password|min:8',
-                'unidadeIdFK' => 'nullable|exists:unidades,id',
-            ];
+            $validatedData = $request->validated();
 
-            $validator = Validator::make($request->all(), $rules);
-
-            if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator)->withInput();
-            }
-
-            $this->userService->updateUser($user, $request->all());
+            $this->userService->updateUser($user, $validatedData);
 
             $usuarioNome = Auth::user()->name;
             $this->log->insertLog([
@@ -114,15 +98,11 @@ class UserController extends Controller
         }
     }
 
-    public function updatePassword(Request $request)
+    public function updatePassword(UpdatePasswordRequest $request)
     {
         try {
-            $request->validate([
-                'old_password' => 'required',
-                'new_password' => 'required|confirmed|min:8',
-            ]);
-
-            $response = $this->userService->newPassword($request->only(['old_password', 'new_password']));
+            $validatedData = $request->validated();
+            $response = $this->userService->newPassword($validatedData);
 
             if ($response['status'] === 'error') {
                 return back()->with('error', $response['message']);
