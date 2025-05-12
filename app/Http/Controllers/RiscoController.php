@@ -1,6 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Requests\StoreMonitoramentoRequest;
+use App\Http\Requests\StoreRespostaRequest;
+use App\Http\Requests\StoreRiscoRequest;
+use App\Http\Requests\UpdateMonitoramentoRequest;
 use App\Services\LogService;
 use App\Services\MonitoramentoService;
 use App\Services\PrazoService;
@@ -90,27 +94,10 @@ class RiscoController extends Controller
         ]);
         return view('riscos.store', $dados);
     }
-    public function store(Request $request)
+    public function store(StoreRiscoRequest $request)
     {
         try {
-            $validatedData = $request->validate([
-                'responsavelRisco' => 'required',
-                'riscoEvento' => 'max:9000',
-                'riscoCausa' => 'max:9000',
-                'riscoConsequencia' => 'max:9000',
-                'riscoAno' => 'required',
-                'probabilidade' => 'required|integer',
-                'impacto' => 'required|integer',
-                'nivel_de_risco' => 'required|integer',
-                'unidadeId' => 'required|exists:unidades,id',
-                'monitoramentos' => 'required|array|min:1',
-                'monitoramentos.*.monitoramentoControleSugerido' => 'max:9000',
-                'monitoramentos.*.statusMonitoramento' => 'required|string',
-                'monitoramentos.*.inicioMonitoramento' => 'required|date',
-                'monitoramentos.*.fimMonitoramento' => 'nullable|date|after:monitoramentos.*.inicioMonitoramento',
-                'monitoramentos.*.isContinuo' => 'required|boolean',
-                'monitoramentos.*.anexoMonitoramento' => 'nullable|file|mimes:jpeg,png,pdf|max:51200'
-            ]);
+            $validatedData = $request->validated();
             $risco = $this->risco->insertRisco($validatedData);
             $usuarioNome = Auth::user()->name;
             $this->log->insertLog([
@@ -182,18 +169,10 @@ class RiscoController extends Controller
         ]);
     }
 
-    public function insertMonitoramentos(Request $request, $id)
+    public function insertMonitoramentos(StoreMonitoramentoRequest $request, $id)
     {
         try {
-            $validatedData = $request->validate([
-                'monitoramentos' => 'required|array',
-                'monitoramentos.*.monitoramentoControleSugerido' => 'max:9000',
-                'monitoramentos.*.statusMonitoramento' => 'max:9000',
-                'monitoramentos.*.inicioMonitoramento' => 'required|date',
-                'monitoramentos.*.fimMonitoramento' => 'nullable|date|after_or_equal:inicioMonitoramento',
-                'monitoramentos.*.isContinuo' => 'required|boolean',
-                'monitoramentos.*.anexoMonitoramento' => 'nullable|file|mimes:pdf,doc,docx,jpg,png|max:51200',
-            ]);
+            $validatedData = $request->validated();
 
             $result = $this->monitoramento->insertMonitoramentos($validatedData, $id);
 
@@ -216,17 +195,10 @@ class RiscoController extends Controller
         }
     }
 
-    public function atualizaMonitoramento(Request $request, $id)
+    public function atualizaMonitoramento(UpdateMonitoramentoRequest $request, $id)
     {
         try {
-            $validatedData = $request->validate([
-                'monitoramentoControleSugerido' => 'required|string',
-                'statusMonitoramento' => 'required|string',
-                'isContinuo' => 'required|boolean',
-                'inicioMonitoramento' => 'required|date',
-                'fimMonitoramento' => 'nullable|date|after_or_equal:inicioMonitoramento',
-                'anexoMonitoramento' => 'nullable|file|mimes:jpeg,png,pdf|max:51200'
-            ]);
+            $validatedData = $request->validated();
 
             $monitoramento = $this->monitoramento->updateMonitoramento($id, $validatedData);
 
@@ -283,14 +255,11 @@ class RiscoController extends Controller
     }
 
 
-    public function storeResposta(Request $request, $id)
+    public function storeResposta(StoreRespostaRequest $request, $id)
     {
         try {
             Log::info('Storing resposta for monitoramento', ['monitoramento_id' => $id]);
-            $validatedData = $request->validate([
-                'respostaRisco' => 'required|string|max:5000',
-                'anexo' => 'nullable|file|mimes:jpg,png,pdf|max:102400'
-            ]);
+            $validatedData = $request->validated();
             $resposta = $this->resposta->insertRespostas($id, $validatedData);
             $usuarioNome = Auth::user()->name;
             $this->log->insertLog([
@@ -308,15 +277,11 @@ class RiscoController extends Controller
         }
     }
 
-    public function updateResposta(Request $request, $id)
+    public function updateResposta(StoreRespostaRequest $request, $id)
     {
         try {
 
-            $validatedData = $request->validate([
-                'respostaRisco' => 'required|string|max:5000',
-                'anexo' => 'nullable|file|mimes:jpg,png,pdf|max:102400',
-            ]);
-
+            $validatedData = $request->validated();
             $resposta = $this->resposta->updateResposta($id, $validatedData);
 
             $usuarioNome = Auth::user()->name;
