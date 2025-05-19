@@ -1,13 +1,15 @@
 @extends('layouts.app')
 @section('title') {{ 'Painel de Usuários' }} @endsection
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
-<!-- DataTables CSS -->
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
+<script src="{{ asset('js/mascaras/jquery.mask.min.js') }}"></script>
+<script src="{{ asset('js/dataTables.min.js') }}"></script>
+<script src="{{ asset('js/tables/painelTable.js') }}"></script>
+<script src="{{ asset('js/auto-dismiss.js') }}"></script>
+<script src="{{ asset('js/mascaras/cpfMascara.js') }}"></script>
+<script src="{{ asset('js/actionsDropdown.js') }}"></script>
+<link rel="stylesheet" href="{{ asset('css/dataTables.dataTables.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/dropdown.css') }}">
 <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
-<script src="{{ asset('js/auto-dismiss.js') }}"></script>
-
 <link rel="stylesheet" href="{{ asset('css/show.css') }}">
 
 <style>
@@ -24,20 +26,6 @@
         font-size: 13px;
     }
 </style>
-
-<script>
-    $(document).ready(function() {
-        $('.cpf').mask('000.000.000-00');
-
-        $('form').submit(function() {
-            $('#cpf').each(function() {
-                var cpf = $(this).val().replace(/\D/g, '');  
-                $(this).val(cpf);  
-            });
-        });
-    });
-</script>
-
 <style>
     table {
         border-collapse: collapse !important;
@@ -176,22 +164,22 @@
 
                                             <div class="mb-3">
                                                 <label for="name">Nome:</label>
-                                                <input type="text" class="form-control input-enabled" id="name" name="name" value="{{ old('name', $user->name) }}">
+                                                <input type="text" class="form-control input-enabled"  name="name" value="{{ old('name', $user->name) }}">
                                             </div>
 
                                             <div class="mb-3">
                                                 <label for="email">Email:</label>
-                                                <input type="email" class="form-control input-enabled" id="email" name="email" value="{{ old('email', $user->email) }}">
+                                                <input type="email" class="form-control input-enabled"  name="email" value="{{ old('email', $user->email) }}">
                                             </div>
 
                                             <div class="mb-3">
                                                 <label for="cpf">CPF:</label>
-                                                <input type="text" class="form-control input-enabled" id="cpf" name="cpf" value="{{ old('cpf', $user->cpf) }}">
+                                                <input type="text" class="form-control input-enabled cpf"  name="cpf" value="{{ old('cpf', $user->cpf) }}">
                                             </div>
 
                                             <div class="mb-3">
                                                 <label for="unidadeIdFK">Unidade:</label>
-                                                <select class="form-select input-enabled" id="unidadeIdFK" name="unidadeIdFK">
+                                                <select class="form-select input-enabled" name="unidadeIdFK">
 
                                                     <option value="" disabled>Selecione uma unidade</option>
                                                     @foreach ($unidades as $unidade)
@@ -205,12 +193,12 @@
 
                                             <div class="mb-3">
                                                 <label for="password">Nova senha:</label>
-                                                <input type="password" class="form-control input-enabled" id="password" name="password">
+                                                <input type="password" class="form-control input-enabled" name="password">
                                             </div>
 
                                             <div class="mb-3">
                                                 <label for="password_confirmation">Confirme a senha:</label>
-                                                <input type="password" class="form-control input-enabled" id="password_confirmation" name="password_confirmation">
+                                                <input type="password" class="form-control input-enabled" name="password_confirmation">
                                             </div>
 
                                             <div class="modal-footer p-0 pt-2">
@@ -236,22 +224,22 @@
                                             @csrf
                                             <div class="mb-3">
                                                 <label for="name">Nome:</label>
-                                                <input type="text" class="form-control input-enabled" id="name" name="name" required>
+                                                <input type="text" class="form-control input-enabled" name="name" required>
                                             </div>
 
                                             <div class="mb-3">
                                                 <label for="email">Email:</label>
-                                                <input type="email" class="form-control input-enabled" id="email" name="email" required>
+                                                <input type="email" class="form-control input-enabled" name="email" required>
                                             </div>
 
                                             <div class="mb-3">
                                                 <label for="cpf">CPF:</label>
-                                                <input type="text" class="form-control input-enabled" id="cpf" name="cpf" required>
+                                                <input type="text" class="form-control input-enabled cpf"  name="cpf" required>
                                             </div>
 
                                             <div class="mb-3">
                                                 <label for="unidadeIdFK">Unidade:</label>
-                                                <select class="form-select input-enabled" id="unidadeIdFK" name="unidadeIdFK">
+                                                <select class="form-select input-enabled"  name="unidadeIdFK">
                                                     <option value="" disabled>Selecione uma unidade</option>
                                                     @foreach ($unidades as $unidade)
                                                         <option value="{{ $unidade->id }}">{{ $unidade->unidadeNome }}</option>
@@ -261,12 +249,12 @@
 
                                             <div class="mb-3">
                                                 <label for="password">Senha:</label>
-                                                <input type="password" class="form-control input-enabled" id="password" name="password" required>
+                                                <input type="password" class="form-control input-enabled" name="password" required>
                                             </div>
 
                                             <div class="mb-3">
                                                 <label for="password_confirmation">Confirme a Senha:</label>
-                                                <input type="password" class="form-control input-enabled" id="password_confirmation" name="password_confirmation" required>
+                                                <input type="password" class="form-control input-enabled" name="password_confirmation" required>
                                             </div>
 
                                             <div class="modal-footer p-0 pt-2">
@@ -310,47 +298,5 @@
         </div>
     </div>
 </div>
-
-<!-- jQuery (necessário para DataTables) -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- DataTables JS -->
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-
-<script>
-	$(document).ready(function () {
-		$('#painel-table').DataTable({
-			language: {
-				url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json"
-			}
-		});
-	});
-</script>
-
-<script>
-	function toggleActionsMenu(id) {
-		const wrapper = document.getElementById(`actionsWrapper${id}`);
-
-		// Alterna o menu atual
-		wrapper.classList.toggle('open');
-
-		// Fecha os outros menus abertos
-		document.querySelectorAll('.custom-actions-wrapper').forEach((el) => {
-			if (el.id !== `actionsWrapper${id}`) {
-				el.classList.remove('open');
-			}
-		});
-	}
-
-	// Fecha o dropdown ao clicar fora
-	window.addEventListener('click', function (e) {
-		document.querySelectorAll('.custom-actions-wrapper').forEach(wrapper => {
-			if (!wrapper.contains(e.target)) {
-				wrapper.classList.remove('open');
-			}
-		});
-	});
-</script>
-
-
 <x-back-button/>
 @endsection
