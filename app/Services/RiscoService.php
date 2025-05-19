@@ -13,6 +13,11 @@ use DB;
 use Carbon\Carbon;
 class RiscoService
 {
+    public function findRiscoById($id)
+    {
+        return Risco::findOrFail($id);
+    }
+
     public function indexRiscos()
     {
         try {
@@ -278,7 +283,7 @@ class RiscoService
     public function formEditRisco($id)
     {
         $unidades = Unidade::all();
-        $risco = Risco::findOrFail($id);
+        $risco = $this->findRiscoById($id);
 
         return [
             'unidades' => $unidades,
@@ -289,8 +294,9 @@ class RiscoService
     public function updateRisco($id, array $validatedData)
     {
         try {
-            $risco = Risco::findOrFail($id);
-            return $risco->update($validatedData);
+            $risco = $this->findRiscoById($id);
+            $risco->update($validatedData);
+            return $risco;
         } catch (Exception $e) {
             Log::error('Houve um erro inesperado ao atualizar o risco', ['error' => $e->getMessage()]);
             throw new Exception('Houve um erro ao atualizar o risco');
@@ -300,11 +306,28 @@ class RiscoService
     public function deleteRisco($id)
     {
         try {
-            $risco = Risco::findOrFail($id);
-            return $risco->delete();
+            $risco = $this->findRiscoById($id);
+
+            if (!$risco) {
+                throw new Exception("Risco com ID $id não encontrado.");
+            }
+
+            $deleted = $risco->delete();
+
+            if (!$deleted) {
+                throw new Exception("Falha ao deletar o risco com ID $id.");
+            }
+
+            return true;
+
         } catch (Exception $e) {
-            Log::error('Houve um erro inesperado ao deletar o risco', ['error' => $e->getMessage(), 'risco_id' => $id]);
-            throw new ErrorException('Houve um erro inesperado ao deletar o risco, tente novamente pfv.');
+            Log::error('Erro ao deletar risco', [
+                'message' => $e->getMessage(),
+                'risco_id' => $id,
+                'stack' => $e->getTraceAsString()
+            ]);
+
+            throw new ErrorException('Houve um erro inesperado ao deletar o risco. Tente novamente, por favor.');
         }
     }
 

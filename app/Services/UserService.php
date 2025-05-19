@@ -111,7 +111,8 @@ class UserService
     {
         try {
             $user = $this->returnUserbyId($id);
-            return $user->delete();
+            $user->delete();
+            return true;
         } catch (Exception $e) {
             Log::error('Erro ao deletar usuário.', ['error' => $e->getMessage()]);
             throw new ErrorException('Erro ao tentar deletar o usuário.');

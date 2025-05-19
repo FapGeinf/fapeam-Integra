@@ -83,7 +83,8 @@ class MonitoramentoService
     {
         try {
             $monitoramento = Monitoramento::findOrFail($id);
-            return $monitoramento->delete();
+            $monitoramento->delete();
+            return true;
         } catch (Exception $e) {
             Log::error('Houve um erro inesperado ao deletar o controle sugerido selecionado.', ['error' => $e->getMessage(), 'monitoramento_id' => $id]);
             throw new Exception('Houve um erro inesperado ao deletar o controle sugerido selecionado.');

@@ -47,11 +47,12 @@ class IndicadorService
     {
         try {
             $indicador = $this->getIndicadorById($id);
-            return $indicador->update([
+            $indicador->update([
                 'nomeIndicador' => $data['nomeIndicador'] ?? null,
                 'descricaoIndicador' => $data['descricaoIndicador'],
                 'eixo_fk' => $data['eixo_fk']
             ]);
+            return $indicador;
         } catch (Exception $e) {
             Log::error('Houve um erro ao atualizar o indicador.', ['error' => $e->getMessage()]);
             throw new ErrorException('Houve um erro inesperado na atualização do indicador.');
