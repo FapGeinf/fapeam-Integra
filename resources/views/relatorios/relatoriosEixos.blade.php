@@ -1,80 +1,89 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Relatório do Eixo</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            font-size: 12pt; 
-            margin: 3cm; 
-            color: #333;
+            font-size: 12pt;
+            margin: 30px;
+            color: #212529;
             line-height: 1.6;
             background-color: #ffffff;
         }
 
         h2 {
             text-align: center;
-            font-size: 16pt;
-            margin-bottom: 40px;
-            color: #2c3e50;
+            font-size: 22px;
+            margin-bottom: 25px;
+            color: #333333;
             font-weight: bold;
         }
 
         .atividade {
-            background-color: #ffffff;
-            padding: 20px;
+            background-color: #f8f9fa;
+            padding: 20px 25px;
             margin-bottom: 30px;
-            border: 1px solid #ddd;
+            border: 1px solid #adb5bd;
+            border-radius: 6px;
             box-sizing: border-box;
-            border-radius: 5px; 
+            page-break-inside: avoid;
         }
 
         .atividade h3 {
-            font-size: 14pt; 
-            background-color: #2980b9;
+            font-size: 18px;
+            background-color: #6c757d;
             color: white;
-            padding: 15px;
+            padding: 15px 20px;
             margin-top: 0;
+            margin-bottom: 20px;
             font-weight: bold;
-            border-radius: 5px;
+            border-radius: 6px;
         }
 
         .campo {
             margin-bottom: 18px;
-            font-size: 12pt;
-            color: #555;
+            font-size: 14px;
+            color: #495057;
         }
 
         .campo strong {
             display: inline-block;
             width: 180px;
-            font-weight: bold;
-            color: #333;
+            font-weight: 600;
+            color: #212529;
+            vertical-align: top;
         }
 
-        .campo span {
-            color: #2980b9;
-            font-weight: bold;
+        /* Caixa para textos mais longos como objetivo e justificativa */
+        .campo-texto {
+            background: white;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            padding: 12px 15px;
+            margin-top: 5px;
+            margin-bottom: 18px;
+            color: #343a40;
+            font-size: 14px;
+            line-height: 1.5;
         }
 
         p {
-            margin-top: 5px;
-            margin-bottom: 12px;
+            margin: 0;
+            /* já temos margem na caixa */
             text-align: justify;
-            color: #666;
-            font-size: 12pt;
         }
 
         @media (max-width: 768px) {
             body {
-                margin: 20px;
+                margin: 15px;
                 font-size: 11pt;
             }
 
             h2 {
-                font-size: 14pt;
+                font-size: 18px;
             }
 
             .campo strong {
@@ -82,12 +91,12 @@
             }
 
             .atividade {
-                padding: 15px;
+                padding: 15px 20px;
             }
 
             .atividade h3 {
-                font-size: 12pt;
-                padding: 12px;
+                font-size: 16px;
+                padding: 12px 15px;
             }
         }
 
@@ -95,32 +104,26 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
-            border: 1px solid #ddd;
+            border: 1px solid #adb5bd;
+            font-size: 14px;
+            color: #495057;
         }
 
-        table th, table td {
-            padding: 10px;
-            border: 1px solid #ddd;
+        table th,
+        table td {
+            padding: 10px 12px;
+            border: 1px solid #adb5bd;
             text-align: left;
-            color: #555;
-            font-size: 12pt;
         }
 
         table th {
-            background-color: #f9fafb;
-            font-weight: bold;
-        }
-
-        table td {
-            background-color: #ffffff;
+            background-color: #e9ecef;
+            font-weight: 600;
+            color: #343a40;
         }
 
         table tr:nth-child(even) td {
-            background-color: #f9f9f9;
-        }
-
-        table th, table td {
-            border-width: 0.5px;
+            background-color: #f8f9fa;
         }
     </style>
 </head>
@@ -130,11 +133,16 @@
 
     @foreach($atividades as $index => $atividade)
         <div class="atividade">
-            <h3>Atividade {{ $index + 1 }} {!! $atividade->atividade_descricao !!}</h3>
+            <h3>Atividade {{ $index + 1 }}</h3>
+            <div class="campo-texto">
+                {!! $atividade->atividade_descricao !!}
+            </div>
 
             @if($atividade->objetivo)
                 <div class="campo"><strong>Objetivo:</strong></div>
-                <p>{!! $atividade->objetivo !!}</p>
+                <div class="campo-texto">
+                    <p>{!! $atividade->objetivo !!}</p>
+                </div>
             @endif
 
             <div class="campo"><strong>Público:</strong> {{ $atividade->publico->nome }}</div>
@@ -165,10 +173,13 @@
 
             @if($atividade->justificativa)
                 <div class="campo"><strong>Justificativa:</strong></div>
-                <p>{!! $atividade->justificativa !!}</p>
+                <div class="campo-texto">
+                    <p>{!! $atividade->justificativa !!}</p>
+                </div>
             @endif
         </div>
     @endforeach
+
 </body>
 
 </html>
