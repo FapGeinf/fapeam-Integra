@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="{{ asset('css/show.css') }}">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="{{ asset('js/actionsDropdown.js') }}"></script>
 
     <style>
         .liDP {
@@ -166,32 +167,7 @@
                                         </div>
                                     </div>
                                 </td>
-
                             </tr>
-
-                            <script>
-                                function toggleActionsMenu(id) {
-                                    const wrapper = document.getElementById(`actionsWrapper${id}`);
-                                    wrapper.classList.toggle('open');
-
-                                    // Fecha outros menus abertos
-                                    document.querySelectorAll('.custom-actions-wrapper').forEach((el) => {
-                                        if (el.id !== `actionsWrapper${id}`) {
-                                            el.classList.remove('open');
-                                        }
-                                    });
-                                }
-
-                                // Fecha o dropdown ao clicar fora
-                                window.addEventListener('click', function (e) {
-                                    document.querySelectorAll('.custom-actions-wrapper').forEach(wrapper => {
-                                        if (!wrapper.contains(e.target)) {
-                                            wrapper.classList.remove('open');
-                                        }
-                                    });
-                                });
-                            </script>
-
 
                             <div class="modal fade" id="excluirMonitoramento{{ $monitoramento->id }}" tabindex="-1"
                                 aria-labelledby="excluirMonitoramentoLabel" aria-hidden="true">
