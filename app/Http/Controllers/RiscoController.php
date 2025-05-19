@@ -263,8 +263,8 @@ class RiscoController extends Controller
             $resposta = $this->resposta->insertRespostas($id, $validatedData);
             $usuarioNome = Auth::user()->name;
             $this->log->insertLog([
-                'acao' => 'Acesso',
-                'descricao' => "O usuario $usuarioNome inseriu uma nova providência de id $resposta->id",
+                'acao' => 'Inserção',
+                'descricao' => "O usuario $usuarioNome inseriu uma nova providência",
                 'user_id' => Auth::user()->id
             ]);
             return redirect()->route('riscos.respostas', $id)->with('success', 'Respostas adicionadas com sucesso');
