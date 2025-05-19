@@ -68,7 +68,7 @@
 							<tr class="text13">
 								<td class="text-center">{{ $indicador->id }}</td>
 
-								<td class="text-center">{{ $indicador->descricaoIndicador }}</td>
+								<td class="text-center">{!!$indicador->descricaoIndicador!!}</td>
 
 								<td>EIXO {{$indicador->eixo->id}} - {{ $indicador->eixo->nome}}</td>
 

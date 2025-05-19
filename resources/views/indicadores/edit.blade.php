@@ -6,7 +6,8 @@
 
 <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
 <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
-
+<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+<script src="{{ asset('js/indicadores/editorIndicador.js') }}"></script>
 <style>
 	.form-label {
 		margin-bottom: 0 !important;
