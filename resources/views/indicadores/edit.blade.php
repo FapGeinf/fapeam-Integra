@@ -41,13 +41,12 @@
 			<form action="{{ route('indicadores.update', $indicador->id) }}" method="POST" id="formEditIndicador">
 				@csrf
 				@method('PUT')
-
 				<div class="row">
 					<div class="col-12">
-						<label for="eixo" class="form-label">Eixo:</label>
+						<label for="eixo_fk" class="form-label">Eixo:</label>
 						<select class="form-select" id="eixo_fk" name="eixo_fk" required>
 							@foreach($eixos as $eixo)
-								<option value="{{ $eixo->id }}" {{ $eixo->id }} - {{ $eixo->id == $indicador->eixo_fk ? 'selected' : '' }}>
+								<option value="{{ $eixo->id }}" {{ old('eixo_fk', $indicador->eixo_fk) == $eixo->id ? 'selected' : '' }}>
 									{{ $eixo->nome }}
 								</option>
 							@endforeach
@@ -55,15 +54,15 @@
 					</div>
 
 					<div class="col-12">
-						<label for="nome" class="form-label">Nome do Indicador:</label>
+						<label for="nomeIndicador" class="form-label">Nome do Indicador:</label>
 						<input type="text" class="form-control" id="nomeIndicador" name="nomeIndicador"
-							value="{{ $indicador->nomeIndicador }}" required>
+							value="{{ old('nomeIndicador', $indicador->nomeIndicador) }}" required>
 					</div>
 
 					<div class="col-12 mb-3">
-						<label for="descricao">Descrição:</label>
+						<label for="descricaoIndicador">Descrição:</label>
 						<textarea class="form-control input-enabled" id="descricaoIndicador" name="descricaoIndicador"
-							rows="3" required>{{ $indicador->descricaoIndicador }}</textarea>
+							rows="3" required>{{ old('descricaoIndicador', $indicador->descricaoIndicador) }}</textarea>
 					</div>
 				</div>
 
@@ -72,7 +71,8 @@
 				<div class="d-flex justify-content-end mt-4">
 					<a href="{{ route('indicadores.index') }}"
 						class="highlighted-btn-sm highlight-btn-lg highlight-grey text-decoration-none me-2">Cancelar</a>
-					<button type="button" onclick="showConfirmationModal()" class="highlighted-btn-sm highlight-success me-0">Salvar Edição</button>
+					<button type="button" onclick="showConfirmationModal()"
+						class="highlighted-btn-sm highlight-success me-0">Salvar Edição</button>
 				</div>
 			</form>
 		</div>
@@ -95,7 +95,8 @@
 				<div class="modal-footer">
 					<button type="button" class="highlighted-btn-sm highlight-grey" data-bs-dismiss="modal">Voltar e
 						corrigir</button>
-					<button type="button" onclick="formSubmit()" class="highlighted-btn-sm highlight-success">Confirmar
+					<button type="button" onclick="formSubmit()" class="highlighted-btn-sm highlight-success"
+						id="submitConfirmationBtn">Confirmar
 						Edição</button>
 				</div>
 			</div>
