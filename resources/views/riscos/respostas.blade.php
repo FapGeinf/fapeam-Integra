@@ -345,6 +345,95 @@
     </div>
 </div>
 
+<div class="modal fade" id="respostaModal" tabindex="-1" aria-labelledby="respostaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="respostaModalLabel">Responder</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            
+            <div class="modal-body">
+                <form action="{{ route('riscos.storeResposta', ['id' => $monitoramento->id]) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="mb-4">
+                        <label for="statusMonitoramento">Status:</label>
+                        <select class="form-select input-enabled" id="statusMonitoramento" name="statusMonitoramento" required>
+                            <option value="NÃO IMPLEMENTADA"
+                                {{ old('statusMonitoramento') == 'NÃO IMPLEMENTADA' ? 'selected' : '' }}>
+                                NÃO IMPLEMENTADA
+                            </option>
+
+                            <option value="EM IMPLEMENTAÇÃO"
+                                {{ old('statusMonitoramento') == 'EM IMPLEMENTAÇÃO' ? 'selected' : '' }}>
+                                EM IMPLEMENTAÇÃO
+                            </option>
+
+                            <option value="IMPLEMENTADA PARCIALMENTE"
+                                {{ old('statusMonitoramento') == 'IMPLEMENTADA PARCIALMENTE' ? 'selected' : '' }}>
+                                IMPLEMENTADA PARCIALMENTE
+                            </option>
+                            
+                            <option value="IMPLEMENTADA"
+                                {{ old('statusMonitoramento') == 'IMPLEMENTADA' ? 'selected' : '' }}>
+                                IMPLEMENTADA
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="respostaRisco">Providência:</label>
+                        <textarea class="form-control" id="respostaRisco" name="respostaRisco" required></textarea>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="anexo" class="">Anexar Arquivo:</label>
+
+                        <input type="file" class="form-control input-enabled" id="anexo" name="anexo">
+                        <small class="form-text text-muted"><span class="text-danger">*</span>Apenas um arquivo pode ser anexado</small>
+                    </div>
+
+
+                    <div class="modal-footer justify-content-md-end p-0">
+                        <button type="button" class="highlighted-btn-sm highlight-success mt-2" id="abrirConfirmacaoBtn">Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="confirmacaoModal" tabindex="-1" aria-labelledby="confirmacaoModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <h5 class="modal-title" id="confirmacaoModalLabel">Confirme sua resposta</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+
+      <div class="modal-body">
+        <label class="mb-0 d-block">Status selecionado:</label>
+        <span id="confirmStatus" class="form-control input-disabled"></span>
+
+        <label class="d-block pt-4">Providência:</label>
+        <div id="confirmProvidencia" class="form-control input-disabled mb-3"></div>
+
+        <label class="d-block pt-2">Anexo:</label>
+        <span id="confirmAnexo" class="form-control input-disabled mb-2"></span>
+
+        <div id="previewContainer"></div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="highlighted-btn-sm footer-secondary" data-bs-dismiss="modal">Voltar e corrigir</button>
+        <button type="button" class="highlighted-btn-sm highlight-success" id="confirmarEnvioBtn">Confirmar e enviar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="modal fade" id="editRespostaModal" tabindex="-1" aria-labelledby="editRespostaModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
@@ -427,6 +516,8 @@
 
                 <label class="d-block pt-2">Anexo:</label>
                 <span id="editConfirmAnexo" class="form-control input-disabled mb-2"></span>
+
+                <div id="previewContainerEdit"></div>
             </div>
 
             <div class="modal-footer">
@@ -438,90 +529,7 @@
 </div>
 
 
-<div class="modal fade" id="respostaModal" tabindex="-1" aria-labelledby="respostaModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="respostaModalLabel">Responder</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            
-            <div class="modal-body">
-                <form action="{{ route('riscos.storeResposta', ['id' => $monitoramento->id]) }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="mb-4">
-                        <label for="statusMonitoramento">Status:</label>
-                        <select class="form-select input-enabled" id="statusMonitoramento" name="statusMonitoramento" required>
-                            <option value="NÃO IMPLEMENTADA"
-                                {{ old('statusMonitoramento') == 'NÃO IMPLEMENTADA' ? 'selected' : '' }}>
-                                NÃO IMPLEMENTADA
-                            </option>
 
-                            <option value="EM IMPLEMENTAÇÃO"
-                                {{ old('statusMonitoramento') == 'EM IMPLEMENTAÇÃO' ? 'selected' : '' }}>
-                                EM IMPLEMENTAÇÃO
-                            </option>
-
-                            <option value="IMPLEMENTADA PARCIALMENTE"
-                                {{ old('statusMonitoramento') == 'IMPLEMENTADA PARCIALMENTE' ? 'selected' : '' }}>
-                                IMPLEMENTADA PARCIALMENTE
-                            </option>
-                            
-                            <option value="IMPLEMENTADA"
-                                {{ old('statusMonitoramento') == 'IMPLEMENTADA' ? 'selected' : '' }}>
-                                IMPLEMENTADA
-                            </option>
-                        </select>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="respostaRisco">Providência:</label>
-                        <textarea class="form-control" id="respostaRisco" name="respostaRisco" required></textarea>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="anexo" class="">Anexar Arquivo:</label>
-
-                        <input type="file" class="form-control input-enabled" id="anexo" name="anexo">
-                        <small class="form-text text-muted"><span class="text-danger">*</span>Apenas um arquivo pode ser anexado</small>
-                    </div>
-
-                    <div class="modal-footer justify-content-md-end p-0">
-                        <button type="button" class="highlighted-btn-sm highlight-success mt-2" id="abrirConfirmacaoBtn">Enviar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="confirmacaoModal" tabindex="-1" aria-labelledby="confirmacaoModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-
-        <h5 class="modal-title" id="confirmacaoModalLabel">Confirme sua resposta</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-      </div>
-
-      <div class="modal-body">
-        <label class="mb-0 d-block">Status selecionado:</label>
-        <span id="confirmStatus" class="form-control input-disabled"></span>
-
-        <label class="d-block pt-4">Providência:</label>
-        <div id="confirmProvidencia" class="form-control input-disabled mb-3"></div>
-
-        <label class="d-block pt-2">Anexo:</label>
-        <span id="confirmAnexo" class="form-control input-disabled mb-2"></span>
-      </div>
-
-      <div class="modal-footer">
-        <button type="button" class="highlighted-btn-sm footer-secondary" data-bs-dismiss="modal">Voltar e corrigir</button>
-        <button type="button" class="highlighted-btn-sm highlight-success" id="confirmarEnvioBtn">Confirmar e enviar</button>
-      </div>
-    </div>
-  </div>
-</div>
 <x-back-button />
 <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 <script src="{{ asset('js/respostas.js') }}"></script>

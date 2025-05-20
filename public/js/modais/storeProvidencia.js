@@ -28,7 +28,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
         divProvidencia.innerHTML = providenciaContent || '<p>Não preenchido</p>';
 
-        spanAnexo.textContent = inputAnexo.files.length > 0 ? inputAnexo.files[0].name : 'Nenhum arquivo selecionado';
+        if (inputAnexo.files.length > 0) {
+            spanAnexo.textContent = inputAnexo.files[0].name;
+        } else {
+            spanAnexo.textContent = 'Nenhum arquivo selecionado';
+        }
+
 
         respostaModalEl.addEventListener('hidden.bs.modal', function handler() {
             confirmacaoModal.show();
@@ -45,4 +50,29 @@ document.addEventListener("DOMContentLoaded", function () {
     confirmacaoModalEl.addEventListener('hidden.bs.modal', function () {
         respostaModal.show();
     });
+
+    inputAnexo.addEventListener("change", function () {
+        const file = inputAnexo.files[0];
+        const previewContainer = document.getElementById("previewContainer");
+
+        if (file) {
+            const reader = new FileReader();
+            const fileType = file.type;
+
+            reader.onload = function (e) {
+                if (fileType.startsWith("image/")) {
+                    previewContainer.innerHTML = `<img src="${e.target.result}" alt="Pré-visualização" style="max-width: 100%; height: auto;">`;
+                } else if (fileType === "application/pdf") {
+                    previewContainer.innerHTML = `<embed src="${e.target.result}" type="application/pdf" width="100%" height="500px">`;
+                } else {
+                    previewContainer.innerHTML = `<p>Arquivo selecionado: ${file.name}</p>`;
+                }
+            };
+
+            reader.readAsDataURL(file);
+        } else {
+            previewContainer.innerHTML = `<p>Nenhum arquivo selecionado</p>`;
+        }
+    });
+
 });

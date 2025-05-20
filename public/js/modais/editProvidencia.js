@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const abrirConfirmacaoBtn = document.getElementById("abrirEditConfirmacaoBtn"); 
-    const confirmarEdicaoBtn = document.getElementById("confirmarEdicaoBtn"); 
+    const abrirConfirmacaoBtn = document.getElementById("abrirEditConfirmacaoBtn");
+    const confirmarEdicaoBtn = document.getElementById("confirmarEdicaoBtn");
     const form = document.querySelector("#editRespostaForm");
 
     const selectStatus = document.querySelector('#statusMonitoramento');
@@ -25,9 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         spanStatus.textContent = selectStatus.options[selectStatus.selectedIndex].text;
-
         divProvidencia.innerHTML = providenciaContent || '<p>Não preenchido</p>';
-
         spanAnexo.textContent = inputAnexo.files.length > 0 ? inputAnexo.files[0].name : 'Nenhum arquivo selecionado';
 
         editRespostaModalEl.addEventListener('hidden.bs.modal', function handler() {
@@ -42,8 +40,41 @@ document.addEventListener("DOMContentLoaded", function () {
         form.submit();
     });
 
-    // Quando o modal de confirmação for fechado, reabre o modal de edição
     editConfirmacaoModalEl.addEventListener('hidden.bs.modal', function () {
         editRespostaModal.show();
+    });
+
+    inputAnexo.addEventListener("change", function () {
+        const file = inputAnexo.files[0];
+        const previewContainer = document.getElementById("previewContainerEdit");
+
+        previewContainer.innerHTML = ""; 
+
+        if (file) {
+            const reader = new FileReader();
+            const fileType = file.type;
+
+            reader.onload = function (e) {
+                if (fileType.startsWith("image/")) {
+                    const imgPreview = document.createElement("img");
+                    imgPreview.src = e.target.result;
+                    imgPreview.style.maxWidth = "100%";
+                    imgPreview.style.height = "auto";
+                    previewContainer.appendChild(imgPreview);
+                } else if (fileType.includes("pdf")) {
+                    const iframePreview = document.createElement("iframe");
+                    iframePreview.src = e.target.result;
+                    iframePreview.width = "100%";
+                    iframePreview.height = "500px";
+                    previewContainer.appendChild(iframePreview);
+                } else {
+                    previewContainer.innerHTML = `<p>Arquivo selecionado: ${file.name}</p>`;
+                }
+            };
+
+            reader.readAsDataURL(file);
+        } else {
+            previewContainer.innerHTML = `<p>Nenhum arquivo selecionado</p>`;
+        }
     });
 });
