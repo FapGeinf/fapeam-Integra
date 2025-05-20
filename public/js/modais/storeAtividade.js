@@ -29,20 +29,23 @@ function showConfirmationModal() {
         return parts.length === 3 ? `${parts[2]}/${parts[1]}/${parts[0]}` : dateStr;
     }
 
-    let errors = {
+        let errors = {
         eixo: eixo ? "" : "Selecione ao menos um eixo.",
         responsavel: responsavel ? "" : "O campo 'Responsável' é obrigatório.",
         atividadeDescricao: atividadeDescricao ? "" : "A 'Descrição da Atividade' não pode estar vazia.",
         objetivo: objetivo ? "" : "O campo 'Objetivo' não pode estar vazio.",
-        publico: publico && publico.toLowerCase() !== "selecione" ? "" : "Selecione um público válido.",
-        tipoEvento: tipoEvento && tipoEvento.toLowerCase() !== "selecione" ? "" : "Selecione um tipo de evento válido.",
+        publico: publico && publico.toLowerCase() !== "selecione o público alvo" ? "" : "Selecione um público válido.",
+        tipoEvento: tipoEvento && tipoEvento.toLowerCase() !== "sem evento" ? "" : "Selecione um tipo de evento válido.",
         canal: canal ? "" : "Selecione ao menos um canal.",
         dataPrevista: dataPrevista ? "" : "A 'Data Prevista' é obrigatória.",
-        indicador: "", // não obrigatório
+        dataRealizada: dataRealizada ? "" : "A 'Data Realizada' é obrigatória.",
+        indicador: "", // esse é o único opcional
         meta: meta ? "" : "O campo 'Meta' é obrigatório.",
         realizado: realizado ? "" : "O campo 'Realizado' é obrigatório.",
-        medida: medida && medida.toLowerCase() !== "selecione" ? "" : "Selecione uma unidade de medida válida."
+        medida: medida && medida.toLowerCase() !== "selecione o tipo de unidade" ? "" : "Selecione uma unidade de medida válida."
     };
+
+
 
     const hasErrors = Object.values(errors).some(e => e !== "");
 
@@ -79,7 +82,7 @@ function showConfirmationModal() {
                 ${createReadonlyField("Tipo de Evento", tipoEvento, errors.tipoEvento)}
                 ${createReadonlyField("Canal(is)", canal, errors.canal)}
                 ${createReadonlyField("Data Prevista", formatDateBR(dataPrevista), errors.dataPrevista)}
-                ${createReadonlyField("Data Realizada", formatDateBR(dataRealizada), "")}
+                ${createReadonlyField("Data Realizada", formatDateBR(dataRealizada), errors.dataRealizada)}
                 ${createReadonlyField("Indicador(es)", indicador, errors.indicador)}
                 ${createReadonlyField("Meta", meta, errors.meta)}
                 ${createReadonlyField("Realizado", realizado, errors.realizado)}
