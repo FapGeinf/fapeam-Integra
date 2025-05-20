@@ -22,7 +22,7 @@
 </style>
 @section('title') {{ 'Lista de Atividades' }} @endsection
 @section('content')
-    <div class="container-fluid px__custom pt-4">
+    <div class="container-fluid px__custom pt-4 mt-5 mb-5">
         <div class="col-12 border main-datatable">
             <div class="d-flex justify-content-center text-center p-2" style="flex-direction: column;">
                 <span style="font-size:22px;">Lista de Versionamentos</span>
