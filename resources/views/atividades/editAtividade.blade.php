@@ -63,7 +63,7 @@
                 Campos obrigatórios
             </div>
 
-            <form action="{{ route('atividades.update', $atividade->id) }}" method="POST">
+            <form action="{{ route('atividades.update', $atividade->id) }}" method="POST" id="formEditAtividade">
                 @csrf
                 @method('PUT')
 
@@ -224,11 +224,35 @@
                     </div>
 
                     <div class="d-flex justify-content-end pt-4">
-                        <button type="submit" class="highlighted-btn-sm highlight-success">Salvar Edição</button>
+                        <button type="button" onclick="showConfirmationModal()" class="highlighted-btn-sm highlight-success">Salvar Edição</button>
                     </div>
             </form>
         </div>
     </div>
+    </div>
+
+    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmationModalLabel">Confirmação de Inserção</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                
+                <div class="modal-body">
+                    <div id="modalContent" class="container-fluid">
+                        <!-- Os dados gerados dinamicamente aparecerão aqui -->
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar e Corrigir</button>
+                    <button type="button" onclick="formSubmit()" class="btn btn-success"  id="submitConfirmationBtn">Confirmar Inserção</button>
+                </div>
+
+            </div>
+        </div>
     </div>
 
     <x-back-button />
@@ -236,4 +260,6 @@
     <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
     <script src="{{ asset('js/atividades/createAtividade.js') }}"></script>
     <script src="{{ asset('js/choices/indicadores.js') }}"></script>
+    <script src="{{ asset('js/modais/editAtividade.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 @endsection
