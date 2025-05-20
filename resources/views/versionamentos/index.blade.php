@@ -47,8 +47,7 @@
                 <div class="row g-3 align-items-end">
                     @if(Auth::user()->unidadeIdFK == 1)
                         <div class="col-md-3 d-flex align-items-end">
-                            <button type="button" data-bs-toggle="modal" data-bs-target="#insertVersionamento"
-                                class="btn btn-md btn-primary">Inserir Versionamento</button>
+                            <a href="{{ route('versionamentos.create') }}" class="btn btn-md btn-primary">Inserir Versionamento</a>
                         </div>
                     @endif
                 </div>
