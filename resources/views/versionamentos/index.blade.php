@@ -22,18 +22,6 @@
 </style>
 @section('title') {{ 'Lista de Atividades' }} @endsection
 @section('content')
-    <div class="alert-container mt-5">
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-
-        @elseif (session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-        @endif
-    </div>
     <div class="container-fluid px__custom pt-4">
         <div class="col-12 border main-datatable">
             <div class="d-flex justify-content-center text-center p-2" style="flex-direction: column;">
@@ -44,6 +32,18 @@
     <div class="container-fluid p-30">
         <div class="col-12 border main-datatable">
             <div class="container-fluid">
+                <div class="alert-container mt-5">
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+
+                    @elseif (session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+                </div>
                 <div class="row g-3 align-items-end">
                     @if(Auth::user()->unidadeIdFK == 1)
                         <div class="col-md-3 d-flex align-items-end">
@@ -77,9 +77,8 @@
                                                 <ul class="dropdown-menu"
                                                     aria-labelledby="dropdownMenuButton{{ $versionamento->id }}">
                                                     <li>
-                                                        <a class="dropdown-item d-flex align-items-center" href="#"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#editVersionamento{{ $versionamento->id }}">
+                                                        <a class="dropdown-item d-flex align-items-center"
+                                                            href="{{ route('versionamentos.edit', $versionamento->id) }}">
                                                             <i class="bi bi-pencil me-2"></i> Editar
                                                         </a>
                                                     </li>
@@ -95,39 +94,6 @@
                                         @endif
                                     </td>
                                 </tr>
-                                <div class="modal fade" id="editVersionamento{{ $versionamento->id }}" tabindex="-1"
-                                    aria-labelledby="editVersionamentoLabel{{ $versionamento->id }}" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg modal-dialog-centered">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="editVersionamentoLabel{{ $versionamento->id }}">
-                                                    Editar Versionamento</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Fechar"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form action="{{ route('versionamentos.update', $versionamento->id) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <div class="mb-3">
-                                                        <label for="titulo" class="form-label">Título</label>
-                                                        <input type="text" name="titulo" id="titulo" class="form-control"
-                                                            value="{{ $versionamento->titulo }}" required>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="descricao" class="form-label">Descrição</label>
-                                                        <textarea name="descricao" id="descricao" class="form-control descricao"
-                                                            rows="3" required>{!! $versionamento->descricao  !!}</textarea>
-                                                    </div>
-                                                    <div class="d-flex justify-content-end">
-                                                        <button type="submit" class="btn btn-success">Salvar</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="modal fade" id="deleteModal{{ $versionamento->id }}" tabindex="-1"
                                     aria-labelledby="deleteModalLabel{{ $versionamento->id }}" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
@@ -157,34 +123,6 @@
                             @endforeach
                         </tbody>
                     </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="insertVersionamento" tabindex="-1" aria-labelledby="insertVersionamentoLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="insertVersionamentoLabel">Inserir Versionamento</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('versionamentos.store') }}" method="POST">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="titulo" class="form-label">Título</label>
-                            <input type="text" name="titulo" id="titulo" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="descricao" class="form-label">Descrição</label>
-                            <textarea name="descricao" id="descricao" class="form-control descricao" rows="3"
-                                required></textarea>
-                        </div>
-                        <div class="d-flex justify-content-end">
-                            <button type="submit" class="btn btn-success">Salvar</button>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>

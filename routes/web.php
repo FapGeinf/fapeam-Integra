@@ -137,8 +137,10 @@ Route::prefix('indicadores')->name('indicadores.')->middleware('auth')->group(fu
 
 Route::middleware(['auth',isAdmin::class])->prefix('versionamentos')->name('versionamentos.')->group(function(){
     Route::get('/',[VersionamentoController::class,'index'])->name('index');
+    Route::get('/create',[VersionamentoController::class, 'createVersionamento'])->name('create');
     Route::post('/store',[VersionamentoController::class,'storeVersionamento'])->name('store');
-    Route::put('/{id}/update',[VersionamentoController::class,'editVersionamento'])->name('update');
+    Route::get('/{id}/edit',[VersionamentoController::class,'editFormVersionamento'])->name('edit');
+    Route::put('/{id}/update',[VersionamentoController::class,'updateVersionamento'])->name('update');
     Route::delete('/{id}/delete',[VersionamentoController::class,'destroyVersionamento'])->name('destroy');
 });
 

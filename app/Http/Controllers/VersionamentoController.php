@@ -29,26 +29,37 @@ class VersionamentoController extends Controller
            return view('versionamentos.showVersionamento',compact('versionamentos'));
     }
 
+    public function createVersionamento()
+    {
+           return view('versionamentos.create');
+    }
+
     public function storeVersionamento(VersionamentoRequest $request)
     {
         try {
             $this->versionamentoService->insertVersionamento($request->validated());
     
-            return redirect()->back()->with('success', 'Versionamento inserido com sucesso');
+            return redirect()->route('versionamentos.index')->with('success','Foi inserido um versionamento com sucesso');
         } catch (Exception $e) {
             Log::error('Erro ao registrar o versionamento: ' . $e->getMessage());
     
             return redirect()->back()->with('error', 'Houve um erro inesperado ao inserir um versionamento no sistema');
         }
     }
+
+    public function editFormVersionamento($id)
+    {
+           $versionamento = $this->versionamentoService->getVersionamentoById($id);
+           return view('versionamentos.edit',compact('versionamento'));
+    }
     
 
-    public function editVersionamento($id, VersionamentoRequest $request)
+    public function updateVersionamento($id, VersionamentoRequest $request)
     {
         try {
             $this->versionamentoService->updateVersionamento($request->validated(), $id);
 
-            return redirect()->back()->with('success', 'Versionamento foi atualizado com sucesso');
+            return redirect()->route('versionamentos.index')->with('success','O versionamento selecionado foi atualizado com sucesso');
         } catch (Exception $e) {
             Log::error('Houve um erro ao atualizar o versionamento: ' . $e->getMessage());
 
