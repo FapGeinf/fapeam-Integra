@@ -117,7 +117,7 @@
 
                         <div class="modal-footer">
                             <button type="button" class="highlighted-btn-sm highlight-grey" data-bs-dismiss="modal">Voltar e corrigir</button>
-                            <button type="button" id="btnConfirmSubmit" class="btn btn-primary" onclick="formSubmit()">Confirmar</button>
+                            <button type="button" id="btnConfirmSubmit" class="highlighted-btn-sm highlight-success" onclick="formSubmit()">Confirmar</button>
                         </div>
                     </div>
                 </div>
