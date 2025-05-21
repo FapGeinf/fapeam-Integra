@@ -43,6 +43,11 @@ class UserController extends Controller
         }
     }
 
+    public function createUser()
+    {
+           return view('users.createUser');
+    }
+
     public function insertUser(StoreUserRequest $request)
     {
         try {
@@ -57,13 +62,19 @@ class UserController extends Controller
                 'user_id' => Auth::user()->id,
             ]);
 
-            return redirect()->back()->with('success', 'Usuário inserido com sucesso');
+            return redirect()->route('usuarios.index')->with('success','Usuario Inserido com sucesso');
 
         } catch (Exception $e) {
             return redirect()->back()
                 ->withErrors('Erro ao inserir o usuário. Tente novamente.')
                 ->withInput();
         }
+    }
+
+    public function editUser($id)
+    {
+           $user = $this->userService->returnUserbyId($id);
+           return view('users.editUser',compact('user'));
     }
 
     public function updateUser(UpdateUserRequest $request, $id)
