@@ -135,20 +135,26 @@ class RiscoController extends Controller
             ]);
             return redirect()->route('riscos.show', ['id' => $risco->id])->with('success', 'Risco editado com sucesso');
         } catch (Exception $e) {
+            Log::error('Houve um erro inesperado ao atualizar o risco', ['error' => $e->getMessage(), 'risco_id' => $id]);
             return redirect()->back()->withErrors('Ocorreu um erro ao atualizar o risco.');
         }
     }
 
     public function delete($id)
     {
-        $this->risco->deleteRisco($id);
-        $usuarioNome = Auth::user()->name;
-        $this->log->insertLog([
-            'acao' => 'Exclusão',
-            'descricao' => "O usuario $usuarioNome deletou um risco de $id",
-            'user_id' => Auth::user()->id
-        ]);
-        return redirect()->back()->with(['success' => 'Risco Deletado com sucesso']);
+        try {
+            $this->risco->deleteRisco($id);
+            $usuarioNome = Auth::user()->name;
+            $this->log->insertLog([
+                'acao' => 'Exclusão',
+                'descricao' => "O usuário $usuarioNome deletou um risco de ID $id",
+                'user_id' => Auth::user()->id
+            ]);
+            return redirect()->back()->with(['success' => 'Risco deletado com sucesso']);
+        } catch (Exception $e) {
+            Log::error("Erro ao deletar risco ID $id: " . $e->getMessage());
+            return redirect()->back()->with(['error' => 'Ocorreu um erro ao deletar o risco. Por favor, tente novamente mais tarde.']);
+        }
     }
 
     public function editMonitoramentos($id)
@@ -237,7 +243,8 @@ class RiscoController extends Controller
 
             return redirect()->back()->with(['success' => 'Controle Sugerido deletado com sucesso']);
         } catch (Exception $e) {
-            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
+            Log::error('Houve um erro inesperado ao deletar o controle sugerido selecionado', ['error' => $e->getMessage(), 'monitoramento_id']);
+            return redirect()->back()->withErrors(['error' => 'Houve um erro inesperado ao deletar o controle sugerido selecionado']);
         }
     }
 
@@ -392,7 +399,7 @@ class RiscoController extends Controller
             'user_id' => Auth::user()->id
         ]);
 
-        return view('respostas.index',$dados);
+        return view('respostas.index', $dados);
     }
 
 
