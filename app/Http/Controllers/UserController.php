@@ -84,7 +84,7 @@ class UserController extends Controller
 
             $validatedData = $request->validated();
 
-            $this->userService->updateUser($user, $validatedData);
+            $this->userService->updateUser($id, $validatedData);
 
             $usuarioNome = Auth::user()->name;
             $this->log->insertLog([

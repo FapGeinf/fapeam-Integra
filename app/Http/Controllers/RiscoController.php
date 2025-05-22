@@ -267,13 +267,13 @@ class RiscoController extends Controller
                 'descricao' => "O usuario $usuarioNome inseriu uma nova providência",
                 'user_id' => Auth::user()->id
             ]);
-            return redirect()->route('riscos.respostas', $id)->with('success', 'Respostas adicionadas com sucesso');
+            return redirect()->route('riscos.respostas', $id)->with('success', 'Providências adicionadas com sucesso');
         } catch (Exception $e) {
             Log::error('Error storing resposta', [
                 'error' => $e->getMessage(),
                 'monitoramento_id' => $id
             ]);
-            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
+            return redirect()->back()->withErrors(['error' => "Houve um erro inesperado ao inserir uma providência"]);
         }
     }
 
@@ -297,7 +297,7 @@ class RiscoController extends Controller
             return redirect()->back()->withErrors(['error' => 'Resposta não encontrada.']);
         } catch (Exception $e) {
             Log::error('Erro ao atualizar a resposta: ' . $e->getMessage());
-            return redirect()->back()->withErrors(['error' => 'Ocorreu um erro ao atualizar a resposta. Por favor, tente novamente.']);
+            return redirect()->back()->withErrors(['error' => 'Ocorreu um erro ao atualizar a providência. Por favor, tente novamente.']);
         }
     }
 

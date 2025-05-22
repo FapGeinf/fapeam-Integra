@@ -7,6 +7,7 @@ use App\Services\IndicadorService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Eixo;
+use Log;
 
 class IndicadorController extends Controller
 {
@@ -40,25 +41,9 @@ class IndicadorController extends Controller
 
             return view('indicadores.index', compact('indicadores'));
         } catch (\Throwable $th) {
-            return redirect()->back()->withErrors(['error' => 'Erro ao carregar indicadores: ' . $th->getMessage()]);
+            Log::error('Erro ao carregar indicadores: ' . $th->getMessage(), ['trace' => $th->getTraceAsString()]);
+            return redirect()->back()->withErrors(['error' => 'Erro ao carregar indicadores.']);
         }
-    }
-
-    public function create()
-    {
-        $eixos = Eixo::all();
-
-        if (Auth::check()) {
-            $username = Auth::user()->name;
-
-            $this->log->insertLog([
-                'acao' => 'Acesso',
-                'descricao' => "O usuário de nome $username está acessando a página de inserção de indicadores",
-                'user_id' => Auth::user()->id
-            ]);
-        }
-
-        return view('indicadores.create', compact('eixos'));
     }
 
     public function store(Request $request)
@@ -84,7 +69,8 @@ class IndicadorController extends Controller
 
             return redirect()->route('indicadores.index')->with('success', 'Indicador criado com sucesso!');
         } catch (\Throwable $th) {
-            return redirect()->back()->withErrors(['error' => 'Erro ao criar indicador: ' . $th->getMessage()]);
+            Log::error('Erro ao criar indicador: ' . $th->getMessage(), ['trace' => $th->getTraceAsString()]);
+            return redirect()->back()->withErrors(['error' => 'Erro ao criar indicador.']);
         }
     }
 
@@ -106,7 +92,8 @@ class IndicadorController extends Controller
 
             return view('indicadores.edit', compact('indicador', 'eixos'));
         } catch (\Throwable $th) {
-            return redirect()->back()->withErrors(['error' => 'Erro ao carregar indicador: ' . $th->getMessage()]);
+            Log::error('Erro ao carregar indicador: ' . $th->getMessage(), ['trace' => $th->getTraceAsString()]);
+            return redirect()->back()->withErrors(['error' => 'Erro ao carregar indicador.']);
         }
     }
 
@@ -134,7 +121,8 @@ class IndicadorController extends Controller
 
             return redirect()->route('indicadores.index')->with('success', 'Indicador atualizado com sucesso!');
         } catch (\Throwable $th) {
-            return redirect()->back()->withErrors(['error' => 'Erro ao atualizar indicador: ' . $th->getMessage()]);
+            Log::error('Erro ao atualizar indicador: ' . $th->getMessage(), ['trace' => $th->getTraceAsString()]);
+            return redirect()->back()->withErrors(['error' => 'Erro ao atualizar indicador.']);
         }
     }
 }

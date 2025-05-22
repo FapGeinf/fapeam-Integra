@@ -181,6 +181,7 @@ class AtividadeController extends Controller
 
             return redirect()->route('atividades.index')->with('success', 'Atividade deletada com sucesso!');
         } catch (Exception $e) {
+            Log::error('Houve um erro inesperado ao deletar a atividade selecionada',['error' => $e->getMessage(), 'atividade_id' => $id]);
             return redirect()->back()->with('error', 'Ocorreu um erro ao excluir a atividade. Por favor, tente novamente mais tarde.');
         }
     }

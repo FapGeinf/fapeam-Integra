@@ -10,28 +10,20 @@ class PrazoService
 {
     public function storePrazo(array $data)
     {
-        try {
-            $prazoExistente = Prazo::first();
 
-            if ($prazoExistente) {
-                $prazoExistente->delete();
-            }
+        $prazoExistente = Prazo::first();
 
-            $novoPrazo = Prazo::create([
-                'data' => $data['data']
-            ]);
-
-            event(new PrazoProximo($novoPrazo));
-
-            return true;
-
-        } catch (Exception $e) {
-            Log::error('Houve um erro ao registrar um novo prazo.', [
-                'error' => $e->getMessage()
-            ]);
-
-            throw new Exception('Houve um erro ao registrar um novo prazo.');
+        if ($prazoExistente) {
+            $prazoExistente->delete();
         }
+
+        $novoPrazo = Prazo::create([
+            'data' => $data['data']
+        ]);
+
+        event(new PrazoProximo($novoPrazo));
+
+        return true;
     }
 
 }
