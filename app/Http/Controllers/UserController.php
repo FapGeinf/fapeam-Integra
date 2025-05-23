@@ -11,6 +11,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Log;
 
 class UserController extends Controller
 {
@@ -45,13 +46,13 @@ class UserController extends Controller
 
     public function createUser()
     {
-           return view('users.createUser');
+        return view('users.createUser');
     }
 
     public function insertUser(StoreUserRequest $request)
     {
         try {
-            
+
             $validatedData = $request->validated();
             $this->userService->storeNewUser($validatedData);
 
@@ -62,9 +63,10 @@ class UserController extends Controller
                 'user_id' => Auth::user()->id,
             ]);
 
-            return redirect()->route('usuarios.index')->with('success','Usuario Inserido com sucesso');
+            return redirect()->route('usuarios.index')->with('success', 'Usuario Inserido com sucesso');
 
         } catch (Exception $e) {
+            Log::error('Houve um erro inesperado ao inserir um novo usuário', ['error' => $e->getMessage()]);
             return redirect()->back()
                 ->withErrors('Erro ao inserir o usuário. Tente novamente.')
                 ->withInput();
@@ -73,8 +75,8 @@ class UserController extends Controller
 
     public function editUser($id)
     {
-           $user = $this->userService->returnUserbyId($id);
-           return view('users.editUser',compact('user'));
+        $user = $this->userService->returnUserbyId($id);
+        return view('users.editUser', compact('user'));
     }
 
     public function updateUser(UpdateUserRequest $request, $id)
@@ -96,6 +98,7 @@ class UserController extends Controller
             return redirect()->route('usuarios.index')->with('success', 'Usuário atualizado com sucesso');
 
         } catch (Exception $e) {
+            Log::error('Houve um erro ao atualizar um registro de um servidor.', ['error' => $e->getMessage(), 'usuario_id' => $id]);
             return redirect()->back()->with('error', 'Erro ao atualizar o usuário. Tente novamente.');
         }
     }
@@ -122,6 +125,10 @@ class UserController extends Controller
             return redirect()->route('riscos.index')->with('status', $response['message']);
 
         } catch (Exception $e) {
+            Log::error('Houve um erro ao atualizar a senha de um usuário', [
+                'error' => $e->getMessage(),
+                'usuario_id' => auth()->user()->id,
+            ]);
             return back()->with('error', 'Erro ao atualizar a senha. Tente novamente.');
         }
     }
@@ -142,6 +149,7 @@ class UserController extends Controller
             return redirect()->back()->with('success', 'Usuário deletado com sucesso.');
 
         } catch (Exception $e) {
+            Log::error('Houve um erro ao deletar um registro de um usuário.', ['error' => $e->getMessage(), 'usuario_id' => $id]);
             return redirect()->back()->with('error', 'Erro ao deletar o usuário. Tente novamente.');
         }
     }

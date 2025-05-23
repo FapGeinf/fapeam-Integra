@@ -42,7 +42,6 @@ class VersionamentoController extends Controller
             return redirect()->route('versionamentos.index')->with('success','Foi inserido um versionamento com sucesso');
         } catch (Exception $e) {
             Log::error('Erro ao registrar o versionamento: ' . $e->getMessage());
-    
             return redirect()->back()->with('error', 'Houve um erro inesperado ao inserir um versionamento no sistema');
         }
     }
@@ -62,7 +61,6 @@ class VersionamentoController extends Controller
             return redirect()->route('versionamentos.index')->with('success','O versionamento selecionado foi atualizado com sucesso');
         } catch (Exception $e) {
             Log::error('Houve um erro ao atualizar o versionamento: ' . $e->getMessage());
-
             return redirect()->back()->with('error', 'Houve um erro inesperado ao atualizar um versionamento');
         }
     }
@@ -75,7 +73,6 @@ class VersionamentoController extends Controller
             return redirect()->back()->with('success', 'Versionamento excluído com sucesso');
         } catch (Exception $e) {
             Log::error('Erro ao excluir o versionamento: ' . $e->getMessage());
-
             return redirect()->back()->with('error', 'Houve um erro inesperado ao excluir o versionamento');
         }
     }

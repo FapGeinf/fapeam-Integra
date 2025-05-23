@@ -80,6 +80,7 @@ class RiscoController extends Controller
             ]);
             return view('riscos.show', $dados);
         } catch (Exception $e) {
+            Log::error('Houve um erro ao recuperar o risco selecionado',['error' => $e->getMessage(), 'risco_id' => $id]);
             return redirect()->back()->withErrors('Ocorreu um erro ao carregar os dados do risco.');
         }
     }
@@ -321,9 +322,7 @@ class RiscoController extends Controller
 
             return redirect()->back()->with('success', 'Anexo deletado com sucesso');
         } catch (Exception $e) {
-
             Log::error('Error deleting anexo for Resposta ID: ' . $id . '. Error: ' . $e->getMessage());
-
             return redirect()->back()->with('errors', 'Houve um erro ao deletar o anexo selecionado');
         }
     }
@@ -382,7 +381,8 @@ class RiscoController extends Controller
 
             return redirect()->back()->with('success', 'Prazo Inserido com sucesso');
         } catch (Exception $e) {
-            return redirect()->back()->with('error', 'Um erro ocorreu: ' . $e->getMessage());
+            Log::error('Houve um erro ao inserir um novo prazo.',['error' => $e->getMessage()]);
+            return redirect()->back()->with('error', 'Ocorreu um erro ao inserir um novo prazo');
         }
     }
 
