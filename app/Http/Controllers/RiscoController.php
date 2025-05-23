@@ -80,7 +80,7 @@ class RiscoController extends Controller
             ]);
             return view('riscos.show', $dados);
         } catch (Exception $e) {
-            Log::error('Houve um erro ao recuperar o risco selecionado',['error' => $e->getMessage(), 'risco_id' => $id]);
+            Log::error('Houve um erro ao recuperar o risco selecionado', ['error' => $e->getMessage(), 'risco_id' => $id]);
             return redirect()->back()->withErrors('Ocorreu um erro ao carregar os dados do risco.');
         }
     }
@@ -160,21 +160,40 @@ class RiscoController extends Controller
 
     public function editMonitoramentos($id)
     {
-        $risco = $this->monitoramento->formInsertMonitoramentos($id);
-        return view('riscos.monitoramentos', compact('risco'));
+        try {
+            $risco = $this->monitoramento->formInsertMonitoramentos($id);
+            return view('riscos.monitoramentos', compact('risco'));
+        } catch (Exception $e) {
+            Log::error('Erro ao carregar formulário de monitoramentos', [
+                'error' => $e->getMessage(),
+                'id' => $id,
+                'user_id' => Auth::id(),
+            ]);
+            return redirect()->back()->with('error', 'Erro ao carregar o formulário de monitoramentos.');
+        }
     }
 
     public function editMonitoramento2($id)
     {
-        $monitoramento = $this->monitoramento->findMonitoramentoById($id);
+        try {
+            $monitoramento = $this->monitoramento->findMonitoramentoById($id);
 
-        Log::info('Editando monitoramento:', [
-            'monitoramento' => $monitoramento->toArray(),
-        ]);
-        return view('riscos.editMonitoramento', [
-            'monitoramento' => $monitoramento,
-        ]);
+            Log::info('Editando monitoramento:', [
+                'monitoramento' => $monitoramento->toArray(),
+            ]);
+            return view('riscos.editMonitoramento', [
+                'monitoramento' => $monitoramento,
+            ]);
+        } catch (Exception $e) {
+            Log::error('Erro ao carregar monitoramento para edição', [
+                'error' => $e->getMessage(),
+                'id' => $id,
+                'user_id' => Auth::id(),
+            ]);
+            return redirect()->back()->with('error', 'Erro ao carregar o monitoramento para edição.');
+        }
     }
+
 
     public function insertMonitoramentos(StoreMonitoramentoRequest $request, $id)
     {
@@ -381,25 +400,33 @@ class RiscoController extends Controller
 
             return redirect()->back()->with('success', 'Prazo Inserido com sucesso');
         } catch (Exception $e) {
-            Log::error('Houve um erro ao inserir um novo prazo.',['error' => $e->getMessage()]);
+            Log::error('Houve um erro ao inserir um novo prazo.', ['error' => $e->getMessage()]);
             return redirect()->back()->with('error', 'Ocorreu um erro ao inserir um novo prazo');
         }
     }
 
     public function indexRespostas()
     {
-        $dados = $this->resposta->indexRespostas();
-        $diretoriaId = $dados['diretoriaId'];
+        try {
+            $dados = $this->resposta->indexRespostas();
+            $diretoriaId = $dados['diretoriaId'];
 
-        $usuarioNome = Auth::user()->name;
+            $usuarioNome = Auth::user()->name;
 
-        $this->log->insertLog([
-            'acao' => 'Acesso',
-            'descricao' => "O usuário $usuarioNome acessou a tela de providências da diretoria de ID {$diretoriaId}",
-            'user_id' => Auth::user()->id
-        ]);
+            $this->log->insertLog([
+                'acao' => 'Acesso',
+                'descricao' => "O usuário $usuarioNome acessou a tela de providências da diretoria de ID {$diretoriaId}",
+                'user_id' => Auth::user()->id
+            ]);
 
-        return view('respostas.index', $dados);
+            return view('respostas.index', $dados);
+        } catch (Exception $e) {
+            Log::error('Erro ao acessar a tela de providências da diretoria', [
+                'error' => $e->getMessage(),
+                'user_id' => Auth::id()
+            ]);
+            return redirect()->back()->with('error', 'Erro ao carregar a tela de providências. Por favor, tente novamente.');
+        }
     }
 
 

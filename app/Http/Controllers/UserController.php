@@ -75,9 +75,15 @@ class UserController extends Controller
 
     public function editUser($id)
     {
-        $user = $this->userService->returnUserbyId($id);
-        return view('users.editUser', compact('user'));
+        try {
+            $user = $this->userService->returnUserbyId($id);
+            return view('users.editUser', compact('user'));
+        } catch (Exception $e) {
+            Log::error('Erro ao editar usuário', ['error' => $e->getMessage(), 'user_id' => $id]);
+            return redirect()->back()->with('error', 'Erro ao carregar dados do usuário.');
+        }
     }
+
 
     public function updateUser(UpdateUserRequest $request, $id)
     {
@@ -108,6 +114,7 @@ class UserController extends Controller
         try {
             return view('users.password');
         } catch (Exception $e) {
+            Log::error('Houve um erro ao retornar a tela de alteração de senha do usuário',['error' => $e->getMessage()]);
             return redirect()->back()->with('error', 'Erro ao carregar a tela de alteração de senha. Tente novamente.');
         }
     }

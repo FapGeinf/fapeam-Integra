@@ -13,8 +13,13 @@ class LogController extends Controller
 {
       public function indexLogs()
       {
-            $logs = LogModel::orderBy('created_at')->get();
-            return view('logs.index', compact('logs'));
+            try {
+                  $logs = LogModel::orderBy('created_at')->get();
+                  return view('logs.index', compact('logs'));
+            } catch (Exception $e) {
+                  Log::error('Erro ao carregar logs:', ['error' => $e->getMessage()]);
+                  return redirect()->back()->with('error', 'Erro ao carregar os logs.');
+            }
       }
 
       public function gerarRelatorioPorDia(Request $request)
@@ -41,8 +46,9 @@ class LogController extends Controller
                   return $pdf->download($nomeArquivo);
 
             } catch (Exception $e) {
-                  Log::error('Houve um erro ao gerar o pdf',['error' => $e->getMessage()]);
-                  return back()->withErrors(['erro' => 'Erro ao gerar relatório, verifique a data ou tente novamente' ]);    
+                  Log::error('Houve um erro ao gerar o pdf', ['error' => $e->getMessage()]);
+                  return back()->withErrors(['erro' => 'Erro ao gerar relatório, verifique a data ou tente novamente']);
             }
       }
+
 }

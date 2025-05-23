@@ -17,9 +17,15 @@ class RelatorioController extends Controller
 
     public function gerarRelatorioGeral()
     {
-        $pdf = $this->relatorioService->gerarRelatorioGeral();
-        return $pdf->download('relatorio_de_riscos.pdf');
+        try {
+            $pdf = $this->relatorioService->gerarRelatorioGeral();
+            return $pdf->download('relatorio_de_riscos.pdf');
+        } catch (Exception $e) {
+            Log::error('Erro ao gerar relatório geral de riscos', ['error' => $e->getMessage()]);
+            return redirect()->back()->with('error', 'Erro ao gerar o relatório geral, tente novamente.');
+        }
     }
+
 
     public function graficosIndex()
     {
@@ -27,6 +33,7 @@ class RelatorioController extends Controller
             $dados = $this->relatorioService->gerarDadosGraficos();
             return view('graficos.index', $dados);
         } catch (Exception $e) {
+            Log::error('Houve um erro ao carregar a página de gráficos', ['error' => $e->getMessage()]);
             return redirect()->route('graficos.index')->with('error', 'Erro ao carregar os gráficos.');
         }
     }

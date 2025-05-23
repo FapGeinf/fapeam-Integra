@@ -30,14 +30,14 @@ class DocumentoController extends Controller
 
 	public function intro()
 	{
-		   DeleteOldLogs::dispatch();
-		   return view('links_login.intro');
+		DeleteOldLogs::dispatch();
+		return view('links_login.intro');
 	}
 
 	public function downloadAvaliacao()
-{
-    return response()->file(storage_path('app/public/documentos/diagnosticoRiscos.pdf'));
-}
+	{
+		return response()->file(storage_path('app/public/documentos/diagnosticoRiscos.pdf'));
+	}
 
 
 }

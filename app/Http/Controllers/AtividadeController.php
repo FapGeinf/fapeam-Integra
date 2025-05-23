@@ -22,74 +22,111 @@ class AtividadeController extends Controller
         $this->canal = $canal;
         $this->log = $log;
     }
-
     public function index(Request $request)
     {
-        $eixo_id = $request->get('eixo_id');
-        $dados = $this->atividade->indexAtividades($eixo_id);
+        try {
+            $eixo_id = $request->get('eixo_id');
+            $dados = $this->atividade->indexAtividades($eixo_id);
 
-        if (Auth::check()) {
-            $username = Auth::user()->name;
-            $this->log->insertLog([
-                'acao' => 'Acesso',
-                'descricao' => "O usuário de nome $username está acessando a lista de atividades",
-                'user_id' => Auth::user()->id
+            if (Auth::check()) {
+                $username = Auth::user()->name;
+                $this->log->insertLog([
+                    'acao' => 'Acesso',
+                    'descricao' => "O usuário de nome $username está acessando a lista de atividades",
+                    'user_id' => Auth::user()->id
+                ]);
+            }
+
+            return view('atividades.index', $dados);
+
+        } catch (Exception $e) {
+            Log::error('Erro ao listar atividades: ' . $e->getMessage(), [
+                'user_id' => Auth::id(),
+                'eixo_id' => $request->get('eixo_id'),
             ]);
+            return redirect()->back()->with('error', 'Erro ao carregar a lista de atividades.');
         }
-
-        return view('atividades.index', $dados);
     }
 
     public function createCanal(InsertCanalRequest $request)
     {
-        $validatedData = $request->validated();
-        $canal = $this->canal->insertCanal($validatedData);
+        try {
+            $validatedData = $request->validated();
+            $canal = $this->canal->insertCanal($validatedData);
 
-        if (Auth::check()) {
-            $username = Auth::user()->name;
-            $this->log->insertLog([
-                'acao' => 'Inserção',
-                'descricao' => "O usuário de nome $username está inserindo um novo canal",
-                'user_id' => Auth::user()->id
+            if (Auth::check()) {
+                $username = Auth::user()->name;
+                $this->log->insertLog([
+                    'acao' => 'Inserção',
+                    'descricao' => "O usuário de nome $username está inserindo um novo canal",
+                    'user_id' => Auth::user()->id
+                ]);
+            }
+
+            return response()->json([
+                'success' => true,
+                'canal' => $canal
+            ], 201);
+
+        } catch (Exception $e) {
+            Log::error('Erro ao criar canal: ' . $e->getMessage(), [
+                'user_id' => Auth::id(),
+                'request' => $request->all()
             ]);
+            return response()->json([
+                'success' => false,
+                'message' => 'Erro ao criar canal.'
+            ], 500);
         }
-
-        return response()->json([
-            'success' => true,
-            'canal' => $canal
-        ], 201);
     }
 
     public function showAtividade($id)
     {
-        $atividade = $this->atividade->show($id);
+        try {
+            $atividade = $this->atividade->show($id);
 
-        if (Auth::check()) {
-            $username = Auth::user()->name;
-            $this->log->insertLog([
-                'acao' => 'Acesso',
-                'descricao' => "O usuário de nome $username está visualizando a atividade de ID $id",
-                'user_id' => Auth::user()->id
+            if (Auth::check()) {
+                $username = Auth::user()->name;
+                $this->log->insertLog([
+                    'acao' => 'Acesso',
+                    'descricao' => "O usuário de nome $username está visualizando a atividade de ID $id",
+                    'user_id' => Auth::user()->id
+                ]);
+            }
+
+            return view('atividades.showAtividade', ['atividade' => $atividade]);
+
+        } catch (Exception $e) {
+            Log::error("Erro ao mostrar atividade $id: " . $e->getMessage(), [
+                'user_id' => Auth::id(),
+                'atividade_id' => $id
             ]);
+            return redirect()->back()->with('error', 'Erro ao carregar a atividade.');
         }
-
-        return view('atividades.showAtividade', ['atividade' => $atividade]);
     }
 
     public function createAtividade()
     {
-        $dados = $this->atividade->createFormAtividade();
+        try {
+            $dados = $this->atividade->createFormAtividade();
 
-        if (Auth::check()) {
-            $username = Auth::user()->name;
-            $this->log->insertLog([
-                'acao' => 'Acesso',
-                'descricao' => "O usuário de nome $username está acessando a página de criação de atividade",
-                'user_id' => Auth::user()->id
+            if (Auth::check()) {
+                $username = Auth::user()->name;
+                $this->log->insertLog([
+                    'acao' => 'Acesso',
+                    'descricao' => "O usuário de nome $username está acessando a página de criação de atividade",
+                    'user_id' => Auth::user()->id
+                ]);
+            }
+
+            return view('atividades.createAtividade', $dados);
+
+        } catch (Exception $e) {
+            Log::error('Erro ao carregar formulário de criação de atividade: ' . $e->getMessage(), [
+                'user_id' => Auth::id(),
             ]);
+            return redirect()->back()->with('error', 'Erro ao carregar a página de criação de atividade.');
         }
-
-        return view('atividades.createAtividade', $dados);
     }
 
     public function storeAtividade(AtividadeRequest $request)
@@ -119,22 +156,30 @@ class AtividadeController extends Controller
             return redirect()->back()->with('error', 'Ocorreu um erro ao salvar a atividade. Por favor, tente novamente mais tarde.')->withInput();
         }
     }
-
     public function editAtividade($id)
     {
-        $dados = $this->atividade->editFormAtividade($id);
+        try {
+            $dados = $this->atividade->editFormAtividade($id);
 
-        if (Auth::check()) {
-            $username = Auth::user()->name;
-            $this->log->insertLog([
-                'acao' => 'Acesso',
-                'descricao' => "O usuário de nome $username está acessando a página de edição da atividade de ID $id",
-                'user_id' => Auth::user()->id
+            if (Auth::check()) {
+                $username = Auth::user()->name;
+                $this->log->insertLog([
+                    'acao' => 'Acesso',
+                    'descricao' => "O usuário de nome $username está acessando a página de edição da atividade de ID $id",
+                    'user_id' => Auth::user()->id
+                ]);
+            }
+
+            return view('atividades.editAtividade', $dados);
+        } catch (Exception $e) {
+            Log::error('Erro ao acessar página de edição de atividade', [
+                'error' => $e->getMessage(),
+                'atividade_id' => $id
             ]);
+            return redirect()->back()->with('error', 'Erro ao carregar dados da atividade.');
         }
-
-        return view('atividades.editAtividade', $dados);
     }
+
 
     public function updateAtividade(AtividadeRequest $request, $id)
     {
@@ -181,7 +226,7 @@ class AtividadeController extends Controller
 
             return redirect()->route('atividades.index')->with('success', 'Atividade deletada com sucesso!');
         } catch (Exception $e) {
-            Log::error('Houve um erro inesperado ao deletar a atividade selecionada',['error' => $e->getMessage(), 'atividade_id' => $id]);
+            Log::error('Houve um erro inesperado ao deletar a atividade selecionada', ['error' => $e->getMessage(), 'atividade_id' => $id]);
             return redirect()->back()->with('error', 'Ocorreu um erro ao excluir a atividade. Por favor, tente novamente mais tarde.');
         }
     }
