@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\IndicadorRequest;
+use App\Services\EixoService;
 use App\Services\LogService;
 use App\Services\IndicadorService;
 use Illuminate\Http\Request;
@@ -14,10 +16,13 @@ class IndicadorController extends Controller
     protected $log;
     protected $indicadorService;
 
-    public function __construct(LogService $log, IndicadorService $indicadorService)
+    protected $eixo;
+
+    public function __construct(LogService $log, IndicadorService $indicadorService, EixoService $eixo)
     {
         $this->log = $log;
         $this->indicadorService = $indicadorService;
+        $this->eixo = $eixo;
     }
 
     public function index(Request $request)
@@ -46,14 +51,16 @@ class IndicadorController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function create()
+    {
+           $eixos = $this->eixo->getAllEixosOrderbyNome();
+           return view('indicadores.create',compact('eixos'));
+    }
+
+    public function store(IndicadorRequest $request)
     {
         try {
-            $request->validate([
-                'nomeIndicador' => 'nullable|string|max:255',
-                'descricaoIndicador' => 'nullable|string',
-                'eixo_fk' => 'nullable|exists:eixos,id',
-            ]);
+            $request->validated();
 
             $indicador = $this->indicadorService->insertIndicador($request->only(['nomeIndicador', 'descricaoIndicador', 'eixo_fk']));
 
@@ -78,7 +85,7 @@ class IndicadorController extends Controller
     {
         try {
             $indicador = $this->indicadorService->getIndicadorById($id);
-            $eixos = Eixo::all();
+            $eixos = $this->eixo->getAllEixos();
 
             if (Auth::check()) {
                 $username = Auth::user()->name;
@@ -97,14 +104,10 @@ class IndicadorController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(IndicadorRequest $request, $id)
     {
         try {
-            $request->validate([
-                'nomeIndicador' => 'nullable|string|max:255',
-                'descricaoIndicador' => 'nullable|string|max:255',
-                'eixo_fk' => 'nullable|exists:eixos,id',
-            ]);
+            $request->validated();
 
             $this->indicadorService->updateIndicador($id, $request->only(['nomeIndicador', 'descricaoIndicador', 'eixo_fk']));
             $indicador = $this->indicadorService->getIndicadorById($id);
