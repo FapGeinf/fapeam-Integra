@@ -7,6 +7,7 @@ use App\Http\Requests\StoreRiscoRequest;
 use App\Http\Requests\UpdateMonitoramentoRequest;
 use App\Services\LogService;
 use App\Services\MonitoramentoService;
+use App\Services\NotificationService;
 use App\Services\PrazoService;
 use App\Services\RespostaService;
 use Illuminate\Http\Request;
@@ -24,7 +25,7 @@ use App\Services\RiscoService;
 class RiscoController extends Controller
 {
 
-    protected $log, $risco, $monitoramento, $resposta, $prazo;
+    protected $log, $risco, $monitoramento, $resposta, $prazo, $notification;
 
     public function index()
     {
@@ -57,17 +58,24 @@ class RiscoController extends Controller
             return redirect()->back()->withErrors(['error' => 'Ocorreu um erro ao carregar os riscos. Por favor, tente novamente.']);
         }
     }
+
     public function markAsRead(Request $request)
     {
         $notificationIds = $request->input('notification_ids');
 
-        if ($notificationIds) {
-            Notification::whereIn('id', $notificationIds)->update(['read_at' => now()]);
-            return redirect()->route('riscos.index')->with('success', 'Notificações marcadas como lidas com sucesso.');
+        $result = $this->notification->confirmRead([
+            'notifications_ids' => $notificationIds
+        ]);
+
+        if ($result) {
+            return redirect()->route('riscos.index')
+                ->with('success', 'Notificações marcadas como lidas com sucesso.');
         }
 
-        return redirect()->route('riscos.index')->with('error', 'Erro ao marcar notificações como lidas.');
+        return redirect()->route('riscos.index')
+            ->with('error', 'Erro ao marcar notificações como lidas.');
     }
+
     public function show($id)
     {
         try {
@@ -268,18 +276,18 @@ class RiscoController extends Controller
         }
     }
 
-    private function sendEmail(Resposta $resposta, Monitoramento $monitoramento, Notification $notification)
-    {
-        try {
-            if ($resposta) {
-                $users = User::all();
-                Mail::to(auth()->user())->send(new ResponseNotification($notification, $monitoramento));
-            }
-        } catch (Exception $e) {
-            Log::error('Houve um erro ao enviar um email: ' . $e->getMessage());
-            throw new Exception('Houve um erro ao enviar o email');
-        }
-    }
+    // private function sendEmail(Resposta $resposta, Monitoramento $monitoramento, Notification $notification)
+    // {
+    //     try {
+    //         if ($resposta) {
+    //             $users = User::all();
+    //             Mail::to(auth()->user())->send(new ResponseNotification($notification, $monitoramento));
+    //         }
+    //     } catch (Exception $e) {
+    //         Log::error('Houve um erro ao enviar um email: ' . $e->getMessage());
+    //         throw new Exception('Houve um erro ao enviar o email');
+    //     }
+    // }
 
 
     public function storeResposta(StoreRespostaRequest $request, $id)
@@ -430,7 +438,7 @@ class RiscoController extends Controller
     }
 
 
-    public function __construct(LogService $log, RiscoService $risco, MonitoramentoService $monitoramento, RespostaService $resposta, PrazoService $prazo)
+    public function __construct(LogService $log, RiscoService $risco, MonitoramentoService $monitoramento, RespostaService $resposta, PrazoService $prazo, NotificationService $notification)
     {
         $this->middleware('auth');
         // $this->middleware('checkAccess');
@@ -439,5 +447,6 @@ class RiscoController extends Controller
         $this->monitoramento = $monitoramento;
         $this->resposta = $resposta;
         $this->prazo = $prazo;
+        $this->notification = $notification;
     }
 }
