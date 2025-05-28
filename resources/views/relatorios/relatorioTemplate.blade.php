@@ -37,14 +37,10 @@
             margin-bottom: 30px;
             background-color: #f8f9fa;
 
-            /* Evita quebra de página dentro do risco */
-            page-break-inside: avoid;
-            page-break-after: avoid;
+            /* Removido page-break-inside */
         }
 
-        .page-break {
-            page-break-before: always;
-        }
+        /* Removidas todas as regras de page-break */
 
         .risco-title {
             font-weight: bold;
@@ -121,7 +117,7 @@
         <h2>Unidade: {{ $riscos->first()->unidade->unidadeSigla }}</h2>
 
         @foreach ($riscos as $index => $risco)
-            <div class="risco @if($index > 0) page-break @endif">
+            <div class="risco">
                 <div class="risco-title">Risco #{{ $index + 1 }}</div>
 
                 <div class="info"><strong>Ano:</strong> {{ $risco->riscoAno }}</div>
