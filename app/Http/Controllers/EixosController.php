@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Log;
+use Exception;
 
 class EixosController extends Controller
 {
@@ -48,14 +50,23 @@ class EixosController extends Controller
 
        public function mostrarEixo($eixo_id)
        {
-           $eixosValidos = [1, 2, 3, 4, 5, 6, 7, 8];
-       
-           if (in_array($eixo_id, $eixosValidos)) {
-               return view("apresentacoes.eixo{$eixo_id}");
-           }
-       
-           return redirect()->route('atividades.index')->with('error', 'Eixo não encontrado.');
+              try {
+                     $eixosValidos = [1, 2, 3, 4, 5, 6, 7, 8];
+
+                     if (in_array($eixo_id, $eixosValidos)) {
+                            return view("apresentacoes.eixo{$eixo_id}");
+                     }
+
+                     return redirect()->route('atividades.index')
+                            ->with('error', 'Eixo não encontrado.');
+
+              } catch (Exception $e) {
+                     Log::error('Erro ao carregar o eixo: ' . $e->getMessage());
+
+                     return redirect()->route('atividades.index')
+                            ->with('error', 'Ocorreu um erro ao carregar o eixo.');
+              }
        }
-       
+
 
 }

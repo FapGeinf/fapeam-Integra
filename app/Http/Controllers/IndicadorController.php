@@ -6,6 +6,7 @@ use App\Http\Requests\IndicadorRequest;
 use App\Services\EixoService;
 use App\Services\LogService;
 use App\Services\IndicadorService;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Eixo;
@@ -53,8 +54,13 @@ class IndicadorController extends Controller
 
     public function create()
     {
-           $eixos = $this->eixo->getAllEixosOrderbyNome();
-           return view('indicadores.create',compact('eixos'));
+        try {
+            $eixos = $this->eixo->getAllEixosOrderbyNome();
+            return view('indicadores.create', compact('eixos'));
+        } catch (Exception $e) {
+            Log::error('Houve um erro ao carregar o formulário de inserção de indicadores',['error' => $e->getMessage()]);
+            return redirect()->back()->with('error','Houve um erro ao carregar o formulário de inserção de indicadores');
+        }
     }
 
     public function store(IndicadorRequest $request)
