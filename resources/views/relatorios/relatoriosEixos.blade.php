@@ -7,8 +7,8 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            font-size: 12pt;
-            margin: 30px;
+            font-size: 13pt;
+            margin: 30px 40px;
             color: #212529;
             line-height: 1.6;
             background-color: #ffffff;
@@ -16,114 +16,127 @@
 
         h2 {
             text-align: center;
-            font-size: 22px;
-            margin-bottom: 25px;
-            color: #333333;
-            font-weight: bold;
+            font-size: 26px;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .atividade {
-            background-color: #f8f9fa;
-            padding: 20px 25px;
+            background-color: #fafafa;
+            padding: 25px 30px;
             margin-bottom: 30px;
-            border: 1px solid #adb5bd;
-            border-radius: 6px;
+            border: 1.5px solid #ced4da;
+            border-radius: 8px;
             box-sizing: border-box;
-            page-break-inside: avoid;
+            box-shadow: 0 2px 8px rgb(0 0 0 / 0.05);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .atividade:hover {
+            box-shadow: 0 6px 15px rgb(0 0 0 / 0.1);
         }
 
         .atividade h3 {
-            font-size: 18px;
-            background-color: #6c757d;
-            color: white;
-            padding: 15px 20px;
+            font-size: 20px;
+            background-color: #34495e;
+            color: #ecf0f1;
+            padding: 14px 22px;
             margin-top: 0;
-            margin-bottom: 20px;
-            font-weight: bold;
-            border-radius: 6px;
+            margin-bottom: 22px;
+            font-weight: 700;
+            border-radius: 8px;
+            letter-spacing: 0.03em;
+            user-select: none;
         }
 
         .campo {
-            margin-bottom: 18px;
-            font-size: 14px;
+            margin-bottom: 16px;
+            font-size: 15px;
             color: #495057;
+            display: flex;
+            flex-wrap: wrap;
         }
 
         .campo strong {
-            display: inline-block;
-            width: 180px;
-            font-weight: 600;
-            color: #212529;
-            vertical-align: top;
+            width: 190px;
+            font-weight: 700;
+            color: #2c3e50;
+            flex-shrink: 0;
         }
 
-        /* Caixa para textos mais longos como objetivo e justificativa */
         .campo-texto {
-            background: white;
+            background: #fff;
             border: 1px solid #ced4da;
-            border-radius: 5px;
-            padding: 12px 15px;
-            margin-top: 5px;
-            margin-bottom: 18px;
-            color: #343a40;
-            font-size: 14px;
+            border-radius: 6px;
+            padding: 14px 18px;
+            margin-top: 6px;
+            margin-bottom: 20px;
+            color: #2f3640;
+            font-size: 14.5px;
             line-height: 1.5;
+            white-space: pre-wrap; 
+            box-shadow: inset 0 1px 3px rgb(0 0 0 / 0.1);
         }
 
         p {
             margin: 0;
-            /* já temos margem na caixa */
             text-align: justify;
-        }
-
-        @media (max-width: 768px) {
-            body {
-                margin: 15px;
-                font-size: 11pt;
-            }
-
-            h2 {
-                font-size: 18px;
-            }
-
-            .campo strong {
-                width: 140px;
-            }
-
-            .atividade {
-                padding: 15px 20px;
-            }
-
-            .atividade h3 {
-                font-size: 16px;
-                padding: 12px 15px;
-            }
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
+            margin-top: 24px;
             border: 1px solid #adb5bd;
-            font-size: 14px;
+            font-size: 15px;
             color: #495057;
         }
 
         table th,
         table td {
-            padding: 10px 12px;
+            padding: 12px 14px;
             border: 1px solid #adb5bd;
             text-align: left;
+            vertical-align: middle;
         }
 
         table th {
             background-color: #e9ecef;
-            font-weight: 600;
+            font-weight: 700;
             color: #343a40;
+            user-select: none;
         }
 
         table tr:nth-child(even) td {
             background-color: #f8f9fa;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                margin: 20px 15px;
+                font-size: 12pt;
+            }
+
+            h2 {
+                font-size: 20px;
+                margin-bottom: 24px;
+            }
+
+            .campo strong {
+                width: 130px;
+            }
+
+            .atividade {
+                padding: 18px 20px;
+            }
+
+            .atividade h3 {
+                font-size: 18px;
+                padding: 12px 15px;
+            }
         }
     </style>
 </head>
