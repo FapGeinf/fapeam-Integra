@@ -17,7 +17,7 @@
             text-align: center;
             font-size: 26px;
             margin-bottom: 10px;
-            color: #333333;
+            color: #2c3e50;
         }
 
         h2 {
@@ -25,38 +25,34 @@
             margin-top: 40px;
             margin-bottom: 15px;
             padding: 10px;
-            background-color: #e9ecef;
-            border-left: 6px solid #6c757d;
-            color: #495057;
+            background-color: #f4f6f8;
+            border-left: 6px solid #34495e;
+            color: #34495e;
         }
 
         .risco {
-            border: 1px solid #adb5bd;
+            border: 1px solid #d1d9e6;
             border-radius: 5px;
             padding: 25px 20px;
             margin-bottom: 30px;
-            background-color: #f8f9fa;
-
-            /* Removido page-break-inside */
+            background-color: #fafbfc;
         }
 
-        /* Removidas todas as regras de page-break */
-
         .risco-title {
-            font-weight: bold;
+            font-weight: 600;
             font-size: 16px;
             margin-bottom: 20px;
-            border-bottom: 1px solid #ced4da;
+            border-bottom: 1px solid #d1d9e6;
             padding-bottom: 8px;
-            color: #343a40;
+            color: #2c3e50;
         }
 
         .info {
             margin-bottom: 15px;
             font-size: 14px;
-            color: #495057;
+            color: #4a4f55;
             padding: 10px 12px;
-            border: 1px solid #dee2e6;
+            border: 1px solid #e1e6eb;
             border-radius: 4px;
             background-color: #ffffff;
             display: flex;
@@ -66,37 +62,50 @@
         .info strong {
             width: 160px;
             display: inline-block;
-            color: #212529;
+            color: #2c3e50;
             flex-shrink: 0;
         }
 
         .nivel-baixo {
-            color: #198754;
-            font-weight: bold;
+            color: #2a7f62;
+            font-weight: 600;
         }
 
         .nivel-medio {
-            color: #fd7e14;
-            font-weight: bold;
+            color: #d4af37;
+            font-weight: 600;
         }
 
         .nivel-alto {
-            color: #dc3545;
-            font-weight: bold;
+            color: #a33e3e;
+            font-weight: 600;
+        }
+
+        .nivel-risco .bola {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+            vertical-align: middle;
+            background-color: #212529; /* bolinha preta */
         }
 
         .monitoramento {
-            background-color: #e9ecef;
+            background-color: #f4f6f8;
             padding: 15px 20px;
             margin-top: 20px;
-            border-left: 4px solid #6c757d;
+            border-left: 4px solid #34495e;
             border-radius: 6px;
+            font-size: 14px;
+            color: #34495e;
         }
 
         .monitoramento h5 {
             margin: 0 0 10px;
             font-size: 15px;
-            color: #6c757d;
+            color: #34495e;
+            font-weight: 600;
         }
 
         .footer {
@@ -132,17 +141,19 @@
                         $nivelIndex = max(0, min(2, (int) $risco->nivel_de_risco - 1));
                     @endphp
                     <span class="nivel-risco {{ $nivelClasses[$nivelIndex] }}">
-                        <span class="bola"></span> {{ $nivelTexto[$nivelIndex] }}
+                        {{ $nivelTexto[$nivelIndex] }}
                     </span>
                 </div>
 
-                @foreach ($risco->monitoramentos as $monitoramento)
+                @foreach ($risco->monitoramentos as $mIndex => $monitoramento)
                     <div class="monitoramento">
-                        <h5>Monitoramento</h5>
+                        <h5>Monitoramento #{{ $mIndex + 1 }}</h5>
                         <div class="info"><strong>Status:</strong> {{ $monitoramento->statusMonitoramento }}</div>
                         <div class="info"><strong>Controle Sugerido:</strong> {!! $monitoramento->monitoramentoControleSugerido !!}</div>
-                        <div class="info"><strong>Início:</strong> {{ \Carbon\Carbon::parse($monitoramento->inicioMonitoramento)->format('d/m/Y') }}</div>
-                        <div class="info"><strong>Fim:</strong> {{ \Carbon\Carbon::parse($monitoramento->fimMonitoramento)->format('d/m/Y') }}</div>
+                        <div class="info"><strong>Início:</strong>
+                            {{ \Carbon\Carbon::parse($monitoramento->inicioMonitoramento)->format('d/m/Y') }}</div>
+                        <div class="info"><strong>Fim:</strong>
+                            {{ \Carbon\Carbon::parse($monitoramento->fimMonitoramento)->format('d/m/Y') }}</div>
                     </div>
                 @endforeach
             </div>
