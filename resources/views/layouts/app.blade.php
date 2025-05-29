@@ -59,7 +59,7 @@
       </div>
       
 
-      <div class="navbar-brand" style="margin-left: 2rem;">
+      <div class="navbar-brand mt-2" style="margin-left: 2rem;">
         @if(Auth::check())
         <ul class="d-flex justify-content-center">
 
@@ -95,6 +95,12 @@
                 <a href="{{ route('usuarios.index') }}" class="d-flex li-a a-navbar">
                     <i class="bi bi-people i-navbar mt-1px"></i>
                     <span class="a-span">Usuários</span>
+                </a>
+            </li>
+            <li class="li-navbar2">
+                <a href="{{ route('logs') }}" class="d-flex li-a a-navbar">
+                    <i class="bi bi-clock-history i-navbar mt-1px"></i>
+                    <span class="a-span">Logs</span>
                 </a>
             </li>
           @endif

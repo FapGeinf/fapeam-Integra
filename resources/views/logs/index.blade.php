@@ -5,7 +5,11 @@
 <link rel="stylesheet" href="{{ asset('css/dataTables.dataTables.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/index.css') }}">
 <link rel="stylesheet" href="{{ asset('css/atividades.css') }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="{{ asset('js/logs/logsTable.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
+<script src="{{ asset('js/logs/logsDate.js') }}"></script>
 
 @section('title') {{ 'Lista de Logs' }} @endsection
 
