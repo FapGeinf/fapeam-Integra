@@ -18,22 +18,37 @@ class RespostaService
 
     public function indexRespostas()
     {
-
         $user = Auth::user();
-        $diretoriaId = $user->unidade->unidadeDiretoria;
-        $unidades = Unidade::where('unidadeDiretoria', $diretoriaId)->get();
-        $respostas = Resposta::whereHas('monitoramento.risco.unidade', function ($query) use ($diretoriaId) {
-            $query->where('unidadeDiretoria', $diretoriaId);
-        })
-            ->with(['monitoramento.risco.unidade.diretoria', 'user'])
-            ->get();
+        $isRoot = $user->usuario_tipo_fk == 4;
+        $isAdmin = $user->usuario_tipo_fk == 1;
 
-        return [
-            'respostas' => $respostas,
-            'unidades' => $unidades,
-            'diretoriaId' => $diretoriaId
-        ];
+        if ($isRoot || $isAdmin) {
+            $unidades = Unidade::all();
+            $respostas = Resposta::with(['monitoramento.risco.unidade.diretoria', 'user'])
+                ->get();
+
+            return [
+                'respostas' => $respostas,
+                'unidades' => $unidades,
+                'diretoriaId' => null
+            ];
+        } else {
+            $diretoriaId = $user->unidade->unidadeDiretoria;
+            $unidades = Unidade::where('unidadeDiretoria', $diretoriaId)->get();
+            $respostas = Resposta::whereHas('monitoramento.risco.unidade', function ($query) use ($diretoriaId) {
+                $query->where('unidadeDiretoria', $diretoriaId);
+            })
+                ->with(['monitoramento.risco.unidade.diretoria', 'user'])
+                ->get();
+
+            return [
+                'respostas' => $respostas,
+                'unidades' => $unidades,
+                'diretoriaId' => $diretoriaId
+            ];
+        }
     }
+
 
     public function showRespostas($id)
     {
@@ -63,11 +78,15 @@ class RespostaService
         $filePath = null;
 
         if (isset($validatedData['anexo']) && $validatedData['anexo'] instanceof \Illuminate\Http\UploadedFile) {
-            $filePath = $validatedData['anexo']->store('anexos', 'public');
+            $file = $validatedData['anexo'];
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $filePath = $file->storeAs('anexos', $filename, 'public');
+
             Log::info('Arquivo enviado com sucesso.', ['file_path' => $filePath]);
         } else {
             Log::info('Nenhum arquivo foi enviado.');
         }
+
 
         $resposta = Resposta::create([
             'respostaRisco' => $validatedData['respostaRisco'],
@@ -123,8 +142,11 @@ class RespostaService
                 Storage::disk('public')->delete($resposta->anexo);
             }
 
-            $resposta->anexo = $validatedData['anexo']->store('anexos', 'public');
+            $file = $validatedData['anexo'];
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $resposta->anexo = $file->storeAs('anexos', $filename, 'public');
         }
+
 
         if (isset($validatedData['statusMonitoramento'])) {
             $monitoramento->update([
