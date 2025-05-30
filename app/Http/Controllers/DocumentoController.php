@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreDocumentoRequest;
+use App\Http\Requests\UpdateDocumentoRequest;
 use App\Services\DocumentoService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Jobs\DeleteOldLogs;
 use Log;
-use PhpParser\NodeVisitor\CommentAnnotatingVisitor;
 
 class DocumentoController extends Controller
 {
-
 	protected $documento;
 
 	public function __construct(DocumentoService $documento)
@@ -87,14 +87,9 @@ class DocumentoController extends Controller
 		return view('historico', compact('tiposDocumentos', 'documentosAgrupados'));
 	}
 
-
-	public function store(Request $request)
+	public function store(StoreDocumentoRequest $request)
 	{
-		$validated = $request->validate([
-			'ano' => 'required|integer',
-			'tipo_id' => 'required|exists:tipos_documentos,id',
-			'path' => 'required|file|mimes:pdf,doc,docx,zip,png,jpg,jpeg',
-		]);
+		$validated = $request->validated();
 		try {
 			$this->documento->insertDocumento($validated);
 			return redirect()->route('documentos.historico')->with('success', 'Documento cadastrado com sucesso.');
@@ -104,15 +99,9 @@ class DocumentoController extends Controller
 		}
 	}
 
-
-	public function update(Request $request, $id)
+	public function update(UpdateDocumentoRequest $request, $id)
 	{
-		$validated = $request->validate([
-			'ano' => 'required|integer',
-			'tipo_id' => 'required|exists:tipos_documentos,id',
-			'path' => 'nullable|file|mimes:pdf,doc,docx,zip,png,jpg,jpeg',
-		]);
-
+		$validated = $request->validated();
 		try {
 			$this->documento->updateDocumento($id, $validated);
 			return redirect()->route('documentos.historico')->with('success', 'Documento atualizado com sucesso.');
@@ -133,6 +122,5 @@ class DocumentoController extends Controller
 			return redirect()->back()->with('error', 'Erro ao deletar documento.');
 		}
 	}
-
 
 }
