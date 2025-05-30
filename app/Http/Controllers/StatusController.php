@@ -59,7 +59,7 @@ class StatusController extends Controller
     {
         $usuario = Auth::user();
         $this->log->insertLog([
-            'acao' => 'Visualização',
+            'acao' => 'Acesso',
             'descricao' => "O usuário {$usuario->name} {$descricaoAcao}",
             'user_id' => $usuario->id,
         ]);
