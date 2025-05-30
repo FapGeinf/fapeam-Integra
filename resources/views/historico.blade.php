@@ -64,21 +64,22 @@
             @foreach($documentosAgrupados[$tipo->id] as $ano => $docsPorAno)
               <div class="mb-2"><strong>{{ $ano }}</strong></div> <!-- margem embaixo do ano -->
 
-             @foreach($docsPorAno as $documento)
-                  <div class="d-flex align-items-center justify-content-center mb-1">
-                    <a href="{{ asset('storage/' . $documento->path) }}" target="_blank" class="flex-grow-1 text-decoration-none">
-                      Documento de {{ $documento->ano }}
-                    </a>
+              @foreach($docsPorAno as $documento)
+                <div class="d-flex align-items-center mb-1">
+                  <a href="{{ asset('storage/' . $documento->path) }}" target="_blank" class="flex-grow-1 text-decoration-none ps-2">
+                    Documento de {{ $documento->ano }}
+                  </a>
 
-                    @if(Auth::user()->usuario_tipo_fk == 1 || Auth::user()->usuario_tipo_fk == 4)
-                      <a href="{{ route('documentos.edit', ['id' => $documento->id]) }}" 
-                        class="text-muted mt-2 small text-decoration-none" 
-                        style="font-size: 0.75rem; line-height: 1; display: flex; align-items: center;">
-                        Editar
-                      </a>
-                    @endif
-                  </div>
+                  @if(Auth::user()->usuario_tipo_fk == 1 || Auth::user()->usuario_tipo_fk == 4)
+                    <a href="{{ route('documentos.edit', ['id' => $documento->id]) }}" 
+                      class="text-muted ms-3 small text-decoration-none" 
+                      style="font-size: 0.75rem; line-height: 1; display: flex; align-items: center; height: 100%;">
+                      Editar
+                    </a>
+                  @endif
+                </div>
               @endforeach
+
 
 
             @endforeach
