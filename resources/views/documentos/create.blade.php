@@ -17,12 +17,11 @@
                 <span class="asteriscoTop">*</span> Campos obrigatórios
             </div>
 
-            <form action="{{ route('documentos.store') }}" method="POST" enctype="multipart/form-data"
-                id="formStoreDocumento">
+            <form action="{{ route('documentos.store') }}" method="POST" enctype="multipart/form-data" id="formStoreDocumento">
                 @csrf
 
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-12 mb-3">
                         <label><span class="asteriscoTop">*</span>Tipo de Documento:</label>
                         <select class="form-select input-enabled" name="tipo_id" id="tipoDocumento" required>
                             <option value="">Selecione</option>
@@ -32,7 +31,7 @@
                         </select>
                     </div>
 
-                    <div class="col-12">
+                    <div class="col-12 mb-3">
                         <label class="form-label"><span class="asteriscoTop">*</span>Ano:</label>
                         <input type="number" class="form-control" name="ano" id="anoDocumento" required>
                     </div>
@@ -54,6 +53,7 @@
         </div>
     </div>
 
+    <!-- Modal de confirmação com erros -->
     <div class="modal fade" id="confirmacaoModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -67,16 +67,19 @@
                     <div class="mb-3">
                         <label class="form-label"><strong>Tipo de Documento:</strong></label>
                         <input type="text" class="form-control" id="confirmTipo" readonly>
+                        <div class="invalid-feedback" id="errorConfirmTipo"></div>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label"><strong>Ano:</strong></label>
                         <input type="text" class="form-control" id="confirmAno" readonly>
+                        <div class="invalid-feedback" id="errorConfirmAno"></div>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label"><strong>Arquivo:</strong></label>
                         <input type="text" class="form-control" id="confirmAnexo" readonly>
+                        <div class="invalid-feedback" id="errorConfirmAnexo"></div>
                     </div>
 
                     <div class="mb-3">
@@ -96,9 +99,6 @@
         </div>
     </div>
 
-
     <x-back-button />
-
-
 
 @endsection

@@ -25,7 +25,7 @@
                 <div class="row">
                     <div class="col-12">
                         <label><span class="asteriscoTop">*</span>Tipo de Documento:</label>
-                        <select class="form-select input-enabled" name="tipo_id" required>
+                        <select id="tipoDocumento" class="form-select input-enabled" name="tipo_id" required>
                             <option value="">Selecione</option>
                             @foreach($tiposDocumentos as $tipo)
                                 <option value="{{ $tipo->id }}" {{ $documento->tipo_id == $tipo->id ? 'selected' : '' }}>
@@ -33,16 +33,20 @@
                                 </option>
                             @endforeach
                         </select>
+                        <div class="invalid-feedback" id="errorTipo"></div>
                     </div>
 
                     <div class="col-12">
                         <label class="form-label"><span class="asteriscoTop">*</span>Ano:</label>
-                        <input type="number" class="form-control" name="ano" value="{{ $documento->ano }}" required>
+                        <input id="anoDocumento" type="number" class="form-control" name="ano" value="{{ $documento->ano }}"
+                            required>
+                        <div class="invalid-feedback" id="errorAno"></div>
                     </div>
 
                     <div class="col-12 mb-3">
                         <label class="form-label">Arquivo (opcional):</label>
-                        <input type="file" class="form-control" name="path">
+                        <input id="arquivoDocumento" type="file" class="form-control" name="path">
+                        <div class="invalid-feedback" id="errorAnexo"></div>
                         <div class="mt-2">
                             <small>Arquivo atual:
                                 <a href="{{ asset('storage/' . $documento->path) }}" target="_blank">
@@ -55,9 +59,11 @@
 
                 <hr>
 
-                <button type="button" class="highlighted-btn-sm highlight-success me-0" id="abrirConfirmacaoBtn">
-                    Atualizar Documento
-                </button>
+                <div class="d-flex justify-content-end gap-2">
+                    <button type="button" class="highlighted-btn-sm highlight-success me-0" id="abrirConfirmacaoBtn">
+                        Atualizar Documento
+                    </button>
+                </div>
             </form>
         </div>
     </div>
@@ -109,7 +115,6 @@
             </div>
         </div>
     </div>
-
 
     <x-back-button />
 

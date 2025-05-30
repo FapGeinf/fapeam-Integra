@@ -63,25 +63,24 @@
           @if(isset($documentosAgrupados[$tipo->id]))
             @foreach($documentosAgrupados[$tipo->id] as $ano => $docsPorAno)
               <div class="mb-2"><strong>{{ $ano }}</strong></div> 
-
               @foreach($docsPorAno as $documento)
-                <div class="d-flex align-items-center mb-1">
-                  <a href="{{ asset('storage/' . $documento->path) }}" target="_blank" class="flex-grow-1 text-decoration-none ps-2">
-                    {{basename($documento->path)}}
-                  </a>
+                  <div class="d-flex align-items-center mb-1">
+                      <a href="{{ asset('storage/' . $documento->path) }}" target="_blank" 
+                        class="flex-grow-1 text-decoration-none ps-2 text-truncate" 
+                        style="font-weight: 600; font-size: 1rem; color: #222;" 
+                        title="{{ basename($documento->path) }}">
+                          {{ basename($documento->path) }}
+                      </a>
 
-                  @if(Auth::user()->usuario_tipo_fk == 1 || Auth::user()->usuario_tipo_fk == 4)
-                    <a href="{{ route('documentos.edit', ['id' => $documento->id]) }}" 
-                      class="text-muted ms-3 small text-decoration-none" 
-                      style="font-size: 0.75rem; line-height: 1; display: flex; align-items: center; height: 100%;">
-                      Editar
-                    </a>
-                  @endif
-                </div>
+                      @if(Auth::user()->usuario_tipo_fk == 1 || Auth::user()->usuario_tipo_fk == 4)
+                          <a href="{{ route('documentos.edit', ['id' => $documento->id]) }}" 
+                            class="text-muted ms-2 small text-decoration-none" 
+                            style="font-size: 0.75rem; line-height: 1; display: flex; align-items: center; height: 100%;">
+                              Editar
+                          </a>
+                      @endif
+                  </div>
               @endforeach
-
-
-
             @endforeach
           @else
             <span class="text-muted px-3">Nenhum documento</span>

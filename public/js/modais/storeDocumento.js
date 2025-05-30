@@ -7,26 +7,70 @@ document.addEventListener("DOMContentLoaded", function () {
     const inputAno = document.getElementById("anoDocumento");
     const inputAnexo = document.getElementById("arquivoDocumento");
 
-    const spanTipo = document.getElementById("confirmTipo");
-    const spanAno = document.getElementById("confirmAno");
-    const spanAnexo = document.getElementById("confirmAnexo");
+    
+    const confirmTipo = document.getElementById("confirmTipo");
+    const confirmAno = document.getElementById("confirmAno");
+    const confirmAnexo = document.getElementById("confirmAnexo");
+
+    const errorConfirmTipo = document.getElementById("errorConfirmTipo");
+    const errorConfirmAno = document.getElementById("errorConfirmAno");
+    const errorConfirmAnexo = document.getElementById("errorConfirmAnexo");
+
+    const previewContainer = document.getElementById("previewContainer");
 
     const confirmacaoModalEl = document.getElementById('confirmacaoModal');
     const confirmacaoModal = new bootstrap.Modal(confirmacaoModalEl);
 
+    function limparErrosModal() {
+        [confirmTipo, confirmAno, confirmAnexo].forEach(el => el.classList.remove("is-invalid"));
+        errorConfirmTipo.innerText = "";
+        errorConfirmAno.innerText = "";
+        errorConfirmAnexo.innerText = "";
+        confirmarEnvioBtn.classList.remove("d-none");
+    }
+
     abrirConfirmacaoBtn.addEventListener("click", function () {
-        document.getElementById("confirmTipo").value = selectTipo.options[selectTipo.selectedIndex].text || 'Não preenchido';
-        document.getElementById("confirmAno").value = inputAno.value || 'Não preenchido';
+        limparErrosModal();
+
+        let temErro = false;
+
+        if (!selectTipo.value) {
+            errorConfirmTipo.innerText = "Selecione o tipo de documento.";
+            confirmTipo.classList.add("is-invalid");
+            temErro = true;
+        }
+
+        if (!inputAno.value) {
+            errorConfirmAno.innerText = "Informe o ano.";
+            confirmAno.classList.add("is-invalid");
+            temErro = true;
+        }
+
+        if (inputAnexo.files.length === 0) {
+            errorConfirmAnexo.innerText = "Selecione um arquivo.";
+            confirmAnexo.classList.add("is-invalid");
+            temErro = true;
+        }
+
+        if (temErro) {
+            confirmarEnvioBtn.classList.add("d-none"); 
+            previewContainer.innerHTML = `<p>Nenhum arquivo selecionado</p>`;
+            confirmacaoModal.show();
+            return;
+        } else {
+            confirmarEnvioBtn.classList.remove("d-none");
+        }
+
+        confirmTipo.value = selectTipo.options[selectTipo.selectedIndex].text || 'Não preenchido';
+        confirmAno.value = inputAno.value || 'Não preenchido';
 
         if (inputAnexo.files.length > 0) {
-            document.getElementById("confirmAnexo").value = inputAnexo.files[0].name;
+            confirmAnexo.value = inputAnexo.files[0].name;
         } else {
-            document.getElementById("confirmAnexo").value = 'Nenhum arquivo selecionado';
+            confirmAnexo.value = 'Nenhum arquivo selecionado';
         }
 
         const file = inputAnexo.files[0];
-        const previewContainer = document.getElementById("previewContainer");
-
         if (file) {
             const reader = new FileReader();
             const fileType = file.type;
@@ -48,7 +92,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         confirmacaoModal.show();
     });
-
 
     confirmarEnvioBtn.addEventListener("click", function () {
         form.submit();

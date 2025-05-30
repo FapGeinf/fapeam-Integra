@@ -12,12 +12,51 @@ document.addEventListener("DOMContentLoaded", function () {
     const confirmAnexo = document.getElementById("confirmAnexo");
     const previewContainer = document.getElementById("previewContainer");
 
+    const errorTipo = document.getElementById("errorTipo");
+    const errorAno = document.getElementById("errorAno");
+    const errorAnexo = document.getElementById("errorAnexo");
+
     const confirmacaoModalEl = document.getElementById('confirmacaoModal');
     const confirmacaoModal = new bootstrap.Modal(confirmacaoModalEl);
 
+    function clearErrors() {
+        errorTipo.innerText = '';
+        errorAno.innerText = '';
+        errorAnexo.innerText = '';
+
+        confirmTipo.classList.remove('is-invalid');
+        confirmAno.classList.remove('is-invalid');
+        confirmAnexo.classList.remove('is-invalid');
+
+        confirmarEnvioBtn.classList.remove('d-none'); // botão visível por padrão
+        previewContainer.innerHTML = '<p>Nenhum arquivo selecionado</p>';
+    }
+
     abrirConfirmacaoBtn.addEventListener("click", function () {
-        confirmTipo.value = selectTipo.options[selectTipo.selectedIndex].text || 'Não preenchido';
-        confirmAno.value = inputAno.value || 'Não preenchido';
+        clearErrors();
+
+        let hasError = false;
+
+        if (!selectTipo.value) {
+            errorTipo.innerText = 'Selecione o tipo de documento.';
+            confirmTipo.classList.add('is-invalid');
+            hasError = true;
+        }
+
+        if (!inputAno.value.trim()) {
+            errorAno.innerText = 'Preencha o ano.';
+            confirmAno.classList.add('is-invalid');
+            hasError = true;
+        }
+
+        if (hasError) {
+            confirmarEnvioBtn.classList.add('d-none');
+        } else {
+            confirmarEnvioBtn.classList.remove('d-none');
+        }
+
+        confirmTipo.value = selectTipo.options[selectTipo.selectedIndex]?.text || 'Não preenchido';
+        confirmAno.value = inputAno.value.trim() || 'Não preenchido';
 
         if (inputAnexo.files.length > 0) {
             confirmAnexo.value = inputAnexo.files[0].name;
@@ -25,7 +64,6 @@ document.addEventListener("DOMContentLoaded", function () {
             confirmAnexo.value = 'Mantendo arquivo atual';
         }
 
-        // Gerar pré-visualização
         const file = inputAnexo.files[0];
 
         if (file) {
