@@ -31,30 +31,30 @@ use App\Http\Controllers\VersionamentoController;
 Route::get('/welcome', function () {
     return view('welcome');
 });
-Route::get('/home', function (){
-	return redirect()->route('riscos.index');
+Route::get('/home', function () {
+    return redirect()->route('riscos.index');
 });
 
 Route::get('/', function () {
-	return redirect()->route('documentos.intro');
+    return redirect()->route('documentos.intro');
 });
 
 Route::get('/index', [RiscoController::class, 'index'])->name('riscos.index');
 
-Route::get('/analise',[RiscoController::class,'analise'])->name('riscos.analise');
+Route::get('/analise', [RiscoController::class, 'analise'])->name('riscos.analise');
 
-Route::get('/risco/novo', [RiscoController::class,'create'])->name('riscos.create');
+Route::get('/risco/novo', [RiscoController::class, 'create'])->name('riscos.create');
 Route::post('/risco/criar', [RiscoController::class, 'store'])->name('riscos.store');
 Route::get('/riscos/show/{id}', [RiscoController::class, 'show'])->name('riscos.show');
 Route::get('/riscos/{id}/edit', [RiscoController::class, 'edit'])->name('riscos.edit');
 Route::put('/riscos/{id}', [RiscoController::class, 'update'])->name('riscos.update');
 Route::post('/riscos/monitoramentos/{id}/respostas', [RiscoController::class, 'storeResposta'])->name('riscos.storeResposta');
-Route::delete('/riscos/monitoramentos/{id}',[RiscoController::class,'deleteMonitoramento'])->name('riscos.deleteMonitoramento');
+Route::delete('/riscos/monitoramentos/{id}', [RiscoController::class, 'deleteMonitoramento'])->name('riscos.deleteMonitoramento');
 Route::get('/riscos/respostas/{id}', [RiscoController::class, 'respostas'])->name('riscos.respostas');
 Route::put('/risco/respostas/{id}/homologar', [RiscoController::class, 'homologar'])->name('riscos.homologar');
 Route::get('/riscos/{id}/edit-monitoramentos', [RiscoController::class, 'editMonitoramentos'])->name('riscos.edit-monitoramentos');
 Route::post('/riscos/{id}/update-monitoramentos', [RiscoController::class, 'insertMonitoramentos'])->name('riscos.insert-monitoramentos');
-Route::post('/riscos/prazo',[RiscoController::class,'insertPrazo'])->name('riscos.prazo');
+Route::post('/riscos/prazo', [RiscoController::class, 'insertPrazo'])->name('riscos.prazo');
 Route::post('/notificacoes/marcar-como-lidas', [RiscoController::class, 'marcarComoLidas'])->name('riscos.marcarComoLidas');
 Route::post('/notificacoes/marcar-como-lida', [RiscoController::class, 'marcarComoLida'])->name('riscos.marcarComoLida');
 Route::get('riscos/monitoramentos/{id}/edit', [RiscoController::class, 'editMonitoramento2'])->name('riscos.editMonitoramento');
@@ -64,15 +64,15 @@ Route::delete('riscos/delete-anexo/${respostaId}', [RiscoController::class, 'del
 
 
 
-Route::get('/painel', [UserController::class, 'painel'])->name('usuarios.index')->middleware(['auth',isAdmin::class]);
-Route::put('/user/update/{id}', [UserController::class, 'updateUser'])->name('user.update')->middleware(['auth',isAdmin::class]);
-Route::delete('/user/delete/{id}', [UserController::class, 'deleteUser'])->name('user.destroy')->middleware(['auth',isAdmin::class]);
-Route::post('/users/store',[UserController::class,'insertUser'])->name('users.store')->middleware(['auth',isAdmin::class]);
-Route::get('/users/create',[UserController::class,'createUser'])->middleware(['auth',isAdmin::class])->name('users.create');
-Route::get('/users/{id}/edit',[UserController::class,'editUser'])->name('users.edit')->middleware(['auth',isAdmin::class]);
+Route::get('/painel', [UserController::class, 'painel'])->name('usuarios.index')->middleware(['auth', isAdmin::class]);
+Route::put('/user/update/{id}', [UserController::class, 'updateUser'])->name('user.update')->middleware(['auth', isAdmin::class]);
+Route::delete('/user/delete/{id}', [UserController::class, 'deleteUser'])->name('user.destroy')->middleware(['auth', isAdmin::class]);
+Route::post('/users/store', [UserController::class, 'insertUser'])->name('users.store')->middleware(['auth', isAdmin::class]);
+Route::get('/users/create', [UserController::class, 'createUser'])->middleware(['auth', isAdmin::class])->name('users.create');
+Route::get('/users/{id}/edit', [UserController::class, 'editUser'])->name('users.edit')->middleware(['auth', isAdmin::class]);
 
 Route::get('/user/alterar-senha', [UserController::class, 'changePassword'])->name('users.password');
-Route::post('/user/alterar-senha',[UserController::class,'updatePassword'])->name('users.password');
+Route::post('/user/alterar-senha', [UserController::class, 'updatePassword'])->name('users.password');
 Route::post('/notifications/mark-as-read', [RiscoController::class, 'markAsRead'])->name('riscos.markAsRead');
 
 
@@ -85,10 +85,10 @@ Route::get('/riscos/nao-implementada', [StatusController::class, 'naoImplementad
 Auth::routes();
 
 
-Route::get('/apresentacao', [DocumentoController::class, 'showSystemPage'] )->name('apresentacao');
+Route::get('/apresentacao', [DocumentoController::class, 'showSystemPage'])->name('apresentacao');
 
 Route::get('/legislacao', function () {
-	return view('links_login.legislacao');
+    return view('links_login.legislacao');
 })->name('legislacao');
 
 Route::get('/manual', [DocumentoController::class, 'downloadManual'])->name('manual');
@@ -97,15 +97,12 @@ Route::get('/avaliacao', [DocumentoController::class, 'downloadAvaliacao'])->nam
 
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/eixos',[DocumentoController::class,'eixos'])->name('documentos.eixos')->middleware('auth');;
-
-Route::get('/historico', function () {
-	return view('historico');
-})->name('historico')->middleware('auth');
+Route::get('/eixos', [DocumentoController::class, 'eixos'])->name('documentos.eixos')->middleware('auth');
+;
 
 Route::get('/relatorio/riscos', [RelatorioController::class, 'gerarRelatorioGeral'])->name('relatorios.download');
 
-Route::get('/intro',[DocumentoController::class,'intro'])->name('documentos.intro')->middleware('auth');
+Route::get('/intro', [DocumentoController::class, 'intro'])->name('documentos.intro')->middleware('auth');
 
 Route::prefix('apresentacoes')->name('apresentacoes.')->middleware('auth')->group(function () {
     Route::get('/eixo1', [EixosController::class, 'Eixo1'])->name('eixo1');
@@ -130,30 +127,39 @@ Route::prefix('atividades')->name('atividades.')->middleware('auth')->group(func
 });
 
 Route::prefix('indicadores')->name('indicadores.')->middleware('auth')->group(function () {
-		Route::match(['get', 'post'], '/', [IndicadorController::class, 'index'])->name('index');
+    Route::match(['get', 'post'], '/', [IndicadorController::class, 'index'])->name('index');
     Route::get('/create', [IndicadorController::class, 'create'])->name('create');
     Route::post('/store', [IndicadorController::class, 'store'])->name('store');
     Route::get('/edit/{id}', [IndicadorController::class, 'edit'])->name('edit');
     Route::put('/update/{id}', [IndicadorController::class, 'update'])->name('update');
 });
 
-Route::middleware(['auth',isAdmin::class])->prefix('versionamentos')->name('versionamentos.')->group(function(){
-    Route::get('/',[VersionamentoController::class,'index'])->name('index');
-    Route::get('/create',[VersionamentoController::class, 'createVersionamento'])->name('create');
-    Route::post('/store',[VersionamentoController::class,'storeVersionamento'])->name('store');
-    Route::get('/{id}/edit',[VersionamentoController::class,'editFormVersionamento'])->name('edit');
-    Route::put('/{id}/update',[VersionamentoController::class,'updateVersionamento'])->name('update');
-    Route::delete('/{id}/delete',[VersionamentoController::class,'destroyVersionamento'])->name('destroy');
+Route::middleware(['auth', isAdmin::class])->prefix('versionamentos')->name('versionamentos.')->group(function () {
+    Route::get('/', [VersionamentoController::class, 'index'])->name('index');
+    Route::get('/create', [VersionamentoController::class, 'createVersionamento'])->name('create');
+    Route::post('/store', [VersionamentoController::class, 'storeVersionamento'])->name('store');
+    Route::get('/{id}/edit', [VersionamentoController::class, 'editFormVersionamento'])->name('edit');
+    Route::put('/{id}/update', [VersionamentoController::class, 'updateVersionamento'])->name('update');
+    Route::delete('/{id}/delete', [VersionamentoController::class, 'destroyVersionamento'])->name('destroy');
 });
 
-Route::get('/versionamentos/public',[VersionamentoController::class,'publicVersionamentos'])->name('versionamentos.public');
+Route::get('/versionamentos/public', [VersionamentoController::class, 'publicVersionamentos'])->name('versionamentos.public');
 
-Route::get('/graficos',[RelatorioController::class,'graficosIndex'])->name('graficos.index');
-Route::post('/canal/criar',[AtividadeController::class,'createCanal'])->name('canal.criar');
+Route::get('/graficos', [RelatorioController::class, 'graficosIndex'])->name('graficos.index');
+Route::post('/canal/criar', [AtividadeController::class, 'createCanal'])->name('canal.criar');
 Route::get('/eixo/{eixo_id}', [EixosController::class, 'mostrarEixo'])->name('eixo.mostrar');
 
-Route::get('/respostas/index',[RiscoController::class,'indexRespostas'])->name('respostas.index');
-Route::get('/relatorios/eixos/{id}',[RelatorioController::class,'relatoriosPorEixo'])->name('relatorios.eixos');
+Route::get('/respostas/index', [RiscoController::class, 'indexRespostas'])->name('respostas.index');
+Route::get('/relatorios/eixos/{id}', [RelatorioController::class, 'relatoriosPorEixo'])->name('relatorios.eixos');
 
-Route::get('/logs',[LogController::class, 'indexLogs'])->name('logs')->middleware(['auth',isAdmin::class]);
-Route::post('/logs/relatorios',[LogController::class, 'gerarRelatorioPorDia'])->name('relatorio')->middleware(['auth',isAdmin::class]);
+Route::get('/logs', [LogController::class, 'indexLogs'])->name('logs')->middleware(['auth', isAdmin::class]);
+Route::post('/logs/relatorios', [LogController::class, 'gerarRelatorioPorDia'])->name('relatorio')->middleware(['auth', isAdmin::class]);
+
+Route::prefix('documentos')->middleware('auth')->group(function () {
+    Route::get('/historico', [DocumentoController::class, 'historico'])->name('documentos.historico');
+    Route::get('/create', [DocumentoController::class, 'create'])->name('documentos.create');
+    Route::get('/{id}/edit', [DocumentoController::class, 'edit'])->name('documentos.edit');
+    Route::post('/', [DocumentoController::class, 'store'])->name('documentos.store');
+    Route::put('/{id}', [DocumentoController::class, 'update'])->name('documentos.update');
+    Route::delete('/{id}', [DocumentoController::class, 'destroy'])->name('documentos.destroy');
+});

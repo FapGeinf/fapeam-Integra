@@ -78,7 +78,7 @@
           </li>
   
           <li class="li-navbar2">
-            <a href="{{ route('historico') }}" class="d-flex li-a a-navbar {{ Request::routeIs('historico') ? 'li-a-active' : '' }}">
+            <a href="{{ route('documentos.historico') }}" class="d-flex li-a a-navbar {{ Request::routeIs('historico') ? 'li-a-active' : '' }}">
               <i class="bi bi-card-text i-navbar mt-1px"></i>
               <span class="a-span">Documentos</span>
             </a>
