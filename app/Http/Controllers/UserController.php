@@ -45,6 +45,15 @@ class UserController extends Controller
 
     public function createUser()
     {
+
+        $usuarioNome = Auth::user()->name;
+
+        $this->log->insertLog([
+            'acao' => 'Acesso',
+            'descricao' => "O usuário $usuarioNome acessou a tela de inserção de usuário",
+            'user_id' => Auth::user()->id,
+        ]);
+
         return view('users.createUser');
     }
 
@@ -56,6 +65,7 @@ class UserController extends Controller
             $this->userService->storeNewUser($validatedData);
 
             $usuarioNome = Auth::user()->name;
+
             $this->log->insertLog([
                 'acao' => 'Inserção',
                 'descricao' => "O usuário $usuarioNome inseriu um novo usuário no sistema",
@@ -76,6 +86,15 @@ class UserController extends Controller
     {
         try {
             $user = $this->userService->returnUserbyId($id);
+
+            $usuarioNome = Auth::user()->name;
+
+            $this->log->insertLog([
+                'acao' => 'Acesso',
+                'descricao' => "O usuário $usuarioNome acessou a tela de edição de usuário",
+                'user_id' => Auth::user()->id,
+            ]);
+
             return view('users.editUser', compact('user'));
         } catch (Exception $e) {
             Log::error('Erro ao editar usuário', ['error' => $e->getMessage(), 'user_id' => $id]);
@@ -94,6 +113,7 @@ class UserController extends Controller
             $this->userService->updateUser($id, $validatedData);
 
             $usuarioNome = Auth::user()->name;
+
             $this->log->insertLog([
                 'acao' => 'Atualização',
                 'descricao' => "O usuário $usuarioNome atualizou o usuário $user->name (ID: $user->id)",
@@ -111,9 +131,18 @@ class UserController extends Controller
     public function changePassword()
     {
         try {
+            
+            $usuarioNome = Auth::user()->name;
+
+            $this->log->insertLog([
+                'acao' => 'Acesso',
+                'descricao' => "O usuário $usuarioNome acessou a tela de atualização de senha",
+                'user_id' => Auth::user()->id,
+            ]);
+
             return view('users.password');
         } catch (Exception $e) {
-            Log::error('Houve um erro ao retornar a tela de alteração de senha do usuário',['error' => $e->getMessage()]);
+            Log::error('Houve um erro ao retornar a tela de alteração de senha do usuário', ['error' => $e->getMessage()]);
             return redirect()->back()->with('error', 'Erro ao carregar a tela de alteração de senha. Tente novamente.');
         }
     }
@@ -127,6 +156,14 @@ class UserController extends Controller
             if ($response['status'] === 'error') {
                 return back()->with('error', $response['message']);
             }
+
+            $usuarioNome = Auth::user()->name;
+
+            $this->log->insertLog([
+                'acao' => 'Atualização',
+                'descricao' => "O usuário $usuarioNome atualizou sua senha",
+                'user_id' => Auth::user()->id,
+            ]);
 
             return redirect()->route('riscos.index')->with('status', $response['message']);
 
