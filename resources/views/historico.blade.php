@@ -62,12 +62,12 @@
         <div class="dropdown-content1 p-3" id="dropdownMenu{{ $tipo->id }}"> <!-- padding interno -->
           @if(isset($documentosAgrupados[$tipo->id]))
             @foreach($documentosAgrupados[$tipo->id] as $ano => $docsPorAno)
-              <div class="mb-2"><strong>{{ $ano }}</strong></div> <!-- margem embaixo do ano -->
+              <div class="mb-2"><strong>{{ $ano }}</strong></div> 
 
               @foreach($docsPorAno as $documento)
                 <div class="d-flex align-items-center mb-1">
                   <a href="{{ asset('storage/' . $documento->path) }}" target="_blank" class="flex-grow-1 text-decoration-none ps-2">
-                    Documento de {{ $documento->ano }}
+                    {{basename($documento->path)}}
                   </a>
 
                   @if(Auth::user()->usuario_tipo_fk == 1 || Auth::user()->usuario_tipo_fk == 4)
