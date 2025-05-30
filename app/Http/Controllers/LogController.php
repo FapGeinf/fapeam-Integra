@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RelatorioLogRequest;
+use App\Services\LogService;
 use Exception;
 use Illuminate\Http\Request;
 use App\Models\Log as LogModel;
@@ -11,10 +13,17 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class LogController extends Controller
 {
+      protected $log;
+
+      public function __construct(LogService $log)
+      {
+             $this->log = $log;
+      }
+
       public function indexLogs()
       {
             try {
-                  $logs = LogModel::orderBy('created_at')->get();
+                  $logs = $this->log->getLogs();
                   return view('logs.index', compact('logs'));
             } catch (Exception $e) {
                   Log::error('Erro ao carregar logs:', ['error' => $e->getMessage()]);
@@ -22,29 +31,11 @@ class LogController extends Controller
             }
       }
 
-      public function gerarRelatorioPorDia(Request $request)
+      public function gerarRelatorioPorDia(RelatorioLogRequest $request)
       {
-            try {
-                  $validatedData = $request->validate([
-                        'created_at' => 'required|date'
-                  ], [
-                        'created_at.required' => 'Por favor, você não pode deixar esse campo vazio',
-                        'created_at.date' => 'Por favor, selecione uma data válida'
-                  ]);
-
-                  $dataSelecionada = Carbon::parse($validatedData['created_at']);
-
-                  $logs = LogModel::whereBetween('created_at', [
-                        $dataSelecionada->copy()->startOfDay(),
-                        $dataSelecionada->copy()->endOfDay()
-                  ])->orderBy('created_at', 'asc')->get();
-
-                  $pdf = Pdf::loadView('relatorios.relatorioLogs', compact('logs'));
-
-                  $nomeArquivo = 'relatorio_logs_' . $dataSelecionada->format('d_m_Y') . '.pdf';
-
-                  return $pdf->download($nomeArquivo);
-
+            try{
+                  $validatedData = $request->validated();
+                  return  $this->log->relatorioLogs($validatedData);
             } catch (Exception $e) {
                   Log::error('Houve um erro ao gerar o pdf', ['error' => $e->getMessage()]);
                   return back()->withErrors(['erro' => 'Erro ao gerar relatório, verifique a data ou tente novamente']);
