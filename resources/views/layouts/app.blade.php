@@ -84,7 +84,7 @@
             </a>
           </li>
   
-          @if (Auth::user()->unidade->unidadeTipoFK == 1)
+          @if (Auth::user()->unidade->unidadeTipoFK == 1 || Auth::user()->unidade->unidadeTipoFK == 4)
             <li class="li-navbar2">
               <a href="{{ route('relatorios.download') }}" class="d-flex li-a a-navbar">
                 <i class="bi bi-archive i-navbar mt-1px"></i>
