@@ -91,6 +91,7 @@
                 <span class="a-span">Relatório Geral</span>
               </a>
             </li>
+            @if(Auth::user()->usuario_tipo_fk == 4)
             <li class="li-navbar2">
                 <a href="{{ route('usuarios.index') }}" class="d-flex li-a a-navbar">
                     <i class="bi bi-people i-navbar mt-1px"></i>
@@ -103,6 +104,7 @@
                     <span class="a-span">Logs</span>
                 </a>
             </li>
+            @endif
             <li class="li-navbar2">
                 <a href="{{ route('respostas.index') }}" class="d-flex li-a a-navbar">
                     <i class="bi bi-chat-left-dots i-navbar mt-1px"></i>
