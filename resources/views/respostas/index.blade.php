@@ -61,7 +61,9 @@
                                     </td>
                                     <td class="text-center">
                                         <a href="{{ route('riscos.respostas', $resposta->monitoramento->id) }}"
-                                            class="btn btn-primary btn-sm">Ver Detalhes</a>
+                                            class="btn btn-primary btn-md">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
