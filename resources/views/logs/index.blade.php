@@ -4,7 +4,7 @@
 <script src="{{ asset('js/dataTables.min.js') }}"></script>
 <link rel="stylesheet" href="{{ asset('css/dataTables.dataTables.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/index.css') }}">
-<link rel="stylesheet" href="{{ asset('css/atividades.css') }}">
+<!-- <link rel="stylesheet" href="{{ asset('css/atividades.css') }}"> -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="{{ asset('js/logs/logsTable.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>

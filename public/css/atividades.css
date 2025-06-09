@@ -1,7 +1,26 @@
+:root {
+  --color-primary: #0d6efd;
+  --color-primary-hover: #0b5ed7;
+  --color-secondary: #6c757d;
+  --color-secondary-hover: #5c636a;
+  --color-danger: #d6360e;
+  --color-danger-hover: #aa2e0f;
+  --color-warning-bg: #ffc107;
+  --color-warning-bg-hover: #ffca2c;
+  --color-edit-btn-bg: #0056b3;
+  --color-edit-btn-bg-hover: #0062ca;
+  --color-reply-btn-bg: #28a745;
+  --color-reply-btn-bg-hover: #218838;
+  --color-btn-add-bg: #007bff;
+  --color-btn-add-bg-hover: #0056b3;
+  --color-pagination-bg: #ececec;
+  --color-pagination-current-bg: #f0f0f0;
+  --color-pagination-hover-bg: #d2d2d2;
+}
+
 a.edit-btn,
 a.reply-btn,
 a.btn-add,
-
 a.warning,
 a.primary,
 a.secondary,
@@ -15,110 +34,135 @@ a.secondary,
   cursor: pointer;
   font-size: 14px;
   margin-right: 0 !important;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
+  display: inline-block;
+  user-select: none;
 }
 
-select.dt-input {
-  background-color: #f1f3f5 !important;
-}
-
-.danger {
+.danger,
+a.danger {
   color: #fff;
-  background-color: #d6360e;
+  background-color: var(--color-danger);
 }
 
-.danger:hover {
-  color: #fff;
-  background-color: #aa2e0f;
+.danger:hover,
+a.danger:hover {
+  background-color: var(--color-danger-hover);
 }
 
 a.warning {
   color: #000;
-  background-color: #ffc107;
+  background-color: var(--color-warning-bg);
 }
 
 a.warning:hover {
-  background-color: #ffca2c;
+  background-color: var(--color-warning-bg-hover);
 }
 
+/* Primary */
 a.primary {
   color: #fff;
-  background-color: #0d6efd;
+  background-color: var(--color-primary);
 }
 
 a.primary:hover {
-  background-color: #0b5ed7;
+  background-color: var(--color-primary-hover);
 }
 
+/* Secondary */
 a.secondary,
 .secondary {
   color: #fff;
-  background-color: #6c757d;
+  background-color: var(--color-secondary);
 }
 
 a.secondary:hover {
-  background-color: #5c636a;
+  background-color: var(--color-secondary-hover);
 }
 
 a.edit-btn {
-  background-color: #0056b3;
+  background-color: var(--color-edit-btn-bg);
   color: #fff;
 }
 
 a.edit-btn:hover {
-  background-color: #0062ca;
+  background-color: var(--color-edit-btn-bg-hover);
 }
 
+/* Reply Button */
 a.reply-btn {
-  background-color: #28a745;
-  color: white;
+  background-color: var(--color-reply-btn-bg);
+  color: #fff;
 }
 
 a.reply-btn:hover {
-  background-color: #218838;
+  background-color: var(--color-reply-btn-bg-hover);
 }
 
+/* Add Button */
 a.btn-add {
-  background-color: #007bff;
+  background-color: var(--color-btn-add-bg);
   color: #fff;
 }
 
 a.btn-add:hover {
-  background-color: #0056b3;
+  background-color: var(--color-btn-add-bg-hover);
 }
 
 .pointer {
   cursor: pointer;
 }
 
-/* BOTÕES DE PAGINAÇÃO */
+/* Select input custom background */
+select.dt-input {
+  background-color: #f1f3f5 !important;
+  border-radius: 4px;
+  padding: 0.25em 0.5em;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s ease;
+}
+
+select.dt-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 4px var(--color-primary);
+}
+
+/* PAGINAÇÃO */
 .dataTables_wrapper .dataTables_info {
   line-height: 39px;
   padding-bottom: 2rem;
 }
 
+div.dt-container .dt-paging .dt-paging-button {
+  background-color: var(--color-pagination-bg) !important;
+  border-radius: 5px !important;
+  padding: 0.1em 0.6em !important;
+  margin-right: 0.25rem;
+  border: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
 div.dt-container .dt-paging .dt-paging-button.current {
-  background: #f0f0f0 !important;
-  transition: .2s ease !important;
+  background: var(--color-pagination-current-bg) !important;
+  font-weight: bold;
+  cursor: default;
 }
 
 div.dt-container .dt-paging .dt-paging-button.current:hover {
-  background-color: #d2d2d2 !important;
+  background-color: var(--color-pagination-current-bg) !important;
 }
 
-.dataTables_wrapper .dataTables_paginate {
-  padding-top: 1rem !important;
-}
-
-div.dt-container .dt-paging .dt-paging-button {
-  background-color: #ececec !important;
-  border-radius:5px !important;
-  padding: 0.1em .6em !important;
-}
-
-div.dt-container .dt-paging .dt-paging-button:hover {
+div.dt-container .dt-paging .dt-paging-button:hover:not(.current) {
   color: #000 !important;
-  background: #d2d2d2 !important;
+  background: var(--color-pagination-hover-bg) !important;
   border: 1px solid transparent !important;
+  cursor: pointer;
 }
-/* BOTÕES DE PAGINAÇÃO END */
+
+div.dt-container .dt-paging {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
