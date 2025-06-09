@@ -1,26 +1,7 @@
-:root {
-  --color-primary: #0d6efd;
-  --color-primary-hover: #0b5ed7;
-  --color-secondary: #6c757d;
-  --color-secondary-hover: #5c636a;
-  --color-danger: #d6360e;
-  --color-danger-hover: #aa2e0f;
-  --color-warning-bg: #ffc107;
-  --color-warning-bg-hover: #ffca2c;
-  --color-edit-btn-bg: #0056b3;
-  --color-edit-btn-bg-hover: #0062ca;
-  --color-reply-btn-bg: #28a745;
-  --color-reply-btn-bg-hover: #218838;
-  --color-btn-add-bg: #007bff;
-  --color-btn-add-bg-hover: #0056b3;
-  --color-pagination-bg: #ececec;
-  --color-pagination-current-bg: #f0f0f0;
-  --color-pagination-hover-bg: #d2d2d2;
-}
-
 a.edit-btn,
 a.reply-btn,
 a.btn-add,
+
 a.warning,
 a.primary,
 a.secondary,
@@ -34,135 +15,110 @@ a.secondary,
   cursor: pointer;
   font-size: 14px;
   margin-right: 0 !important;
-  transition: background-color 0.3s ease;
-  display: inline-block;
-  user-select: none;
+  transition: background-color 0.3s;
 }
 
-.danger,
-a.danger {
+select.dt-input {
+  background-color: #f1f3f5 !important;
+}
+
+.danger {
   color: #fff;
-  background-color: var(--color-danger);
+  background-color: #d6360e;
 }
 
-.danger:hover,
-a.danger:hover {
-  background-color: var(--color-danger-hover);
+.danger:hover {
+  color: #fff;
+  background-color: #aa2e0f;
 }
 
 a.warning {
   color: #000;
-  background-color: var(--color-warning-bg);
+  background-color: #ffc107;
 }
 
 a.warning:hover {
-  background-color: var(--color-warning-bg-hover);
+  background-color: #ffca2c;
 }
 
-/* Primary */
 a.primary {
   color: #fff;
-  background-color: var(--color-primary);
+  background-color: #0d6efd;
 }
 
 a.primary:hover {
-  background-color: var(--color-primary-hover);
+  background-color: #0b5ed7;
 }
 
-/* Secondary */
 a.secondary,
 .secondary {
   color: #fff;
-  background-color: var(--color-secondary);
+  background-color: #6c757d;
 }
 
 a.secondary:hover {
-  background-color: var(--color-secondary-hover);
+  background-color: #5c636a;
 }
 
 a.edit-btn {
-  background-color: var(--color-edit-btn-bg);
+  background-color: #0056b3;
   color: #fff;
 }
 
 a.edit-btn:hover {
-  background-color: var(--color-edit-btn-bg-hover);
+  background-color: #0062ca;
 }
 
-/* Reply Button */
 a.reply-btn {
-  background-color: var(--color-reply-btn-bg);
-  color: #fff;
+  background-color: #28a745;
+  color: white;
 }
 
 a.reply-btn:hover {
-  background-color: var(--color-reply-btn-bg-hover);
+  background-color: #218838;
 }
 
-/* Add Button */
 a.btn-add {
-  background-color: var(--color-btn-add-bg);
+  background-color: #007bff;
   color: #fff;
 }
 
 a.btn-add:hover {
-  background-color: var(--color-btn-add-bg-hover);
+  background-color: #0056b3;
 }
 
 .pointer {
   cursor: pointer;
 }
 
-/* Select input custom background */
-select.dt-input {
-  background-color: #f1f3f5 !important;
-  border-radius: 4px;
-  padding: 0.25em 0.5em;
-  border: 1px solid #ccc;
-  transition: border-color 0.3s ease;
-}
-
-select.dt-input:focus {
-  outline: none;
-  border-color: var(--color-primary);
-  box-shadow: 0 0 4px var(--color-primary);
-}
-
-/* PAGINAÇÃO */
+/* BOTÕES DE PAGINAÇÃO */
 .dataTables_wrapper .dataTables_info {
   line-height: 39px;
   padding-bottom: 2rem;
 }
 
-div.dt-container .dt-paging .dt-paging-button {
-  background-color: var(--color-pagination-bg) !important;
-  border-radius: 5px !important;
-  padding: 0.1em 0.6em !important;
-  margin-right: 0.25rem;
-  border: none;
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
-
 div.dt-container .dt-paging .dt-paging-button.current {
-  background: var(--color-pagination-current-bg) !important;
-  font-weight: bold;
-  cursor: default;
+  background: #f0f0f0 !important;
+  transition: .2s ease !important;
 }
 
 div.dt-container .dt-paging .dt-paging-button.current:hover {
-  background-color: var(--color-pagination-current-bg) !important;
+  background-color: #d2d2d2 !important;
 }
 
-div.dt-container .dt-paging .dt-paging-button:hover:not(.current) {
+.dataTables_wrapper .dataTables_paginate {
+  padding-top: 1rem !important;
+}
+
+div.dt-container .dt-paging .dt-paging-button {
+  background-color: #ececec !important;
+  border-radius:5px !important;
+  padding: 0.1em .6em !important;
+}
+
+div.dt-container .dt-paging .dt-paging-button:hover {
   color: #000 !important;
-  background: var(--color-pagination-hover-bg) !important;
+  background: #d2d2d2 !important;
   border: 1px solid transparent !important;
-  cursor: pointer;
 }
-
-div.dt-container .dt-paging {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-}
-
+/* BOTÕES DE PAGINAÇÃO END */

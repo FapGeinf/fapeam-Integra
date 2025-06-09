@@ -2,25 +2,18 @@ body {
     font-family: 'Roboto', sans-serif;
     background-color: #f8f9fa;
     color: #212529;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
 }
 
 .container-fluid {
     padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
 }
 
 .card {
     border-radius: 12px;
     border: 0;
-    background-color: #fff;
-    padding: 20px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-    will-change: transform;
+    padding: 20px;
+    background-color: white;
 }
 
 .card:hover {
@@ -29,21 +22,18 @@ body {
 }
 
 #search-bar {
-    width: 100%;
-    max-width: 450px;
     border-radius: 20px;
     border: 1px solid #ced4da;
     padding: 12px 18px;
     font-size: 16px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease, border-color 0.3s ease;
-    outline-offset: 2px;
+    transition: box-shadow 0.3s ease;
 }
 
 #search-bar:focus {
     outline: none;
-    border-color: #007bff;
     box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+    border-color: #007bff;
 }
 
 button.btn-primary {
@@ -53,49 +43,40 @@ button.btn-primary {
     background: linear-gradient(90deg, #007bff, #0056b3);
     border: none;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    color: #fff;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.3s ease, box-shadow 0.3s ease;
-    user-select: none;
+    transition: all 0.3s ease;
 }
 
-button.btn-primary:hover,
-button.btn-primary:focus {
+button.btn-primary:hover {
     background: linear-gradient(90deg, #0056b3, #003f7f);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-    outline: none;
 }
 
 .card-title {
-    font-weight: 700;
+    font-weight: bold;
     color: #495057;
     margin-bottom: 10px;
 }
 
 .card-body p {
     font-size: 18px;
-    font-weight: 700;
+    font-weight: bold;
     text-align: center;
-    color: #343a40;
-    word-break: break-word;
 }
 
 h4.card-title {
     font-size: 18px;
-    font-weight: 700;
-    color: #212529;
+    font-weight: bold;
+    color: #333;
     margin-bottom: 20px;
 }
 
 .chart-card {
-    background: #fff;
+    background: white;
     border: 1px solid #dee2e6;
-    border-radius: 12px;
-    padding: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease-in-out, transform 0.2s ease;
-    will-change: transform;
+    transition: box-shadow 0.3s ease-in-out, transform 0.2s;
+    padding: 15px;
+    border-radius: 12px;
 }
 
 .chart-card:hover {
@@ -104,47 +85,22 @@ h4.card-title {
 }
 
 #no-results-message {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: #6c757d;
-    text-align: center;
-    padding: 20px 0;
+    font-size: 1.2rem;
+    font-weight: bold;
 }
 
 .info-badge {
     font-size: 1.3rem;
-    font-weight: 700;
+    font-weight: bold;
     border-radius: 50px;
     padding: 8px 20px;
-    background-color: #007bff;
-    color: #fff;
-    display: inline-block;
-    user-select: none;
-    box-shadow: 0 2px 6px rgba(0,123,255,0.4);
+    color: white;
 }
 
 .form-control {
+    /* background-color: #f0f0f0; */
     border-radius: 0 !important;
-    background-color: #f8f9fa;
-    border: 1px solid #ced4da;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.form-control:focus {
-    border-color: #007bff !important;
-    box-shadow: 0 0 8px rgba(0,123,255,0.3);
-    outline: none;
-}
-
-.input-enabled {
-    background-color: #f8fafc !important;
-}
-
-.input-disabled {
-    background-color: #f0f0f0 !important;
-    cursor: not-allowed;
-    color: #6c757d;
-}
+  }
 
 @media (max-width: 768px) {
     .chart-card {
@@ -154,13 +110,11 @@ h4.card-title {
     button.btn-primary {
         width: 100%;
         padding: 12px;
-        font-size: 18px;
     }
 
     #search-bar {
         width: 100%;
         padding: 15px;
-        font-size: 18px;
     }
 
     .info-badge {
@@ -186,12 +140,7 @@ h4.card-title {
 
 .no-hover .card:hover,
 .no-hover .chart-card:hover {
-    transform: none !important;
-    box-shadow: none !important;
+    transform: none;
+    box-shadow: none;
 }
 
-/* Accessibility improvements */
-button:focus-visible {
-    outline: 3px solid #0056b3;
-    outline-offset: 2px;
-}
