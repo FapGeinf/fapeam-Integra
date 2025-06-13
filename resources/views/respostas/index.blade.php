@@ -21,6 +21,10 @@
         <div class="col-12 border main-datatable">
             <div class="container-fluid">
                 <div class="row g-3">
+                    <div class="text-center my-4">
+                        <h3 class="fw-bold mb-2">Painel de Providências</h3>
+                        <div style="width: 100px; height: 4px; background-color: orange; margin: 0 auto;"></div>
+                    </div>
                     <div class="col-md-4 mb-3">
                         <label for="filter-unidade" class="fw-bold">Unidades:</label>
                         <select name="filter-unidade" id="filter-unidade" class="form-select pointer">
