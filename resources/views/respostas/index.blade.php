@@ -22,8 +22,11 @@
             <div class="container-fluid">
                 <div class="row g-3">
                     <div class="text-center my-4">
-                        <h3 class="fw-bold mb-2">Painel de Providências</h3>
-                        <div style="width: 100px; height: 4px; background-color: orange; margin: 0 auto;"></div>
+                        <h3 class="fw-bold mb-2" style="color: #333; text-shadow: 1px 1px 2px #ccc;">Painel de Providências
+                        </h3>
+                        <div
+                            style="width: 120px; height: 4px; background-color: #ff9800; margin: 0 auto; border-radius: 2px;">
+                        </div>
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="filter-unidade" class="fw-bold">Unidades:</label>
