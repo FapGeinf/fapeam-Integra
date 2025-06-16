@@ -113,12 +113,14 @@
                   </a>
               </li>
             @endif
-            <li class="li-navbar2">
-                <a href="{{ route('versionamentos.index') }}" class="d-flex li-a a-navbar">
-                    <i class="bi bi-files i-navbar mt-1px"></i>
-                    <span class="a-span">Versionamentos</span>
-                </a>
-            </li>
+            @if(Auth::user()->usuario_tipo_fk == 4)
+              <li class="li-navbar2">
+                  <a href="{{ route('versionamentos.index') }}" class="d-flex li-a a-navbar">
+                      <i class="bi bi-files i-navbar mt-1px"></i>
+                      <span class="a-span">Versionamentos</span>
+                  </a>
+              </li>
+            @endif
           @endif
         </ul>
       </div>
