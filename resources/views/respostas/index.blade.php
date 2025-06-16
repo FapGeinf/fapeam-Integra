@@ -47,6 +47,9 @@
                                 <th>Providência</th>
                                 <th>Status do Controle Sugerido</th>
                                 <th>Anexo</th>
+                                <th>Homologação da Diretoria</th>
+                                <th>Homologação da Presidência</th>
+                                <th>Homologação Completa</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
@@ -66,6 +69,9 @@
                                             -
                                         @endif
                                     </td>
+                                    <td>{{ $resposta->homologadoDiretoria }}</td>
+                                    <td>{{ $resposta->homologadaPresidencia }}</td>
+                                    <td>{{ $resposta->homologacaoCompleta ? 'Completa' : 'Incompleta' }}</td>
                                     <td class="text-center">
                                         <a href="{{ route('riscos.respostas', $resposta->monitoramento->id) }}"
                                             class="btn btn-primary btn-md">
