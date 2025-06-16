@@ -1,44 +1,84 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Relatório de Logs</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            font-size: 14px;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 15px;
             margin: 30px;
-            color: #333;
-            background-color: #fff;
+            color: #2c3e50;
+            background-color: #ffffff;
+            line-height: 1.6;
         }
 
         h2 {
             text-align: center;
-            margin-bottom: 20px;
-            color: #2c3e50;
+            margin-bottom: 25px;
+            color: #34495e;
+            font-weight: 700;
+            font-size: 24px;
+            letter-spacing: 0.05em;
         }
 
         table {
             width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
+            border-collapse: separate;
+            border-spacing: 0 8px;
+            margin-top: 10px;
+            box-shadow: 0 2px 8px rgb(0 0 0 / 0.05);
+        }
+
+        thead tr {
+            background-color: #34495e;
+            color: #fff;
+            text-align: left;
+            font-weight: 600;
+            letter-spacing: 0.05em;
         }
 
         th, td {
-            padding: 10px;
-            border: 1px solid #ccc;
-            text-align: left;
+            padding: 14px 20px;
+            border: none;
         }
 
-        th {
-            background-color: #f4f4f4;
+        tbody tr {
+            background-color: #f9fbfd;
+            transition: background-color 0.3s ease;
+            border-radius: 6px;
         }
 
-        tr:nth-child(even) {
-            background-color: #fafafa;
+        tbody tr:hover {
+            background-color: #e1e9f5;
+        }
+
+        tbody tr + tr {
+            margin-top: 8px;
+        }
+
+        tbody tr td:first-child {
+            border-top-left-radius: 6px;
+            border-bottom-left-radius: 6px;
+        }
+
+        tbody tr td:last-child {
+            border-top-right-radius: 6px;
+            border-bottom-right-radius: 6px;
+        }
+
+        tbody tr.empty-row td {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+            padding: 30px 0;
+            background-color: transparent;
+            border-radius: 0;
         }
     </style>
 </head>
+
 <body>
     <h2>Relatório de Logs - {{ \Carbon\Carbon::now()->format('d/m/Y') }}</h2>
 
@@ -57,14 +97,15 @@
                     <td>{{ $log->user->name ?? 'Desconhecido' }}</td>
                     <td>{{ $log->acao }}</td>
                     <td>{{ $log->descricao }}</td>
-                    <td>{{ \Carbon\Carbon::parse($log->created_at)->format('d/m/Y H:i') }}</td>  
+                    <td>{{ \Carbon\Carbon::parse($log->created_at)->format('d/m/Y H:i') }}</td>
                 </tr>
             @empty
-                <tr>
-                    <td colspan="5" style="text-align: center;">Nenhum log encontrado para a data selecionada.</td>
+                <tr class="empty-row">
+                    <td colspan="4">Nenhum log encontrado para a data selecionada.</td>
                 </tr>
             @endforelse
         </tbody>
     </table>
 </body>
+
 </html>
