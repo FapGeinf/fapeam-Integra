@@ -41,6 +41,10 @@ class UserService
             $data['cpf'] = $this->removeMask($data['cpf']);
         }
 
+        if (isset($data['password'])) {
+            $data['password'] = Hash::make($data['password']);
+        }
+
         $user->update($data);
 
         return $user;
