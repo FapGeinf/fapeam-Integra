@@ -58,16 +58,21 @@ class RespostaService
         });
 
         if ($homologacaoCompleta) {
-            foreach ($monitoramento->respostas as $resposta) {
-                $resposta->update(['homologacaoCompleta' => 1]);
+            $idsParaAtualizar = $monitoramento->respostas
+                ->where('homologacaoCompleta', '!=', 1)
+                ->pluck('id');
+
+            if ($idsParaAtualizar->isNotEmpty()) {
+                Resposta::whereIn('id', $idsParaAtualizar)->update(['homologacaoCompleta' => 1]);
             }
         }
+ 
 
-        $respostas = Resposta::where('respostaMonitoramentoFK', $monitoramento->id)->get();
+        $respostas = $monitoramento->respostas;
 
         return [
             'monitoramento' => $monitoramento,
-            'respostas' => $respostas
+            'respostas' => $respostas,
         ];
     }
 
@@ -190,7 +195,6 @@ class RespostaService
 
     public function homologacaoResposta($id)
     {
-
         $resposta = Resposta::findOrFail($id);
         $user = Auth::user();
         $nome = $user->name;
@@ -216,6 +220,9 @@ class RespostaService
             } else {
                 throw new Exception('A providência já está homologada pela presidência.');
             }
+            if ($resposta->homologadoDiretoria === null) {
+                $resposta->homologadoDiretoria = $dataConcat;
+            }
         } else {
             throw new Exception('Você não tem permissão para homologar.');
         }
@@ -226,13 +233,11 @@ class RespostaService
 
         $resposta->save();
 
-
         return [
             'resposta' => $resposta,
             'mensagem' => $mensagem,
             'dataConcat' => $dataConcat
         ];
-
     }
 
 }
