@@ -52,12 +52,14 @@
                 </div>
             @endif
 
-            <div class="d-flex justify-content-center gap-3 mb-4">
-                <a href="{{ route('documentos.create') }}"
-                    class="btn btn-outline-secondary rounded-pill d-flex align-items-center gap-2">
-                    <i class="bi bi-plus-circle"></i> Inserir Documento
-                </a>
-            </div>
+            @if(Auth::user()->usuario_tipo_fk == 1 || Auth::user()->usuario_tipo_fk == 2 || Auth::user()->usuario_tipo_fk == 4)
+                <div class="d-flex justify-content-center gap-3 mb-4">
+                    <a href="{{ route('documentos.create') }}"
+                        class="btn btn-outline-secondary rounded-pill d-flex align-items-center gap-2">
+                        <i class="bi bi-plus-circle"></i> Inserir Documento
+                    </a>
+                </div>
+            @endif
 
 
             <div class="accordion" id="accordionDocumentos">
@@ -84,8 +86,8 @@
                                                     {{ basename($documento->path) }}
                                                 </a>
                                                 @if (Auth::user()->usuario_tipo_fk == 1 || Auth::user()->usuario_tipo_fk == 4)
-                                                    <a href="{{ route('documentos.edit', ['id' => $documento->id]) }}"
-                                                        class="ms-2 text-muted" style="font-size: 0.9rem;" title="Editar">
+                                                    <a href="{{ route('documentos.edit', ['id' => $documento->id]) }}" class="ms-2 text-muted"
+                                                        style="font-size: 0.9rem;" title="Editar">
                                                         <i class="bi bi-pencil-square"></i>
                                                     </a>
                                                 @endif
@@ -113,7 +115,7 @@
                 }
 
                 // Fecha todos os dropdowns se o usuário clicar fora
-                window.onclick = function(event) {
+                window.onclick = function (event) {
                     if (!event.target.matches('.dropdown-button')) {
                         var dropdowns = document.getElementsByClassName("dropdown-content1");
                         for (var i = 0; i < dropdowns.length; i++) {

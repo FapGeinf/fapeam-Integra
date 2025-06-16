@@ -21,35 +21,27 @@ class RiscoService
     public function indexRiscos()
     {
         $user = auth()->user();
-
         $prazo = Prazo::latest()->first();
-
-        $tipoAcesso = $user->unidade->unidadeTipoFK;
+        $tipoAcesso = $user->tipo->id;
         $unidadeDiretoria = $user->unidade->unidadeDiretoria;
-
         switch ($tipoAcesso) {
             case 1:
-            case 3:
-                $riscos = Risco::with('monitoramentos.respostas')->get();
+                $riscos = Risco::all();
                 break;
             case 4:
-                if ($user->usuario_tipo_fk == 1) {
-                    $riscos = Risco::with('monitoramentos.respostas')->get();
-                } else {
-                    $riscos = Risco::where('unidadeId', $user->unidade->id)->with('monitoramentos.respostas')->get();
-                }
-                break;
             case 5:
-                if ($user->usuario_tipo_fk == 2) {
-                    $riscos = Risco::whereHas('unidade', function ($query) use ($unidadeDiretoria) {
-                        $query->where('unidadeDiretoria', $unidadeDiretoria);
-                    })->with('monitoramentos.respostas')->get();
-                } else {
-                    $riscos = Risco::where('unidadeId', $user->unidade->id)->with('monitoramentos.respostas')->get();
-                }
+                $riscos = Risco::all();
+                break;
+            case 2:
+                $riscos = Risco::whereHas('unidade', function ($query) use ($unidadeDiretoria) {
+                    $query->where('unidadeDiretoria', $unidadeDiretoria);
+                })->get();
+                break;
+            case 3:
+                $riscos = Risco::where('unidadeId', $user->unidade->id)->get();
                 break;
             default:
-                $riscos = Risco::where('unidadeId', $user->unidade->id)->with('monitoramentos.respostas')->get();
+                $riscos = Risco::where('unidadeId', $user->unidade->id)->get();
                 break;
         }
 
@@ -90,39 +82,31 @@ class RiscoService
 
     public function indexAnalise()
     {
-
-
         $user = auth()->user();
         $prazo = Prazo::latest()->first();
-        $user = auth()->user();
-        $tipoAcesso = $user->unidade->unidadeTipoFK;
+        $tipoAcesso = $user->tipo->id;
         $unidadeDiretoria = $user->unidade->unidadeDiretoria;
-
         switch ($tipoAcesso) {
             case 1:
-            case 3:
                 $riscos = Risco::all();
                 break;
             case 4:
-                if ($user->usuario_tipo_fk == 1) {
-                    $riscos = Risco::all();
-                } else {
-                    $riscos = Risco::where('unidadeId', $user->unidade->id)->get();
-                }
-                break;
             case 5:
-                if ($user->usuario_tipo_fk == 2) {
-                    $riscos = Risco::whereHas('unidade', function ($query) use ($unidadeDiretoria) {
-                        $query->where('unidadeDiretoria', $unidadeDiretoria);
-                    })->get();
-                } else {
-                    $riscos = Risco::where('unidadeId', $user->unidade->id)->get();
-                }
+                $riscos = Risco::all();
+                break;
+            case 2:
+                $riscos = Risco::whereHas('unidade', function ($query) use ($unidadeDiretoria) {
+                    $query->where('unidadeDiretoria', $unidadeDiretoria);
+                })->get();
+                break;
+            case 3:
+                $riscos = Risco::where('unidadeId', $user->unidade->id)->get();
                 break;
             default:
                 $riscos = Risco::where('unidadeId', $user->unidade->id)->get();
                 break;
         }
+
 
         $riscosAbertos = $riscos->count();
         $riscosAbertosHoje = Risco::whereDate('created_at', Carbon::today())->count();
