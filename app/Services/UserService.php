@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
@@ -79,6 +80,16 @@ class UserService
         return true;
 
     }
+
+    public function pdfUsers()
+    {
+        $users = User::with('unidade')->orderBy('cpf')->get(); 
+
+        $pdf = Pdf::loadView('relatorios.relatoriosUsuarios', ['usuarios' => $users]);
+
+        return $pdf->download('relatorio_de_usuarios.pdf');
+    }
+
 
     private function removeMask(string $cpf): string
     {

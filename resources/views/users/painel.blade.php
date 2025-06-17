@@ -77,16 +77,21 @@
         <div class="col-12 border box-shadow">
             <h5 class="text-center mb-1">Painel de Usuários</h5>
 
-            <div class="justify-content-center align-items-center d-flex dropdown mt-2">
+            <div class="d-flex justify-content-center align-items-center flex-row gap-2 mt-2">
                 <a href="{{ route('users.create') }}"
                     class="justify-content-center align-items-center d-flex text-decoration-none highlighted-btn-sm highlight-blue"
                     style="width: 170px;">
                     <i class="bi bi-person-add me-1"></i>
                     Adicionar usuário
                 </a>
+
+                <a href="{{ route('users.pdf') }}"
+                    class="justify-content-center align-items-center d-flex text-decoration-none highlighted-btn-sm highlight-blue"
+                    style="width: 170px;">
+                    <i class="bi bi-file-earmark-pdf me-1"></i>
+                    Relatório (PDF)
+                </a>
             </div>
-
-
 
             <div class="mt-3">
                 <table id="painel-table" class="table table-bordered table-striped">

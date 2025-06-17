@@ -131,7 +131,7 @@ class UserController extends Controller
     public function changePassword()
     {
         try {
-            
+
             $usuarioNome = Auth::user()->name;
 
             $this->log->insertLog([
@@ -194,6 +194,17 @@ class UserController extends Controller
         } catch (Exception $e) {
             Log::error('Houve um erro ao deletar um registro de um usuário.', ['error' => $e->getMessage(), 'usuario_id' => $id]);
             return redirect()->back()->with('error', 'Erro ao deletar o usuário. Tente novamente.');
+        }
+    }
+
+
+    public function usersRelatorio()
+    {
+        try {
+            return $this->userService->pdfUsers();
+        } catch (Exception $e) {
+            Log::error('Error: ', ['error' => $e->getMessage()]);
+            return redirect()->back()->with('error', 'Houve um erro inesperado ao gerar o pdf de usuarios, tente novamente');
         }
     }
 }

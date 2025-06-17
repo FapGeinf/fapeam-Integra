@@ -70,6 +70,7 @@ Route::delete('/user/delete/{id}', [UserController::class, 'deleteUser'])->name(
 Route::post('/users/store', [UserController::class, 'insertUser'])->name('users.store')->middleware(['auth', isAdmin::class]);
 Route::get('/users/create', [UserController::class, 'createUser'])->middleware(['auth', isAdmin::class])->name('users.create');
 Route::get('/users/{id}/edit', [UserController::class, 'editUser'])->name('users.edit')->middleware(['auth', isAdmin::class]);
+Route::get('/users/pdf',[UserController::class,'usersRelatorio'])->name('users.pdf')->middleware(['auth',isAdmin::class]);
 
 Route::get('/user/alterar-senha', [UserController::class, 'changePassword'])->name('users.password');
 Route::post('/user/alterar-senha', [UserController::class, 'updatePassword'])->name('users.password');
