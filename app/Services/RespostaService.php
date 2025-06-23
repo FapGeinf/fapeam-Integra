@@ -3,12 +3,8 @@
 namespace App\Services;
 use App\Models\Resposta;
 use App\Models\Monitoramento;
-use App\Models\Risco;
 use Exception;
 use Log;
-use Carbon\Carbon;
-use App\Models\Notification;
-use App\Models\User;
 use Storage;
 use Auth;
 use App\Models\Unidade;
@@ -66,72 +62,13 @@ class RespostaService
                 Resposta::whereIn('id', $idsParaAtualizar)->update(['homologacaoCompleta' => 1]);
             }
         }
- 
+
 
         $respostas = $monitoramento->respostas;
 
         return [
             'monitoramento' => $monitoramento,
             'respostas' => $respostas,
-        ];
-    }
-
-    public function insertRespostas($id, array $validatedData)
-    {
-
-        $monitoramento = Monitoramento::findOrFail($id);
-        $filePath = null;
-
-        if (isset($validatedData['anexo']) && $validatedData['anexo'] instanceof \Illuminate\Http\UploadedFile) {
-            $file = $validatedData['anexo'];
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $filePath = $file->storeAs('anexos', $filename, 'public');
-
-            Log::info('Arquivo enviado com sucesso.', ['file_path' => $filePath]);
-        } else {
-            Log::info('Nenhum arquivo foi enviado.');
-        }
-
-
-        $resposta = Resposta::create([
-            'respostaRisco' => $validatedData['respostaRisco'],
-            'respostaMonitoramentoFk' => $monitoramento->id,
-            'user_id' => auth()->id(),
-            'anexo' => $filePath
-        ]);
-
-        $monitoramento->update([
-            'statusMonitoramento' => $validatedData['statusMonitoramento']
-        ]);
-
-        Log::info('Status do monitoramento atualizado.', [
-            'monitoramento_id' => $monitoramento->id,
-            'new_status' => $monitoramento->statusMonitoramento
-        ]);
-
-        $allUsers = User::all();
-        Log::info('Enviando notificações para usuários.', ['user_count' => $allUsers->count()]);
-
-        foreach ($allUsers as $user) {
-            $formattedDateTime = Carbon::parse($resposta->created_at)->format('d/m/Y \à\s H:i');
-            $message = '<div><span>Nova mensagem!</span><br><br><div><span>Usuário: </span>' . htmlspecialchars($user->name) . '</div>' .
-                '<div><span>Unidade: </span>' . ($user->unidade ? htmlspecialchars($user->unidade->unidadeNome) : 'Desconhecida') . '</div>' .
-                '<div><span>Data do envio: </span>' . htmlspecialchars($formattedDateTime) . '</div><br>' .
-                '</div>';
-
-            $notification = Notification::create([
-                'message' => $message,
-                'global' => false,
-                'monitoramentoId' => $monitoramento->id,
-                'user_id' => $user->id
-            ]);
-
-            Log::info('Notificação criada.', ['notification_id' => $notification->id, 'user_id' => $user->id]);
-        }
-
-        return [
-            'resposta' => $resposta,
-            'monitoramento' => $monitoramento
         ];
     }
 
@@ -148,10 +85,9 @@ class RespostaService
             }
 
             $file = $validatedData['anexo'];
-            $filename = time() . '_' . $file->getClientOriginalName();
+            $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
             $resposta->anexo = $file->storeAs('anexos', $filename, 'public');
         }
-
 
         if (isset($validatedData['statusMonitoramento'])) {
             $monitoramento->update([
