@@ -57,7 +57,7 @@
                             @foreach ($respostas as $resposta)
                                 <tr>
                                     <td class="text-center">{{ $resposta->user->name }}</td>
-                                    <td class="text-center">{{ $resposta->monitoramento->risco->unidade->unidadeSigla }}</td>
+                                    <td class="text-center">{{ $resposta->monitoramento->risco->unidade->unidadeSigla ?? '' }}</td>
                                     <td class="text-center">{!! $resposta->respostaRisco !!}</td>
                                     <td class="text-center">{{ $resposta->monitoramento->statusMonitoramento }}</td>
                                     <td class="text-center">
