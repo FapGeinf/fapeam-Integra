@@ -98,28 +98,28 @@
                     <span class="a-span">Usuários</span>
                 </a>
             </li>
-            <li class="li-navbar2">
+            <!-- <li class="li-navbar2">
                 <a href="{{ route('logs') }}" class="d-flex li-a a-navbar">
                     <i class="bi bi-clock-history i-navbar mt-1px"></i>
                     <span class="a-span">Logs</span>
                 </a>
-            </li>
+            </li> -->
             @endif
             @if(Auth::user()->usuario_tipo_fk == 2 || Auth::user()->usuario_tipo_fk == 1 || Auth::user()->usuario_tipo_fk == 4)
-              <li class="li-navbar2">
+              <!-- <li class="li-navbar2">
                   <a href="{{ route('respostas.index') }}" class="d-flex li-a a-navbar">
                       <i class="bi bi-chat-left-dots i-navbar mt-1px"></i>
-                      <span class="a-span">Respostas</span>
+                      <span class="a-span">Providências</span>
                   </a>
-              </li>
+              </li> -->
             @endif
             @if(Auth::user()->usuario_tipo_fk == 4)
-              <li class="li-navbar2">
+              <!-- <li class="li-navbar2">
                   <a href="{{ route('versionamentos.index') }}" class="d-flex li-a a-navbar">
                       <i class="bi bi-files i-navbar mt-1px"></i>
                       <span class="a-span">Versionamentos</span>
                   </a>
-              </li>
+              </li> -->
             @endif
           @endif
         </ul>
