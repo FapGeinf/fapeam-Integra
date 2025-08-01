@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Services;
-use App\Models\indicador;
+use App\Models\Indicador;
 use ErrorException;
 use Exception;
 use Log;
