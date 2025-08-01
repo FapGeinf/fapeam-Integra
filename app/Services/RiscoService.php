@@ -18,16 +18,15 @@ class RiscoService
         return Risco::findOrFail($id);
     }
 
-    public function indexRiscos()
-    {
+public function indexRiscos()
+{
         $user = auth()->user();
         $prazo = Prazo::latest()->first();
         $tipoAcesso = $user->tipo?->id;
         $unidadeDiretoria = $user->unidade->unidadeDiretoria;
+
         switch ($tipoAcesso) {
             case 1:
-                $riscos = Risco::all();
-                break;
             case 4:
             case 5:
                 $riscos = Risco::all();
@@ -38,8 +37,6 @@ class RiscoService
                 })->get();
                 break;
             case 3:
-                $riscos = Risco::where('unidadeId', $user->unidade->id)->get();
-                break;
             default:
                 $riscos = Risco::where('unidadeId', $user->unidade->id)->get();
                 break;
