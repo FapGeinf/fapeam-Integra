@@ -22,7 +22,7 @@ class RiscoService
     {
         $user = auth()->user();
         $prazo = Prazo::latest()->first();
-        $tipoAcesso = $user->tipo->id;
+        $tipoAcesso = $user->tipo?->id;
         $unidadeDiretoria = $user->unidade->unidadeDiretoria;
         switch ($tipoAcesso) {
             case 1:
@@ -84,7 +84,7 @@ class RiscoService
     {
         $user = auth()->user();
         $prazo = Prazo::latest()->first();
-        $tipoAcesso = $user->tipo->id;
+        $tipoAcesso = $user->tipo?->id;
         $unidadeDiretoria = $user->unidade->unidadeDiretoria;
         switch ($tipoAcesso) {
             case 1:
