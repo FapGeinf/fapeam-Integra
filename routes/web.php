@@ -150,7 +150,7 @@ Route::get('/graficos', [RelatorioController::class, 'graficosIndex'])->name('gr
 Route::post('/canal/criar', [AtividadeController::class, 'createCanal'])->name('canal.criar');
 Route::get('/eixo/{eixo_id}', [EixosController::class, 'mostrarEixo'])->name('eixo.mostrar');
 
-Route::get('/respostas/index', [RiscoController::class, 'indexRespostas'])->name('respostas.index');
+Route::get('/providencias/index', [RiscoController::class, 'indexRespostas'])->name('respostas.index');
 Route::get('/relatorios/eixos/{id}', [RelatorioController::class, 'relatoriosPorEixo'])->name('relatorios.eixos');
 
 Route::get('/logs', [LogController::class, 'indexLogs'])->name('logs')->middleware(['auth', isAdmin::class]);

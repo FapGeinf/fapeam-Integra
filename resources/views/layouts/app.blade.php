@@ -106,12 +106,12 @@
             </li> -->
             @endif
             @if(Auth::user()->usuario_tipo_fk == 2 || Auth::user()->usuario_tipo_fk == 1 || Auth::user()->usuario_tipo_fk == 4)
-              <!-- <li class="li-navbar2">
+              <li class="li-navbar2">
                   <a href="{{ route('respostas.index') }}" class="d-flex li-a a-navbar">
                       <i class="bi bi-chat-left-dots i-navbar mt-1px"></i>
                       <span class="a-span">Providências</span>
                   </a>
-              </li> -->
+              </li> 
             @endif
             @if(Auth::user()->usuario_tipo_fk == 4)
               <!-- <li class="li-navbar2">
