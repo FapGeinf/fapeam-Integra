@@ -22,7 +22,7 @@
        
         <div class="container-xxl pt-5">
             <div class="col-12 border box-shadow">
-                <h5 class="text-center mb-3">Detalhamento do Risco Inerente</h5>
+                <h5 class="text-center mb-3">Detalhamento do Risco Inerente - {{ $risco->unidade->unidadeSigla }}</h5>
                 @if (session('success'))
                     <div class="alert alert-success text-center auto-dismiss">
                         {{ session('success') }}
@@ -70,14 +70,14 @@
 
         <div class="container-xxl">
             <div class="col-12 border box-shadow">
-                <h5 class="text-center mb-3">Plano de ação</h5>
+                <h5 class="text-center mb-3">Plano de ação - {{ $risco->unidade->unidadeSigla }}</h5>
                 <table class="table table-bordered mb-4">
                     <thead>
                         <tr>
                             <th scope="col" class="text-center text-light tBorder">Controle Sugerido:</th>
                             <th scope="col" class="text-center text-light">Data:</th>
                             <th scope="col" class="text-center text-light tBorder">Situação:</th>
-                            <th scope="col" class="text-center text-light">Anexo:</th>
+                            <!-- <th scope="col" class="text-center text-light">Anexo:</th> -->
                             <th scope="col" class="text-center text-light">Modificado:</th>
                             <th scope="col" class="text-center text-light">Providências</th>
                             <th scope="col" class="text-center text-light">Opções:</th>
@@ -94,7 +94,7 @@
                                 <td style="white-space: nowrap;" class="text-center text13 pb-1 tBorder">
                                     {!! $monitoramento->statusMonitoramento !!}
                                 </td>
-                                <td class="text-center text13 pb-1 tBorder">
+                                <!-- <td class="text-center text13 pb-1 tBorder">
                                     @if ($monitoramento->anexoMonitoramento)
                                         <a href="{{ Storage::url($monitoramento->anexoMonitoramento) }}" target="_blank"
                                             class="button-download" title="Visualizar Anexo">
@@ -112,7 +112,7 @@
                                             Nenhum anexo disponível
                                         </div>
                                     @endif
-                                </td>
+                                </td> -->
 
                                 <td class="text13 pb-1 tBorder text-center">
                                     {!!  \Carbon\Carbon::parse($monitoramento->updated_at)->format('d/m/Y H:i:s') !!}
