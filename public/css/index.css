@@ -273,7 +273,12 @@ thead tr th {
 }
 
 .importantDetails {
-  text-align: center;
+  /* text-align: center; */
+}
+
+.table-wrapper-75{
+	width: 100%;
+	margin: 0 auto;
 }
 
 table.dataTable {
@@ -299,7 +304,7 @@ table.dataTable {
   background-color: #ececec;
   justify-content: center;
   align-items: center;
-  text-align: center;
+  /* text-align: center; */
 }
 
 #tableHome tbody tr:hover td:not(.riscoAvaliacao) {
@@ -438,7 +443,7 @@ p {
   padding: 16px 15px;
   vertical-align: middle;
   padding-left: 18px;
-  text-align: center;
+  /* text-align: center; */
 }
 
 .main-datatable .cust-datatable>tbody td {
@@ -449,7 +454,7 @@ p {
   word-break: break-word;
   border-top: 0;
   border-color: #b0b0b0;
-  text-align: center;
+  /* text-align: center; */
   vertical-align: middle;
   transition: .2s;
 }

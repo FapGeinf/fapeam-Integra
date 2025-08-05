@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="{{ asset('css/dataTables.dataTables.min.css')}}">
 <link rel="stylesheet" href="{{ asset('css/index.css') }}">
 <script src="{{ asset('js/respostas/tableRespostas.js') }}"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 @section('content')
     <div class="container-fluid pt-5 p-30">
         @if (session('success'))
@@ -22,10 +23,10 @@
             <div class="container-fluid">
                 <div class="row g-3">
                     <div class="text-center my-4">
-                        <h3 class="fw-bold mb-2" style="color: #333; text-shadow: 1px 1px 2px #ccc;">Painel de Providências
+                        <h3 class="fw-bold mb-2" style="color: #333">Painel de Providências
                         </h3>
                         <div
-                            style="width: 120px; height: 4px; background-color: #ff9800; margin: 0 auto; border-radius: 2px;">
+                            style="width: 120px; height: 4px; background-color: #ff9800; margin: 0 auto;">
                         </div>
                     </div>
                     <div class="col-md-4 mb-3">
@@ -38,51 +39,58 @@
                         </select>
                     </div>
                 </div>
-                <div class="table-responsive">
-                    <table id="respostasTable" class="table cust-datatable">
-                        <thead>
-                            <tr class="text-center fw-bold">
-                                <th>Usuário</th>
-                                <th>Unidade</th>
-                                <th>Providência</th>
-                                <th>Status do Controle Sugerido</th>
-                                <th>Anexo</th>
-                                <th>Homologação da Diretoria</th>
-                                <th>Homologação da Presidência</th>
-                                <th>Homologação Completa</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($respostas as $resposta)
-                                <tr>
-                                    <td class="text-center">{{ $resposta->user->name }}</td>
-                                    <td class="text-center">{{ $resposta->monitoramento->risco->unidade->unidadeSigla ?? '' }}</td>
-                                    <td class="text-center">{!! $resposta->respostaRisco !!}</td>
-                                    <td class="text-center">{{ $resposta->monitoramento->statusMonitoramento }}</td>
-                                    <td class="text-center">
-                                        @if ($resposta->anexo)
-                                            <a href="{{ asset('storage/' . $resposta->anexo) }}" target="_blank">
-                                                {{ basename($resposta->anexo) }}
-                                            </a>
-                                        @else
-                                            -
-                                        @endif
-                                    </td>
-                                    <td>{{ $resposta->homologadoDiretoria }}</td>
-                                    <td>{{ $resposta->homologadaPresidencia }}</td>
-                                    <td>{{ $resposta->homologacaoCompleta ? 'Completa' : 'Incompleta' }}</td>
-                                    <td class="text-center">
-                                        <a href="{{ route('riscos.respostas', $resposta->monitoramento->id) }}"
-                                            class="btn btn-primary btn-md">
-                                            <i class="bi bi-eye"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+								<div class="table-wrapper-75">
+										<div class="table-responsive">
+											<table id="respostasTable" class="table cust-datatable">
+													<thead>
+															<tr class="text-center fw-bold">
+																	<th>Usuário</th>
+																	<th>Unidade</th>
+																	<th>Monitoramento</th>
+																	<th>Providência</th>
+																	<th>Status</th>
+																	<th>Anexo</th>
+																	<!-- <th>Homologação da Diretoria</th> -->
+																	<!-- <th>Homologação da Presidência</th> -->
+																	<!-- <th>Homologação Completa</th> -->
+																	<th>Ações</th>
+															</tr>
+													</thead>
+													<tbody>
+															@foreach ($respostas as $resposta)
+																	<tr>
+																			<td class="text-center">{{ $resposta->user->name }}</td>
+																			<td class="text-center">{{ $resposta->monitoramento->risco->unidade->unidadeSigla ?? '' }}</td>
+																			<td>{!! $resposta->monitoramento->monitoramentoControleSugerido!!}</td>
+																			<td>{!! $resposta->respostaRisco !!}</td>
+																			<td class="text-center">{{ $resposta->monitoramento->statusMonitoramento }}</td>
+																			<td class="text-center">
+																					@if ($resposta->anexo)
+																							<a href="{{ asset('storage/' . $resposta->anexo) }}" target="_blank">
+																									<i class="fas fa-file-lines"></i>
+																							</a>
+																					@else
+																							-
+																					@endif
+																			</td>
+																			<!-- <td>{{ $resposta->homologadoDiretoria }}</td> -->
+																			<!-- <td class="text-center">
+																				{{ $resposta->homologadaPresidencia !== null ? 'Homologada' : 'Não homologada' }}
+																			</td> -->
+																			<!-- <td>{{ $resposta->homologacaoCompleta ? 'Completa' : 'Incompleta' }}</td> -->
+																			<td class="text-center">
+																					<a href="{{ route('riscos.respostas', $resposta->monitoramento->id) }}"
+																							class="btn btn-primary btn-md">
+																							<i class="bi bi-eye"></i>
+																					</a>
+																			</td>
+																	</tr>
+															@endforeach
+													</tbody>
+											</table>
+									</div>
+								</div>
+
             </div>
         </div>
     </div>

@@ -1,5 +1,6 @@
 $(document).ready(function () {
     let table = $('#respostasTable').DataTable({
+				stateSave: true,
         paging: true,
         searching: true,
         lengthChange: true,

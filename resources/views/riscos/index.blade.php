@@ -431,7 +431,8 @@
             console.log("Inicializando DataTable...");
 
             var table = $('#tableHome').DataTable({
-                language: {
+              stateSave: true,  
+							language: {
                     url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
                     search: "Procurar:",
                     lengthMenu: "Paginação: _MENU_",
@@ -473,9 +474,10 @@
                         console.log("Adicionando filtro de unidade...");
                         var selectUnidade = $('<select id="filterUnidade" class="form-select form-select-sm divFilterUnidade"><option value="">Todas as Unidades</option></select>');
 
-                        @foreach ($unidades as $unidade)
-                            selectUnidade.append('<option value="{{ $unidade->unidadeSigla }}">{{ $unidade->unidadeSigla }}</option>');
-                        @endforeach
+                     		@foreach($unidades->sortBy('unidadeSigla') as $unidade)
+												    selectUnidade.append('<option value="{{ $unidade->unidadeSigla }}">{{ $unidade->unidadeSigla }}</option>');
+												@endforeach
+
 
                         var labelUnidades = $('<label for="filterUnidade" class="labelUnidade d-block">Unidades:</label>');
                         dropdownMenu.append(labelUnidades).append(selectUnidade);

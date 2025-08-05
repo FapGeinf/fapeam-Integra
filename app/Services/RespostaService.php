@@ -21,6 +21,7 @@ class RespostaService
         if ($isRoot || $isAdmin) {
             $unidades = Unidade::all();
             $respostas = Resposta::with(['monitoramento.risco.unidade.diretoria', 'user'])
+								->whereNull('homologadaPresidencia')
                 ->get();
 
             return [
@@ -35,6 +36,7 @@ class RespostaService
                 $query->where('unidadeDiretoria', $diretoriaId);
             })
                 ->with(['monitoramento.risco.unidade.diretoria', 'user'])
+								->whereNull('homologadoDiretoria')
                 ->get();
 
             return [
