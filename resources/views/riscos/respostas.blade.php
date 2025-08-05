@@ -138,6 +138,22 @@
                                     <button type="button" class="highlighted-btn highlight-warning" data-bs-toggle="modal" data-bs-target="#editRespostaModal" onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)">
                                         <i class="bi bi-pen me-1"></i>Editar
                                     </button>
+
+
+																	@if (Auth::user()->usuario_tipo_fk == 2)
+																			<button type="button" class="highlighted-btn highlight-success" data-bs-toggle="modal" data-bs-target="#homologacaoModal{{ $resposta->id }}">
+																					<i class="bi bi-check-circle me-1"></i>Homologar
+																			</button>
+																	@endif
+
+																	@if (Auth::user()->usuario_tipo_fk == 1 && $resposta->homologadaPresidencia === null)
+																					<button type="button" class="highlighted-btn highlight-success" data-bs-toggle="modal" data-bs-target="#homologacaoPresidenciaModal{{ $resposta->id }}">
+																							<i class="bi bi-check-circle me-1"></i>Homologar (Presidência)
+																					</button>
+																	@endif														
+
+
+
                                 </div>
                             @endif
                         </div>
@@ -241,6 +257,19 @@
                                     <button type="button" class="highlighted-btn highlight-warning me-1" data-bs-toggle="modal" data-bs-target="#editRespostaModal" onclick="editResposta({{ $resposta->id }}, `{{ $resposta->respostaRisco }}`)">
                                         <i class="bi bi-pen me-1"></i>Editar
                                     </button>
+																		
+																@if (Auth::user()->usuario_tipo_fk == 2)
+                                    <button type="button" class="highlighted-btn highlight-success" data-bs-toggle="modal" data-bs-target="#homologacaoModal{{ $resposta->id }}">
+                                        <i class="bi bi-check-circle me-1"></i>Homologar
+                                    </button>
+                                @endif
+
+                                @if (Auth::user()->usuario_tipo_fk == 1 && $resposta->homologadaPresidencia === null)
+                                        <button type="button" class="highlighted-btn highlight-success" data-bs-toggle="modal" data-bs-target="#homologacaoPresidenciaModal{{ $resposta->id }}">
+                                            <i class="bi bi-check-circle me-1"></i>Homologar (Presidência)
+                                        </button>
+                                @endif
+
                                 </div>
                             @endif
                         </div>
