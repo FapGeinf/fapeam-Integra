@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title') {{ 'Lista de Atividades' }} @endsection
+@section('title') {{ 'Lista de Providências' }} @endsection
 @section('content')
 
 <script src="{{asset('js/jquery-3.6.0.min.js') }}"></script>
@@ -69,7 +69,7 @@
 <div class="container-xxl pt-5" style="max-width: 1500px !important;">
 	<div class="col-12 border box-shadow">
 		<div class="justify-content-center">
-			<h5 class="text-center mb-1">Painel de Providências</h5>
+			<h5 class="text-center mb-1">Lista de Providências</h5>
 
 			<div class="row g-3 mt-3">
 				<div class="col-12 col-sm-6 col-md-3">
@@ -98,7 +98,7 @@
 						<th scope="col" class="text-center">Providência</th>
 						<th scope="col" class="text-center">Status</th>
 						<th scope="col" class="text-center">Anexo</th>
-						<th scope="col" class="text-center">Homologação Presidência</th>
+						{{-- <th scope="col" class="text-center">Homologação Presidência</th> --}}
 						<th scope="col" class="text-center">Ações</th>
 					</tr>
 				</thead>
@@ -122,7 +122,7 @@
 								@endif
 							</td>
 
-							<td class="text-center">
+							{{-- <td class="text-center">
 								@if ($resposta->homologadaPresidencia === null)
 								<button type="button" class="footer-btn footer-success"
 									data-bs-toggle="modal"
@@ -135,7 +135,7 @@
 								@else
 									<i class="bi bi-check-circle-fill text-success" title="Homologada"></i>
 								@endif
-							</td>
+							</td> --}}
 
 							<td class="text-center">
 								<div class="custom-actions-wrapper" id="actionsWrapper{{ $resposta->id }}">
@@ -150,6 +150,24 @@
 													<i class="bi bi-eye me-2"></i>Visualizar
 												</a>
 											</li>
+
+											@if (is_null($resposta->homologadaPresidencia))
+											<li>
+												<a href="#" 
+													class="text-success"
+													data-bs-toggle="modal" 
+													data-bs-target="#homologacaoPresidenciaModal{{ $resposta->id }}">
+														<i class="bi bi-check-circle me-2"></i>Homologar
+												</a>
+											</li>
+
+											@else
+											<li>
+												<span class="text-success">
+													<i class="bi bi-check-circle-fill me-2"></i>Homologada
+												</span>
+											</li>
+											@endif
 										</ul>
 									</div>
 								</div>
@@ -165,7 +183,7 @@
 									</div>
 
 									<div class="modal-body">
-										Tem certeza que deseja homologar esta resposta como presidente?
+										Tem certeza que deseja homologar esta resposta como Presidente?
 									</div>
 
 									<div class="modal-footer">
