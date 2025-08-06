@@ -20,7 +20,7 @@
         text-decoration: underline;
     }
 </style>
-@section('title') {{ 'Lista de Atividades' }} @endsection
+@section('title') {{ 'Lista de Versionamentos' }} @endsection
 @section('content')
     <div class="container-fluid px__custom pt-4 mt-5 mb-5">
         <div class="col-12 border main-datatable">
