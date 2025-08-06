@@ -170,7 +170,7 @@
 
 									<div class="modal-footer">
 										<button type="button" class="footer-btn footer-secondary" data-bs-dismiss="modal">Cancelar</button>
-										<form action="{{ route('riscos.homologar', $resposta->id) }}" method="POST">
+										<form action="{{ route('riscos.homologar', $resposta->id) }}" method="POST" class="m-0 p-0">
 											@csrf
 											@method('PUT')
 											<button type="submit" class="footer-btn footer-success">Homologar</button>
