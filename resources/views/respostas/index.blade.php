@@ -51,7 +51,7 @@
 																	<th>Status</th>
 																	<th>Anexo</th>
 																	<!-- <th>Homologação da Diretoria</th> -->
-																	<!-- <th>Homologação da Presidência</th> -->
+																	<th>Homologação Presidência</th>
 																	<!-- <th>Homologação Completa</th> -->
 																	<th>Ações</th>
 															</tr>
@@ -77,6 +77,23 @@
 																			<!-- <td class="text-center">
 																				{{ $resposta->homologadaPresidencia !== null ? 'Homologada' : 'Não homologada' }}
 																			</td> -->
+
+
+																			<td class="text-center">
+																					@if ($resposta->homologadaPresidencia === null)
+																							<button type="button" class="btn btn-success btn-sm rounded"
+																											data-bs-toggle="modal"
+																											data-bs-target="#homologacaoPresidenciaModal{{ $resposta->id }}">
+																									<i class="bi bi-check-circle me-1"></i>
+																							</button>
+																					@else
+																							<i class="bi bi-check-circle-fill text-success" title="Homologada"></i>
+																					@endif
+																			</td>
+
+
+
+
 																			<!-- <td>{{ $resposta->homologacaoCompleta ? 'Completa' : 'Incompleta' }}</td> -->
 																			<td class="text-center">
 																					<a href="{{ route('riscos.respostas', $resposta->monitoramento->id) }}"
@@ -85,6 +102,32 @@
 																					</a>
 																			</td>
 																	</tr>
+
+																	<div class="modal fade" id="homologacaoPresidenciaModal{{ $resposta->id }}" tabindex="-1" aria-labelledby="homologacaoPresidenciaModalLabel{{ $resposta->id }}" aria-hidden="true">
+																			<div class="modal-dialog">
+																					<div class="modal-content">
+																							<div class="modal-header">
+																									<h5 class="modal-title" id="homologacaoPresidenciaModalLabel{{ $resposta->id }}">Homologar pela Presidência</h5>
+																									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+																							</div>
+
+																							<div class="modal-body">
+																									Tem certeza que deseja homologar esta resposta como presidente?
+																							</div>
+
+																							<div class="modal-footer">
+																									<button type="button" class="footer-btn footer-secondary" data-bs-dismiss="modal">Cancelar</button>
+																									<form action="{{ route('riscos.homologar', $resposta->id) }}" method="POST">
+																											@csrf
+																											@method('PUT')
+																											<button type="submit" class="footer-btn footer-success">
+																													Homologar
+																											</button>
+																									</form>
+																							</div>
+																					</div>
+																			</div>
+																	</div>
 															@endforeach
 													</tbody>
 											</table>
