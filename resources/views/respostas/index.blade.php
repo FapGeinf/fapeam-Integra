@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
 <link rel="stylesheet" href="{{ asset('css/dropdown.css') }}">
 <script src="{{ asset('js/actionsDropdown.js') }}"></script>
+<script defer src="{{ asset('js/respostas/tableFilters.js') }}"></script>
 
 <script src="{{ asset('js/respostas/tableRespostas.js') }}"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -71,7 +72,7 @@
 		<div class="justify-content-center">
 			<h5 class="text-center mb-1">Lista de Providências</h5>
 
-			<div class="row g-3 mt-3">
+			{{-- <div class="row g-3 mt-3">
 				<div class="col-12 col-sm-6 col-md-3">
 					<label for="filter-unidade" class="fw-bold">Unidades:</label>
 					<select name="filter-unidade" id="filter-unidade" class="form-select pointer">
@@ -81,14 +82,14 @@
 						@endforeach
 					</select>
 				</div>
-			</div>
+			</div> --}}
 		</div>
 	</div>
 </div>
 
 <div class="container-xxl" style="max-width: 1500px !important;">
 	<div class="col-12 border box-shadow">
-		<div class="justify-content-center">
+		<div class="justify-content-center" id="respostasTableWrapper" data-unidades='@json($unidades)'>
 			<table id="respostasTable" class="table table-striped cust-datatable mb-5">
 				<thead>
 					<tr class="text-center fw-bold" style="white-space: nowrap;">
@@ -180,4 +181,62 @@
 		</div>
 	</div>
 </div>
+
+{{-- <script>
+	$(document).ready(function () {
+		if ($.fn.DataTable.isDataTable('#respostasTable')) {
+			$('#respostasTable').DataTable().destroy();
+		}
+
+		let table = $('#respostasTable').DataTable({
+			initComplete: function () {
+				let api = this.api();
+
+				setTimeout(function () {
+					// Criar label e select juntos dentro de uma div
+					let filterUnidadeDiv = $(`
+						<div class="dt-layout-cell d-flex align-items-center" style="gap: 4px;">
+							<label for="filter-unidade">Unidade:</label>
+							<select id="filter-unidade" class="form-select form-select-sm" style="background-color: #fff !important; border: 1px solid #aaa; border-radius: 3px !important;">
+								<option value="">Todas as unidades</option>
+							</select>
+						</div>
+					`);
+
+					// Popular options do select
+					@json($unidades).forEach(u => {
+						filterUnidadeDiv.find('select').append(
+							`<option value="${u.unidadeSigla}">${u.unidadeSigla}</option>`
+						);
+					});
+
+					let lengthDiv = $('.dt-length');
+					let searchDiv = $('.dt-search');
+
+					let parent = lengthDiv.parent();
+					parent.css({
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'space-between',
+						flexWrap: 'nowrap'
+					});
+
+					// Envolver lengthDiv e searchDiv em dt-layout-cell (se ainda não estiverem)
+					lengthDiv.wrap('<div class="dt-layout-cell"></div>');
+					searchDiv.wrap('<div class="dt-layout-cell"></div>');
+
+					// Inserir filtro unidade antes do "per page"
+					filterUnidadeDiv.insertBefore(lengthDiv.parent());
+
+					// Evento filtro
+					$('#filter-unidade').on('change', function () {
+						let val = $.fn.dataTable.util.escapeRegex($(this).val());
+						api.column(1).search(val ? '^' + val + '$' : '', true, false).draw();
+					});
+				}, 0);
+			}
+		});
+	});
+</script> --}}
+
 @endsection
