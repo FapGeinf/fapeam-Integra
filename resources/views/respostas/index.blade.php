@@ -160,13 +160,6 @@
 														<i class="bi bi-check-circle me-2"></i>Homologar
 												</a>
 											</li>
-
-											@else
-											<li>
-												<span class="text-success">
-													<i class="bi bi-check-circle-fill me-2"></i>Homologada
-												</span>
-											</li>
 											@endif
 										</ul>
 									</div>
