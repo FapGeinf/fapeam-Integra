@@ -98,7 +98,6 @@
 						<th scope="col" class="text-center">Providência</th>
 						<th scope="col" class="text-center">Status</th>
 						<th scope="col" class="text-center">Anexo</th>
-						{{-- <th scope="col" class="text-center">Homologação Presidência</th> --}}
 						<th scope="col" class="text-center">Ações</th>
 					</tr>
 				</thead>
@@ -121,21 +120,6 @@
 										<span class="text-muted">Sem anexo</span>
 								@endif
 							</td>
-
-							{{-- <td class="text-center">
-								@if ($resposta->homologadaPresidencia === null)
-								<button type="button" class="footer-btn footer-success"
-									data-bs-toggle="modal"
-									data-bs-target="#homologacaoPresidenciaModal{{ $resposta->id }}">
-									
-									<i class="bi bi-check-circle me-1"></i>
-									<span>Homologar</span>
-								</button>
-
-								@else
-									<i class="bi bi-check-circle-fill text-success" title="Homologada"></i>
-								@endif
-							</td> --}}
 
 							<td class="text-center">
 								<div class="custom-actions-wrapper" id="actionsWrapper{{ $resposta->id }}">
