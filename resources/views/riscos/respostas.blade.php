@@ -25,8 +25,15 @@
         </div>
     @endif
 
+		<div class="col-12 box-shadow border mb-3">
+        <h5 class="text-center mb-3"><a href="{{ route('riscos.show', ['id' => $monitoramento->risco->id]) }}">Evento de Risco</a></h5>
+        <div class="form-control" style="background-color: #f3f3f3;">
+            {!! $monitoramento->risco->riscoEvento !!}
+        </div>
+    </div>
+
     <div class="col-12 box-shadow border mb-3">
-        <h5 class="text-center mb-3">Monitoramento</h5>
+        <h5 class="text-center mb-3">Controle Sugerido</h5>
         <div class="form-control" style="background-color: #f3f3f3;">
             {!! $monitoramento->monitoramentoControleSugerido !!}
         </div>
