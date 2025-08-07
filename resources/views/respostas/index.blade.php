@@ -136,31 +136,23 @@
 								</td>
 
 								<td class="text-center">
-									<div class="custom-actions-wrapper" id="actionsWrapper{{ $resposta->id }}">
-										<button type="button" onclick="toggleActionsMenu({{ $resposta->id }})"
-											class="custom-actions-btn">
-											<i class="bi bi-three-dots-vertical"></i>
-										</button>
+									@if ($resposta->homologadaPresidencia === null)
+									<a href="{{ route('riscos.respostas', $resposta->monitoramento->id) }}"
+										class="footer-btn footer-primary text-decoration-none w-100 d-inline-block"
+										role="button">
+										<i class="bi bi-eye me-1"></i>
+										<span>Visualizar</span>
+									</a>
 
-										<div class="custom-actions-menu">
-											<ul>
-												<li>
-													<a href="{{ route('riscos.respostas', $resposta->monitoramento->id) }}">
-														<i class="bi bi-eye me-2"></i>Visualizar
-													</a>
-												</li>
-
-												@if (is_null($resposta->homologadaPresidencia))
-													<li>
-														<a href="#" class="text-success" data-bs-toggle="modal"
-															data-bs-target="#homologacaoPresidenciaModal{{ $resposta->id }}">
-															<i class="bi bi-check-circle me-2"></i>Homologar
-														</a>
-													</li>
-												@endif
-											</ul>
-										</div>
-									</div>
+									<button type="button"
+										class="footer-btn footer-success mt-2 w-100"
+										style="white-space: nowrap";
+										data-bs-toggle="modal"
+										data-bs-target="#homologacaoPresidenciaModal{{ $resposta->id }}">
+										<i class="bi bi-check-circle me-1"></i>
+										<span>Homologar</span>
+									</button>
+									@endif
 								</td>
 							</tr>
 
