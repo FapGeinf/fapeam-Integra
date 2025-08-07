@@ -164,3 +164,7 @@ Route::prefix('documentos')->middleware('auth')->group(function () {
     Route::put('/{id}', [DocumentoController::class, 'update'])->name('documentos.update');
     Route::delete('/{id}', [DocumentoController::class, 'destroy'])->name('documentos.destroy');
 });
+
+Route::post('/respostas/homologar-multipla', [RiscoController::class, 'homologacaoMultipla'])
+    ->name('riscos.homologar.multipla')
+    ->middleware('auth'); 

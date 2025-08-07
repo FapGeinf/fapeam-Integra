@@ -4,6 +4,7 @@ namespace App\Services;
 use App\Models\Resposta;
 use App\Models\Monitoramento;
 use Exception;
+use InvalidArgumentException;
 use Log;
 use Storage;
 use Auth;
@@ -177,5 +178,52 @@ class RespostaService
             'dataConcat' => $dataConcat
         ];
     }
+
+    public function homologacaoMultipla(array $data)
+    {
+        $user = Auth::user();
+
+        $ids = $data['respostas_ids'];
+
+        $homologadas = [];
+        $naoHomologadas = [];
+
+        $nome = $user->name;
+        $cpf = $user->cpf;
+        $cpfMascarado = substr($cpf, 0, 3) . '.***.***-' . substr($cpf, -2);
+        $dataHora = now()->format('d-m-Y H:i:s');
+        $dataConcat = "Homologado em {$dataHora} pelo usuário de {$nome}, id {$user->id} e cpf {$cpfMascarado}";
+
+        foreach ($ids as $id) {
+            $resposta = Resposta::find($id);
+
+            if (!$resposta) {
+                $naoHomologadas[] = ['id' => $id, 'motivo' => 'Resposta não encontrada'];
+                continue;
+            }
+
+            if ($resposta->homologadaPresidencia !== null) {
+                $naoHomologadas[] = ['id' => $id, 'motivo' => 'Já homologada pela presidência'];
+                continue;
+            }
+
+            $resposta->homologadaPresidencia = $dataConcat;
+
+            if ($resposta->homologadoDiretoria === null) {
+                $resposta->homologadoDiretoria = $dataConcat;
+            }
+
+            if (!empty($resposta->homologadoDiretoria) && !empty($resposta->homologadaPresidencia)) {
+                $resposta->homologacaoCompleta = true;
+            }
+
+            $resposta->save();
+            $homologadas[] = $resposta->id;
+        }
+
+        return ['homologadas' => $homologadas, 'nao_homologadas' => $naoHomologadas];
+    }
+
+
 
 }

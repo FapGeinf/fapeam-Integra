@@ -438,6 +438,34 @@ class RiscoController extends Controller
     }
 
 
+    public function homologacaoMultipla(Request $request)
+    {
+        try {
+            $request->validate([
+                'respostas_ids' => 'required|array',
+            ]);
+
+            $dados = $this->resposta->homologacaoMultipla($request->all());
+
+            Log::info('Respostas homologadas com sucesso', ['ids' => $dados['homologadas']]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Homologação realizada com sucesso',
+                'homologadas' => $dados['homologadas'],
+                'nao_homologadas' => $dados['nao_homologadas'],
+            ]);
+        } catch (Exception $e) {
+            Log::error('Erro homologacao multipla: ' . $e->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Erro ao homologar: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
+
     public function __construct(LogService $log, RiscoService $risco, MonitoramentoService $monitoramento, RespostaService $resposta, PrazoService $prazo, NotificationService $notification)
     {
         $this->middleware('auth');

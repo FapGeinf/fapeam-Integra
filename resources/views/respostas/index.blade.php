@@ -2,241 +2,457 @@
 @section('title') {{ 'Lista de Providências' }} @endsection
 @section('content')
 
-<script src="{{asset('js/jquery-3.6.0.min.js') }}"></script>
-<script src="{{ asset('js/dataTables.min.js') }}"></script>
-<link rel="stylesheet" href="{{ asset('css/dataTables.dataTables.min.css')}}">
-<link rel="stylesheet" href="{{ asset('css/index.css') }}">
+	<script src="{{asset('js/jquery-3.6.0.min.js') }}"></script>
+	<script src="{{ asset('js/dataTables.min.js') }}"></script>
+	<link rel="stylesheet" href="{{ asset('css/dataTables.dataTables.min.css')}}">
+	<link rel="stylesheet" href="{{ asset('css/index.css') }}">
 
-<link rel="stylesheet" href="{{ asset('css/show.css') }}">
-<link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
-<link rel="stylesheet" href="{{ asset('css/dropdown.css') }}">
-<script src="{{ asset('js/actionsDropdown.js') }}"></script>
-<script defer src="{{ asset('js/respostas/tableFilters.js') }}"></script>
+	<link rel="stylesheet" href="{{ asset('css/show.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/dropdown.css') }}">
+	<script src="{{ asset('js/actionsDropdown.js') }}"></script>
+	<script defer src="{{ asset('js/respostas/tableFilters.js') }}"></script>
+	<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+	<script src="{{ asset('js/respostas/tableRespostas.js') }}"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-<script src="{{ asset('js/respostas/tableRespostas.js') }}"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+	<style>
+		body {
+			font-family: 'Poppins', sans-serif;
+		}
 
-<style>
-	body {
-		font-family: 'Poppins', sans-serif;
-	}
+		.liDP {
+			margin-left: 0 !important;
+		}
 
-	.liDP {
-		margin-left: 0 !important;
-	}
+		.hover {
+			text-decoration: none;
+		}
 
-	.hover {
-		text-decoration: none;
-	}
+		.hover:hover {
+			text-decoration: underline;
+		}
 
-	.hover:hover {
-		text-decoration: underline;
-	}
+		.f-size {
+			font-size: 13px;
+		}
 
-	.f-size {
-		font-size: 13px;
-	}
+		.input-enabled {
+			background-color: #f8fafc !important;
+		}
 
-	.input-enabled {
-		background-color: #f8fafc !important;
-	}
+		.input-disabled {
+			background-color: #f0f0f0 !important;
+		}
 
-	.input-disabled {
-		background-color: #f0f0f0 !important;
-	}
+		.border-grey {
+			border: 1px solid #ccc !important;
+		}
 
-	.border-grey {
-		border: 1px solid #ccc !important;
-	}
+		div.dt-container div.dt-layout-row {
+			font-size: 13px;
+		}
+	</style>
 
-	div.dt-container div.dt-layout-row {
-		font-size: 13px;
-	}
-</style>
+	<div class="alert-container pt-5">
+		@if (session('success'))
+			<div class="alert alert-success text-center auto-dismiss">
+				{{ session('success') }}
+			</div>
 
-<div class="alert-container pt-5">
-	@if (session('success'))
-		<div class="alert alert-success text-center auto-dismiss">
-			{{ session('success') }}
-		</div>
+		@elseif (session('error'))
+			<div class="alert alert-danger text-center auto-dismiss">
+				{{ session('error') }}
+			</div>
+		@endif
+	</div>
 
-	@elseif (session('error'))
-		<div class="alert alert-danger text-center auto-dismiss">
-			{{ session('error') }}
-		</div>
-	@endif
-</div>
+	<div class="container-xxl pt-5" style="max-width: 1500px !important;">
+		<div class="col-12 border box-shadow">
+			<div class="justify-content-center">
+				<h5 class="text-center mb-1">Lista de Providências</h5>
 
-<div class="container-xxl pt-5" style="max-width: 1500px !important;">
-	<div class="col-12 border box-shadow">
-		<div class="justify-content-center">
-			<h5 class="text-center mb-1">Lista de Providências</h5>
-
-			{{-- <div class="row g-3 mt-3">
-				<div class="col-12 col-sm-6 col-md-3">
-					<label for="filter-unidade" class="fw-bold">Unidades:</label>
-					<select name="filter-unidade" id="filter-unidade" class="form-select pointer">
-						<option value="" selected disabled>Selecione uma unidade</option>
-						@foreach ($unidades as $unidade)
+				{{-- <div class="row g-3 mt-3">
+					<div class="col-12 col-sm-6 col-md-3">
+						<label for="filter-unidade" class="fw-bold">Unidades:</label>
+						<select name="filter-unidade" id="filter-unidade" class="form-select pointer">
+							<option value="" selected disabled>Selecione uma unidade</option>
+							@foreach ($unidades as $unidade)
 							<option value="{{ $unidade->unidadeSigla }}">{{ $unidade->unidadeSigla }}</option>
-						@endforeach
-					</select>
-				</div>
-			</div> --}}
+							@endforeach
+						</select>
+					</div>
+				</div> --}}
+			</div>
 		</div>
 	</div>
-</div>
 
-<div class="container-xxl" style="max-width: 1500px !important;">
-	<div class="col-12 border box-shadow">
-		<div class="justify-content-center" id="respostasTableWrapper" data-unidades='@json($unidades)'>
-			<table id="respostasTable" class="table table-striped cust-datatable mb-5">
-				<thead>
-					<tr class="text-center fw-bold" style="white-space: nowrap;">
-						<th scope="col" class="text-center">Usuário</th>
-						<th scope="col" class="text-center">Unidade</th>
-						<th scope="col" class="text-center">Monitoramento</th>
-						<th scope="col" class="text-center">Providência</th>
-						<th scope="col" class="text-center">Status</th>
-						<th scope="col" class="text-center">Anexo</th>
-						<th scope="col" class="text-center">Ações</th>
-					</tr>
-				</thead>
-
-				<tbody>
-					@foreach ($respostas as $resposta)
-						<tr>
-							<td class="text-center">{{ $resposta->user->name }}</td>
-							<td class="text-center">{{ $resposta->monitoramento->risco->unidade->unidadeSigla ?? '' }}</td>
-							<td>{!! $resposta->monitoramento->monitoramentoControleSugerido!!}</td>
-							<td>{!! $resposta->respostaRisco !!}</td>
-							<td class="text-center">{{ $resposta->monitoramento->statusMonitoramento }}</td>
-
-							<td class="text-center">
-								@if ($resposta->anexo)
-										<a href="{{ asset('storage/' . $resposta->anexo) }}" target="_blank" title="Abrir anexo">
-												<i class="fas fa-file-lines fs-5 text-primary"></i>
-										</a>
-								@else
-										<span class="text-muted">Sem anexo</span>
-								@endif
-							</td>
-
-							<td class="text-center">
-								<div class="custom-actions-wrapper" id="actionsWrapper{{ $resposta->id }}">
-									<button type="button" onclick="toggleActionsMenu({{ $resposta->id }})" class="custom-actions-btn">
-										<i class="bi bi-three-dots-vertical"></i>
-									</button>
-
-									<div class="custom-actions-menu">
-										<ul>
-											<li>
-												<a href="{{ route('riscos.respostas', $resposta->monitoramento->id) }}">
-													<i class="bi bi-eye me-2"></i>Visualizar
-												</a>
-											</li>
-
-											@if (is_null($resposta->homologadaPresidencia))
-											<li>
-												<a href="#" 
-													class="text-success"
-													data-bs-toggle="modal" 
-													data-bs-target="#homologacaoPresidenciaModal{{ $resposta->id }}">
-														<i class="bi bi-check-circle me-2"></i>Homologar
-												</a>
-											</li>
-											@endif
-										</ul>
-									</div>
-								</div>
-							</td>
+	<div class="container-xxl" style="max-width: 1500px !important;">
+		<div class="col-12 border box-shadow">
+			<div class="container-xxl mb-4" style="max-width: 1500px !important;">
+				<div class="d-flex justify-content-end">
+					<button id="btnHomologarMultipla" class="btn btn-success" disabled>
+						<i class="fas fa-check-circle me-2"></i>Homologar Selecionadas
+					</button>
+				</div>
+			</div>
+			<div class="justify-content-center" id="respostasTableWrapper" data-unidades='@json($unidades)'>
+				<table id="respostasTable" class="table table-striped cust-datatable mb-5">
+					<thead>
+						<tr class="text-center fw-bold" style="white-space: nowrap;">
+							<th></th>
+							<th scope="col" class="text-center">Usuário</th>
+							<th scope="col" class="text-center">Unidade</th>
+							<th scope="col" class="text-center">Monitoramento</th>
+							<th scope="col" class="text-center">Providência</th>
+							<th scope="col" class="text-center">Status</th>
+							<th scope="col" class="text-center">Anexo</th>
+							<th scope="col" class="text-center">Ações</th>
 						</tr>
+					</thead>
 
-						<div class="modal fade" id="homologacaoPresidenciaModal{{ $resposta->id }}" tabindex="-1" aria-labelledby="homologacaoPresidenciaModalLabel{{ $resposta->id }}" aria-hidden="true">
-							<div class="modal-dialog modal-dialog-centered">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title" id="homologacaoPresidenciaModalLabel{{ $resposta->id }}">Homologar pela Presidência</h5>
-										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+					<tbody>
+						@foreach ($respostas as $resposta)
+							<tr>
+								<td class="text-center">
+									@if (is_null($resposta->homologadaPresidencia))
+										<input type="checkbox" class="resposta-checkbox" value="{{ $resposta->id }}">
+									@endif
+								</td>
+								<td class="text-center">{{ $resposta->user->name }}</td>
+								<td class="text-center">{{ $resposta->monitoramento->risco->unidade->unidadeSigla ?? '' }}</td>
+								<td>{!! $resposta->monitoramento->monitoramentoControleSugerido!!}</td>
+								<td>{!! $resposta->respostaRisco !!}</td>
+								<td class="text-center">{{ $resposta->monitoramento->statusMonitoramento }}</td>
+
+								<td class="text-center">
+									@if ($resposta->anexo)
+										<a href="{{ asset('storage/' . $resposta->anexo) }}" target="_blank" title="Abrir anexo">
+											<i class="fas fa-file-lines fs-5 text-primary"></i>
+										</a>
+									@else
+										<span class="text-muted">Sem anexo</span>
+									@endif
+								</td>
+
+								<td class="text-center">
+									<div class="custom-actions-wrapper" id="actionsWrapper{{ $resposta->id }}">
+										<button type="button" onclick="toggleActionsMenu({{ $resposta->id }})"
+											class="custom-actions-btn">
+											<i class="bi bi-three-dots-vertical"></i>
+										</button>
+
+										<div class="custom-actions-menu">
+											<ul>
+												<li>
+													<a href="{{ route('riscos.respostas', $resposta->monitoramento->id) }}">
+														<i class="bi bi-eye me-2"></i>Visualizar
+													</a>
+												</li>
+
+												@if (is_null($resposta->homologadaPresidencia))
+													<li>
+														<a href="#" class="text-success" data-bs-toggle="modal"
+															data-bs-target="#homologacaoPresidenciaModal{{ $resposta->id }}">
+															<i class="bi bi-check-circle me-2"></i>Homologar
+														</a>
+													</li>
+												@endif
+											</ul>
+										</div>
 									</div>
+								</td>
+							</tr>
 
-									<div class="modal-body">
-										Tem certeza que deseja homologar esta resposta como Presidente?
-									</div>
+							<div class="modal fade" id="homologacaoPresidenciaModal{{ $resposta->id }}" tabindex="-1"
+								aria-labelledby="homologacaoPresidenciaModalLabel{{ $resposta->id }}" aria-hidden="true">
+								<div class="modal-dialog modal-dialog-centered">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="homologacaoPresidenciaModalLabel{{ $resposta->id }}">
+												Homologar pela Presidência</h5>
+											<button type="button" class="btn-close" data-bs-dismiss="modal"
+												aria-label="Fechar"></button>
+										</div>
 
-									<div class="modal-footer">
-										<button type="button" class="footer-btn footer-secondary" data-bs-dismiss="modal">Cancelar</button>
-										<form action="{{ route('riscos.homologar', $resposta->id) }}" method="POST" class="m-0 p-0">
-											@csrf
-											@method('PUT')
-											<button type="submit" class="footer-btn footer-success">Homologar</button>
-										</form>
+										<div class="modal-body">
+											Tem certeza que deseja homologar esta resposta como Presidente?
+										</div>
+
+										<div class="modal-footer">
+											<button type="button" class="footer-btn footer-secondary"
+												data-bs-dismiss="modal">Cancelar</button>
+											<form action="{{ route('riscos.homologar', $resposta->id) }}" method="POST"
+												class="m-0 p-0">
+												@csrf
+												@method('PUT')
+												<button type="submit" class="footer-btn footer-success">Homologar</button>
+											</form>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-					@endforeach
-				</tbody>
-			</table>
+						@endforeach
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
-</div>
 
-{{-- <script>
-	$(document).ready(function () {
-		if ($.fn.DataTable.isDataTable('#respostasTable')) {
-			$('#respostasTable').DataTable().destroy();
-		}
+	<div class="modal fade" id="confirmarHomologacaoModal" tabindex="-1" aria-labelledby="confirmarHomologacaoLabel"
+		aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="confirmarHomologacaoLabel">Confirmar Homologação</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+				</div>
+				<div class="modal-body">
+					<p>Tem certeza que deseja homologar as seguintes respostas?</p>
+					<div id="listaConfirmarHomologacao"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+					<button type="button" id="btnConfirmarHomologacao" class="btn btn-success">Confirmar</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
-		let table = $('#respostasTable').DataTable({
-			initComplete: function () {
-				let api = this.api();
+	<div class="modal fade" id="resultadoHomologacaoModal" tabindex="-1" aria-labelledby="resultadoHomologacaoLabel"
+		aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-primary text-white">
+					<h5 class="modal-title" id="resultadoHomologacaoLabel">Resultado da Homologação</h5>
+					<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+						aria-label="Fechar"></button>
+				</div>
+				<div class="modal-body">
+					<div id="listaHomologadas"></div>
+					<div id="listaNaoHomologadas" class="mt-4"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Fechar</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
-				setTimeout(function () {
-					// Criar label e select juntos dentro de uma div
-					let filterUnidadeDiv = $(`
-						<div class="dt-layout-cell d-flex align-items-center" style="gap: 4px;">
-							<label for="filter-unidade">Unidade:</label>
-							<select id="filter-unidade" class="form-select form-select-sm" style="background-color: #fff !important; border: 1px solid #aaa; border-radius: 3px !important;">
-								<option value="">Todas as unidades</option>
-							</select>
-						</div>
-					`);
 
-					// Popular options do select
-					@json($unidades).forEach(u => {
-						filterUnidadeDiv.find('select').append(
-							`<option value="${u.unidadeSigla}">${u.unidadeSigla}</option>`
-						);
-					});
 
-					let lengthDiv = $('.dt-length');
-					let searchDiv = $('.dt-search');
+	<script>
+		document.addEventListener('DOMContentLoaded', () => {
+			const btnHomologar = document.getElementById('btnHomologarMultipla');
+			const confirmarModalEl = document.getElementById('confirmarHomologacaoModal');
+			const confirmarModal = new bootstrap.Modal(confirmarModalEl);
+			const resultadoModalEl = document.getElementById('resultadoHomologacaoModal');
+			const resultadoModal = resultadoModalEl ? new bootstrap.Modal(resultadoModalEl) : null;
 
-					let parent = lengthDiv.parent();
-					parent.css({
-						display: 'flex',
-						alignItems: 'center',
-						justifyContent: 'space-between',
-						flexWrap: 'nowrap'
-					});
+			let btnConfirmar = document.getElementById('btnConfirmarHomologacao');
+			const listaConfirmar = document.getElementById('listaConfirmarHomologacao');
 
-					// Envolver lengthDiv e searchDiv em dt-layout-cell (se ainda não estiverem)
-					lengthDiv.wrap('<div class="dt-layout-cell"></div>');
-					searchDiv.wrap('<div class="dt-layout-cell"></div>');
-
-					// Inserir filtro unidade antes do "per page"
-					filterUnidadeDiv.insertBefore(lengthDiv.parent());
-
-					// Evento filtro
-					$('#filter-unidade').on('change', function () {
-						let val = $.fn.dataTable.util.escapeRegex($(this).val());
-						api.column(1).search(val ? '^' + val + '$' : '', true, false).draw();
-					});
-				}, 0);
+			function toggleButton() {
+				const checkboxes = document.querySelectorAll('.resposta-checkbox:checked');
+				btnHomologar.disabled = checkboxes.length === 0;
 			}
+
+			function getRowData(checkbox) {
+				const row = checkbox.closest('tr');
+				return {
+					id: checkbox.value,
+					usuario: row.cells[1].textContent.trim(),
+					unidade: row.cells[2].textContent.trim(),
+					monitoramento: row.cells[3].textContent.trim().substring(0, 50) + '...',
+					providencia: row.cells[4].textContent.trim().substring(0, 50) + '...'
+				};
+			}
+
+			document.addEventListener('change', (event) => {
+				if (event.target.classList.contains('resposta-checkbox')) {
+					toggleButton();
+				}
+			});
+
+			toggleButton();
+
+			btnHomologar.addEventListener('click', (event) => {
+				event.preventDefault();
+
+				const checkboxes = document.querySelectorAll('.resposta-checkbox:checked');
+				const selectedItems = Array.from(checkboxes).map(checkbox => getRowData(checkbox));
+
+				if (selectedItems.length === 0) {
+					alert('Selecione ao menos uma resposta para homologar.');
+					return;
+				}
+
+
+				listaConfirmar.innerHTML = `
+							<div class="list-group">
+								${selectedItems.map(item => `
+									<div class="list-group-item">
+										<div><strong>Usuário:</strong> ${item.usuario}</div>
+										<div><strong>Unidade:</strong> ${item.unidade}</div>
+										<div><strong>Monitoramento:</strong> ${item.monitoramento}</div>
+									</div>
+								`).join('')}
+							</div>
+							<div class="mt-2 text-center"><strong>Total:</strong> ${selectedItems.length} item(s) selecionado(s)</div>
+						`;
+
+				confirmarModal.show();
+
+				const newBtnConfirmar = btnConfirmar.cloneNode(true);
+				btnConfirmar.replaceWith(newBtnConfirmar);
+				btnConfirmar = newBtnConfirmar;
+
+				btnConfirmar.addEventListener('click', async () => {
+					confirmarModal.hide();
+
+					try {
+						const token = document.querySelector('meta[name="csrf-token"]').content;
+						const selectedIds = selectedItems.map(item => item.id);
+
+						const response = await fetch(@json(route('riscos.homologar.multipla')), {
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json',
+								'X-CSRF-TOKEN': token,
+								'Accept': 'application/json'
+							},
+							body: JSON.stringify({ respostas_ids: selectedIds })
+						});
+
+						if (!response.ok) {
+							throw new Error(`Erro HTTP: ${response.status}`);
+						}
+
+						const data = await response.json();
+
+						if (resultadoModal) {
+							let homologadasHTML = '<h5 class="text-success">Homologadas com sucesso</h5>';
+							let naoHomologadasHTML = '<h5 class="text-danger mt-4">Não homologadas</h5>';
+
+							if (data.homologadas && data.homologadas.length > 0) {
+								homologadasHTML += `
+											<div class="list-group">
+												${data.homologadas.map(id => {
+									const item = selectedItems.find(i => i.id == id);
+									return item ? `
+														<div class="list-group-item list-group-item-success">
+															<div><strong>Usuário:</strong> ${item.usuario}</div>
+															<div><strong>Unidade:</strong> ${item.unidade}</div>
+														</div>
+													` : '';
+								}).join('')}
+											</div>
+											<div class="text-end mt-2">Total: ${data.homologadas.length}</div>
+										`;
+							} else {
+								homologadasHTML += '<p>Nenhuma resposta foi homologada.</p>';
+							}
+
+							if (data.nao_homologadas && data.nao_homologadas.length > 0) {
+								naoHomologadasHTML += `
+											<div class="list-group">
+												${data.nao_homologadas.map(item => {
+									const originalItem = selectedItems.find(i => i.id == item.id);
+									return originalItem ? `
+														<div class="list-group-item list-group-item-danger">
+															<div><strong>Usuário:</strong> ${originalItem.usuario}</div>
+															<div><strong>Unidade:</strong> ${originalItem.unidade}</div>
+															<div class="text-danger"><strong>Motivo:</strong> ${item.motivo || 'Não especificado'}</div>
+														</div>
+													` : '';
+								}).join('')}
+											</div>
+											<div class="text-end mt-2">Total: ${data.nao_homologadas.length}</div>
+										`;
+							} else {
+								naoHomologadasHTML = '';
+							}
+
+							const listaHomologadas = document.getElementById('listaHomologadas');
+							const listaNaoHomologadas = document.getElementById('listaNaoHomologadas');
+
+							if (listaHomologadas) listaHomologadas.innerHTML = homologadasHTML;
+							if (listaNaoHomologadas) listaNaoHomologadas.innerHTML = naoHomologadasHTML;
+
+							resultadoModal.show();
+						}
+
+						checkboxes.forEach(cb => cb.checked = false);
+						toggleButton();
+
+						setTimeout(() => window.location.reload(), 5000);
+
+					} catch (error) {
+						console.error('Erro na homologação:', error);
+						alert(`Falha na homologação: ${error.message}`);
+					}
+				});
+			});
 		});
-	});
-</script> --}}
+	</script>
+
+
+	{{--
+	<script>
+		$(document).ready(function () {
+			if ($.fn.DataTable.isDataTable('#respostasTable')) {
+				$('#respostasTable').DataTable().destroy();
+			}
+
+			let table = $('#respostasTable').DataTable({
+				initComplete: function () {
+					let api = this.api();
+
+					setTimeout(function () {
+						// Criar label e select juntos dentro de uma div
+						let filterUnidadeDiv = $(`
+																						<div class="dt-layout-cell d-flex align-items-center" style="gap: 4px;">
+																							<label for="filter-unidade">Unidade:</label>
+																							<select id="filter-unidade" class="form-select form-select-sm" style="background-color: #fff !important; border: 1px solid #aaa; border-radius: 3px !important;">
+																								<option value="">Todas as unidades</option>
+																							</select>
+																						</div>
+																					`);
+
+						// Popular options do select
+						@json($unidades).forEach(u => {
+							filterUnidadeDiv.find('select').append(
+								`<option value="${u.unidadeSigla}">${u.unidadeSigla}</option>`
+							);
+						});
+
+						let lengthDiv = $('.dt-length');
+						let searchDiv = $('.dt-search');
+
+						let parent = lengthDiv.parent();
+						parent.css({
+							display: 'flex',
+							alignItems: 'center',
+							justifyContent: 'space-between',
+							flexWrap: 'nowrap'
+						});
+
+						// Envolver lengthDiv e searchDiv em dt-layout-cell (se ainda não estiverem)
+						lengthDiv.wrap('<div class="dt-layout-cell"></div>');
+						searchDiv.wrap('<div class="dt-layout-cell"></div>');
+
+						// Inserir filtro unidade antes do "per page"
+						filterUnidadeDiv.insertBefore(lengthDiv.parent());
+
+						// Evento filtro
+						$('#filter-unidade').on('change', function () {
+							let val = $.fn.dataTable.util.escapeRegex($(this).val());
+							api.column(1).search(val ? '^' + val + '$' : '', true, false).draw();
+						});
+					}, 0);
+				}
+			});
+		});
+	</script> --}}
 
 @endsection
