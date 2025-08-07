@@ -43,14 +43,13 @@ $(document).ready(function () {
           </div>
         `);
 
-				unidades.sort((a, b) => a.unidadeSigla.localeCompare(b.unidadeSigla));
+        unidades.sort((a, b) => a.unidadeSigla.localeCompare(b.unidadeSigla));
 
-				// Popular options
-				unidades.forEach(u => {
-					filterUnidadeDiv.find('select').append(
-						`<option value="${u.unidadeSigla}">${u.unidadeSigla}</option>`
-					);
-				});
+        unidades.forEach(u => {
+          filterUnidadeDiv.find('select').append(
+            `<option value="${u.unidadeSigla}">${u.unidadeSigla}</option>`
+          );
+        });
 
         let lengthDiv = $('.dt-length');
         let searchDiv = $('.dt-search');
@@ -71,7 +70,7 @@ $(document).ready(function () {
 
         $('#filter-unidade').on('change', function () {
           let val = $.fn.dataTable.util.escapeRegex($(this).val());
-          api.column(1).search(val ? '^' + val + '$' : '', true, false).draw();
+          api.column(2).search(val ? '^' + val + '$' : '', true, false).draw();
         });
       }, 0);
     }
