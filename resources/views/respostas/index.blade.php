@@ -73,7 +73,7 @@
 			<h5 class="text-center mb-1">Lista de Providências</h5>
 
 			<div class="d-flex justify-content-center mt-2">
-				<button id="btnHomologarMultipla" class="btn btn-outline-secondary" disabled>
+				<button id="btnHomologarMultipla" class="footer-btn-pres" disabled>
 					<i class="fas fa-check-square me-2"></i><span id="textoBotaoHomologar">Marque para selecionar providências</span>
 				</button>
 			</div>
@@ -251,13 +251,11 @@
 
 			if (checkboxes.length === 0) {
 				btnHomologar.disabled = true;
-				btnHomologar.classList.remove('btn-success');
-				btnHomologar.classList.add('btn-outline-secondary');
-				textoBotao.textContent = 'Marque para selecionar providências';
+				btnHomologar.classList.remove('footer-success');
+				textoBotao.textContent = 'Marque a caixa para selecionar providências';
 			} else {
 				btnHomologar.disabled = false;
-				btnHomologar.classList.remove('btn-outline-secondary');
-				btnHomologar.classList.add('btn-success');
+				btnHomologar.classList.add('footer-success');
 				textoBotao.textContent = 'Homologar selecionadas';
 			}
 		}
@@ -373,7 +371,7 @@
 								` : '';
 									}).join('')}
 								</div>
-								
+
 								<div class="text-end mt-2">Total: ${data.nao_homologadas.length}</div>
 								`;
 						} else {
