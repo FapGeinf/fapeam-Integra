@@ -390,6 +390,18 @@ class RiscoController extends Controller
         }
     }
 
+				public function homologarMultiplas(Request $request)
+		{
+				$ids = explode(',', $request->input('respostasSelecionadas'));
+				dd($ids);
+
+				// Resposta::whereIn('id', $ids)
+				// 		->whereNull('homologadaPresidencia') // só quem ainda não foi
+				// 		->update(['homologadaPresidencia' => now()]); // ou como você quiser marcar
+
+				// return redirect()->back()->with('success', 'Respostas homologadas com sucesso!');
+		}
+
     public function insertPrazo(Request $request)
     {
         try {
@@ -437,15 +449,16 @@ class RiscoController extends Controller
         }
     }
 
-		public function homologarMultiplos(Request $request)
+		public function homologarMultiplas(Request $request)
 		{
 				$ids = explode(',', $request->input('respostasSelecionadas'));
+				dd($ids);
 
-				Resposta::whereIn('id', $ids)
-						->whereNull('homologadaPresidencia') // só quem ainda não foi
-						->update(['homologadaPresidencia' => now()]); // ou como você quiser marcar
+				// Resposta::whereIn('id', $ids)
+				// 		->whereNull('homologadaPresidencia') // só quem ainda não foi
+				// 		->update(['homologadaPresidencia' => now()]); // ou como você quiser marcar
 
-				return redirect()->back()->with('success', 'Respostas homologadas com sucesso!');
+				// return redirect()->back()->with('success', 'Respostas homologadas com sucesso!');
 		}
 
 

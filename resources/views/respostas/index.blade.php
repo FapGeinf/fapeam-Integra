@@ -185,7 +185,7 @@
 							<ul id="listaIdsSelecionados" style="max-height: 200px; overflow-y: auto;"></ul>
 						</div>
 						<div class="modal-footer">
-							<form id="formHomologarSelecionados" method="POST" action="{{ route('riscos.homologar.multiplos') }}">
+							<form id="formHomologarSelecionados" method="POST" action="{{ route('respostas.homologarMultiplas') }}">
 								@csrf
 								@method('PUT')
 								<input type="hidden" name="respostasSelecionadas" id="inputRespostasSelecionadas" value="">

@@ -151,7 +151,9 @@ Route::post('/canal/criar', [AtividadeController::class, 'createCanal'])->name('
 Route::get('/eixo/{eixo_id}', [EixosController::class, 'mostrarEixo'])->name('eixo.mostrar');
 
 Route::get('/providencias/index', [RiscoController::class, 'indexRespostas'])->name('respostas.index');
-Route::put('/respostas/homologar-multiplos', [RespostaController::class, 'homologarMultiplos'])->name('riscos.homologar.multiplos');
+Route::put('/respostas/homologar-multiplas', [RiscoController::class, 'homologarMultiplas'])
+     ->name('respostas.homologarMultiplas');
+
 
 Route::get('/relatorios/eixos/{id}', [RelatorioController::class, 'relatoriosPorEixo'])->name('relatorios.eixos');
 
