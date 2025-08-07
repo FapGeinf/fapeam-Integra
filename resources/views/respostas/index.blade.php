@@ -71,10 +71,11 @@
 	<div class="col-12 border box-shadow">
 		<div class="justify-content-center">
 			<h5 class="text-center mb-1">Lista de Providências</h5>
-				<div class="d-flex justify-content-center mt-2">
-				 <button id="btnHomologarMultipla" class="btn btn-success" disabled>
-					<i class="fas fa-check-circle me-2"></i>Homologar Selecionadas
-				</button> 
+
+			<div class="d-flex justify-content-center mt-2">
+				<button id="btnHomologarMultipla" class="btn btn-outline-secondary" disabled>
+					<i class="fas fa-check-square me-2"></i><span id="textoBotaoHomologar">Marque para selecionar providências</span>
+				</button>
 			</div>
 		</div>
 	</div>
@@ -245,7 +246,20 @@
 
 		function toggleButton() {
 			const checkboxes = document.querySelectorAll('.resposta-checkbox:checked');
-			btnHomologar.disabled = checkboxes.length === 0;
+			const textoBotao = document.getElementById('textoBotaoHomologar');
+			const btnHomologar = document.getElementById('btnHomologarMultipla');
+
+			if (checkboxes.length === 0) {
+				btnHomologar.disabled = true;
+				btnHomologar.classList.remove('btn-success');
+				btnHomologar.classList.add('btn-outline-secondary');
+				textoBotao.textContent = 'Marque para selecionar providências';
+			} else {
+				btnHomologar.disabled = false;
+				btnHomologar.classList.remove('btn-outline-secondary');
+				btnHomologar.classList.add('btn-success');
+				textoBotao.textContent = 'Homologar selecionadas';
+			}
 		}
 
 		function getRowData(checkbox) {
@@ -290,7 +304,6 @@
 				</div>
 				<div class="mt-3 text-center"><strong>Total:</strong> ${selectedItems.length} item(s) selecionado(s)</div>
 			`;
-
 
 			confirmarModal.show();
 
