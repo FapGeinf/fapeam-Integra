@@ -390,7 +390,7 @@
 					checkboxes.forEach(cb => cb.checked = false);
 					toggleButton();
 
-					setTimeout(() => window.location.reload(), 2000);
+					setTimeout(() => window.location.reload(), 3000);
 
 				} catch (error) {
 					console.error('Erro na homologação:', error);
