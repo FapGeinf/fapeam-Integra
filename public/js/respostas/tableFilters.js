@@ -30,6 +30,16 @@ $(document).ready(function () {
         "sSortDescending": ": Ordenar colunas de forma descendente"
       }
     },
+		columnDefs: [{
+			targets: 0,
+			orderable: false,
+			searchable: false,
+			className: 'select-checkbox',
+			render: function () {
+				return '<input type="checkbox" class="row-select">';
+			}
+  	}],
+
     initComplete: function () {
       let api = this.api();
 
@@ -76,4 +86,52 @@ $(document).ready(function () {
       }, 0);
     }
   });
+	 $('#select-all').on('click', function () {
+    let rows = table.rows({ search: 'applied' }).nodes();
+    $('input.row-select', rows).prop('checked', this.checked);
+  });
+
+  // Desmarcar "selecionar todos" se algo for desmarcado
+  $('#respostasTable tbody').on('change', 'input.row-select', function () {
+    if (!this.checked) {
+      $('#select-all').prop('checked', false);
+    }
+  });
+
+
+	
+	$('#btnHomologarSelecionados').on('click', function () {
+  let selecionados = [];
+
+  $('.row-select:checked').each(function () {
+    // Pega o ID da linha, que você deve colocar num atributo data no <tr>
+    // Exemplo: <tr data-id="{{ $resposta->id }}">
+    selecionados.push($(this).closest('tr').data('id'));
+  });
+
+  if (selecionados.length === 0) {
+    alert('Selecione pelo menos uma providência para homologar.');
+    return;
+  }
+
+  // Limpa lista no modal
+  $('#listaIdsSelecionados').empty();
+
+  // Popula lista
+  selecionados.forEach(id => {
+    $('#listaIdsSelecionados').append(`<li>ID: ${id}</li>`);
+  });
+
+  // Atualiza input hidden do form
+  $('#inputRespostasSelecionadas').val(selecionados.join(','));
+
+  // Mostra o modal (usando Bootstrap 5)
+  let modal = new bootstrap.Modal(document.getElementById('modalHomologar'));
+  modal.show();
+});
+
+
+
+
+	
 });

@@ -437,6 +437,18 @@ class RiscoController extends Controller
         }
     }
 
+		public function homologarMultiplos(Request $request)
+		{
+				$ids = explode(',', $request->input('respostasSelecionadas'));
+
+				Resposta::whereIn('id', $ids)
+						->whereNull('homologadaPresidencia') // só quem ainda não foi
+						->update(['homologadaPresidencia' => now()]); // ou como você quiser marcar
+
+				return redirect()->back()->with('success', 'Respostas homologadas com sucesso!');
+		}
+
+
 
     public function __construct(LogService $log, RiscoService $risco, MonitoramentoService $monitoramento, RespostaService $resposta, PrazoService $prazo, NotificationService $notification)
     {

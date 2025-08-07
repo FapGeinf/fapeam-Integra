@@ -4,6 +4,7 @@
 
 <script src="{{asset('js/jquery-3.6.0.min.js') }}"></script>
 <script src="{{ asset('js/dataTables.min.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="{{ asset('css/dataTables.dataTables.min.css')}}">
 <link rel="stylesheet" href="{{ asset('css/index.css') }}">
 
@@ -71,18 +72,6 @@
 	<div class="col-12 border box-shadow">
 		<div class="justify-content-center">
 			<h5 class="text-center mb-1">Lista de Providências</h5>
-
-			{{-- <div class="row g-3 mt-3">
-				<div class="col-12 col-sm-6 col-md-3">
-					<label for="filter-unidade" class="fw-bold">Unidades:</label>
-					<select name="filter-unidade" id="filter-unidade" class="form-select pointer">
-						<option value="" selected disabled>Selecione uma unidade</option>
-						@foreach ($unidades as $unidade)
-							<option value="{{ $unidade->unidadeSigla }}">{{ $unidade->unidadeSigla }}</option>
-						@endforeach
-					</select>
-				</div>
-			</div> --}}
 		</div>
 	</div>
 </div>
@@ -90,9 +79,14 @@
 <div class="container-xxl" style="max-width: 1500px !important;">
 	<div class="col-12 border box-shadow">
 		<div class="justify-content-center" id="respostasTableWrapper" data-unidades='@json($unidades)'>
+			<button id="btnHomologarSelecionados" class="btn btn-success my-3">
+  			<i class="bi bi-check-circle"></i> Homologar Selecionados
+			</button>
+
 			<table id="respostasTable" class="table table-striped cust-datatable mb-5">
 				<thead>
 					<tr class="text-center fw-bold" style="white-space: nowrap;">
+						<th><input type="checkbox" id="select-all"></th>
 						<th scope="col" class="text-center">Usuário</th>
 						<th scope="col" class="text-center">Unidade</th>
 						<th scope="col" class="text-center">Monitoramento</th>
@@ -103,9 +97,15 @@
 					</tr>
 				</thead>
 
+
 				<tbody>
 					@foreach ($respostas as $resposta)
-						<tr>
+						<tr data-id="{{ $resposta->id }}">
+							<td class="text-center">
+								@if (is_null($resposta->homologadaPresidencia))
+									<input type="checkbox" class="resposta-checkbox" name="respostas[]" value="{{ $resposta->id }}">
+								@endif
+							</td>
 							<td class="text-center">{{ $resposta->user->name }}</td>
 							<td class="text-center">{{ $resposta->monitoramento->risco->unidade->unidadeSigla ?? '' }}</td>
 							<td>{!! $resposta->monitoramento->monitoramentoControleSugerido!!}</td>
@@ -170,66 +170,38 @@
 						</div>
 					@endforeach
 				</tbody>
+
 			</table>
+
+			<div class="modal fade" id="modalHomologar" tabindex="-1" aria-labelledby="modalHomologarLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="modalHomologarLabel">Confirmar Homologação</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+						</div>
+						<div class="modal-body">
+							<p>Você está prestes a homologar as seguintes providências:</p>
+							<ul id="listaIdsSelecionados" style="max-height: 200px; overflow-y: auto;"></ul>
+						</div>
+						<div class="modal-footer">
+							<form id="formHomologarSelecionados" method="POST" action="{{ route('riscos.homologar.multiplos') }}">
+								@csrf
+								@method('PUT')
+								<input type="hidden" name="respostasSelecionadas" id="inputRespostasSelecionadas" value="">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+								<button type="submit" class="btn btn-success">Confirmar Homologação</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
 		</div>
 	</div>
 </div>
 
-{{-- <script>
-	$(document).ready(function () {
-		if ($.fn.DataTable.isDataTable('#respostasTable')) {
-			$('#respostasTable').DataTable().destroy();
-		}
 
-		let table = $('#respostasTable').DataTable({
-			initComplete: function () {
-				let api = this.api();
 
-				setTimeout(function () {
-					// Criar label e select juntos dentro de uma div
-					let filterUnidadeDiv = $(`
-						<div class="dt-layout-cell d-flex align-items-center" style="gap: 4px;">
-							<label for="filter-unidade">Unidade:</label>
-							<select id="filter-unidade" class="form-select form-select-sm" style="background-color: #fff !important; border: 1px solid #aaa; border-radius: 3px !important;">
-								<option value="">Todas as unidades</option>
-							</select>
-						</div>
-					`);
-
-					// Popular options do select
-					@json($unidades).forEach(u => {
-						filterUnidadeDiv.find('select').append(
-							`<option value="${u.unidadeSigla}">${u.unidadeSigla}</option>`
-						);
-					});
-
-					let lengthDiv = $('.dt-length');
-					let searchDiv = $('.dt-search');
-
-					let parent = lengthDiv.parent();
-					parent.css({
-						display: 'flex',
-						alignItems: 'center',
-						justifyContent: 'space-between',
-						flexWrap: 'nowrap'
-					});
-
-					// Envolver lengthDiv e searchDiv em dt-layout-cell (se ainda não estiverem)
-					lengthDiv.wrap('<div class="dt-layout-cell"></div>');
-					searchDiv.wrap('<div class="dt-layout-cell"></div>');
-
-					// Inserir filtro unidade antes do "per page"
-					filterUnidadeDiv.insertBefore(lengthDiv.parent());
-
-					// Evento filtro
-					$('#filter-unidade').on('change', function () {
-						let val = $.fn.dataTable.util.escapeRegex($(this).val());
-						api.column(1).search(val ? '^' + val + '$' : '', true, false).draw();
-					});
-				}, 0);
-			}
-		});
-	});
-</script> --}}
 
 @endsection
