@@ -71,6 +71,11 @@
 	<div class="col-12 border box-shadow">
 		<div class="justify-content-center">
 			<h5 class="text-center mb-1">Lista de Providências</h5>
+				<div class="d-flex justify-content-center mt-2">
+				 <button id="btnHomologarMultipla" class="btn btn-success" disabled>
+					<i class="fas fa-check-circle me-2"></i>Homologar Selecionadas
+				</button> 
+			</div>
 		</div>
 	</div>
 </div>
@@ -78,11 +83,11 @@
 <div class="container-xxl" style="max-width: 1500px !important;">
 	<div class="col-12 border box-shadow">
 		<div class="container-xxl mb-4" style="max-width: 1500px !important;">
-			<div class="d-flex justify-content-end">
-				<button id="btnHomologarMultipla" class="btn btn-success" disabled>
+			{{-- <div class="d-flex justify-content-end">
+				 <button id="btnHomologarMultipla" class="btn btn-success" disabled>
 					<i class="fas fa-check-circle me-2"></i>Homologar Selecionadas
-				</button>
-			</div>
+				</button> 
+			</div> --}}
 		</div>
 
 		<div class="justify-content-center" id="respostasTableWrapper" data-unidades='@json($unidades)'>
@@ -193,13 +198,13 @@
 			</div>
 
 			<div class="modal-body">
-				<p>Tem certeza que deseja homologar as seguintes respostas?</p>
+				<p class="mb-3">Tem certeza que deseja homologar as seguintes respostas?</p>
 				<div id="listaConfirmarHomologacao"></div>
 			</div>
 
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-				<button type="button" id="btnConfirmarHomologacao" class="btn btn-success">Confirmar</button>
+				<button type="button" class="footer-btn footer-secondary" data-bs-dismiss="modal">Cancelar</button>
+				<button type="button" id="btnConfirmarHomologacao" class="footer-btn footer-success">Confirmar</button>
 			</div>
 		</div>
 	</div>
@@ -275,16 +280,17 @@
 
 			listaConfirmar.innerHTML = `
 				<div class="list-group">
-					${selectedItems.map(item => `
-						<div class="list-group-item">
+					${selectedItems.map((item, index) => `
+						<div class="list-group-item" style="background-color: ${index % 2 === 0 ? '#f2f2f2' : '#fff'};">
 							<div><strong>Usuário:</strong> ${item.usuario}</div>
 							<div><strong>Unidade:</strong> ${item.unidade}</div>
 							<div><strong>Monitoramento:</strong> ${item.monitoramento}</div>
 						</div>
 					`).join('')}
 				</div>
-				<div class="mt-2 text-center"><strong>Total:</strong> ${selectedItems.length} item(s) selecionado(s)</div>
+				<div class="mt-3 text-center"><strong>Total:</strong> ${selectedItems.length} item(s) selecionado(s)</div>
 			`;
+
 
 			confirmarModal.show();
 
@@ -354,7 +360,7 @@
 									}).join('')}
 								</div>
 								<div class="text-end mt-2">Total: ${data.nao_homologadas.length}</div>
-									`;
+								`;
 						} else {
 							naoHomologadasHTML = '';
 						}
@@ -371,7 +377,7 @@
 					checkboxes.forEach(cb => cb.checked = false);
 					toggleButton();
 
-					setTimeout(() => window.location.reload(), 5000);
+					setTimeout(() => window.location.reload(), 2000);
 
 				} catch (error) {
 					console.error('Erro na homologação:', error);
