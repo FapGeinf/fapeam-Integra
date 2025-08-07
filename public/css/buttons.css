@@ -75,6 +75,16 @@
   transition: background-color 0.3s;
 }
 
+.footer-primary {
+  background-color: #3a6bfb;
+  color: white;
+  border: none;
+}
+
+.footer-primary:hover {
+  background-color: #2f56cc;
+}
+
 .footer-secondary {
   background-color: #6c757d;
   color: white;
