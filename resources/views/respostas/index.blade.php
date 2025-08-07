@@ -108,6 +108,7 @@
 									<input type="checkbox" class="resposta-checkbox" value="{{ $resposta->id }}">
 								@endif
 							</td>
+
 							<td class="text-center">{{ $resposta->user->name }}</td>
 							<td class="text-center">{{ $resposta->monitoramento->risco->unidade->unidadeSigla ?? '' }}</td>
 							<td>{!! $resposta->monitoramento->monitoramentoControleSugerido!!}</td>
@@ -129,6 +130,7 @@
 								<a href="{{ route('riscos.respostas', $resposta->monitoramento->id) }}"
 									class="footer-btn footer-primary text-decoration-none w-100 d-inline-block"
 									role="button">
+									
 									<i class="bi bi-eye me-1"></i>
 									<span>Visualizar</span>
 								</a>
@@ -138,6 +140,7 @@
 									style="white-space: nowrap";
 									data-bs-toggle="modal"
 									data-bs-target="#homologacaoPresidenciaModal{{ $resposta->id }}">
+
 									<i class="bi bi-check-circle me-1"></i>
 									<span>Homologar</span>
 								</button>
