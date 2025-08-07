@@ -156,12 +156,12 @@
 							<div class="modal-dialog modal-dialog-centered">
 								<div class="modal-content">
 									<div class="modal-header">
-										<h5 class="modal-title" id="homologacaoPresidenciaModalLabel{{ $resposta->id }}">Homologar pela Presidência</h5>
+										<h5 class="modal-title" id="homologacaoPresidenciaModalLabel{{ $resposta->id }}">Homologar Providência</h5>
 										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
 									</div>
 
 									<div class="modal-body">
-										Tem certeza que deseja homologar esta resposta como Presidente?
+										Tem certeza que deseja homologar esta providência ?
 									</div>
 
 									<div class="modal-footer">
