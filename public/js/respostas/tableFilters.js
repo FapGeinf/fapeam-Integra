@@ -43,12 +43,14 @@ $(document).ready(function () {
           </div>
         `);
 
-        // Popular options
-        unidades.forEach(u => {
-          filterUnidadeDiv.find('select').append(
-            `<option value="${u.unidadeSigla}">${u.unidadeSigla}</option>`
-          );
-        });
+				unidades.sort((a, b) => a.unidadeSigla.localeCompare(b.unidadeSigla));
+
+				// Popular options
+				unidades.forEach(u => {
+					filterUnidadeDiv.find('select').append(
+						`<option value="${u.unidadeSigla}">${u.unidadeSigla}</option>`
+					);
+				});
 
         let lengthDiv = $('.dt-length');
         let searchDiv = $('.dt-search');
