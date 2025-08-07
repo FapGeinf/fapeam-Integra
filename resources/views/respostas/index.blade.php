@@ -352,7 +352,8 @@
 								` : '';
 								}).join('')}
 							</div>
-								<div class="text-end mt-2">Total: ${data.homologadas.length}</div>
+
+							<div class="text-end mt-2">Total: ${data.homologadas.length}</div>
 							`;
 						} else {
 							homologadasHTML += '<p>Nenhuma resposta foi homologada.</p>';
@@ -372,6 +373,7 @@
 								` : '';
 									}).join('')}
 								</div>
+								
 								<div class="text-end mt-2">Total: ${data.nao_homologadas.length}</div>
 								`;
 						} else {
