@@ -44,18 +44,13 @@
 		</div>
 	</div>
 
-	<div class="container-xxl" style="max-width: 1500px !important;">
-		<div class="col-12 border box-shadow">
-			<div class="container-xxl mb-4" style="max-width: 1500px !important;">
-				{{-- <div class="d-flex justify-content-end">
-					<button id="btnHomologarMultipla" class="btn btn-success" disabled>
-						<i class="fas fa-check-circle me-2"></i>Homologar Selecionadas
-					</button>
-				</div> --}}
-				<button id="selecionarTodasCheckbox" class="btn btn-outline-primary btn-sm">
-					<i class="bi bi-check2-square me-1"></i> Selecionar Todas
-				</button>
-			</div>
+<div class="container-xxl" style="max-width: 1500px !important;">
+	<div class="col-12 border box-shadow">
+		<div class="container-xxl mb-4" style="max-width: 1500px !important;">
+			<button id="selecionarTodasCheckbox" class="btn btn-outline-primary btn-sm">
+				<i class="bi bi-check2-square me-1"></i> Selecionar Todas
+			</button>
+		</div>
 
 			<div class="justify-content-center" id="respostasTableWrapper" data-unidades='@json($unidades)'>
 				<table id="respostasTable" class="table table-striped cust-datatable mb-5">
