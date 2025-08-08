@@ -215,38 +215,25 @@
 
                                 <td class="text-center">
                                     @if(Auth::user()->unidade->unidadeTipoFK == 1 || Auth::user()->usuario_tipo_fk == 1)
-                                        <div class="custom-actions-wrapper" id="actionsWrapper{{ $atividade->id }}">
-                                            <button type="button" onclick="toggleActionsMenu({{ $atividade->id }})"
-                                                class="custom-actions-btn">
-                                                <i class="bi bi-three-dots-vertical"></i>
-                                            </button>
+                                        <div class="d-flex flex-column gap-2">
+                                            <a href="{{ route('atividades.show', $atividade->id) }}"
+                                            class="footer-btn footer-primary w-100 text-start d-inline-block text-decoration-none text-nowrap">
+                                                <i class="bi bi-eye me-2"></i>Visualizar
+                                            </a>
 
-                                            <div class="custom-actions-menu">
-                                                <ul>
-                                                    <li>
-                                                        <a href="{{ route('atividades.edit', $atividade->id) }}">
-                                                            <i class="bi bi-pencil me-2"></i>Editar
-                                                        </a>
-                                                    </li>
+                                            <a href="{{ route('atividades.edit', $atividade->id) }}"
+                                            class="footer-btn footer-warning w-100 text-start d-inline-block text-decoration-none text-nowrap">
+                                                <i class="bi bi-pencil me-2"></i>Editar
+                                            </a>
 
-                                                    <li>
-                                                        <a href="#" class="text-danger" data-bs-toggle="modal"
-                                                            data-bs-target="#deleteModal{{ $atividade->id }}">
-                                                            <i class="bi bi-trash me-2"></i>Excluir
-                                                        </a>
-                                                    </li>
-
-                                                    <li>
-                                                        <a href="{{ route('atividades.show', $atividade->id) }}">
-                                                            <i class="bi bi-eye me-2"></i>Visualizar
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
+                                            <a href="#" class="footer-btn footer-danger w-100 text-start d-inline-block text-decoration-none text-nowrap"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#deleteModal{{ $atividade->id }}">
+                                                <i class="bi bi-trash me-2"></i>Excluir
+                                            </a>
                                         </div>
                                     @endif
                                 </td>
-
 
                                 {{-- <td>
                                     @if(Auth::user()->unidade->unidadeTipoFK == 1 || Auth::user()->usuario_tipo_fk == 1)
