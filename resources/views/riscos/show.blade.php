@@ -65,7 +65,7 @@
     <div class="container-xxl">
         <div class="col-12 border box-shadow">
             <h5 class="text-center mb-3">Plano de ação - {{ $risco->unidade->unidadeSigla }}</h5>
-            <table class="table table-bordered mb-4">
+            <table class="table table-bordered table-striped mb-4">
                 <thead>
                     <tr>
                         <th scope="col" class="text-center text-light text13 tBorder">Controle Sugerido:</th>
