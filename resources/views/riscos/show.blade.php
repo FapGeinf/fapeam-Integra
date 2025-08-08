@@ -115,17 +115,17 @@
 
                             <td class="text13 pb-1 tBorder text-center">
                                 @if($monitoramento->monitoramentoRespondido == 0)
-                                    <span class="fw-bold text-danger">
-                                        <i class="fas fa-times-circle"></i> Não recebeu nenhuma providência
+                                    <span class="fw-medium text-danger">
+                                        Não recebeu nenhuma providência
                                     </span>
                                 @elseif($monitoramento->respostas->every(function ($resposta) {
                                     return $resposta->homologadaPresidencia && $resposta->homologadoDiretoria; }))
-                                    <span class="fw-bold text-success">
-                                        <i class="fas fa-check-circle"></i> Homologação Completa
+                                    <span class="fw-medium text-success">
+                                        Homologação Completa
                                     </span>
                                 @else
                                     <span class="fw-medium text-warning">
-                                        <i class="fas fa-exclamation-circle"></i> Há providências a serem homologadas
+                                        Há providências a serem homologadas
                                     </span>
                                 @endif
                             </td>
