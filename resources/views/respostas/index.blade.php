@@ -97,6 +97,7 @@
 					<tr class="text-center fw-bold" style="white-space: nowrap;">
 						<th></th>
 						<th scope="col" class="text-center">Usuário</th>
+						<th scope="col" class="text-center">Diretoria</th>
 						<th scope="col" class="text-center">Unidade</th>
 						<th scope="col" class="text-center">Monitoramento</th>
 						<th scope="col" class="text-center">Providência</th>
@@ -116,6 +117,7 @@
 							</td>
 
 							<td class="text-center">{{ $resposta->user->name }}</td>
+							<td class="text-center">{{ $resposta->monitoramento->risco->unidade->diretoria->diretoriaSigla ?? '' }}</td>
 							<td class="text-center">{{ $resposta->monitoramento->risco->unidade->unidadeSigla ?? '' }}</td>
 							<td>{!! $resposta->monitoramento->monitoramentoControleSugerido!!}</td>
 							<td>{!! $resposta->respostaRisco !!}</td>
