@@ -195,7 +195,7 @@
 
 <script src="{{ asset('js/respostas/homologacao.js') }}"></script>
 
-<div id="floatingButtons" class="floating-container">
+<div id="floatingButtons" class="floating-container border box-shadow">
 	<button id="selecionarTodasCheckbox" class="btn btn-outline-primary btn-sm">
 		<i class="bi bi-check2-square me-1"></i> Selecionar Todas
 	</button>
