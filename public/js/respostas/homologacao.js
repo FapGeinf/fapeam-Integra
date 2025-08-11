@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		const btnSelecionarTodas = document.getElementById('selecionarTodasCheckbox');
 
 		if (allChecked && allCheckboxes.length > 0) {
-			btnSelecionarTodas.innerHTML = '<i class="bi bi-check2-square me-1"></i> Desmarcar Todas';
+			btnSelecionarTodas.innerHTML = '<i class="bi bi-square me-1"></i> Desmarcar Todas';
 		} else {
 			btnSelecionarTodas.innerHTML = '<i class="bi bi-check2-square me-1"></i> Selecionar Todas';
 		}
