@@ -15,7 +15,6 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 	<link rel="stylesheet" href="{{ asset('css/painelProvidencias.css') }}">
 	
-
 	<div class="alert-container pt-5">
 		@if (session('success'))
 			<div class="alert alert-success text-center auto-dismiss">
