@@ -34,10 +34,7 @@
 				<h5 class="text-center mb-1">Lista de Providências</h5>
 
 				<div class="d-flex justify-content-center mt-2">
-					<button id="btnHomologarMultipla" class="footer-btn-pres" disabled>
-						<i class="fas fa-check-square me-2"></i><span id="textoBotaoHomologar">Marque para selecionar
-							providências</span>
-					</button>
+					
 				</div>
 			</div>
 		</div>
@@ -45,9 +42,15 @@
 
 <div class="container-xxl" style="max-width: 1500px !important;">
 	<div class="col-12 border box-shadow">
-		<div class="container-xxl mb-4" style="max-width: 1500px !important;">
-			<button id="selecionarTodasCheckbox" class="btn btn-outline-primary btn-sm">
+
+		<div class="pb-1">
+			<button id="selecionarTodasCheckbox" class="footer-btn footer-primary">
 				<i class="bi bi-check2-square me-1"></i> Selecionar Todas
+			</button>
+
+			<button id="btnHomologarMultipla" class="footer-btn footer-success" disabled>
+				<i class="bi bi-check-circle me-1"></i>
+				<span id="textoBotaoHomologar"> <!-- Conteúdo inserido dinamicamente --> </span>
 			</button>
 		</div>
 

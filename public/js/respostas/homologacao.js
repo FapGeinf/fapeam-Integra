@@ -15,12 +15,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		if (checkboxes.length === 0) {
 			btnHomologar.disabled = true;
+			btnHomologar.classList.add('footer-disabled');
 			btnHomologar.classList.remove('footer-success');
-			textoBotao.textContent = 'Marque a caixa para selecionar providências';
+			textoBotao.textContent = 'Nenhuma providência selecionada';
+
 		} else {
 			btnHomologar.disabled = false;
+			btnHomologar.classList.remove('footer-disabled');
 			btnHomologar.classList.add('footer-success');
 			textoBotao.textContent = 'Homologar selecionadas';
+		}
+
+		const allCheckboxes = document.querySelectorAll('.resposta-checkbox:not(:disabled)');
+		const allChecked = Array.from(allCheckboxes).every(cb => cb.checked);
+		const btnSelecionarTodas = document.getElementById('selecionarTodasCheckbox');
+
+		if (allChecked && allCheckboxes.length > 0) {
+			btnSelecionarTodas.innerHTML = '<i class="bi bi-check2-square me-1"></i> Desmarcar Todas';
+		} else {
+			btnSelecionarTodas.innerHTML = '<i class="bi bi-check2-square me-1"></i> Selecionar Todas';
 		}
 	}
 

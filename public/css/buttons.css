@@ -101,6 +101,15 @@
   border: none;
 }
 
+.footer-disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+  background-color: #6c757d; /* cinza desativado */
+  color: #e2e6ea; /* texto claro */
+  box-shadow: none;
+}
+
 .footer-secondary:hover {
   background-color: #5c636a;
 }
