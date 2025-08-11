@@ -101,6 +101,12 @@
   border: none;
 }
 
+.footer-notif {
+  background-color: #553cc6;
+  color: #fff;
+  border: none;
+}
+
 .footer-disabled {
   opacity: 0.6;
   cursor: not-allowed;
