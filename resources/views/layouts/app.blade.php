@@ -91,6 +91,7 @@
                 <span class="a-span">Relatório Geral</span>
               </a>
             </li>
+
             @if(Auth::user()->usuario_tipo_fk == 4)
             <li class="li-navbar2">
                 <a href="{{ route('usuarios.index') }}" class="d-flex li-a a-navbar">
@@ -105,14 +106,16 @@
                 </a>
             </li> -->
             @endif
+
             @if(Auth::user()->usuario_tipo_fk == 2 || Auth::user()->usuario_tipo_fk == 1 || Auth::user()->usuario_tipo_fk == 4)
               <li class="li-navbar2">
-                  <a href="{{ route('respostas.index') }}" class="d-flex li-a a-navbar">
+                  <a href="{{ route('respostas.index') }}" class="d-flex li-a a-navbar {{ Request::routeIs('respostas.index') ? 'li-a-active' : '' }}">
                       <i class="bi bi-chat-left-dots i-navbar mt-1px"></i>
                       <span class="a-span">Providências</span>
                   </a>
               </li> 
             @endif
+
             @if(Auth::user()->usuario_tipo_fk == 4)
               <!-- <li class="li-navbar2">
                   <a href="{{ route('versionamentos.index') }}" class="d-flex li-a a-navbar">
