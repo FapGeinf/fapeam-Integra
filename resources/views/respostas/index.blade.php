@@ -58,8 +58,8 @@
 						<tr class="text-center fw-bold" style="white-space: nowrap;">
 							<th style="
 								min-width: 70px;
-								background-color: #fdf3ce !important;
-								color: #3f3f3f !important;
+								background-color: #d3f3fc !important;
+								color: #080a0a !important;
 								">Selecionar itens
 							</th>
 
