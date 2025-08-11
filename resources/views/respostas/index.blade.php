@@ -204,5 +204,6 @@
 	<script>
 		window.ROTA_HOMOLOGAR_MULTIPLA = "{{ route('riscos.homologar.multipla') }}";
 	</script>
+	
 	<script src="{{ asset('js/respostas/homologacao.js') }}"></script>
 @endsection
