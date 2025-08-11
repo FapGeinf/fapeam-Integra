@@ -32,10 +32,6 @@
 		<div class="col-12 border box-shadow">
 			<div class="justify-content-center">
 				<h5 class="text-center mb-1">Lista de Providências</h5>
-
-				<div class="d-flex justify-content-center mt-2">
-					
-				</div>
 			</div>
 		</div>
 	</div>
