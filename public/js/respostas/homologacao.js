@@ -110,22 +110,22 @@ document.addEventListener('DOMContentLoaded', () => {
 				const data = await response.json();
 
 				if (resultadoModal) {
-					let homologadasHTML = '<h5 class="text-success">Homologadas com sucesso</h5>';
-					let naoHomologadasHTML = '<h5 class="text-danger mt-4">Não homologadas</h5>';
+					let homologadasHTML = '<p class="mb-3 fw-semibold text-center text-success">Providências homologadas com sucesso!</p>';
+					let naoHomologadasHTML = '<p class="mt-3 fw-semibold text-center text-danger">Não homologadas!</p>';
 
 					if (data.homologadas && data.homologadas.length > 0) {
 						homologadasHTML += `
 							<div class="list-group">
-								${data.homologadas.map(id => {
-							const item = selectedItems.find(i => i.id == id);
+								${data.homologadas.map((id, index) => {
+									const item = selectedItems.find(i => i.id == id);
 
-							return item ? `
-									<div class="list-group-item list-group-item-success">
-										<div><strong>Usuário:</strong> ${item.usuario}</div>
-										<div><strong>Unidade:</strong> ${item.unidade}</div>
-									</div>
-								` : '';
-						}).join('')}
+									return item ? `
+										<div class="list-group-item" style="background-color: ${index % 2 === 0 ? '#d3e7dd' : '#fff'};">
+											<div><strong>Usuário:</strong> ${item.usuario}</div>
+											<div><strong>Unidade:</strong> ${item.unidade}</div>
+										</div>
+									` : '';
+								}).join('')}
 							</div>
 
 							<div class="text-end mt-2">Total: ${data.homologadas.length}</div>
@@ -136,21 +136,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
 					if (data.nao_homologadas && data.nao_homologadas.length > 0) {
 						naoHomologadasHTML += `
-								<div class="list-group">
-									${data.nao_homologadas.map(item => {
-							const originalItem = selectedItems.find(i => i.id == item.id);
-							return originalItem ? `
-									<div class="list-group-item list-group-item-danger">
-										<div><strong>Usuário:</strong> ${originalItem.usuario}</div>
-										<div><strong>Unidade:</strong> ${originalItem.unidade}</div>
-										<div class="text-danger"><strong>Motivo:</strong> ${item.motivo || 'Não especificado'}</div>
-									</div>
-								` : '';
-						}).join('')}
-								</div>
+							<div class="list-group">
+								${data.nao_homologadas.map((item, index) => {
+									const originalItem = selectedItems.find(i => i.id == item.id);
+									return originalItem ? `
+										<div class="list-group-item" style="background-color: ${index % 2 === 0 ? '#f5d8da' : '#fff'};">
+											<div><strong>Usuário:</strong> ${originalItem.usuario}</div>
+											<div><strong>Unidade:</strong> ${originalItem.unidade}</div>
+											<div class="text-danger"><strong>Motivo:</strong> ${item.motivo || 'Não especificado'}</div>
+										</div>
+									` : '';
+								}).join('')}
+							</div>
 
-								<div class="text-end mt-2">Total: ${data.nao_homologadas.length}</div>
-								`;
+							<div class="text-end mt-2">Total: ${data.nao_homologadas.length}</div>
+						`;
 					} else {
 						naoHomologadasHTML = '';
 					}

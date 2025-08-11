@@ -180,9 +180,9 @@
 
 <div class="modal fade" id="resultadoHomologacaoModal" tabindex="-1" aria-labelledby="resultadoHomologacaoLabel"
 	aria-hidden="true">
-	<div class="modal-dialog modal-lg">
+	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
-			<div class="modal-header bg-primary text-white">
+			<div class="modal-header">
 				<h5 class="modal-title" id="resultadoHomologacaoLabel">Resultado da Homologação</h5>
 				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
 					aria-label="Fechar"></button>
@@ -194,7 +194,7 @@
 			</div>
 
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Fechar</button>
+				<button type="button" class="footer-btn footer-secondary" data-bs-dismiss="modal">Fechar</button>
 			</div>
 		</div>
 	</div>
