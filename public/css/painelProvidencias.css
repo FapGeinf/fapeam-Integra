@@ -33,3 +33,20 @@ body {
 div.dt-container div.dt-layout-row {
     font-size: 13px;
 }
+
+#floatingButtons {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none; /* já controlado via JS */
+    gap: 10px; /* espaçamento entre botões */
+    z-index: 9999;
+
+    padding: 1.5rem;
+    background-color: #fff;
+    border: 1px solid #b0b0b0;
+    border-radius: 3px;
+
+    transition: .2s;
+}
