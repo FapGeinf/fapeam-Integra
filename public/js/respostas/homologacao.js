@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		if (checkboxes.length === 0) {
 			btnHomologar.disabled = true;
 			btnHomologar.classList.remove('footer-success');
-			// textoBotao.textContent = 'Marque a caixa para selecionar providências';
+			textoBotao.textContent = 'Marque a caixa para selecionar providências';
 		} else {
 			btnHomologar.disabled = false;
 			btnHomologar.classList.add('footer-success');
