@@ -28,7 +28,7 @@
 	@endif
 </div>
 
-<div class="container-xxl pt-5" style="max-width: 1500px !important;">
+<div class="container-xxl" style="max-width: 1500px !important;">
 	<div class="col-12 border box-shadow">
 		<div class="justify-content-center">
 			<h5 class="text-center mb-1">Lista de Providências</h5>
@@ -58,7 +58,7 @@
 							min-width: 70px;
 							background-color: #d3f3fc !important;
 							color: #080a0a !important;
-							">Selecionar itens
+							">Selecionar
 						</th>
 
 						<th scope="col" class="text-center">Usuário</th>
