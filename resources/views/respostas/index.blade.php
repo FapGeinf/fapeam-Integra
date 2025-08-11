@@ -220,18 +220,6 @@
 		checkboxes.forEach(chk => {
 			chk.addEventListener('change', atualizarBotoes);
 		});
-
-		btnHomologar.addEventListener('click', function () {
-			floatingContainer.style.display = 'none';
-			$('#confirmarHomologacaoModal').modal('show');
-		});
-
-		// Reexibir se modal fechar e ainda houver itens selecionados
-		$('#confirmarHomologacaoModal').on('hidden.bs.modal', function () {
-			if (Array.from(checkboxes).some(chk => chk.checked)) {
-				floatingContainer.style.display = 'flex';
-			}
-		});
 	});
 </script>
 
