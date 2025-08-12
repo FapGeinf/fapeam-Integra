@@ -31,9 +31,8 @@
     </style>
 </head>
 
-
 <div class="form-wrapper pt-5">
-    <div class="form_create border p-4"> <!-- padding interno no container -->
+    <div class="form_create border p-4">
         
         @if (session('success'))
             <div class="alert alert-success text-center auto-dismiss">
@@ -70,21 +69,22 @@
                     </h2>
                     <div id="collapse{{ $tipo->id }}" class="accordion-collapse collapse"
                         aria-labelledby="heading{{ $tipo->id }}" data-bs-parent="#accordionDocumentos">
-                        <div class="accordion-body">
+                        <div class="accordion-body" style="background-color: #fff;">
                             @if (isset($documentosAgrupados[$tipo->id]))
                                 @foreach ($documentosAgrupados[$tipo->id] as $ano => $docsPorAno)
-                                    <div class="mb-2 fw-bold">{{ $ano }}</div>
+                                    <div class="mb-2 fw-semibold">{{ $ano }}</div>
                                     @foreach ($docsPorAno as $documento)
                                         <div class="d-flex align-items-center mb-2">
                                             <a href="{{ asset('storage/' . $documento->path) }}" target="_blank"
-                                                class="flex-grow-1 text-decoration-none text-dark text-truncate"
+                                                class="flex-grow-1 text-decoration-none text-link text-truncate"
                                                 title="{{ basename($documento->path) }}">
                                                 {{ basename($documento->path) }}
                                             </a>
+
                                             @if (Auth::user()->usuario_tipo_fk == 1 || Auth::user()->usuario_tipo_fk == 4)
-                                                <a href="{{ route('documentos.edit', ['id' => $documento->id]) }}" class="ms-2 text-muted"
+                                                <a href="{{ route('documentos.edit', ['id' => $documento->id]) }}" class="ms-2 text-light text-decoration-none footer-btn footer-primary"
                                                     style="font-size: 0.9rem;" title="Editar">
-                                                    <i class="bi bi-pencil-square"></i>
+                                                    <i class="bi bi-pencil-square text-light"></i> Editar
                                                 </a>
                                             @endif
                                         </div>
