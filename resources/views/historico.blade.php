@@ -28,6 +28,24 @@
             position: relative;
             display: inline-block;
         }
+
+        .accordion-button:not(.collapsed) {
+            color: #212529;
+            background-color: #f8fafc;
+        }
+
+        .accordion-button,
+        .accordion-button:focus,
+        .accordion-button:active,
+        .accordion-button:hover,
+        .accordion-button:not(.collapsed),
+        .accordion-button:not(.collapsed):focus,
+        .accordion-button:not(.collapsed):hover,
+        .accordion-button:not(.collapsed):active {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
     </style>
 </head>
 
@@ -67,6 +85,7 @@
                             {{ $tipo->nome }}
                         </button>
                     </h2>
+
                     <div id="collapse{{ $tipo->id }}" class="accordion-collapse collapse"
                         aria-labelledby="heading{{ $tipo->id }}" data-bs-parent="#accordionDocumentos">
                         <div class="accordion-body" style="background-color: #fff;">
