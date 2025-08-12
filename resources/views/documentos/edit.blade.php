@@ -24,7 +24,8 @@
             <div class="row">
                 <div class="col-12 mb-3">
                     <label>
-                        <span class="text-danger">*</span>Tipo de Documento:
+                        <span class="text-danger">*</span>
+                        Tipo de Documento:
                     </label>
 
                     <select id="tipoDocumento" class="form-select input-enabled" name="tipo_id" required>
@@ -40,7 +41,8 @@
 
                 <div class="col-12 mb-3">
                     <label>
-                        <span class="text-danger">*</span>Ano:
+                        <span class="text-danger">*</span>
+                        Ano:
                     </label>
 
                     <input id="anoDocumento" type="number" class="form-control" name="ano" value="{{ $documento->ano }}" required>
