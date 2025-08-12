@@ -50,6 +50,15 @@ font-style: normal;
   background-color: #f8fafc !important;
 }
 
+.risk-event {
+  text-decoration: none;
+}
+
+.risk-event:hover {
+  color: #2d56cb;
+  text-decoration: underline;
+}
+
 .border-grey {
   border: 1px solid #ccc !important;
 }

@@ -1,5 +1,7 @@
 @extends('layouts.app')
 @section('content')
+@section('title') {{ 'Detalhes da Providência' }} @endsection
+
 <link rel="stylesheet" href="{{ asset('css/resp.css') }}">
 <script src="{{ asset('js/auto-dismiss.js') }}"></script>
 <style>
@@ -11,7 +13,7 @@
         background-color: #fff;
     }
 </style>
-@section('title') {{ 'Detalhes da Providência' }} @endsection
+
 <div class="container-general p-30 mt-5">
     @if (session('error'))
         <div class="alert alert-danger text-center auto-dismiss">
@@ -25,8 +27,14 @@
         </div>
     @endif
 
-		<div class="col-12 box-shadow border mb-3">
-        <h5 class="text-center mb-3"><a href="{{ route('riscos.show', ['id' => $monitoramento->risco->id]) }}">Evento de Risco</a></h5>
+    <div class="col-12 box-shadow border mb-3">
+        <h5 class="text-center fw-bold mb-3">
+            <a href="{{ route('riscos.show', ['id' => $monitoramento->risco->id]) }}" class="risk-event">Evento de Risco
+                <i class="bi bi-arrow-return-left"></i>
+            </a>
+            
+        </h5>
+
         <div class="form-control" style="background-color: #f3f3f3;">
             {!! $monitoramento->risco->riscoEvento !!}
         </div>
