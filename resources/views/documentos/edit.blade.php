@@ -2,7 +2,6 @@
 @section('title') {{ 'Editar Documento' }} @endsection
 @section('content')
 
-{{-- <link rel="stylesheet" href="{{ asset('css/edit.css') }}"> --}}
 <link rel="stylesheet" href="{{ asset('css/show.css') }}">
 <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
