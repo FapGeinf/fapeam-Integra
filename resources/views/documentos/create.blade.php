@@ -1,7 +1,5 @@
 @extends('layouts.app')
-
 @section('title') {{ 'Criar Documento' }} @endsection
-
 @section('content')
 
 <link rel="stylesheet" href="{{ asset('css/show.css') }}">
@@ -62,8 +60,6 @@
     </div>
 </div>
 
-
-
 <div class="modal fade" id="confirmacaoModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -96,7 +92,7 @@
                     <label>Pré-visualização do Arquivo:</label>
                     <div id="previewContainer" class="border p-2 text-center"
                     style="
-                        background-color: #f0f0f0;
+                        background-color: #f0f0f0 !important;
                         border: 1px solid #ccc;
                         min-height: 100px;"
                         ;>
@@ -105,10 +101,9 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-success btn-sm" id="confirmarEnvioBtn">Confirmar e Salvar</button>
+                <button type="button" class="footer-btn footer-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="footer-btn footer-success" id="confirmarEnvioBtn">Confirmar</button>
             </div>
-
         </div>
     </div>
 </div>
