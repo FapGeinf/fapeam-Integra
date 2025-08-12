@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const inputAno = document.getElementById("anoDocumento");
     const inputAnexo = document.getElementById("arquivoDocumento");
 
-    
     const confirmTipo = document.getElementById("confirmTipo");
     const confirmAno = document.getElementById("confirmAno");
     const confirmAnexo = document.getElementById("confirmAnexo");
@@ -32,36 +31,8 @@ document.addEventListener("DOMContentLoaded", function () {
     abrirConfirmacaoBtn.addEventListener("click", function () {
         limparErrosModal();
 
-        let temErro = false;
-
-        if (!selectTipo.value) {
-            errorConfirmTipo.innerText = "Selecione o tipo de documento.";
-            confirmTipo.classList.add("is-invalid");
-            temErro = true;
-        }
-
-        if (!inputAno.value) {
-            errorConfirmAno.innerText = "Informe o ano.";
-            confirmAno.classList.add("is-invalid");
-            temErro = true;
-        }
-
-        if (inputAnexo.files.length === 0) {
-            errorConfirmAnexo.innerText = "Selecione um arquivo.";
-            confirmAnexo.classList.add("is-invalid");
-            temErro = true;
-        }
-
-        if (temErro) {
-            confirmarEnvioBtn.classList.add("d-none"); 
-            previewContainer.innerHTML = `<p>Nenhum arquivo selecionado</p>`;
-            confirmacaoModal.show();
-            return;
-        } else {
-            confirmarEnvioBtn.classList.remove("d-none");
-        }
-
-        confirmTipo.value = selectTipo.options[selectTipo.selectedIndex].text || 'Não preenchido';
+        // Preenche os campos do modal antes da validação
+        confirmTipo.value = selectTipo.options[selectTipo.selectedIndex]?.text || 'Não preenchido';
         confirmAno.value = inputAno.value || 'Não preenchido';
 
         if (inputAnexo.files.length > 0) {
@@ -88,6 +59,32 @@ document.addEventListener("DOMContentLoaded", function () {
             reader.readAsDataURL(file);
         } else {
             previewContainer.innerHTML = `<p>Nenhum arquivo selecionado</p>`;
+        }
+
+        let temErro = false;
+
+        if (!selectTipo.value) {
+            errorConfirmTipo.innerText = "Selecione o tipo de documento.";
+            confirmTipo.classList.add("is-invalid");
+            temErro = true;
+        }
+
+        if (!inputAno.value) {
+            errorConfirmAno.innerText = "Informe o ano.";
+            confirmAno.classList.add("is-invalid");
+            temErro = true;
+        }
+
+        if (inputAnexo.files.length === 0) {
+            errorConfirmAnexo.innerText = "Selecione um arquivo.";
+            confirmAnexo.classList.add("is-invalid");
+            temErro = true;
+        }
+
+        if (temErro) {
+            confirmarEnvioBtn.classList.add("d-none");
+        } else {
+            confirmarEnvioBtn.classList.remove("d-none");
         }
 
         confirmacaoModal.show();

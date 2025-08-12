@@ -34,9 +34,7 @@
 
 <div class="form-wrapper pt-5">
     <div class="form_create border p-4"> <!-- padding interno no container -->
-
-        <h5 class="text-center mb-3">Documentos do Programa de Integridade</h5>
-
+        
         @if (session('success'))
             <div class="alert alert-success text-center auto-dismiss">
                 {{ session('success') }}
@@ -48,6 +46,8 @@
                 {{ session('error') }}
             </div>
         @endif
+
+        <h5 class="text-center mb-3">Documentos do Programa de Integridade</h5>
 
         @if(Auth::user()->usuario_tipo_fk == 1 || Auth::user()->usuario_tipo_fk == 2 || Auth::user()->usuario_tipo_fk == 4)
             <div class="d-flex justify-content-center gap-3 mb-4">
