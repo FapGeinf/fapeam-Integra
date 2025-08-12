@@ -72,65 +72,6 @@
     </div>
 </div>
 
-{{-- <div class="form-wrapper3 paddingLeft d-flex justify-content-center align-items-center mt-5">
-    <div class="form_create border">
-        <h3 style="text-align: center; margin-bottom: 5px;">Editar Documento</h3>
-
-        <div class="tipWarning mb-3">
-            <span class="asteriscoTop">*</span> Campos obrigatórios
-        </div>
-
-        <form action="{{ route('documentos.update', $documento->id) }}" method="POST" enctype="multipart/form-data"
-            id="formUpdateDocumento">
-            @csrf
-            @method('PUT')
-
-            <div class="row">
-                <div class="col-12">
-                    <label><span class="asteriscoTop">*</span>Tipo de Documento:</label>
-                    <select id="tipoDocumento" class="form-select input-enabled" name="tipo_id" required>
-                        <option value="">Selecione</option>
-                        @foreach($tiposDocumentos as $tipo)
-                            <option value="{{ $tipo->id }}" {{ $documento->tipo_id == $tipo->id ? 'selected' : '' }}>
-                                {{ $tipo->nome }}
-                            </option>
-                        @endforeach
-                    </select>
-                    <div class="invalid-feedback" id="errorTipo"></div>
-                </div>
-
-                <div class="col-12">
-                    <label class="form-label"><span class="asteriscoTop">*</span>Ano:</label>
-                    <input id="anoDocumento" type="number" class="form-control" name="ano" value="{{ $documento->ano }}"
-                        required>
-                    <div class="invalid-feedback" id="errorAno"></div>
-                </div>
-
-                <div class="col-12 mb-3">
-                    <label class="form-label">Arquivo (opcional):</label>
-                    <input id="arquivoDocumento" type="file" class="form-control" name="path">
-                    <div class="invalid-feedback" id="errorAnexo"></div>
-                    <div class="mt-2">
-                        <small>Arquivo atual:
-                            <a href="{{ asset('storage/' . $documento->path) }}" target="_blank">
-                                {{ basename($documento->path) }}
-                            </a>
-                        </small>
-                    </div>
-                </div>
-            </div>
-
-            <hr>
-
-            <div class="d-flex justify-content-end gap-2">
-                <button type="button" class="highlighted-btn-sm highlight-success me-0" id="abrirConfirmacaoBtn">
-                    Atualizar Documento
-                </button>
-            </div>
-        </form>
-    </div>
-</div> --}}
-
 <div class="modal fade" id="confirmacaoModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
