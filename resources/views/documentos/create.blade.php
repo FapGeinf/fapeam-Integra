@@ -36,7 +36,8 @@
 
                 <div class="col-12 mb-3">
                     <label>
-                        <span class="text-danger">*</span>Ano:
+                        <span class="text-danger">*</span>
+                        Ano:
                     </label>
                     
                     <input type="number" class="form-control" name="ano" id="anoDocumento" required>
@@ -44,7 +45,8 @@
 
                 <div class="col-12 mb-3">
                     <label>
-                        <span class="asteriscoTop">*</span>Arquivo:
+                        <span class="asteriscoTop">*</span>
+                        Arquivo:
                     </label>
                     
                     <input type="file" class="form-control" name="path" id="arquivoDocumento" required>
