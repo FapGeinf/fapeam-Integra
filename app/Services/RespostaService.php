@@ -75,6 +75,33 @@ class RespostaService
         ];
     }
 
+		public function insertRespostas($monitoramentoId, array $validatedData)
+		{
+				$monitoramento = Monitoramento::findOrFail($monitoramentoId);
+
+				$resposta = new Resposta();
+				$resposta->respostaMonitoramentoFk = $monitoramento->id;
+				$resposta->respostaRisco = $validatedData['respostaRisco'];
+				$resposta->user_id = Auth::id();
+
+				if (isset($validatedData['anexo']) && $validatedData['anexo'] instanceof \Illuminate\Http\UploadedFile) {
+						$file = $validatedData['anexo'];
+						$filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+						$resposta->anexo = $file->storeAs('anexos', $filename, 'public');
+				}
+
+				$resposta->save();
+
+				if (isset($validatedData['statusMonitoramento'])) {
+						$monitoramento->update([
+								'statusMonitoramento' => $validatedData['statusMonitoramento']
+						]);
+				}
+
+				return $resposta;
+		}
+
+
     public function updateResposta($id, array $validatedData)
     {
         $resposta = Resposta::findOrFail($id);
