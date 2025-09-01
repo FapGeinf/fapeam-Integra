@@ -48,7 +48,7 @@
         </div>
 
         <div class="linksChild__a">
-          <a href="{{ route('historico') }}">Documentos</a>
+          <a href="{{ route('documentos.historico') }}">Documentos</a>
 
           <span style="color: #fff">/</span>
 

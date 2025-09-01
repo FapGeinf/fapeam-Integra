@@ -2,55 +2,66 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Risco;
-use App\Models\Monitoramento;
-use Illuminate\Http\Request;
+use App\Services\StatusService;
+use App\Services\LogService;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Exception;
 
 class StatusController extends Controller
 {
-    public function __construct()
+    protected $statusService, $log;
+
+    public function __construct(StatusService $statusService, LogService $log)
     {
         $this->middleware('auth');
+        $this->statusService = $statusService;
+        $this->log = $log;
     }
 
     public function implementadasShow()
     {
-        return $this->showRiscos('IMPLEMENTADA', 'riscos.implementadas');
+        $this->gerarLog('acessou a página de riscos implementados');
+        return $this->handleStatus('IMPLEMENTADA', 'riscos.implementadas');
     }
 
     public function implementadasParcialmenteShow()
     {
-        return $this->showRiscos('IMPLEMENTADA PARCIALMENTE', 'riscos.implementadasParcialmente');
+        $this->gerarLog('acessou a página de riscos implementados parcialmente');
+        return $this->handleStatus('IMPLEMENTADA PARCIALMENTE', 'riscos.implementadasParcialmente');
     }
 
     public function emImplementacaoShow()
     {
-        return $this->showRiscos('EM IMPLEMENTAÇÃO', 'riscos.emImplementacao');
+        $this->gerarLog('acessou a página de riscos em implementação');
+        return $this->handleStatus('EM IMPLEMENTAÇÃO', 'riscos.emImplementacao');
     }
 
     public function naoImplementadaShow()
     {
-        return $this->showRiscos('NÃO IMPLEMENTADA', 'riscos.naoImplementada');
+        $this->gerarLog('acessou a página de riscos não implementados');
+        return $this->handleStatus('NÃO IMPLEMENTADA', 'riscos.naoImplementada');
     }
 
-    private function showRiscos($status, $view)
+    private function handleStatus($status, $view)
     {
-        $user = auth()->user();
-        $userUnit = $user->unidade->unidadeTipoFK;
+        try {
+            $dados = $this->statusService->getRiscosPorStatus($status);
 
-        if ($userUnit === 1) {
-            $todosMonitoramentos = Monitoramento::where('statusMonitoramento', $status)->get();
-            $monitoramentosDaUnidade = $todosMonitoramentos;
-        } else {
-            $monitoramentosDaUnidade = Monitoramento::whereHas('risco', function ($query) use ($userUnit) {
-                $query->where('unidadeId', $userUnit);
-            })->where('statusMonitoramento', $status)->get();
+            return view($view, $dados);
+        } catch (Exception $e) {
+            Log::error('Erro ao carregar riscos', ['error' => $e->getMessage()]);
+            return redirect()->back()->with('error', 'Erro ao carregar riscos.');
         }
+    }
 
-        return view($view, [
-            'monitoramentos' => $todosMonitoramentos ?? collect(),
-            'monitoramentosDaUnidade' => $monitoramentosDaUnidade,
-            'userUnit' => $userUnit
+    private function gerarLog(string $descricaoAcao)
+    {
+        $usuario = Auth::user();
+        $this->log->insertLog([
+            'acao' => 'Acesso',
+            'descricao' => "O usuário {$usuario->name} {$descricaoAcao}",
+            'user_id' => $usuario->id,
         ]);
     }
 }

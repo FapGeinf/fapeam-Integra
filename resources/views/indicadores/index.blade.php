@@ -1,118 +1,103 @@
 @extends('layouts.app')
 @section('content')
-@section('title') {{ 'Lista de Indicadores' }} @endsection
+	@section('title') {{ 'Lista de Indicadores' }} @endsection
 
-<link rel="stylesheet" href="{{ asset('css/index.css') }}">
-<link rel="stylesheet" href="{{ asset('css/atividades.css') }}">
-<script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
-<script src="{{ asset('js/dataTables.min.js') }}"></script>
-<link rel="stylesheet" href="{{ asset('css/dataTables.dataTables.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/show.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/dropdown.css') }}">
+	<script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
+	<script src="{{ asset('js/dataTables.min.js') }}"></script>
+	<link rel="stylesheet" href="{{ asset('css/dataTables.dataTables.min.css') }}">
+	<script src="{{ asset('js/indicadores/indicadoresTable.js') }}"></script>
+	<script src="{{ asset('js/actionsDropdown.js') }}"></script>
 
-<style>
-	.form-label {
-		margin-bottom: 0 !important;
-	}
+	<style>
+		.form-label {
+			margin-bottom: 0 !important;
+		}
 
-	.liDP {
-		margin-left: 0 !important;
-	}
-</style>
+		.liDP {
+			margin-left: 0 !important;
+		}
 
-<div class="px__custom pt-5">
-	<div class="col-12 border__custom main-datatable" style="border-bottom: 0 !important; border-top-left-radius: 10px; border-top-right-radius: 10px">
-	<div class="d-flex justify-content-center text-center p-2" 
-			style="
-				flex-direction: column;
-				background-color: #f1f3f5;
-		border-top-left-radius: 10px;
-		border-top-right-radius: 10px;">
-		<h3 class="fw-bold my-3">Indicadores</h3>
-	</div>
-	</div>
-	
-	<div class="">
-		<div class="col-12 border__custom main-datatable">
-			<div class="container-fluid pt-4 pb-4">
-				<div class="mb-4 text-end">
-					<a href="{{ route('indicadores.create') }}" class="blue-btn">Adicionar Indicador</a>
+		div.dt-container div.dt-layout-row {
+			font-size: 13px;
+		}
+	</style>
+
+	<div class="container-xxl pt-5">
+		<div class="col-12 border box-shadow">
+		
+			@if(session('success'))
+				<div class="alert alert-success alert-dismissible fade show" role="alert">
+					{{ session('success') }}
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
 				</div>
-				
+			@endif
+
+			@if($errors->any())
+				<div class="alert alert-danger alert-dismissible fade show" role="alert">
+					@foreach($errors->all() as $error)
+						<div>{{ $error }}</div>
+					@endforeach
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+				</div>
+			@endif
+
+
+			<div class="justify-content-center">
+				<h5 class="text-center mb-1">Indicadores</h5>
+				<a class="justify-content-center align-items-center d-flex text-decoration-none highlighted-btn-sm highlight-blue mx-auto"
+					href="{{ route('indicadores.create') }}" style="width: 200px;">
+					<i class="bi bi-plus-circle me-1"></i>Adicionar Indicador</a>
+			</div>
+
+			<div>
 				<table id="indicadores-table" class="table table-bordered table-striped">
 					<thead>
-						<tr>
-							<th class="text-center">N°</th>
-							{{-- <th class="text-center">Nome</th> --}}
-							<th class="text-center">Descrição</th>
-							<th class="text-center">Eixo</th>
-							<th class="text-center">Ações</th>
+						<tr class="text13">
+							<th class="text-center text-light">N°</th>
+							<th class="text-center text-light">Descrição</th>
+							<th class="text-center text-light">Eixo</th>
+							<th class="text-center text-light">Ações</th>
 						</tr>
 					</thead>
+
 					<tbody>
 						@foreach($indicadores as $indicador)
-						<tr>
-							<td>{{ $indicador->id }}</td>
-							{{-- <td>{{ $indicador->nomeIndicador }}</td> --}}
-							<td>{{ $indicador->descricaoIndicador }}</td>
-							<td>EIXO {{$indicador->eixo->id}} - {{ $indicador->eixo->nome}}</td>
-							<td>
-								<a href="{{ route('indicadores.edit', $indicador->id) }}" class="btn btn-warning btn-sm">Editar</a>
-							</td>
-						</tr>
+							<tr class="text13">
+								<td class="text-center">{{ $indicador->id }}</td>
+
+								<td class="text-center">{!!$indicador->descricaoIndicador!!}</td>
+
+								<td>EIXO {{$indicador->eixo->id}} - {{ $indicador->eixo->nome}}</td>
+
+								<td class="d-flex justify-content-center" style="border: none !important;">
+									<div class="custom-actions-wrapper" id="actionsWrapper{{ $indicador->id }}">
+
+										<button type="button" onclick="toggleActionsMenu({{ $indicador->id }})"
+											class="custom-actions-btn">
+											<i class="bi bi-three-dots-vertical"></i>
+										</button>
+
+										<div class="custom-actions-menu">
+											<ul>
+												<li>
+													<a href="{{ route('indicadores.edit', $indicador->id) }}">
+														<i class="bi bi-pencil me-2"></i>Editar
+													</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</td>
+
+							</tr>
 						@endforeach
 					</tbody>
 				</table>
 			</div>
 		</div>
 	</div>
-</div>
-
-<x-back-button/>
-
-<script>
-	$(document).ready(function() {
-			let table = $('#indicadores-table').DataTable({
-					order: [
-							[7, "asc"]
-					],
-					autoWidth: false,
-					columnDefs: [{
-							targets: "_all",
-							defaultContent: ""
-					}],
-					language: {
-							url: '{{ asset('js/pt_br-datatable.json') }}',
-							search: "Procurar:",
-							info: 'Mostrando página _PAGE_ de _PAGES_',
-							infoEmpty: 'Sem monitoramentos disponíveis no momento',
-							infoFiltered: '(Filtrados do total de _MAX_ monitoramentos)',
-							zeroRecords: 'Nada encontrado. Se achar que isso é um erro, contate o suporte.',
-							paginate: {
-									next: "Próximo",
-									previous: "Anterior"
-							},
-							responsive: true
-					}
-			});
-
-			// $('#filter-data').on('change', function() {
-			// 		let order = $(this).val();
-			// 		table.order([7, order]).draw();
-			// });
-
-			// $('#filter-canal').on('change', function() {
-			// 		let canal = $(this).val();
-			// 		table.column(6).search(canal).draw();
-			// });
-
-			// $('#filter-publico').on('change', function() {
-			// 		let publico = $(this).val();
-			// 		table.column(4).search(publico).draw();
-			// });
-
-			// $('#filter-evento').on('change', function() {
-			// 		let evento = $(this).val();
-			// 		table.column(5).search(evento).draw();
-			// })
-	});
-</script>
+	<x-back-button />
 @endsection

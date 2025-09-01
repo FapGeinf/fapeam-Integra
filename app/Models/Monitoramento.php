@@ -10,7 +10,7 @@ class Monitoramento extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['monitoramentoControleSugerido', 'statusMonitoramento','inicioMonitoramento','fimMonitoramento', 'riscoFK','isContinuo','anexoMonitoramento'];
+    protected $fillable = ['monitoramentoControleSugerido', 'statusMonitoramento','inicioMonitoramento','fimMonitoramento', 'riscoFK','isContinuo','anexoMonitoramento','monitoramentoRespondido'];
 
     public function risco()
     {
@@ -19,7 +19,7 @@ class Monitoramento extends Model
 
     public function respostas()
     {
-        return $this->hasMany(Resposta::class, 'respostaMonitoramentoFK', 'id');
+        return $this->hasMany(Resposta::class, 'respostaMonitoramentoFk');
     }
 
 

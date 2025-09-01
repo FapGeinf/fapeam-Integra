@@ -2,154 +2,209 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdatePasswordRequest;
+use App\Http\Requests\UpdateUserRequest;
+use App\Services\LogService;
+use App\Services\UserService;
 use Exception;
 use Illuminate\Http\Request;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Facades\Auth;
+use Log;
 
 class UserController extends Controller
 {
+    protected $log;
+    protected $userService;
+
+    public function __construct(LogService $log, UserService $userService)
+    {
+        $this->middleware('auth');
+        $this->log = $log;
+        $this->userService = $userService;
+    }
+
     public function painel()
     {
-        $users = User::all();
+        try {
+            $users = $this->userService->indexUsers();
+            $usuarioNome = Auth::user()->name;
 
-        return view('users.painel', ['users' => $users]);
+            $this->log->insertLog([
+                'acao' => 'Acesso',
+                'descricao' => "O usuário $usuarioNome acessou a tela de usuários",
+                'user_id' => Auth::user()->id,
+            ]);
+
+            return view('users.painel', compact('users'));
+
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', 'Erro ao carregar a tela de usuários. Tente novamente.');
+        }
     }
 
-    public function insertUser(Request $request)
+    public function createUser()
+    {
+
+        $usuarioNome = Auth::user()->name;
+
+        $this->log->insertLog([
+            'acao' => 'Acesso',
+            'descricao' => "O usuário $usuarioNome acessou a tela de inserção de usuário",
+            'user_id' => Auth::user()->id,
+        ]);
+
+        return view('users.createUser');
+    }
+
+    public function insertUser(StoreUserRequest $request)
     {
         try {
-            $request->validate([
-                'name' => 'required|string|max:255',
-                'email' => 'required|email|unique:users,email',
-                'cpf' => 'required|unique:users,cpf',
-                'password' => 'required|string|confirmed|min:8',
-                'unidadeIdFK' => 'required|exists:unidades,id',
+
+            $validatedData = $request->validated();
+            $this->userService->storeNewUser($validatedData);
+
+            $usuarioNome = Auth::user()->name;
+
+            $this->log->insertLog([
+                'acao' => 'Inserção',
+                'descricao' => "O usuário $usuarioNome inseriu um novo usuário no sistema",
+                'user_id' => Auth::user()->id,
             ]);
-    
-            $cpf = preg_replace('/\D/', '', $request->cpf); 
-    
-            $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'cpf' => $cpf, 
-                'unidadeIdFK' => $request->unidadeIdFK,
-                'password' => Hash::make($request->password),
-            ]);
-    
-            return redirect()->back()->with('success', 'Foi inserido um usuario com sucesso');
-            
+
+            return redirect()->route('usuarios.index')->with('success', 'Usuario Inserido com sucesso');
+
         } catch (Exception $e) {
-            return redirect()->back()->withErrors('Houve um erro inesperado ao inserir um novo usuario. Tente Novamente')->withInput();
+            Log::error('Houve um erro inesperado ao inserir um novo usuário', ['error' => $e->getMessage()]);
+            return redirect()->back()
+                ->withErrors('Erro ao inserir o usuário. Tente novamente.')
+                ->withInput();
         }
     }
-    
-		private function removeMask($cpf){
-			$cpf = preg_replace('/\D/','', $cpf);
-			return $cpf;
-		}
 
-    public function updateUser(Request $request, $id)
+    public function editUser($id)
     {
+        try {
+            $user = $this->userService->returnUserbyId($id);
 
-        $user = User::findOrFail($id);
-        $rules = [
-            'name' => 'nullable|string',
-            'email' => 'nullable|email|unique:users,email,' . $user->id,
-            'cpf' => 'nullable|unique:users,cpf,' . $user->id,
-            'password' => 'nullable|min:8',
-            'password_confirmation' => 'nullable|required_with:password|same:password|min:8',
-            'unidadeIdFK' => 'nullable|exists:unidades,id',
-        ];
+            $usuarioNome = Auth::user()->name;
 
-        $validator = Validator::make($request->all(), $rules);
+            $this->log->insertLog([
+                'acao' => 'Acesso',
+                'descricao' => "O usuário $usuarioNome acessou a tela de edição de usuário",
+                'user_id' => Auth::user()->id,
+            ]);
 
-        if ($request->filled('password') && !$request->filled('password_confirmation')) {
-            $validator->errors()->add('password_confirmation', 'A confirmação da senha é obrigatória quando a senha é fornecida.');
+            return view('users.editUser', compact('user'));
+        } catch (Exception $e) {
+            Log::error('Erro ao editar usuário', ['error' => $e->getMessage(), 'user_id' => $id]);
+            return redirect()->back()->with('error', 'Erro ao carregar dados do usuário.');
         }
-
-        if ($request->filled('password_confirmation') && $request->filled('password') && $request->input('password') !== $request->input('password_confirmation')) {
-            $validator->errors()->add('password_confirmation', 'A confirmação da senha deve corresponder à senha.');
-        }
-
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-
-
-        $data = [];
-
-        if ($request->filled('name')) {
-            $data['name'] = $request->input('name');
-        }
-
-        if ($request->filled('email')) {
-            $data['email'] = $request->input('email');
-        }
-
-        if ($request->filled('cpf')) {
-            $data['cpf'] = $this->removeMask($request->input('cpf'));
-        }
-
-        if ($request->filled('unidadeIdFK')) {
-            $data['unidadeIdFK'] = $request->input('unidadeIdFK');
-        }
-
-        if ($request->filled('password')) {
-            $data['password'] = Hash::make($request->input('password'));
-        }
-
-
-        $user->update($data);
-
-
-        return redirect()->route('usuarios.index')->with('success', 'Usuário atualizado com sucesso');
     }
 
+
+    public function updateUser(UpdateUserRequest $request, $id)
+    {
+        try {
+            $user = $this->userService->returnUserById($id);
+
+            $validatedData = $request->validated();
+
+            $this->userService->updateUser($id, $validatedData);
+
+            $usuarioNome = Auth::user()->name;
+
+            $this->log->insertLog([
+                'acao' => 'Atualização',
+                'descricao' => "O usuário $usuarioNome atualizou o usuário $user->name (ID: $user->id)",
+                'user_id' => Auth::user()->id,
+            ]);
+
+            return redirect()->route('usuarios.index')->with('success', 'Usuário atualizado com sucesso');
+
+        } catch (Exception $e) {
+            Log::error('Houve um erro ao atualizar um registro de um servidor.', ['error' => $e->getMessage(), 'usuario_id' => $id]);
+            return redirect()->back()->with('error', 'Erro ao atualizar o usuário. Tente novamente.');
+        }
+    }
 
     public function changePassword()
     {
-        return view('users.password');
-    }
+        try {
 
+            $usuarioNome = Auth::user()->name;
 
+            $this->log->insertLog([
+                'acao' => 'Acesso',
+                'descricao' => "O usuário $usuarioNome acessou a tela de atualização de senha",
+                'user_id' => Auth::user()->id,
+            ]);
 
-    public function updatePassword(Request $request)
-    {
-        $request->validate([
-            'old_password' => 'required',
-            'new_password' => 'required|confirmed',
-        ]);
-
-        if (!Hash::check($request->old_password, auth()->user()->password)) {
-            return back()->with('error', 'A senha atual está incorreta');
+            return view('users.password');
+        } catch (Exception $e) {
+            Log::error('Houve um erro ao retornar a tela de alteração de senha do usuário', ['error' => $e->getMessage()]);
+            return redirect()->back()->with('error', 'Erro ao carregar a tela de alteração de senha. Tente novamente.');
         }
-
-        User::whereId(auth()->user()->id)->update([
-            'password' => Hash::make($request->new_password)
-        ]);
-        //return back()->with('status', 'Senha alterada com sucesso');
-				return redirect()->route('riscos.index')->with('status', 'Senha alterada com sucesso');
     }
 
-
-
-    public function destroy($id)
+    public function updatePassword(UpdatePasswordRequest $request)
     {
         try {
-            $user = User::findOrFail($id);
-            $user->delete();
+            $validatedData = $request->validated();
+            $response = $this->userService->newPassword($validatedData);
 
-            return redirect()->back()->with('success', 'User deleted successfully.');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'An error occurred while deleting the user.');
+            if ($response['status'] === 'error') {
+                return back()->with('error', $response['message']);
+            }
+
+            $usuarioNome = Auth::user()->name;
+
+            $this->log->insertLog([
+                'acao' => 'Atualização',
+                'descricao' => "O usuário $usuarioNome atualizou sua senha",
+                'user_id' => Auth::user()->id,
+            ]);
+
+            return redirect()->route('riscos.index')->with('status', $response['message']);
+
+        } catch (Exception $e) {
+            Log::error('Houve um erro ao atualizar a senha de um usuário', [
+                'error' => $e->getMessage(),
+                'usuario_id' => auth()->user()->id,
+            ]);
+            return back()->with('error', 'Erro ao atualizar a senha. Tente novamente.');
         }
     }
 
-    public function __construct()
+    public function deleteUser($id)
     {
-        $this->middleware('auth');
+        try {
+            $user = $this->userService->returnUserById($id);
+            $this->userService->destroyUser($id);
+
+            $usuarioNome = Auth::user()->name;
+            $this->log->insertLog([
+                'acao' => 'Exclusão',
+                'descricao' => "O usuário $usuarioNome deletou o usuário $user->name (ID: $user->id)",
+                'user_id' => Auth::user()->id,
+            ]);
+
+            return redirect()->back()->with('success', 'Usuário deletado com sucesso.');
+
+        } catch (Exception $e) {
+            Log::error('Houve um erro ao deletar um registro de um usuário.', ['error' => $e->getMessage(), 'usuario_id' => $id]);
+            return redirect()->back()->with('error', 'Erro ao deletar o usuário. Tente novamente.');
+        }
+    }
+
+
+    public function usersRelatorio()
+    {
+        try {
+            return $this->userService->pdfUsers();
+        } catch (Exception $e) {
+            Log::error('Error: ', ['error' => $e->getMessage()]);
+            return redirect()->back()->with('error', 'Houve um erro inesperado ao gerar o pdf de usuarios, tente novamente');
+        }
     }
 }

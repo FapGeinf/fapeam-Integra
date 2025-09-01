@@ -1,118 +1,141 @@
 @extends('layouts.app')
-
-@section('title') {{ 'Histórico' }} @endsection
-
+@section('title') Histórico @endsection
 @section('content')
 
 <head>
-  <link rel="stylesheet" href="{{ asset('css/historico.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/historico.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
 
-  <style>
-    .liDP {
-          margin-left: 0 !important;
+    <style>
+        .liDP {
+            margin-left: 0 !important;
         }
-      </style>
+
+        .dropdown-content1 {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content1.show {
+            display: block;
+        }
+
+        .dropdown-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .accordion-button:not(.collapsed) {
+            color: #212529;
+            background-color: #f8fafc;
+        }
+
+        .accordion-button,
+        .accordion-button:focus,
+        .accordion-button:active,
+        .accordion-button:hover,
+        .accordion-button:not(.collapsed),
+        .accordion-button:not(.collapsed):focus,
+        .accordion-button:not(.collapsed):hover,
+        .accordion-button:not(.collapsed):active {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+    </style>
 </head>
 
 <div class="form-wrapper pt-5">
-  <div class="form_create1 border">
-    <div class="titleDP text-center">
-      <span>
-        Documentos do Programa de Integridade
-      </span>
+    <div class="form_create border p-4">
+        
+        @if (session('success'))
+            <div class="alert alert-success text-center auto-dismiss">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger text-center auto-dismiss">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        <h5 class="text-center mb-3">Documentos do Programa de Integridade</h5>
+
+        @if(Auth::user()->usuario_tipo_fk == 1 || Auth::user()->usuario_tipo_fk == 2 || Auth::user()->usuario_tipo_fk == 4)
+            <div class="d-flex justify-content-center gap-3 mb-4">
+                <a href="{{ route('documentos.create') }}"
+                    class="footer-btn footer-primary text-decoration-none d-flex align-items-center gap-2">
+                    <i class="bi bi-plus-circle"></i> Inserir Documento
+                </a>
+            </div>
+        @endif
+
+        <div class="accordion" id="accordionDocumentos">
+            @foreach ($tiposDocumentos as $tipo)
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading{{ $tipo->id }}">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapse{{ $tipo->id }}" aria-expanded="false"
+                            aria-controls="collapse{{ $tipo->id }}">
+                            {{ $tipo->nome }}
+                        </button>
+                    </h2>
+
+                    <div id="collapse{{ $tipo->id }}" class="accordion-collapse collapse"
+                        aria-labelledby="heading{{ $tipo->id }}" data-bs-parent="#accordionDocumentos">
+                        <div class="accordion-body" style="background-color: #fff;">
+                            @if (isset($documentosAgrupados[$tipo->id]))
+                                @foreach ($documentosAgrupados[$tipo->id] as $ano => $docsPorAno)
+                                    <div class="mb-2 fw-semibold">{{ $ano }}</div>
+                                    @foreach ($docsPorAno as $documento)
+                                        <div class="d-flex align-items-center mb-2">
+                                            <a href="{{ asset('storage/' . $documento->path) }}" target="_blank"
+                                                class="flex-grow-1 text-decoration-none text-link text-truncate"
+                                                title="{{ basename($documento->path) }}">
+                                                {{ basename($documento->path) }}
+                                            </a>
+
+                                            @if (Auth::user()->usuario_tipo_fk == 1 || Auth::user()->usuario_tipo_fk == 4)
+                                                <a href="{{ route('documentos.edit', ['id' => $documento->id]) }}" class="ms-2 text-light text-decoration-none footer-btn footer-primary"
+                                                    style="font-size: 0.9rem;" title="Editar">
+                                                    <i class="bi bi-pencil-square text-light"></i> Editar
+                                                </a>
+                                            @endif
+                                        </div>
+                                    @endforeach
+                                @endforeach
+                            @else
+                                <span class="text-muted">Nenhum documento</span>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
     </div>
-  </div>
 </div>
 
-<div class="form-wrapper pt-4">
-  <div class="form_create border">
-
-    <div class="dropdown-container">
-      <button class="dropdown-button form-select" onclick="toggleDropdown('dropdownMenu1')">
-        Memorandos
-      </button>
-      <div class="dropdown-content1" id="dropdownMenu1">
-        <!-- <a class="link" href="#">2019</a> -->
-        <!-- <a class="link" href="#">2020</a> -->
-        <!-- <a class="link" href="#">2021</a> -->
-        <!-- <a class="link" href="#">2022</a> -->
-        <a class="link" href="#">2023</a>
-        <a class="link" href="#">2024</a>
-        <a class="link" href="#">2025</a>
-      </div>
-    </div>
-
-    <div class="dropdown-container mt-4">
-      <button class="dropdown-button form-select" onclick="toggleDropdown('dropdownMenu2')">
-        Ofícios
-      </button>
-      <div class="dropdown-content1" id="dropdownMenu2">
-        <!-- <a class="link" href="#">2019</a> -->
-        <!-- <a class="link" href="#">2020</a> -->
-        <!-- <a class="link" href="#">2021</a> -->
-        <!-- <a class="link" href="#">2022</a> -->
-        <a class="link" href="#">2023</a>
-        <a class="link" href="#">2024</a>
-        <a class="link" href="#">2025</a>
-      </div>
-    </div>
-
-    <div class="dropdown-container mt-4">
-      <button class="dropdown-button form-select" onclick="toggleDropdown('dropdownMenu3')">
-        Processos
-      </button>
-      <div class="dropdown-content1" id="dropdownMenu3">
-        <!-- <a class="link" href="#">2019</a> -->
-        <!-- <a class="link" href="#">2020</a> -->
-        <!-- <a class="link" href="#">2021</a> -->
-        <!-- <a class="link" href="#">2022</a> -->
-        <a class="link" href="#">2023</a>
-        <a class="link" href="#">2024</a>
-        <a class="link" href="#">2025</a>
-      </div>
-    </div>
-
-    <div class="dropdown-container mt-4">
-      <button class="dropdown-button form-select" onclick="toggleDropdown('dropdownMenu4')">
-        Outros
-      </button>
-      <div class="dropdown-content1" id="dropdownMenu4">
-        <!-- <a class="link" href="#">2019</a> -->
-        <!-- <a class="link" href="#">2020</a> -->
-        <!-- <a class="link" href="#">2021</a> -->
-        <!-- <a class="link" href="#">2022</a> -->
-        <a class="link" href="#">2023</a>
-        <a class="link" href="#">2024</a>
-        <a class="link" href="#">2025</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<x-back-button/>
+<x-back-button />
 
 <script>
-  function toggleDropdown(menuId) {
-    var dropdown = document.getElementById(menuId);
-    if (dropdown.classList.contains("show")) {
-      dropdown.classList.remove("show");
-    } else {
-      dropdown.classList.add("show");
+    function toggleDropdown(menuId) {
+        var dropdown = document.getElementById(menuId);
+        dropdown.classList.toggle("show");
     }
-  }
 
-  // Fecha todos os dropdowns se o usuário clicar fora
-  // window.onclick = function(event) {
-  //   if (!event.target.matches('.dropdown-button')) {
-  //     var dropdowns = document.getElementsByClassName("dropdown-content1");
-  //     for (var i = 0; i < dropdowns.length; i++) {
-  //       var openDropdown = dropdowns[i];
-  //       if (openDropdown.classList.contains('show')) {
-  //         openDropdown.classList.remove('show');
-  //       }
-  //     }
-  //   }
-  // }
+    // Fecha todos os dropdowns se o usuário clicar fora
+    window.onclick = function (event) {
+        if (!event.target.matches('.dropdown-button')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content1");
+            for (var i = 0; i < dropdowns.length; i++) {
+                dropdowns[i].classList.remove('show');
+            }
+        }
+    }
 </script>
-
 @endsection

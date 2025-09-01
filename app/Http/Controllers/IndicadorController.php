@@ -2,77 +2,136 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\IndicadorRequest;
+use App\Services\EixoService;
+use App\Services\LogService;
+use App\Services\IndicadorService;
+use Exception;
 use Illuminate\Http\Request;
-use App\Models\Indicador;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Eixo;
+use Log;
+
 class IndicadorController extends Controller
 {
+    protected $log;
+    protected $indicadorService;
+
+    protected $eixo;
+
+    public function __construct(LogService $log, IndicadorService $indicadorService, EixoService $eixo)
+    {
+        $this->log = $log;
+        $this->indicadorService = $indicadorService;
+        $this->eixo = $eixo;
+    }
 
     public function index(Request $request)
     {
-			$eixo_id = $request->get('eixo_id');
-			if ($eixo_id) {
-				$indicadores = Indicador::where('eixo_fk', $eixo_id)->with('eixo')->get();
-			} else {
-				$indicadores = Indicador::with('eixo')->get();
-			}
-			return view('indicadores.index', compact('indicadores'));
-    }
+        try {
+            $data = ['eixo_id' => $request->get('eixo_id')];
+            $indicadores = $this->indicadorService->indexLogs($data);
 
+            if (Auth::check()) {
+                $username = Auth::user()->name;
+                $eixoNome = $data['eixo_id'] && $indicadores->isNotEmpty()
+                    ? $indicadores->first()->eixo->nome
+                    : 'todos os eixos';
+
+                $this->log->insertLog([
+                    'acao' => 'Acesso',
+                    'descricao' => "O usuário de nome $username está acessando a index dos indicadores do eixo $eixoNome",
+                    'user_id' => Auth::user()->id
+                ]);
+            }
+
+            return view('indicadores.index', compact('indicadores'));
+        } catch (\Throwable $th) {
+            Log::error('Erro ao carregar indicadores: ' . $th->getMessage(), ['trace' => $th->getTraceAsString()]);
+            return redirect()->back()->withErrors(['error' => 'Erro ao carregar indicadores.']);
+        }
+    }
 
     public function create()
     {
-			$eixos = Eixo::all();
-			return view('indicadores.create', compact('eixos'));
+        try {
+            $eixos = $this->eixo->getAllEixosOrderbyNome();
+            return view('indicadores.create', compact('eixos'));
+        } catch (Exception $e) {
+            Log::error('Houve um erro ao carregar o formulário de inserção de indicadores',['error' => $e->getMessage()]);
+            return redirect()->back()->with('error','Houve um erro ao carregar o formulário de inserção de indicadores');
+        }
     }
 
-public function store(Request $request)
-{
-    try {
-        $request->validate([
-            'nome' => 'nullable|string|max:255',
-            'descricao' => 'nullable|string',
-            'eixo' => 'nullable|exists:eixos,id',
-        ]);
+    public function store(IndicadorRequest $request)
+    {
+        try {
+            $request->validated();
 
-        $indicador = new Indicador([
-            'nomeIndicador' => $request->get('nome'),
-            'descricaoIndicador' => $request->get('descricao'),
-            'eixo_fk' => $request->get('eixo'),
-        ]);
+            $indicador = $this->indicadorService->insertIndicador($request->only(['nomeIndicador', 'descricaoIndicador', 'eixo_fk']));
 
-        $indicador->save();
-        return redirect()->route('indicadores.index')->with('success', 'Indicador criado com sucesso!');
-    } catch (\Throwable $th) {
-			dd($th);
-        return redirect()->back()->withErrors(['error' => 'Erro ao criar indicador: ' . $th->getMessage()]);
+            if (Auth::check()) {
+                $username = Auth::user()->name;
+
+                $this->log->insertLog([
+                    'acao' => 'Inserção',
+                    'descricao' => "O usuário de nome $username está inserindo um novo indicador do eixo {$indicador->eixo->nome}",
+                    'user_id' => Auth::user()->id
+                ]);
+            }
+
+            return redirect()->route('indicadores.index')->with('success', 'Indicador criado com sucesso!');
+        } catch (\Throwable $th) {
+            Log::error('Erro ao criar indicador: ' . $th->getMessage(), ['trace' => $th->getTraceAsString()]);
+            return redirect()->back()->withErrors(['error' => 'Erro ao criar indicador.']);
+        }
     }
-}
+
     public function edit($id)
     {
-				$indicador = Indicador::findOrFail($id);
-				$eixos = Eixo::all();
-				return view('indicadores.edit', compact('indicador', 'eixos'));
+        try {
+            $indicador = $this->indicadorService->getIndicadorById($id);
+            $eixos = $this->eixo->getAllEixos();
+
+            if (Auth::check()) {
+                $username = Auth::user()->name;
+
+                $this->log->insertLog([
+                    'acao' => 'Acesso',
+                    'descricao' => "O usuário de nome $username está acessando a página de edição do indicador de ID $id do eixo {$indicador->eixo->nome}",
+                    'user_id' => Auth::user()->id
+                ]);
+            }
+
+            return view('indicadores.edit', compact('indicador', 'eixos'));
+        } catch (\Throwable $th) {
+            Log::error('Erro ao carregar indicador: ' . $th->getMessage(), ['trace' => $th->getTraceAsString()]);
+            return redirect()->back()->withErrors(['error' => 'Erro ao carregar indicador.']);
+        }
     }
-		public function update(Request $request, $id)
-		{	
-			try {
-				$request->validate([
-					'nome' => 'nullable|string|max:255',
-					'descricao' => 'nullable|string|max:255',
-					'eixo' => 'nullable|exists:eixos,id',
-				]);
 
-				$indicador = Indicador::findOrFail($id);
-				$indicador->nomeIndicador = $request->get('nome');
-				$indicador->descricaoIndicador = $request->get('descricao');
-				$indicador->eixo_fk = $request->get('eixo');
-				$indicador->save();
-				return redirect()->route('indicadores.index')->with('success', 'Indicador atualizado com sucesso!');
-			} catch (\Throwable $th) {
-				dd($th);
-				return redirect()->back()->withErrors(['error' => 'Erro ao atualizar indicador: ' . $th->getMessage()]);
-			}
-		}
+    public function update(IndicadorRequest $request, $id)
+    {
+        try {
+            $request->validated();
 
+            $this->indicadorService->updateIndicador($id, $request->only(['nomeIndicador', 'descricaoIndicador', 'eixo_fk']));
+            $indicador = $this->indicadorService->getIndicadorById($id);
+
+            if (Auth::check()) {
+                $username = Auth::user()->name;
+
+                $this->log->insertLog([
+                    'acao' => 'Atualização',
+                    'descricao' => "O usuário de nome $username está atualizando o indicador de ID $id e eixo {$indicador->eixo->nome}",
+                    'user_id' => Auth::user()->id
+                ]);
+            }
+
+            return redirect()->route('indicadores.index')->with('success', 'Indicador atualizado com sucesso!');
+        } catch (\Throwable $th) {
+            Log::error('Erro ao atualizar indicador: ' . $th->getMessage(), ['trace' => $th->getTraceAsString()]);
+            return redirect()->back()->withErrors(['error' => 'Erro ao atualizar indicador.']);
+        }
+    }
 }

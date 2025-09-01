@@ -1,16 +1,29 @@
 @extends('layouts.app')
 <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
 <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
+<link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
 <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+<script src="{{ asset('js/auto-dismiss.js') }}"></script>
 @section('content')
 @section('title', 'Editar Monitoramentos')
+
+<style>
+    .mt-1px {
+        margin-top: 4px;
+    }
+
+    .li-navbar2 {
+        margin-top: 5px;
+    }
+</style>
+
 <div class="form-wrapper pt-4 paddingLeft">
     <div class="form_create">
         <h3 style="text-align: center; margin-bottom: 10px;">Formulário de Monitoramentos</h3>
 
         <div class="error-message">
             @if ($errors->any())
-                <div class="alert alert-danger">
+                <div class="alert alert-danger text-center auto-dismiss">
                     <ul style="list-style-type:none;">
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
@@ -24,29 +37,28 @@
             enctype="multipart/form-data">
             @csrf
 
-            <div class="text-center">
-                <span>Monitoramentos adicionados: </span>
+            <div class="text-center mb-4">
+                <span>Monitoramentos adicionados:</span>
                 <span id="monitoramentoCounter">0</span>
             </div>
-
 
             <div id="monitoramentosDiv" class="monitoramento">
                 <!-- Monitoramentos serão adicionados aqui dinamicamente -->
             </div>
 
-            <div class="buttons">
-                <button type="button" class="add-btn" onclick="addMonitoramento()">Adicionar Monitoramento</button>
-                <button type="button" class="close-btn" onclick="fecharFormulario()">Remover</button>
-            </div>
+            <hr class="mx-auto pb-3">
 
+            <div class="d-flex justify-content-center">
+                <div class="buttons">
+                    <button type="button" class="highlighted-btn-sm highlight-blue" onclick="addMonitoramento()">Adicionar Monitoramento</button>
+                    <button type="button" class="close-btn" onclick="fecharFormulario()">Remover</button>
+                </div>
 
-            <span id="tip">
-                <i class="bi bi-exclamation-circle-fill"></i>
-                Dica: Revise sua edição antes de salvar
-            </span>
-            <div id="btnSave">
-                <button type="button" onclick="showConfirmationModal()" class="submit-btn" data-bs-toggle="modal"
-                    data-bs-target="#confirmationModal">Salvar</button>
+                <span class="my-auto me-2" style="color: #ccc;">|</span>
+
+                <div>
+                    <button type="button" onclick="showConfirmationModal()" class="highlighted-btn-sm highlight-success" data-bs-toggle="modal" data-bs-target="#confirmationModal">Salvar</button>
+                </div>
             </div>
 
             <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -62,9 +74,8 @@
 
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="button" onclick="submitForm()" class="btn btn-success"
-                                id="btnEdit">Confirmar Edição</button>
+                            <button type="button" class="highlighted-btn-sm highlight-grey" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" onclick="submitForm()" class="highlighted-btn-sm highlight-success" id="btnEdit">Confirmar Edição</button>
                         </div>
                     </div>
                 </div>
@@ -72,6 +83,7 @@
         </form>
     </div>
 </div>
+
 <x-back-button/>
 <script src="{{ asset('js/monitoramentos.js') }}"></script>
 @endsection
