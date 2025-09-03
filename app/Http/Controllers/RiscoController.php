@@ -68,12 +68,6 @@ class RiscoController extends Controller
     {
         try {
             $dados = $this->risco->showRisco($id);
-            $usuarioNome = Auth::user()->name;
-            $this->log->insertLog([
-                'acao' => 'Acesso',
-                'descricao' => "O usuario $usuarioNome acessou a o risco de $id",
-                'user_id' => Auth::user()->id
-            ]);
             return view('riscos.show', $dados);
         } catch (Exception $e) {
             Log::error('Houve um erro ao recuperar o risco selecionado', ['error' => $e->getMessage(), 'risco_id' => $id]);

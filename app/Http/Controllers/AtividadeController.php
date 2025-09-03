@@ -27,18 +27,7 @@ class AtividadeController extends Controller
         try {
             $eixo_id = $request->get('eixo_id');
             $dados = $this->atividade->indexAtividades($eixo_id);
-
-            if (Auth::check()) {
-                $username = Auth::user()->name;
-                $this->log->insertLog([
-                    'acao' => 'Acesso',
-                    'descricao' => "O usuário de nome $username está acessando a lista de atividades",
-                    'user_id' => Auth::user()->id
-                ]);
-            }
-
             return view('atividades.index', $dados);
-
         } catch (Exception $e) {
             Log::error('Erro ao listar atividades: ' . $e->getMessage(), [
                 'user_id' => Auth::id(),
@@ -84,18 +73,7 @@ class AtividadeController extends Controller
     {
         try {
             $atividade = $this->atividade->show($id);
-
-            if (Auth::check()) {
-                $username = Auth::user()->name;
-                $this->log->insertLog([
-                    'acao' => 'Acesso',
-                    'descricao' => "O usuário de nome $username está visualizando a atividade de ID $id",
-                    'user_id' => Auth::user()->id
-                ]);
-            }
-
             return view('atividades.showAtividade', ['atividade' => $atividade]);
-
         } catch (Exception $e) {
             Log::error("Erro ao mostrar atividade $id: " . $e->getMessage(), [
                 'user_id' => Auth::id(),
@@ -109,18 +87,7 @@ class AtividadeController extends Controller
     {
         try {
             $dados = $this->atividade->createFormAtividade();
-
-            if (Auth::check()) {
-                $username = Auth::user()->name;
-                $this->log->insertLog([
-                    'acao' => 'Acesso',
-                    'descricao' => "O usuário de nome $username está acessando a página de criação de atividade",
-                    'user_id' => Auth::user()->id
-                ]);
-            }
-
             return view('atividades.createAtividade', $dados);
-
         } catch (Exception $e) {
             Log::error('Erro ao carregar formulário de criação de atividade: ' . $e->getMessage(), [
                 'user_id' => Auth::id(),
@@ -160,16 +127,6 @@ class AtividadeController extends Controller
     {
         try {
             $dados = $this->atividade->editFormAtividade($id);
-
-            if (Auth::check()) {
-                $username = Auth::user()->name;
-                $this->log->insertLog([
-                    'acao' => 'Acesso',
-                    'descricao' => "O usuário de nome $username está acessando a página de edição da atividade de ID $id",
-                    'user_id' => Auth::user()->id
-                ]);
-            }
-
             return view('atividades.editAtividade', $dados);
         } catch (Exception $e) {
             Log::error('Erro ao acessar página de edição de atividade', [
