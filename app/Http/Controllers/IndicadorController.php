@@ -31,20 +31,6 @@ class IndicadorController extends Controller
         try {
             $data = ['eixo_id' => $request->get('eixo_id')];
             $indicadores = $this->indicadorService->indexLogs($data);
-
-            if (Auth::check()) {
-                $username = Auth::user()->name;
-                $eixoNome = $data['eixo_id'] && $indicadores->isNotEmpty()
-                    ? $indicadores->first()->eixo->nome
-                    : 'todos os eixos';
-
-                $this->log->insertLog([
-                    'acao' => 'Acesso',
-                    'descricao' => "O usuário de nome $username está acessando a index dos indicadores do eixo $eixoNome",
-                    'user_id' => Auth::user()->id
-                ]);
-            }
-
             return view('indicadores.index', compact('indicadores'));
         } catch (\Throwable $th) {
             Log::error('Erro ao carregar indicadores: ' . $th->getMessage(), ['trace' => $th->getTraceAsString()]);
@@ -92,17 +78,6 @@ class IndicadorController extends Controller
         try {
             $indicador = $this->indicadorService->getIndicadorById($id);
             $eixos = $this->eixo->getAllEixos();
-
-            if (Auth::check()) {
-                $username = Auth::user()->name;
-
-                $this->log->insertLog([
-                    'acao' => 'Acesso',
-                    'descricao' => "O usuário de nome $username está acessando a página de edição do indicador de ID $id do eixo {$indicador->eixo->nome}",
-                    'user_id' => Auth::user()->id
-                ]);
-            }
-
             return view('indicadores.edit', compact('indicador', 'eixos'));
         } catch (\Throwable $th) {
             Log::error('Erro ao carregar indicador: ' . $th->getMessage(), ['trace' => $th->getTraceAsString()]);

@@ -131,7 +131,7 @@ class AtividadeController extends Controller
 
     public function storeAtividade(AtividadeRequest $request)
     {
-        Log::info('Dados recebidos para criação da atividade:', $request->all());
+        Log::channel('action')->info('Dados do formulário',['dados' => $request->all()]);
         try {
             $validatedData = $request->validated();
             $atividade = $this->atividade->store($validatedData);

@@ -31,12 +31,6 @@ class RiscoController extends Controller
     {
         try {
             $dados = $this->risco->indexRiscos();
-            $usuarioNome = Auth::user()->name;
-            $this->log->insertLog([
-                'acao' => 'Acesso',
-                'descricao' => "O usuario $usuarioNome acessou a tela de Riscos",
-                'user_id' => Auth::user()->id
-            ]);
             return view('riscos.index', $dados);
         } catch (Exception $e) {
             return redirect()->back()->withErrors(['error' => 'Ocorreu um erro ao carregar os riscos. Por favor, tente novamente.']);
@@ -47,12 +41,6 @@ class RiscoController extends Controller
 
         try {
             $dados = $this->risco->indexAnalise();
-            $usuarioNome = Auth::user()->name;
-            $this->log->insertLog([
-                'acao' => 'Acesso',
-                'descricao' => "O usuario $usuarioNome acessou a tela de Riscos",
-                'user_id' => Auth::user()->id
-            ]);
             return view('riscos.analise', $dados);
         } catch (Exception $e) {
             return redirect()->back()->withErrors(['error' => 'Ocorreu um erro ao carregar os riscos. Por favor, tente novamente.']);
@@ -95,12 +83,6 @@ class RiscoController extends Controller
     public function create()
     {
         $dados = $this->risco->formStoreRisco();
-        $usuarioNome = Auth::user()->name;
-        $this->log->insertLog([
-            'acao' => 'Acesso',
-            'descricao' => "O usuario $usuarioNome acessou a tela de inserção de Riscos",
-            'user_id' => Auth::user()->id
-        ]);
         return view('riscos.store', $dados);
     }
     public function store(StoreRiscoRequest $request)
@@ -124,11 +106,6 @@ class RiscoController extends Controller
     {
         $dados = $this->risco->formEditRisco($id);
         $usuarioNome = Auth::user()->name;
-        $this->log->insertLog([
-            'acao' => 'Acesso',
-            'descricao' => "O usuario $usuarioNome acessou a tela de edição do risco de $id",
-            'user_id' => Auth::user()->id
-        ]);
         return view('riscos.edit', $dados);
     }
 
@@ -185,10 +162,6 @@ class RiscoController extends Controller
     {
         try {
             $monitoramento = $this->monitoramento->findMonitoramentoById($id);
-
-            Log::info('Editando monitoramento:', [
-                'monitoramento' => $monitoramento->toArray(),
-            ]);
             return view('riscos.editMonitoramento', [
                 'monitoramento' => $monitoramento,
             ]);
@@ -293,7 +266,7 @@ class RiscoController extends Controller
     public function storeResposta(StoreRespostaRequest $request, $id)
     {
         try {
-            Log::info('Storing resposta for monitoramento', ['monitoramento_id' => $id]);
+            Log::channel('action')->info('Inserindo uma providencia no monitoramento',['monitoramento_id' => $id]);
             $validatedData = $request->validated();
             $resposta = $this->resposta->insertRespostas($id, $validatedData);
             $usuarioNome = Auth::user()->name;
@@ -358,11 +331,6 @@ class RiscoController extends Controller
     {
         $dados = $this->resposta->showRespostas($id);
         $usuarioNome = Auth::user()->name;
-        $this->log->insertLog([
-            'acao' => 'Acesso',
-            'descricao' => "O usuario $usuarioNome acessou a tela de Controle Sugerido com id $id",
-            'user_id' => Auth::user()->id
-        ]);
         return view('riscos.respostas', $dados);
     }
 
@@ -417,16 +385,6 @@ class RiscoController extends Controller
     {
         try {
             $dados = $this->resposta->indexRespostas();
-            $diretoriaId = $dados['diretoriaId'];
-
-            $usuarioNome = Auth::user()->name;
-
-            $this->log->insertLog([
-                'acao' => 'Acesso',
-                'descricao' => "O usuário $usuarioNome acessou a tela de providências da diretoria de ID {$diretoriaId}",
-                'user_id' => Auth::user()->id
-            ]);
-
             return view('respostas.index', $dados);
         } catch (Exception $e) {
             Log::error('Erro ao acessar a tela de providências da diretoria', [
@@ -447,7 +405,7 @@ class RiscoController extends Controller
 
             $dados = $this->resposta->homologacaoMultipla($request->all());
 
-            Log::info('Respostas homologadas com sucesso', ['ids' => $dados['homologadas']]);
+            Log::channel('action')->info('Respostas homologadas com sucesso', ['ids' => $dados['homologadas']]);
 
             return response()->json([
                 'success' => true,

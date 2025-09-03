@@ -29,13 +29,6 @@ class UserController extends Controller
         try {
             $users = $this->userService->indexUsers();
             $usuarioNome = Auth::user()->name;
-
-            $this->log->insertLog([
-                'acao' => 'Acesso',
-                'descricao' => "O usuário $usuarioNome acessou a tela de usuários",
-                'user_id' => Auth::user()->id,
-            ]);
-
             return view('users.painel', compact('users'));
 
         } catch (Exception $e) {
@@ -45,15 +38,6 @@ class UserController extends Controller
 
     public function createUser()
     {
-
-        $usuarioNome = Auth::user()->name;
-
-        $this->log->insertLog([
-            'acao' => 'Acesso',
-            'descricao' => "O usuário $usuarioNome acessou a tela de inserção de usuário",
-            'user_id' => Auth::user()->id,
-        ]);
-
         return view('users.createUser');
     }
 
@@ -86,15 +70,7 @@ class UserController extends Controller
     {
         try {
             $user = $this->userService->returnUserbyId($id);
-
             $usuarioNome = Auth::user()->name;
-
-            $this->log->insertLog([
-                'acao' => 'Acesso',
-                'descricao' => "O usuário $usuarioNome acessou a tela de edição de usuário",
-                'user_id' => Auth::user()->id,
-            ]);
-
             return view('users.editUser', compact('user'));
         } catch (Exception $e) {
             Log::error('Erro ao editar usuário', ['error' => $e->getMessage(), 'user_id' => $id]);
@@ -131,15 +107,6 @@ class UserController extends Controller
     public function changePassword()
     {
         try {
-
-            $usuarioNome = Auth::user()->name;
-
-            $this->log->insertLog([
-                'acao' => 'Acesso',
-                'descricao' => "O usuário $usuarioNome acessou a tela de atualização de senha",
-                'user_id' => Auth::user()->id,
-            ]);
-
             return view('users.password');
         } catch (Exception $e) {
             Log::error('Houve um erro ao retornar a tela de alteração de senha do usuário', ['error' => $e->getMessage()]);

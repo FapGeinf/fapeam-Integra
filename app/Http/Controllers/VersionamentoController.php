@@ -71,8 +71,6 @@ class VersionamentoController extends Controller
         }
     }
 
-
-
     public function updateVersionamento($id, VersionamentoRequest $request)
     {
         try {
