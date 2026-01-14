@@ -94,6 +94,21 @@
             </div>
 
             <div class="mt-3">
+
+                <div class="d-flex mb-2">
+                    <div style="width: 250px;">
+                        <label class="text13 mb-1">Filtrar por Unidade</label>
+                        <select id="unidadeFilter" class="form-select form-select-sm border-grey">
+                            <option value="">Todas as Unidades</option>
+                            @foreach ($unidades as $unidade)
+                                <option value="{{ $unidade->unidadeNome }}">
+                                    {{ $unidade->unidadeNome }} - {{ $unidade->unidadeSigla }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
                 <table id="painel-table" class="table table-bordered table-striped">
                     <thead>
                         <tr class="text13">
@@ -116,7 +131,7 @@
 
                                 <td>
                                     @if ($user->unidade)
-                                        {{ $user->unidade->unidadeNome }}
+                                        {{ $user->unidade->unidadeNome }} - {{ $user->unidade->unidadeSigla }}
                                     @else
                                         Não Especificada
                                     @endif

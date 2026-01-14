@@ -1,5 +1,6 @@
 $(document).ready(function () {
-    $('#painel-table').DataTable({
+
+    let table = $('#painel-table').DataTable({
         language: {
             processing: "Processando...",
             search: "Pesquisar:",
@@ -7,7 +8,6 @@ $(document).ready(function () {
             info: "Mostrando de _START_ até _END_ de _TOTAL_ registros",
             infoEmpty: "Mostrando 0 até 0 de 0 registros",
             infoFiltered: "(filtrado de _MAX_ registros no total)",
-            infoPostFix: "",
             loadingRecords: "Carregando...",
             zeroRecords: "Nenhum registro encontrado",
             emptyTable: "Nenhum dado disponível na tabela",
@@ -28,4 +28,12 @@ $(document).ready(function () {
             }
         }
     });
+
+    $('#unidadeFilter').on('change', function () {
+        table
+            .column(3) 
+            .search(this.value)
+            .draw();
+    });
+
 });
