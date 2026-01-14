@@ -68,7 +68,7 @@
                     <select class="form-select input-enabled" name="unidadeIdFK" required>
                         <option value="" disabled selected>Selecione uma unidade</option>
                         @foreach ($unidades as $unidade)
-                            <option value="{{ $unidade->id }}" {{ old('unidadeIdFK') == $unidade->id ? 'selected' : '' }}>{{ $unidade->unidadeNome }}</option>
+                            <option value="{{ $unidade->id }}" {{ old('unidadeIdFK') == $unidade->id ? 'selected' : '' }}>{{ $unidade->unidadeNome }} - {{ $unidade->unidadeSigla }}</option>
                         @endforeach
                     </select>
                     @error('unidadeIdFK')

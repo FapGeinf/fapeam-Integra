@@ -70,7 +70,7 @@
                         <option value="" disabled>Selecione uma unidade</option>
                         @foreach ($unidades as $unidade)
                             <option value="{{ $unidade->id }}" {{ old('unidadeIdFK', $user->unidadeIdFK) == $unidade->id ? 'selected' : '' }}>
-                                {{ $unidade->unidadeNome }}
+                               {{ $unidade->unidadeNome }} - {{ $unidade->unidadeSigla }}
                             </option>
                         @endforeach
                     </select>
