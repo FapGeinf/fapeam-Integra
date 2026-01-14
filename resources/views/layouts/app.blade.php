@@ -90,7 +90,7 @@
                 </li>
 
 
-                @if(in_array(Auth::user()->usuario_tipo_fk, [1, 2, 4]))
+                @if(in_array(Auth::user()->usuario_tipo_fk, [1, 4]))
                   <li class="li-navbar2">
                     <a href="{{ route('relatorios.download') }}" class="d-flex li-a a-navbar">
                       <i class="bi bi-archive i-navbar mt-1px"></i>
