@@ -1,6 +1,10 @@
 $(document).ready(function () {
 
     let table = $('#painel-table').DataTable({
+        dom:
+            "<'row align-items-center mb-2'<'col-auto'l><'col d-flex justify-content-center unidade-container'><'col-auto'f>>" +
+            "rt" +
+            "<'row align-items-center mt-2'<'col'i><'col-auto'p>>",
         language: {
             processing: "Processando...",
             search: "Pesquisar:",
@@ -20,18 +24,17 @@ $(document).ready(function () {
             aria: {
                 sortAscending: ": ativar para ordenar a coluna em ordem crescente",
                 sortDescending: ": ativar para ordenar a coluna em ordem decrescente"
-            },
-            buttons: {
-                copy: 'Copiar',
-                print: 'Imprimir',
-                colvis: 'Visibilidade'
             }
         }
     });
 
+    $('.unidade-container').html(
+        $('#unidadeFilter').closest('div').show()
+    );
+
     $('#unidadeFilter').on('change', function () {
         table
-            .column(3) 
+            .column(3)
             .search(this.value)
             .draw();
     });
