@@ -1,3 +1,7 @@
+.pointer {
+  cursor: pointer;
+}
+
 .highlighted-btn-lg {
   border: none;
   padding: 7px 12px;
