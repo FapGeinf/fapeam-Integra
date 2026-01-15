@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('title') {{ 'Painel de Usuários' }} @endsection
 
-
 <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
 <script src="{{ asset('js/mascaras/jquery.mask.min.js') }}"></script>
 <script src="{{ asset('js/dataTables.min.js') }}"></script>
