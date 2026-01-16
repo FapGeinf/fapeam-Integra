@@ -1,84 +1,82 @@
 function showConfirmationModal() {
-    const nome = document.querySelector('input[name="name"]').value.trim();
-    const email = document.querySelector('input[name="email"]').value.trim();
-    const cpf = document.querySelector('input[name="cpf"]').value.trim();
+  const nome = document.querySelector('input[name="name"]').value.trim();
+  const email = document.querySelector('input[name="email"]').value.trim();
+  const cpf = document.querySelector('input[name="cpf"]').value.trim();
 
-    const unidadeSelect = document.querySelector('select[name="unidadeIdFK"]');
-    const unidadeValue = unidadeSelect.value;
-    const unidadeText = unidadeValue ? unidadeSelect.options[unidadeSelect.selectedIndex]?.text : '';
+  const unidadeSelect = document.querySelector('select[name="unidadeIdFK"]');
+  const unidadeValue = unidadeSelect.value;
+  const unidadeText = unidadeValue ? unidadeSelect.options[unidadeSelect.selectedIndex]?.text : '';
 
-    let errors = [];
+  let errors = [];
 
-    if (!nome) {
-        errors.push('Por favor, preencha o campo Nome.');
+  if (!nome) {
+    errors.push('O campo não pode ficar vazio');
+  }
+
+  if (!email) {
+    errors.push('O campo não pode ficar vazio');
+  } else {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      errors.push('Por favor, insira um email válido.');
     }
+  }
 
-    if (!email) {
-        errors.push('Por favor, preencha o campo Email.');
-    } else {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            errors.push('Por favor, informe um Email válido.');
-        }
-    }
+  if (!cpf) {
+    errors.push('O campo não pode ficar vazio');
+  }
 
-    if (!cpf) {
-        errors.push('Por favor, preencha o campo CPF.');
-    }
+  if (!unidadeValue) {
+    errors.push('Por favor, selecione uma unidade');
+  }
 
-    if (!unidadeValue) {
-        errors.push('Por favor, selecione uma Unidade.');
-    }
-
-    let modalContent = `
-    <h5>Dados do Novo Usuário</h5>
-
+  let modalContent = `
     <form>
-        <div class="mb-3">
-            <label class="form-label"><strong>Nome:</strong></label>
-            <input type="text" class="form-control" value="${nome}" readonly>
-            ${!nome ? '<div class="text-danger small mt-1">Por favor, preencha o campo Nome.</div>' : ''}
-        </div>
+      <div class="mb-3">
+        <label for="name">Nome:</label>
+        <input type="text" class="form-control input-disabled" value="${nome}" readonly>
+        ${!nome ? '<div class="text-danger small mt-1">O campo não pode ficar vazio</div>' : ''}
+      </div>
 
-        <div class="mb-3">
-            <label class="form-label"><strong>Email:</strong></label>
-            <input type="text" class="form-control" value="${email}" readonly>
-            ${
-                !email 
-                ? '<div class="text-danger small mt-1">Por favor, preencha o campo Email.</div>' 
-                : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-                ? '<div class="text-danger small mt-1">Por favor, informe um Email válido.</div>'
-                : ''
-            }
-        </div>
+      <div class="mb-3">
+        <label for="email">Email:</label>
+        <input type="text" class="form-control input-disabled" value="${email}" readonly>
+        ${
+          !email 
+          ? '<div class="text-danger small mt-1">O campo não pode ficar vazio.</div>' 
+          : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+          ? '<div class="text-danger small mt-1">Por favor, insira um email válido.</div>'
+          : ''
+        }
+      </div>
 
-        <div class="mb-3">
-            <label class="form-label"><strong>CPF:</strong></label>
-            <input type="text" class="form-control" value="${cpf}" readonly>
-            ${!cpf ? '<div class="text-danger small mt-1">Por favor, preencha o campo CPF.</div>' : ''}
-        </div>
+      <div class="mb-3">
+        <label class="cpf">CPF:</label>
+        <input type="text" class="form-control input-disabled" value="${cpf}" readonly>
+        ${!cpf ? '<div class="text-danger small mt-1">O campo não pode ficar vazio</div>' : ''}
+      </div>
 
-        <div class="mb-3">
-            <label class="form-label"><strong>Unidade:</strong></label>
-            <input type="text" class="form-control" value="${unidadeText}" readonly>
-            ${!unidadeValue ? '<div class="text-danger small mt-1">Por favor, selecione uma Unidade.</div>' : ''}
-        </div>
+      <div class="mb-3">
+        <label for="unidadeIdFK">Unidade:</label>
+        <input type="text" class="form-control input-disabled" value="${unidadeText}" readonly>
+        ${!unidadeValue ? '<div class="text-danger small mt-1">Por favor, selecione uma unidade</div>' : ''}
+      </div>
     </form>
-    `;
+  `;
 
-    document.getElementById('modalContent').innerHTML = modalContent;
+  document.getElementById('modalContent').innerHTML = modalContent;
 
-    const btnConfirm = document.getElementById('btnConfirmSubmit');
-    if (errors.length > 0) {
-        btnConfirm.style.display = 'none';
-    } else {
-        btnConfirm.style.display = 'inline-block';
-    }
+  const btnConfirm = document.getElementById('btnConfirmSubmit');
+  if (errors.length > 0) {
+    btnConfirm.style.display = 'none';
+  } else {
+    btnConfirm.style.display = 'inline-block';
+  }
 
-    const confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
-    confirmationModal.show();
+  const confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+  confirmationModal.show();
 }
 
 function formSubmit() {
-    document.getElementById('formInsertUser').submit();
+  document.getElementById('formInsertUser').submit();
 }

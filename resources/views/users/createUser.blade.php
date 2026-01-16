@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('title') {{ 'Novo Usuário' }} @endsection
 
-<link rel="stylesheet" href="{{ asset('css/show.css') }}">
+<link rel="stylesheet" href="{{ asset('css/main.css') }}">
 <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
 <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
 <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
@@ -99,7 +99,7 @@
       </div>
 
       <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="confirmationModalLabel">Confirmação de Inserção</h5>
