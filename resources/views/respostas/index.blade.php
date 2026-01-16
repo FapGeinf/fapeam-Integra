@@ -1,11 +1,12 @@
 @extends('layouts.app')
 @section('title') {{ 'Lista de Providências' }} @endsection
 @section('content')
+
 <script src="{{asset('js/jquery-3.6.0.min.js') }}"></script>
 <script src="{{ asset('js/dataTables.min.js') }}"></script>
 <link rel="stylesheet" href="{{ asset('css/dataTables.dataTables.min.css')}}">
 <link rel="stylesheet" href="{{ asset('css/index.css') }}">
-<link rel="stylesheet" href="{{ asset('css/show.css') }}">
+<link rel="stylesheet" href="{{ asset('css/main.css') }}">
 <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
 <link rel="stylesheet" href="{{ asset('css/dropdown.css') }}">
 <script src="{{ asset('js/actionsDropdown.js') }}"></script>
@@ -14,44 +15,28 @@
 <script src="{{ asset('js/respostas/tableRespostas.js') }}"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="{{ asset('css/painelProvidencias.css') }}">
-	
-<div class="alert-container pt-5">
-	@if (session('success'))
-		<div class="alert alert-success text-center auto-dismiss">
-			{{ session('success') }}
-		</div>
 
-	@elseif (session('error'))
-		<div class="alert alert-danger text-center auto-dismiss">
-			{{ session('error') }}
-		</div>
-	@endif
-</div>
+<x-alert-toast/>
 
-<div class="container-xxl" style="max-width: 1500px !important;">
+<div class="container-xxl pt-5" style="max-width: 1500px !important;">
 	<div class="col-12 border box-shadow">
-		<div class="justify-content-center">
-			<h5 class="text-center mb-1">Lista de Providências</h5>
-		</div>
-	</div>
-</div>
+    <h5 class="text-center mb-4">Lista de Providências</h5>
 
-<div class="container-xxl" style="max-width: 1500px !important;">
-	<div class="col-12 border box-shadow">
-
-		<div class="pb-1">
+		<div class="pb-1 pt-3">
 			<button id="selecionarTodasCheckbox" class="footer-btn footer-primary">
 				<i class="bi bi-check2-square me-1"></i> Selecionar Todas
 			</button>
 
 			<button id="btnHomologarMultipla" class="footer-btn footer-success" disabled>
 				<i class="bi bi-check-circle me-1"></i>
-				<span id="textoBotaoHomologar"> <!-- Conteúdo inserido dinamicamente --> </span>
+				<span id="textoBotaoHomologar">
+          <!-- Conteúdo inserido dinamicamente -->
+        </span>
 			</button>
 		</div>
 
 		<div class="justify-content-center" id="respostasTableWrapper" data-unidades='@json($unidades)'>
-			<table id="respostasTable" class="table table-striped cust-datatable mb-5">
+			<table id="respostasTable" class="table table-striped table-responsive cust-datatable table-striped">
 				<thead>
 					<tr class="text-center fw-bold" style="white-space: nowrap;">
 						<th style="
@@ -92,9 +77,12 @@
 
 							<td class="text-center">
 								@if ($resposta->anexo)
-									<a href="{{ asset('storage/' . $resposta->anexo) }}" target="_blank" title="Abrir anexo">
-										<i class="fas fa-file-lines fs-5 text-primary"></i>
-									</a>
+                  <div class="d-flex">
+                    <a href="{{ asset('storage/' . $resposta->anexo) }}" class="footer-btn footer-primary mx-auto" target="_blank" title="Abrir anexo">
+                      <i class="bi bi-download"></i>
+                    </a>                    
+                  </div>
+
 								@else
 									<span class="text-muted">Sem anexo</span>
 								@endif
@@ -102,48 +90,56 @@
 
 							<td class="text-center">
 								@if ($resposta->homologadaPresidencia === null)
-									<a href="{{ route('riscos.respostas', $resposta->monitoramento->id) }}"
-										class="footer-btn footer-primary text-decoration-none w-100 d-inline-block"
-										role="button">
+                  <div class="d-flex gap-2 justify-content-center">
+                    <a href="{{ route('riscos.respostas', $resposta->monitoramento->id) }}"
+                      class="footer-btn footer-primary text-decoration-none"
+                      role="button" title="Visualizar">
+                      <i class="bi bi-box-arrow-up-right"></i>
+                    </a>
 
-										<i class="bi bi-eye me-1"></i>
-										<span>Visualizar</span>
-									</a>
-
-									<button type="button" class="footer-btn footer-success mt-2 w-100"
-										style="white-space: nowrap" ; data-bs-toggle="modal"
-										data-bs-target="#homologacaoPresidenciaModal{{ $resposta->id }}">
-
-										<i class="bi bi-check-circle me-1"></i>
-										<span>Homologar</span>
-									</button>
+                    <button type="button" class="footer-btn footer-success"
+                      data-bs-toggle="modal"
+                      data-bs-target="#homologacaoPresidenciaModal{{ $resposta->id }}"
+                      title="Homologar">
+                      <i class="bi bi-check-circle"></i>
+                    </button>
+                  </div>
 								@endif
 							</td>
 						</tr>
 
 						<div class="modal fade" id="homologacaoPresidenciaModal{{ $resposta->id }}" tabindex="-1"
 							aria-labelledby="homologacaoPresidenciaModalLabel{{ $resposta->id }}" aria-hidden="true">
-							<div class="modal-dialog modal-dialog-centered">
+							<div class="modal-dialog">
 								<div class="modal-content">
 									<div class="modal-header">
 										<h5 class="modal-title" id="homologacaoPresidenciaModalLabel{{ $resposta->id }}">
-											Homologar pela Presidência</h5>
-										<button type="button" class="btn-close" data-bs-dismiss="modal"
-											aria-label="Fechar"></button>
+											Homologar pela Presidência
+                    </h5>
+
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
 									</div>
 
 									<div class="modal-body">
-										Tem certeza que deseja homologar esta resposta como Presidente?
+										Tem certeza que deseja homologar esta resposta como <span class="fw-medium">presidente</span>?
 									</div>
 
 									<div class="modal-footer">
 										<button type="button" class="footer-btn footer-secondary"
-											data-bs-dismiss="modal">Cancelar</button>
+											data-bs-dismiss="modal">
+                      <i class="bi bi-x-lg"></i>
+                      Cancelar
+                    </button>
+
 										<form action="{{ route('riscos.homologar', $resposta->id) }}" method="POST"
 											class="m-0 p-0">
 											@csrf
 											@method('PUT')
-											<button type="submit" class="footer-btn footer-success">Homologar</button>
+
+											<button type="submit" class="footer-btn footer-success">
+                        <i class="bi bi-check-circle me-1"></i>
+                        Homologar
+                      </button>
 										</form>
 									</div>
 								</div>
@@ -158,7 +154,7 @@
 
 <div class="modal fade" id="confirmarHomologacaoModal" tabindex="-1" aria-labelledby="confirmarHomologacaoLabel"
 	aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered">
+	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="confirmarHomologacaoLabel">Confirmar Homologação</h5>
@@ -171,8 +167,15 @@
 			</div>
 
 			<div class="modal-footer">
-				<button type="button" class="footer-btn footer-secondary" data-bs-dismiss="modal">Cancelar</button>
-				<button type="button" id="btnConfirmarHomologacao" class="footer-btn footer-success">Confirmar</button>
+				<button type="button" class="footer-btn footer-secondary" data-bs-dismiss="modal">
+          <i class="bi bi-x-lg"></i>
+          Cancelar
+        </button>
+
+				<button type="button" id="btnConfirmarHomologacao" class="footer-btn footer-success">
+          <i class="bi bi-save2 me-1"></i>
+          Confirmar
+        </button>
 			</div>
 		</div>
 	</div>
@@ -180,12 +183,11 @@
 
 <div class="modal fade" id="resultadoHomologacaoModal" tabindex="-1" aria-labelledby="resultadoHomologacaoLabel"
 	aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered">
+	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="resultadoHomologacaoLabel">Resultado da Homologação</h5>
-				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-					aria-label="Fechar"></button>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
 			</div>
 
 			<div class="modal-body">
@@ -194,7 +196,10 @@
 			</div>
 
 			<div class="modal-footer">
-				<button type="button" class="footer-btn footer-secondary" data-bs-dismiss="modal">Fechar</button>
+				<button type="button" class="footer-btn footer-secondary" data-bs-dismiss="modal">
+          <i class="bi bi-x-lg"></i>
+          Fechar
+        </button>
 			</div>
 		</div>
 	</div>
