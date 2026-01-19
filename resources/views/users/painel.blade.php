@@ -1,49 +1,15 @@
 @extends('layouts.app')
 @section('title') {{ 'Painel de Usuários' }} @endsection
+@section('content')
 
+<link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
+<link rel="stylesheet" href="{{ asset('css/show.css') }}">
 <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
 <script src="{{ asset('js/mascaras/jquery.mask.min.js') }}"></script>
 <script src="{{ asset('js/dataTables.min.js') }}"></script>
 <script src="{{ asset('js/tables/painelTable.js') }}"></script>
 <script src="{{ asset('js/mascaras/cpfMascara.js') }}"></script>
-<script src="{{ asset('js/actionsDropdown.js') }}"></script>
 <link rel="stylesheet" href="{{ asset('css/dataTables.dataTables.min.css') }}">
-<link rel="stylesheet" href="{{ asset('css/dropdown.css') }}">
-<link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
-<link rel="stylesheet" href="{{ asset('css/show.css') }}">
-
-<style>
-  .mt-1px {
-    margin-top: 4px !important;
-  }
-
-  .dataTables_info,
-  .dataTables_wrapper .dataTables_paginate .paginate_button {
-    font-size: 13px;
-  }
-
-  table {
-    border-collapse: collapse !important;
-  }
-
-  .input-enabled {
-    background-color: #f8fafc !important;
-  }
-
-  .input-disabled {
-    background-color: #f0f0f0 !important;
-  }
-
-  .border-grey {
-    border: 1px solid #ccc !important;
-  }
-
-  .modal-content {
-    background-color: #fff !important;
-  }
-</style>
-
-@section('content')
 
 <x-alert-toast/>
 
@@ -115,7 +81,7 @@
                   <a href="{{ route('users.edit', $user->id) }}" 
                     class="highlighted-btn-sm highlight-warning text-decoration-none d-flex align-items-center">
                     <i class="bi bi-pencil"></i>
-                    <span class="ms-1 d-none d-md-inline">Editar</span>
+                    {{-- <span class="ms-1 d-none d-md-inline">Editar</span> --}}
                   </a>
 
                   <button type="button" 
@@ -124,14 +90,13 @@
                     data-bs-target="#deleteUserModal-{{ $user->id }}"
                     title="Excluir">
                     <i class="bi bi-trash"></i>
-                    <span class="ms-1 d-none d-md-inline">Excluir</span>
+                    {{-- <span class="ms-1 d-none d-md-inline">Excluir</span> --}}
                   </button>
 
                 </div>
               </td>
             </tr>
 
-            <!-- Modal de Exclusão -->
             <div class="modal fade" id="deleteUserModal-{{ $user->id }}" tabindex="-1"
               aria-labelledby="deleteUserModalLabel-{{ $user->id }}" aria-hidden="true">
               <div class="modal-dialog">

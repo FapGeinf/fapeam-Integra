@@ -18,8 +18,8 @@ function showConfirmationModal() {
     function createReadonlyField(label, value, errorMsg) {
         const isInvalid = errorMsg ? "text-danger border-danger" : "text-dark";
         return `
-            <div class="col-12 mb-3">
-                <label class="form-label fw-semibold">${label}</label>
+            <div class="col-12 mb-2">
+                <label>${label}:</label>
                 <input type="text" class="form-control input-disabled bg-light ${isInvalid}" value="${value || '-'}" readonly>
                 ${errorMsg ? `<div class="text-danger small mt-1">${errorMsg}</div>` : ""}
             </div>
@@ -29,9 +29,10 @@ function showConfirmationModal() {
     function createReadonlyDiv(label, htmlContent, errorMsg) {
         const isInvalid = errorMsg ? "border border-danger" : "border";
         return `
-            <div class="col-12 mb-3">
-                <label class="form-label fw-semibold">${label}</label>
-                <div class="p-3 rounded ${isInvalid} bg-light" style="white-space: pre-wrap; min-height: 100px;">
+            <div class="col-12 mb-2">
+                <label>${label}:</label>
+                <div class="p-3 rounded ${isInvalid} bg-light"
+                    style="white-space: pre-wrap; min-height: 100px;">
                     ${htmlContent || '-'}
                 </div>
                 ${errorMsg ? `<div class="text-danger small mt-1">${errorMsg}</div>` : ""}
@@ -60,7 +61,6 @@ function showConfirmationModal() {
 
     return !hasErrors;
 }
-
 
 function formSubmit() {
     document.getElementById('formStoreIndicador').submit();

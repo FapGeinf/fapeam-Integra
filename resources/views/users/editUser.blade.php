@@ -1,24 +1,18 @@
 @extends('layouts.app')
 @section('title') {{ 'Editar Usuário' }} @endsection
+@section('content')
+
+<script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
+<script src="{{ asset('js/mascaras/jquery.mask.min.js') }}"></script>
+<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+
+<script src="{{ asset('js/mascaras/cpfMascara.js') }}"></script>
+<script src="{{ asset('js/users/insertUser.js') }}"></script>
 
 <link rel="stylesheet" href="{{ asset('css/main.css') }}">
 <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
 <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
-<script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
-<script src="{{ asset('js/mascaras/jquery.mask.min.js') }}"></script>
-<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-<script src="{{ asset('js/auto-dismiss.js') }}"></script>
-<script src="{{ asset('js/mascaras/cpfMascara.js') }}"></script>
-<script src="{{ asset('js/users/insertUser.js') }}"></script>
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-
-<style>
-  .mt-1px {
-    margin-top: 4px !important;
-  }
-</style>
-
-@section('content')
 
 <x-alert-toast/>
 
@@ -60,7 +54,7 @@
 
         <div class="col-12">
           <label for="unidadeIdFK">Unidade:</label>
-          <select class="form-select input-enabled" name="unidadeIdFK" required>
+          <select class="form-select input-enabled pointer" name="unidadeIdFK" required>
             <option value="" disabled>Selecione uma unidade</option>
             @foreach ($unidades as $unidade)
               <option value="{{ $unidade->id }}" {{ old('unidadeIdFK', $user->unidadeIdFK) == $unidade->id ? 'selected' : '' }}>
@@ -132,5 +126,4 @@
     </form>
   </div>
 </div>
-
 @endsection
