@@ -436,8 +436,15 @@
           </div>
 
           <div class="modal-footer p-0 pt-2">
-            <button type="button" class="highlighted-btn-sm highlight-grey" data-bs-dismiss="modal">Cancelar</button>
-            <button type="button" class="highlighted-btn-sm highlight-success" id="abrirConfirmacaoBtn">Enviar</button>
+            <button type="button" class="highlighted-btn-sm highlight-grey" data-bs-dismiss="modal">
+              <i class="bi bi-x-lg"></i>
+              Cancelar
+            </button>
+
+            <button type="button" class="highlighted-btn-sm highlight-success" id="abrirConfirmacaoBtn">
+              <i class="bi bi-save2 me-1"></i>
+              Enviar
+            </button>
           </div>
         </form>
       </div>
