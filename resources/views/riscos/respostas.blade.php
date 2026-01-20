@@ -526,7 +526,13 @@
 
           <div class="modal-footer p-0">
             <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+              <button type="button" class="highlighted-btn-sm highlight-grey" data-bs-dismiss="modal">
+                <i class="bi bi-x-lg"></i>
+                Voltar e Editar
+              </button>
+              
               <button type="button" class="highlighted-btn-sm highlight-success" id="abrirEditConfirmacaoBtn">
+                <i class="bi bi-save2 me-1"></i>
                 Salvar Edição
               </button>
             </div>
@@ -559,8 +565,15 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="highlighted-btn-sm footer-secondary" data-bs-dismiss="modal">Voltar e corrigir</button>
-        <button type="button" class="highlighted-btn-sm highlight-success" id="confirmarEdicaoBtn">Confirmar e enviar</button>
+        <button type="button" class="highlighted-btn-sm footer-secondary" data-bs-dismiss="modal">
+          <i class="bi bi-x-lg"></i>
+          Voltar e Editar
+        </button>
+
+        <button type="button" class="highlighted-btn-sm highlight-success" id="confirmarEdicaoBtn">
+          <i class="bi bi-save2 me-1"></i>
+          Confirmar
+        </button>
       </div>
     </div>
   </div>
