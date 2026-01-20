@@ -16,7 +16,7 @@
 
 <div class="container-general p-30 mt-5">
   <div class="col-12 box-shadow border mb-3">
-    <h5 class="text-center fw-bold mb-3">
+    <h5 class="text-center mb-3">
       <a href="{{ route('riscos.show', ['id' => $monitoramento->risco->id]) }}" class="risk-event">Evento de Risco
         <i class="bi bi-arrow-return-left"></i>
       </a>
