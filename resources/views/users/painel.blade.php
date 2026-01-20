@@ -2,8 +2,10 @@
 @section('title') {{ 'Painel de Usuários' }} @endsection
 @section('content')
 
-<link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
 <link rel="stylesheet" href="{{ asset('css/show.css') }}">
+<link rel="stylesheet" href="{{ asset('css/tables.css') }}">
+<link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
+
 <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
 <script src="{{ asset('js/mascaras/jquery.mask.min.js') }}"></script>
 <script src="{{ asset('js/dataTables.min.js') }}"></script>

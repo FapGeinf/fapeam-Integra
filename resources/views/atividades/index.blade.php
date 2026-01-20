@@ -4,13 +4,11 @@
 
 <link rel="stylesheet" href="{{ asset('css/show.css') }}">
 <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
-<link rel="stylesheet" href="{{ asset('css/dropdown.css') }}">
+<link rel="stylesheet" href="{{ asset('css/tables.css') }}">
 <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
 <script src="{{ asset('js/dataTables.min.js') }}"></script>
-<script src="{{ asset('js/auto-dismiss.js') }}"></script>
 <link rel="stylesheet" href="{{ asset('css/dataTables.dataTables.min.css') }}">
 <script src="{{ asset('js/tables/atividadesTable.js') }}"></script>
-<script src="{{ asset('js/actionsDropdown.js') }}"></script>
 
 <style>
   .liDP {

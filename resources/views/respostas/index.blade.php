@@ -7,14 +7,12 @@
 <link rel="stylesheet" href="{{ asset('css/dataTables.dataTables.min.css')}}">
 <link rel="stylesheet" href="{{ asset('css/index.css') }}">
 <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+
 <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
-<link rel="stylesheet" href="{{ asset('css/dropdown.css') }}">
-<script src="{{ asset('js/actionsDropdown.js') }}"></script>
 <script defer src="{{ asset('js/respostas/tableFilters.js') }}"></script>
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('js/respostas/tableRespostas.js') }}"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link rel="stylesheet" href="{{ asset('css/painelProvidencias.css') }}">
+<link rel="stylesheet" href="{{ asset('css/tables.css') }}">
 
 <x-alert-toast/>
 
@@ -39,41 +37,41 @@
 			<table id="respostasTable" class="table table-striped table-responsive cust-datatable table-striped">
 				<thead>
 					<tr class="text-center fw-bold" style="white-space: nowrap;">
-						<th style="
+						<th class="fw-semibold text13" style="
 							min-width: 70px;
 							background-color: #d3f3fc !important;
 							color: #080a0a !important;
 							">Selecionar
 						</th>
 
-						<th scope="col" class="text-center">Usuário</th>
-						<th scope="col" class="text-center">Diretoria</th>
-						<th scope="col" class="text-center">Unidade</th>
-						<th scope="col" class="text-center">Monitoramento</th>
-						<th scope="col" class="text-center">Providência</th>
-						<th scope="col" class="text-center">Status</th>
-						<th scope="col" class="text-center">Anexo</th>
-						<th scope="col" class="text-center">Ações</th>
+						<th scope="col" class="text-center text13">Usuário</th>
+						<th scope="col" class="text-center text13">Diretoria</th>
+						<th scope="col" class="text-center text13">Unidade</th>
+						<th scope="col" class="text-center text13">Monitoramento</th>
+						<th scope="col" class="text-center text13">Providência</th>
+						<th scope="col" class="text-center text13">Status</th>
+						<th scope="col" class="text-center text13">Anexo</th>
+						<th scope="col" class="text-center text13">Ações</th>
 					</tr>
 				</thead>
 
 				<tbody>
 					@foreach ($respostas as $resposta)
 						<tr>
-							<td class="text-center">
+							<td class="text-center text13">
 								@if (is_null($resposta->homologadaPresidencia))
 									<input type="checkbox" class="resposta-checkbox" value="{{ $resposta->id }}">
 								@endif
 							</td>
 
-							<td class="text-center">{{ $resposta->user->name }}</td>
-							<td class="text-center">
+							<td class="text-center text13">{{ $resposta->user->name }}</td>
+							<td class="text-center text13">
 								{{ $resposta->monitoramento->risco->unidade->diretoria->diretoriaSigla ?? '' }}
 							</td>
-							<td class="text-center">{{ $resposta->monitoramento->risco->unidade->unidadeSigla ?? '' }}</td>
-							<td>{!! $resposta->monitoramento->monitoramentoControleSugerido!!}</td>
-							<td>{!! $resposta->respostaRisco !!}</td>
-							<td class="text-center">{{ $resposta->monitoramento->statusMonitoramento }}</td>
+							<td class="text-center text13">{{ $resposta->monitoramento->risco->unidade->unidadeSigla ?? '' }}</td>
+							<td class="text13">{!! $resposta->monitoramento->monitoramentoControleSugerido!!}</td>
+							<td class="text13">{!! $resposta->respostaRisco !!}</td>
+							<td class="text-center text13">{{ $resposta->monitoramento->statusMonitoramento }}</td>
 
 							<td class="text-center">
 								@if ($resposta->anexo)
