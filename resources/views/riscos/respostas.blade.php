@@ -382,7 +382,7 @@
       @endif
 
       <div class="container d-flex justify-content-center mt-4">
-        <button type="button" class="reply-btn" data-bs-toggle="modal" data-bs-target="#respostaModal">Responder</button>
+        <button type="button" class="highlighted-btn highlight-blue" data-bs-toggle="modal" data-bs-target="#respostaModal">Responder</button>
       </div>
     </div>
   </div>
