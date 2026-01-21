@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title') {{ 'Novo Usuário' }} @endsection
-
+@section('content')
 <link rel="stylesheet" href="{{ asset('css/main.css') }}">
 <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
 <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
@@ -10,14 +10,6 @@
 <script src="{{ asset('js/mascaras/cpfMascara.js') }}"></script>
 <script src="{{ asset('js/users/insertUser.js') }}"></script>
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-
-<style>
-  .mt-1px {
-    margin-top: 4px !important;
-  }
-</style>
-
-@section('content')
 
 <x-alert-toast/>
 
@@ -108,13 +100,20 @@
 
             <div class="modal-body">
               <div id="modalContent">
-                {{-- Conteúdo gerado dinamicamente via JS --}}
+                <!-- Conteúdo gerado dinamicamente via JS -->
               </div>
             </div>
 
             <div class="modal-footer">
-              <button type="button" class="highlighted-btn-sm highlight-grey" data-bs-dismiss="modal">Voltar e corrigir</button>
-              <button type="button" id="btnConfirmSubmit" class="highlighted-btn-sm highlight-success" onclick="formSubmit()">Confirmar</button>
+              <button type="button" class="highlighted-btn-sm highlight-grey" data-bs-dismiss="modal">
+                <i class="bi bi-x-lg"></i>
+                Voltar e corrigir
+              </button>
+
+              <button type="button" id="btnConfirmSubmit" class="highlighted-btn-sm highlight-success" onclick="formSubmit()">
+                <i class="bi bi-save2 me-1"></i>
+                Confirmar
+              </button>
             </div>
           </div>
         </div>
