@@ -50,7 +50,7 @@
 
         <div class="col-12">
           <label for="unidadeIdFK">Unidade:</label>
-          <select class="form-select input-enabled pointer" name="unidadeIdFK" required>
+          <select class="form-select input-enabled border-grey pointer" name="unidadeIdFK" required>
             <option value="" disabled selected>Selecione uma unidade</option>
 
             @foreach ($unidades as $unidade)

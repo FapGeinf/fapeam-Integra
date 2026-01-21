@@ -28,7 +28,7 @@
             Eixo:
           </label>
 
-          <select class="form-select input-enabled pointer" id="eixo_fk" name="eixo_fk" required>
+          <select class="form-select input-enabled border-grey pointer" id="eixo_fk" name="eixo_fk" required>
             @foreach($eixos as $eixo)
               <option value="{{ $eixo->id }}">{{ $eixo->nome }}</option>
             @endforeach
@@ -84,7 +84,7 @@
       <div class="modal-footer">
         <button type="button" class="highlighted-btn-sm highlight-grey" data-bs-dismiss="modal">
           <i class="bi bi-x-lg"></i>
-          Voltar
+          Voltar e corrigir
         </button>
 
         <button type="button" onclick="formSubmit()" class="highlighted-btn-sm highlight-success"  id="submitConfirmationBtn">
