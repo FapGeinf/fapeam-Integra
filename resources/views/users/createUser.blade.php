@@ -79,11 +79,6 @@
       </div>
 
       <div class="d-flex justify-content-end pt-4">
-        <a href="{{ route('usuarios.index') }}" class="highlighted-btn-sm highlight-grey text-decoration-none me-2">
-          <i class="bi bi-arrow-left-short"></i>
-          Voltar
-        </a>
-
         <button type="button" onclick="showConfirmationModal()" class="highlighted-btn-sm highlight-success">
           <i class="bi bi-save2 me-1"></i>
           Salvar
@@ -121,4 +116,6 @@
     </form>
   </div>
 </div>
+
+<x-back-button/>
 @endsection
