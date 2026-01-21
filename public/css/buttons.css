@@ -10,6 +10,13 @@
   background-color: #f0f0f0 !important;
 }
 
+.tipWarning {
+  color: #555555;
+  display: flex;
+  font-size: 13px;
+  justify-content: center;
+}
+
 .highlighted-btn-lg {
   border: none;
   padding: 7px 12px;
@@ -22,7 +29,7 @@
 .highlighted-btn-sm {
   border: none !important;
   padding: 5px 10px !important;
-  font-size: 13px !important;
+  font-size: 12px !important;
   border-radius: 4px !important;
   cursor: pointer !important;
   transition: background-color 0.3s !important;

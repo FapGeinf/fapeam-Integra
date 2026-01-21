@@ -9,7 +9,7 @@ function showConfirmationModal() {
 
     let errors = {
         eixo: eixo ? "" : "Selecione um eixo válido.",
-        nomeIndicador: nomeIndicador ? "" : "O campo 'Nome do Indicador' é obrigatório.",
+        nomeIndicador: nomeIndicador ? "" : "O 'Nome do Indicador' é obrigatório.",
         descricaoIndicador: descricaoIndicador ? "" : "A 'Descrição do Indicador' não pode estar vazia."
     };
 
@@ -20,7 +20,7 @@ function showConfirmationModal() {
         return `
             <div class="col-12 mb-2">
                 <label>${label}:</label>
-                <input type="text" class="form-control input-disabled bg-light ${isInvalid}" value="${value || '-'}" readonly>
+                <input type="text" class="form-control input-disabled ${isInvalid}" value="${value || '-'}" readonly>
                 ${errorMsg ? `<div class="text-danger small mt-1">${errorMsg}</div>` : ""}
             </div>
         `;
@@ -31,8 +31,7 @@ function showConfirmationModal() {
         return `
             <div class="col-12 mb-2">
                 <label>${label}:</label>
-                <div class="p-3 rounded ${isInvalid} bg-light"
-                    style="white-space: pre-wrap; min-height: 100px;">
+                <div class="form-control input-disabled ${isInvalid}">
                     ${htmlContent || '-'}
                 </div>
                 ${errorMsg ? `<div class="text-danger small mt-1">${errorMsg}</div>` : ""}
