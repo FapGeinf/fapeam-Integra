@@ -95,7 +95,7 @@
 
       <div class="d-flex justify-content-end pt-4">
         <a href="{{ route('riscos.edit-monitoramentos', ['id' => $risco->id]) }}" class="highlighted-btn-sm highlight-blue text-decoration-none me-2">
-          <i class="bi bi-plus-lg"></i>
+          <i class="bi bi-box-arrow-in-up-right"></i>
           Adicionar Monitoramentos
         </a>
           
