@@ -101,7 +101,6 @@
                     type="button"
                     data-bs-toggle="dropdown"
                     aria-expanded="false">
-                    <i class="bi-bi-gear"></i>
                     Ações
                   </button>
 
@@ -226,7 +225,6 @@
                       type="button"
                       data-bs-toggle="dropdown"
                       aria-expanded="false">
-                      <i class="bi bi-gear"></i>
                       Ações
                     </button>
 
