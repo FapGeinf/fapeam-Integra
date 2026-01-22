@@ -82,4 +82,11 @@
 <x-back-button/>
 
 <script src="{{ asset('js/monitoramentos.js') }}"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    addMonitoramento();
+  });
+</script>
+
 @endsection
