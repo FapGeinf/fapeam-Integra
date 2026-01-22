@@ -34,7 +34,7 @@ function addMonitoramento() {
 
     let selectIsContinuo = document.createElement('select');
     selectIsContinuo.name = `monitoramentos[${cont}][isContinuo]`;
-    selectIsContinuo.classList.add('form-select');
+    selectIsContinuo.classList.add('form-select', 'border-select');
     selectIsContinuo.id = `isContinuo${cont}`;
 
     let optionNao = document.createElement('option');

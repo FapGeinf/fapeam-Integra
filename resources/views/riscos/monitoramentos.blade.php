@@ -27,8 +27,6 @@
         <!-- Monitoramentos serão adicionados aqui dinamicamente -->
       </div>
 
-      <hr class="mx-auto pb-3">
-
       <div class="d-flex justify-content-center">
         <div class="buttons">
           <button type="button" class="highlighted-btn-sm highlight-blue me-2" onclick="addMonitoramento()">
@@ -38,7 +36,7 @@
 
           <button type="button" class="highlighted-btn-sm highlight-danger me-2" onclick="fecharFormulario()">
             <i class="bi bi-trash"></i>
-            Remover
+            Remover todos
           </button>
         </div>
 

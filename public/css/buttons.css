@@ -95,6 +95,10 @@
   border: 1px solid #ccc;
 }
 
+.border-select {
+  border: 1px solid #ccc;
+}
+
 .form-control-disabled:focus {
   outline: none;
   box-shadow: none;
