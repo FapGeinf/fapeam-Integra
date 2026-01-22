@@ -7,6 +7,8 @@
 <link rel="stylesheet" href="{{ asset('css/main.css') }}">
 
 <x-alert-toast/>
+<x-back-to-top/>
+<x-back-to-bottom/>
 
 <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 
