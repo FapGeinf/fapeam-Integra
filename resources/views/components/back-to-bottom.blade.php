@@ -14,6 +14,15 @@
     border-radius: 50%;
     font-size: 14px;
     box-shadow: 0px 2px 6px rgba(0,0,0,0.3);
+    opacity: 0;
+    transition: opacity 150ms ease;
+    pointer-events: none;
+  }
+
+  #btnIrFim.is-visible {
+    display: block;
+    opacity: 1;
+    pointer-events: auto;
   }
 
   #btnIrFim:hover {
@@ -22,21 +31,26 @@
 </style>
 
 <div>
-  <button id="btnIrFim">
+  <button id="btnIrFim" type="button">
     <i class="bi bi-arrow-down"></i>
   </button>
 </div>
 
 <script>
-  $(window).on('scroll', function () {
-    if ($(this).scrollTop() > 200) {
-      $('#btnIrFim').fadeIn();
-    } else {
-      $('#btnIrFim').fadeOut();
-    }
-  });
+  (function () {
+    const btn = document.getElementById('btnIrFim');
+    if (!btn) return;
 
-  $('#btnIrFim').on('click', function () {
-    $('html, body').animate({ scrollTop: $(document).height() }, 'fast');
-  });
+    const toggleBtn = () => {
+      if (window.scrollY > 200) btn.classList.add('is-visible');
+      else btn.classList.remove('is-visible');
+    };
+
+    window.addEventListener('scroll', toggleBtn, { passive: true });
+    window.addEventListener('load', toggleBtn);
+
+    btn.addEventListener('click', () => {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    });
+  })();
 </script>
