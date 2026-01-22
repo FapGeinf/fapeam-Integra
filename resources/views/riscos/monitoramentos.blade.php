@@ -27,7 +27,7 @@
         <!-- Monitoramentos serão adicionados aqui dinamicamente -->
       </div>
 
-      <div class="d-flex justify-content-center">
+      <div class="d-flex justify-content-end mt-3">
         <div class="buttons">
           <button type="button" class="highlighted-btn-sm highlight-blue me-2" onclick="addMonitoramento()">
             <i class="bi bi-plus-lg"></i>
