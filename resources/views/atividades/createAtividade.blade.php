@@ -31,9 +31,9 @@
   <div class="col-12 border box-shadow">
     <h5 class="text-center">Nova Atividade</h5>
 
-    <div class="text-center mb-3">
+    <div class="text-center text-muted mb-3">
       <span class="text-danger">*</span>
-      <span class="text-secondary text13" style="color: color: #ccc;">Campos obrigatórios</span>
+      <span class="text-secondary text13">Campos obrigatórios</span>
     </div>
 
     <form action="{{ route('atividades.store') }}" method="POST" id="formStoreAtividade">
