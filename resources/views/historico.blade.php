@@ -52,8 +52,9 @@
     @if(Auth::user()->usuario_tipo_fk == 1 || Auth::user()->usuario_tipo_fk == 2 || Auth::user()->usuario_tipo_fk == 4)
       <div class="d-flex justify-content-center gap-3 mb-4">
         <a href="{{ route('documentos.create') }}"
-          class="footer-btn footer-primary text-decoration-none d-flex align-items-center gap-2">
-          <i class="bi bi-plus-circle"></i> Inserir Documento
+          class="highlighted-btn-sm highlight-blue text-decoration-none d-flex align-items-center">
+          <i class="bi bi-plus-lg me-1"></i>
+          Inserir Documento
         </a>
       </div>
     @endif
