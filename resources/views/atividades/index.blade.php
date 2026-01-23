@@ -11,34 +11,6 @@
 <script src="{{ asset('js/tables/atividadesTable.js') }}"></script>
 
 <style>
-  .liDP {
-    margin-left: 0 !important;
-  }
-
-  .hover {
-    text-decoration: none;
-  }
-
-  .hover:hover {
-    text-decoration: underline;
-  }
-
-  .f-size {
-    font-size: 13px;
-  }
-
-  .input-enabled {
-    background-color: #f8fafc !important;
-  }
-
-  .input-disabled {
-    background-color: #f0f0f0 !important;
-  }
-
-  .border-grey {
-    border: 1px solid #ccc !important;
-  }
-
   div.dt-container div.dt-layout-row {
     font-size: 13px;
   }
