@@ -294,6 +294,7 @@
 
     var table = $('#tableHome').DataTable({
       stateSave: true,  
+      dom: 'lrtip',
       language: {
         url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
         search: "Procurar:",
@@ -387,8 +388,7 @@
         buttonContainer.append(dropdownContainer);
 
         var notificationButton = $('<button id="notificationButton" type="button" class="footer-btn footer-notif position-relative" data-bs-toggle="modal" data-bs-target="#notificationModal">Notificações <i class="bi bi-bell"></i><span id="notificationBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" data-count="{{ $notificacoes->whereNull('read_at')->count() }}">{{ $notificacoes->whereNull('read_at')->count() }}<span class="visually-hidden">unread messages</span></span></button>');
-        buttonContainer.append(notificationButton);
-
+        
         divContainer.append(buttonContainer);
 
         var searchAndPrazoContainer = $('<div class="d-flex align-items-center gap-3"></div>');
@@ -398,6 +398,7 @@
         searchAndPrazoContainer.append(searchContainer);
 
         var prazoContainer = $('<p class="spanThatLooksLikeABtn" id="prazo" data-prazo="{{ \Carbon\Carbon::parse($prazo)->format('Y-m-d') }}">Prazo Final: <strong>{{ \Carbon\Carbon::parse($prazo)->format('d/m/Y') }}</strong></p>');
+        searchAndPrazoContainer.append(notificationButton);
         searchAndPrazoContainer.append(prazoContainer);
 
         divContainer.append(searchAndPrazoContainer);
