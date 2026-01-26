@@ -347,7 +347,7 @@
         @endif
 
         var dropdownContainer = $('<div class="dropdown-container"></div>');
-        var dropdownButton = $('<button class="footer-btn footer-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Abrir filtros</button>');
+        var dropdownButton = $('<button class="footer-btn footer-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Mostrar filtros</button>');
         var dropdownMenu = $('<div class="dropdown-menu p-3 bg-white" style="max-width: 350px;"></div>');
 
         if (!$('#filterUnidade').length) {
