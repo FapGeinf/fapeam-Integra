@@ -315,19 +315,27 @@
 
         var buttonContainer = $('<div class="d-flex align-items-center gap-2"></div>');
 
-        var actionDropdownContainer = $('<div class="dropdown action-dropdown"></div>');
-        var actionDropdownButton = $('<button class="footer-btn footer-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Ações</button>');
-        var actionDropdownMenu = $('<ul style="min-height: 97px;" class="dropdown-menu text-center p-3"></ul>');
+        // var actionDropdownContainer = $('<div class="dropdown action-dropdown"></div>');
+        // var actionDropdownButton = $('<button class="footer-btn footer-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Ações</button>');
+        // var actionDropdownMenu = $('<ul style="min-height: 97px;" class="dropdown-menu text-center p-3"></ul>');
 
+        // @if (Auth::user()->unidade->unidadeTipoFK !== 2  || Auth::user()->unidade->unidadeTipoFK !== 5)
+        //   var newRiskButton = $('<li style="margin-left: 0; "><a href="{{ route('riscos.create') }}" class="btnAdd text-decoration-none"><i class="bi bi-plus-lg"></i> Novo Risco</a></li>');
+        //   var insertDeadlineButton = $('<li style="margin-left: 0;"><button type="button" class="mt-2 green-btn" data-bs-toggle="modal" data-bs-target="#prazoModal"><i class="bi bi-plus-lg"></i> Inserir Prazo</button></li>');
+        //   actionDropdownMenu.append(newRiskButton, insertDeadlineButton);
+        // @endif
+
+        // actionDropdownContainer.append(actionDropdownButton).append(actionDropdownMenu);
+
+        // buttonContainer.append(actionDropdownContainer);
+
+        // === AÇÕES (sem dropdown) ===
         @if (Auth::user()->unidade->unidadeTipoFK !== 2  || Auth::user()->unidade->unidadeTipoFK !== 5)
-          var newRiskButton = $('<li style="margin-left: 0; "><a href="{{ route('riscos.create') }}" class="btnAdd text-decoration-none"><i class="bi bi-plus-lg"></i> Novo Risco</a></li>');
-          var insertDeadlineButton = $('<li style="margin-left: 0;"><button type="button" class="mt-2 green-btn" data-bs-toggle="modal" data-bs-target="#prazoModal"><i class="bi bi-plus-lg"></i> Inserir Prazo</button></li>');
-          actionDropdownMenu.append(newRiskButton, insertDeadlineButton);
+          var newRiskButton = $('<a href="{{ route('riscos.create') }}" class="highlighted-btn-sm highlight-blue text-decoration-none"><i class="bi bi-plus-lg"></i> Novo Risco</a>');
+          var insertDeadlineButton = $('<button type="button" class="highlighted-btn-sm highlight-warning" data-bs-toggle="modal" data-bs-target="#prazoModal"><i class="bi bi-calendar-week"></i> Inserir Prazo</button>');
+
+          buttonContainer.append(newRiskButton, insertDeadlineButton);
         @endif
-
-        actionDropdownContainer.append(actionDropdownButton).append(actionDropdownMenu);
-
-        buttonContainer.append(actionDropdownContainer);
 
         var dropdownContainer = $('<div class="dropdown-container"></div>');
         var dropdownButton = $('<button class="footer-btn footer-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Abrir filtros</button>');
@@ -387,7 +395,7 @@
         dropdownContainer.append(dropdownButton).append(dropdownMenu);
         buttonContainer.append(dropdownContainer);
 
-        var notificationButton = $('<button id="notificationButton" type="button" class="footer-btn footer-notif position-relative" data-bs-toggle="modal" data-bs-target="#notificationModal">Notificações <i class="bi bi-bell"></i><span id="notificationBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" data-count="{{ $notificacoes->whereNull('read_at')->count() }}">{{ $notificacoes->whereNull('read_at')->count() }}<span class="visually-hidden">unread messages</span></span></button>');
+        var notificationButton = $('<button id="notificationButton" type="button" class="footer-btn footer-notif position-relative" data-bs-toggle="modal" data-bs-target="#notificationModal"><i class="bi bi-bell"></i><span id="notificationBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" data-count="{{ $notificacoes->whereNull('read_at')->count() }}">{{ $notificacoes->whereNull('read_at')->count() }}<span class="visually-hidden">unread messages</span></span></button>');
         
         divContainer.append(buttonContainer);
 
