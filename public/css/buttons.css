@@ -2,6 +2,10 @@
   cursor: pointer !important;
 }
 
+.cursor-default {
+  cursor: default;
+}
+
 .input-enabled {
   background-color: #f8fafc !important;
 }
@@ -42,6 +46,13 @@
   border-radius: 4px !important;
   cursor: pointer !important;
   transition: background-color 0.3s !important;
+}
+
+.highlight-date-term {
+  border: none;
+  padding: 5px 10px !important;
+  font-size: 12px !important;
+  background-color: #ececec;
 }
 
 .highlight-warning {

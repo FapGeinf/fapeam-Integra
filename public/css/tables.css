@@ -1,9 +1,11 @@
 
 .dt-info,
-.dt-paging-button {
+.dt-paging-button,
+.paginate_button {
   font-size: 13px !important;
 }
 
-div.dt-container .dt-paging .dt-paging-button {
-    padding: .2em .5em !important;
+div.dt-container .dt-paging .dt-paging-button,
+.paginate_button.current {
+  padding: .2em .5em !important;
 }

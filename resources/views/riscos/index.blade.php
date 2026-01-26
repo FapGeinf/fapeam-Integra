@@ -4,6 +4,7 @@
 
 <link rel="stylesheet" href="{{ asset('css/index.css') }}">
 <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+<link rel="stylesheet" href="{{ asset('css/tables.css') }}">
 <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.2.3/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
@@ -262,26 +263,34 @@
 
 <div class="modal fade" id="prazoModal" tabindex="-1" aria-labelledby="prazoModalLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content">
+    <div class="modal-content bg-white">
       <div class="modal-header">
         <h5 class="modal-title" id="prazoModalLabel">Novo Prazo</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
       </div>
 
-      <div class="modal-body">
-        <form action="{{ route('riscos.prazo') }}" id="prazoForm" method="POST">
-          @csrf
+      <form action="{{ route('riscos.prazo') }}" id="prazoForm" method="POST">
+        @csrf
 
+        <div class="modal-body">
           <div class="mb-3">
-            <label for="data">Data:</label>
-            <input type="date" class="form-control" id="data" name="data" required style="background-color: #f0f0f0">
+            <label for="data" class="">Data:</label>
+            <input type="date" class="form-control input-enabled pointer" id="data" name="data" required>
           </div>
+        </div>
 
-          <div class="text-end mt-4">
-            <button type="submit" class="footer-btn footer-success">Salvar Prazo</button>
-          </div>
-        </form>
-      </div>
+        <div class="modal-footer">
+          <button type="button" class="highlighted-btn-sm highlight-grey" data-bs-dismiss="modal">
+            <i class="bi bi-x-lg"></i>
+            Cancelar
+          </button>
+
+          <button type="submit" class="highlighted-btn-sm highlight-success">
+            <i class="bi bi-save2 me-1"></i>
+            Salvar Prazo
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
@@ -331,32 +340,31 @@
 
         // === AÇÕES (sem dropdown) ===
         @if (Auth::user()->unidade->unidadeTipoFK !== 2  || Auth::user()->unidade->unidadeTipoFK !== 5)
-          var newRiskButton = $('<a href="{{ route('riscos.create') }}" class="highlighted-btn-sm highlight-blue text-decoration-none"><i class="bi bi-plus-lg"></i> Novo Risco</a>');
+          var newRiskButton = $('<a href="{{ route('riscos.create') }}" class="highlighted-btn-sm highlight-blue text-decoration-none"><i class="bi bi-plus"></i> Novo risco</a>');
           var insertDeadlineButton = $('<button type="button" class="highlighted-btn-sm highlight-warning" data-bs-toggle="modal" data-bs-target="#prazoModal"><i class="bi bi-calendar-week"></i> Inserir Prazo</button>');
 
-          buttonContainer.append(newRiskButton, insertDeadlineButton);
+          buttonContainer.append(newRiskButton);
         @endif
 
         var dropdownContainer = $('<div class="dropdown-container"></div>');
         var dropdownButton = $('<button class="footer-btn footer-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Abrir filtros</button>');
-        var dropdownMenu = $('<div class="dropdown-menu p-3"></div>');
+        var dropdownMenu = $('<div class="dropdown-menu p-3 bg-white" style="max-width: 350px;"></div>');
 
         if (!$('#filterUnidade').length) {
           console.log("Adicionando filtro de unidade...");
-          var selectUnidade = $('<select id="filterUnidade" class="form-select form-select-sm" style="background-color: #fff !important; border: 1px solid #aaa; border-radius: 3px !important; cursor: pointer;}"><option value="">Todas as Unidades</option></select>');
+          var selectUnidade = $('<select id="filterUnidade" class="form-select form-select-sm input-enabled pointer"><option value="">Todas as Unidades</option></select>');
 
           @foreach($unidades->sortBy('unidadeSigla') as $unidade)
             selectUnidade.append('<option value="{{ $unidade->unidadeSigla }}">{{ $unidade->unidadeSigla }}</option>');
           @endforeach
 
-
-          var labelUnidades = $('<label for="filterUnidade" class="labelUnidade d-block">Unidades:</label>');
+          var labelUnidades = $('<label for="filterUnidade" class="labelUnidade">Unidades:</label>');
           dropdownMenu.append(labelUnidades).append(selectUnidade);
         }
 
         if (!$('#filterAvaliação').length) {
           console.log("Adicionando filtro de avaliação...");
-          var selectAvaliacao = $('<select id="filterAvaliação" class="form-select form-select-sm" style="background-color: #fff !important; border: 1px solid #aaa; border-radius: 3px !important; cursor: pointer;}"><option value="">Todas as Avaliações</option></select>');
+          var selectAvaliacao = $('<select id="filterAvaliação" class="form-select form-select-sm input-enabled pointer"><option value="">Todas as Avaliações</option></select>');
 
           var avaliacaoOptions = [
             { value: "Baixo", text: "Baixo" },
@@ -368,19 +376,18 @@
             selectAvaliacao.append('<option value="' + option.value + '">' + option.text + '</option>');
           });
 
-          var labelAvaliacoes = $('<label for="filterAvaliação" class="labelAvaliação d-block">Avaliação:</label>');
+          var labelAvaliacoes = $('<label for="filterAvaliação" class="labelAvaliação d-block mt-2">Avaliação:</label>');
           dropdownMenu.append(labelAvaliacoes).append(selectAvaliacao);
         }
 
                                     
         var filtroMonitoramentoRespondido = $(`
           <div class="mb-3 mt-3">
-            <label for="filterMonitoramentoRespondido" class="form-label d-block">Opções:</label>
             <div class="form-check">
               <input class="form-check-input" type="checkbox" id="filterMonitoramentoRespondido">
 
               <label class="form-check-label" for="filterMonitoramentoRespondido">
-                  Mostrar Apenas Riscos que contem controle sugeridos com providências.
+                Mostrar apenas riscos que contém controle sugeridos com providências.
               </label>
             </div>
           </div>
@@ -405,8 +412,11 @@
         searchContainer.append($('.dataTables_filter'));
         searchAndPrazoContainer.append(searchContainer);
 
-        var prazoContainer = $('<p class="spanThatLooksLikeABtn" id="prazo" data-prazo="{{ \Carbon\Carbon::parse($prazo)->format('Y-m-d') }}">Prazo Final: <strong>{{ \Carbon\Carbon::parse($prazo)->format('d/m/Y') }}</strong></p>');
+        var prazoContainer = $('<div class="highlight-date-term border" id="prazo" data-prazo="{{ \Carbon\Carbon::parse($prazo)->format('Y-m-d') }}">Prazo Final: <span class="fw-bold">{{ \Carbon\Carbon::parse($prazo)->format('d/m/Y') }}</span></div>');
         searchAndPrazoContainer.append(notificationButton);
+
+        var insertDeadlineInlineButton = $('<button type="button" class="highlighted-btn-sm highlight-warning" data-bs-toggle="modal" data-bs-target="#prazoModal"><i class="bi bi-calendar-week me-2"></i>Editar prazo</button>');
+        searchAndPrazoContainer.append(insertDeadlineInlineButton);
         searchAndPrazoContainer.append(prazoContainer);
 
         divContainer.append(searchAndPrazoContainer);
