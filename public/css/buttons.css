@@ -110,12 +110,12 @@
 }
 
 .footer-btn {
-  border: none;
-  padding: 5px 10px;
-  font-size: 13px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+  border: none !important;
+  padding: 5px 10px !important;
+  font-size: 12px !important;
+  border-radius: 4px !important;
+  cursor: pointer !important;
+  transition: background-color 0.3s !important;
 }
 
 .footer-btn-pres {
@@ -129,13 +129,13 @@
 }
 
 .footer-primary {
-  background-color: #3a6bfb;
+  background-color: #0056b3;
   color: white;
   border: none;
 }
 
 .footer-primary:hover {
-  background-color: #2f56cc;
+  background-color: #004085;
 }
 
 .footer-secondary {
@@ -144,23 +144,8 @@
   border: none;
 }
 
-.footer-notif {
-  background-color: #553cc6;
-  color: #fff;
-  border: none;
-}
-
-.footer-disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  pointer-events: none;
-  background-color: #6c757d; /* cinza desativado */
-  color: #e2e6ea; /* texto claro */
-  box-shadow: none;
-}
-
 .footer-secondary:hover {
-  background-color: #5c636a;
+  background-color: #575e64;
 }
 
 .footer-warning {
@@ -191,4 +176,19 @@
 
 .footer-success:hover {
   background-color: #218838;
+}
+
+.footer-notif {
+  background-color: #553cc6;
+  color: #fff;
+  border: none;
+}
+
+.footer-disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+  background-color: #6c757d;
+  color: #e2e6ea;
+  box-shadow: none;
 }

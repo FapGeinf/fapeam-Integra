@@ -12,26 +12,26 @@
 <x-back-to-bottom/>
 
 <div class="container-xxl pt-5">
-  <div class="col-12 border box-shadow">
+  <div class="col-12 border box-shadow mb-2">
     <h5 class="text-center mb-3">Detalhamento do Risco Inerente - {{ $risco->unidade->unidadeSigla }}</h5>
     <div>
       <table class="table table-bordered mb-4">
         <thead>
           <tr>
-            <th style="white-space: nowrap; width: 100px;" class="text-center text-light tBorder">N° Risco</th>
-            <th class="text-center text-light tBorder text13">Evento:</th>
-            <th class="text-center text-light tBorder text13">Causa:</th>
-            <th class="text-center text-light tBorder text13">Consequência:</th>
+            <th style="white-space: nowrap; width: 100px;" class="text-center text-light">N° Risco</th>
+            <th class="text-center text-light text13">Evento:</th>
+            <th class="text-center text-light text13">Causa:</th>
+            <th class="text-center text-light text13">Consequência:</th>
             <th style="width: 100px;" class="text-center text-light text13">Avaliação:</th>
           </tr>
         </thead>
 
         <tbody>
           <tr class="text13">
-            <td class="text-center pb-1 tBorder">{!! $risco->id !!}</td>
-            <td class="pb-1 tBorder">{!! $risco->riscoEvento !!}</td>
-            <td class="pb-1 tBorder">{!! $risco->riscoCausa !!}</td>
-            <td class="pb-1 tBorder">{!! $risco->riscoConsequencia !!}</td>
+            <td class="text-center pb-1">{!! $risco->id !!}</td>
+            <td class="pb-1">{!! $risco->riscoEvento !!}</td>
+            <td class="pb-1">{!! $risco->riscoCausa !!}</td>
+            <td class="pb-1">{!! $risco->riscoConsequencia !!}</td>
             @if ($risco->nivel_de_risco == 1)
               <td class="bg-baixo riscoAvaliacao"><span class="fontBold">Baixo</span></td>
             @elseif ($risco->nivel_de_risco == 2)
@@ -52,9 +52,9 @@
     <table class="table table-bordered table-striped mb-4">
       <thead>
         <tr>
-          <th class="text-center text-light text13 tBorder">Controle Sugerido:</th>
+          <th class="text-center text-light text13">Controle Sugerido:</th>
           <th class="text-center text-light text13">Data:</th>
-          <th class="text-center text-light tBorder text13">Situação:</th>
+          <th class="text-center text-light text13">Situação:</th>
           <th class="text-center text-light text13">Modificado:</th>
           <th class="text-center text-light text13">Providências</th>
           <th class="text-center text-light text13">Ações:</th>
@@ -64,34 +64,34 @@
       <tbody>
         @foreach ($risco->monitoramentos as $monitoramento)
           <tr>
-            <td class="text13 pb-1 tBorder">{!! $monitoramento->monitoramentoControleSugerido !!}</td>
-            <td style="white-space: nowrap;" class="text-center text-13 pb-1">
+            <td class="text13 pb-1">{!! $monitoramento->monitoramentoControleSugerido !!}</td>
+            <td class="text-center text-nowrap text13 pb-1">
               {{ \Carbon\Carbon::parse($monitoramento->inicioMonitoramento)->format('d/m/Y') }} -
               {{ $monitoramento->fimMonitoramento ? \Carbon\Carbon::parse($monitoramento->fimMonitoramento)->format('d/m/Y') : 'Contínuo' }}
             </td>
 
-            <td style="white-space: nowrap;" class="text-center text13 pb-1 tBorder">
+            <td style="white-space: nowrap;" class="text-center text13 pb-1">
               {!! $monitoramento->statusMonitoramento !!}
             </td>
 
-            <td class="text13 pb-1 tBorder text-center">
+            <td class="text13 pb-1 text-center">
               {!!  \Carbon\Carbon::parse($monitoramento->updated_at)->format('d/m/Y H:i:s') !!}
             </td>
 
-            <td class="text13 pb-1 tBorder text-center">
+            <td class="text13 pb-1 text-center">
               @if($monitoramento->monitoramentoRespondido == 0)
-                <span class="fw-semibold text-danger">
+                <span class="fw-bold text-danger">
                   Não recebeu nenhuma providência
                 </span>
 
               @elseif($monitoramento->respostas->every(function ($resposta) {
                 return $resposta->homologadaPresidencia && $resposta->homologadoDiretoria; }))
-                <span class="fw-semibold text-success">
+                <span class="fw-bold text-success">
                   Homologação Completa
                 </span>
 
               @else
-                <span class="fw-semibold text-warning">
+                <span class="fw-bold text-warning">
                   Há providências a serem homologadas
                 </span>
               @endif
@@ -155,16 +155,25 @@
       </tbody>
     </table>
 
-    <div class="text-center mb-4">
-      @if (Auth::user()->unidade->unidadeTipoFK == 1)
-        <a href="{{ route('riscos.edit', $risco->id) }}" class="warning">Editar Risco</a>
-        <a href="{{ route('riscos.edit-monitoramentos', ['id' => $risco->id]) }}" class="primary">
-          Adicionar Controles Sugeridos</a>
-      @endif
-    </div>
+    @if (Auth::user()->unidade->unidadeTipoFK == 1)
+      <div class="text-center mb-4">
+        <a href="{{ route('riscos.edit', $risco->id) }}" 
+          class="highlighted-btn-sm highlight-warning text-decoration-none me-2">
+          <i class="bi bi-pencil"></i>
+          Editar Risco
+        </a>
+
+        <a href="{{ route('riscos.edit-monitoramentos', ['id' => $risco->id]) }}" 
+          class="highlighted-btn-sm highlight-blue text-decoration-none">
+          <i class="bi bi-plus"></i>
+          Adicionar Controles Sugeridos
+        </a>
+      </div>
+    @endif
   </div>
 </div>
 
 <x-back-button/>
+
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
 @endsection
