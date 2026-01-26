@@ -281,6 +281,10 @@ thead tr th {
 	margin: 0 auto;
 }
 
+.dataTables_wrapper .dataTables_info {
+  font-size: 13px;
+}
+
 table.dataTable {
   border-collapse: collapse !important;
 }

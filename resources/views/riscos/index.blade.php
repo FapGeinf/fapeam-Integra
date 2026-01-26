@@ -1,194 +1,78 @@
 @extends('layouts.app')
-@section('content')
 @section('title') {{ 'Página Inicial' }} @endsection
+@section('content')
 
-<head>
-  <link rel="stylesheet" href="{{ asset('css/index.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.2.3/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
-  <script src="{{ asset('js/auto-dismiss.js') }}"></script>
-  <style>.liDP { margin-left: 0 !important; } </style>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
-</head>
+<link rel="stylesheet" href="{{ asset('css/index.css') }}">
+<link rel="stylesheet" href="{{ asset('css/main.css') }}">
+<link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.2.3/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
 
-<div class="container-fluid pt-5 p-30">
-  @if (session('success'))
-    <div class="alert alert-success text-center auto-dismiss">
-      {{ session('success') }}
-    </div>
-  @endif
+<div class="pt-5">
+  <div class="container-xxl border box-shadow bg-white py-0" style="max-width: 1500px !important;">
+    <table id="tableHome" class="table">
+      <thead>
+        <tr class="text-center text13">
+          <th>N°</th>
+          <th>Responsável</th>
+          <th class="text-nowrap">Unidade</th>
+          <th class="text-nowrap">Evento de Risco</th>
+          <th>Causa</th>
+          <th>Consequência</th>
+          <th class="text-nowrap">Classificação do Risco</th>
+          <th>Providência(s)</th> 
+        </tr>
+      </thead>
 
-  @if (session('error'))
-    <div class="alert alert-danger text-center auto-dismiss">
-      {{ session('error') }}
-    </div>
-  @endif
+      <tbody>
+        @foreach ($riscos as $risco)
+          <tr class="text-center pointer" onclick="window.location='{{ route('riscos.show', $risco->id) }}';">
+            <td class="text13 text-nowrap text-center">{{ $risco->id }}</td>
+            <td class="text13 text-nowrap">{!! $risco->responsavelRisco !!}</td>
+            <td class="text13 word-break text-nowrap">{!! $risco->unidade->unidadeSigla !!}</td>
+            <td class="text13 text-start">{!! Str::limit($risco->riscoEvento, 720) !!}</td>
+            <td class="text13 text-start">{!! Str::limit($risco->riscoCausa, 720) !!}</td>
+            <td class="text13 text-start">{!! Str::limit($risco->riscoConsequencia, 720) !!}</td>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const prazoElement = document.getElementById('prazo');
-      const prazoDate = new Date(prazoElement.dataset.prazo);
-      const today = new Date();
-      const diffTime = prazoDate - today;
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            @if ($risco->nivel_de_risco == 1)
+              <td class="bg-baixo riscoAvaliacao text13">
+                <span class="fw-bold">Baixo</span>
+              </td>
 
-      prazoElement.classList.remove('bg-success', 'bg-warning', 'bg-danger');
+            @elseif ($risco->nivel_de_risco == 2)
+              <td class="bg-medio riscoAvaliacao text13">
+                <span class="fw-bold">Médio</span>
+              </td>
 
-      if (diffDays < 0) {
-        prazoElement.classList.add('bg-danger');
-          
-      } else if (diffDays <= 7) {
-        prazoElement.classList.add('bg-warning');
+            @else
+              <td class="bg-alto riscoAvaliacao text13">
+                <span class="fw-bold">Alto</span>
+              </td>
+            @endif
 
-      } else {
-        prazoElement.classList.add('bg-success');
-      }
-    });
-  </script>
+            <td class="text13">{{ $risco->monitoramentos_respondidos_count }}</td>
+          </tr>
+        @endforeach
+      </tbody>
+    </table>
+  </div>  
+</div>
 
-  <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="notificationModalLabel">Notificações</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-
-        <div class="modal-body">
-          @if ($notificacoesNaoLidas->isEmpty() && $notificacoesLidas->isEmpty())
-            <p class="text-center">Sem notificações.</p>
-
-          @else
-            <form id="markAsReadForm" method="POST" action="{{ route('riscos.markAsRead') }}">
-              @csrf
-
-              @if (!$notificacoesNaoLidas->isEmpty())
-                <div class="mb-4">
-                  <h6 class="text-primary">Não Lidas</h6>
-
-                  <div class="card">
-                    <ul class="list-group list-group-flush" id="unreadNotifications">
-                      @foreach ($notificacoesNaoLidas->take(10) as $notificacao)
-                        <li class="list-group-item d-flex align-items-center notification-item">
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input notification-checkbox"
-                              type="checkbox" name="notification_ids[]"
-                              id="notificationCheck{{ $notificacao->id }}"
-                              value="{{ $notificacao->id }}">
-
-                            <label class="form-check-label ms-2" for="notificationCheck{{ $notificacao->id }}">Marcar como lida</label>
-                          </div>
-
-                          <div class="ms-3">
-                            @if (is_null($notificacao->monitoramentoId))
-                              <span>{!! $notificacao->message !!}</span>
-
-                              @else
-                                <span>{!! $notificacao->message !!}</span>
-                                <a href="{{ route('riscos.respostas', ['id' => $notificacao->monitoramentoId]) }}" class="text-decoration-none">Ver a Resposta</a>
-                              @endif
-                          </div>
-                        </li>
-                      @endforeach
-                    </ul>
-
-                    @if ($notificacoesNaoLidas->count() > 10)
-                      <button class="btn btn-link" id="showMoreUnread">Mostrar mais</button>
-                    @endif
-                  </div>
-
-                  <div style="display: flex; justify-content: end;">
-                    <button type="submit" class="footer-btn footer-secondary text-end mt-3">Salvar seleção</button>
-                  </div>
-                </div>
-              @endif
-
-              @if (!$notificacoesLidas->isEmpty())
-                <div>
-                  <h6 class="text-muted">Lidas</h6>
-
-                  <div class="card">
-                    <ul class="list-group list-group-flush" id="readNotifications">
-                      @foreach ($notificacoesLidas->take(10) as $notificacao)
-                      <li class="list-group-item d-flex align-items-center notification-item">
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="checkbox" id="notificationCheck{{ $notificacao->id }}" checked disabled>
-                          <label class="form-check-label ms-2" for="notificationCheck{{ $notificacao->id }}">Lida</label>
-                        </div>
-
-                        <div class="ms-3">
-                          @if (is_null($notificacao->monitoramentoId))
-                            <span>{!! $notificacao->message !!}</span>
-
-                          @else
-                            <span>{!! $notificacao->message !!}</span>
-                            <a href="{{ route('riscos.respostas', ['id' => $notificacao->monitoramentoId]) }}" class="text-decoration-none">Ver a Resposta</a>
-                          @endif
-                        </div>
-                      </li>
-                      @endforeach
-                    </ul>
-
-                    @if ($notificacoesLidas->count() > 10)
-                      <button class="btn btn-link" id="showMoreRead">Mostrar mais</button>
-                    @endif
-                  </div>
-                </div>
-              @endif
-            </form>
-          @endif
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="footer-btn footer-secondary" data-bs-dismiss="modal">Fechar</button>
-        </div>
+<div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="notificationModalLabel">Notificações</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-    </div>
-  </div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      document.getElementById('notificationModal').addEventListener('show.bs.modal', function () {
-        const notificationBadge = document.getElementById('notificationBadge');
-        const unreadCount = parseInt(notificationBadge.dataset.count, 10);
-        notificationBadge.textContent = unreadCount;
-        notificationBadge.dataset.count = unreadCount;
-      });
+      <div class="modal-body">
+        @if ($notificacoesNaoLidas->isEmpty() && $notificacoesLidas->isEmpty())
+          <p class="text-center">Sem notificações.</p>
 
-      document.getElementById('showMoreUnread')?.addEventListener('click', function () {
-        const notifications = document.getElementById('unreadNotifications');
-        notifications.classList.toggle('expanded');
-        this.textContent = notifications.classList.contains('expanded') ? 'Mostrar menos' : 'Mostrar mais';
-      });
-
-      document.getElementById('showMoreRead')?.addEventListener('click', function () {
-        const notifications = document.getElementById('readNotifications');
-        notifications.classList.toggle('expanded');
-        this.textContent = notifications.classList.contains('expanded') ? 'Mostrar menos' : 'Mostrar mais';
-      });
-    });
-  </script>
-
-  <div id="newRiskButtonDiv" class="d-flex">
-    @if (Auth::user()->unidade->unidadeTipoFK == 1 || Auth::user()->unidade->unidadeTipoFK == 4)
-    @endif
-  </div>
-
-  <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="notificationModalLabel">Notificações</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-          
-        <div class="modal-body">
-          @if ($notificacoesNaoLidas->isEmpty() && $notificacoesLidas->isEmpty())
-            <p class="text-center">Sem notificações.</p>
-          @else
-
+        @else
           <form id="markAsReadForm" method="POST" action="{{ route('riscos.markAsRead') }}">
             @csrf
 
@@ -201,22 +85,22 @@
                     @foreach ($notificacoesNaoLidas->take(10) as $notificacao)
                       <li class="list-group-item d-flex align-items-center notification-item">
                         <div class="form-check form-check-inline">
-                          <input class="form-check-input notification-checkbox" type="checkbox"
-                            name="notification_ids[]"
+                          <input class="form-check-input notification-checkbox"
+                            type="checkbox" name="notification_ids[]"
                             id="notificationCheck{{ $notificacao->id }}"
                             value="{{ $notificacao->id }}">
 
-                            <label class="form-check-label ms-2" for="notificationCheck{{ $notificacao->id }}">Marcar como lida</label>
+                          <label class="form-check-label ms-2" for="notificationCheck{{ $notificacao->id }}">Marcar como lida</label>
                         </div>
 
                         <div class="ms-3">
                           @if (is_null($notificacao->monitoramentoId))
                             <span>{!! $notificacao->message !!}</span>
 
-                          @else
-                            <span>{!! $notificacao->message !!}</span>
-                            <a href="{{ route('riscos.respostas', ['id' => $notificacao->monitoramentoId]) }}" class="text-decoration-none">Ver a Resposta</a>
-                          @endif
+                            @else
+                              <span>{!! $notificacao->message !!}</span>
+                              <a href="{{ route('riscos.respostas', ['id' => $notificacao->monitoramentoId]) }}" class="text-decoration-none">Ver a Resposta</a>
+                            @endif
                         </div>
                       </li>
                     @endforeach
@@ -228,7 +112,7 @@
                 </div>
 
                 <div style="display: flex; justify-content: end;">
-                  <button type="submit" class="btn btn-primary text-end mt-3">Salvar seleção</button>
+                  <button type="submit" class="footer-btn footer-secondary text-end mt-3">Salvar seleção</button>
                 </div>
               </div>
             @endif
@@ -240,22 +124,22 @@
                 <div class="card">
                   <ul class="list-group list-group-flush" id="readNotifications">
                     @foreach ($notificacoesLidas->take(10) as $notificacao)
-                      <li class="list-group-item d-flex align-items-center notification-item">
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="checkbox" id="notificationCheck{{ $notificacao->id }}" checked disabled>
-                          <label class="form-check-label ms-2" for="notificationCheck{{ $notificacao->id }}">Lida</label>
-                        </div>
-                        
-                        <div class="ms-3">
-                            @if (is_null($notificacao->monitoramentoId))
-                              <span>{!! $notificacao->message !!}</span>
+                    <li class="list-group-item d-flex align-items-center notification-item">
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="notificationCheck{{ $notificacao->id }}" checked disabled>
+                        <label class="form-check-label ms-2" for="notificationCheck{{ $notificacao->id }}">Lida</label>
+                      </div>
 
-                            @else
-                              <span>{!! $notificacao->message !!}</span>
-                              <a href="{{ route('riscos.respostas', ['id' => $notificacao->monitoramentoId]) }}" class="text-decoration-none">Ver a Resposta</a>
-                            @endif
-                        </div>
-                      </li>
+                      <div class="ms-3">
+                        @if (is_null($notificacao->monitoramentoId))
+                          <span>{!! $notificacao->message !!}</span>
+
+                        @else
+                          <span>{!! $notificacao->message !!}</span>
+                          <a href="{{ route('riscos.respostas', ['id' => $notificacao->monitoramentoId]) }}" class="text-decoration-none">Ver a Resposta</a>
+                        @endif
+                      </div>
+                    </li>
                     @endforeach
                   </ul>
 
@@ -266,87 +150,115 @@
               </div>
             @endif
           </form>
-          @endif
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="footer-btn footer-secondary" data-bs-dismiss="modal">Fechar</button>
-        </div>
+        @endif
       </div>
-    </div>
-  </div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      document.getElementById('notificationModal').addEventListener('show.bs.modal', function () {
-        const notificationBadge = document.getElementById('notificationBadge');
-        const unreadCount = parseInt(notificationBadge.dataset.count, 10);
-        notificationBadge.textContent = unreadCount;
-        notificationBadge.dataset.count = unreadCount;
-      });
-
-      document.getElementById('showMoreUnread')?.addEventListener('click', function () {
-        const notifications = document.getElementById('unreadNotifications');
-        notifications.classList.toggle('expanded');
-        this.textContent = notifications.classList.contains('expanded') ? 'Mostrar menos' : 'Mostrar mais';
-      });
-
-      document.getElementById('showMoreRead')?.addEventListener('click', function () {
-        const notifications = document.getElementById('readNotifications');
-        notifications.classList.toggle('expanded');
-        this.textContent = notifications.classList.contains('expanded') ? 'Mostrar menos' : 'Mostrar mais';
-      });
-    });
-  </script>
-
-  <div class="container-xxl border box-shadow pt-1 px-4" style="max-width: 1500px !important;
-    background-color: #fff; border-radius: 4px;">
-
-    <div class="">
-      <table id="tableHome" class="table cust-datatable">
-        <thead>
-          <tr class="text-center text13">
-            <th>N°</th>
-            <th>Responsável</th>
-            <th style="white-space:nowrap; width: 100px;">Unidade</th>
-            <th style="white-space: nowrap;">Evento de Risco</th>
-            <th>Causa</th>
-            <th>Consequência</th>
-            <th style="width: 100px; white-space:nowrap;">Classificação do Risco</th>
-            {{-- <th>Controles Sugeridos com Providência(s)</th>  --}}
-            <th>Providência(s)</th> 
-          </tr>
-        </thead>
-
-        <tbody>
-          @foreach ($riscos as $risco)
-            <tr style="cursor: pointer;" class="text-center"
-              onclick="window.location='{{ route('riscos.show', $risco->id) }}';">
-
-              <td style="white-space:nowrap;" class="text13 text-center">{{ $risco->id }}</td>
-              <td style="white-space: nowrap;" class="text13">{!! $risco->responsavelRisco !!}</td>
-              <td style="word-wrap:break-word;" class="text13">{!! $risco->unidade->unidadeSigla !!}</td>
-              <td class="text13 text-start">{!! Str::limit($risco->riscoEvento, 720) !!}</td>
-              <td class="text13 text-start">{!! Str::limit($risco->riscoCausa, 720) !!}</td>
-              <td class="text13 text-start">{!! Str::limit($risco->riscoConsequencia, 720) !!}</td>
-
-              @if ($risco->nivel_de_risco == 1)
-                  <td class="bg-baixo riscoAvaliacao text13"><span class="fontBold">Baixo</span></td>
-              @elseif ($risco->nivel_de_risco == 2)
-                  <td class="bg-medio riscoAvaliacao text13"><span class="fontBold">Médio</span></td>
-              @else
-                  <td class="bg-alto riscoAvaliacao text13"><span class="fontBold">Alto</span></td>
-              @endif
-              <td class="text13">{{ $risco->monitoramentos_respondidos_count }}</td>
-            </tr>
-          @endforeach
-        </tbody>
-      </table>
+      <div class="modal-footer">
+        <button type="button" class="footer-btn footer-secondary" data-bs-dismiss="modal">Fechar</button>
+      </div>
     </div>
   </div>
 </div>
 
-<x-back-button/>
+<div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="notificationModalLabel">Notificações</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+        
+      <div class="modal-body">
+        @if ($notificacoesNaoLidas->isEmpty() && $notificacoesLidas->isEmpty())
+          <p class="text-center">Sem notificações.</p>
+        @else
+
+        <form id="markAsReadForm" method="POST" action="{{ route('riscos.markAsRead') }}">
+          @csrf
+
+          @if (!$notificacoesNaoLidas->isEmpty())
+            <div class="mb-4">
+              <h6 class="text-primary">Não Lidas</h6>
+
+              <div class="card">
+                <ul class="list-group list-group-flush" id="unreadNotifications">
+                  @foreach ($notificacoesNaoLidas->take(10) as $notificacao)
+                    <li class="list-group-item d-flex align-items-center notification-item">
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input notification-checkbox" type="checkbox"
+                          name="notification_ids[]"
+                          id="notificationCheck{{ $notificacao->id }}"
+                          value="{{ $notificacao->id }}">
+
+                          <label class="form-check-label ms-2" for="notificationCheck{{ $notificacao->id }}">Marcar como lida</label>
+                      </div>
+
+                      <div class="ms-3">
+                        @if (is_null($notificacao->monitoramentoId))
+                          <span>{!! $notificacao->message !!}</span>
+
+                        @else
+                          <span>{!! $notificacao->message !!}</span>
+                          <a href="{{ route('riscos.respostas', ['id' => $notificacao->monitoramentoId]) }}" class="text-decoration-none">Ver a Resposta</a>
+                        @endif
+                      </div>
+                    </li>
+                  @endforeach
+                </ul>
+
+                @if ($notificacoesNaoLidas->count() > 10)
+                  <button class="btn btn-link" id="showMoreUnread">Mostrar mais</button>
+                @endif
+              </div>
+
+              <div style="display: flex; justify-content: end;">
+                <button type="submit" class="btn btn-primary text-end mt-3">Salvar seleção</button>
+              </div>
+            </div>
+          @endif
+
+          @if (!$notificacoesLidas->isEmpty())
+            <div>
+              <h6 class="text-muted">Lidas</h6>
+
+              <div class="card">
+                <ul class="list-group list-group-flush" id="readNotifications">
+                  @foreach ($notificacoesLidas->take(10) as $notificacao)
+                    <li class="list-group-item d-flex align-items-center notification-item">
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="notificationCheck{{ $notificacao->id }}" checked disabled>
+                        <label class="form-check-label ms-2" for="notificationCheck{{ $notificacao->id }}">Lida</label>
+                      </div>
+                      
+                      <div class="ms-3">
+                          @if (is_null($notificacao->monitoramentoId))
+                            <span>{!! $notificacao->message !!}</span>
+
+                          @else
+                            <span>{!! $notificacao->message !!}</span>
+                            <a href="{{ route('riscos.respostas', ['id' => $notificacao->monitoramentoId]) }}" class="text-decoration-none">Ver a Resposta</a>
+                          @endif
+                      </div>
+                    </li>
+                  @endforeach
+                </ul>
+
+                @if ($notificacoesLidas->count() > 10)
+                  <button class="btn btn-link" id="showMoreRead">Mostrar mais</button>
+                @endif
+              </div>
+            </div>
+          @endif
+        </form>
+        @endif
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="footer-btn footer-secondary" data-bs-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="modal fade" id="prazoModal" tabindex="-1" aria-labelledby="prazoModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -373,6 +285,8 @@
     </div>
   </div>
 </div>
+
+<x-back-button/>
 
 <script>
   $(document).ready(function () {
@@ -513,6 +427,74 @@
         });
       }
     });
+  });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('notificationModal').addEventListener('show.bs.modal', function () {
+      const notificationBadge = document.getElementById('notificationBadge');
+      const unreadCount = parseInt(notificationBadge.dataset.count, 10);
+      notificationBadge.textContent = unreadCount;
+      notificationBadge.dataset.count = unreadCount;
+    });
+
+    document.getElementById('showMoreUnread')?.addEventListener('click', function () {
+      const notifications = document.getElementById('unreadNotifications');
+      notifications.classList.toggle('expanded');
+      this.textContent = notifications.classList.contains('expanded') ? 'Mostrar menos' : 'Mostrar mais';
+    });
+
+    document.getElementById('showMoreRead')?.addEventListener('click', function () {
+      const notifications = document.getElementById('readNotifications');
+      notifications.classList.toggle('expanded');
+      this.textContent = notifications.classList.contains('expanded') ? 'Mostrar menos' : 'Mostrar mais';
+    });
+  });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('notificationModal').addEventListener('show.bs.modal', function () {
+      const notificationBadge = document.getElementById('notificationBadge');
+      const unreadCount = parseInt(notificationBadge.dataset.count, 10);
+      notificationBadge.textContent = unreadCount;
+      notificationBadge.dataset.count = unreadCount;
+    });
+
+    document.getElementById('showMoreUnread')?.addEventListener('click', function () {
+      const notifications = document.getElementById('unreadNotifications');
+      notifications.classList.toggle('expanded');
+      this.textContent = notifications.classList.contains('expanded') ? 'Mostrar menos' : 'Mostrar mais';
+    });
+
+    document.getElementById('showMoreRead')?.addEventListener('click', function () {
+      const notifications = document.getElementById('readNotifications');
+      notifications.classList.toggle('expanded');
+      this.textContent = notifications.classList.contains('expanded') ? 'Mostrar menos' : 'Mostrar mais';
+    });
+  });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const prazoElement = document.getElementById('prazo');
+    const prazoDate = new Date(prazoElement.dataset.prazo);
+    const today = new Date();
+    const diffTime = prazoDate - today;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    prazoElement.classList.remove('bg-success', 'bg-warning', 'bg-danger');
+
+    if (diffDays < 0) {
+      prazoElement.classList.add('bg-danger');
+        
+    } else if (diffDays <= 7) {
+      prazoElement.classList.add('bg-warning');
+
+    } else {
+      prazoElement.classList.add('bg-success');
+    }
   });
 </script>
 @endsection
