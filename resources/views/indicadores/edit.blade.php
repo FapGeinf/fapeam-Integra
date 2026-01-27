@@ -20,7 +20,7 @@
       <div class="row g-3">
         <div class="col-12">
           <label for="eixo_fk">Eixo:</label>
-          <select class="form-select input-enabled" id="eixo_fk" name="eixo_fk" required>
+          <select class="form-select border-select input-enabled" id="eixo_fk" name="eixo_fk" required>
             @foreach($eixos as $eixo)
               <option value="{{ $eixo->id }}" {{ old('eixo_fk', $indicador->eixo_fk) == $eixo->id ? 'selected' : '' }}>
                 {{ $eixo->nome }}
