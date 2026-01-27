@@ -76,9 +76,7 @@
       </div>
 
       <div class="modal-body">
-        <div id="modalContent">
-          <!-- DADOS DO MODAL SERÃO GERADOS DINAMICAMENTE AQUI -->
-        </div>
+        <div id="modalContent"></div>
       </div>
 
       <div class="modal-footer">
@@ -87,7 +85,7 @@
           Voltar e corrigir
         </button>
 
-        <button type="button" onclick="formSubmit()" class="highlighted-btn-sm highlight-success"  id="submitConfirmationBtn">
+        <button type="button" onclick="formSubmit()" class="highlighted-btn-sm highlight-success" id="submitConfirmationBtn">
           <i class="bi bi-save2 me-1"></i>
           Confirmar inserção
         </button>
