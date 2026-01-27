@@ -51,8 +51,8 @@
       <div class="d-flex justify-content-end mt-4">
         <a href="{{ route('indicadores.index') }}" 
           class="highlighted-btn-sm highlight-grey text-decoration-none me-2">
-          <i class="bi bi-x-lg"></i>
-          Cancelar
+          <i class="bi bi-arrow-left"></i>
+          Voltar para Indicadores
         </a>
 
         <button type="button" onclick="showConfirmationModal()" 
