@@ -75,25 +75,30 @@
             <div class="accordion-body" style="background-color: #fff;">
               @if (isset($documentosAgrupados[$tipo->id]))
                 @foreach ($documentosAgrupados[$tipo->id] as $ano => $docsPorAno)
-                  <div class="mb-2 fw-semibold">
+                  <div class="mb-2 fw-medium">
                     {{ $ano }}
                   </div>
 
                   @foreach ($docsPorAno as $documento)
-                    <div class="d-flex align-items-center mb-2">
-                      <a href="{{ asset('storage/' . $documento->path) }}" target="_blank"
-                        class="flex-grow-1 text-decoration-none text-link text-truncate"
-                        title="{{ basename($documento->path) }}">
-                        {{ basename($documento->path) }}
-                      </a>
-
-                      @if (Auth::user()->usuario_tipo_fk == 1 || Auth::user()->usuario_tipo_fk == 4)
-                        <a href="{{ route('documentos.edit', ['id' => $documento->id]) }}" class="ms-2 text-light text-decoration-none footer-btn footer-primary"
-                          style="font-size: 0.9rem;" title="Editar">
-                          <i class="bi bi-pencil-square text-light"></i> Editar
+                    <ul class="list-group">
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a href="{{ asset('storage/' . $documento->path) }}" target="_blank"
+                          class="text-decoration-none text-truncate text13"
+                          title="{{ basename($documento->path) }}">
+                          {{ basename($documento->path) }}
                         </a>
-                      @endif
-                    </div>
+                      </li>
+                    </ul>
+
+                    @if (Auth::user()->usuario_tipo_fk == 1 || Auth::user()->usuario_tipo_fk == 4)
+                      <div class="text-end mt-2 mb-3">
+                        <a href="{{ route('documentos.edit', ['id' => $documento->id]) }}"
+                          class="highlighted-btn-sm highlight-blue text-nowrap text-decoration-none">
+                          <i class="bi bi-pencil-square"></i>
+                          Editar
+                        </a>                     
+                      </div>
+                    @endif  
                   @endforeach
                 @endforeach
 
