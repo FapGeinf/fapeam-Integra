@@ -98,10 +98,10 @@
                           @if (is_null($notificacao->monitoramentoId))
                             <span>{!! $notificacao->message !!}</span>
 
-                            @else
-                              <span>{!! $notificacao->message !!}</span>
-                              <a href="{{ route('riscos.respostas', ['id' => $notificacao->monitoramentoId]) }}" class="text-decoration-none">Ver a Resposta</a>
-                            @endif
+                          @else
+                            <span>{!! $notificacao->message !!}</span>
+                            <a href="{{ route('riscos.respostas', ['id' => $notificacao->monitoramentoId]) }}" class="text-decoration-none">Ver a Resposta</a>
+                          @endif
                         </div>
                       </li>
                     @endforeach
