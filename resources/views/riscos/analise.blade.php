@@ -274,31 +274,6 @@
   </div>
 </div>
 
-<div class="modal fade" id="prazoModal" tabindex="-1" aria-labelledby="prazoModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="prazoModalLabel">Novo Prazo</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-
-      <div class="modal-body">
-        <form action="{{ route('riscos.prazo') }}" id="prazoForm" method="POST">
-          @csrf
-          <div class="mb-3">
-            <label for="data" class="form-label">Data:</label>
-            <input type="date" class="form-control" id="data" name="data" required>
-          </div>
-
-          <div class="text-end mt-4">
-            <button type="submit" class="btn btn-primary">Salvar Prazo</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     const prazoElement = document.getElementById('prazo');
@@ -395,39 +370,26 @@
 
         var buttonContainer = $('<div class="d-flex align-items-center gap-2"></div>');
 
-        var actionDropdownContainer = $('<div class="dropdown action-dropdown d-none"></div>');
-        var actionDropdownButton = $('<button class="btnAdd dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Ações</button>');
-        var actionDropdownMenu = $('<ul style="min-height: 97px;" class="dropdown-menu text-center p-3"></ul>');
-
-        @if (Auth::user()->unidade->unidadeTipoFK == 1 || Auth::user()->unidade->unidadeTipoFK == 4)
-          var newRiskButton = $('<li style="margin-left: 0; "><a href="{{ route('riscos.create') }}" class="btnAdd text-decoration-none"><i class="bi bi-plus-lg"></i> Novo Risco</a></li>');
-          var insertDeadlineButton = $('<li style="margin-left: 0;"><button type="button" class="mt-2 green-btn" data-bs-toggle="modal" data-bs-target="#prazoModal"><i class="bi bi-plus-lg"></i> Inserir Prazo</button></li>');
-          actionDropdownMenu.append(newRiskButton, insertDeadlineButton);
-        @endif
-
-        actionDropdownContainer.append(actionDropdownButton).append(actionDropdownMenu);
-
-        buttonContainer.append(actionDropdownContainer);
 
         var dropdownContainer = $('<div class="dropdown-container"></div>');
-        var dropdownButton = $('<button class="btnFilter dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Abrir filtros</button>');
-        var dropdownMenu = $('<div class="dropdown-menu p-3"></div>');
+        var dropdownButton = $('<button class="footer-btn footer-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Mostrar filtros</button>');
+        var dropdownMenu = $('<div class="dropdown-menu p-3 bg-white" style="max-width: 350px;"></div>');
 
         if (!$('#filterUnidade').length) {
           console.log("Adicionando filtro de unidade...");
-          var selectUnidade = $('<select id="filterUnidade" class="form-select form-select-sm divFilterUnidade"><option value="">Todas as Unidades</option></select>');
+          var selectUnidade = $('<select id="filterUnidade" class="form-select form-select-sm input-enabled pointer"><option value="">Todas as Unidades</option></select>');
 
-          @foreach ($riscos->unique('unidade.unidadeNome') as $risco)
-            selectUnidade.append('<option value="{{ $risco->unidade->unidadeNome }}">{{ $risco->unidade->unidadeNome }}</option>');
+          @foreach($unidades->sortBy('unidadeSigla') as $unidade)
+            selectUnidade.append('<option value="{{ $unidade->unidadeSigla }}">{{ $unidade->unidadeSigla }}</option>');
           @endforeach
 
-          var labelUnidades = $('<label for="filterUnidade" class="labelUnidade d-block">Unidades:</label>');
+          var labelUnidades = $('<label for="filterUnidade" class="labelUnidade">Unidades:</label>');
           dropdownMenu.append(labelUnidades).append(selectUnidade);
         }
 
         if (!$('#filterAvaliação').length) {
           console.log("Adicionando filtro de avaliação...");
-          var selectAvaliacao = $('<select id="filterAvaliação" class="form-select form-select-sm FilterAvaliacao"><option value="">Todas as Avaliações</option></select>');
+          var selectAvaliacao = $('<select id="filterAvaliação" class="form-select form-select-sm input-enabled pointer"><option value="">Todas as Avaliações</option></select>');
 
           var avaliacaoOptions = [
             { value: "Baixo", text: "Baixo" },
@@ -435,11 +397,11 @@
             { value: "Alto", text: "Alto" }
           ];
 
-          $.each(avaliacaoOptions, function(index, option) {
+          $.each(avaliacaoOptions, function (index, option) {
             selectAvaliacao.append('<option value="' + option.value + '">' + option.text + '</option>');
           });
 
-          var labelAvaliacoes = $('<label for="filterAvaliação" class="labelAvaliação d-block">Avaliação:</label>');
+          var labelAvaliacoes = $('<label for="filterAvaliação" class="labelAvaliação d-block mt-2">Avaliação:</label>');
           dropdownMenu.append(labelAvaliacoes).append(selectAvaliacao);
         }
 
@@ -450,8 +412,7 @@
         dropdownContainer.append(dropdownButton).append(dropdownMenu);
         buttonContainer.append(dropdownContainer);
 
-        var notificationButton = $('<button id="notificationButton" type="button" class="purple-btn position-relative" data-bs-toggle="modal" data-bs-target="#notificationModal">Notificações <i class="bi bi-bell"></i><span id="notificationBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" data-count="{{ $notificacoes->whereNull('read_at')->count() }}">{{ $notificacoes->whereNull('read_at')->count() }}<span class="visually-hidden">unread messages</span></span></button>');
-        buttonContainer.append(notificationButton);
+        var notificationButton = $('<button id="notificationButton" type="button" class="footer-btn footer-notif position-relative" data-bs-toggle="modal" data-bs-target="#notificationModal"><i class="bi bi-bell"></i><span id="notificationBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" data-count="{{ $notificacoes->whereNull('read_at')->count() }}">{{ $notificacoes->whereNull('read_at')->count() }}<span class="visually-hidden">unread messages</span></span></button>');
 
         divContainer.append(buttonContainer);
 
@@ -461,23 +422,34 @@
         searchContainer.append($('.dataTables_filter'));
         searchAndPrazoContainer.append(searchContainer);
 
-        var prazoContainer = $('<p class="spanThatLooksLikeABtn" id="prazo" data-prazo="{{ \Carbon\Carbon::parse($prazo)->format('Y-m-d') }}">Prazo Final: <strong>{{ \Carbon\Carbon::parse($prazo)->format('d/m/Y') }}</strong></p>');
+        var prazoContainer = $('<div class="highlight-date-term border" id="prazo" data-prazo="{{ \Carbon\Carbon::parse($prazo)->format('Y-m-d') }}">Prazo Final: <span class="fw-bold">{{ \Carbon\Carbon::parse($prazo)->format('d/m/Y') }}</span></div>');
+        searchAndPrazoContainer.append(notificationButton);
         searchAndPrazoContainer.append(prazoContainer);
 
         divContainer.append(searchAndPrazoContainer);
 
         $(table.table().container()).prepend(divContainer);
 
-        $('#filterUnidade').on('change', function() {
+        $('#filterUnidade').on('change', function () {
           console.log("Filtro de unidade alterado.");
-          var val = $.fn.dataTable.util.escapeRegex($(this).val());
-          table.column(2).search(val ? '^' + val + '$' : '', true, false).draw();
+          var val = $(this).val();
+          table.column(2).search(val).draw();
         });
 
-        $('#filterAvaliação').on('change', function() {
+        $('#filterAvaliação').on('change', function () {
           console.log("Filtro de avaliação alterado.");
           var val = $.fn.dataTable.util.escapeRegex($(this).val());
           table.column(6).search(val ? '^' + val + '$' : '', true, false).draw();
+        });
+
+        $('#filterMonitoramentoRespondido').on('change', function () {
+          console.log("Filtro por monitoramentos respondidos ativado.");
+          if (this.checked) {
+            table.column(7).search('^[1-9][0-9]*$', true, false).draw(); 
+
+          } else {
+            table.column(7).search('', true, false).draw();
+          }
         });
       }
     });
