@@ -304,10 +304,9 @@ table.dataTable {
   background-color: #ececec;
   justify-content: center;
   align-items: center;
-  /* text-align: center; */
 }
 
-#tableHome tbody tr:hover td:not(.riscoAvaliacao) {
+/* #tableHome tbody tr:hover td:not(.riscoAvaliacao) {
   background-color: #ececec;
 }
 
@@ -323,7 +322,6 @@ table.dataTable {
   border-right: 0px;
 }
 
-/* HOVER CUSTOM INÍCIO */
 #tableHome tbody tr {
   transition: transform 0.3s ease;
 }
@@ -331,7 +329,6 @@ table.dataTable {
 #tableHome2 tbody tr {
   transition: transform 0.3s ease;
 }
-
 
 #tableHome2 tbody tr:nth-child(even) td {
   background-color: #fff;
@@ -353,10 +350,9 @@ table.dataTable {
   white-space: nowrap;
 }
 
-/* HOVER CUSTOM INÍCIO */
 #tableHome2 tbody tr {
   transition: transform 0.3s ease;
-}
+} */
 
 p {
   margin-top: 0;

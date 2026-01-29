@@ -13,7 +13,7 @@
 
 <div class="pt-5">
   <div class="container-xxl border box-shadow bg-white py-0" style="max-width: 1500px !important;">
-    <table id="tableHome" class="table">
+    <table id="tableHome" class="table table-hover table-striped">
       <thead>
         <tr class="text-center text13">
           <th>N°</th>
