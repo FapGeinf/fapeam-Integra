@@ -18,11 +18,11 @@
       <table class="table table-bordered mb-4">
         <thead>
           <tr>
-            <th style="white-space: nowrap; width: 100px;" class="text-center text-light">N° Risco</th>
+            <th class="text-center text-nowrap text-light text13">N° Risco</th>
             <th class="text-center text-light text13">Evento:</th>
             <th class="text-center text-light text13">Causa:</th>
             <th class="text-center text-light text13">Consequência:</th>
-            <th style="width: 100px;" class="text-center text-light text13">Avaliação:</th>
+            <th class="text-center text-light text13">Avaliação:</th>
           </tr>
         </thead>
 
