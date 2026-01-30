@@ -72,6 +72,7 @@
       <div class="modal-body">
         @if ($notificacoesNaoLidas->isEmpty() && $notificacoesLidas->isEmpty())
           <p class="text-center text-muted mb-0">Sem notificações.</p>
+
         @else
           <form id="markAsReadForm" method="POST" action="{{ route('riscos.markAsRead') }}">
             @csrf
@@ -129,10 +130,10 @@
               <div>
                 <h6 class="text-muted mb-2">Lidas</h6>
 
-                <div class="row g-2">
-                  @foreach ($notificacoesLidas as $notificacao)
+                @foreach ($notificacoesLidas as $notificacao)
+                  <div class="row g-2">
                     <div class="col-12">
-                      <div class="card border">
+                      <div class="card border mb-2">
                         <div class="card-body py-2">
                           <div class="d-flex align-items-center justify-content-between gap-3">
                             <div class="d-flex align-items-start gap-2">
@@ -156,12 +157,11 @@
                               @endif
                             </div>
                           </div>
-
                         </div>
                       </div>
                     </div>
-                  @endforeach
-                </div>
+                  </div>
+                @endforeach
               </div>
             @endif
           </form>
