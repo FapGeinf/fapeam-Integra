@@ -17,13 +17,13 @@
       <thead>
         <tr class="text-center text13">
           <th>N°</th>
+          <th>Providência(s)</th> 
           <th>Responsável</th>
           <th class="text-nowrap">Unidade</th>
           <th class="text-nowrap">Evento de Risco</th>
           <th>Causa</th>
           <th>Consequência</th>
           <th class="text-nowrap">Classificação do Risco</th>
-          <th>Providência(s)</th> 
         </tr>
       </thead>
 
@@ -31,6 +31,7 @@
         @foreach ($riscos as $risco)
           <tr class="text-center pointer" onclick="window.location='{{ route('riscos.show', $risco->id) }}';">
             <td class="text13 text-nowrap text-center">{{ $risco->id }}</td>
+            <td class="text13">{{ $risco->monitoramentos_respondidos_count }}</td>
             <td class="text13 text-nowrap">{!! $risco->responsavelRisco !!}</td>
             <td class="text13 word-break text-nowrap">{!! $risco->unidade->unidadeSigla !!}</td>
             <td class="text13 text-start">{!! Str::limit($risco->riscoEvento, 720) !!}</td>
@@ -52,8 +53,6 @@
                 <span class="fw-bold">Alto</span>
               </td>
             @endif
-
-            <td class="text13">{{ $risco->monitoramentos_respondidos_count }}</td>
           </tr>
         @endforeach
       </tbody>
