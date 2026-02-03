@@ -82,7 +82,9 @@
       </div>
 
       <div class="dropdown">
-        <button class="topnav-btn dropdown-toggle" type="button"
+        <button 
+          class="highlighted-btn-sm highlight-blue me-3 dropdown-toggle" 
+          type="button"
           id="dropdownConta"
           data-bs-toggle="dropdown"
           aria-expanded="false">
