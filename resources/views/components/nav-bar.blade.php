@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="{{asset('css/buttons.css')}}">
+
 @if(!Request::is('login'))
   <div class="bg-topnav container-fluid fixed-top">
     <ul class="d-flex justify-content-center">
