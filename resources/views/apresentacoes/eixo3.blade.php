@@ -1,101 +1,67 @@
 @extends('layouts.app')
+@section('title') {{ 'Eixo III - Avaliação de Riscos' }} @endsection
 @section('content')
 
-@section('title') {{ 'Avaliação de Riscos' }}
-@endsection
+<link rel="stylesheet" href="{{asset('css/main.css')}}">
+<link rel="stylesheet" href="{{asset('css/buttons.css')}}">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-  <link rel="stylesheet" href="{{ asset('css/eixosPages.css') }}">
-  
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+<main class="container my-4 pt-5" style="max-width: 800px;">
+  <h1 class="h5 mb-3 text-center">Eixo III - Avaliação de Riscos</h1>
 
-    a {
-      color: #2272b9;
-    }
-
-    .poppins-regular {
-      font-family: "Poppins", serif;
-      font-weight: 400;
-      font-style: normal;
-    }
-
-    /* .pb__dropdown {
-      padding-bottom: 4rem;
-    } */
-
-    .bi-key,
-    .bi-door-open {
-      /* margin-left: 0 !important; */
-    }
-  </style>
-</head>
-
-<body class="poppins-regular">
-  <div class="form-wrapper pt-5">
-    <div class="form_create border">
-      <div class="titleDP text-center fw-bold">
-        <span>
-          EIXO III - AVALIAÇÃO DE RISCOS
-        </span>
-      </div>
-    </div>
-  </div>
-
-  <div class="form-wrapper pt-3">
-    <div class="form_create border">
-      <div class="textDP text__justify">
-        <p>
-          A avaliação de riscos é um dos eixos do Programa de Integridade da FAPEAM. O diagnóstico e tratamento desses riscos é realizado com base nas recomendações da Controladoria Geral da União <span class="">(CGU e da ISO 31.000/2009)</span>.
+  <div class="card box-shadow" style="margin-bottom: 15px;">
+    <div class="card-body p-2">
+      <div class="mb-0">
+        <p class="lh-lg">
+          A avaliação de riscos é um dos eixos do Programa de Integridade da FAPEAM. O diagnóstico e tratamento desses riscos é realizado com base nas recomendações da Controladoria Geral da União <span>(CGU e da ISO 31.000/2009)</span>.
         </p>
 
-        <p>
-          Ações ou omissões que possam favorecer a ocorrência de fraudes ou atos de corrupção, podendo se configurar em causa, evento ou consequência de outros riscos, tais como financeiros, operacionais ou de imagem são riscos à integridade <span class="">(Portaria CGU nº 1089/2018)</span>.
+        <p class="lh-lg">
+          Ações ou omissões que possam favorecer a ocorrência de fraudes ou atos de corrupção, podendo se configurar em causa, evento ou consequência de outros riscos, tais como financeiros, operacionais ou de imagem são riscos à integridade <span>(Portaria CGU nº 1089/2018)</span>.
         </p>
       </div>
     </div>
   </div>
+</main>
 
-  <div class="d-flex justify-content-center mt-4">
+<div class="d-flex justify-content-center gap-2">
   @if(auth()->user()->unidade->unidadeTipoFK == 1 || auth()->user()->unidade->unidadeTipoFK == 3 || auth()->user()->unidade->unidadeTipoFK == 4)
-  <form action="{{ route('atividades.index') }}" method="POST" class="d-inline">
+    <a href="{{ route('relatorios.eixos', ['id' => 3]) }}" 
+      class="highlighted-btn-sm highlight-blue text-decoration-none">
+      <i class="bi bi-list-columns-reverse"></i>
+      Relatório
+    </a>
+
+    <form action="{{ route('atividades.index') }}" method="POST" class="d-inline">
       @csrf
+
       <input type="hidden" name="eixo_id" value="3">
-      <button type="submit" class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">
+      <button type="submit" class="highlighted-btn-sm highlight-blue">
+        <i class="bi bi-file-text"></i>
         Atividades
       </button>
     </form>
-    
 
-		<form action="{{ route('indicadores.index') }}" method="POST" class="d-inline">
-			@csrf
-			<input type="hidden" name="eixo_id" value="3">
-			<button type="submit" class="btn__bg btn__bg_color shadow-sm fw-bold">
-					Indicadores
-			</button>
-		</form>
-
-		<a href="{{ route('relatorios.eixos', ['id' => 3]) }}" class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">Relatório</a>
-
-		<a href="{{ route('avaliacao') }}" class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">
-  		<i class="bi bi-download"></i> Diagnóstico de Riscos
-		</a>
-    @endif
-    <a href="{{ route('riscos.analise') }}">
-      <button class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">
-        Análise do Risco
+    <form action="{{ route('indicadores.index') }}" method="POST" class="d-inline">
+      @csrf
+      <input type="hidden" name="eixo_id" value="3">
+      <button type="submit" class="highlighted-btn-sm highlight-blue">
+        <i class="bi bi-reception-4"></i>
+        Indicadores
       </button>
+    </form>
+
+    <a href="{{ route('avaliacao') }}" 
+      class="highlighted-btn-sm highlight-blue text-decoration-none">
+      <i class="bi bi-download"></i>
+      Diagnóstico de Riscos
     </a>
-  </div>
+  @endif
 
-  <x-back-button/>
-
-</body>
-
-</html>
-
+  <a href="{{ route('riscos.analise') }}">
+    <button class="highlighted-btn-sm highlight-blue">
+      <i class="bi bi-box-arrow-in-up-right"></i>
+      Análise do Risco
+    </button>
+  </a>
+</div>
 @endsection
