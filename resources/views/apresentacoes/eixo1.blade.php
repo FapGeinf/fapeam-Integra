@@ -1,89 +1,51 @@
 @extends('layouts.app')
+@section('title') {{ 'Eixo I - Comprometimento e Apoio da Alta Direção' }} @endsection
 @section('content')
 
-@section('title') {{ 'Comprometimento e Apoio da Alta Direção' }}
-@endsection
+<link rel="stylesheet" href="{{asset('css/main.css')}}">
+<link rel="stylesheet" href="{{asset('css/buttons.css')}}">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-  <link rel="stylesheet" href="{{ asset('css/eixosPages.css') }}">
-  <title>COMPROMETIMENTO E APOIO DA ALTA DIREÇÃO</title>
+<main class="container my-4 pt-5" style="max-width: 800px;">
+  <h1 class="h5 mb-3 text-center">Eixo I - Comprometimento e Apoio da Alta Direção</h1>
 
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+  <div class="card box-shadow" style="margin-bottom: 15px;">
+    <div class="card-body p-2">
+      <div class="mb-0">
+        <p class="lh-lg">Apoiar o Programa de Integridade é um compromisso da alta direção da FAPEAM no combate à corrupção, na prestação de serviços públicos com mais qualidade e para a conduta ética em todas as operações e relações institucionais. </p>
 
-    .poppins-regular {
-      font-family: "Poppins", serif;
-      font-weight: 400;
-      font-style: normal;
-    }
-
-    .pb__dropdown {
-      /* padding-bottom: 4rem; */
-    }
-
-    .bi-key,
-    .bi-door-open {
-      /* margin-left: 0 !important; */
-    }
-
-    a {
-      color: #2272b9;
-    }
-  </style>
-</head>
-
-<body class="poppins-regular">
-  <div class="form-wrapper pt-5">
-    <div class="form_create border">
-      <div class="titleDP text-center fw-bold">
-        <span>
-          EIXO I - COMPROMETIMENTO E APOIO DA ALTA DIREÇÃO
+        <p class="lh-lg">Este é um eixo essencial para a implementação eficaz do Programa de Integridade da FAPEAM, e garante que os princípios de transparência, responsabilidade e conformidade sejam incorporados à cultura organizacional, fortalecendo a governança e consolidando empenho em assegurar que os recursos públicos sejam geridos com responsabilidade e eficiência, de acordo com as normas legais, regulatórias e os valores institucionais.</p>
       </div>
     </div>
   </div>
+</main>
 
-  <div class="form-wrapper pt-3">
-    <div class="form_create border">
-      <div class="textDP text__justify">
-        <span>
-          <p>Apoiar o Programa de Integridade é um compromisso da alta direção da FAPEAM no combate à corrupção, na prestação de serviços públicos com mais qualidade e para a conduta ética em todas as operações e relações institucionais. </p>
+@if(auth()->user()->unidade->unidadeTipoFK == 1 || auth()->user()->unidade->unidadeTipoFK == 3 || auth()->user()->unidade->unidadeTipoFK == 4)
+  <div class="d-flex justify-content-center gap-2">
+    <a href="{{ route('relatorios.eixos', ['id' => 1]) }}" 
+      class="highlighted-btn-sm highlight-blue text-decoration-none">
+      <i class="bi bi-list-columns-reverse"></i>
+      Relatório
+    </a>
 
-          <p>Este é um eixo essencial para a implementação eficaz do Programa de Integridade da FAPEAM, e garante que os princípios de transparência, responsabilidade e conformidade sejam incorporados à cultura organizacional, fortalecendo a governança e consolidando empenho em assegurar que os recursos públicos sejam geridos com responsabilidade e eficiência, de acordo com as normas legais, regulatórias e os valores institucionais.</p>
-        </span>
-      </div>
-    </div>
+    <form action="{{ route('atividades.index') }}" method="POST" class="d-inline">
+      @csrf
+
+      <input type="hidden" name="eixo_id" value="1">
+      <button type="submit" class="highlighted-btn-sm highlight-blue">
+        <i class="bi bi-file-text"></i>
+        Atividades
+      </button>
+    </form>
+
+    <form action="{{ route('indicadores.index') }}" method="POST" class="d-inline">
+      @csrf
+
+      <input type="hidden" name="eixo_id" value="1">
+      <button type="submit" class="highlighted-btn-sm highlight-blue">
+        <i class="bi bi-reception-4"></i>
+        Indicadores
+      </button>
+    </form>
   </div>
-
-  <div class="d-flex justify-content-center mt-4">
-		@if(auth()->user()->unidade->unidadeTipoFK == 1 || auth()->user()->unidade->unidadeTipoFK == 3 || auth()->user()->unidade->unidadeTipoFK == 4)
-			<form action="{{ route('atividades.index') }}" method="POST" class="d-inline">
-				@csrf
-				<input type="hidden" name="eixo_id" value="1">
-				<button type="submit" class="btn__bg btn__bg_color shadow-sm fw-bold">
-					Atividades
-				</button>
-			</form>
-		<form action="{{ route('indicadores.index') }}" method="POST" class="d-inline">
-			@csrf
-			<input type="hidden" name="eixo_id" value="1">
-			<button type="submit" class="btn__bg btn__bg_color shadow-sm fw-bold">
-					Indicadores
-			</button>
-		</form>
-    <a href="{{ route('relatorios.eixos', ['id' => 1]) }}" class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">Relatório</a>
-  </div>
-  @endif
-
-  <x-back-button/>
-
-</body>
-
-
-
-</html>
-
+@endif
 @endsection

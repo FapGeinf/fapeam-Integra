@@ -1,87 +1,58 @@
 @extends('layouts.app')
+@section('title') {{ 'Eixo VIII - Monitoramento Contínuo' }} @endsection
 @section('content')
 
-  @section('title') {{ 'Monitoramento Contínuo' }}
-  @endsection
+<link rel="stylesheet" href="{{asset('css/main.css')}}">
+<link rel="stylesheet" href="{{asset('css/buttons.css')}}">
 
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    <link rel="stylesheet" href="{{ asset('css/eixosPages.css') }}">
-
-    <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-
-    a {
-      color: #2272b9;
-    }
-
-    .poppins-regular {
-      font-family: "Poppins", serif;
-      font-weight: 400;
-      font-style: normal;
-    }
-
-    /* .pb__dropdown {
-      padding-bottom: 4rem;
-    } */
-
-    .bi-key,
-    .bi-door-open {
-      /* margin-left: 0 !important; */
-    }
-    </style>
-  </head>
-
-  <body class="poppins-regular">
-    <div class="form-wrapper pt-5">
-    <div class="form_create border">
-      <div class="titleDP text-center fw-bold">
-      <span>
-        EIXO VIII - MONITORAMENTO CONTÍNUO
-      </span>
+<main class="container my-4 pt-5" style="max-width: 800px;">
+  <h1 class="h5 mb-3 text-center">Eixo VIII - Monitoramento Contínuo</h1>
+  
+  <div class="card box-shadow" style="margin-bottom: 15px;">
+    <div class="card-body p-2">
+      <div class="mb-0">
+        <p class="lh-lg">
+          As estratégias de monitoramento contínuo do Programa de Integridade da FAPEAM consistem no acompanhamento das
+          ações previstas no Plano de Ação, que incluem o tratamento dos riscos à integridade, capacitação de
+          colaboradores e disseminação da cultura da integridade, para o fortalecimento das instâncias pertinentes ao
+          tema e da própria Fundação.
+        </p>
       </div>
     </div>
-    </div>
+  </div>
+</main>
 
-    <div class="form-wrapper pt-3">
-    <div class="form_create border">
-      <div class="textDP text__justify">
-      <p>
-        As estratégias de monitoramento contínuo do Programa de Integridade da FAPEAM consistem no acompanhamento das
-        ações previstas no Plano de Ação, que incluem o tratamento dos riscos à integridade, capacitação de
-        colaboradores e disseminação da cultura da integridade, para o fortalecimento das instâncias pertinentes ao
-        tema e da própria Fundação.
-      </p>
-      </div>
-    </div>
-    </div>
+@if(auth()->user()->unidade->unidadeTipoFK == 1 || auth()->user()->unidade->unidadeTipoFK == 3 || auth()->user()->unidade->unidadeTipoFK == 4)
+  <div class="d-flex justify-content-center gap-2">
+    <a href="{{ route('relatorios.eixos', ['id' => 8]) }}" 
+      class="highlighted-btn-sm highlight-blue text-decoration-none">
+      <i class="bi bi-list-columns-reverse"></i>
+      Relatório
+    </a>
 
-    <div class="d-flex justify-content-center mt-4">
-    @if(auth()->user()->unidade->unidadeTipoFK == 1 || auth()->user()->unidade->unidadeTipoFK == 3 || auth()->user()->unidade->unidadeTipoFK == 4)
     <a href="{{ route('atividades.index', ['eixo_id' => 8]) }}">
-      <button class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">Atividades</button>
+      <button class="highlighted-btn-sm highlight-blue">
+        <i class="bi bi-file-text"></i>
+        Atividades
+      </button>
     </a>
-    <a href="{{ route('graficos.index') }}">
-      <button class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">Gráficos</button>
-    </a>
+
     <form action="{{ route('indicadores.index') }}" method="POST" class="d-inline">
       @csrf
       <input type="hidden" name="eixo_id" value="8">
-      <button type="submit" class="btn__bg btn__bg_color shadow-sm fw-bold">
-      Indicadores
+      <button type="submit" class="highlighted-btn-sm highlight-blue">
+        <i class="bi bi-reception-4"></i>
+        Indicadores
       </button>
     </form>
-    <a href="{{ route('relatorios.eixos', ['id' => 8]) }}" class="btn__bg btn__bg_color shadow-sm fw-bold text-decoration-none text-center">Relatório</a>
-    </div>
-  @endif
 
-  <x-back-button/>
-
-  </body>
-
-  </html>
+    <a href="{{ route('graficos.index') }}">
+      <button class="highlighted-btn-sm highlight-blue">
+        <i class="bi bi-bar-chart"></i>
+        Gráficos
+      </button>
+    </a>
+  </div>
+@endif
 
 @endsection

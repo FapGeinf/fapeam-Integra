@@ -1,21 +1,18 @@
 @extends('layouts.app')
 @section('title') {{ 'Detalhes da Atividade' }} @endsection
-
 @section('content')
-@php
-    \Carbon\Carbon::setLocale('pt_BR');
-@endphp
 
-{{-- <link rel="stylesheet" href="{{ asset('css/detalhesAtividade.css') }}"> --}}
 <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
+<link rel="stylesheet" href="{{ asset('css/show.css') }}">
+<link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
 
-<div class="form-wrapper pt-4 paddingLeft">
-	<div class="form_create border">
-		<h3 class="text-center">Detalhes da Atividade</h3>
+<div class="container pt-5" style="max-width: 800px;">
+	<div class="col-12 border box-shadow">
+		<h5 class="text-center">Detalhes da Atividade</h5>
 
-		<h5 class="col-12 text-center fw-bold" style="color: #6f7983">
+		<h6 class="col-12 text-center fw-semibold text-secondary">
 			{!! $atividade->atividade_descricao !!}
-		</h5>
+		</h6>
 
 		<div class="row g-3">
 			<div class="col-12">

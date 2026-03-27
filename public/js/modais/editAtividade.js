@@ -39,22 +39,20 @@ function showConfirmationModal() {
         canal: canal ? "" : "Selecione ao menos um canal.",
         dataPrevista: dataPrevista ? "" : "A 'Data Prevista' é obrigatória.",
         dataRealizada: dataRealizada ? "" : "A 'Data Realizada' é obrigatória.",
-        indicador: "", // esse é o único opcional
+        indicador: "",
         meta: meta ? "" : "O campo 'Meta' é obrigatório.",
         realizado: realizado ? "" : "O campo 'Realizado' é obrigatório.",
         medida: medida && medida.toLowerCase() !== "selecione o tipo de unidade" ? "" : "Selecione uma unidade de medida válida."
     };
 
-
-
     const hasErrors = Object.values(errors).some(e => e !== "");
 
-    function createReadonlyField(label, value, errorMsg) {
+    function createReadonlyField(label, value, errorMsg, colClass = "col-md-6") {
         const isInvalid = errorMsg ? "text-danger border-danger" : "text-dark";
         return `
-            <div class="mb-3 col-md-6">
-                <label class="form-label fw-semibold">${label}</label>
-                <div class="form-control bg-light ${isInvalid}" style="min-height: 38px;">${value || '-'}</div>
+            <div class="mb-3 ${colClass}">
+                <label class="">${label}:</label>
+                <div class="form-control input-disabled ${isInvalid}">${value || '-'}</div>
                 ${errorMsg ? `<div class="text-danger small mt-1">${errorMsg}</div>` : ""}
             </div>
         `;
@@ -64,8 +62,8 @@ function showConfirmationModal() {
         const isInvalid = errorMsg ? "border border-danger" : "border";
         return `
             <div class="mb-4">
-                <label class="form-label fw-semibold">${label}</label>
-                <div class="p-3 rounded ${isInvalid} bg-light" style="white-space: pre-wrap; min-height: 100px;">
+                <label class="">${label}:</label>
+                <div class="form-control input-disabled ${isInvalid}">
                     ${htmlContent || '-'}
                 </div>
                 ${errorMsg ? `<div class="text-danger small mt-1">${errorMsg}</div>` : ""}
@@ -76,20 +74,22 @@ function showConfirmationModal() {
     let modalContent = `
         <form class="was-validated" novalidate>
             <div class="row">
-                ${createReadonlyField("Eixo(s)", eixo, errors.eixo)}
-                ${createReadonlyField("Responsável", responsavel, errors.responsavel)}
+                ${createReadonlyField("Eixo(s)", eixo, errors.eixo, "col-12")}
+                ${createReadonlyField("Responsável", responsavel, errors.responsavel, "col-12")}
+                ${createReadonlyDiv("Descrição da Atividade", atividadeDescricao, errors.atividadeDescricao, "col-12")}
+                ${createReadonlyDiv("Objetivo", objetivo, errors.objetivo, "col-12")}                
+
                 ${createReadonlyField("Público", publico, errors.publico)}
                 ${createReadonlyField("Tipo de Evento", tipoEvento, errors.tipoEvento)}
-                ${createReadonlyField("Canal(is)", canal, errors.canal)}
+                ${createReadonlyField("Canal(is)", canal, errors.canal, "col-12")}
+                ${createReadonlyField("Indicador(es)", indicador, errors.indicador, "col-12")}                
                 ${createReadonlyField("Data Prevista", formatDateBR(dataPrevista), errors.dataPrevista)}
                 ${createReadonlyField("Data Realizada", formatDateBR(dataRealizada), errors.dataRealizada)}
-                ${createReadonlyField("Indicador(es)", indicador, errors.indicador)}
+
                 ${createReadonlyField("Meta", meta, errors.meta)}
                 ${createReadonlyField("Realizado", realizado, errors.realizado)}
                 ${createReadonlyField("Unidade de Medida", medida, errors.medida)}
             </div>
-            ${createReadonlyDiv("Descrição da Atividade", atividadeDescricao, errors.atividadeDescricao)}
-            ${createReadonlyDiv("Objetivo", objetivo, errors.objetivo)}
         </form>
     `;
 
@@ -105,7 +105,6 @@ function showConfirmationModal() {
 
     return !hasErrors;
 }
-
 
 function formSubmit() {
     document.getElementById('formEditAtividade').submit();
