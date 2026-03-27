@@ -175,7 +175,7 @@
                                     @foreach ($indicadores as $indicador)
                                 <option value="{{ $indicador->id }}"
                                     {{ in_array($indicador->id, old('indicador_ids', $atividade->indicadores->pluck('id')->toArray())) ? 'selected' : '' }}>
-                                    {{ $indicador->descricaoIndicador }}
+                                    {{ $indicador->nomeIndicador }}
                                 </option>
                                 @endforeach
                             </select>

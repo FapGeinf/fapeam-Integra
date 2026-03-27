@@ -62,7 +62,7 @@
 					</div>
 
 					<div class="col-12 mb-3">
-						<label for="descricao"><span class="asteriscoTop">*</span>Descrição:</label>
+						<label for="descricao"><span class="asteriscoTop">*</span>Objetivo do Indicador:</label>
 						<textarea textarea class="form-control input-enabled" id="descricaoIndicador"
 							name="descricaoIndicador" rows="3" required></textarea>
 					</div>
