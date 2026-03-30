@@ -20,16 +20,16 @@ class CheckAccess
         $user = auth()->user();
         // dd($user);
         $access = $user->unidade->unidadeTipoFK;
-        $routeName = explode('.',$request->route()->getName())[1];
+        $routeName = explode('.', $request->route()->getName())[1];
 
 
         $permissions = [
-            '1' => ['homologar','index','analise','show','create','store','edit','update','delete','deleteMonitoramento','storeResposta','respostas','edit-monitoramentos','insert-monitoramentos','prazo','monitoramento','editMonitoramento','updateResposta','markAsRead','deleteAnexo'],
-            '2' => ['homologar','index','analise','show','create','store','edit','update','delete','deleteMonitoramento','storeResposta','respostas','edit-monitoramentos','insert-monitoramentos','prazo','monitoramento','editMonitoramento','updateResposta','markAsRead','deleteAnexo'],
+            '1' => ['homologar', 'index', 'analise', 'show', 'create', 'store', 'edit', 'update', 'delete', 'deleteMonitoramento', 'storeResposta', 'respostas', 'edit-monitoramentos', 'insert-monitoramentos', 'prazo', 'monitoramento', 'editMonitoramento', 'updateResposta', 'markAsRead', 'deleteAnexo'],
+            '2' => ['homologar', 'index', 'analise', 'show', 'create', 'store', 'edit', 'update', 'delete', 'deleteMonitoramento', 'storeResposta', 'respostas', 'edit-monitoramentos', 'insert-monitoramentos', 'prazo', 'monitoramento', 'editMonitoramento', 'updateResposta', 'markAsRead', 'deleteAnexo'],
             // '2' => ['index','analise','show','storeResposta','respostas','markAsRead'],
-            '3' => ['index','analise','show','create','store','edit','update','delete','deleteMonitoramento','storeResposta','respostas','edit-monitoramentos','insert-monitoramentos','prazo','monitoramento','editMonitoramento','updateResposta','markAsRead','deleteAnexo'],
-            '4' => ['index','analise','show','create','store','edit','update','delete','deleteMonitoramento','storeResposta','respostas','edit-monitoramentos','insert-monitoramentos','prazo','monitoramento','editMonitoramento','updateResposta','markAsRead','deleteAnexo'],
-            '5' => ['index','analise','show','create','store','edit','update','delete','deleteMonitoramento','storeResposta','respostas','edit-monitoramentos','insert-monitoramentos','prazo','monitoramento','editMonitoramento','updateResposta','markAsRead','deleteAnexo'],
+            '3' => ['index', 'analise', 'show', 'create', 'store', 'edit', 'update', 'delete', 'deleteMonitoramento', 'storeResposta', 'respostas', 'edit-monitoramentos', 'insert-monitoramentos', 'prazo', 'monitoramento', 'editMonitoramento', 'updateResposta', 'markAsRead', 'deleteAnexo'],
+            '4' => ['homologar', 'index', 'analise', 'show', 'create', 'store', 'edit', 'update', 'delete', 'deleteMonitoramento', 'storeResposta', 'respostas', 'edit-monitoramentos', 'insert-monitoramentos', 'prazo', 'monitoramento', 'editMonitoramento', 'updateResposta', 'markAsRead', 'deleteAnexo'],
+            '5' => ['index', 'analise', 'show', 'create', 'store', 'edit', 'update', 'delete', 'deleteMonitoramento', 'storeResposta', 'respostas', 'edit-monitoramentos', 'insert-monitoramentos', 'prazo', 'monitoramento', 'editMonitoramento', 'updateResposta', 'markAsRead', 'deleteAnexo'],
         ];
         // dd(in_array($routeName, $permissions[$access]));
         if (!in_array($routeName, $permissions[$access])) {
