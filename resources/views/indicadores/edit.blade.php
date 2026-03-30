@@ -42,7 +42,7 @@
         </div>
 
         <div class="col-12 mb-3">
-          <label for="descricaoIndicador">Descrição:</label>
+          <label for="descricaoIndicador">Objetivo do Indicador:</label>
           <textarea class="form-control input-enabled" id="descricaoIndicador" name="descricaoIndicador"
             rows="3" required>{{ old('descricaoIndicador', $indicador->descricaoIndicador) }}</textarea>
         </div>

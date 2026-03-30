@@ -38,7 +38,7 @@
         <div class="col-12">
           <label for="nome">
             <span class="text-danger">*</span>
-            Título:
+            Nome do Indicador:
           </label>
 
           <input type="text" class="form-control input-enabled" id="nomeIndicador" name="nomeIndicador" required>
@@ -47,7 +47,7 @@
         <div class="col-12">
           <label for="descricao">
             <span class="text-danger">*</span>
-            Descrição:
+            Objetivo do Indicador:
           </label>
 
           <textarea textarea class="form-control input-enabled" id="descricaoIndicador"
