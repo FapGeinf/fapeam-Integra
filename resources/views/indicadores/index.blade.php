@@ -37,7 +37,6 @@
       <table id="indicadores-table" class="table table-bordered table-striped">
         <thead>
           <tr class="text13">
-            <th class="text-center text-light">N°</th>
             <th class="text-center text-light">Nome</th>
             <th class="text-center text-light">Objetivo do Indicador</th>
             <th class="text-center text-light">Eixo</th>
@@ -48,7 +47,6 @@
         <tbody>
           @foreach($indicadores as $indicador)
             <tr class="text13">
-              <td class="text-center">{{ $indicador->id }}</td>
               <td class="text-center">{{ $indicador->nomeIndicador }}</td>
               <td class="text-center">{!!$indicador->descricaoIndicador!!}</td>
               <td class="text-center">EIXO {{$indicador->eixo->id}} - {{ $indicador->eixo->nome}}</td>
