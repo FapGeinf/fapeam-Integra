@@ -44,8 +44,8 @@ class IndicadorController extends Controller
             $eixos = $this->eixo->getAllEixosOrderbyNome();
             return view('indicadores.create', compact('eixos'));
         } catch (Exception $e) {
-            Log::error('Houve um erro ao carregar o formulário de inserção de indicadores',['error' => $e->getMessage()]);
-            return redirect()->back()->with('error','Houve um erro ao carregar o formulário de inserção de indicadores');
+            Log::error('Houve um erro ao carregar o formulário de inserção de indicadores', ['error' => $e->getMessage()]);
+            return redirect()->back()->with('error', 'Houve um erro ao carregar o formulário de inserção de indicadores');
         }
     }
 
@@ -69,7 +69,9 @@ class IndicadorController extends Controller
             return redirect()->route('indicadores.index')->with('success', 'Indicador criado com sucesso!');
         } catch (\Throwable $th) {
             Log::error('Erro ao criar indicador: ' . $th->getMessage(), ['trace' => $th->getTraceAsString()]);
-            return redirect()->back()->withErrors(['error' => 'Erro ao criar indicador.']);
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Erro ao salvar: verifique os campos preenchidos.');
         }
     }
 
@@ -106,7 +108,9 @@ class IndicadorController extends Controller
             return redirect()->route('indicadores.index')->with('success', 'Indicador atualizado com sucesso!');
         } catch (\Throwable $th) {
             Log::error('Erro ao atualizar indicador: ' . $th->getMessage(), ['trace' => $th->getTraceAsString()]);
-            return redirect()->back()->withErrors(['error' => 'Erro ao atualizar indicador.']);
+            return redirect()->back()
+                ->withInput() 
+                ->with('error', 'Erro ao atualizar: verifique os campos preenchidos.');
         }
     }
 }
