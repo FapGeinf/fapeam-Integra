@@ -10,6 +10,7 @@
 <script src="{{ asset('js/modais/editIndicador.js') }}"></script>
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 
+<x-alert-toast/>
 <div class="container-xxl pt-5" style="max-width: 700px;">
   <div class="col-12 border box-shadow">
     <h5 class="text-center">Editar Indicador</h5>

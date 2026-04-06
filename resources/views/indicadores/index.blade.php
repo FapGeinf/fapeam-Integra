@@ -18,6 +18,8 @@
   }
 </style>
 
+<x-alert-toast/>
+
 <div class="container-xxl pt-5">
   <div class="col-12 border box-shadow">
     <div class="justify-content-center">

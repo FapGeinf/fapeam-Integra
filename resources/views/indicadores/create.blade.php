@@ -9,6 +9,7 @@
 <script src="{{ asset('js/indicadores/editorIndicador.js') }}"></script>
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 
+<x-alert-toast/>
 <div class="container pt-5" style="max-width: 680px;">
   <div class="col-12 border box-shadow">
     <h5 class="text-center">Criar Indicador</h5>
