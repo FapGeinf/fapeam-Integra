@@ -168,7 +168,7 @@
                 </td>
 
                 <td class="text-center">
-                  @if(Auth::user()->unidade->unidadeTipoFK == 1 || Auth::user()->usuario_tipo_fk == 1)
+                  @if(Auth::user()->unidade->unidadeTipoFK == 1 || Auth::user()->usuario_tipo_fk == 1  || Auth::user()->usuario_tipo_fk == 4)
                     <div class="d-flex flex-column gap-2">
                       <a href="{{ route('atividades.show', $atividade->id) }}"
                         class="footer-btn footer-primary w-100 text-start d-inline-block text-decoration-none text-nowrap">
