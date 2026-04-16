@@ -325,7 +325,7 @@
         $('#filterUnidade').on('change', function () {
           console.log("Filtro de unidade alterado.");
           var val = $(this).val();
-          table.column(2).search(val).draw();
+          table.column(3).search(val).draw();
         });
 
         $('#filterAvaliação').on('change', function () {
