@@ -331,7 +331,7 @@
         $('#filterAvaliação').on('change', function () {
           console.log("Filtro de avaliação alterado.");
           var val = $.fn.dataTable.util.escapeRegex($(this).val());
-          table.column(6).search(val ? '^' + val + '$' : '', true, false).draw();
+          table.column(7).search(val ? '^' + val + '$' : '', true, false).draw();
         });
 
         $('#filterMonitoramentoRespondido').on('change', function () {
