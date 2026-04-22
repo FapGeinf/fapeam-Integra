@@ -334,15 +334,15 @@
           table.column(7).search(val ? '^' + val + '$' : '', true, false).draw();
         });
 
-        $('#filterMonitoramentoRespondido').on('change', function () {
-          console.log("Filtro por monitoramentos respondidos ativado.");
-          if (this.checked) {
-            table.column(7).search('^[1-9][0-9]*$', true, false).draw(); 
+        // $('#filterMonitoramentoRespondido').on('change', function () {
+        //   console.log("Filtro por monitoramentos respondidos ativado.");
+        //   if (this.checked) {
+        //     table.column(7).search('^[1-9][0-9]*$', true, false).draw(); 
 
-          } else {
-            table.column(7).search('', true, false).draw();
-          }
-        });
+        //   } else {
+        //     table.column(7).search('', true, false).draw();
+        //   }
+        // });
       }
     });
   });
