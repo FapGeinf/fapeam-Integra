@@ -22,7 +22,7 @@ class AtividadeService
         $eixoNome = null;
         $atividades = collect();
 
-        if ($eixo_id && in_array($eixo_id, [1, 2, 3, 4, 5, 6, 7])) {
+        if ($eixo_id && in_array($eixo_id, [1, 2, 3, 4, 5, 6, 7, 8])) {
             $eixo = Eixo::find($eixo_id);
             $eixoNome = $eixo ? $eixo->nome : null;
 
