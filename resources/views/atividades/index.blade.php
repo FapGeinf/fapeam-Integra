@@ -137,9 +137,10 @@
 
                 <table id="tableHome2" class="table table-striped cust-datatable mb-5">
                     <thead>
-                        <tr style="white-space: nowrap;">
-                            <th scope="col" style="width: 280px;"
-                                class="{{ request()->query('eixo_id') == 8 ? '' : 'd-none' }}">Eixos</th>
+                        <tr>
+                            <th scope="col" class="text-center text-light {{ request()->query('eixo_id') == 8 ? '' : 'd-none' }}">
+                                Eixos
+                            </th>
                             <th scope="col" class="text-center text-light">Atividade</th>
                             <th scope="col" class="text-center text-light">Objetivo</th>
                             <th scope="col" class="text-center text-light">Responsável</th>
