@@ -10,8 +10,8 @@ body {
 }
 
 .borderRadius {
-  background-image: url('/img/login/TelaSistemaIntegra.png');
-  background-size: cover;
+  background-image: url('/img/login/tela_inicial07.png');
+  /* background-size: cover; */
   /* background-position: center; */
 }
 
@@ -190,7 +190,7 @@ body {
 .inputLogin {
   color: #fff;
   font-size: 17px;
-  background-color: #428ccf;
+  background-color: #284c9c;
   width: 45%;
   border: none;
   border-radius: 8px;
@@ -200,7 +200,7 @@ body {
 }
 
 .inputLogin:hover {
-  background-color: #3974ab;
+  background-color: #1b366e;
 }
 
 .inputLogin:focus {
