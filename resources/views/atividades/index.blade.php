@@ -36,44 +36,61 @@
       </div>
 
       <div class="row g-3 mt-3 align-items-end">
-        <div class="col-12 col-sm-6 col-md-3">
+        <div class="col-12 col-sm-6 col-md-2">
           <label for="filter-publico" class="f-size">Tipo de público:</label>
           <select name="filter-publico" id="filter-publico" class="form-select input-enabled f-size border-grey">
             <option selected disabled>Escolha um tipo</option>
+            <option value="">Todos</option>
             @foreach ($publicos as $publico)
               <option value="{{ $publico->nome }}">{{ $publico->nome }}</option>
             @endforeach
           </select>
         </div>
 
-        <div class="col-12 col-sm-6 col-md-3">
+        <div class="col-12 col-sm-6 col-md-2">
           <label for="filter-canal" class="f-size">Tipo de canal de divulgação:</label>
           <select name="filter-canal" id="filter-canal" class="form-select input-enabled f-size border-grey">
             <option disabled>Escolha um tipo</option>
+            <option value="">Todos</option>
             @foreach ($canais as $canal)
               <option value="{{ $canal->nome }}">{{ $canal->nome }}</option>
             @endforeach
           </select>
         </div>
 
-        <div class="col-12 col-sm-6 col-md-3">
+        <div class="col-12 col-sm-6 col-md-2">
+          <label for="filter-status" class="f-size">Status da atividade:</label>
+          <select name="filter-status" id="filter-status" class="form-select input-enabled f-size border-grey">
+            <option selected disabled>Escolha uma opção</option>
+            <option value="">Todos</option>
+            @foreach ($statusAtividades as $status)
+              <option value="{{ $status->nome }}">{{ $status->nome }}</option>
+            @endforeach
+          </select>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-2">
           <label for="filter-evento" class="f-size">Tipo de evento:</label>
           <select name="filter-evento" id="filter-evento" class="form-select input-enabled f-size border-grey">
             <option selected disabled>Escolha uma opção</option>
+            <option value="">Todos</option>
             <option value="Presencial">Presencial</option>
             <option value="Online">Online</option>
             <option value="Presencial e Online">Presencial e Online</option>
           </select>
         </div>
 
-        <div class="col-12 col-sm-6 col-md-3">
+        <div class="col-12 col-sm-6 col-md-2">
           <label for="filter-data" class="f-size">Ordenar por data prevista:</label>
           <select name="filter-data" id="filter-data" class="form-select input-enabled f-size border-grey">
             <option selected disabled>Escolha uma opção</option>
+            <option value="">Todos</option>
             <option value="asc">Mais Antiga</option>
             <option value="desc">Mais Recente</option>
           </select>
         </div>
+
+
       </div>
       
       <div class="table-responsive pt-4">
@@ -98,6 +115,7 @@
               <th scope="col" class="text-center text-light">Canal de Divulgação</th>
               <th scope="col" class="text-center text-light">Datas</th>
               <th scope="col" class="text-center text-light">Meta</th>
+              <th scope="col" class="text-center text-light">Status</th>
               <th scope="col" class="text-center text-light">Ações</th>
             </tr>
           </thead>
@@ -164,6 +182,12 @@
                   <div class="">
                     <div class="">Realizado:</div>
                     <div>{{$atividade->realizado}} {{$atividade->medida->nome ?? 'N/A'}}</div>
+                  </div>
+                </td>
+
+                <td class="text-center">
+                  <div class="badge bg-primary">
+                    {{ $atividade->statusAtividade->nome ?? 'N/A' }}
                   </div>
                 </td>
 

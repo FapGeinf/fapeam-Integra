@@ -2,240 +2,246 @@
 @section('title') {{ 'Editar Atividade' }} @endsection
 @section('content')
 
-<link rel="stylesheet" href="{{ asset('css/edit.css') }}">
-<link rel="stylesheet" href="{{ asset('css/main.css') }}">
-<link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
-<link href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
-<script src="{{ asset('js/choices/canais.js') }}"></script>
-<script src="{{ asset('js/choices/eixos.js') }}"></script>
+  <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
+  <link href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
+  <script src="{{ asset('js/choices/canais.js') }}"></script>
+  <script src="{{ asset('js/choices/eixos.js') }}"></script>
 
-<div class="container pt-5" style="max-width: 800px;">
-  <div class="col-12 border box-shadow">
-    <h5 class="text-center">Editar Atividade</h5>
+  <div class="container pt-5" style="max-width: 800px;">
+    <div class="col-12 border box-shadow">
+      <h5 class="text-center">Editar Atividade</h5>
 
-    <div class="text-muted text-center mt-2 mb-4">
-      <span class="text-danger">*</span>
-      <span class="text-secondary text13">Campos obrigatórios</span>
-    </div>
-
-    <form action="{{ route('atividades.update', $atividade->id) }}" method="POST" id="formEditAtividade">
-      @csrf
-      @method('PUT')
-
-      <div class="row g-3">
-        <div class="col-12">
-          <label for="eixo_ids" class="">
-            <span class="text-danger">*</span>
-            Eixos:
-          </label>
-
-          <select name="eixo_ids[]" id="eixo_ids" class="form-select" required multiple>
-            <option value="">Selecione os Eixos</option>
-            @foreach ($eixos as $eixo)
-              <option value="{{ $eixo->id }}"
-                {{ in_array($eixo->id, old('eixo_ids', $atividade->eixos->pluck('id')->toArray())) ? 'selected' : '' }}>
-                {{ 'Eixo ' . $loop->iteration . ' - ' . $eixo->nome }}
-              </option>
-            @endforeach
-          </select>
-        </div>
+      <div class="text-muted text-center mt-2 mb-4">
+        <span class="text-danger">*</span>
+        <span class="text-secondary text13">Campos obrigatórios</span>
       </div>
 
-      <div class="col-12 mt-2">
-        <label for="responsavel" class="">Responsável:</label>
-        <input name="responsavel" id="responsavel" class="form-control input-enabled" value="{{ old('responsavel', $atividade->responsavel) }}">
-      </div>
-
-      <div class="row g-3">
-        <div class="col-12 mt-4">
-          <label for="atividade_descricao" class="">
-            <span class="text-danger">*</span>
-            Atividade:
-          </label>
-
-          <textarea name="atividade_descricao" id="atividade_descricao" class="form-control" required>
-            {{ old('atividade_descricao', $atividade->atividade_descricao) }}
-          </textarea>
-        </div>
-
-        <div class="col-12">
-          <label for="objetivo" class=""> 
-            <span class="text-danger">*</span>
-            Objetivo:
-          </label>
-
-          <textarea name="objetivo" id="objetivo" class="form-control" required>
-            {{ old('objetivo', $atividade->objetivo) }}
-          </textarea>
-        </div>
-
-        <div class="col-12 d-none">
-          <label for="justificativa" class="">Justificativa (Opcional) :</label>
-          <textarea name="justificativa" id="justificativa" class="form-control">{{ old('justificativa', $atividade->justificativa) }}</textarea>
-        </div>
-
-        <div class="col-12 col-md-6">
-          <label for="publico_id" class="">Público Alvo:</label>
-          
-          <select name="publico_id" id="publico_id" class="form-select pointer">
-            <option value="">Selecione o Público Alvo</option>
-            @foreach ($publicos as $publico)
-              <option value="{{ $publico->id }}"
-                {{ old('publico_id', $atividade->publico_id) == $publico->id ? 'selected' : '' }}>
-                {{ $publico->nome }}
-              </option>
-            @endforeach
-            <option value="outros" {{ old('publico_id') == 'outros' ? 'selected' : '' }}>Outros</option>
-          </select>
-        </div>
-
-        <div class="col-12 col-md-6">
-          <label for="tipo_evento" class="">Tipo de Evento:</label>
-
-          <select name="tipo_evento" id="tipo_evento" class="form-select pointer">
-            <option value="0"
-              {{ old('tipo_evento', $atividade->tipo_evento) == '0' || old('tipo_evento') == null ? 'selected' : '' }}>
-              Sem evento
-            </option>
-
-            <option value="1"
-              {{ old('tipo_evento', $atividade->tipo_evento) == '1' ? 'selected' : '' }}>
-              Presencial
-            </option>
-
-            <option value="2"
-              {{ old('tipo_evento', $atividade->tipo_evento) == '2' ? 'selected' : '' }}>
-              Online
-            </option>
-
-            <option value="3"
-              {{ old('tipo_evento', $atividade->tipo_evento) == '3' ? 'selected' : '' }}>
-              Presencial e Online
-            </option>
-          </select>
-        </div>
-
-        <div class="col-12" id="outro-publico-container" style="display: none;">
-          <label for="novo_publico" class="">Especifique o Público:</label>
-          <input type="text" name="novo_publico" id="novo_publico" class="form-control" value="{{ old('novo_publico') }}">
-        </div>
-
-        <div class="col-12 mt-1">
-          <label for="canal_id" class="">Canal de Divulgação:</label>
-
-          <select name="canal_id[]" id="canal_id" class="form-select" multiple onchange="toggleOtherField()">
-            <option value="">Selecione o Canal de Divulgação</option>
-            @foreach ($canais as $canal)
-              <option value="{{ $canal->id }}"
-                {{ in_array($canal->id, old('canal_id', $atividade->canais->pluck('id')->toArray())) ? 'selected' : '' }}>
-                {{ $canal->nome }}
-              </option>
-            @endforeach
-          </select>
-        </div>
+      <form action="{{ route('atividades.update', $atividade->id) }}" method="POST" id="formEditAtividade">
+        @csrf
+        @method('PUT')
 
         <div class="row g-3">
-          <div class="col-12 mt-1">
-            <label for="indicador_ids">Indicadores:</label>
+          <div class="col-12">
+            <label for="eixo_ids" class="">
+              <span class="text-danger">*</span>
+              Eixos:
+            </label>
 
-            <select name="indicador_ids[]" id="indicador_ids" class="form-select" multiple>
-              <option value="">Selecione os Indicadores</optio>
-                @foreach ($indicadores as $indicador)
-              <option value="{{ $indicador->id }}"
-                {{ in_array($indicador->id, old('indicador_ids', $atividade->indicadores->pluck('id')->toArray())) ? 'selected' : '' }}>
-                {{ $indicador->nomeIndicador }}
-              </option>
-              @endforeach
-            </select>
-          </div>
-
-          <div class="col-12 col-md-6">
-            <label for="data_realizada" class="">Data Realizada:</label>
-            <input type="date" name="data_realizada" id="data_realizada"
-              class="form-control form-select input-enabled"
-              value="{{ old('data_realizada', $atividade->data_realizada) }}">
-          </div>
-
-          <div class="col-12 col-md-6">
-            <label for="data_prevista" class="">Data Prevista:</label>
-            <input type="date" name="data_prevista" id="data_prevista"
-              class="form-control form-select input-enabled"
-              value="{{ old('data_prevista', $atividade->data_prevista) }}">
-          </div>
-
-          <div class="col-12 col-md-6">
-            <label for="meta" class="">Previsto:</label>
-            <input type="number" name="meta" id="meta" class="form-control input-enabled"
-              min="0" value="{{ old('meta', $atividade->meta) }}" oninput="mostrarUnidade()">
-          </div>
-
-          <div class="col-12 col-md-6">
-            <label for="realizado" class="">Realizado:</label>
-            <input type="number" name="realizado" id="realizado" class="form-control input-enabled"
-              min="0" value="{{ old('realizado', $atividade->realizado) }}"
-              oninput="mostrarUnidade()">
-          </div>
-
-          <div class="col-12 col-md-6" id="unidade-container" style="display: none;">
-            <label for="medida_id" class=""> <span class="asteriscoTop">*</span>Tipo de Unidade:</label>
-            <select name="medida_id" id="medida_id" class="form-control">
-              <option value="">Selecione o Tipo de Unidade</option>
-              @foreach ($medidas as $medida)
-                <option value="{{ $medida->id }}"
-                  {{ old('medida_id', $atividade->medida_id) == $medida->id ? 'selected' : '' }}>
-                  {{ $medida->nome }}
+            <select name="eixo_ids[]" id="eixo_ids" class="form-select" required multiple>
+              <option value="">Selecione os Eixos</option>
+              @foreach ($eixos as $eixo)
+                <option value="{{ $eixo->id }}" {{ in_array($eixo->id, old('eixo_ids', $atividade->eixos->pluck('id')->toArray())) ? 'selected' : '' }}>
+                  {{ 'Eixo ' . $loop->iteration . ' - ' . $eixo->nome }}
                 </option>
               @endforeach
             </select>
           </div>
         </div>
 
-        <div class="d-flex justify-content-end pt-4">
-          <button type="button" onclick="showConfirmationModal()" class="highlighted-btn-sm highlight-success">
+        <div class="col-12 mt-2">
+          <label for="responsavel" class="">Responsável:</label>
+          <input name="responsavel" id="responsavel" class="form-control input-enabled"
+            value="{{ old('responsavel', $atividade->responsavel) }}">
+        </div>
+
+        <div class="row g-3">
+          <div class="col-12 mt-4">
+            <label for="atividade_descricao" class="">
+              <span class="text-danger">*</span>
+              Atividade:
+            </label>
+
+            <textarea name="atividade_descricao" id="atividade_descricao" class="form-control" required>
+              {{ old('atividade_descricao', $atividade->atividade_descricao) }}
+            </textarea>
+          </div>
+
+          <div class="col-12">
+            <label for="objetivo" class="">
+              <span class="text-danger">*</span>
+              Objetivo:
+            </label>
+
+            <textarea name="objetivo" id="objetivo" class="form-control" required>
+              {{ old('objetivo', $atividade->objetivo) }}
+            </textarea>
+          </div>
+
+          <div class="col-12 d-none">
+            <label for="justificativa" class="">Justificativa (Opcional) :</label>
+            <textarea name="justificativa" id="justificativa"
+              class="form-control">{{ old('justificativa', $atividade->justificativa) }}</textarea>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <label for="publico_id" class="">Público Alvo:</label>
+
+            <select name="publico_id" id="publico_id" class="form-select pointer">
+              <option value="">Selecione o Público Alvo</option>
+              @foreach ($publicos as $publico)
+                <option value="{{ $publico->id }}" {{ old('publico_id', $atividade->publico_id) == $publico->id ? 'selected' : '' }}>
+                  {{ $publico->nome }}
+                </option>
+              @endforeach
+              <option value="outros" {{ old('publico_id') == 'outros' ? 'selected' : '' }}>Outros</option>
+            </select>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <label for="tipo_evento" class="">Tipo de Evento:</label>
+
+            <select name="tipo_evento" id="tipo_evento" class="form-select pointer">
+              <option value="0" {{ old('tipo_evento', $atividade->tipo_evento) == '0' || old('tipo_evento') == null ? 'selected' : '' }}>
+                Sem evento
+              </option>
+
+              <option value="1" {{ old('tipo_evento', $atividade->tipo_evento) == '1' ? 'selected' : '' }}>
+                Presencial
+              </option>
+
+              <option value="2" {{ old('tipo_evento', $atividade->tipo_evento) == '2' ? 'selected' : '' }}>
+                Online
+              </option>
+
+              <option value="3" {{ old('tipo_evento', $atividade->tipo_evento) == '3' ? 'selected' : '' }}>
+                Presencial e Online
+              </option>
+            </select>
+          </div>
+
+          <div class="col-12" id="outro-publico-container" style="display: none;">
+            <label for="novo_publico" class="">Especifique o Público:</label>
+            <input type="text" name="novo_publico" id="novo_publico" class="form-control"
+              value="{{ old('novo_publico') }}">
+          </div>
+
+          <div class="col-12 mt-1">
+            <label for="canal_id" class="">Canal de Divulgação:</label>
+
+            <select name="canal_id[]" id="canal_id" class="form-select" multiple onchange="toggleOtherField()">
+              <option value="">Selecione o Canal de Divulgação</option>
+              @foreach ($canais as $canal)
+                <option value="{{ $canal->id }}" {{ in_array($canal->id, old('canal_id', $atividade->canais->pluck('id')->toArray())) ? 'selected' : '' }}>
+                  {{ $canal->nome }}
+                </option>
+              @endforeach
+            </select>
+          </div>
+
+          <div class="row g-3">
+            <div class="col-12 mt-1">
+              <label for="indicador_ids">Indicadores:</label>
+
+              <select name="indicador_ids[]" id="indicador_ids" class="form-select" multiple>
+                <option value="">Selecione os Indicadores</optio>
+                  @foreach ($indicadores as $indicador)
+                    <option value="{{ $indicador->id }}" {{ in_array($indicador->id, old('indicador_ids', $atividade->indicadores->pluck('id')->toArray())) ? 'selected' : '' }}>
+                      {{ $indicador->nomeIndicador }}
+                    </option>
+                  @endforeach
+              </select>
+            </div>
+
+            <div class="col-12">
+              <label for="status_atividade_id" class="">Status da Atividade:</label>
+
+              <select name="status_atividade_id" id="status_atividade_id" class="form-select">
+                <option value="">Selecione o Status da Atividade</option>
+                @foreach ($statusAtividades as $statusAtividade)
+                  <option value="{{ $statusAtividade->id }}" {{ old('status_atividade_id', $atividade->status_atividade_id) == $statusAtividade->id ? 'selected' : '' }}>
+                    {{ $statusAtividade->nome }}
+                  </option>
+                @endforeach
+              </select>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <label for="data_realizada" class="">Data Realizada:</label>
+              <input type="date" name="data_realizada" id="data_realizada" class="form-control form-select input-enabled"
+                value="{{ old('data_realizada', $atividade->data_realizada) }}">
+            </div>
+
+            <div class="col-12 col-md-6">
+              <label for="data_prevista" class="">Data Prevista:</label>
+              <input type="date" name="data_prevista" id="data_prevista" class="form-control form-select input-enabled"
+                value="{{ old('data_prevista', $atividade->data_prevista) }}">
+            </div>
+
+            <div class="col-12 col-md-6">
+              <label for="meta" class="">Previsto:</label>
+              <input type="number" name="meta" id="meta" class="form-control input-enabled" min="0"
+                value="{{ old('meta', $atividade->meta) }}" oninput="mostrarUnidade()">
+            </div>
+
+            <div class="col-12 col-md-6">
+              <label for="realizado" class="">Realizado:</label>
+              <input type="number" name="realizado" id="realizado" class="form-control input-enabled" min="0"
+                value="{{ old('realizado', $atividade->realizado) }}" oninput="mostrarUnidade()">
+            </div>
+
+            <div class="col-12 col-md-6" id="unidade-container" style="display: none;">
+              <label for="medida_id" class=""> <span class="asteriscoTop">*</span>Tipo de Unidade:</label>
+              <select name="medida_id" id="medida_id" class="form-control">
+                <option value="">Selecione o Tipo de Unidade</option>
+                @foreach ($medidas as $medida)
+                  <option value="{{ $medida->id }}" {{ old('medida_id', $atividade->medida_id) == $medida->id ? 'selected' : '' }}>
+                    {{ $medida->nome }}
+                  </option>
+                @endforeach
+              </select>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end pt-4">
+            <button type="button" onclick="showConfirmationModal()" class="highlighted-btn-sm highlight-success">
+              <i class="bi bi-save2 me-1"></i>
+              Salvar Edição
+            </button>
+          </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmationModalLabel">Confirmação de Inserção</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+
+        <div class="modal-body">
+          <div id="modalContent" class="container-fluid"></div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="highlighted-btn-sm highlight-grey" data-bs-dismiss="modal">
+            <i class="bi bi-x-lg"></i>
+            Voltar
+          </button>
+
+          <button type="button" onclick="formSubmit()" class="highlighted-btn-sm highlight-success"
+            id="submitConfirmationBtn">
             <i class="bi bi-save2 me-1"></i>
-            Salvar Edição
+            Confirmar Inserção
           </button>
         </div>
-    </form>
-  </div>
-</div>
-  
-<div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="confirmationModalLabel">Confirmação de Inserção</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-      </div>
-        
-      <div class="modal-body">
-        <div id="modalContent" class="container-fluid"></div>
-      </div>
-        
-      <div class="modal-footer">
-        <button type="button" class="highlighted-btn-sm highlight-grey" data-bs-dismiss="modal">
-          <i class="bi bi-x-lg"></i>
-          Voltar
-        </button>
-
-        <button type="button" onclick="formSubmit()" class="highlighted-btn-sm highlight-success" id="submitConfirmationBtn">
-          <i class="bi bi-save2 me-1"></i>
-          Confirmar Inserção
-        </button>
       </div>
     </div>
   </div>
-</div>
 
-<x-back-button/>
+  <x-back-button />
 
-<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-<script src="{{ asset('js/atividades/createAtividade.js') }}"></script>
-<script src="{{ asset('js/choices/indicadores.js') }}"></script>
-<script src="{{ asset('js/modais/editAtividade.js') }}"></script>
-<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+  <script src="{{ asset('js/atividades/createAtividade.js') }}"></script>
+  <script src="{{ asset('js/choices/indicadores.js') }}"></script>
+  <script src="{{ asset('js/modais/editAtividade.js') }}"></script>
+  <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 @endsection

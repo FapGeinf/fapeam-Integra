@@ -84,6 +84,11 @@
                 </div>
             </div>
 
+            <div class="col-12">
+                <label class="fw-bold">Status da Atividade:</label>
+                <input class="form-control" value="{{ $atividade->statusAtividade->nome ?? 'Não informado' }}" disabled>
+            </div>
+
             <div class="col-12 col-md-6">
                 <label class="fw-bold">Data Realizada:</label>
                 <input class="form-control" value="{{ $atividade->data_realizada ? \Carbon\Carbon::parse($atividade->data_realizada)->format('d/m/Y') : 'N/A' }}" disabled>

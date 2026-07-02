@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Throwable;
-
+use App\Models\StatusAtividade;
 
 class AtividadeService
 {
@@ -35,13 +35,15 @@ class AtividadeService
 
         $publicos = Publico::all();
         $canais = Canal::all();
+        $statusAtividades = StatusAtividade::all();
 
         return [
             'atividades' => $atividades,
             'eixoNome' => $eixoNome,
             'eixo_id' => $eixo_id,
             'publicos' => $publicos,
-            'canais' => $canais
+            'canais' => $canais,
+            'statusAtividades' => $statusAtividades
         ];
     }
 
@@ -53,6 +55,7 @@ class AtividadeService
 
     public function createFormAtividade()
     {
+        $statusAtividades = StatusAtividade::all();
         $eixos = Eixo::all();
         $publicos = Publico::all();
         $canais = Canal::all();
@@ -64,7 +67,8 @@ class AtividadeService
             'publicos' => $publicos,
             "canais" => $canais,
             'medidas' => $medidas,
-            'indicadores' => $indicadores
+            'indicadores' => $indicadores,
+            'statusAtividades' => $statusAtividades
         ];
     }
 
@@ -93,6 +97,7 @@ class AtividadeService
             'realizado' => $data['realizado'] ?? null,
             'medida_id' => $data['medida_id'] ?? null,
             'justificativa' => $data['justificativa'] ?? null,
+            'status_atividade_id' => $data['status_atividade_id'] ?? null
         ]);
 
         if (!empty($data['eixo_ids'])) {
@@ -123,6 +128,7 @@ class AtividadeService
 
     public function editFormAtividade($id)
     {
+        $statusAtividades = StatusAtividade::all();
         $eixos = Eixo::all();
         $publicos = Publico::all();
         $canais = Canal::all();
@@ -140,7 +146,8 @@ class AtividadeService
             'publicos' => $publicos,
             'canais' => $canais,
             'medidas' => $medidas,
-            'indicadores' => $indicadores
+            'indicadores' => $indicadores,
+            'statusAtividades' => $statusAtividades
         ];
 
     }
@@ -172,6 +179,7 @@ class AtividadeService
             'realizado' => $data['realizado'] ?? null,
             'medida_id' => $data['medida_id'] ?? null,
             'justificativa' => $data['justificativa'] ?? null,
+            'status_atividade_id' => $data['status_atividade_id'] ?? null,
         ]);
 
         if (!empty($data['eixo_ids'])) {

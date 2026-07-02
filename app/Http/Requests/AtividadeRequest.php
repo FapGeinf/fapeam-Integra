@@ -62,6 +62,7 @@ class AtividadeRequest extends FormRequest
             'justificativa' => 'nullable|string',
             'indicador_ids' => 'nullable|array',
             'indicador_ids.*' => 'exists:indicadores,id',
+            'status_atividade_id' => 'nullable|exists:status_atividades,id',
         ];
     }
 
@@ -103,7 +104,8 @@ class AtividadeRequest extends FormRequest
             'medida_id.exists' => 'O tipo de medida selecionado não é válido. Por favor, revise.',
             'justificativa.string' => 'O campo justificativa deve ser um texto',
             'indicador_ids.array' => 'Os indicadores devem ser fornecidos como uma lista.',
-            'indicador_ids.*.exists' => 'Alguns dos indicadores selecionados não existem. Verifique sua seleção.'
+            'indicador_ids.*.exists' => 'Alguns dos indicadores selecionados não existem. Verifique sua seleção.',
+            'status_atividade_id.exists' => 'O status da atividade selecionado não é válido. Por favor, revise.',
         ];
     }
 }

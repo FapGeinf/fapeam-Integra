@@ -23,6 +23,9 @@ function showConfirmationModal() {
     let medidaSelect = document.querySelector('[name="medida_id"]');
     let medida = medidaSelect ? medidaSelect.options[medidaSelect.selectedIndex].text.trim() : "";
 
+    let statusAtividadeSelect = document.getElementById('status_atividade_id');
+    let statusAtividade = statusAtividadeSelect ? statusAtividadeSelect.options[statusAtividadeSelect.selectedIndex].text.trim() : "";
+
     function formatDateBR(dateStr) {
         if (!dateStr) return '';
         const parts = dateStr.split('-');
@@ -42,7 +45,8 @@ function showConfirmationModal() {
         indicador: "",
         meta: meta ? "" : "O campo 'Meta' é obrigatório.",
         realizado: realizado ? "" : "O campo 'Realizado' é obrigatório.",
-        medida: medida && medida.toLowerCase() !== "selecione o tipo de unidade" ? "" : "Selecione uma unidade de medida válida."
+        medida: medida && medida.toLowerCase() !== "selecione o tipo de unidade" ? "" : "Selecione uma unidade de medida válida.",
+        statusAtividade: ""
     };
 
     const hasErrors = Object.values(errors).some(e => e !== "");
@@ -89,6 +93,8 @@ function showConfirmationModal() {
                 ${createReadonlyField("Meta", meta, errors.meta)}
                 ${createReadonlyField("Realizado", realizado, errors.realizado)}
                 ${createReadonlyField("Unidade de Medida", medida, errors.medida)}
+                
+                ${createReadonlyField("Status da Atividade", statusAtividade, errors.statusAtividade)}
             </div>
         </form>
     `;

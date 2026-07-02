@@ -23,13 +23,16 @@ function showConfirmationModal() {
   let medidaSelect = document.querySelector('[name="medida_id"]');
   let medida = medidaSelect ? medidaSelect.options[medidaSelect.selectedIndex].text.trim() : "";
 
+  let statusAtividadeSelect = document.getElementById('status_atividade_id');
+  let statusAtividade = statusAtividadeSelect ? statusAtividadeSelect.options[statusAtividadeSelect.selectedIndex].text.trim() : "";
+
   function formatDateBR(dateStr) {
     if (!dateStr) return '';
     const parts = dateStr.split('-');
     return parts.length === 3 ? `${parts[2]}/${parts[1]}/${parts[0]}` : dateStr;
   }
 
-    let errors = {
+  let errors = {
     eixo: eixo ? "" : "Selecione ao menos um eixo.",
     responsavel: responsavel ? "" : "O campo 'responsável' é obrigatório.",
     atividadeDescricao: atividadeDescricao ? "" : "A 'descrição da atividade' não pode estar vazia.",
@@ -42,7 +45,8 @@ function showConfirmationModal() {
     indicador: "", // esse é o único opcional
     meta: meta ? "" : "O campo 'meta' é obrigatório.",
     realizado: realizado ? "" : "O campo 'realizado' é obrigatório.",
-    medida: medida && medida.toLowerCase() !== "selecione o tipo de unidade" ? "" : "Selecione uma unidade de medida válida."
+    medida: medida && medida.toLowerCase() !== "selecione o tipo de unidade" ? "" : "Selecione uma unidade de medida válida.",
+    statusAtividade: ""
   };
 
   const hasErrors = Object.values(errors).some(e => e !== "");
@@ -88,6 +92,8 @@ function showConfirmationModal() {
         ${createReadonlyField("Meta", meta, errors.meta)}
         ${createReadonlyField("Realizado", realizado, errors.realizado)}
         ${createReadonlyField("Unidade de Medida", medida, errors.medida)}
+        
+        ${createReadonlyField("Status da Atividade", statusAtividade, errors.statusAtividade)}
       </div>
 
       ${createReadonlyDiv("Descrição da Atividade", atividadeDescricao, errors.atividadeDescricao)}

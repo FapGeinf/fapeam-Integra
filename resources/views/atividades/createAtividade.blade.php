@@ -279,6 +279,19 @@
           </select>
         </div>
 
+        <div class="col-12">
+          <label for="status_atividade_id">Status da Atividade:</label>
+          <select name="status_atividade_id" id="status_atividade_id" class="form-control form-select">
+            <option value="">Selecione o status</option>
+            @foreach ($statusAtividades as $status)
+              <option value="{{ $status->id }}"
+                {{ old('status_atividade_id') == $status->id ? 'selected' : '' }}>
+                {{ $status->nome }}
+              </option>
+            @endforeach
+          </select>
+        </div>
+
         <div class="col-12 col-md-6">
           <label for="meta" class="">Previsto:</label>
 
