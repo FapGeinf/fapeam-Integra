@@ -114,6 +114,7 @@
               <th scope="col" class="text-center text-light">Tipo de Evento</th>
               <th scope="col" class="text-center text-light">Canal de Divulgação</th>
               <th scope="col" class="text-center text-light">Datas</th>
+              <th scope="col" class="text-center text-light">Ano</th>
               <th scope="col" class="text-center text-light">Meta</th>
               <th scope="col" class="text-center text-light">Status</th>
               <th scope="col" class="text-center text-light">Ações</th>
@@ -158,7 +159,7 @@
                   data-order="{{ \Carbon\Carbon::parse($atividade->data_realizada ?? $atividade->data_prevista)->format('Y-m-d') }}">
                   <div class="">
                     <div class="">Data Prevista:</div>
-                    <div>{{ \Carbon\Carbon::parse($atividade->data_prevista)->format('d/m/Y') }}</div>
+                    <div>{{ \Carbon\Carbon::parse($atividade->data_prevista)->format('d/m') }}</div>
                   </div>
 
                   <hr>
@@ -166,10 +167,12 @@
                   <div class="">
                     <div class="">Data Realizada:</div>
                     <div>
-                      {{ $atividade->data_realizada ? \Carbon\Carbon::parse($atividade->data_realizada)->format('d/m/Y') : 'Não realizada' }}
+                      {{ $atividade->data_realizada ? \Carbon\Carbon::parse($atividade->data_realizada)->format('d/m') : 'Não realizada' }}
                     </div>
                   </div>
                 </td>
+
+                <td class="text-center">{{ \Carbon\Carbon::parse($atividade->data_prevista)->format('Y') }}</td>
 
                 <td class="text-center">
                   <div class="">

@@ -54,6 +54,6 @@ $(document).ready(function () {
 
     $('#filter-status').on('change', function () {
         let status = $(this).val();
-        tabela.column(9).search(status).draw();
+        tabela.column(10).search(status).draw();
     });
 });
