@@ -9,7 +9,7 @@
 <div class="container d-flex flex-column justify-content-center align-items-center"
   style="min-height: 75vh;">
 
-  <img src="{{ asset('img/login/ass-top.png') }}" alt="Logo Integra" class="img-top mt-5">
+  {{-- <img src="{{ asset('img/login/ass-top.png') }}" alt="Logo Integra" class="img-top mt-5"> --}}
 
   <img src="{{ asset('img/login/logo_ajuste1.png') }}" alt="Logo Integra" class="logo-hero mt-5 mb-5">
 
@@ -30,6 +30,6 @@
     </a>
   </div>
 
-  <img src="{{ asset('img/login/ass-footer.png') }}" class="img-bottom mt-5">
+  <img src="{{ asset('img/ass-footer-3.png') }}" class="img-bottom mt-5">
 </div>
 @endsection
