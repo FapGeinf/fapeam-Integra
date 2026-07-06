@@ -4,26 +4,47 @@ namespace App\Services;
 
 use App\Models\Atividade;
 use Exception;
-use App\Models\Eixo;
-use App\Models\Publico;
-use App\Models\Canal;
-use App\Models\MedidaTipo;
-use App\Models\Indicador;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Database\QueryException;
-use Throwable;
-use App\Models\StatusAtividade;
+use App\Services\PublicoService;
+use App\Services\CanalService;
+use App\Services\EixoService;
+use App\Services\StatusAtividadeService;
+use App\Services\IndicadorService;
+use App\Services\MedidaTipoService; 
 
 class AtividadeService
 {
+    protected $canalService;
+    protected $eixoService;
+    protected $statusAtividadeService;
+    protected $indicadorService;
+    protected $medidaTipoService;
+    protected $publicoService;
+
+    public function __construct(
+        PublicoService $publicoService, 
+        CanalService $canalService, 
+        EixoService $eixoService, 
+        StatusAtividadeService $statusAtividadeService, 
+        IndicadorService $indicadorService, 
+        MedidaTipoService $medidaTipoService
+    ) {
+        $this->publicoService = $publicoService;
+        $this->canalService = $canalService;
+        $this->eixoService = $eixoService;
+        $this->statusAtividadeService = $statusAtividadeService;
+        $this->indicadorService = $indicadorService;
+        $this->medidaTipoService = $medidaTipoService;
+    }
+
     public function indexAtividades($eixo_id)
     {
         $eixoNome = null;
         $atividades = collect();
 
         if ($eixo_id && in_array($eixo_id, [1, 2, 3, 4, 5, 6, 7])) {
-            $eixo = Eixo::find($eixo_id);
+            $eixo = $this->eixoService->findEixoById($eixo_id);
             $eixoNome = $eixo ? $eixo->nome : null;
 
             $atividades = Atividade::whereHas('eixos', function ($query) use ($eixo_id) {
@@ -33,9 +54,9 @@ class AtividadeService
             $atividades = Atividade::with(['publico', 'canais', 'medida'])->orderBy('data_prevista', 'asc')->get();
         }
 
-        $publicos = Publico::all();
-        $canais = Canal::all();
-        $statusAtividades = StatusAtividade::all();
+        $publicos = $this->publicoService->indexPublicos();
+        $canais = $this->canalService->getAllCanais();
+        $statusAtividades = $this->statusAtividadeService->getAllStatusAtividades();
 
         return [
             'atividades' => $atividades,
@@ -47,7 +68,6 @@ class AtividadeService
         ];
     }
 
-
     public function show($id)
     {
         return Atividade::findOrFail($id);
@@ -55,12 +75,12 @@ class AtividadeService
 
     public function createFormAtividade()
     {
-        $statusAtividades = StatusAtividade::all();
-        $eixos = Eixo::all();
-        $publicos = Publico::all();
-        $canais = Canal::all();
-        $medidas = MedidaTipo::all();
-        $indicadores = Indicador::all();
+        $statusAtividades = $this->statusAtividadeService->getAllStatusAtividades();
+        $eixos = $this->eixoService->getAllEixos();
+        $publicos = $this->publicoService->indexPublicos();
+        $canais = $this->canalService->getAllCanais();
+        $medidas = $this->medidaTipoService->getAllMedidas();
+        $indicadores = $this->indicadorService->getAllIndicadores();
 
         return [
             'eixos' => $eixos,
@@ -74,14 +94,7 @@ class AtividadeService
 
     public function store(array $data)
     {
-        if (isset($data['publico_id']) && $data['publico_id'] === 'outros' && !empty($data['novo_publico'])) {
-            Log::info('Criando novo público', ['nome' => $data['novo_publico']]);
-
-            $novoPublico = Publico::create(['nome' => $data['novo_publico']]);
-            $data['publico_id'] = $novoPublico->id;
-
-            Log::info('Novo público criado com sucesso', ['id' => $novoPublico->id]);
-        }
+        $data = $this->publicoService->handlePublicoId($data);
 
         Log::info('Criando nova atividade', ['dados' => $data]);
 
@@ -125,15 +138,14 @@ class AtividadeService
         ];
     }
 
-
     public function editFormAtividade($id)
     {
-        $statusAtividades = StatusAtividade::all();
-        $eixos = Eixo::all();
-        $publicos = Publico::all();
-        $canais = Canal::all();
-        $medidas = MedidaTipo::all();
-        $indicadores = Indicador::all();
+        $statusAtividades = $this->statusAtividadeService->getAllStatusAtividades();
+        $eixos = $this->eixoService->getAllEixos();
+        $publicos = $this->publicoService->indexPublicos();
+        $canais = $this->canalService->getAllCanais();
+        $medidas = $this->medidaTipoService->getAllMedidas();
+        $indicadores = $this->indicadorService->getAllIndicadores();
         $atividade = $this->show($id);
 
         if (!$atividade) {
@@ -149,19 +161,12 @@ class AtividadeService
             'indicadores' => $indicadores,
             'statusAtividades' => $statusAtividades
         ];
-
     }
 
     public function updateAtividade(int $id, array $data)
     {
-        if (isset($data['publico_id']) && $data['publico_id'] === 'outros' && !empty($data['novo_publico'])) {
-            Log::info('Criando novo público', ['nome' => $data['novo_publico']]);
-
-            $novoPublico = Publico::create(['nome' => $data['novo_publico']]);
-            $data['publico_id'] = $novoPublico->id;
-
-            Log::info('Novo público criado com sucesso', ['id' => $novoPublico->id]);
-        }
+        // Utilizando o método criado no PublicoService
+        $data = $this->publicoService->handlePublicoId($data);
 
         $atividade = $this->show($id);
 
@@ -207,7 +212,6 @@ class AtividadeService
         ];
     }
 
-
     public function delete($id)
     {
         $atividade = $this->show($id);
@@ -224,5 +228,4 @@ class AtividadeService
 
         return true;
     }
-
 }

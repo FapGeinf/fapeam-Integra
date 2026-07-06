@@ -19,4 +19,9 @@ class CanalService
             ]);
         });
     }
+
+    public function getAllCanais()
+    {
+        return Canal::all();
+    }
 }
