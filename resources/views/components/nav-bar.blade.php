@@ -38,21 +38,21 @@
               <i class="bi bi-house i-navbar"></i>
               <span class="a-span">Home</span>
             </a>
-          </li>
+          </</li>
 
           <li class="li-navbar2">
             <a href="{{ route('documentos.eixos') }}" class="d-flex li-a a-navbar">
               <i class="bi bi-arrow-left-right i-navbar"></i>
               <span class="a-span">Eixos da Integridade</span>
             </a>
-          </li>
+          </</li>
 
           <li class="li-navbar2">
             <a href="{{ route('documentos.historico') }}" class="d-flex li-a a-navbar">
               <i class="bi bi-card-text i-navbar"></i>
               <span class="a-span">Documentos</span>
             </a>
-          </li>
+          </</li>
 
           @if(in_array(Auth::user()->usuario_tipo_fk, [1, 4]))
             <li class="li-navbar2">
@@ -68,6 +68,20 @@
               <a href="{{ route('usuarios.index') }}" class="d-flex li-a a-navbar">
                 <i class="bi bi-people i-navbar"></i>
                 <span class="a-span">Usuários</span>
+              </a>
+            </li>
+
+            <li class="li-navbar2">
+              <a href="{{ route('unidades.index') }}" class="d-flex li-a a-navbar">
+                <i class="bi bi-building i-navbar"></i>
+                <span class="a-span">Unidades</span>
+              </a>
+            </li>
+
+            <li class="li-navbar2">
+              <a href="{{ route('diretorias.index') }}" class="d-flex li-a a-navbar">
+                <i class="bi bi-diagram-3 i-navbar"></i>
+                <span class="a-span">Diretorias</span>
               </a>
             </li>
           @endif

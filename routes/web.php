@@ -16,6 +16,7 @@ use App\Http\Controllers\RelatorioController;
 use App\Http\Controllers\IndicadorController;
 use App\Http\Controllers\VersionamentoController;
 use App\Http\Controllers\UnidadeController;
+use App\Http\Controllers\DiretoriaController;
 
 
 /*
@@ -171,3 +172,4 @@ Route::post('/respostas/homologar-multipla', [RiscoController::class, 'homologac
     ->middleware('auth'); 
 
 Route::resource('unidades', UnidadeController::class)->middleware(['auth', isAdmin::class]);
+Route::resource('diretorias', DiretoriaController::class)->middleware(['auth', isAdmin::class]);

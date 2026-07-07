@@ -10,6 +10,11 @@ class DiretoriaService
         return Diretoria::all();
     }
 
+    public function returnDiretoriaOrderedByName()
+    {
+        return Diretoria::orderBy('diretoriaNome', 'asc')->get();
+    }
+
     public function findDiretoriaById($id)
     {
         return Diretoria::find($id);
