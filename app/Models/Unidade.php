@@ -8,28 +8,31 @@ use Illuminate\Database\Eloquent\Model;
 
 class Unidade extends Model
 {
-    use HasFactory;
+	use HasFactory;
 
-		protected $fillable = [
-			'unidadeNome','unidadeSigla','unidadeEmail','unidadeTipoFK'
-		];
+	protected $fillable = [
+		'unidadeNome',
+		'unidadeSigla',
+		'unidadeEmail',
+		'unidadeTipoFK'
+	];
 
-	 public function unidadeTipo()
-	 {
-		    return $this->belongsTo(UnidadeTipo::class,'unidadeTipoFK');
-	 }
+	public function unidadeTipo()
+	{
+		return $this->belongsTo(UnidadeTipo::class, 'unidadeTipoFK');
+	}
 	//  public function risco(){
 	// 		return $this->belongsToMany(Risco::class);
 	//  }
 
-    public function users()
-    {
-        return $this->hasMany(User::class, 'unidadeIdFK');
+	public function users()
+	{
+		return $this->hasMany(User::class, 'unidadeIdFK');
 
-    }
+	}
 
 	public function diretoria()
 	{
-		   return $this->belongsTo(Diretoria::class, 'unidadeDiretoria');
+		return $this->belongsTo(Diretoria::class, 'unidadeDiretoria');
 	}
 }
