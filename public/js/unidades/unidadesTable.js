@@ -38,4 +38,9 @@ $(document).ready(function () {
             }
         }
     });
+
+    $('#filter-tipo').on('change', function () {
+        let tipo = $(this).val();
+        tabelaUnidades.column(3).search(tipo).draw();
+    });
 });

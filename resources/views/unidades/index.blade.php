@@ -25,12 +25,24 @@
     <div class="justify-content-center">
       <h5 class="text-center mb-1">Unidades</h5>
       
-      <div class="d-flex justify-content-center mb-5">
+      <div class="d-flex justify-content-center mb-4">
         <a class="text-decoration-none highlighted-btn-sm highlight-blue"
           href="{{ route('unidades.create') }}">
           <i class="bi bi-plus-circle me-1"></i>
           Adicionar Unidade
         </a>
+      </div>
+
+      <div class="row justify-content-center mb-4">
+        <div class="col-md-4">
+          <label for="filter-tipo" class="form-label small fw-semibold text-secondary">Filtrar por Tipo de Unidade:</label>
+          <select id="filter-tipo" class="form-select input-enabled border-grey pointer form-select-sm">
+            <option value="">Todos os Tipos</option>
+            @foreach($unidadesTipos as $tipo)
+              <option value="{{ $tipo->unidadeTipoNome }}">{{ $tipo->unidadeTipoNome }}</option>
+            @endforeach
+          </select>
+        </div>
       </div>
 
     </div>

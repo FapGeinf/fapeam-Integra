@@ -21,7 +21,8 @@ class UnidadeController extends Controller
       public function index()
       {
              $unidades = $this->unidadeService->getAllUnidades();
-             return view('unidades.index', compact('unidades'));
+             $unidadesTipos = $this->unidadeTipoService->getAllUnidadeTipos();
+             return view('unidades.index', compact('unidades','unidadesTipos'));
       }
 
       public function show($id)
