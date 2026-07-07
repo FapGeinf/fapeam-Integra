@@ -24,4 +24,9 @@ class CanalService
     {
         return Canal::all();
     }
+
+    public function findCanalById($id)
+    {
+        return Canal::find($id);
+    }
 }

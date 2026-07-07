@@ -2,21 +2,39 @@
 
 namespace App\Services;
 
-use App\Models\Risco;
-use App\Models\Atividade;
-use App\Models\Eixo;
-use App\Models\Canal;
-use App\Models\Publico;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Exception;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\View;
+use App\Services\RiscoService;
+use App\Services\AtividadeService;
+use App\Services\EixoService;
+use App\Services\CanalService;
+use App\Services\PublicoService;
 
 class RelatorioService
 {
+    protected $riscoService,
+              $atividadeService,
+              $eixoService,
+              $canalService,
+              $publicoService;
+
+    public function __construct(
+        RiscoService $riscoService,
+        AtividadeService $atividadeService,
+        EixoService $eixoService,
+        CanalService $canalService,
+        PublicoService $publicoService
+    ) {
+        $this->riscoService = $riscoService;
+        $this->atividadeService = $atividadeService;
+        $this->eixoService = $eixoService;
+        $this->canalService = $canalService;
+        $this->publicoService = $publicoService;
+    }
+
     public function gerarRelatorioGeral()
     {
-        $riscos = Risco::with(['unidade', 'monitoramentos.respostas.user'])->get();
+        $riscos = $this->riscoService->listarRiscosComDetalhes();
         $riscosAgrupados = $riscos->groupBy(fn($risco) => $risco->unidade->id);
 
         $html = View::make('relatorios.relatorioTemplate', compact('riscosAgrupados'))->render();
@@ -26,11 +44,9 @@ class RelatorioService
 
     public function gerarRelatorioPorEixo(int $eixoId)
     {
-        $atividades = Atividade::whereHas('eixos', function ($query) use ($eixoId) {
-            $query->where('eixos.id', $eixoId);
-        })->orderBy('data_prevista')->get();
+        $atividades = $this->atividadeService->listarAtividadesPorEixo($eixoId);
 
-        $eixo = Eixo::findOrFail($eixoId);
+        $eixo = $this->eixoService->findEixoById($eixoId);
         $eixoNome = $eixo->nome;
 
         $html = View::make('relatorios.relatoriosEixos', compact('atividades', 'eixoNome'))->render();
@@ -40,7 +56,7 @@ class RelatorioService
 
     public function gerarDadosGraficos()
     {
-        $atividades = Atividade::with('eixos', 'publico', 'canais')->get();
+        $atividades = $this->atividadeService->listarAtividades();
 
         $eixosCount = [];
         $publicoCount = [];
@@ -64,12 +80,12 @@ class RelatorioService
         }
 
         $graficoEixos = collect($eixosCount)->map(function ($count, $id) {
-            $eixo = Eixo::find($id);
+            $eixo = $this->eixoService->findEixoById($id);
             return ['name' => $eixo?->nome ?? 'Desconhecido', 'y' => $count];
         })->values();
 
         $graficoPublico = collect($publicoCount)->map(function ($count, $id) {
-            $publico = Publico::find($id);
+            $publico = $this->publicoService->findPublicoById($id);
             return ['name' => $publico?->nome ?? 'Desconhecido', 'y' => $count];
         })->values();
 
@@ -78,7 +94,7 @@ class RelatorioService
         })->values();
 
         $graficoCanais = collect($canaisCount)->map(function ($count, $id) {
-            $canal = Canal::find($id);
+            $canal = $this->canalService->findCanalById($id);
             return ['name' => $canal?->nome ?? 'Desconhecido', 'y' => $count];
         })->values();
 
@@ -88,9 +104,9 @@ class RelatorioService
             'graficoEventos' => $graficoEventos,
             'graficoCanais' => $graficoCanais,
             'atividades' => $atividades,
-            'eixos' => Eixo::all(),
-            'canais' => Canal::all(),
-            'publicos' => Publico::all(),
+            'eixos' => $this->eixoService->getAllEixos(),
+            'canais' => $this->canalService->getAllCanais(),
+            'publicos' => $this->publicoService->indexPublicos(),
         ];
     }
 }

@@ -11,7 +11,7 @@ use App\Services\CanalService;
 use App\Services\EixoService;
 use App\Services\StatusAtividadeService;
 use App\Services\IndicadorService;
-use App\Services\MedidaTipoService; 
+use App\Services\MedidaTipoService;
 
 class AtividadeService
 {
@@ -23,11 +23,11 @@ class AtividadeService
     protected $publicoService;
 
     public function __construct(
-        PublicoService $publicoService, 
-        CanalService $canalService, 
-        EixoService $eixoService, 
-        StatusAtividadeService $statusAtividadeService, 
-        IndicadorService $indicadorService, 
+        PublicoService $publicoService,
+        CanalService $canalService,
+        EixoService $eixoService,
+        StatusAtividadeService $statusAtividadeService,
+        IndicadorService $indicadorService,
         MedidaTipoService $medidaTipoService
     ) {
         $this->publicoService = $publicoService;
@@ -227,5 +227,19 @@ class AtividadeService
         Log::info("Atividade excluída com sucesso", ['atividade_id' => $id]);
 
         return true;
+    }
+
+    public function listarAtividadesPorEixo($eixoId)
+    {
+        $atividades = Atividade::whereHas('eixos', function ($query) use ($eixoId) {
+            $query->where('eixos.id', $eixoId);
+        })->with(['publico', 'canais', 'medida'])->orderBy('data_prevista')->get();
+
+        return $atividades;
+    }
+
+    public function listarAtividades()
+    {
+        return Atividade::with('eixos', 'publico', 'canais')->get();
     }
 }

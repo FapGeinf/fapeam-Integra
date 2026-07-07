@@ -24,8 +24,8 @@ class PublicoService
     public function handlePublicoId(array $data): array
     {
         if (
-            isset($data['publico_id']) && 
-            $data['publico_id'] === 'outros' && 
+            isset($data['publico_id']) &&
+            $data['publico_id'] === 'outros' &&
             !empty($data['novo_publico'])
         ) {
             Log::info('Criando novo público via Service', ['nome' => $data['novo_publico']]);
@@ -42,5 +42,10 @@ class PublicoService
     public function createPublico($data)
     {
         return Publico::create($data);
+    }
+
+    public function findPublicoById($id)
+    {
+        return Publico::find($id);
     }
 }

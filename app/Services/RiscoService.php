@@ -18,8 +18,8 @@ class RiscoService
         return Risco::findOrFail($id);
     }
 
-public function indexRiscos()
-{
+    public function indexRiscos()
+    {
         $user = auth()->user();
         $prazo = Prazo::latest()->first();
         $tipoAcesso = $user->tipo?->id;
@@ -268,6 +268,12 @@ public function indexRiscos()
         }
 
         return true;
+    }
+
+    public function listarRiscosComDetalhes()
+    {
+        $riscos = Risco::with(['unidade', 'monitoramentos.respostas.user'])->get();
+        return $riscos;
     }
 
 }
