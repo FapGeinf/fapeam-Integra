@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\RelatorioController;
 use App\Http\Controllers\IndicadorController;
 use App\Http\Controllers\VersionamentoController;
+use App\Http\Controllers\UnidadeController;
 
 
 /*
@@ -168,3 +169,5 @@ Route::prefix('documentos')->middleware('auth')->group(function () {
 Route::post('/respostas/homologar-multipla', [RiscoController::class, 'homologacaoMultipla'])
     ->name('riscos.homologar.multipla')
     ->middleware('auth'); 
+
+Route::resource('unidades', UnidadeController::class)->middleware(['auth', isAdmin::class]);
