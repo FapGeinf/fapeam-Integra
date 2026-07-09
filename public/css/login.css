@@ -10,7 +10,7 @@ body {
 }
 
 .borderRadius {
-  background-image: url('/img/login/tela_inicial07.png');
+  background-image: url('/img/login/login-no-logo.png');
   background-size: cover;
   /* background-position: center; */
 }
