@@ -242,4 +242,19 @@ class AtividadeService
     {
         return Atividade::with('eixos', 'publico', 'canais')->get();
     }
+
+
+    public function getAtividadesExecutadas()
+    {
+        return Atividade::whereHas('statusAtividade', function ($query) {
+            $query->where('nome', 'Executado'); 
+        })->get();
+    }
+
+    public function getAtividadesAcompanhamento()
+    {
+           return Atividade::whereHas('statusAtividade',function($query){
+                  $query->where('nome','Acompanhamento');
+           })->get();
+    }
 }
