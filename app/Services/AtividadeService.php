@@ -68,6 +68,17 @@ class AtividadeService
         ];
     }
 
+    public function indexAtividadesExecutadasByEixo($eixo_id)
+    {
+        $dados = $this->indexAtividades($eixo_id);
+
+        $dados['atividades'] = $dados['atividades']->filter(function ($atividade) {
+            return $atividade->statusAtividade && $atividade->statusAtividade->nome === 'Executado';
+        })->values();
+
+        return $dados;
+    }
+
     public function show($id)
     {
         return Atividade::findOrFail($id);
@@ -247,14 +258,14 @@ class AtividadeService
     public function getAtividadesExecutadas()
     {
         return Atividade::whereHas('statusAtividade', function ($query) {
-            $query->where('nome', 'Executado'); 
+            $query->where('nome', 'Executado');
         })->get();
     }
 
     public function getAtividadesAcompanhamento()
     {
-           return Atividade::whereHas('statusAtividade',function($query){
-                  $query->where('nome','Acompanhamento');
-           })->get();
+        return Atividade::whereHas('statusAtividade', function ($query) {
+            $query->where('nome', 'Acompanhamento');
+        })->get();
     }
 }

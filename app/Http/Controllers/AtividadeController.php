@@ -37,6 +37,21 @@ class AtividadeController extends Controller
         }
     }
 
+    public function painelAtividadesExecutadas(Request $request)
+    {
+        try {
+            $eixo_id = $request->get('eixo_id');
+            $dados = $this->atividade->indexAtividadesExecutadasByEixo($eixo_id);
+            return view('atividades.atividadesExecutadas', $dados);
+        } catch (Exception $e) {
+            Log::error('Erro ao listar atividades: ' . $e->getMessage(), [
+                'user_id' => Auth::id(),
+                'eixo_id' => $request->get('eixo_id'),
+            ]);
+            return redirect()->back()->with('error', 'Erro ao carregar a lista de atividades.');
+        }
+    }
+
     public function createCanal(InsertCanalRequest $request)
     {
         try {
@@ -98,7 +113,7 @@ class AtividadeController extends Controller
 
     public function storeAtividade(AtividadeRequest $request)
     {
-        Log::channel('action')->info('Dados do formulário',['dados' => $request->all()]);
+        Log::channel('action')->info('Dados do formulário', ['dados' => $request->all()]);
         try {
             $validatedData = $request->validated();
             $atividade = $this->atividade->store($validatedData);

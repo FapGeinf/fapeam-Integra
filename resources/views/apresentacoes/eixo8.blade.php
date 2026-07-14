@@ -37,6 +37,13 @@
       </button>
     </a>
 
+    
+    <a href="{{ route('atividades.executadas', ['eixo_id' => 8]) }}" 
+       class="highlighted-btn-sm highlight-blue text-decoration-none">
+      <i class="bi bi-check-circle"></i>
+      Executadas
+    </a>
+
     <form action="{{ route('indicadores.index') }}" method="POST" class="d-inline">
       @csrf
       <input type="hidden" name="eixo_id" value="8">

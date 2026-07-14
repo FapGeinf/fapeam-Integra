@@ -20,16 +20,17 @@
 </main>
 
 @if(auth()->user()->unidade->unidadeTipoFK == 1 || auth()->user()->unidade->unidadeTipoFK == 3 || auth()->user()->unidade->unidadeTipoFK == 4)
-  <div class="d-flex justify-content-center gap-2">
+  <div class="d-flex justify-content-center gap-2 flex-wrap">
+    {{-- Relatório --}}
     <a href="{{ route('relatorios.eixos', ['id' => 1]) }}" 
       class="highlighted-btn-sm highlight-blue text-decoration-none">
       <i class="bi bi-list-columns-reverse"></i>
       Relatório
     </a>
 
+    {{-- Atividades --}}
     <form action="{{ route('atividades.index') }}" method="POST" class="d-inline">
       @csrf
-
       <input type="hidden" name="eixo_id" value="1">
       <button type="submit" class="highlighted-btn-sm highlight-blue">
         <i class="bi bi-file-text"></i>
@@ -37,9 +38,16 @@
       </button>
     </form>
 
+    {{-- Executadas (NOVO) --}}
+    <a href="{{ route('atividades.executadas', ['eixo_id' => 1]) }}" 
+       class="highlighted-btn-sm highlight-blue text-decoration-none">
+      <i class="bi bi-check-circle"></i>
+      Executadas
+    </a>
+
+    {{-- Indicadores --}}
     <form action="{{ route('indicadores.index') }}" method="POST" class="d-inline">
       @csrf
-
       <input type="hidden" name="eixo_id" value="1">
       <button type="submit" class="highlighted-btn-sm highlight-blue">
         <i class="bi bi-reception-4"></i>

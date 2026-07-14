@@ -37,6 +37,14 @@
         Atividades
       </button>
     </a>
+
+    
+    {{-- Executadas (NOVO) --}}
+    <a href="{{ route('atividades.executadas', ['eixo_id' => 6]) }}" 
+       class="highlighted-btn-sm highlight-blue text-decoration-none">
+      <i class="bi bi-check-circle"></i>
+      Executadas
+    </a>
  
 	  <form action="{{ route('indicadores.index') }}" method="POST" class="d-inline">
 			@csrf

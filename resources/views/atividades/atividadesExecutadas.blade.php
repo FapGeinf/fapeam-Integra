@@ -1,0 +1,249 @@
+@extends('layouts.app')
+
+@section('title') {{"Atividades Executadas"}} @endsection
+
+@section('content')
+
+<link rel="stylesheet" href="{{ asset('css/show.css') }}">
+<link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
+<link rel="stylesheet" href="{{ asset('css/tables.css') }}">
+<script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
+<script src="{{ asset('js/dataTables.min.js') }}"></script>
+<link rel="stylesheet" href="{{ asset('css/dataTables.dataTables.min.css') }}">
+<script src="{{ asset('js/tables/atividadesTable.js') }}"></script>
+
+<x-alert-toast/>
+<x-back-to-top/>
+<x-back-to-bottom/>
+
+<div class="container-xxl pt-4" style="max-width: 1500px !important;">
+
+    {{-- Banner de Destaque - Painel Executado --}}
+    <div class="card border-0 bg-success bg-gradient text-white shadow-sm mb-4 rounded-3 mt-4">
+        <div class="card-body p-4 d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <div>
+                <span class="badge bg-white text-success fw-bold uppercase mb-2">Painel de Conclusão</span>
+                <h3 class="h4 mb-1 fw-bold"><i class="bi bi-check-circle-fill me-2"></i>Atividades Executadas</h3>
+                <p class="mb-0 text-white-50 small">
+                    Visualização e gestão das atividades finalizadas com sucesso.
+                </p>
+            </div>
+
+            @if(isset($eixo_id) && $eixo_id)
+                <div>
+                    <a class="btn btn-light btn-sm text-success fw-bold rounded-pill shadow-sm" href="{{ route('eixo.mostrar', ['eixo_id' => $eixo_id]) }}">
+                        <i class="bi bi-arrow-left me-1"></i> EIXO {{$eixo_id}} - {{$eixoNome}}
+                    </a>
+                </div>
+            @endif
+        </div>
+    </div>
+
+    {{-- Card Principal com Filtros e Tabela --}}
+    <div class="card border-0 shadow-sm rounded-3">
+        <div class="card-body p-4">
+            
+            {{-- Filtros Rápidos --}}
+            <div class="row g-3 align-items-end mb-3">
+                <div class="col-12 col-sm-6 col-md-3">
+                    <label for="filter-publico" class="form-label text-muted small fw-bold">Público-alvo:</label>
+                    <select name="filter-publico" id="filter-publico" class="form-select form-select-sm border-grey">
+                        <option selected disabled>Escolha um tipo</option>
+                        <option value="">Todos</option>
+                        @foreach ($publicos as $publico)
+                            <option value="{{ $publico->nome }}">{{ $publico->nome }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="col-12 col-sm-6 col-md-3">
+                    <label for="filter-canal" class="form-label text-muted small fw-bold">Canal de divulgação:</label>
+                    <select name="filter-canal" id="filter-canal" class="form-select form-select-sm border-grey">
+                        <option disabled selected>Escolha um tipo</option>
+                        <option value="">Todos</option>
+                        @foreach ($canais as $canal)
+                            <option value="{{ $canal->nome }}">{{ $canal->nome }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="col-12 col-sm-6 col-md-3">
+                    <label for="filter-evento" class="form-label text-muted small fw-bold">Tipo de evento:</label>
+                    <select name="filter-evento" id="filter-evento" class="form-select form-select-sm border-grey">
+                        <option selected disabled>Escolha uma opção</option>
+                        <option value="">Todos</option>
+                        <option value="Presencial">Presencial</option>
+                        <option value="Online">Online</option>
+                        <option value="Presencial e Online">Presencial e Online</option>
+                    </select>
+                </div>
+
+                <div class="col-12 col-sm-6 col-md-3">
+                    <label for="filter-data" class="form-label text-muted small fw-bold">Data de realização:</label>
+                    <select name="filter-data" id="filter-data" class="form-select form-select-sm border-grey">
+                        <option selected disabled>Ordenar por</option>
+                        <option value="">Padrão</option>
+                        <option value="asc">Mais Antigas</option>
+                        <option value="desc">Mais Recentes</option>
+                    </select>
+                </div>
+            </div>
+
+            {{-- Botão Inserir (Apenas para Administrador) --}}
+            @if(Auth::user()->unidadeIdFK == 1)
+                <div class="d-flex justify-content-end mb-3">
+                    <a href="{{ route('atividades.create') }}" class="btn btn-sm btn-success fw-bold">
+                        <i class="bi bi-plus-lg me-1"></i> Nova Atividade
+                    </a>
+                </div>
+            @endif
+
+            {{-- Tabela de Dados --}}
+            <div class="table-responsive">
+                <table id="tableHome2" class="table table-hover align-middle mb-0">
+                    <thead class="table-dark">
+                        <tr style="white-space: nowrap;">
+                            <th scope="col" style="width: 250px;" class="{{ request()->query('eixo_id') == 8 ? '' : 'd-none' }}">Eixos</th>
+                            <th scope="col" class="text-center">Atividade</th>
+                            <th scope="col" class="text-center">Objetivo</th>
+                            <th scope="col" class="text-center">Responsável</th>
+                            <th scope="col" class="text-center">Público Alvo</th>
+                            <th scope="col" class="text-center">Tipo Evento</th>
+                            <th scope="col" class="text-center">Canal Divulgação</th>
+                            <th scope="col" class="text-center">Período / Datas</th>
+                            <th scope="col" class="text-center">Metas (Prev. / Real.)</th>
+                            <th scope="col" class="text-center">Status</th>
+                            <th scope="col" class="text-center">Ações</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach ($atividades as $atividade)
+                            <tr class="text13">
+                                {{-- Coluna Eixos --}}
+                                <td class="text-center {{ request()->query('eixo_id') == 8 ? '' : 'd-none' }}">
+                                    @foreach ($atividade->eixos as $eixo)
+                                        <span class="badge bg-secondary mb-1 d-inline-block">{{ $eixo->nome }}</span>
+                                    @endforeach
+                                </td>
+
+                                {{-- Descrição, Objetivo e Responsável --}}
+                                <td class="text-center">{!! $atividade->atividade_descricao !!}</td>
+                                <td class="text-center">{!! $atividade->objetivo !!}</td>
+                                <td class="text-center">{!! $atividade->responsavel !!}</td>
+
+                                {{-- Público e Evento --}}
+                                <td class="text-center">{{ $atividade->publico->nome ?? 'Não informado' }}</td>
+                                <td class="text-center">
+                                    @if($atividade->tipo_evento == 1) Presencial
+                                    @elseif($atividade->tipo_evento == 2) Online
+                                    @elseif($atividade->tipo_evento == 3) Presencial e Online
+                                    @else Sem evento
+                                    @endif
+                                </td>
+
+                                {{-- Canais --}}
+                                <td class="text-center">
+                                    @foreach ($atividade->canais as $canal)
+                                        <span class="badge bg-light text-dark border me-1">{{ $canal->nome }}</span>
+                                    @endforeach
+                                </td>
+
+                                {{-- Datas --}}
+                                <td class="text-center" data-order="{{ \Carbon\Carbon::parse($atividade->data_realizada ?? $atividade->data_prevista)->format('Y-m-d') }}">
+                                    <div class="small">
+                                        <div class="text-muted">Previsto: {{ \Carbon\Carbon::parse($atividade->data_prevista)->format('d/m/Y') }}</div>
+                                        <div class="text-success fw-bold">
+                                            <i class="bi bi-calendar-check me-1"></i>
+                                            Realizado: {{ $atividade->data_realizada ? \Carbon\Carbon::parse($atividade->data_realizada)->format('d/m/Y') : 'Em andamento' }}
+                                        </div>
+                                    </div>
+                                </td>
+
+                                {{-- Metas --}}
+                                <td class="text-center">
+                                    <div class="small">
+                                        <span class="text-muted">Meta: {{ $atividade->meta }}</span> / 
+                                        <span class="fw-bold text-success">Realiz: {{ $atividade->realizado }}</span>
+                                        <div class="text-muted fs-7">({{ $atividade->medida->nome ?? 'N/A' }})</div>
+                                    </div>
+                                </td>
+
+                                {{-- Badge Status Fixa para Executado --}}
+                                <td class="text-center">
+                                    <span class="badge bg-success-subtle text-success border border-success px-3 py-2 rounded-pill">
+                                        <i class="bi bi-check-circle-fill me-1"></i> Executado
+                                    </span>
+                                </td>
+
+                                {{-- Dropdown de Ações --}}
+                                <td class="text-center">
+                                    @if(Auth::user()->unidade->unidadeTipoFK == 1 || Auth::user()->usuario_tipo_fk == 1  || Auth::user()->usuario_tipo_fk == 4)
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm btn-light border dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Ações
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                                                <li>
+                                                    <a class="dropdown-item" href="{{ route('atividades.show', $atividade->id) }}">
+                                                        <i class="bi bi-eye text-primary me-2"></i> Visualizar
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="{{ route('atividades.edit', $atividade->id) }}">
+                                                        <i class="bi bi-pencil text-warning me-2"></i> Editar
+                                                    </a>
+                                                </li>
+                                                <li><hr class="dropdown-divider"></li>
+                                                <li>
+                                                    <button type="button" class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $atividade->id }}">
+                                                        <i class="bi bi-trash me-2"></i> Excluir
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{{-- Modais de Exclusão (Fora da tabela para evitar bugs de CSS) --}}
+@foreach ($atividades as $atividade)
+    @if(Auth::user()->unidade->unidadeTipoFK == 1 || Auth::user()->usuario_tipo_fk == 1  || Auth::user()->usuario_tipo_fk == 4)
+        <div class="modal fade" id="deleteModal{{ $atividade->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $atividade->id }}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content border-0 shadow">
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title h6" id="deleteModalLabel{{ $atividade->id }}">
+                            <i class="bi bi-exclamation-triangle-fill me-2"></i> Confirmar Exclusão
+                        </h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Tem certeza de que deseja excluir permanentemente a atividade:
+                        <strong class="d-block mt-2 text-dark">{!! $atividade->atividade_descricao !!}</strong>
+                    </div>
+                    <div class="modal-footer bg-light">
+                        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <form action="{{ route('atividades.delete', $atividade->id) }}" method="POST" class="m-0 p-0">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger">Excluir Registro</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+@endforeach
+
+<x-back-button/>
+
+@endsection
