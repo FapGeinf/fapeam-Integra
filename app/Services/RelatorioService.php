@@ -13,10 +13,10 @@ use App\Services\PublicoService;
 class RelatorioService
 {
     protected $riscoService,
-              $atividadeService,
-              $eixoService,
-              $canalService,
-              $publicoService;
+    $atividadeService,
+    $eixoService,
+    $canalService,
+    $publicoService;
 
     public function __construct(
         RiscoService $riscoService,
@@ -108,5 +108,21 @@ class RelatorioService
             'canais' => $this->canalService->getAllCanais(),
             'publicos' => $this->publicoService->indexPublicos(),
         ];
+    }
+
+    public function gerarRelatorioAtividadesPorStatus($status)
+    {
+        $atividades = match ($status->nome) {
+            "Acompanhamento" => $this->atividadeService->getAtividadesAcompanhamento(),
+            "Executado"      => $this->atividadeService->getAtividadesExecutadas(),
+            "Não Executado"  => $this->atividadeService->getAtividadesNaoExecutado(),
+            default          => $this->atividadeService->listarAtividades(),
+        };
+
+        $html = View::make('atividades.relatorio-por-status', compact('atividades'))->render();
+
+        return Pdf::loadHTML($html)
+            ->setPaper('A4', 'portrait')
+            ->download("relatorio-atividades-{$status->nome}.pdf");
     }
 }

@@ -251,7 +251,7 @@ class AtividadeService
 
     public function listarAtividades()
     {
-        return Atividade::with('eixos', 'publico', 'canais')->get();
+        return Atividade::with('eixos', 'publico', 'canais', 'statusAtividade')->get();
     }
 
 
@@ -268,4 +268,12 @@ class AtividadeService
             $query->where('nome', 'Acompanhamento');
         })->get();
     }
+
+    public function getAtividadesNaoExecutado()
+    {
+           return Atividade::whereHas('statusAtividade',function($query){
+                  $query->where('nome','Não Executado');
+           })->get();
+    }
+
 }

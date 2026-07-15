@@ -42,7 +42,7 @@
     <a href="{{ route('atividades.executadas', ['eixo_id' => 1]) }}" 
        class="highlighted-btn-sm highlight-blue text-decoration-none">
       <i class="bi bi-check-circle"></i>
-      Executadas
+       Atividades Executadas
     </a>
 
     {{-- Indicadores --}}

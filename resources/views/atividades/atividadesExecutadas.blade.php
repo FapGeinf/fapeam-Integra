@@ -86,13 +86,30 @@
                 </div>
             </div>
 
-            @if(Auth::user()->unidadeIdFK == 1)
-                <div class="d-flex justify-content-end mb-3">
-                    <a href="{{ route('atividades.create') }}" class="btn btn-sm btn-success fw-bold">
-                        <i class="bi bi-plus-lg me-1"></i> Nova Atividade
-                    </a>
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+                <div>
+                    @if($atividades->isNotEmpty())
+                        @php
+                            $statusId = $atividades->first()->status_atividade_id;
+                        @endphp
+
+                        @if($statusId)
+                            <a href="{{ route('relatorios.atividades-status', $statusId) }}" 
+                            target="_blank" 
+                            class="btn btn-sm btn-danger fw-bold shadow-sm">
+                                <i class="bi bi-file-earmark-pdf-fill me-1"></i> Imprimir Relatório Analítico
+                            </a>
+                        @endif
+                    @endif
                 </div>
-            @endif
+                @if(Auth::user()->unidadeIdFK == 1)
+                    <div>
+                        <a href="{{ route('atividades.create') }}" class="btn btn-sm btn-success fw-bold shadow-sm">
+                            <i class="bi bi-plus-lg me-1"></i> Nova Atividade
+                        </a>
+                    </div>
+                @endif
+            </div>
 
             <div class="table-responsive">
                 <table id="tableHome2" class="table table-hover align-middle mb-0">
@@ -115,18 +132,16 @@
                     <tbody>
                         @foreach ($atividades as $atividade)
                             <tr class="text13">
-                             
                                 <td class="text-center {{ request()->query('eixo_id') == 8 ? '' : 'd-none' }}">
                                     @foreach ($atividade->eixos as $eixo)
                                         <span class="badge bg-secondary mb-1 d-inline-block">{{ $eixo->nome }}</span>
                                     @endforeach
                                 </td>
 
-                                <td class="text-center">{!! $atividade->atividade_descricao !!}</td>
-                                <td class="text-center">{!! $atividade->objetivo !!}</td>
-                                <td class="text-center">{!! $atividade->responsavel !!}</td>
+                                <td class="text-center">{{ strip_tags($atividade->atividade_descricao) }}</td>
+                                <td class="text-center">{{ strip_tags($atividade->objetivo) }}</td>
+                                <td class="text-center">{{ strip_tags($atividade->responsavel) }}</td>
 
-        
                                 <td class="text-center">{{ $atividade->publico->nome ?? 'Não informado' }}</td>
                                 <td class="text-center">
                                     @if($atividade->tipo_evento == 1) Presencial
@@ -216,7 +231,7 @@
                     </div>
                     <div class="modal-body">
                         Tem certeza de que deseja excluir permanentemente a atividade:
-                        <strong class="d-block mt-2 text-dark">{!! $atividade->atividade_descricao !!}</strong>
+                        <strong class="d-block mt-2 text-dark">{{ strip_tags($atividade->atividade_descricao) }}</strong>
                     </div>
                     <div class="modal-footer bg-light">
                         <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancelar</button>

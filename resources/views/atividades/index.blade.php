@@ -103,6 +103,49 @@
           </div>
         @endif
 
+        <button type="button" class="highlighted-btn-sm highlight-blue bg-secondary border-secondary text-decoration-none" data-bs-toggle="modal" data-bs-target="#modalRelatorioStatus">
+            <i class="bi bi-file-earmark-pdf-fill"></i>
+            Gerar Relatório por Status
+        </button>
+
+        <div class="modal fade" id="modalRelatorioStatus" tabindex="-1" aria-labelledby="modalRelatorioStatusLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalRelatorioStatusLabel">
+                  <i class="bi bi-file-earmark-pdf text-danger me-2"></i>Gerar Relatório de Atividades
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              
+              <form id="formRelatorioStatus" action="" method="GET" target="_blank" data-route-url="{{ route('relatorios.atividades-status', ':id') }}">
+                <div class="modal-body text-start">
+                  <p class="text-muted text13">Selecione o status desejado para gerar o arquivo PDF consolidado de todas as atividades correspondentes:</p>
+                  
+                  <div class="mb-3">
+                    <label for="select-relatorio-status" class="fw-bold mb-2">Status da Atividade:</label>
+                    <select id="select-relatorio-status" class="form-select border-grey" required>
+                      <option value="" selected disabled>Selecione um status...</option>
+                      @foreach ($statusAtividades as $status)
+                        <option value="{{ $status->id }}">{{ $status->nome }}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                </div>
+                
+                <div class="modal-footer">
+                  <button type="button" class="footer-btn footer-secondary" data-bs-dismiss="modal">Fechar</button>
+                  <button type="submit" class="footer-btn footer-primary bg-primary text-white border-0">
+                    <i class="bi bi-download me-1"></i> Gerar PDF
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <script src="{{ asset('js/tables/relatorioStatus.js') }}"></script>
+
         <table id="tableHome2" class="table table-striped cust-datatable mb-2">
           <thead>
             <tr style="white-space: nowrap;">

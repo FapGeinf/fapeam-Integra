@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\RelatorioService;
 use Exception;
 use Log;
+use App\Models\StatusAtividade;
 
 class RelatorioController extends Controller
 {
@@ -46,5 +47,10 @@ class RelatorioController extends Controller
             Log::error('Erro ao gerar relatório por eixo', ['error' => $e->getMessage()]);
             return redirect()->back()->withErrors('Erro inesperado ao gerar o relatório.');
         }
+    }
+
+    public function relatorioAtividadesPorStatus(StatusAtividade $status)
+    {
+        return $this->relatorioService->gerarRelatorioAtividadesPorStatus($status);
     }
 }

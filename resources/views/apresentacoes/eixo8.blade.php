@@ -41,7 +41,7 @@
     <a href="{{ route('atividades.executadas', ['eixo_id' => 8]) }}" 
        class="highlighted-btn-sm highlight-blue text-decoration-none">
       <i class="bi bi-check-circle"></i>
-      Executadas
+      Atividades Executadas
     </a>
 
     <form action="{{ route('indicadores.index') }}" method="POST" class="d-inline">
