@@ -18,7 +18,6 @@
 
 <div class="container-xxl pt-4" style="max-width: 1500px !important;">
 
-    {{-- Banner de Destaque - Painel Executado --}}
     <div class="card border-0 bg-success bg-gradient text-white shadow-sm mb-4 rounded-3 mt-4">
         <div class="card-body p-4 d-flex justify-content-between align-items-center flex-wrap gap-3">
             <div>
@@ -39,11 +38,9 @@
         </div>
     </div>
 
-    {{-- Card Principal com Filtros e Tabela --}}
     <div class="card border-0 shadow-sm rounded-3">
         <div class="card-body p-4">
             
-            {{-- Filtros Rápidos --}}
             <div class="row g-3 align-items-end mb-3">
                 <div class="col-12 col-sm-6 col-md-3">
                     <label for="filter-publico" class="form-label text-muted small fw-bold">Público-alvo:</label>
@@ -89,7 +86,6 @@
                 </div>
             </div>
 
-            {{-- Botão Inserir (Apenas para Administrador) --}}
             @if(Auth::user()->unidadeIdFK == 1)
                 <div class="d-flex justify-content-end mb-3">
                     <a href="{{ route('atividades.create') }}" class="btn btn-sm btn-success fw-bold">
@@ -98,7 +94,6 @@
                 </div>
             @endif
 
-            {{-- Tabela de Dados --}}
             <div class="table-responsive">
                 <table id="tableHome2" class="table table-hover align-middle mb-0">
                     <thead class="table-dark">
@@ -120,19 +115,18 @@
                     <tbody>
                         @foreach ($atividades as $atividade)
                             <tr class="text13">
-                                {{-- Coluna Eixos --}}
+                             
                                 <td class="text-center {{ request()->query('eixo_id') == 8 ? '' : 'd-none' }}">
                                     @foreach ($atividade->eixos as $eixo)
                                         <span class="badge bg-secondary mb-1 d-inline-block">{{ $eixo->nome }}</span>
                                     @endforeach
                                 </td>
 
-                                {{-- Descrição, Objetivo e Responsável --}}
                                 <td class="text-center">{!! $atividade->atividade_descricao !!}</td>
                                 <td class="text-center">{!! $atividade->objetivo !!}</td>
                                 <td class="text-center">{!! $atividade->responsavel !!}</td>
 
-                                {{-- Público e Evento --}}
+        
                                 <td class="text-center">{{ $atividade->publico->nome ?? 'Não informado' }}</td>
                                 <td class="text-center">
                                     @if($atividade->tipo_evento == 1) Presencial
@@ -142,14 +136,12 @@
                                     @endif
                                 </td>
 
-                                {{-- Canais --}}
                                 <td class="text-center">
                                     @foreach ($atividade->canais as $canal)
                                         <span class="badge bg-light text-dark border me-1">{{ $canal->nome }}</span>
                                     @endforeach
                                 </td>
 
-                                {{-- Datas --}}
                                 <td class="text-center" data-order="{{ \Carbon\Carbon::parse($atividade->data_realizada ?? $atividade->data_prevista)->format('Y-m-d') }}">
                                     <div class="small">
                                         <div class="text-muted">Previsto: {{ \Carbon\Carbon::parse($atividade->data_prevista)->format('d/m/Y') }}</div>
@@ -160,7 +152,6 @@
                                     </div>
                                 </td>
 
-                                {{-- Metas --}}
                                 <td class="text-center">
                                     <div class="small">
                                         <span class="text-muted">Meta: {{ $atividade->meta }}</span> / 
@@ -169,14 +160,12 @@
                                     </div>
                                 </td>
 
-                                {{-- Badge Status Fixa para Executado --}}
                                 <td class="text-center">
                                     <span class="badge bg-success-subtle text-success border border-success px-3 py-2 rounded-pill">
                                         <i class="bi bi-check-circle-fill me-1"></i> Executado
                                     </span>
                                 </td>
 
-                                {{-- Dropdown de Ações --}}
                                 <td class="text-center">
                                     @if(Auth::user()->unidade->unidadeTipoFK == 1 || Auth::user()->usuario_tipo_fk == 1  || Auth::user()->usuario_tipo_fk == 4)
                                         <div class="dropdown">
@@ -214,7 +203,6 @@
     </div>
 </div>
 
-{{-- Modais de Exclusão (Fora da tabela para evitar bugs de CSS) --}}
 @foreach ($atividades as $atividade)
     @if(Auth::user()->unidade->unidadeTipoFK == 1 || Auth::user()->usuario_tipo_fk == 1  || Auth::user()->usuario_tipo_fk == 4)
         <div class="modal fade" id="deleteModal{{ $atividade->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $atividade->id }}" aria-hidden="true">
