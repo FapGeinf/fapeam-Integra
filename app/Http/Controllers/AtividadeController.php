@@ -68,7 +68,7 @@ class AtividadeController extends Controller
     }
 
     
-    public function painelAtividadesNaoExecutado(Request $request)
+    public function painelAtividadesNaoExecutadas(Request $request)
     {
         try {
             $eixo_id = $request->get('eixo_id');

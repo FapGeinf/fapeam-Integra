@@ -73,7 +73,7 @@ class AtividadeService
         $dados = $this->indexAtividades($eixo_id);
 
         $dados['atividades'] = $dados['atividades']->filter(function ($atividade) {
-            return $atividade->statusAtividade && $atividade->statusAtividade->nome === 'Executado';
+            return $atividade->statusAtividade && $atividade->statusAtividade->nome === 'Executada';
         })->values();
 
         return $dados;
@@ -95,7 +95,7 @@ class AtividadeService
         $dados = $this->indexAtividades($eixo_id);
 
         $dados['atividades'] = $dados['atividades']->filter(function ($atividade) {
-            return $atividade->statusAtividade && $atividade->statusAtividade->nome === 'Não Executado';
+            return $atividade->statusAtividade && $atividade->statusAtividade->nome === 'Não Executada';
         })->values();
 
         return $dados;
@@ -280,7 +280,7 @@ class AtividadeService
     public function getAtividadesExecutadas()
     {
         return Atividade::whereHas('statusAtividade', function ($query) {
-            $query->where('nome', 'Executado');
+            $query->where('nome', 'Executada');
         })->get();
     }
 
@@ -294,7 +294,7 @@ class AtividadeService
     public function getAtividadesNaoExecutado()
     {
            return Atividade::whereHas('statusAtividade',function($query){
-                  $query->where('nome','Não Executado');
+                  $query->where('nome','Não Executada');
            })->get();
     }
 

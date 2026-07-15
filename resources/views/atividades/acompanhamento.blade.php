@@ -18,6 +18,7 @@
 
     <div class="container-xxl pt-4" style="max-width: 1500px !important;">
 
+        {{-- Topo / Painel de Monitoramento --}}
         <div class="card border-0 bg-info bg-gradient text-white shadow-sm mb-4 rounded-3 mt-4">
             <div class="card-body p-4 d-flex justify-content-between align-items-center flex-wrap gap-3">
                 <div>
@@ -39,11 +40,13 @@
             </div>
         </div>
 
+        {{-- Bloco Principal: Filtros e Tabela --}}
         <div class="card border-0 shadow-sm rounded-3">
             <div class="card-body p-4">
 
-                <div class="row g-3 align-items-end mb-3">
-                    <div class="col-12 col-sm-6 col-md-3">
+                {{-- Sessão de Filtros (Com Filtro de Ano Adicionado) --}}
+                <div class="row g-3 align-items-end mb-4">
+                    <div class="col-12 col-sm-6 col-md-2">
                         <label for="filter-publico" class="form-label text-muted small fw-bold">Público-alvo:</label>
                         <select name="filter-publico" id="filter-publico" class="form-select form-select-sm border-grey">
                             <option selected disabled>Escolha um tipo</option>
@@ -54,7 +57,7 @@
                         </select>
                     </div>
 
-                    <div class="col-12 col-sm-6 col-md-3">
+                    <div class="col-12 col-sm-6 col-md-2">
                         <label for="filter-canal" class="form-label text-muted small fw-bold">Canal de divulgação:</label>
                         <select name="filter-canal" id="filter-canal" class="form-select form-select-sm border-grey">
                             <option disabled selected>Escolha um tipo</option>
@@ -65,7 +68,7 @@
                         </select>
                     </div>
 
-                    <div class="col-12 col-sm-6 col-md-3">
+                    <div class="col-12 col-sm-6 col-md-2">
                         <label for="filter-evento" class="form-label text-muted small fw-bold">Tipo de evento:</label>
                         <select name="filter-evento" id="filter-evento" class="form-select form-select-sm border-grey">
                             <option selected disabled>Escolha uma opção</option>
@@ -73,6 +76,23 @@
                             <option value="Presencial">Presencial</option>
                             <option value="Online">Online</option>
                             <option value="Presencial e Online">Presencial e Online</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <label for="filter-ano" class="form-label text-muted small fw-bold">Ano de Exercício:</label>
+                        <select name="filter-ano" id="filter-ano" class="form-select form-select-sm border-grey">
+                            <option selected disabled>Escolha o ano</option>
+                            <option value="">Todos</option>
+                            {{-- Gera dinamicamente os anos das atividades na controller, ou hardcoded se preferir --}}
+                            @php
+                                $anosCadastrados = $atividades->map(function($at) {
+                                    return \Carbon\Carbon::parse($at->data_prevista)->format('Y');
+                                })->unique()->sort()->values();
+                            @endphp
+                            @foreach($anosCadastrados as $ano)
+                                <option value="{{ $ano }}">{{ $ano }}</option>
+                            @endforeach
                         </select>
                     </div>
 
@@ -87,7 +107,8 @@
                     </div>
                 </div>
 
-                <div class="d-flex mb-3">
+                {{-- Botões de Ações rápidas / Dropdown --}}
+                <div class="d-flex mb-3 justify-content-between align-items-center flex-wrap gap-2">
                     <div class="dropdown">
                         <button class="btn btn-sm btn-primary dropdown-toggle d-flex align-items-center gap-2 shadow-sm"
                             type="button" id="dropdownAcoesPagina" data-bs-toggle="dropdown" aria-expanded="false">
@@ -95,7 +116,6 @@
                         </button>
 
                         <ul class="dropdown-menu shadow" aria-labelledby="dropdownAcoesPagina">
-
                             @if(Auth::user()->unidadeIdFK == 1)
                                 <li>
                                     <a class="dropdown-item d-flex align-items-center gap-2"
@@ -127,13 +147,13 @@
                                     </li>
                                 @endif
                             @endif
-
                         </ul>
                     </div>
                 </div>
 
+                {{-- Tabela de Atividades --}}
                 <div class="table-responsive">
-                    <table id="tableHome2" class="table table-hover align-middle mb-0">
+                    <table id="tableHome2" class="table table-hover align-middle mb-0 w-100">
                         <thead class="table-dark">
                             <tr style="white-space: nowrap;">
                                 <th scope="col" style="width: 250px;"
@@ -145,15 +165,17 @@
                                 <th scope="col" class="text-center">Tipo Evento</th>
                                 <th scope="col" class="text-center">Canal Divulgação</th>
                                 <th scope="col" class="text-center">Período / Datas</th>
+                                <th scope="col" class="text-center">Ano</th>
                                 <th scope="col" class="text-center">Metas (Prev. / Real.)</th>
                                 <th scope="col" class="text-center">Status</th>
-                                <th scope="col" class="text-center">Ações</th>
+                                <th scope="col" class="text-center" style="width: 100px;">Ações</th>
                             </tr>
                         </thead>
 
                         <tbody>
                             @foreach ($atividades as $atividade)
                                 <tr class="text13">
+                                    {{-- Coluna Eixos condicional --}}
                                     <td class="text-center {{ request()->query('eixo_id') == 8 ? '' : 'd-none' }}">
                                         @foreach ($atividade->eixos as $eixo)
                                             <span class="badge bg-secondary mb-1 d-inline-block">{{ $eixo->nome }}</span>
@@ -163,8 +185,8 @@
                                     <td class="text-center">{{ strip_tags($atividade->atividade_descricao) }}</td>
                                     <td class="text-center">{{ strip_tags($atividade->objetivo) }}</td>
                                     <td class="text-center">{{ strip_tags($atividade->responsavel) }}</td>
-
                                     <td class="text-center">{{ $atividade->publico->nome ?? 'Não informado' }}</td>
+                                    
                                     <td class="text-center">
                                         @if($atividade->tipo_evento == 1) Presencial
                                         @elseif($atividade->tipo_evento == 2) Online
@@ -190,6 +212,11 @@
                                                 {{ $atividade->data_realizada ? \Carbon\Carbon::parse($atividade->data_realizada)->format('d/m/Y') : 'Em andamento' }}
                                             </div>
                                         </div>
+                                    </td>
+
+                                    {{-- Nova Coluna: Ano --}}
+                                    <td class="text-center fw-bold text-secondary">
+                                        {{ \Carbon\Carbon::parse($atividade->data_prevista)->format('Y') }}
                                     </td>
 
                                     <td class="text-center">
@@ -250,6 +277,7 @@
         </div>
     </div>
 
+    {{-- Modais de Exclusão --}}
     @foreach ($atividades as $atividade)
         @if(Auth::user()->unidade->unidadeTipoFK == 1 || Auth::user()->usuario_tipo_fk == 1 || Auth::user()->usuario_tipo_fk == 4)
             <div class="modal fade" id="deleteModal{{ $atividade->id }}" tabindex="-1"

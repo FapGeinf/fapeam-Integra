@@ -41,8 +41,8 @@ function showConfirmationModal() {
     tipoEvento: tipoEvento && tipoEvento.toLowerCase() !== "sem evento" ? "" : "Selecione um tipo de evento válido.",
     canal: canal ? "" : "Selecione ao menos um canal.",
     dataPrevista: dataPrevista ? "" : "A 'data prevista' é obrigatória.",
-    dataRealizada: dataRealizada ? "" : "A 'data realizada' é obrigatória.",
-    indicador: "", // esse é o único opcional
+    dataRealizada: "", // <--- Removida a obrigatoriedade
+    indicador: "", 
     meta: meta ? "" : "O campo 'meta' é obrigatório.",
     realizado: realizado ? "" : "O campo 'realizado' é obrigatório.",
     medida: medida && medida.toLowerCase() !== "selecione o tipo de unidade" ? "" : "Selecione uma unidade de medida válida.",
@@ -87,7 +87,7 @@ function showConfirmationModal() {
         ${createReadonlyField("Tipo de Evento", tipoEvento, errors.tipoEvento)}
         ${createReadonlyField("Canal(is)", canal, errors.canal)}
         ${createReadonlyField("Data Prevista", formatDateBR(dataPrevista), errors.dataPrevista)}
-        ${createReadonlyField("Data Realizada", formatDateBR(dataRealizada), errors.dataRealizada)}
+        ${createReadonlyField("Data Realizada", formatDateBR(dataRealizada) || 'Não informada', errors.dataRealizada)}
         ${createReadonlyField("Indicador(es)", indicador, errors.indicador)}
         ${createReadonlyField("Meta", meta, errors.meta)}
         ${createReadonlyField("Realizado", realizado, errors.realizado)}

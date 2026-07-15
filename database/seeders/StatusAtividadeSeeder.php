@@ -17,8 +17,8 @@ class StatusAtividadeSeeder extends Seeder
     {
         $statusAtividades = [
             ['nome' => 'Acompanhamento'],
-            ['nome' => 'Executado'],
-            ['nome' => 'Não Executado'],
+            ['nome' => 'Executada'],
+            ['nome' => 'Não Executada'],
         ];
 
         foreach ($statusAtividades as $status) {

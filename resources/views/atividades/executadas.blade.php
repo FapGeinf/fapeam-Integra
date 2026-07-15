@@ -42,8 +42,9 @@
         <div class="card border-0 shadow-sm rounded-3">
             <div class="card-body p-4">
 
+                {{-- Filtros Superiores --}}
                 <div class="row g-3 align-items-end mb-3">
-                    <div class="col-12 col-sm-6 col-md-3">
+                    <div class="col-12 col-sm-6 col-md-2">
                         <label for="filter-publico" class="form-label text-muted small fw-bold">Público-alvo:</label>
                         <select name="filter-publico" id="filter-publico" class="form-select form-select-sm border-grey">
                             <option selected disabled>Escolha um tipo</option>
@@ -54,7 +55,7 @@
                         </select>
                     </div>
 
-                    <div class="col-12 col-sm-6 col-md-3">
+                    <div class="col-12 col-sm-6 col-md-2">
                         <label for="filter-canal" class="form-label text-muted small fw-bold">Canal de divulgação:</label>
                         <select name="filter-canal" id="filter-canal" class="form-select form-select-sm border-grey">
                             <option disabled selected>Escolha um tipo</option>
@@ -65,7 +66,7 @@
                         </select>
                     </div>
 
-                    <div class="col-12 col-sm-6 col-md-3">
+                    <div class="col-12 col-sm-6 col-md-2">
                         <label for="filter-evento" class="form-label text-muted small fw-bold">Tipo de evento:</label>
                         <select name="filter-evento" id="filter-evento" class="form-select form-select-sm border-grey">
                             <option selected disabled>Escolha uma opção</option>
@@ -73,6 +74,23 @@
                             <option value="Presencial">Presencial</option>
                             <option value="Online">Online</option>
                             <option value="Presencial e Online">Presencial e Online</option>
+                        </select>
+                    </div>
+
+                    {{-- Filtro de Ano Adicionado --}}
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <label for="filter-ano" class="form-label text-muted small fw-bold">Ano de Exercício:</label>
+                        <select name="filter-ano" id="filter-ano" class="form-select form-select-sm border-grey">
+                            <option selected disabled>Escolha o ano</option>
+                            <option value="">Todos</option>
+                            @php
+                                $anosCadastrados = $atividades->map(function($at) {
+                                    return \Carbon\Carbon::parse($at->data_prevista)->format('Y');
+                                })->unique()->sort()->values();
+                            @endphp
+                            @foreach($anosCadastrados as $ano)
+                                <option value="{{ $ano }}">{{ $ano }}</option>
+                            @endforeach
                         </select>
                     </div>
 
@@ -133,7 +151,7 @@
                 </div>
 
                 <div class="table-responsive">
-                    <table id="tableHome2" class="table table-hover align-middle mb-0">
+                    <table id="tableHome2" class="table table-hover align-middle mb-0 w-100">
                         <thead class="table-dark">
                             <tr style="white-space: nowrap;">
                                 <th scope="col" style="width: 250px;"
@@ -145,9 +163,10 @@
                                 <th scope="col" class="text-center">Tipo Evento</th>
                                 <th scope="col" class="text-center">Canal Divulgação</th>
                                 <th scope="col" class="text-center">Período / Datas</th>
+                                <th scope="col" class="text-center">Ano</th>
                                 <th scope="col" class="text-center">Metas (Prev. / Real.)</th>
                                 <th scope="col" class="text-center">Status</th>
-                                <th scope="col" class="text-center">Ações</th>
+                                <th scope="col" class="text-center" style="width: 100px;">Ações</th>
                             </tr>
                         </thead>
 
@@ -183,13 +202,18 @@
                                         data-order="{{ \Carbon\Carbon::parse($atividade->data_realizada ?? $atividade->data_prevista)->format('Y-m-d') }}">
                                         <div class="small">
                                             <div class="text-muted">Previsto:
-                                                {{ \Carbon\Carbon::parse($atividade->data_prevista)->format('d/m/Y') }}</div>
+                                                {{ \Carbon\Carbon::parse($atividade->data_prevista)->format('d/m') }}</div>
                                             <div class="text-success fw-bold">
                                                 <i class="bi bi-calendar-check me-1"></i>
                                                 Realizado:
-                                                {{ $atividade->data_realizada ? \Carbon\Carbon::parse($atividade->data_realizada)->format('d/m/Y') : 'Em andamento' }}
+                                                {{ $atividade->data_realizada ? \Carbon\Carbon::parse($atividade->data_realizada)->format('d/m') : 'Em andamento' }}
                                             </div>
                                         </div>
+                                    </td>
+
+                                    {{-- Coluna de Ano Adicionada --}}
+                                    <td class="text-center fw-bold text-secondary">
+                                        {{ \Carbon\Carbon::parse($atividade->data_prevista)->format('Y') }}
                                     </td>
 
                                     <td class="text-center">
