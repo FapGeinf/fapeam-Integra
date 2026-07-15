@@ -62,7 +62,7 @@
             <a class="dropdown-item d-flex align-items-center gap-2"
               href="{{ route('atividades.acompanhamento', ['eixo_id' => $eixo_id ?? 3]) }}">
               <i class="bi bi-arrow-repeat text-info"></i>
-              Em Acompanhamento
+              Acompanhamento
             </a>
           </li>
           <li>
