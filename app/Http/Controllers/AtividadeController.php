@@ -42,7 +42,38 @@ class AtividadeController extends Controller
         try {
             $eixo_id = $request->get('eixo_id');
             $dados = $this->atividade->indexAtividadesExecutadasByEixo($eixo_id);
-            return view('atividades.atividadesExecutadas', $dados);
+            return view('atividades.executadas', $dados);
+        } catch (Exception $e) {
+            Log::error('Erro ao listar atividades: ' . $e->getMessage(), [
+                'user_id' => Auth::id(),
+                'eixo_id' => $request->get('eixo_id'),
+            ]);
+            return redirect()->back()->with('error', 'Erro ao carregar a lista de atividades.');
+        }
+    }
+
+    public function painelAtividadesAcompanhamento(Request $request)
+    {
+        try {
+            $eixo_id = $request->get('eixo_id');
+            $dados = $this->atividade->indexAtividadesAcompanhamentoByEixo($eixo_id);
+            return view('atividades.acompanhamento', $dados);
+        } catch (Exception $e) {
+            Log::error('Erro ao listar atividades: ' . $e->getMessage(), [
+                'user_id' => Auth::id(),
+                'eixo_id' => $request->get('eixo_id'),
+            ]);
+            return redirect()->back()->with('error', 'Erro ao carregar a lista de atividades.');
+        }
+    }
+
+    
+    public function painelAtividadesNaoExecutado(Request $request)
+    {
+        try {
+            $eixo_id = $request->get('eixo_id');
+            $dados = $this->atividade->indexAtividadesNaoExecutadasByEixo($eixo_id);
+            return view('atividades.nao_executadas', $dados);
         } catch (Exception $e) {
             Log::error('Erro ao listar atividades: ' . $e->getMessage(), [
                 'user_id' => Auth::id(),

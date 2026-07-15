@@ -122,6 +122,8 @@ Route::prefix('atividades')->name('atividades.')->middleware('auth')->group(func
     Route::get('/', [AtividadeController::class, 'index'])->name('index');
     Route::post('/', [AtividadeController::class, 'index'])->name('atividades.index');
     Route::get('/executadas', [AtividadeController::class, 'painelAtividadesExecutadas'])->name('executadas');
+    Route::get('/acompanhamento', [AtividadeController::class, 'painelAtividadesAcompanhamento'])->name('acompanhamento');
+    Route::get('/nao-executadas', [AtividadeController::class, 'painelAtividadesNaoExecutadas'])->name('nao-executadas');
     Route::get('/show/{id}', [AtividadeController::class, 'showAtividade'])->name('show');
     Route::get('/create', [AtividadeController::class, 'createAtividade'])->name('create');
     Route::post('/store', [AtividadeController::class, 'storeAtividade'])->name('store');

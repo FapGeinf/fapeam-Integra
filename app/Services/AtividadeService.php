@@ -43,7 +43,7 @@ class AtividadeService
         $eixoNome = null;
         $atividades = collect();
 
-        if ($eixo_id && in_array($eixo_id, [1, 2, 3, 4, 5, 6, 7])) {
+        if ($eixo_id && in_array($eixo_id, [1, 2, 3, 4, 5, 6, 7, 8])) {
             $eixo = $this->eixoService->findEixoById($eixo_id);
             $eixoNome = $eixo ? $eixo->nome : null;
 
@@ -74,6 +74,28 @@ class AtividadeService
 
         $dados['atividades'] = $dados['atividades']->filter(function ($atividade) {
             return $atividade->statusAtividade && $atividade->statusAtividade->nome === 'Executado';
+        })->values();
+
+        return $dados;
+    }
+
+    public function indexAtividadesAcompanhamentoByEixo($eixo_id)
+    {
+        $dados = $this->indexAtividades($eixo_id);
+
+        $dados['atividades'] = $dados['atividades']->filter(function ($atividade) {
+            return $atividade->statusAtividade && $atividade->statusAtividade->nome === 'Acompanhamento';
+        })->values();
+
+        return $dados;
+    }
+
+    public function indexAtividadesNaoExecutadasByEixo($eixo_id)
+    {
+        $dados = $this->indexAtividades($eixo_id);
+
+        $dados['atividades'] = $dados['atividades']->filter(function ($atividade) {
+            return $atividade->statusAtividade && $atividade->statusAtividade->nome === 'Não Executado';
         })->values();
 
         return $dados;

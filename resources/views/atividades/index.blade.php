@@ -94,19 +94,33 @@
       </div>
       
       <div class="table-responsive pt-4">
-        @if(Auth::user()->unidadeIdFK == 1)
-          <div class="col-12 d-flex justify-content-start pb-2">
-            <a href="{{ route('atividades.create') }}" class="highlighted-btn-sm highlight-blue text-decoration-none">
-              <i class="bi bi-plus-lg"></i>
-              Inserir Atividade
-            </a>
-          </div>
-        @endif
+        <div class="d-flex pb-3">
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle d-flex align-items-center gap-2" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-gear-fill"></i> Ações
+                </button>
+                
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    
+                    @if(Auth::user()->unidadeIdFK == 1)
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center gap-2" href="{{ route('atividades.create') }}">
+                                <i class="bi bi-plus-lg text-primary"></i> 
+                                Inserir Atividade
+                            </a>
+                        </li>
+                    @endif
 
-        <button type="button" class="highlighted-btn-sm highlight-blue bg-secondary border-secondary text-decoration-none" data-bs-toggle="modal" data-bs-target="#modalRelatorioStatus">
-            <i class="bi bi-file-earmark-pdf-fill"></i>
-            Gerar Relatório por Status
-        </button>
+                    <li>
+                        <button type="button" class="dropdown-item d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalRelatorioStatus">
+                            <i class="bi bi-file-earmark-pdf-fill text-danger"></i> 
+                            Gerar Relatório por Status
+                        </button>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
 
         <div class="modal fade" id="modalRelatorioStatus" tabindex="-1" aria-labelledby="modalRelatorioStatusLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered">
