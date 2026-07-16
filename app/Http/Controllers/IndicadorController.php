@@ -4,24 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\IndicadorRequest;
 use App\Services\EixoService;
-use App\Services\LogService;
 use App\Services\IndicadorService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Eixo;
-use Log;
+use Illuminate\Support\Facades\Log;
 
 class IndicadorController extends Controller
 {
-    protected $log;
     protected $indicadorService;
-
     protected $eixo;
 
-    public function __construct(LogService $log, IndicadorService $indicadorService, EixoService $eixo)
+    public function __construct(IndicadorService $indicadorService, EixoService $eixo)
     {
-        $this->log = $log;
         $this->indicadorService = $indicadorService;
         $this->eixo = $eixo;
     }
@@ -56,15 +51,12 @@ class IndicadorController extends Controller
 
             $indicador = $this->indicadorService->insertIndicador($request->only(['nomeIndicador', 'descricaoIndicador', 'eixo_fk']));
 
-            if (Auth::check()) {
-                $username = Auth::user()->name;
-
-                $this->log->insertLog([
-                    'acao' => 'Inserção',
-                    'descricao' => "O usuário de nome $username está inserindo um novo indicador do eixo {$indicador->eixo->nome}",
-                    'user_id' => Auth::user()->id
-                ]);
-            }
+            Log::info("Inserção de Indicador realizada", [
+                'user_id' => Auth::id(),
+                'user_name' => Auth::user()->name ?? 'Visitante',
+                'indicador_id' => $indicador->id ?? null,
+                'eixo' => $indicador->eixo->nome ?? null,
+            ]);
 
             return redirect()->route('indicadores.index')->with('success', 'Indicador criado com sucesso!');
         } catch (\Throwable $th) {
@@ -95,15 +87,12 @@ class IndicadorController extends Controller
             $this->indicadorService->updateIndicador($id, $request->only(['nomeIndicador', 'descricaoIndicador', 'eixo_fk']));
             $indicador = $this->indicadorService->getIndicadorById($id);
 
-            if (Auth::check()) {
-                $username = Auth::user()->name;
-
-                $this->log->insertLog([
-                    'acao' => 'Atualização',
-                    'descricao' => "O usuário de nome $username está atualizando o indicador de ID $id e eixo {$indicador->eixo->nome}",
-                    'user_id' => Auth::user()->id
-                ]);
-            }
+            Log::info("Atualização de Indicador realizada", [
+                'user_id' => Auth::id(),
+                'user_name' => Auth::user()->name ?? 'Visitante',
+                'indicador_id' => $id,
+                'eixo' => $indicador->eixo->nome ?? null,
+            ]);
 
             return redirect()->route('indicadores.index')->with('success', 'Indicador atualizado com sucesso!');
         } catch (\Throwable $th) {

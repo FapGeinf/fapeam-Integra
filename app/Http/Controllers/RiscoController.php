@@ -1,31 +1,40 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Requests\StoreMonitoramentoRequest;
 use App\Http\Requests\StoreRespostaRequest;
 use App\Http\Requests\StoreRiscoRequest;
 use App\Http\Requests\UpdateMonitoramentoRequest;
-use App\Services\LogService;
 use App\Services\MonitoramentoService;
 use App\Services\NotificationService;
 use App\Services\PrazoService;
 use App\Services\RespostaService;
-use Illuminate\Http\Request;
-use App\Mail\ResponseNotification;
-use App\Models\Monitoramento;
-use App\Models\Notification;
-use App\Models\Resposta;
-use App\Models\User;
+use App\Services\RiscoService;
 use Exception;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
-use App\Services\RiscoService;
 
 class RiscoController extends Controller
 {
+    protected $risco, $monitoramento, $resposta, $prazo, $notification;
 
-    protected $log, $risco, $monitoramento, $resposta, $prazo, $notification;
+    public function __construct(
+        RiscoService $risco, 
+        MonitoramentoService $monitoramento, 
+        RespostaService $resposta, 
+        PrazoService $prazo, 
+        NotificationService $notification
+    ) {
+        $this->middleware('auth');
+        // $this->middleware('checkAccess');
+        $this->risco = $risco;
+        $this->monitoramento = $monitoramento;
+        $this->resposta = $resposta;
+        $this->prazo = $prazo;
+        $this->notification = $notification;
+    }
 
     public function index()
     {
@@ -33,16 +42,18 @@ class RiscoController extends Controller
             $dados = $this->risco->indexRiscos();
             return view('riscos.index', $dados);
         } catch (Exception $e) {
+            Log::error('Erro ao listar riscos: ' . $e->getMessage());
             return redirect()->back()->withErrors(['error' => 'Ocorreu um erro ao carregar os riscos. Por favor, tente novamente.']);
         }
     }
+
     public function analise()
     {
-
         try {
             $dados = $this->risco->indexAnalise();
             return view('riscos.analise', $dados);
         } catch (Exception $e) {
+            Log::error('Erro ao listar análise de riscos: ' . $e->getMessage());
             return redirect()->back()->withErrors(['error' => 'Ocorreu um erro ao carregar os riscos. Por favor, tente novamente.']);
         }
     }
@@ -74,32 +85,35 @@ class RiscoController extends Controller
             return redirect()->back()->withErrors('Ocorreu um erro ao carregar os dados do risco.');
         }
     }
+
     public function create()
     {
         $dados = $this->risco->formStoreRisco();
         return view('riscos.store', $dados);
     }
+
     public function store(StoreRiscoRequest $request)
     {
         try {
             $validatedData = $request->validated();
             $risco = $this->risco->insertRisco($validatedData);
-            $usuarioNome = Auth::user()->name;
-            $this->log->insertLog([
-                'acao' => 'Inserção',
-                'descricao' => "O usuario $usuarioNome inseriu um risco de id $risco->id",
-                'user_id' => Auth::user()->id
+
+            Log::info("Inserção de Risco realizada", [
+                'user_id' => Auth::id(),
+                'user_name' => Auth::user()->name ?? 'Visitante',
+                'risco_id' => $risco->id ?? null
             ]);
+
             return redirect()->route('riscos.index')->with('success', 'Risco criado com sucesso!');
         } catch (Exception $e) {
             Log::error('Erro ao criar risco: ' . $e->getMessage());
             return redirect()->back()->withErrors('Ocorreu um erro ao criar o risco. Por favor, tente novamente.')->withInput();
         }
     }
+
     public function edit($id)
     {
         $dados = $this->risco->formEditRisco($id);
-        $usuarioNome = Auth::user()->name;
         return view('riscos.edit', $dados);
     }
 
@@ -107,12 +121,13 @@ class RiscoController extends Controller
     {
         try {
             $risco = $this->risco->updateRisco($id, $request->all());
-            $usuarioNome = Auth::user()->name;
-            $this->log->insertLog([
-                'acao' => 'Atualização',
-                'descricao' => "O usuario $usuarioNome atualizou o Risco de $id",
-                'user_id' => Auth::user()->id
+
+            Log::info("Atualização de Risco realizada", [
+                'user_id' => Auth::id(),
+                'user_name' => Auth::user()->name ?? 'Visitante',
+                'risco_id' => $id
             ]);
+
             return redirect()->route('riscos.show', ['id' => $risco->id])->with('success', 'Risco editado com sucesso');
         } catch (Exception $e) {
             Log::error('Houve um erro inesperado ao atualizar o risco', ['error' => $e->getMessage(), 'risco_id' => $id]);
@@ -124,12 +139,13 @@ class RiscoController extends Controller
     {
         try {
             $this->risco->deleteRisco($id);
-            $usuarioNome = Auth::user()->name;
-            $this->log->insertLog([
-                'acao' => 'Exclusão',
-                'descricao' => "O usuário $usuarioNome deletou um risco de ID $id",
-                'user_id' => Auth::user()->id
+
+            Log::info("Exclusão de Risco realizada", [
+                'user_id' => Auth::id(),
+                'user_name' => Auth::user()->name ?? 'Visitante',
+                'risco_id' => $id
             ]);
+
             return redirect()->back()->with(['success' => 'Risco deletado com sucesso']);
         } catch (Exception $e) {
             Log::error("Erro ao deletar risco ID $id: " . $e->getMessage());
@@ -169,19 +185,16 @@ class RiscoController extends Controller
         }
     }
 
-
     public function insertMonitoramentos(StoreMonitoramentoRequest $request, $id)
     {
         try {
             $validatedData = $request->validated();
-
             $result = $this->monitoramento->insertMonitoramentos($validatedData, $id);
 
-            $usuarioNome = Auth::user()->name;
-            $this->log->insertLog([
-                'acao' => 'Inserção',
-                'descricao' => "O usuario $usuarioNome inseriu uma lista de monitoramentos",
-                'user_id' => Auth::user()->id
+            Log::info("Inserção de Lista de Monitoramentos realizada", [
+                'user_id' => Auth::id(),
+                'user_name' => Auth::user()->name ?? 'Visitante',
+                'risco_id' => $id
             ]);
 
             return redirect()->route('riscos.show', ['id' => $id])
@@ -200,14 +213,12 @@ class RiscoController extends Controller
     {
         try {
             $validatedData = $request->validated();
-
             $monitoramento = $this->monitoramento->updateMonitoramento($id, $validatedData);
 
-            $usuarioNome = Auth::user()->name;
-            $this->log->insertLog([
-                'acao' => 'Atualização',
-                'descricao' => "O usuario $usuarioNome atualizou um controle sugerido de $id",
-                'user_id' => Auth::user()->id
+            Log::info("Atualização de Controle Sugerido realizada", [
+                'user_id' => Auth::id(),
+                'user_name' => Auth::user()->name ?? 'Visitante',
+                'monitoramento_id' => $id
             ]);
 
             return redirect()->route('riscos.show', ['id' => $monitoramento->riscoFK])
@@ -223,52 +234,38 @@ class RiscoController extends Controller
         }
     }
 
-
     public function deleteMonitoramento($id)
     {
         try {
             $this->monitoramento->destroyMonitoramento($id);
 
-            $usuarioNome = Auth::user()->name;
-            $this->log->insertLog([
-                'acao' => 'Exclusão',
-                'descricao' => "O usuario $usuarioNome deletou um controle sugerido de $id",
-                'user_id' => Auth::user()->id
+            Log::info("Exclusão de Controle Sugerido realizada", [
+                'user_id' => Auth::id(),
+                'user_name' => Auth::user()->name ?? 'Visitante',
+                'monitoramento_id' => $id
             ]);
 
             return redirect()->back()->with(['success' => 'Controle Sugerido deletado com sucesso']);
         } catch (Exception $e) {
-            Log::error('Houve um erro inesperado ao deletar o controle sugerido selecionado', ['error' => $e->getMessage(), 'monitoramento_id']);
+            Log::error('Houve um erro inesperado ao deletar o controle sugerido selecionado', ['error' => $e->getMessage(), 'monitoramento_id' => $id]);
             return redirect()->back()->withErrors(['error' => 'Houve um erro inesperado ao deletar o controle sugerido selecionado']);
         }
     }
 
-    // private function sendEmail(Resposta $resposta, Monitoramento $monitoramento, Notification $notification)
-    // {
-    //     try {
-    //         if ($resposta) {
-    //             $users = User::all();
-    //             Mail::to(auth()->user())->send(new ResponseNotification($notification, $monitoramento));
-    //         }
-    //     } catch (Exception $e) {
-    //         Log::error('Houve um erro ao enviar um email: ' . $e->getMessage());
-    //         throw new Exception('Houve um erro ao enviar o email');
-    //     }
-    // }
-
-
     public function storeResposta(StoreRespostaRequest $request, $id)
     {
         try {
-            Log::channel('action')->info('Inserindo uma providencia no monitoramento',['monitoramento_id' => $id]);
+            Log::channel('action')->info('Inserindo uma providencia no monitoramento', ['monitoramento_id' => $id]);
+            
             $validatedData = $request->validated();
             $resposta = $this->resposta->insertRespostas($id, $validatedData);
-            $usuarioNome = Auth::user()->name;
-            $this->log->insertLog([
-                'acao' => 'Inserção',
-                'descricao' => "O usuario $usuarioNome inseriu uma nova providência",
-                'user_id' => Auth::user()->id
+
+            Log::info("Inserção de Providência realizada", [
+                'user_id' => Auth::id(),
+                'user_name' => Auth::user()->name ?? 'Visitante',
+                'monitoramento_id' => $id
             ]);
+
             return redirect()->route('riscos.respostas', $id)->with('success', 'Providências adicionadas com sucesso');
         } catch (Exception $e) {
             Log::error('Error storing resposta', [
@@ -282,15 +279,13 @@ class RiscoController extends Controller
     public function updateResposta(StoreRespostaRequest $request, $id)
     {
         try {
-
             $validatedData = $request->validated();
             $resposta = $this->resposta->updateResposta($id, $validatedData);
 
-            $usuarioNome = Auth::user()->name;
-            $this->log->insertLog([
-                'acao' => 'Atualização',
-                'descricao' => "O usuario $usuarioNome atualizou a resposta de $id",
-                'user_id' => Auth::user()->id
+            Log::info("Atualização de Providência/Resposta realizada", [
+                'user_id' => Auth::id(),
+                'user_name' => Auth::user()->name ?? 'Visitante',
+                'resposta_id' => $id
             ]);
 
             return redirect()->route('riscos.respostas', ['id' => $resposta->respostaMonitoramentoFk])
@@ -307,11 +302,11 @@ class RiscoController extends Controller
     {
         try {
             $this->resposta->destroyAnexo($id);
-            $usuarioNome = Auth::user()->name;
-            $this->log->insertLog([
-                'acao' => 'Exclusão',
-                'descricao' => "O usuario $usuarioNome deletou o anexo da resposta $id",
-                'user_id' => Auth::user()->id
+
+            Log::info("Exclusão de Anexo de Resposta realizada", [
+                'user_id' => Auth::id(),
+                'user_name' => Auth::user()->name ?? 'Visitante',
+                'resposta_id' => $id
             ]);
 
             return redirect()->back()->with('success', 'Anexo deletado com sucesso');
@@ -324,7 +319,6 @@ class RiscoController extends Controller
     public function respostas($id)
     {
         $dados = $this->resposta->showRespostas($id);
-        $usuarioNome = Auth::user()->name;
         return view('riscos.respostas', $dados);
     }
 
@@ -333,11 +327,10 @@ class RiscoController extends Controller
         try {
             $homologacao = $this->resposta->homologacaoResposta($id);
 
-            $usuarioNome = Auth::user()->name;
-            $this->log->insertLog([
-                'acao' => 'Homologação',
-                'descricao' => "O usuario $usuarioNome homologou a resposta de $id",
-                'user_id' => Auth::user()->id
+            Log::info("Homologação de Resposta realizada", [
+                'user_id' => Auth::id(),
+                'user_name' => Auth::user()->name ?? 'Visitante',
+                'resposta_id' => $id
             ]);
 
             return redirect()->back()
@@ -361,11 +354,10 @@ class RiscoController extends Controller
 
             $this->prazo->storePrazo($validatedData);
 
-            $usuarioNome = Auth::user()->name;
-            $this->log->insertLog([
-                'acao' => 'Inserção',
-                'descricao' => "O usuario $usuarioNome inseriu um novo prazo",
-                'user_id' => Auth::user()->id
+            Log::info("Inserção de Prazo realizada", [
+                'user_id' => Auth::id(),
+                'user_name' => Auth::user()->name ?? 'Visitante',
+                'prazo_data' => $validatedData['data']
             ]);
 
             return redirect()->back()->with('success', 'Prazo Inserido com sucesso');
@@ -389,7 +381,6 @@ class RiscoController extends Controller
         }
     }
 
-
     public function homologacaoMultipla(Request $request)
     {
         try {
@@ -400,6 +391,12 @@ class RiscoController extends Controller
             $dados = $this->resposta->homologacaoMultipla($request->all());
 
             Log::channel('action')->info('Respostas homologadas com sucesso', ['ids' => $dados['homologadas']]);
+
+            Log::info("Homologação Múltipla realizada", [
+                'user_id' => Auth::id(),
+                'user_name' => Auth::user()->name ?? 'Visitante',
+                'homologadas' => $dados['homologadas']
+            ]);
 
             return response()->json([
                 'success' => true,
@@ -415,18 +412,5 @@ class RiscoController extends Controller
                 'message' => 'Erro ao homologar: ' . $e->getMessage(),
             ], 500);
         }
-    }
-
-
-    public function __construct(LogService $log, RiscoService $risco, MonitoramentoService $monitoramento, RespostaService $resposta, PrazoService $prazo, NotificationService $notification)
-    {
-        $this->middleware('auth');
-        // $this->middleware('checkAccess');
-        $this->log = $log;
-        $this->risco = $risco;
-        $this->monitoramento = $monitoramento;
-        $this->resposta = $resposta;
-        $this->prazo = $prazo;
-        $this->notification = $notification;
     }
 }

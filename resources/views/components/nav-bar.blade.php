@@ -38,21 +38,21 @@
               <i class="bi bi-house i-navbar"></i>
               <span class="a-span">Home</span>
             </a>
-          </</li>
+          </li>
 
           <li class="li-navbar2">
             <a href="{{ route('documentos.eixos') }}" class="d-flex li-a a-navbar">
               <i class="bi bi-arrow-left-right i-navbar"></i>
               <span class="a-span">Eixos da Integridade</span>
             </a>
-          </</li>
+          </li>
 
           <li class="li-navbar2">
             <a href="{{ route('documentos.historico') }}" class="d-flex li-a a-navbar">
               <i class="bi bi-card-text i-navbar"></i>
               <span class="a-span">Documentos</span>
             </a>
-          </</li>
+          </li>
 
           @if(in_array(Auth::user()->usuario_tipo_fk, [1, 4]))
             <li class="li-navbar2">
@@ -84,6 +84,13 @@
                 <span class="a-span">Diretorias</span>
               </a>
             </li>
+
+            <li class="li-navbar2">
+              <a href="{{ route('log-viewer.index') }}" class="d-flex li-a a-navbar" target="_blank">
+                <i class="bi bi-journal-text i-navbar"></i>
+                <span class="a-span">Logs</span>
+              </a>
+            </li>
           @endif
 
           @if(in_array(Auth::user()->usuario_tipo_fk, [1, 2, 4]))
@@ -95,8 +102,10 @@
             </li>
           @endif
         </ul>
-      </div>
+      @endif
+    </div>
 
+    @if(Auth::check())
       <div class="dropdown">
         <button 
           class="highlighted-btn-sm highlight-blue me-3 dropdown-toggle" 
