@@ -10,21 +10,16 @@ use App\Models\Indicador;
 use App\Models\Publico;
 use App\Models\MedidaTipo;
 use App\Models\StatusAtividade;
+use Carbon\Carbon;
 
 class AtividadeSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         $publicos = Publico::pluck('id')->toArray();
         $medidas  = MedidaTipo::pluck('id')->toArray();
         $eixos    = Eixo::pluck('id')->toArray();
         $canais   = Canal::pluck('id')->toArray();
-
 
         if (count($eixos) < 8) {
             for ($i = count($eixos) + 1; $i <= 8; $i++) {
@@ -43,8 +38,7 @@ class AtividadeSeeder extends Seeder
 
         $publicoDefault = $publicos[0] ?? 1;
         $medidaDefault  = $medidas[0]  ?? 1;
-
-        $eixoPadrao = $eixos[0] ?? 1;
+        $eixoPadrao     = $eixos[0] ?? 1;
 
         $indicadores = [
             Indicador::firstOrCreate(
@@ -59,20 +53,11 @@ class AtividadeSeeder extends Seeder
                 ['nomeIndicador' => 'Quantidade de Publicações e Divulgações'],
                 ['descricaoIndicador' => 'Mede as publicações e materiais impressos/digitais gerados.', 'eixo_fk' => $eixoPadrao]
             )->id,
-            Indicador::firstOrCreate(
-                ['nomeIndicador' => 'Índice de Satisfação dos Participantes'],
-                ['descricaoIndicador' => 'Média percentual de aprovação nas avaliações pós-evento.', 'eixo_fk' => $eixoPadrao]
-            )->id,
-            Indicador::firstOrCreate(
-                ['nomeIndicador' => 'Número de Parcerias Estratégicas Firmadas'],
-                ['descricaoIndicador' => 'Registra convênios e parcerias consolidadas no período.', 'eixo_fk' => $eixoPadrao]
-            )->id,
         ];
 
-
         $statusExecutada      = StatusAtividade::firstOrCreate(['nome' => 'Executada'])->id;
-        $statusAcompanhamento = StatusAtividade::firstOrCreate(['nome' => 'Acompanhamento'])->id;
-        $statusNaoExecutada   = StatusAtividade::firstOrCreate(['nome' => 'Não Executada'])->id;
+        $statusAcompanhamento = StatusAtividade::firstOrCreate(['nome' => 'Em acompanhamento'])->id;
+        $statusNaoExecutada   = StatusAtividade::firstOrCreate(['nome' => 'Não executado'])->id;
 
         $responsaveis = [
             'Maria Silva', 'João Pedro', 'Ana Costa', 'Carlos Eduardo',
@@ -96,36 +81,32 @@ class AtividadeSeeder extends Seeder
             'Treinamento de Submissão de Propostas na Plataforma',
             'Encontro de Alinhamento Estratégico com Gestores',
             'Lançamento da Revista Científica Institucional',
-            'Painel sobre Inteligência Artificial na Gestão Pública',
-            'Oficina de Redação de Patentes e Propriedade Intelectual',
-            'Campanha de Conscientização de Segurança da Informação',
-            'Jornada Científica para Jovens Pesquisadores',
-            'Reunião do Comitê de Avaliação de Riscos',
-            'Simpósio de Biodiversidade e Recursos Naturais',
-            'Sessão Técnica de Apresentação de Resultados Parciais',
-            'Webinar sobre Fontes de Financiamento Internacionais',
-            'Ação de Divulgação Itinerante nos Municípios do Interior',
-            'Reunião Conjunta com Agências de Fomento Parceiras',
-            'Capacitação sobre Boas Práticas em Compras Públicas',
-            'Mapeamento e Diagnóstico do Ecossistema Local de C&T',
-            'Edição Especial do Boletim Informativo Mensal'
+            'Painel sobre Inteligência Artificial na Gestão Pública'
         ];
 
+        $hoje = Carbon::today();
+
         foreach ($titulosAcoes as $index => $titulo) {
+            
             if ($index % 3 === 0) {
-                $statusId = $statusExecutada;
-                $dataRealizada = '2026-0' . rand(1, 6) . '-' . rand(10, 28);
-                $realizado = (string) rand(50, 200);
+                $statusId      = $statusExecutada;
+                $dataPrevista  = $hoje->copy()->subMonths(rand(1, 4))->format('Y-m-d');
+                $dataRealizada = $hoje->copy()->subDays(rand(1, 30))->format('Y-m-d'); // já realizada
+                $realizado     = (string) rand(50, 200);
                 $justificativa = null;
+
             } elseif ($index % 3 === 1) {
-                $statusId = $statusAcompanhamento;
+                $statusId      = $statusAcompanhamento;
+                $dataPrevista  = $hoje->copy()->addDays(rand(5, 60))->format('Y-m-d'); // futuro
                 $dataRealizada = null;
-                $realizado = (string) rand(0, 40);
+                $realizado     = (string) rand(0, 40);
                 $justificativa = null;
+
             } else {
-                $statusId = $statusNaoExecutada;
+                $statusId      = $statusNaoExecutada;
+                $dataPrevista  = $hoje->copy()->subDays(rand(10, 90))->format('Y-m-d'); // passado
                 $dataRealizada = null;
-                $realizado = '0';
+                $realizado     = '0';
                 $justificativa = 'Atividade não executada no período devido a readequação do cronograma orçamentário.';
             }
 
@@ -147,7 +128,7 @@ class AtividadeSeeder extends Seeder
                 'objetivo'            => "<p>Promover e alcançar os objetivos estratégicos vinculados à ação '{$titulo}'.</p>",
                 'publico_id'          => $pId,
                 'tipo_evento'         => $tiposEventos[$index % count($tiposEventos)],
-                'data_prevista'       => '2026-0' . rand(1, 9) . '-' . rand(10, 28),
+                'data_prevista'       => $dataPrevista,
                 'data_realizada'      => $dataRealizada,
                 'meta'                => (string) rand(50, 200),
                 'realizado'           => $realizado,
