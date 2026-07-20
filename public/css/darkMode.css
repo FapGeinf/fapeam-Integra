@@ -1,0 +1,6 @@
+body.dark-mode {
+  background-color: #111827 !important;
+  background-image: url('/img/bg-dark.png') !important;
+  background-size: cover !important;
+  background-attachment: fixed !important;
+}

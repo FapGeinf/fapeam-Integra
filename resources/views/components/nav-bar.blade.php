@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="{{asset('css/buttons.css')}}">
+<link rel="stylesheet" href="{{ asset('css/darkMode.css') }}">
 
 @if(!Request::is('login'))
   <div class="bg-topnav container-fluid fixed-top">
@@ -94,6 +95,29 @@
         </button>
 
         <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="dropdownConta">
+          <li onclick="event.stopPropagation();">
+            <div class="dropdown-item fs-custom d-flex align-items-center 
+              justify-content-between">
+              <span class="d-flex align-items-center">
+                <i class="bi bi-circle-half me-2"></i>
+                Tema:
+              </span>
+              
+              <button 
+                id="darkModeToggle"
+                class="dark-toggle mb-0"
+                type="button"
+                title="Alternar modo escuro"
+                aria-label="Alternar modo escuro">
+                <span class="toggle-track">
+                  <i class="bi bi-sun-fill toggle-icon sun-icon"></i>
+                  <span class="toggle-thumb"></span>
+                  <i class="bi bi-moon-fill toggle-icon moon-icon"></i>
+                </span>
+              </button>
+            </div>
+          </li>
+
           <li>
             <a class="dropdown-item a-navbar" href="{{ route('users.password') }}"
               onclick="event.preventDefault(); document.getElementById('alterar-form').submit();">
@@ -120,3 +144,5 @@
     @endif
   </nav>
 @endif
+
+<script src="{{ asset('js/darkMode.js') }}"></script>

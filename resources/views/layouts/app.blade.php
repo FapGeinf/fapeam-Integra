@@ -21,6 +21,8 @@
   </head>
 
   <body>
+    <script src="{{ asset('js/dark-mode/enable-dark.js') }}"></script>
+    
     <div id="app">
       <x-nav-bar/>
 
