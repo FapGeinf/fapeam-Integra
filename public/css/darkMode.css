@@ -1,6 +1,45 @@
 body.dark-mode {
   background-color: #111827 !important;
-  background-image: url('/img/bg-dark.png') !important;
+  background-image: url('/img/bg-dark1.jpg') !important;
   background-size: cover !important;
   background-attachment: fixed !important;
+}
+
+body.dark-mode .navbar {
+  background-color: #183a63 !important;
+}
+
+body.dark-mode .box-shadow,
+body.dark-mode .bg__card_pattern,
+body.dark-mode .card-eixos-footer,
+body.dark-mode .card-fofinho,
+body.dark-mode .card-hover {
+  background-color: #212c5b !important;
+}
+
+body.dark-mode span.fw-semibold,
+body.dark-mode i.bi,
+body.dark-mode input[type="file"]::file-selector-button,
+body.dark-mode h5.modal-title,
+body.dark-mode .modal-body,
+body.dark-mode span.text-muted,
+body.dark-mode p.text-muted,
+body.dark-mode .table,
+body.dark-mode .table-striped > tbody > tr:nth-of-type(odd) > *,
+body.dark-mode .table > tbody > tr > td,
+body.dark-mode .h3,
+body.dark-mode h5,
+body.dark-mode h6,
+body.dark-mode .subtitle {
+  color: #F3F6FF !important;
+}
+
+body.dark-mode .border {
+  border: 1px solid #434e7d !important;
+}
+
+body.dark-mode .subtitle {
+  background-color: transparent !important;
+  border: none !important;
+  font-weight: 200 !important;
 }
