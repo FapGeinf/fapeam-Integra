@@ -86,7 +86,7 @@
                     {{ Auth::user()->name }}
                   </span>
 
-                  <small class="text-white-50 custom-a d-flex align-items-start text-wrap mt-1">
+                  <small class="custom-a d-flex align-items-start text-wrap mt-1">
                     <i class="bi bi-buildings me-2 mt-1"></i>
                     <span>{{ Auth::user()->unidade?->unidadeNome ?? 'FAPEAM' }}</span>
                   </small>
