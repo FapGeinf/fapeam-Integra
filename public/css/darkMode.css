@@ -17,6 +17,14 @@ body.dark-mode .card-hover {
   background-color: #212c5b !important;
 }
 
+body.dark-mode .logo-clara {
+  display: none;
+}
+
+body.dark-mode .logo-escura {
+  display: block;
+}
+
 body.dark-mode .bg__card_pattern {
   border-bottom: 1px solid #434e7d !important;
 }
@@ -40,6 +48,10 @@ body.dark-mode h5,
 body.dark-mode h6,
 body.dark-mode .subtitle {
   color: #F3F6FF !important;
+}
+
+body.dark-mode .color-i-eixos {
+  color: #111827 !important;
 }
 
 body.dark-mode .border {

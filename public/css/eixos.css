@@ -143,3 +143,11 @@ body {
 .logo-hero {
   max-width: 350px;
 }
+
+.logo-clara {
+  display: block;
+}
+
+.logo-escura {
+  display: none;
+}

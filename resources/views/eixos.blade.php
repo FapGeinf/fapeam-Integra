@@ -5,7 +5,13 @@
 <link rel="stylesheet" href="{{ asset('css/eixos.css') }}">
 
 <div class="container d-flex flex-column justify-content-center align-items-center">
-  <img src="{{ asset('img/login/logo_ajuste1.png') }}"  class="logo-hero mt-5 mb-4" alt="Logo Integra">
+  <img src="{{ asset('img/login/logo_ajuste1.png') }}"
+    class="logo-hero logo-clara mt-5 mb-4"
+    alt="Logo Integra">
+
+  <img src="{{ asset('img/logo-bw.png') }}"
+    class="logo-hero logo-escura mt-5 mb-4"
+    alt="Logo Integra">
   <span class="h3" style="color: #34415e;">Eixos do Programa de Integridade</span>
 </div>
 
@@ -30,7 +36,7 @@
           <div class="card-hover">
             <a href="{{ route('apresentacoes.eixo1') }}">
               <button class="btn btn-light">
-                <i class="bi bi-box-arrow-up-right me-1"></i>
+                <i class="bi bi-box-arrow-up-right color-i-eixos me-1"></i>
                 Abrir
               </button>
             </a>
