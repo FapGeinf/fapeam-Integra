@@ -17,6 +17,14 @@ body.dark-mode .card-hover {
   background-color: #212c5b !important;
 }
 
+body.dark-mode .bg__card_pattern {
+  border-bottom: 1px solid #434e7d !important;
+}
+
+body.dark-mode .bg-card-footer {
+  background-color: #fff !important;
+}
+
 body.dark-mode span.fw-semibold,
 body.dark-mode i.bi,
 body.dark-mode input[type="file"]::file-selector-button,

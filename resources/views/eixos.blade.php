@@ -37,7 +37,7 @@
           </div>
 
           <div class="card-eixos-footer">
-            <h5 class="bg__card_pattern w-50 rounded mx-auto p-1 mt-2 mb-0"></h5>
+            <div class="py-1 bg-card-footer"></div>
           </div>
         </div>
       </div>
@@ -66,7 +66,7 @@
           </div>
 
           <div class="card-eixos-footer">
-            <h5 class="bg__card_pattern w-50 rounded mx-auto p-1 mt-2 mb-0"></h5>
+            <div class="py-1 bg-card-footer"></div>
           </div>
         </div>
       </div>
@@ -95,7 +95,7 @@
           </div>
 
           <div class="card-eixos-footer">
-            <h5 class="bg__card_pattern w-50 rounded mx-auto p-1 mt-2 mb-0"></h5>
+            <div class="py-1 bg-card-footer"></div>
           </div>
         </div>
       </div>
@@ -124,7 +124,7 @@
           </div>
 
           <div class="card-eixos-footer">
-            <h5 class="bg__card_pattern w-50 rounded mx-auto p-1 mt-2 mb-0"></h5>
+            <div class="py-1 bg-card-footer"></div>
           </div>
         </div>
       </div>
@@ -153,7 +153,7 @@
           </div>
 
           <div class="card-eixos-footer">
-            <h5 class="bg__card_pattern w-50 rounded mx-auto p-1 mt-2 mb-0"></h5>
+            <div class="py-1 bg-card-footer"></div>
           </div>
         </div>
       </div>
@@ -182,7 +182,7 @@
           </div>
 
           <div class="card-eixos-footer">
-            <h5 class="bg__card_pattern w-50 rounded mx-auto p-1 mt-2 mb-0"></h5>
+            <div class="py-1 bg-card-footer"></div>
           </div>
         </div>
       </div>
@@ -211,7 +211,7 @@
           </div>
 
           <div class="card-eixos-footer">
-            <h5 class="bg__card_pattern w-50 rounded mx-auto p-1 mt-2 mb-0"></h5>
+            <div class="py-1 bg-card-footer"></div>
           </div>
         </div>
       </div>
@@ -240,7 +240,7 @@
           </div>
 
           <div class="card-eixos-footer">
-            <h5 class="bg__card_pattern w-50 rounded mx-auto p-1 mt-2 mb-0"></h5>
+            <div class="py-1 bg-card-footer"></div>
           </div>
         </div>
       </div>
