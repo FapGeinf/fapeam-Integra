@@ -21,236 +21,219 @@
 
       <!-- EIXO I -->
       <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 d-flex">
-        <div class="card border overflow-hidden h-100 w-100 mx-auto" style="max-width: 360px;">
-          <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 50px;">
-            <img class="eixo__img card-hover-img" src="{{ asset('img/eixos/handshake.png') }}" alt="Minha Imagem">
-            <span class="card-hover-title">EIXO I</span>
-          </h5>
+        <div class="eixo-card mx-auto">
+          <div class="eixo-card__header">
+            <img src="{{ asset('img/eixos/handshake.png') }}"
+              class="eixo-card__icon"
+              alt="">
+            <span>EIXO I</span>
+          </div>
 
-          <div class="card-body card-fofinho p-4">
-            <div class="my-auto title-teste border rounded text-center fw-semibold subtitle d-flex justify-content-center align-items-center p-1">
+          <div class="eixo-card__body">
+            <div class="eixo-card__title">
               Comprometimento e Apoio da Alta Direção
             </div>
           </div>
 
-          <div class="card-hover">
-            <a href="{{ route('apresentacoes.eixo1') }}">
-              <button class="btn btn-light">
-                <i class="bi bi-box-arrow-up-right color-i-eixos me-1"></i>
-                Abrir
-              </button>
+          <div class="eixo-card__overlay">
+            <a href="{{ route('apresentacoes.eixo1') }}" class="btn btn-light">
+              <i class="bi bi-box-arrow-up-right me-1"></i>
+              Abrir
             </a>
           </div>
 
-          <div class="card-eixos-footer">
-            <div class="py-1 bg-card-footer"></div>
-          </div>
+          <div class="eixo-card__footer"></div>
         </div>
       </div>
 
       <!-- EIXO II -->
       <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 d-flex">
-        <div class="card border overflow-hidden h-100 w-100 mx-auto" style="max-width: 360px;">
-          <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 50px;">
-            <img class="eixo__img2 card-hover-img" src="{{ asset('img/eixos/notebook.png') }}" alt="Minha Imagem">
-            <span class="card-hover-title">EIXO II</span>
-          </h5>
+        <div class="eixo-card mx-auto">
+          <div class="eixo-card__header">
+            <img src="{{ asset('img/eixos/notebook.png') }}"
+              class="eixo-card__icon"
+              alt="">
+            <span>EIXO II</span>
+          </div>
 
-          <div class="card-body card-fofinho p-4">
-            <div class="my-auto title-teste border rounded text-center fw-semibold subtitle d-flex justify-content-center align-items-center p-1">
+          <div class="eixo-card__body">
+            <div class="eixo-card__title">
               Institucionalização do Código de Conduta
             </div>
           </div>
 
-          <div class="card-hover">
-            <a href="{{ route('apresentacoes.eixo2') }}">
-              <button class="btn btn-light">
-                <i class="bi bi-box-arrow-up-right me-1"></i>
-                Abrir
-              </button>
+          <div class="eixo-card__overlay">
+            <a href="{{ route('apresentacoes.eixo2') }}" class="btn btn-light">
+              <i class="bi bi-box-arrow-up-right me-1"></i>
+              Abrir
             </a>
           </div>
 
-          <div class="card-eixos-footer">
-            <div class="py-1 bg-card-footer"></div>
-          </div>
+          <div class="eixo-card__footer"></div>
         </div>
       </div>
 
       <!-- EIXO III -->
       <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 d-flex">
-        <div class="card border overflow-hidden h-100 w-100 mx-auto" style="max-width: 360px;">
-          <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 50px;">
-            <img class="eixo__img3 card-hover-title" src="{{ asset('img/eixos/alert.png') }}" alt="Minha Imagem">
-            <span class="card-hover-title">EIXO III</span>
-          </h5>
+        <div class="eixo-card mx-auto">
+          <div class="eixo-card__header">
+            <img src="{{ asset('img/eixos/alert.png') }}"
+              class="eixo-card__icon"
+              alt="">
+            <span>EIXO III</span>
+          </div>
 
-          <div class="card-body card-fofinho p-4">
-            <div class="my-auto title-teste border rounded text-center fw-semibold subtitle d-flex justify-content-center align-items-center p-1">
+          <div class="eixo-card__body">
+            <div class="eixo-card__title">
               Avaliação de Riscos
             </div>
           </div>
 
-          <div class="card-hover">
-            <a href="{{ route('apresentacoes.eixo3') }}">
-              <button class="btn btn-light">
-                <i class="bi bi-box-arrow-up-right me-1"></i>
-                Abrir
-              </button>
+          <div class="eixo-card__overlay">
+            <a href="{{ route('apresentacoes.eixo3') }}" class="btn btn-light">
+              <i class="bi bi-box-arrow-up-right me-1"></i>
+              Abrir
             </a>
           </div>
 
-          <div class="card-eixos-footer">
-            <div class="py-1 bg-card-footer"></div>
-          </div>
+          <div class="eixo-card__footer"></div>
         </div>
       </div>
 
       <!-- EIXO IV -->
       <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 d-flex">
-        <div class="card border overflow-hidden h-100 w-100 mx-auto" style="max-width: 360px;">
-          <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 50px;">
-            <img class="eixo__img3 card-hover-img" src="{{ asset('img/eixos/equalizer.png') }}" alt="Minha Imagem">
-            <span class="card-hover-title">EIXO IV</span>
-          </h5>
+        <div class="eixo-card mx-auto">
+          <div class="eixo-card__header">
+            <img src="{{ asset('img/eixos/equalizer.png') }}"
+              class="eixo-card__icon"
+              alt="">
+            <span>EIXO IV</span>
+          </div>
 
-          <div class="card-body card-fofinho p-4">
-            <div class="my-auto title-teste border rounded text-center fw-semibold subtitle d-flex justify-content-center align-items-center p-1">
+          <div class="eixo-card__body">
+            <div class="eixo-card__title">
               Implementação dos Controles Internos
             </div>
           </div>
 
-          <div class="card-hover">
-            <a href="{{ route('apresentacoes.eixo4') }}">
-              <button class="btn btn-light">
-                <i class="bi bi-box-arrow-up-right me-1"></i>
-                Abrir
-              </button>
+          <div class="eixo-card__overlay">
+            <a href="{{ route('apresentacoes.eixo4') }}" class="btn btn-light">
+              <i class="bi bi-box-arrow-up-right me-1"></i>
+              Abrir
             </a>
           </div>
 
-          <div class="card-eixos-footer">
-            <div class="py-1 bg-card-footer"></div>
-          </div>
+          <div class="eixo-card__footer"></div>
         </div>
       </div>
 
       <!-- EIXO V -->
       <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 d-flex">
-        <div class="card border overflow-hidden h-100 w-100 mx-auto" style="max-width: 360px;">
-          <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 50px;">
-            <img class="eixo__img3 card-hover-img" src="{{ asset('img/eixos/training.png') }}" alt="Minha Imagem">
-            <span class="card-hover-title">EIXO V</span>
-          </h5>
+        <div class="eixo-card mx-auto">
+          <div class="eixo-card__header">
+            <img src="{{ asset('img/eixos/training.png') }}"
+              class="eixo-card__icon"
+              alt="">
+            <span>EIXO V</span>
+          </div>
 
-          <div class="card-body card-fofinho p-4">
-            <div class="my-auto title-teste border rounded text-center fw-semibold subtitle d-flex justify-content-center align-items-center p-1">
+          <div class="eixo-card__body">
+            <div class="eixo-card__title">
               Comunicação e Treinamentos Periódicos
             </div>
           </div>
 
-          <div class="card-hover">
-            <a href="{{ route('apresentacoes.eixo5') }}">
-              <button class="btn btn-light">
-                <i class="bi bi-box-arrow-up-right me-1"></i>
-                Abrir
-              </button>
+          <div class="eixo-card__overlay">
+            <a href="{{ route('apresentacoes.eixo5') }}" class="btn btn-light">
+              <i class="bi bi-box-arrow-up-right me-1"></i>
+              Abrir
             </a>
           </div>
 
-          <div class="card-eixos-footer">
-            <div class="py-1 bg-card-footer"></div>
-          </div>
+          <div class="eixo-card__footer"></div>
         </div>
       </div>
 
       <!-- EIXO VI -->
       <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 d-flex">
-        <div class="card border overflow-hidden h-100 w-100 mx-auto" style="max-width: 360px;">
-          <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 50px;">
-            <img class="eixo__img3 card-hover-img" src="{{ asset('img/eixos/loudspeaker.png') }}" alt="Minha Imagem">
-            <span class="card-hover-title">EIXO VI</span>
-          </h5>
+        <div class="eixo-card mx-auto">
+          <div class="eixo-card__header">
+            <img src="{{ asset('img/eixos/loudspeaker.png') }}"
+              class="eixo-card__icon"
+              alt="">
+            <span>EIXO VI</span>
+          </div>
 
-          <div class="card-body card-fofinho p-4">
-            <div class="my-auto title-teste border rounded text-center fw-semibold subtitle d-flex justify-content-center align-items-center p-1">
+          <div class="eixo-card__body">
+            <div class="eixo-card__title">
               Canais de Denúncia
             </div>
           </div>
 
-          <div class="card-hover">
-            <a href="{{ route('apresentacoes.eixo6') }}">
-              <button class="btn btn-light">
-                <i class="bi bi-box-arrow-up-right me-1"></i>
-                Abrir
-              </button>
+          <div class="eixo-card__overlay">
+            <a href="{{ route('apresentacoes.eixo6') }}" class="btn btn-light">
+              <i class="bi bi-box-arrow-up-right me-1"></i>
+              Abrir
             </a>
           </div>
 
-          <div class="card-eixos-footer">
-            <div class="py-1 bg-card-footer"></div>
-          </div>
+          <div class="eixo-card__footer"></div>
         </div>
       </div>
 
       <!-- EIXO VII -->
       <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 d-flex">
-        <div class="card border overflow-hidden h-100 w-100 mx-auto" style="max-width: 360px;">
-          <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 50px;">
-            <img class="eixo__img3 card-hover-img" src="{{ asset('img/eixos/search.png') }}" alt="Minha Imagem">
-            <span class="card-hover-title">EIXO VII</span>
-          </h5>
+        <div class="eixo-card mx-auto">
+          <div class="eixo-card__header">
+            <img src="{{ asset('img/eixos/search.png') }}"
+              class="eixo-card__icon"
+              alt="">
+            <span>EIXO VII</span>
+          </div>
 
-          <div class="card-body card-fofinho p-4">
-            <div class="my-auto title-teste border rounded text-center fw-semibold subtitle d-flex justify-content-center align-items-center p-1">
+          <div class="eixo-card__body">
+            <div class="eixo-card__title">
               Investigações Internas
             </div>
           </div>
 
-          <div class="card-hover">
-            <a href="{{ route('apresentacoes.eixo7') }}">
-              <button class="btn btn-light">
-                <i class="bi bi-box-arrow-up-right me-1"></i>
-                Abrir
-              </button>
+          <div class="eixo-card__overlay">
+            <a href="{{ route('apresentacoes.eixo7') }}" class="btn btn-light">
+              <i class="bi bi-box-arrow-up-right me-1"></i>
+              Abrir
             </a>
           </div>
 
-          <div class="card-eixos-footer">
-            <div class="py-1 bg-card-footer"></div>
-          </div>
+          <div class="eixo-card__footer"></div>
         </div>
       </div>
 
       <!-- EIXO VIII -->
       <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 d-flex">
-        <div class="card border overflow-hidden h-100 w-100 mx-auto" style="max-width: 360px;">
-          <h5 class="bg__card_pattern bg__card_pattern_footer p-3 text-light text-center mb-0" style="height: 50px;">
-            <img class="eixo__img3 card-hover-img" src="{{ asset('img/eixos/monitoring.png') }}" alt="Minha Imagem">
-            <span class="card-hover-title">EIXO VIII</span>
-          </h5>
+        <div class="eixo-card mx-auto">
+          <div class="eixo-card__header">
+            <img src="{{ asset('img/eixos/monitoring.png') }}"
+              class="eixo-card__icon"
+              alt="">
+            <span>EIXO VIII</span>
+          </div>
 
-          <div class="card-body card-fofinho p-4">
-            <div class="my-auto title-teste border rounded text-center fw-semibold subtitle d-flex justify-content-center align-items-center p-1">
+          <div class="eixo-card__body">
+            <div class="eixo-card__title">
               Monitoramento Contínuo
             </div>
           </div>
 
-          <div class="card-hover">
-            <a href="{{ route('apresentacoes.eixo8') }}">
-              <button class="btn btn-light">
-                <i class="bi bi-box-arrow-up-right me-1"></i>
-                Abrir
-              </button>
+          <div class="eixo-card__overlay">
+            <a href="{{ route('apresentacoes.eixo8') }}" class="btn btn-light">
+              <i class="bi bi-box-arrow-up-right me-1"></i>
+              Abrir
             </a>
           </div>
 
-          <div class="card-eixos-footer">
-            <div class="py-1 bg-card-footer"></div>
-          </div>
+          <div class="eixo-card__footer"></div>
         </div>
       </div>
-
     </div>
   </div>
 </div>
