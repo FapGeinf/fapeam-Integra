@@ -33,7 +33,7 @@
   <div class="d-flex justify-content-center gap-2">
     <a href="{{ route('relatorios.eixos', ['id' => 7]) }}" 
       class="highlighted-btn-sm highlight-blue text-decoration-none">
-      <i class="bi bi-list-columns-reverse"></i>
+      <i class="bi bi-download"></i>
       Relatório
     </a>
 

@@ -31,7 +31,7 @@
   @if(auth()->user()->unidade->unidadeTipoFK == 1 || auth()->user()->unidade->unidadeTipoFK == 3 || auth()->user()->unidade->unidadeTipoFK == 4)
     <a href="{{ route('relatorios.eixos', ['id' => 5]) }}" 
       class="highlighted-btn-sm highlight-blue text-decoration-none">
-      <i class="bi bi-list-columns-reverse"></i>
+      <i class="bi bi-download"></i>
       Relatório
     </a>
 
