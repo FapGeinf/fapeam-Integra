@@ -6,7 +6,8 @@ body.dark-mode {
 }
 
 body.dark-mode .navbar {
-  background-color: #183a63 !important;
+  background-color: #252b5a !important;
+  border-bottom: 1px solid #434e7d !important;
 }
 
 body.dark-mode .box-shadow,
@@ -49,11 +50,14 @@ body.dark-mode p.text-muted,
 body.dark-mode .table,
 body.dark-mode .table-striped > tbody > tr:nth-of-type(odd) > *,
 body.dark-mode .table > tbody > tr > td,
+body.dark-mode .h5,
 body.dark-mode h5,
 body.dark-mode h6,
 body.dark-mode .subtitle,
 body.dark-mode .eixo-card__header,
-body.dark-mode .eixo-card__title {
+body.dark-mode .eixo-card__title,
+body.dark-mode .lh-lg,
+body.dark-mode .intro {
   color: #F3F6FF !important;
 }
 
@@ -66,7 +70,8 @@ body.dark-mode .color-i-eixos {
 }
 
 body.dark-mode .border,
-body.dark-mode .eixo-card {
+body.dark-mode .eixo-card,
+body.dark-mode .box-shadow {
   border: 1px solid #434e7d !important;
 }
 
