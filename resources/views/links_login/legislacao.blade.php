@@ -63,7 +63,7 @@
 
         <li class="mb-3 intro">
           Manual de Condutas Éticas e de Integridade da FAPEAM
-          <a class="link-primary text-break"
+          <a class="text-break a-intro"
               href="https://www.fapeam.am.gov.br/wpcontent/uploads/2024/01/manual_de_conduta_atualizado_08012024.pdf"
               target="_blank" rel="noopener">
             https://www.fapeam.am.gov.br/wpcontent/uploads/2024/01/manual_de_conduta_atualizado_08012024.pdf
@@ -72,7 +72,7 @@
 
         <li class="mb-3 intro">
           Manual Prático de Sindicância Disciplinar da FAPEAM
-          <a class="link-primary text-break"
+          <a class="text-break a-intro"
               href="https://www.fapeam.am.gov.br/wp-content/uploads/2024/01/Manual-Pratico-de-Sindicancia-Disciplinar-da-FAPEAM.pdf"
               target="_blank" rel="noopener">
             https://www.fapeam.am.gov.br/wp-content/uploads/2024/01/Manual-Pratico-de-Sindicancia-Disciplinar-da-FAPEAM.pdf

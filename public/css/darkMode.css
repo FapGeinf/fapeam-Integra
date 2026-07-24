@@ -65,6 +65,10 @@ body.dark-mode .h3 {
   color: #b5bed1 !important;
 }
 
+body.dark-mode .a-intro {
+  color: #2c98f7 !important;
+}
+
 body.dark-mode .color-i-eixos {
   color: #111827 !important;
 }
