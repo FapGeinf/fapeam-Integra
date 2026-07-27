@@ -93,3 +93,29 @@ body.dark-mode .eixo-card {
 body.dark-mode .eixo-card:hover {
   box-shadow: 0 18px 35px rgba(0, 0, 0, .5) !important;
 }
+
+body.dark-mode .fw-medium {
+  color: #78A6FF !important;
+  font-size: .95rem !important;
+  margin-top: 18px !important;
+  margin-bottom: 10px !important;
+  border-left: 4px solid #4F7DF2 !important;
+  padding-left: 10px !important;
+}
+
+body.dark-mode .text-muted {
+  color: #AEB7D3 !important;
+}
+
+body.dark-mode .box-shadow {
+  background: #1A2142 !important;
+  border: 1px solid #32406D !important;
+  border-radius: 12px !important;
+  padding: 24px !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .25) !important;
+}
+
+body.dark-mode .box-shadow h5 {
+  color: #FFF !important;
+  font-weight: 600 !important;
+}

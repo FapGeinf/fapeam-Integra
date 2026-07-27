@@ -1,147 +1,174 @@
-body {
-  background-image: url('/img/bg-white.jpg');
-  background-size: cover;
-  background-attachment: fixed;
+.dropdown-container {
+  position: relative;
+  display: inline-block;
 }
 
-.main-container {
-  box-shadow: 0 0 10px rgba(0, 0, 0, .05);
-  padding: 15px;
-  background-color: #fff;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.border1 {
-  border: 1px solid #dee2e6;
-}
-
-.titleDiv {
-  flex-direction: column;
-  padding: 8px !important;
-}
-
-.form-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0 10px;
+@keyframes dropdownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
   }
 
-.titleDiv {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.titleDiv span {
-  font-size: 20px;
+.accordion-button {
+  padding: .7rem 1.25rem !important;
 }
 
-.form_create {
-  /* background-color: #f8fafc; */
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  width: 100%;
-  max-width: 700px;
+.accordion-item {
+  overflow: hidden;
+  margin-bottom: 12px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, .05);
+  transition: all .25s ease;
 }
 
-.form-wrapper-title {
-  display: flex;
-  padding-top: 5rem;
-  justify-content: center;
-  align-items: center;
+.accordion-button {
+  transition: all .25s ease;
 }
 
-.form_create1 {
+.accordion-button:hover {
+  background-color: #f8f9fa;
+}
+
+.accordion-button:not(.collapsed) {
   background-color: #f8fafc;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding: 10px;
-  width: 100%;
-  max-width: 800px;
 }
 
-.show {
-  max-height: 500px;
+.accordion-button::after {
+  transition: transform .25s ease;
 }
 
-.icon1 {
-  color: #08558c;
+.accordion-body {
+  background: #fff;
 }
 
-.icon2 {
-  color: #138A36;
+.accordion-button,
+.accordion-button:focus,
+.accordion-button:active,
+.accordion-button:hover,
+.accordion-button:not(.collapsed),
+.accordion-button:not(.collapsed):focus,
+.accordion-button:not(.collapsed):hover,
+.accordion-button:not(.collapsed):active {
+  outline: none !important;
+  box-shadow: none !important;
 }
 
-.form-select {
-  border-radius: 0 !important;
-  margin-bottom: 5px !important;
+.accordion-item:not(:first-of-type) {
+  border-top: 1px solid #dee2e6 !important;
 }
 
-.main-container {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.10);
-  padding: 15px;
-  background-color: #f8fafc;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
+.list-group-item {
+  margin-bottom: 8px;
+  transition: all .2s ease;
 }
 
-.dropdown-container,
-.titleDP {
-  display: block;
-  width: 100%;
+.list-group-item a {
+  transition: color .2s ease;
 }
 
-.titleDP {
-  font-size: 20px;
+.fw-medium {
+  border-bottom: 1px solid #e9ecef;
 }
 
-.dropdown-button {
-  width: 100%;
-  color: #000;
-  padding: 10px;
-  cursor: pointer;
-  font-size: 14px;
-  text-align: start;
-  background-color: #f0f0f0;
-  border: 1px solid #fff;
-  transition: background-color 0.3s ease;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.10);
+.accordion-item:first-of-type {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
 }
 
-.dropdown-button:hover {
-  background-color: #e6e6e6;
+.accordion-item:last-of-type {
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
 }
 
-/* Estilos para o menu dropdown */
-.dropdown-content1 {
-  max-height: 0; /* O dropdown começa colapsado */
-  overflow: hidden; /* Esconde o conteúdo extra */
-  background-color: #f9f9f9;
-  width: 100%;
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-  transition: max-height 0.5s ease; /* Transição suave para expandir/recolher */
+/* DARKMODE */
+
+body.dark-mode .accordion {
+  --bs-accordion-bg: #1B2345 !important;
+  --bs-accordion-border-color: #32406D !important;
+  --bs-accordion-border-radius: 10px !important;
+  --bs-accordion-inner-border-radius: 10px !important;
 }
 
-.dropdown-content1 a {
-  display: block;
-  color: #0079de; 
-  text-align: start;
-  padding: 12px 16px;
-  text-decoration: underline;
-  border-bottom: 1px solid #ddd;
+body.dark-mode .accordion-item {
+  background: #1B2345 !important;
+  border: 1px solid #32406D !important;
+  overflow: hidden !important;
+  margin-bottom: 12px !important;
 }
 
-.dropdown-content a:hover {
-  background-color: #f1f1f1;
+body.dark-mode .accordion-button {
+  background: #263766 !important;
+  color: #F5F7FF !important;
+  transition: .25s !important;
 }
 
-/* Classe para exibir o dropdown quando clicado */
-.show {
-  max-height: 500px;
+body.dark-mode .accordion-button:hover {
+  background: #30467F !important;
+  color: #FFF !important;
+}
+
+body.dark-mode .accordion-button:not(.collapsed) {
+  background: #3558B8 !important;
+  color: #FFF !important;
+}
+
+body.dark-mode .accordion-button::after {
+  filter: brightness(0) invert(1) !important;
+}
+
+body.dark-mode .accordion-body {
+  background: #1B2345 !important;
+  color: #E6EBFF !important;
+  border-top: 1px solid #32406D !important;
+}
+
+body.dark-mode .accordion-button,
+body.dark-mode .accordion-button:focus,
+body.dark-mode .accordion-button:active,
+body.dark-mode .accordion-button:hover,
+body.dark-mode .accordion-button:not(.collapsed),
+body.dark-mode .accordion-button:not(.collapsed):focus,
+body.dark-mode .accordion-button:not(.collapsed):hover,
+body.dark-mode .accordion-button:not(.collapsed):active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+body.dark-mode .list-group {
+  margin-bottom: 8px !important;
+}
+
+body.dark-mode .list-group-item {
+  background: #202D56 !important;
+  border: 1px solid #32406D !important;
+
+}
+
+body.dark-mode .list-group-item:hover {
+  background: #273867 !important;
+}
+
+body.dark-mode .list-group-item a {
+  color: #8CB8FF !important;
+  font-weight: 500 !important;
+}
+
+body.dark-mode .list-group-item a:hover {
+  color: #B8D4FF !important;
+  text-decoration: underline !important;
+}
+
+body.dark-mode .accordion-item:last-of-type > .accordion-header .accordion-button.collapsed {
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+body.dark-mode .accordion-item:first-of-type > .accordion-header .accordion-button {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
 }
