@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Models\User;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -38,7 +40,30 @@ class LoginController extends Controller
         $this->middleware('auth')->only('logout');
     }
 
-		public function username(){
-			return 'cpf';
-		}
+    public function username()
+    {
+        return 'cpf';
+    }
+
+
+    public function sendFailedLoginResponse(Request $request)
+    {
+        $username = $this->username();
+
+        $user = User::where($username, $request->input('cpf'))->first();
+
+        if (!$user) {
+            return redirect()->back()
+                ->withInput($request->only('cpf'))
+                ->withErrors([
+                    $username => 'Usuário não cadastrado ou inexistente.'
+                ]);
+        }
+
+        return redirect()->back()
+            ->withInput($request->only('cpf'))
+            ->withErrors([
+                'password' => 'Senha incorreta.'
+            ]);
+    }
 }

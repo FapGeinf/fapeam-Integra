@@ -523,3 +523,12 @@ input[type=checkbox], label {
     margin-top: 1rem;
   }
 }
+
+.inputImp.is-invalid {
+  border: 2px solid #dc2626 !important;
+  background-color: #fef2f2 !important;
+}
+
+.input-icon input.is-invalid ~ i {
+  color: #dc2626 !important;
+}
