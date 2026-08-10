@@ -27,7 +27,8 @@ class DatabaseSeeder extends Seeder
       MedidaTipoSeeder::class,
       InsercaoNovoUsuarioTipo::class,
       AdministradorSeeder::class,
-      AtividadeSeeder::class
+      AtividadeSeeder::class,
+      StatusAtividadeSeeder::class
     ]);
   }
 }

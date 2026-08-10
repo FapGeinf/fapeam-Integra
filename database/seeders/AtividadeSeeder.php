@@ -56,8 +56,8 @@ class AtividadeSeeder extends Seeder
         ];
 
         $statusExecutada      = StatusAtividade::firstOrCreate(['nome' => 'Executada'])->id;
-        $statusAcompanhamento = StatusAtividade::firstOrCreate(['nome' => 'Em acompanhamento'])->id;
-        $statusNaoExecutada   = StatusAtividade::firstOrCreate(['nome' => 'Não executado'])->id;
+        $statusAcompanhamento = StatusAtividade::firstOrCreate(['nome' => 'Acompanhamento'])->id;
+        $statusNaoExecutada   = StatusAtividade::firstOrCreate(['nome' => 'Não Executada'])->id;
 
         $responsaveis = [
             'Maria Silva', 'João Pedro', 'Ana Costa', 'Carlos Eduardo',
