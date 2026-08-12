@@ -21,18 +21,35 @@ class AtividadeController extends Controller
         $this->canal = $canal;
     }
 
+   
     public function index(Request $request)
     {
         try {
             $eixo_id = $request->get('eixo_id');
-            $dados = $this->atividade->indexAtividades($eixo_id);
+            $dados = $this->atividade->indexAtividadesConcluidas($eixo_id); 
             return view('atividades.index', $dados);
         } catch (Exception $e) {
-            Log::error('Erro ao listar atividades: ' . $e->getMessage(), [
+            Log::error('Erro ao listar atividades concluídas: ' . $e->getMessage(), [
                 'user_id' => Auth::id(),
                 'eixo_id' => $request->get('eixo_id'),
             ]);
             return redirect()->back()->with('error', 'Erro ao carregar a lista de atividades.');
+        }
+    }
+
+    public function planoAcao(Request $request)
+    {
+        try {
+            $eixo_id = $request->get('eixo_id');
+            // Crie este método no seu AtividadeService para retornar os itens pendentes/não ocorridos
+            $dados = $this->atividade->indexPlanoAcao($eixo_id); 
+            return view('atividades.plano_acao', $dados);
+        } catch (Exception $e) {
+            Log::error('Erro ao listar plano de ação: ' . $e->getMessage(), [
+                'user_id' => Auth::id(),
+                'eixo_id' => $request->get('eixo_id'),
+            ]);
+            return redirect()->back()->with('error', 'Erro ao carregar o plano de ação.');
         }
     }
 

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title') {{ 'Lista de Atividades' }} @endsection
+@section('title') {{ 'Plano de Ação' }} @endsection
 @section('content')
 
 <link rel="stylesheet" href="{{ asset('css/show.css') }}">
@@ -23,7 +23,8 @@
 <div class="container-xxl pt-5" style="max-width: 1500px !important;">
   <div class="col-12 border box-shadow">
     <div class="justify-content-center">
-      <h5 class="text-center mb-1">Lista de Atividades</h5>
+      <!-- Título alterado para Plano de Ação -->
+      <h5 class="text-center mb-1">Plano de Ação</h5>
 
       <div class="text-center">
         @if(isset($eixo_id) && $eixo_id)
@@ -89,8 +90,6 @@
             <option value="desc">Mais Recente</option>
           </select>
         </div>
-
-
       </div>
       
       <div class="table-responsive pt-4">
@@ -101,7 +100,6 @@
                 </button>
                 
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <!--                     
                     @if(Auth::user()->unidadeIdFK == 1)
                         <li>
                             <a class="dropdown-item d-flex align-items-center gap-2" href="{{ route('atividades.create') }}">
@@ -109,7 +107,7 @@
                                 Inserir Atividade
                             </a>
                         </li>
-                    @endif -->
+                    @endif
 
                     <li>
                         <button type="button" class="dropdown-item d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalRelatorioStatus">
@@ -117,7 +115,6 @@
                             Gerar Relatório por Status
                         </button>
                     </li>
-                    
                 </ul>
             </div>
         </div>
@@ -181,8 +178,7 @@
           <tbody>
             @foreach ($atividades as $atividade)
               <tr class="text13">
-                <td style="text-align:center;"
-                  class="{{ request()->query('eixo_id') == 8 ? '' : 'd-none' }}">
+                <td style="text-align:center;" class="{{ request()->query('eixo_id') == 8 ? '' : 'd-none' }}">
                   @foreach ($atividade->eixos as $eixo)
                     <span class="badge bg-primary">{{ $eixo->nome }}</span>
                   @endforeach
@@ -191,56 +187,44 @@
                 <td style="text-align: center">{!! $atividade->atividade_descricao !!}</td>
                 <td class="text-center">{!! $atividade->objetivo !!}</td>
                 <td style="text-align: center;">{!! $atividade->responsavel !!}</td>
-
                 <td class="text-center">{{ $atividade->publico->nome ?? 'Não informado' }}</td>
 
                 <td class="text-center">
-                  @if($atividade->tipo_evento == 1)
-                    Presencial
-                  @elseif($atividade->tipo_evento == 2)
-                    Online
-                  @elseif($atividade->tipo_evento == 3)
-                    Presencial e Online
-                  @elseif($atividade->tipo_evento == 0 || $atividade->tipo_evento === null)
-                    Sem evento
+                  @if($atividade->tipo_evento == 1) Presencial
+                  @elseif($atividade->tipo_evento == 2) Online
+                  @elseif($atividade->tipo_evento == 3) Presencial e Online
+                  @elseif($atividade->tipo_evento == 0 || $atividade->tipo_evento === null) Sem evento
                   @endif
                 </td>
 
                 <td class="text-center">
                   @foreach ($atividade->canais as $canal)
-                    <span class="">{{ $canal->nome }}</span>
+                    <span>{{ $canal->nome }}</span>
                   @endforeach
                 </td>
 
-                <td class="text-center"
-                  data-order="{{ \Carbon\Carbon::parse($atividade->data_realizada ?? $atividade->data_prevista)->format('Y-m-d') }}">
-                  <div class="">
-                    <div class="">Data Prevista:</div>
+                <td class="text-center" data-order="{{ \Carbon\Carbon::parse($atividade->data_realizada ?? $atividade->data_prevista)->format('Y-m-d') }}">
+                  <div>
+                    <div>Data Prevista:</div>
                     <div>{{ \Carbon\Carbon::parse($atividade->data_prevista)->format('d/m') }}</div>
                   </div>
-
                   <hr>
-
-                  <div class="">
-                    <div class="">Data Realizada:</div>
-                    <div>
-                      {{ $atividade->data_realizada ? \Carbon\Carbon::parse($atividade->data_realizada)->format('d/m') : 'Não realizada' }}
-                    </div>
+                  <div>
+                    <div>Data Realizada:</div>
+                    <div>{{ $atividade->data_realizada ? \Carbon\Carbon::parse($atividade->data_realizada)->format('d/m') : 'Não realizada' }}</div>
                   </div>
                 </td>
 
                 <td class="text-center">{{ \Carbon\Carbon::parse($atividade->data_prevista)->format('Y') }}</td>
 
                 <td class="text-center">
-                  <div class="">
-                    <div class="">Previsto:</div>
+                  <div>
+                    <div>Previsto:</div>
                     <div>{{$atividade->meta}} {{$atividade->medida->nome ?? 'N/A'}}</div>
                   </div>
-
                   <hr>
-
-                  <div class="">
-                    <div class="">Realizado:</div>
+                  <div>
+                    <div>Realizado:</div>
                     <div>{{$atividade->realizado}} {{$atividade->medida->nome ?? 'N/A'}}</div>
                   </div>
                 </td>
@@ -249,29 +233,22 @@
                     @switch($atividade->statusAtividade->nome ?? '')
                         @case('Acompanhamento')
                             <div class="badge bg-warning text-dark">
-                                {{ $atividade->statusAtividade->nome }}
-                                <i class="bi bi-clock-history ms-1"></i>
+                                {{ $atividade->statusAtividade->nome }} <i class="bi bi-clock-history ms-1"></i>
                             </div>
                             @break
-
                         @case('Executado')
                             <div class="badge bg-success">
-                                {{ $atividade->statusAtividade->nome }}
-                                <i class="bi bi-check-circle ms-1"></i>
+                                {{ $atividade->statusAtividade->nome }} <i class="bi bi-check-circle ms-1"></i>
                             </div>
                             @break
-
                         @case('Não Executado')
                             <div class="badge bg-danger">
-                                {{ $atividade->statusAtividade->nome }}
-                                <i class="bi bi-x-circle ms-1"></i>
+                                {{ $atividade->statusAtividade->nome }} <i class="bi bi-x-circle ms-1"></i>
                             </div>
                             @break
-
                         @default
                             <div class="badge bg-secondary">
-                                {{ $atividade->statusAtividade->nome ?? 'N/A' }}
-                                <i class="bi bi-question-circle ms-1"></i>
+                                {{ $atividade->statusAtividade->nome ?? 'N/A' }} <i class="bi bi-question-circle ms-1"></i>
                             </div>
                     @endswitch
                 </td>
@@ -279,58 +256,30 @@
                 <td class="text-center">
                   @if(Auth::user()->unidade->unidadeTipoFK == 1 || Auth::user()->usuario_tipo_fk == 1  || Auth::user()->usuario_tipo_fk == 4)
                     <div class="d-flex flex-column gap-2">
-                      <a href="{{ route('atividades.show', $atividade->id) }}"
-                        class="footer-btn footer-primary w-100 text-start d-inline-block text-decoration-none text-nowrap">
-                        <i class="bi bi-eye me-2"></i>
-                        Visualizar
+                      <a href="{{ route('atividades.show', $atividade->id) }}" class="footer-btn footer-primary w-100 text-start d-inline-block text-decoration-none text-nowrap">
+                        <i class="bi bi-eye me-2"></i> Visualizar
                       </a>
-
-                      <a href="{{ route('atividades.edit', $atividade->id) }}"
-                      class="footer-btn footer-warning w-100 text-start d-inline-block text-decoration-none text-nowrap">
-                        <i class="bi bi-pencil me-2"></i>
-                        Editar
+                      <a href="{{ route('atividades.edit', $atividade->id) }}" class="footer-btn footer-warning w-100 text-start d-inline-block text-decoration-none text-nowrap">
+                        <i class="bi bi-pencil me-2"></i> Editar
                       </a>
-
-                      <a href="#" class="footer-btn footer-danger w-100 text-start d-inline-block text-decoration-none text-nowrap"
-                        data-bs-toggle="modal"
-                        data-bs-target="#deleteModal{{ $atividade->id }}">
-                        <i class="bi bi-trash me-2"></i>
-                        Excluir
+                      <a href="#" class="footer-btn footer-danger w-100 text-start d-inline-block text-decoration-none text-nowrap" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $atividade->id }}">
+                        <i class="bi bi-trash me-2"></i> Excluir
                       </a>
                     </div>
                   @endif
                 </td>
-
-                {{-- <td>
-                  @if(Auth::user()->unidade->unidadeTipoFK == 1 || Auth::user()->usuario_tipo_fk == 1)
-                  <div class="d-flex justify-content-center gap-1">
-                      <a href="{{ route('atividades.edit', $atividade->id) }}" class="warning"
-                          style="font-size: 13px;"><i class="bi bi-pencil"></i></a>
-                      <a href="{{ route('atividades.show', $atividade->id) }}" class="primary">
-                          <i class="bi bi-eye"></i>
-                      </a>
-                      <button type="button" class="danger" data-bs-toggle="modal"
-                          data-bs-target="#deleteModal{{ $atividade->id }}"><i
-                              class="bi bi-trash"></i></button>
-                  </div>
-                  @endif
-                </td> --}}
               </tr>
 
-              <div class="modal fade" id="deleteModal{{ $atividade->id }}" tabindex="-1"
-                aria-labelledby="deleteModalLabel{{ $atividade->id }}" aria-hidden="true">
+              <div class="modal fade" id="deleteModal{{ $atividade->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $atividade->id }}" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
                       <h5 class="modal-title" id="deleteModalLabel{{ $atividade->id }}">Confirmar Exclusão</h5>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-
                     <div class="modal-body">Tem certeza que deseja excluir esta atividade?</div>
-
                     <div class="modal-footer">
                       <button type="button" class="footer-btn footer-secondary" data-bs-dismiss="modal">Cancelar</button>
-
                       <form action="{{ route('atividades.delete', $atividade->id) }}" method="POST" class="m-0 p-0">
                         @csrf
                         @method('DELETE')

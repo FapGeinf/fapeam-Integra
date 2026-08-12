@@ -124,6 +124,8 @@ Route::prefix('atividades')->name('atividades.')->middleware('auth')->group(func
     Route::get('/executadas', [AtividadeController::class, 'painelAtividadesExecutadas'])->name('executadas');
     Route::get('/acompanhamento', [AtividadeController::class, 'painelAtividadesAcompanhamento'])->name('acompanhamento');
     Route::get('/nao-executadas', [AtividadeController::class, 'painelAtividadesNaoExecutadas'])->name('nao-executadas');
+    Route::get('/concluidas', [AtividadeController::class, 'painelAtividadesConcluidas'])->name('concluidas');
+    Route::get('/plano-acao', [AtividadeController::class, 'planoAcao'])->name('plano-acao');
     Route::get('/show/{id}', [AtividadeController::class, 'showAtividade'])->name('show');
     Route::get('/create', [AtividadeController::class, 'createAtividade'])->name('create');
     Route::post('/store', [AtividadeController::class, 'storeAtividade'])->name('store');

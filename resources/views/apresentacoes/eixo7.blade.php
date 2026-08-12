@@ -39,40 +39,15 @@
       <a href="{{ route('atividades.index', ['eixo_id' => 7]) }}">
         <button class="highlighted-btn-sm highlight-blue">
           <i class="bi bi-file-text"></i>
-          Todas Atividades do Eixo
+          Atividades
         </button>
       </a>
 
-      <div class="dropdown d-inline-block">
-        <button class="highlighted-btn-sm highlight-blue dropdown-toggle text-decoration-none border-0" type="button"
-          id="dropdownStatusEixo" data-bs-toggle="dropdown" aria-expanded="false">
-          <i class="bi bi-filter-square me-1"></i> Atividades do Eixo por Status
-        </button>
-
-        <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="dropdownStatusEixo">
-          <li>
-            <a class="dropdown-item d-flex align-items-center gap-2"
-              href="{{ route('atividades.executadas', ['eixo_id' => $eixo_id ?? 7]) }}">
-              <i class="bi bi-check-circle-fill text-success"></i>
-              Executadas
-            </a>
-          </li>
-          <li>
-            <a class="dropdown-item d-flex align-items-center gap-2"
-              href="{{ route('atividades.acompanhamento', ['eixo_id' => $eixo_id ?? 7]) }}">
-              <i class="bi bi-arrow-repeat text-info"></i>
-              Acompanhamento
-            </a>
-          </li>
-          <li>
-            <a class="dropdown-item d-flex align-items-center gap-2"
-              href="{{ route('atividades.nao-executadas', ['eixo_id' => $eixo_id ?? 7]) }}">
-              <i class="bi bi-x-circle-fill text-warning"></i>
-              Não Executadas
-            </a>
-          </li>
-        </ul>
-      </div>
+      <a href="{{ route('atividades.plano-acao', ['eixo_id' => $eixo_id ?? 7]) }}"
+        class="highlighted-btn-sm highlight-blue text-decoration-none d-inline-flex align-items-center gap-1">
+        <i class="bi bi-list-check"></i>
+        Plano de Ação
+      </a>
 
       <form action="{{ route('indicadores.index') }}" method="POST" class="d-inline">
         @csrf

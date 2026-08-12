@@ -326,4 +326,75 @@ class AtividadeService
            })->get();
     }
 
+
+    public function indexAtividadesConcluidas($eixo_id)
+    {
+        $eixoNome = null;
+        $atividades = collect();
+
+        if ($eixo_id && in_array($eixo_id, [1, 2, 3, 4, 5, 6, 7, 8])) {
+            $eixo = $this->eixoService->findEixoById($eixo_id);
+            $eixoNome = $eixo ? $eixo->nome : null;
+
+            $atividades = Atividade::whereHas('statusAtividade', function ($q) {
+                $q->where('nome', 'Executada');
+            })->whereHas('eixos', function ($query) use ($eixo_id) {
+                $query->where('eixos.id', $eixo_id);
+            })->with(['publico', 'canais', 'medida', 'statusAtividade'])->orderBy('data_prevista', 'asc')->get();
+
+        } elseif ($eixo_id == 8) {
+            $atividades = Atividade::whereHas('statusAtividade', function ($q) {
+                $q->where('nome', 'Executada');
+            })->with(['publico', 'canais', 'medida', 'statusAtividade'])->orderBy('data_prevista', 'asc')->get();
+        }
+
+        $publicos = $this->publicoService->indexPublicos();
+        $canais = $this->canalService->getAllCanais();
+        $statusAtividades = $this->statusAtividadeService->getAllStatusAtividades();
+
+        return [
+            'atividades' => $atividades,
+            'eixoNome' => $eixoNome,
+            'eixo_id' => $eixo_id,
+            'publicos' => $publicos,
+            'canais' => $canais,
+            'statusAtividades' => $statusAtividades
+        ];
+    }
+
+    public function indexPlanoAcao($eixo_id)
+    {
+        $eixoNome = null;
+        $atividades = collect();
+
+        if ($eixo_id && in_array($eixo_id, [1, 2, 3, 4, 5, 6, 7, 8])) {
+            $eixo = $this->eixoService->findEixoById($eixo_id);
+            $eixoNome = $eixo ? $eixo->nome : null;
+
+            $atividades = Atividade::whereHas('statusAtividade', function ($q) {
+                $q->whereIn('nome', ['Não Executada', 'Acompanhamento']);
+            })->whereHas('eixos', function ($query) use ($eixo_id) {
+                $query->where('eixos.id', $eixo_id);
+            })->with(['publico', 'canais', 'medida', 'statusAtividade'])->orderBy('data_prevista', 'asc')->get();
+
+        } elseif ($eixo_id == 8) {
+            $atividades = Atividade::whereHas('statusAtividade', function ($q) {
+                $q->whereIn('nome', ['Não Executada', 'Acompanhamento']);
+            })->with(['publico', 'canais', 'medida', 'statusAtividade'])->orderBy('data_prevista', 'asc')->get();
+        }
+
+        $publicos = $this->publicoService->indexPublicos();
+        $canais = $this->canalService->getAllCanais();
+        $statusAtividades = $this->statusAtividadeService->getAllStatusAtividades();
+
+        return [
+            'atividades' => $atividades,
+            'eixoNome' => $eixoNome,
+            'eixo_id' => $eixo_id,
+            'publicos' => $publicos,
+            'canais' => $canais,
+            'statusAtividades' => $statusAtividades
+        ];
+    }
+
 }
