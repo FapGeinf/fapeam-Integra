@@ -340,13 +340,14 @@ class AtividadeService
                 $query->where('eixos.id', $eixo_id);
             });
 
-            // Fallback caso a relação/status dê erro ou venha nulo em produção
             try {
-                $query->whereHas('statusAtividade', function ($q) {
-                    $q->where('nome', 'Executada');
+                $query->where(function ($subQuery) {
+                    $subQuery->whereHas('statusAtividade', function ($q) {
+                        $q->where('nome', 'Executada');
+                    })->orWhereNull('status_atividade_id');
                 });
             } catch (Exception $e) {
-                // Se a coluna/tabela falhar, não aplica o filtro de status (retorna todas)
+                // Fallback caso a coluna/tabela falhe
             }
 
             $atividades = $query->with(['publico', 'canais', 'medida', 'statusAtividade'])->orderBy('data_prevista', 'asc')->get();
@@ -355,8 +356,10 @@ class AtividadeService
             $query = Atividade::query();
             
             try {
-                $query->whereHas('statusAtividade', function ($q) {
-                    $q->where('nome', 'Executada');
+                $query->where(function ($subQuery) {
+                    $subQuery->whereHas('statusAtividade', function ($q) {
+                        $q->where('nome', 'Executada');
+                    })->orWhereNull('status_atividade_id');
                 });
             } catch (Exception $e) {
                 // Fallback
@@ -392,13 +395,14 @@ class AtividadeService
                 $query->where('eixos.id', $eixo_id);
             });
 
-            // Fallback caso a relação/status dê erro ou venha nulo em produção
             try {
-                $query->whereHas('statusAtividade', function ($q) {
-                    $q->whereIn('nome', ['Não Executada', 'Acompanhamento']);
+                $query->where(function ($subQuery) {
+                    $subQuery->whereHas('statusAtividade', function ($q) {
+                        $q->whereIn('nome', ['Não Executada', 'Acompanhamento']);
+                    })->orWhereNull('status_atividade_id');
                 });
             } catch (Exception $e) {
-                // Se falhar, traz todas para que o usuário edite manualmente
+                // Fallback
             }
 
             $atividades = $query->with(['publico', 'canais', 'medida', 'statusAtividade'])->orderBy('data_prevista', 'asc')->get();
@@ -407,8 +411,10 @@ class AtividadeService
             $query = Atividade::query();
 
             try {
-                $query->whereHas('statusAtividade', function ($q) {
-                    $q->whereIn('nome', ['Não Executada', 'Acompanhamento']);
+                $query->where(function ($subQuery) {
+                    $subQuery->whereHas('statusAtividade', function ($q) {
+                        $q->whereIn('nome', ['Não Executada', 'Acompanhamento']);
+                    })->orWhereNull('status_atividade_id');
                 });
             } catch (Exception $e) {
                 // Fallback
