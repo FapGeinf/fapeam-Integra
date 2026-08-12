@@ -26,6 +26,7 @@ class AtividadeRequest extends FormRequest
     public function rules()
     {
         return [
+            'ano' => 'nullable|integer|digits:4|min:1900|max:2100',
             'eixo_ids' => 'nullable|array',
             'eixo_ids.*' => 'exists:eixos,id',
             'responsavel' => 'nullable|string|max:255',
@@ -74,6 +75,10 @@ class AtividadeRequest extends FormRequest
     public function messages()
     {
         return [
+            'ano.integer' => 'O ano deve ser um número inteiro.',
+            'ano.digits' => 'O ano deve conter exatamente 4 dígitos (ex: 2026).',
+            'ano.min' => 'O ano deve ser no mínimo 2003.',
+            'ano.max' => 'O ano não pode ser maior que 2100.',
             'eixo_ids.required' => 'Por favor, selecione pelo menos um eixo para continuar.',
             'eixo_ids.array' => 'Os eixos devem estar no formato correto.',
             'eixo_ids.*.exists' => 'Alguns dos eixos selecionados não existem. Verifique sua seleção.',

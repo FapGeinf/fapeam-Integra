@@ -1,7 +1,8 @@
 @extends('layouts.app')
-@section('title') {{ 'Editar Atividade' }} @endsection
-@section('content')
 
+@section('title') {{ 'Editar Atividade' }} @endsection
+
+@section('content')
   <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
   <link rel="stylesheet" href="{{ asset('css/main.css') }}">
   <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
@@ -14,7 +15,7 @@
   <script src="{{ asset('js/choices/eixos.js') }}"></script>
 
   <div class="container pt-5" style="max-width: 800px;">
-    <div class="col-12 border box-shadow">
+    <div class="col-12 border box-shadow p-4 rounded">
       <h5 class="text-center">Editar Atividade</h5>
 
       <div class="text-muted text-center mt-2 mb-4">
@@ -27,8 +28,9 @@
         @method('PUT')
 
         <div class="row g-3">
+          {{-- Eixos --}}
           <div class="col-12">
-            <label for="eixo_ids" class="">
+            <label for="eixo_ids">
               <span class="text-danger">*</span>
               Eixos:
             </label>
@@ -42,46 +44,49 @@
               @endforeach
             </select>
           </div>
-        </div>
 
-        <div class="col-12 mt-2">
-          <label for="responsavel" class="">Responsável:</label>
-          <input name="responsavel" id="responsavel" class="form-control input-enabled"
-            value="{{ old('responsavel', $atividade->responsavel) }}">
-        </div>
+          {{-- Ano e Responsável na mesma linha --}}
+          <div class="col-12 col-md-3">
+            <label for="ano">
+              <span class="text-danger">*</span>
+              Ano:
+            </label>
+            <input type="number" name="ano" id="ano" class="form-control" 
+              value="{{ old('ano', $atividade->ano ?? date('Y')) }}" 
+              min="2000" max="2100" required>
+          </div>
 
-        <div class="row g-3">
-          <div class="col-12 mt-4">
-            <label for="atividade_descricao" class="">
+          <div class="col-12 col-md-9">
+            <label for="responsavel">Responsável:</label>
+            <input name="responsavel" id="responsavel" class="form-control input-enabled"
+              value="{{ old('responsavel', $atividade->responsavel) }}">
+          </div>
+
+          {{-- Atividade e Objetivo --}}
+          <div class="col-12">
+            <label for="atividade_descricao">
               <span class="text-danger">*</span>
               Atividade:
             </label>
-
-            <textarea name="atividade_descricao" id="atividade_descricao" class="form-control" required>
-              {{ old('atividade_descricao', $atividade->atividade_descricao) }}
-            </textarea>
+            <textarea name="atividade_descricao" id="atividade_descricao" class="form-control" required>{{ old('atividade_descricao', $atividade->atividade_descricao) }}</textarea>
           </div>
 
           <div class="col-12">
-            <label for="objetivo" class="">
+            <label for="objetivo">
               <span class="text-danger">*</span>
               Objetivo:
             </label>
-
-            <textarea name="objetivo" id="objetivo" class="form-control" required>
-              {{ old('objetivo', $atividade->objetivo) }}
-            </textarea>
+            <textarea name="objetivo" id="objetivo" class="form-control" required>{{ old('objetivo', $atividade->objetivo) }}</textarea>
           </div>
 
           <div class="col-12 d-none">
-            <label for="justificativa" class="">Justificativa (Opcional) :</label>
-            <textarea name="justificativa" id="justificativa"
-              class="form-control">{{ old('justificativa', $atividade->justificativa) }}</textarea>
+            <label for="justificativa">Justificativa (Opcional):</label>
+            <textarea name="justificativa" id="justificativa" class="form-control">{{ old('justificativa', $atividade->justificativa) }}</textarea>
           </div>
 
+          {{-- Público Alvo e Tipo de Evento --}}
           <div class="col-12 col-md-6">
-            <label for="publico_id" class="">Público Alvo:</label>
-
+            <label for="publico_id">Público Alvo:</label>
             <select name="publico_id" id="publico_id" class="form-select pointer">
               <option value="">Selecione o Público Alvo</option>
               @foreach ($publicos as $publico)
@@ -94,21 +99,17 @@
           </div>
 
           <div class="col-12 col-md-6">
-            <label for="tipo_evento" class="">Tipo de Evento:</label>
-
+            <label for="tipo_evento">Tipo de Evento:</label>
             <select name="tipo_evento" id="tipo_evento" class="form-select pointer">
-              <option value="0" {{ old('tipo_evento', $atividade->tipo_evento) == '0' || old('tipo_evento') == null ? 'selected' : '' }}>
+              <option value="0" {{ old('tipo_evento', $atividade->tipo_evento) == '0' || old('tipo_evento') === null ? 'selected' : '' }}>
                 Sem evento
               </option>
-
               <option value="1" {{ old('tipo_evento', $atividade->tipo_evento) == '1' ? 'selected' : '' }}>
                 Presencial
               </option>
-
               <option value="2" {{ old('tipo_evento', $atividade->tipo_evento) == '2' ? 'selected' : '' }}>
                 Online
               </option>
-
               <option value="3" {{ old('tipo_evento', $atividade->tipo_evento) == '3' ? 'selected' : '' }}>
                 Presencial e Online
               </option>
@@ -116,14 +117,14 @@
           </div>
 
           <div class="col-12" id="outro-publico-container" style="display: none;">
-            <label for="novo_publico" class="">Especifique o Público:</label>
+            <label for="novo_publico">Especifique o Público:</label>
             <input type="text" name="novo_publico" id="novo_publico" class="form-control"
               value="{{ old('novo_publico') }}">
           </div>
 
-          <div class="col-12 mt-1">
-            <label for="canal_id" class="">Canal de Divulgação:</label>
-
+          {{-- Canais e Indicadores --}}
+          <div class="col-12">
+            <label for="canal_id">Canal de Divulgação:</label>
             <select name="canal_id[]" id="canal_id" class="form-select" multiple onchange="toggleOtherField()">
               <option value="">Selecione o Canal de Divulgação</option>
               @foreach ($canais as $canal)
@@ -134,86 +135,85 @@
             </select>
           </div>
 
-          <div class="row g-3">
-            <div class="col-12 mt-1">
-              <label for="indicador_ids">Indicadores:</label>
-
-              <select name="indicador_ids[]" id="indicador_ids" class="form-select" multiple>
-                <option value="">Selecione os Indicadores</optio>
-                  @foreach ($indicadores as $indicador)
-                    <option value="{{ $indicador->id }}" {{ in_array($indicador->id, old('indicador_ids', $atividade->indicadores->pluck('id')->toArray())) ? 'selected' : '' }}>
-                      {{ $indicador->nomeIndicador }}
-                    </option>
-                  @endforeach
-              </select>
-            </div>
-
-            <div class="col-12">
-              <label for="status_atividade_id" class="">Status da Atividade:</label>
-
-              <select name="status_atividade_id" id="status_atividade_id" class="form-select">
-                <option value="">Selecione o Status da Atividade</option>
-                @foreach ($statusAtividades as $statusAtividade)
-                  <option value="{{ $statusAtividade->id }}" {{ old('status_atividade_id', $atividade->status_atividade_id) == $statusAtividade->id ? 'selected' : '' }}>
-                    {{ $statusAtividade->nome }}
-                  </option>
-                @endforeach
-              </select>
-            </div>
-
-            <div class="col-12 col-md-6">
-              <label for="data_realizada" class="">Data Realizada:</label>
-              <input type="date" name="data_realizada" id="data_realizada" class="form-control form-select input-enabled"
-                value="{{ old('data_realizada', $atividade->data_realizada) }}">
-            </div>
-
-            <div class="col-12 col-md-6">
-              <label for="data_prevista" class="">Data Prevista:</label>
-              <input type="date" name="data_prevista" id="data_prevista" class="form-control form-select input-enabled"
-                value="{{ old('data_prevista', $atividade->data_prevista) }}">
-            </div>
-
-            <div class="col-12 col-md-6">
-              <label for="meta" class="">Previsto:</label>
-              <input type="number" name="meta" id="meta" class="form-control input-enabled" min="0"
-                value="{{ old('meta', $atividade->meta) }}" oninput="mostrarUnidade()">
-            </div>
-
-            <div class="col-12 col-md-6">
-              <label for="realizado" class="">Realizado:</label>
-              <input type="number" name="realizado" id="realizado" class="form-control input-enabled" min="0"
-                value="{{ old('realizado', $atividade->realizado) }}" oninput="mostrarUnidade()">
-            </div>
-
-            <div class="col-12 col-md-6" id="unidade-container" style="display: none;">
-              <label for="medida_id" class=""> <span class="asteriscoTop">*</span>Tipo de Unidade:</label>
-              <select name="medida_id" id="medida_id" class="form-control">
-                <option value="">Selecione o Tipo de Unidade</option>
-                @foreach ($medidas as $medida)
-                  <option value="{{ $medida->id }}" {{ old('medida_id', $atividade->medida_id) == $medida->id ? 'selected' : '' }}>
-                    {{ $medida->nome }}
-                  </option>
-                @endforeach
-              </select>
-            </div>
+          <div class="col-12">
+            <label for="indicador_ids">Indicadores:</label>
+            <select name="indicador_ids[]" id="indicador_ids" class="form-select" multiple>
+              <option value="">Selecione os Indicadores</option>
+              @foreach ($indicadores as $indicador)
+                <option value="{{ $indicador->id }}" {{ in_array($indicador->id, old('indicador_ids', $atividade->indicadores->pluck('id')->toArray())) ? 'selected' : '' }}>
+                  {{ $indicador->nomeIndicador }}
+                </option>
+              @endforeach
+            </select>
           </div>
 
-          <div class="d-flex justify-content-end pt-4">
-            <button type="button" onclick="showConfirmationModal()" class="highlighted-btn-sm highlight-success">
-              <i class="bi bi-save2 me-1"></i>
-              Salvar Edição
-            </button>
+          {{-- Status e Datas --}}
+          <div class="col-12">
+            <label for="status_atividade_id">Status da Atividade:</label>
+            <select name="status_atividade_id" id="status_atividade_id" class="form-select">
+              <option value="">Selecione o Status da Atividade</option>
+              @foreach ($statusAtividades as $statusAtividade)
+                <option value="{{ $statusAtividade->id }}" {{ old('status_atividade_id', $atividade->status_atividade_id) == $statusAtividade->id ? 'selected' : '' }}>
+                  {{ $statusAtividade->nome }}
+                </option>
+              @endforeach
+            </select>
           </div>
+
+          <div class="col-12 col-md-6">
+            <label for="data_realizada">Data Realizada:</label>
+            <input type="date" name="data_realizada" id="data_realizada" class="form-control input-enabled"
+              value="{{ old('data_realizada', $atividade->data_realizada) }}">
+          </div>
+
+          <div class="col-12 col-md-6">
+            <label for="data_prevista">Data Prevista:</label>
+            <input type="date" name="data_prevista" id="data_prevista" class="form-control input-enabled"
+              value="{{ old('data_prevista', $atividade->data_prevista) }}">
+          </div>
+
+          {{-- Metas e Unidade --}}
+          <div class="col-12 col-md-6">
+            <label for="meta">Previsto:</label>
+            <input type="number" name="meta" id="meta" class="form-control input-enabled" min="0"
+              value="{{ old('meta', $atividade->meta) }}" oninput="mostrarUnidade()">
+          </div>
+
+          <div class="col-12 col-md-6">
+            <label for="realizado">Realizado:</label>
+            <input type="number" name="realizado" id="realizado" class="form-control input-enabled" min="0"
+              value="{{ old('realizado', $atividade->realizado) }}" oninput="mostrarUnidade()">
+          </div>
+
+          <div class="col-12 col-md-6" id="unidade-container" style="display: none;">
+            <label for="medida_id"><span class="asteriscoTop">*</span>Tipo de Unidade:</label>
+            <select name="medida_id" id="medida_id" class="form-control">
+              <option value="">Selecione o Tipo de Unidade</option>
+              @foreach ($medidas as $medida)
+                <option value="{{ $medida->id }}" {{ old('medida_id', $atividade->medida_id) == $medida->id ? 'selected' : '' }}>
+                  {{ $medida->nome }}
+                </option>
+              @endforeach
+            </select>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-end pt-4">
+          <button type="button" onclick="showConfirmationModal()" class="highlighted-btn-sm highlight-success">
+            <i class="bi bi-save2 me-1"></i>
+            Salvar Edição
+          </button>
+        </div>
       </form>
     </div>
   </div>
 
-  <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel"
-    aria-hidden="true">
+  {{-- Modal de Confirmação --}}
+  <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="confirmationModalLabel">Confirmação de Inserção</h5>
+          <h5 class="modal-title" id="confirmationModalLabel">Confirmação de Edição</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
         </div>
 
@@ -227,10 +227,9 @@
             Voltar
           </button>
 
-          <button type="button" onclick="formSubmit()" class="highlighted-btn-sm highlight-success"
-            id="submitConfirmationBtn">
+          <button type="button" onclick="formSubmit()" class="highlighted-btn-sm highlight-success" id="submitConfirmationBtn">
             <i class="bi bi-save2 me-1"></i>
-            Confirmar Inserção
+            Confirmar Alterações
           </button>
         </div>
       </div>

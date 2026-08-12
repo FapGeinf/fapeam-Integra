@@ -15,7 +15,6 @@
 
 <style>
   .choices__inner {
-    /* border: 1px solid #ccc; */
     background-color: #f8fafc;
   }
 
@@ -40,7 +39,25 @@
       @csrf
 
       <div class="row g-3">
-        <div class="col-12">
+        <!-- CAMPO ANO ADICIONADO -->
+        <div class="col-12 col-md-4">
+          <label for="ano">
+            <span class="text-danger">*</span>
+            Ano:
+          </label>
+          <input 
+            type="number" 
+            name="ano" 
+            id="ano" 
+            class="form-control" 
+            value="{{ old('ano', date('Y')) }}" 
+            placeholder="Ex: 2026" 
+            min="1900" 
+            max="2100" 
+            required>
+        </div>
+
+        <div class="col-12 col-md-8">
           <label for="eixo_ids">
             <span class="text-danger">*</span>
             Eixos:
@@ -59,9 +76,7 @@
 
         <div class="col-12">
           <label for="responsavel">Responsável:</label>
-          <input name="responsavel" id="responsavel" class="form-control input-enabled">
-            {{ old('responsavel') }}
-          </input>
+          <input name="responsavel" id="responsavel" class="form-control input-enabled" value="{{ old('responsavel') }}">
         </div>
 
         <div class="col-12">
@@ -70,9 +85,7 @@
             Atividade:
           </label>
 
-          <textarea name="atividade_descricao" id="atividade_descricao" class="form-control" required>
-            {{ old('atividade_descricao') }}
-          </textarea>
+          <textarea name="atividade_descricao" id="atividade_descricao" class="form-control" required>{{ old('atividade_descricao') }}</textarea>
         </div>
 
         <div class="col-12">
@@ -81,9 +94,7 @@
             Objetivo:
           </label>
 
-          <textarea name="objetivo" id="objetivo" class="form-control" required>
-            {{ old('objetivo') }}
-          </textarea>
+          <textarea name="objetivo" id="objetivo" class="form-control" required>{{ old('objetivo') }}</textarea>
         </div>
 
         <div class="col-12 d-none">
@@ -107,7 +118,7 @@
           </select>
 
           <div id="outros-input-container" style="display: none; margin-top: 10px;">
-            <label for="novo_publico" class="">Insira o novo público:</label>
+            <label for="novo_publico">Insira o novo público:</label>
             <input type="text" name="novo_publico" id="novo_publico" class="form-control">
           </div>
         </div>
@@ -122,7 +133,7 @@
 
             <option value="1" {{ old('tipo_evento') == '1' ? 'selected' : '' }}>Presencial</option>
             <option value="2" {{ old('tipo_evento') == '2' ? 'selected' : '' }}>Online</option>
-            <option value="2" {{ old('tipo_evento') == '3' ? 'selected' : '' }}>Presencial e Online</option>
+            <option value="3" {{ old('tipo_evento') == '3' ? 'selected' : '' }}>Presencial e Online</option>
           </select>
         </div>
 
@@ -172,12 +183,12 @@
                   'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
 
-              body: JSON.stringify({
-                nome: novoCanal
+                body: JSON.stringify({
+                  nome: novoCanal
+                })
               })
-            })
 
-            .then(response => response.json())
+              .then(response => response.json())
               .then(data => {
                 let modalContent = document.getElementById('modalMessageContent');
                 if (data.success) {
@@ -188,8 +199,7 @@
                   select.appendChild(option);
 
                   let selectedOptions = Array.from(select.options).map(option => option.value);
-                  select.value = selectedOptions.includes(data.canal.id.toString()) ? data.canal.id : select
-                      .value;
+                  select.value = selectedOptions.includes(data.canal.id.toString()) ? data.canal.id : select.value;
 
                   document.getElementById('novo_canal').value = '';
                   document.getElementById('novo_canal_div').style.display = 'none';
@@ -203,15 +213,14 @@
                 myModal.show();
               })
 
-            .catch(error => {
-              let modalContent = document.getElementById('modalMessageContent');
-              modalContent.innerHTML = 'Ocorreu um erro ao criar o canal';
+              .catch(error => {
+                let modalContent = document.getElementById('modalMessageContent');
+                modalContent.innerHTML = 'Ocorreu um erro ao criar o canal';
 
-
-              let myModal = new bootstrap.Modal(document.getElementById('modalMessage'));
-              myModal.show();
-              console.error('Erro:', error);
-            });
+                let myModal = new bootstrap.Modal(document.getElementById('modalMessage'));
+                myModal.show();
+                console.error('Erro:', error);
+              });
 
             } else {
               let modalContent = document.getElementById('modalMessageContent');
@@ -243,7 +252,7 @@
         </div>
 
         <div class="col-12 col-md-6">
-          <label for="data_prevista" class="">Data Prevista:</label>
+          <label for="data_prevista">Data Prevista:</label>
 
           <input 
             type="date" 
@@ -255,7 +264,7 @@
         </div>
 
         <div class="col-12 col-md-6">
-          <label for="data_realizada" class="">Data Realizada:</label>
+          <label for="data_realizada">Data Realizada:</label>
 
           <input 
             type="date" 
@@ -267,7 +276,7 @@
         </div>
 
         <div class="col-12">
-          <label for="indicador_ids[]">Indicadores:</label>
+          <label for="indicador_ids">Indicadores:</label>
           <select name="indicador_ids[]" id="indicador_ids" class="form-select" multiple>
             <option value="" disabled>Selecione os Indicadores</option>
             @foreach ($indicadores as $indicador)
@@ -279,35 +288,21 @@
           </select>
         </div>
 
-        <!-- <div class="col-12">
-          <label for="status_atividade_id">Status da Atividade:</label>
-          <select name="status_atividade_id" id="status_atividade_id" class="form-control form-select">
-            <option value="">Selecione o status</option>
-            @foreach ($statusAtividades as $status)
-              <option value="{{ $status->id }}"
-                {{ old('status_atividade_id') == $status->id ? 'selected' : '' }}>
-                {{ $status->nome }}
-              </option>
-            @endforeach
-          </select>
-        </div> -->
-
         <div class="col-12 col-md-6">
-          <label for="meta" class="">Previsto:</label>
+          <label for="meta">Previsto:</label>
 
           <input 
             type="number" 
             name="meta" 
             id="meta" 
-            class="form-control 
-            input-enabled"
+            class="form-control input-enabled"
             min="0" value="{{ old('meta') }}" 
             oninput="mostrarUnidade()"
             placeholder="Ex: 0">
         </div>
 
         <div class="col-12 col-md-6">
-          <label for="realizado" class="">Realizado:</label>
+          <label for="realizado">Realizado:</label>
 
           <input 
             type="number" 
@@ -320,7 +315,7 @@
         </div>
 
         <div class="col-12 col-md-6" id="unidade-container" style="display: none;">
-          <label for="medida_id" class=""> 
+          <label for="medida_id"> 
             <span class="text-danger">*</span>
             Tipo de Unidade:
           </label>

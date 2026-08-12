@@ -146,11 +146,10 @@ class AtividadeService
         ];
     }
 
-   public function store(array $data)
+    public function store(array $data)
     {
         $data = $this->publicoService->handlePublicoId($data);
 
-        // Se o usuário não selecionou manualmente um status, calcula automaticamente
         if (empty($data['status_atividade_id'])) {
             $data['status_atividade_id'] = $this->definirStatusAutomatico($data);
         }
@@ -158,17 +157,18 @@ class AtividadeService
         Log::info('Criando nova atividade', ['dados' => $data]);
 
         $atividade = Atividade::create([
+            'ano' => $data['ano'] ?? null, 
             'atividade_descricao' => $data['atividade_descricao'] ?? null,
-            'objetivo'            => $data['objetivo'] ?? null,
-            'responsavel'         => $data['responsavel'] ?? null,
-            'publico_id'          => $data['publico_id'] ?? null,
-            'tipo_evento'         => $data['tipo_evento'] ?? null,
-            'data_prevista'       => $data['data_prevista'] ?? null,
-            'data_realizada'      => $data['data_realizada'] ?? null,
-            'meta'                => $data['meta'] ?? null,
-            'realizado'           => $data['realizado'] ?? null,
-            'medida_id'           => $data['medida_id'] ?? null,
-            'justificativa'       => $data['justificativa'] ?? null,
+            'objetivo' => $data['objetivo'] ?? null,
+            'responsavel' => $data['responsavel'] ?? null,
+            'publico_id' => $data['publico_id'] ?? null,
+            'tipo_evento' => $data['tipo_evento'] ?? null,
+            'data_prevista' => $data['data_prevista'] ?? null,
+            'data_realizada' => $data['data_realizada'] ?? null,
+            'meta' => $data['meta'] ?? null,
+            'realizado' => $data['realizado'] ?? null,
+            'medida_id' => $data['medida_id'] ?? null,
+            'justificativa' => $data['justificativa'] ?? null,
             'status_atividade_id' => $data['status_atividade_id'],
         ]);
 
@@ -192,7 +192,7 @@ class AtividadeService
         $eixo_id = $atividade->eixos->first()->id ?? null;
 
         return [
-            'eixo_id'   => $eixo_id,
+            'eixo_id' => $eixo_id,
             'atividade' => $atividade
         ];
     }
@@ -234,6 +234,7 @@ class AtividadeService
         Log::info('Atualizando a atividade', ['id' => $id, 'dados' => $data]);
 
         $atividade->update([
+            'ano' => $data['ano'] ?? null,
             'atividade_descricao' => $data['atividade_descricao'] ?? null,
             'objetivo'            => $data['objetivo'] ?? null,
             'responsavel'         => $data['responsavel'] ?? null,

@@ -83,6 +83,7 @@ function showConfirmationModal() {
       <div class="row">
         ${createReadonlyField("Eixo(s)", eixo, errors.eixo)}
         ${createReadonlyField("Responsável", responsavel, errors.responsavel)}
+        ${createReadonlyField("Ano", document.getElementById('ano').value.trim(), errors.ano)}
         ${createReadonlyField("Público", publico, errors.publico)}
         ${createReadonlyField("Tipo de Evento", tipoEvento, errors.tipoEvento)}
         ${createReadonlyField("Canal(is)", canal, errors.canal)}

@@ -7,6 +7,7 @@ function showConfirmationModal() {
     }
 
     let eixo = getSelectedTexts(document.querySelector('[name="eixo_ids[]"]'));
+    let ano = document.getElementById('ano').value.trim();
     let responsavel = document.getElementById('responsavel').value.trim();
     let atividadeDescricao = CKEDITOR.instances['atividade_descricao'].getData().trim();
     let objetivo = CKEDITOR.instances['objetivo'].getData().trim();
@@ -34,6 +35,7 @@ function showConfirmationModal() {
 
     let errors = {
         eixo: eixo ? "" : "Selecione ao menos um eixo.",
+    ano: ano ? "" : "O campo 'Ano' é item obrigatório. ",
         responsavel: responsavel ? "" : "O campo 'Responsável' é obrigatório.",
         atividadeDescricao: atividadeDescricao ? "" : "A 'Descrição da Atividade' não pode estar vazia.",
         objetivo: objetivo ? "" : "O campo 'Objetivo' não pode estar vazio.",
@@ -80,6 +82,7 @@ function showConfirmationModal() {
             <div class="row">
                 ${createReadonlyField("Eixo(s)", eixo, errors.eixo, "col-12")}
                 ${createReadonlyField("Responsável", responsavel, errors.responsavel, "col-12")}
+                ${createReadonlyField("Ano", ano, errors.ano, "col-3")}
                 ${createReadonlyDiv("Descrição da Atividade", atividadeDescricao, errors.atividadeDescricao, "col-12")}
                 ${createReadonlyDiv("Objetivo", objetivo, errors.objetivo, "col-12")}                
 
