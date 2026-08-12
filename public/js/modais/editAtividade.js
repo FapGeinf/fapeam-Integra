@@ -35,8 +35,8 @@ function showConfirmationModal() {
 
     let errors = {
         eixo: eixo ? "" : "Selecione ao menos um eixo.",
-    ano: ano ? "" : "O campo 'Ano' é item obrigatório. ",
-        responsavel: responsavel ? "" : "O campo 'Responsável' é obrigatório.",
+        // ano: ano ? "" : "O campo 'Ano' é item obrigatório. ",
+        // responsavel: responsavel ? "" : "O campo 'Responsável' é obrigatório.",
         atividadeDescricao: atividadeDescricao ? "" : "A 'Descrição da Atividade' não pode estar vazia.",
         objetivo: objetivo ? "" : "O campo 'Objetivo' não pode estar vazio.",
         publico: publico && publico.toLowerCase() !== "selecione o público alvo" ? "" : "Selecione um público válido.",

@@ -216,7 +216,7 @@
                   data-order="{{ \Carbon\Carbon::parse($atividade->data_realizada ?? $atividade->data_prevista)->format('Y-m-d') }}">
                   <div class="">
                     <div class="">Data Prevista:</div>
-                    <div>{{ \Carbon\Carbon::parse($atividade->data_prevista)->format('d/m') }}</div>
+                    <div>{{ \Carbon\Carbon::parse($atividade->data_prevista)->format('d/m/y') }}</div>
                   </div>
 
                   <hr>
@@ -224,12 +224,12 @@
                   <div class="">
                     <div class="">Data Realizada:</div>
                     <div>
-                      {{ $atividade->data_realizada ? \Carbon\Carbon::parse($atividade->data_realizada)->format('d/m') : 'Não realizada' }}
+                      {{ $atividade->data_realizada ? \Carbon\Carbon::parse($atividade->data_realizada)->format('d/m/y') : 'Não realizada' }}
                     </div>
                   </div>
                 </td>
 
-                <td class="text-center">{{ \Carbon\Carbon::parse($atividade->data_prevista)->format('Y') }}</td>
+                <td class="text-center">{{ $atividade->ano }}</td>
 
                 <td class="text-center">
                   <div class="">

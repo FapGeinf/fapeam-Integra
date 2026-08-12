@@ -8,6 +8,7 @@ function showConfirmationModal() {
 
   let eixo = getSelectedTexts(document.querySelector('[name="eixo_ids[]"]'));
   let responsavel = document.getElementById('responsavel').value.trim();
+  let ano = document.getElementById('ano').value.trim();
   let atividadeDescricao = CKEDITOR.instances['atividade_descricao'].getData().trim();
   let objetivo = CKEDITOR.instances['objetivo'].getData().trim();
   let publicoSelect = document.querySelector('[name="publico_id"]');
@@ -34,7 +35,7 @@ function showConfirmationModal() {
 
   let errors = {
     eixo: eixo ? "" : "Selecione ao menos um eixo.",
-    responsavel: responsavel ? "" : "O campo 'responsável' é obrigatório.",
+    // responsavel: responsavel ? "" : "O campo 'responsável' é obrigatório.",
     atividadeDescricao: atividadeDescricao ? "" : "A 'descrição da atividade' não pode estar vazia.",
     objetivo: objetivo ? "" : "O campo 'Objetivo' não pode estar vazio.",
     publico: publico && publico.toLowerCase() !== "selecione o público alvo" ? "" : "Selecione um público válido.",
@@ -83,7 +84,7 @@ function showConfirmationModal() {
       <div class="row">
         ${createReadonlyField("Eixo(s)", eixo, errors.eixo)}
         ${createReadonlyField("Responsável", responsavel, errors.responsavel)}
-        ${createReadonlyField("Ano", document.getElementById('ano').value.trim(), errors.ano)}
+        ${createReadonlyField("Ano", ano, errors.ano)}
         ${createReadonlyField("Público", publico, errors.publico)}
         ${createReadonlyField("Tipo de Evento", tipoEvento, errors.tipoEvento)}
         ${createReadonlyField("Canal(is)", canal, errors.canal)}
