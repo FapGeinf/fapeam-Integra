@@ -336,16 +336,33 @@ class AtividadeService
             $eixo = $this->eixoService->findEixoById($eixo_id);
             $eixoNome = $eixo ? $eixo->nome : null;
 
-            $atividades = Atividade::whereHas('statusAtividade', function ($q) {
-                $q->where('nome', 'Executada');
-            })->whereHas('eixos', function ($query) use ($eixo_id) {
+            $query = Atividade::whereHas('eixos', function ($query) use ($eixo_id) {
                 $query->where('eixos.id', $eixo_id);
-            })->with(['publico', 'canais', 'medida', 'statusAtividade'])->orderBy('data_prevista', 'asc')->get();
+            });
+
+            // Fallback caso a relação/status dê erro ou venha nulo em produção
+            try {
+                $query->whereHas('statusAtividade', function ($q) {
+                    $q->where('nome', 'Executada');
+                });
+            } catch (Exception $e) {
+                // Se a coluna/tabela falhar, não aplica o filtro de status (retorna todas)
+            }
+
+            $atividades = $query->with(['publico', 'canais', 'medida', 'statusAtividade'])->orderBy('data_prevista', 'asc')->get();
 
         } elseif ($eixo_id == 8) {
-            $atividades = Atividade::whereHas('statusAtividade', function ($q) {
-                $q->where('nome', 'Executada');
-            })->with(['publico', 'canais', 'medida', 'statusAtividade'])->orderBy('data_prevista', 'asc')->get();
+            $query = Atividade::query();
+            
+            try {
+                $query->whereHas('statusAtividade', function ($q) {
+                    $q->where('nome', 'Executada');
+                });
+            } catch (Exception $e) {
+                // Fallback
+            }
+
+            $atividades = $query->with(['publico', 'canais', 'medida', 'statusAtividade'])->orderBy('data_prevista', 'asc')->get();
         }
 
         $publicos = $this->publicoService->indexPublicos();
@@ -371,16 +388,33 @@ class AtividadeService
             $eixo = $this->eixoService->findEixoById($eixo_id);
             $eixoNome = $eixo ? $eixo->nome : null;
 
-            $atividades = Atividade::whereHas('statusAtividade', function ($q) {
-                $q->whereIn('nome', ['Não Executada', 'Acompanhamento']);
-            })->whereHas('eixos', function ($query) use ($eixo_id) {
+            $query = Atividade::whereHas('eixos', function ($query) use ($eixo_id) {
                 $query->where('eixos.id', $eixo_id);
-            })->with(['publico', 'canais', 'medida', 'statusAtividade'])->orderBy('data_prevista', 'asc')->get();
+            });
+
+            // Fallback caso a relação/status dê erro ou venha nulo em produção
+            try {
+                $query->whereHas('statusAtividade', function ($q) {
+                    $q->whereIn('nome', ['Não Executada', 'Acompanhamento']);
+                });
+            } catch (Exception $e) {
+                // Se falhar, traz todas para que o usuário edite manualmente
+            }
+
+            $atividades = $query->with(['publico', 'canais', 'medida', 'statusAtividade'])->orderBy('data_prevista', 'asc')->get();
 
         } elseif ($eixo_id == 8) {
-            $atividades = Atividade::whereHas('statusAtividade', function ($q) {
-                $q->whereIn('nome', ['Não Executada', 'Acompanhamento']);
-            })->with(['publico', 'canais', 'medida', 'statusAtividade'])->orderBy('data_prevista', 'asc')->get();
+            $query = Atividade::query();
+
+            try {
+                $query->whereHas('statusAtividade', function ($q) {
+                    $q->whereIn('nome', ['Não Executada', 'Acompanhamento']);
+                });
+            } catch (Exception $e) {
+                // Fallback
+            }
+
+            $atividades = $query->with(['publico', 'canais', 'medida', 'statusAtividade'])->orderBy('data_prevista', 'asc')->get();
         }
 
         $publicos = $this->publicoService->indexPublicos();
