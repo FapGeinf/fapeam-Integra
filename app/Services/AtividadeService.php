@@ -336,9 +336,13 @@ class AtividadeService
             $eixo = $this->eixoService->findEixoById($eixo_id);
             $eixoNome = $eixo ? $eixo->nome : null;
 
-            $query = Atividade::whereHas('eixos', function ($query) use ($eixo_id) {
-                $query->where('eixos.id', $eixo_id);
-            });
+            if ($eixo_id == 8) {
+                $query = Atividade::query();
+            } else {
+                $query = Atividade::whereHas('eixos', function ($query) use ($eixo_id) {
+                    $query->where('eixos.id', $eixo_id);
+                });
+            }
 
             try {
                 $query->where(function ($subQuery) {
@@ -348,21 +352,6 @@ class AtividadeService
                 });
             } catch (Exception $e) {
                 // Fallback caso a coluna/tabela falhe
-            }
-
-            $atividades = $query->with(['publico', 'canais', 'medida', 'statusAtividade'])->orderBy('data_prevista', 'asc')->get();
-
-        } elseif ($eixo_id == 8) {
-            $query = Atividade::query();
-            
-            try {
-                $query->where(function ($subQuery) {
-                    $subQuery->whereHas('statusAtividade', function ($q) {
-                        $q->where('nome', 'Executada');
-                    })->orWhereNull('status_atividade_id');
-                });
-            } catch (Exception $e) {
-                // Fallback
             }
 
             $atividades = $query->with(['publico', 'canais', 'medida', 'statusAtividade'])->orderBy('data_prevista', 'asc')->get();
@@ -391,24 +380,13 @@ class AtividadeService
             $eixo = $this->eixoService->findEixoById($eixo_id);
             $eixoNome = $eixo ? $eixo->nome : null;
 
-            $query = Atividade::whereHas('eixos', function ($query) use ($eixo_id) {
-                $query->where('eixos.id', $eixo_id);
-            });
-
-            try {
-                $query->where(function ($subQuery) {
-                    $subQuery->whereHas('statusAtividade', function ($q) {
-                        $q->whereIn('nome', ['Não Executada', 'Acompanhamento']);
-                    })->orWhereNull('status_atividade_id');
+            if ($eixo_id == 8) {
+                $query = Atividade::query();
+            } else {
+                $query = Atividade::whereHas('eixos', function ($query) use ($eixo_id) {
+                    $query->where('eixos.id', $eixo_id);
                 });
-            } catch (Exception $e) {
-                // Fallback
             }
-
-            $atividades = $query->with(['publico', 'canais', 'medida', 'statusAtividade'])->orderBy('data_prevista', 'asc')->get();
-
-        } elseif ($eixo_id == 8) {
-            $query = Atividade::query();
 
             try {
                 $query->where(function ($subQuery) {
@@ -436,5 +414,4 @@ class AtividadeService
             'statusAtividades' => $statusAtividades
         ];
     }
-
 }
