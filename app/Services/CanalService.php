@@ -19,4 +19,14 @@ class CanalService
             ]);
         });
     }
+
+    public function getAllCanais()
+    {
+        return Canal::all();
+    }
+
+    public function findCanalById($id)
+    {
+        return Canal::find($id);
+    }
 }

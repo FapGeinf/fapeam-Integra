@@ -10,7 +10,7 @@ body {
 }
 
 .borderRadius {
-  background-image: url('/img/login/TelaSistemaIntegra.png');
+  background-image: url('/img/login/login-no-logo.png');
   background-size: cover;
   /* background-position: center; */
 }
@@ -190,7 +190,7 @@ body {
 .inputLogin {
   color: #fff;
   font-size: 17px;
-  background-color: #428ccf;
+  background-color: #284c9c;
   width: 45%;
   border: none;
   border-radius: 8px;
@@ -200,7 +200,7 @@ body {
 }
 
 .inputLogin:hover {
-  background-color: #3974ab;
+  background-color: #1b366e;
 }
 
 .inputLogin:focus {
@@ -522,4 +522,13 @@ input[type=checkbox], label {
   .footerLogo {
     margin-top: 1rem;
   }
+}
+
+.inputImp.is-invalid {
+  border: 2px solid #dc2626 !important;
+  background-color: #fef2f2 !important;
+}
+
+.input-icon input.is-invalid ~ i {
+  color: #dc2626 !important;
 }

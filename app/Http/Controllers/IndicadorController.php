@@ -4,24 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\IndicadorRequest;
 use App\Services\EixoService;
-use App\Services\LogService;
 use App\Services\IndicadorService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Eixo;
-use Log;
+use Illuminate\Support\Facades\Log;
 
 class IndicadorController extends Controller
 {
-    protected $log;
     protected $indicadorService;
-
     protected $eixo;
 
-    public function __construct(LogService $log, IndicadorService $indicadorService, EixoService $eixo)
+    public function __construct(IndicadorService $indicadorService, EixoService $eixo)
     {
-        $this->log = $log;
         $this->indicadorService = $indicadorService;
         $this->eixo = $eixo;
     }
@@ -31,20 +26,6 @@ class IndicadorController extends Controller
         try {
             $data = ['eixo_id' => $request->get('eixo_id')];
             $indicadores = $this->indicadorService->indexLogs($data);
-
-            if (Auth::check()) {
-                $username = Auth::user()->name;
-                $eixoNome = $data['eixo_id'] && $indicadores->isNotEmpty()
-                    ? $indicadores->first()->eixo->nome
-                    : 'todos os eixos';
-
-                $this->log->insertLog([
-                    'acao' => 'Acesso',
-                    'descricao' => "O usuário de nome $username está acessando a index dos indicadores do eixo $eixoNome",
-                    'user_id' => Auth::user()->id
-                ]);
-            }
-
             return view('indicadores.index', compact('indicadores'));
         } catch (\Throwable $th) {
             Log::error('Erro ao carregar indicadores: ' . $th->getMessage(), ['trace' => $th->getTraceAsString()]);
@@ -58,8 +39,8 @@ class IndicadorController extends Controller
             $eixos = $this->eixo->getAllEixosOrderbyNome();
             return view('indicadores.create', compact('eixos'));
         } catch (Exception $e) {
-            Log::error('Houve um erro ao carregar o formulário de inserção de indicadores',['error' => $e->getMessage()]);
-            return redirect()->back()->with('error','Houve um erro ao carregar o formulário de inserção de indicadores');
+            Log::error('Houve um erro ao carregar o formulário de inserção de indicadores', ['error' => $e->getMessage()]);
+            return redirect()->back()->with('error', 'Houve um erro ao carregar o formulário de inserção de indicadores');
         }
     }
 
@@ -70,20 +51,19 @@ class IndicadorController extends Controller
 
             $indicador = $this->indicadorService->insertIndicador($request->only(['nomeIndicador', 'descricaoIndicador', 'eixo_fk']));
 
-            if (Auth::check()) {
-                $username = Auth::user()->name;
-
-                $this->log->insertLog([
-                    'acao' => 'Inserção',
-                    'descricao' => "O usuário de nome $username está inserindo um novo indicador do eixo {$indicador->eixo->nome}",
-                    'user_id' => Auth::user()->id
-                ]);
-            }
+            Log::info("Inserção de Indicador realizada", [
+                'user_id' => Auth::id(),
+                'user_name' => Auth::user()->name ?? 'Visitante',
+                'indicador_id' => $indicador->id ?? null,
+                'eixo' => $indicador->eixo->nome ?? null,
+            ]);
 
             return redirect()->route('indicadores.index')->with('success', 'Indicador criado com sucesso!');
         } catch (\Throwable $th) {
             Log::error('Erro ao criar indicador: ' . $th->getMessage(), ['trace' => $th->getTraceAsString()]);
-            return redirect()->back()->withErrors(['error' => 'Erro ao criar indicador.']);
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Erro ao salvar: verifique os campos preenchidos.');
         }
     }
 
@@ -92,17 +72,6 @@ class IndicadorController extends Controller
         try {
             $indicador = $this->indicadorService->getIndicadorById($id);
             $eixos = $this->eixo->getAllEixos();
-
-            if (Auth::check()) {
-                $username = Auth::user()->name;
-
-                $this->log->insertLog([
-                    'acao' => 'Acesso',
-                    'descricao' => "O usuário de nome $username está acessando a página de edição do indicador de ID $id do eixo {$indicador->eixo->nome}",
-                    'user_id' => Auth::user()->id
-                ]);
-            }
-
             return view('indicadores.edit', compact('indicador', 'eixos'));
         } catch (\Throwable $th) {
             Log::error('Erro ao carregar indicador: ' . $th->getMessage(), ['trace' => $th->getTraceAsString()]);
@@ -118,20 +87,19 @@ class IndicadorController extends Controller
             $this->indicadorService->updateIndicador($id, $request->only(['nomeIndicador', 'descricaoIndicador', 'eixo_fk']));
             $indicador = $this->indicadorService->getIndicadorById($id);
 
-            if (Auth::check()) {
-                $username = Auth::user()->name;
-
-                $this->log->insertLog([
-                    'acao' => 'Atualização',
-                    'descricao' => "O usuário de nome $username está atualizando o indicador de ID $id e eixo {$indicador->eixo->nome}",
-                    'user_id' => Auth::user()->id
-                ]);
-            }
+            Log::info("Atualização de Indicador realizada", [
+                'user_id' => Auth::id(),
+                'user_name' => Auth::user()->name ?? 'Visitante',
+                'indicador_id' => $id,
+                'eixo' => $indicador->eixo->nome ?? null,
+            ]);
 
             return redirect()->route('indicadores.index')->with('success', 'Indicador atualizado com sucesso!');
         } catch (\Throwable $th) {
             Log::error('Erro ao atualizar indicador: ' . $th->getMessage(), ['trace' => $th->getTraceAsString()]);
-            return redirect()->back()->withErrors(['error' => 'Erro ao atualizar indicador.']);
+            return redirect()->back()
+                ->withInput() 
+                ->with('error', 'Erro ao atualizar: verifique os campos preenchidos.');
         }
     }
 }

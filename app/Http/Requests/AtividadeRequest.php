@@ -26,9 +26,10 @@ class AtividadeRequest extends FormRequest
     public function rules()
     {
         return [
+            'ano' => 'nullable|integer|digits:4|min:1900|max:2100',
             'eixo_ids' => 'nullable|array',
             'eixo_ids.*' => 'exists:eixos,id',
-						'responsavel' => 'nullable|string|max:255',
+            'responsavel' => 'nullable|string|max:255',
             'atividade_descricao' => 'required|string',
             'objetivo' => 'required|string',
             'publico_id' => [
@@ -59,7 +60,10 @@ class AtividadeRequest extends FormRequest
             'meta' => 'nullable|integer|min:0',
             'realizado' => 'nullable|integer|min:0',
             'medida_id' => 'nullable|exists:medida_tipos,id',
-            'justificativa' => 'nullable|string'
+            'justificativa' => 'nullable|string',
+            'indicador_ids' => 'nullable|array',
+            'indicador_ids.*' => 'exists:indicadores,id',
+            'status_atividade_id' => 'nullable|exists:status_atividades,id',
         ];
     }
 
@@ -71,12 +75,16 @@ class AtividadeRequest extends FormRequest
     public function messages()
     {
         return [
+            'ano.integer' => 'O ano deve ser um número inteiro.',
+            'ano.digits' => 'O ano deve conter exatamente 4 dígitos (ex: 2026).',
+            'ano.min' => 'O ano deve ser no mínimo 2003.',
+            'ano.max' => 'O ano não pode ser maior que 2100.',
             'eixo_ids.required' => 'Por favor, selecione pelo menos um eixo para continuar.',
             'eixo_ids.array' => 'Os eixos devem estar no formato correto.',
             'eixo_ids.*.exists' => 'Alguns dos eixos selecionados não existem. Verifique sua seleção.',
-						// 'responsavel.required' => 'Toda atividade deve possuir um responsável',
-						'responsavel.max' => 'O nome do responsável não pode ter mais que 255 caracteres',
-						'atividade_descricao.required' => 'Não se esqueça de informar a descrição da atividade.',
+            // 'responsavel.required' => 'Toda atividade deve possuir um responsável',
+            'responsavel.max' => 'O nome do responsável não pode ter mais que 255 caracteres',
+            'atividade_descricao.required' => 'Não se esqueça de informar a descrição da atividade.',
             'atividade_descricao.string' => 'A descrição da atividade deve ser um texto simples.',
             'objetivo.required' => 'Por favor, informe o objetivo da atividade.',
             'objetivo.string' => 'O objetivo deve ser descrito em texto.',
@@ -99,7 +107,10 @@ class AtividadeRequest extends FormRequest
             'realizado.integer' => 'O campo "Realizado" deve conter um número inteiro.',
             'realizado.min' => 'O número de realizações deve ser pelo menos 0.',
             'medida_id.exists' => 'O tipo de medida selecionado não é válido. Por favor, revise.',
-            'justificativa.string' => 'O campo justificativa deve ser um texto'
+            'justificativa.string' => 'O campo justificativa deve ser um texto',
+            'indicador_ids.array' => 'Os indicadores devem ser fornecidos como uma lista.',
+            'indicador_ids.*.exists' => 'Alguns dos indicadores selecionados não existem. Verifique sua seleção.',
+            'status_atividade_id.exists' => 'O status da atividade selecionado não é válido. Por favor, revise.',
         ];
     }
 }

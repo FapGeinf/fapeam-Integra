@@ -1,63 +1,35 @@
 @extends('layouts.app')
+@section('title', 'Início')
 @section('content')
 
-@section('title') {{ 'Início' }} @endsection
-
+<link rel="stylesheet" href="{{asset('css/main.css')}}">
+<link rel="stylesheet" href="{{asset('css/buttons.css')}}">
 <link rel="stylesheet" href="{{asset('css/home.css')}}">
-<link rel="shortcut icon" href="{{ asset('img/logoDeconWhiteMin.png') }}">
 
-<body class="login-page">
+<div class="container d-flex flex-column justify-content-center align-items-center"
+  style="min-height: 75vh;">
 
-  <div class="grid">
-    <div class="order__right centered no__overflow borderRadius">
+  {{-- <img src="{{ asset('img/login/ass-top.png') }}" alt="Logo Integra" class="img-top mt-5"> --}}
 
-      {{-- <a href="{{ route('documentos.eixos') }}" class="arrowButton">
-        <i class="bi bi-arrow-90deg-right"></i> Ir para pagina de Eixos
-      </a> --}}
-  
-      {{-- <img src="{{asset('img/Decon/bloco4.png')}}" class="imgBloco" alt=""> --}}
+  <img src="{{ asset('img/login/logo_ajuste1.png') }}" alt="Logo Integra" class="logo-hero mt-5 mb-5">
 
-      <div class="links">
-        
-        <a class="" href="{{ route('apresentacao') }}">
-          <div class="linksChild">
-            Apresentação
-          </div>
-        </a>
-        
-        <a class="" href="{{ route('legislacao') }}">
-          <div class="linksChild">
-            Legislação
-          </div>
-        </a>
-  
-        <a class="" href="{{ route('manual') }}">
-          <div class="linksChild">
-            Manual
-          </div>
-        </a>
-      </div>
+  <div class="d-flex gap-3 flex-wrap justify-content-center mt-5">
+    <a href="{{ route('apresentacao') }}" style="width: 150px;"
+      class="highlighted-btn-sm highlight-blue text-center text-decoration-none fs-6">
+      Apresentação
+    </a>
 
-      <div class="links__a">
-        <div class="linksChild__a">
-          <a href="{{ route('documentos.intro') }}">Home</a>
+    <a href="{{ route('legislacao') }}" style="width: 150px;"
+      class="highlighted-btn-sm highlight-blue text-center text-decoration-none fs-6">
+      Legislação
+    </a>
 
-          <span style="color: #fff">/</span>
-
-          <a href="{{ route('documentos.eixos') }}">Eixos de Integridade</a>
-        </div>
-
-        <div class="linksChild__a">
-          <a href="{{ route('documentos.historico') }}">Documentos</a>
-
-          <span style="color: #fff">/</span>
-
-          <a href="{{ route('relatorios.download') }}">Relatório Geral</a>
-        </div>
-      </div>
-    </div>
+    <a href="{{ route('manual') }}" style="width: 150px;"
+      class="highlighted-btn-sm highlight-blue text-center text-decoration-none fs-6">
+      Manual
+    </a>
   </div>
 
-</body>
-</html>
+  <img src="{{ asset('img/ass-footer-3.png') }}" class="img-bottom mt-5">
+</div>
 @endsection

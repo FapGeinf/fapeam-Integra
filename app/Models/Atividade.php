@@ -9,7 +9,7 @@ class Atividade extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['eixo_id', 'atividade_descricao','objetivo','publico_id','tipo_evento','canal_id','data_prevista','data_realizada','meta','realizado', 'medida_id','responsavel','justificativa'];
+    protected $fillable = ['eixo_id', 'atividade_descricao', 'objetivo','ano','publico_id', 'tipo_evento', 'canal_id', 'data_prevista', 'data_realizada', 'meta', 'realizado', 'medida_id', 'responsavel', 'justificativa','status_atividade_id'];
 
     public function eixos()
     {
@@ -18,7 +18,7 @@ class Atividade extends Model
 
     public function publico()
     {
-           return $this->belongsTo(Publico::class,'publico_id');
+        return $this->belongsTo(Publico::class, 'publico_id');
     }
 
     public function canais()
@@ -28,10 +28,15 @@ class Atividade extends Model
 
     public function medida()
     {
-           return $this->belongsTo(MedidaTipo::class,'medida_id');
+        return $this->belongsTo(MedidaTipo::class, 'medida_id');
     }
-		public function indicadores()
-		{
-    			return $this->belongsToMany(Indicador::class, 'atividade_indicadores', 'atividade_id', 'indicador_id');
-		}
+    public function indicadores()
+    {
+        return $this->belongsToMany(Indicador::class, 'atividade_indicadores', 'atividade_id', 'indicador_id');
+    }
+
+    public function statusAtividade()
+    {
+        return $this->belongsTo(StatusAtividade::class, 'status_atividade_id');
+    }
 }

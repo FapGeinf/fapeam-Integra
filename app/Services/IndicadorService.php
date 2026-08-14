@@ -44,4 +44,16 @@ class IndicadorService
         return $indicador;
     }
 
+    public function deleteIndicador($id)
+    {
+        $indicador = $this->getIndicadorById($id);
+        $indicador->delete();
+        return true;
+    }
+
+    public function getAllIndicadores()
+    {
+        return Indicador::all();
+    }
+
 }

@@ -1,177 +1,216 @@
 @extends('layouts.app')
-
+@section('title') {{ 'Novo Risco Inerente' }} @endsection
 @section('content')
-
-@section('title')
-    {{ 'Novo Risco Inerente' }}
-@endsection
 
 <script src="/ckeditor/ckeditor.js"></script>
 <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
+<link rel="stylesheet" href="{{ asset('css/show.css') }}">
+<link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
 <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
 <script src="{{ asset('js/mascaras/jquery.mask.min.js') }}"></script>
 <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-<script src="{{ asset('js/auto-dismiss.js') }}"></script>
 
-<style>
-    .error-box {
-        background-color: #f8d7da;
-        border: 1px solid #f5c6cb;
-        border-radius: .25rem;
-        padding: 1rem;
-        margin-bottom: 1rem;
-    }
+<div class="container pt-5" style="max-width: 800px;">
+  <div class="col-12 border box-shadow">
+    <h5 class="text-center">Novo Evento de Risco Inerente</h5>
 
-    .error-box p {
-        margin: 0;
-        color: #721c24;
-    }
-</style>
-
-<body>
-    <div class="error-message pt-5">
-        @if ($errors->any())
-            <div class="alert alert-danger text-center auto-dismiss">
-                <ul style="list-style-type:none;">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+    <div class="text-center text-muted mb-3">
+      <span class="text-danger">*</span>
+      <span class="text-secondary text13">Campos obrigatórios</span>
     </div>
 
-    <div class="form-wrapper pt-4 paddingLeft">
-        <div class="form_create border">
-            <h3 style="text-align: center; margin-bottom:5px;">
-                Novo Evento de Risco Inerente
-            </h3>
+    <form action="{{ route('riscos.store') }}" method="post" id="formCreate" enctype="multipart/form-data">
+      @csrf
 
-            <span class="tipWarning mb-3">
-                <span class="asteriscoTop">*</span>
-                Campos obrigatórios
-            </span>
+      <div class="row g-3">
+        <div class="col-12 col-sm-4 col-md-3">
+          <label for="riscoAno">
+            <span class="text-danger">*</span>
+            Insira o Ano:
+          </label>
 
-            <form action="{{ route('riscos.store') }}" method="post" id="formCreate" enctype="multipart/form-data">
-                @csrf
-
-                <div class="row g-3">
-                    <div class="col-12 col-sm-4 col-md-3">
-                        <label for="riscoAno">Insira o Ano:<span class="asterisco">*</span></label>
-                        <input type="text" id="riscoAno" name="riscoAno" class="form-control dataValue"
-                            placeholder="0000" minlength="4" maxlength="4" required>
-                    </div>
-
-                    <div class="col-12 col-sm-4 col-md-9 selectUnidade">
-                        <label for="unidadeId">Unidade:<span class="asterisco">*</span></label>
-                        <select name="unidadeId" class="form-control form-select" required>
-                            <option selected disabled>Escolha uma unidade</option>
-                            @foreach ($unidades as $unidade)
-                                <option value="{{ $unidade->id }}">{{ $unidade->unidadeNome }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-
-                <label class="dataLim" for="responsavel">Responsável:<span class="asterisco">*</span></label>
-                <input type="text" name="responsavelRisco" id="responsavel" class="textInput form-control"
-                    placeholder="Ex: Fulano da Silva Pompeo" maxlength="100" required>
-
-                <label for="riscoEvento">Evento de Risco Inerente:<span class="asterisco">*</span></label>
-                <textarea id="riscoEvento" name="riscoEvento" class="textInput" required></textarea>
-
-                <label for="riscoCausa" class="mt-3">Causa do Risco:<span class="asterisco">*</span></label>
-                <textarea id="riscoCausa" name="riscoCausa" class="textInput" required></textarea>
-
-                <label for="riscoConsequencia" class="mt-3">Consequência do Risco:<span class="asterisco">*</span></label>
-                <textarea id="riscoConsequencia" name="riscoConsequencia" class="textInput" required></textarea>
-
-                <div class="row g-3 mt-3">
-
-                    <div class="col-sm-6 col-md-6">
-                        <label for="probabilidade">Probabilidade:<span class="asterisco">*</span></label>
-                        <input type="number" name="probabilidade" id="probabilidade" class="form-control" min="1"
-                            max="5" required value="{{ old('probabilidade') }}" style="background-color: #f0f0f0;">
-                            <small class="text-muted"><span class="asterisco">*</span>Os valores de <strong>probabilidade</strong> e
-                                <strong>impacto</strong> devem estar entre <strong>1 a 5</strong>.</small>
-                    </div>
-
-                    <div class="col-sm-6 col-md-6">
-                        <label for="impacto">Impacto:<span class="asterisco">*</span></label>
-                        <input type="number" name="impacto" id="impacto" class="form-control" min="1" max="5" required value="{{ old('impacto') }}" style="background-color: #f0f0f0;">
-                    </div>
-
-                    <div class="col-sm-6 col-md-6">
-                        <label>Nível de Risco (automático):</label>
-                        <div id="riscoVisual" class="form-control" style="height: 38px; font-weight: bold; background-color: #f0f0f0;">
-                            <span id="riscoLabel">-</span>
-                        </div>
-                    </div>
-
-                    <input type="hidden" name="nivel_de_risco" id="nivel_de_risco" required>
-
-                </div>
-
-                <script src="{{ asset('js/riscos/nivelRisco.js') }}"></script>
-
-                <div id="monitoramentosDiv" class="monitoramento"></div>
-
-                <hr>
-
-                <div class="mt-3 text-end">
-                    <input type="button" onclick="addMonitoramentos()" value="Adicionar Controle Sugerido"
-                        class="blue-btn">
-                    <button type="button" onclick="showConfirmationModal()" class="green-btn green-btn-store"
-                        data-bs-toggle="modal" data-bs-target="#confirmationModal">Salvar</button>
-                </div>
-
-                <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-lg modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="confirmationModalLabel">Confirmação de envio de Relatório
-                                </h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div id="modalContent">
-                                    <!-- Conteúdo do modal será inserido dinamicamente aqui -->
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                                <button type="submit" class="green-btn green-btn-store" id="saveModal">Salvar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </form>
+          <input 
+            type="text"
+            id="riscoAno" 
+            name="riscoAno" 
+            class="form-control input-enabled"
+            placeholder="0000" 
+            minlength="4" maxlength="4" required
+          >
         </div>
-    </div>
 
-    <x-back-button />
+        <div class="col-12 col-sm-4 col-md-9 selectUnidade">
+          <label for="unidadeId">
+            <span class="text-danger">*</span>
+            Unidade:
+          </label>
 
-    <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="alertModalLabel">Aviso</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Adicione pelo menos um monitoramento antes de enviar o formulário.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                </div>
-            </div>
+          <select name="unidadeId" class="form-control form-select pointer" required>
+            <option selected disabled>Escolha uma unidade</option>
+            @foreach ($unidades as $unidade)
+              <option value="{{ $unidade->id }}">{{ $unidade->unidadeNome }}</option>
+            @endforeach
+          </select>
         </div>
+
+        <div class="col-12">
+          <label for="responsavel">
+            <span class="text-danger">*</span>
+            Responsável:
+          </label>
+
+          <input 
+            type="text" 
+            name="responsavelRisco" 
+            id="responsavel" 
+            class="form-control input-enabled"
+            placeholder="Ex: Fulano da Silva Pompeo" maxlength="100" required
+          >
+        </div>       
+        
+        <div class="col-12">
+          <label for="riscoEvento">
+            <span class="text-danger">*</span>
+            Evento de risco inerente:
+          </label>
+
+          <textarea id="riscoEvento" name="riscoEvento" required></textarea>          
+        </div>
+
+        <div class="col-12">
+          <label for="riscoCausa">
+            <span class="text-danger">*</span>
+            Causa do Risco:
+          </label>
+
+          <textarea id="riscoCausa" name="riscoCausa" required></textarea>
+        </div>
+
+        <div class="col-12">
+          <label for="riscoConsequencia">
+            <span class="text-danger">*</span>
+            Consequência do Risco:
+          </label>
+          
+          <textarea id="riscoConsequencia" name="riscoConsequencia" required></textarea>          
+        </div>
+
+        <div class="col-12 col-sm-4">
+          <label for="probabilidade">
+            <span class="text-danger">*</span>
+            Probabilidade:
+          </label>
+
+          <input 
+            type="number" 
+            name="probabilidade" 
+            id="probabilidade" 
+            class="form-control input-enabled" min="1"
+            max="5" required
+            placeholder="0" value="{{ old('probabilidade') }}"
+          >
+
+          <small class="text-muted">
+            <span class="text-danger">*</span>
+            Os valores de <span class="fw-semibold">probabilidade</span> 
+            e <span class="fw-semibold">impacto</span> 
+            devem estar entre <span class="fw-semibold">1 a 5</span>.
+          </small>
+        </div>      
+        
+        <div class="col-12 col-sm-4">
+          <label for="impacto">
+            <span class="text-danger">*</span>
+            Impacto:
+          </label>
+
+          <input 
+            type="number" 
+            name="impacto" 
+            id="impacto" 
+            class="form-control input-enabled" 
+            min="1" max="5" 
+            required placeholder="0" 
+            value="{{ old('impacto') }}">
+        </div>
+
+        <div class="col-12 col-sm-4">
+          <label>Nível de Risco (automático):</label>
+          <div id="riscoVisual" class="form-control input-disabled">
+            <span id="riscoLabel">-</span>
+          </div>
+        </div>
+
+        <input type="hidden" name="nivel_de_risco" id="nivel_de_risco" required>        
+      </div>
+
+      <div id="monitoramentosDiv" class="monitoramento"></div>
+
+      <div class="mt-3 text-end">
+        <input type="button" class="highlighted-btn-sm highlight-blue me-1" 
+          value="Adicionar controle sugerido" onclick="addMonitoramentos()">
+
+        <button type="button" class="highlighted-btn-sm highlight-success" 
+          data-bs-toggle="modal" data-bs-target="#confirmationModal" onclick="showConfirmationModal()">
+          <i class="bi bi-save2 me-1"></i>
+          Salvar
+        </button>
+      </div>
+
+      <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="confirmationModalLabel">Confirmação de envio de relatório</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+              <div id="modalContent"></div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="highlighted-btn-sm highlight-grey" data-bs-dismiss="modal">
+                <i class="bi bi-x-lg"></i>
+                Voltar e editar
+              </button>
+
+              <button type="submit" class="highlighted-btn-sm highlight-success" id="saveModal">
+                <i class="bi bi-save2 me-1"></i>
+                Salvar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="alertModalLabel">Aviso</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        Adicione pelo menos um monitoramento antes de enviar o formulário.
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="highlighted-btn-sm highlight-grey" data-bs-dismiss="modal">
+          <i class="bi bi-x-lg"></i>
+          Fechar
+        </button>
+      </div>
     </div>
+  </div>
+</div>
 
-    <script src="{{ asset('js/storeRisco.js') }}"></script>
+<x-back-button/>   
 
-</body>
+<script src="{{ asset('js/riscos/nivelRisco.js') }}"></script>
+<script src="{{ asset('js/storeRisco.js') }}"></script>
 @endsection

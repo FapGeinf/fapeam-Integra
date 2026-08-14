@@ -58,10 +58,6 @@ label, input, .form-control, .form-select {
   color: red;
 }
 
-label {
-  padding-top: 1rem;
-}
-
 #first {
   padding-top: 0;
 }

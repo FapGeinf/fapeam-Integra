@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\RelatorioController;
 use App\Http\Controllers\IndicadorController;
 use App\Http\Controllers\VersionamentoController;
+use App\Http\Controllers\UnidadeController;
+use App\Http\Controllers\DiretoriaController;
 
 
 /*
@@ -70,7 +72,7 @@ Route::delete('/user/delete/{id}', [UserController::class, 'deleteUser'])->name(
 Route::post('/users/store', [UserController::class, 'insertUser'])->name('users.store')->middleware(['auth', isAdmin::class]);
 Route::get('/users/create', [UserController::class, 'createUser'])->middleware(['auth', isAdmin::class])->name('users.create');
 Route::get('/users/{id}/edit', [UserController::class, 'editUser'])->name('users.edit')->middleware(['auth', isAdmin::class]);
-Route::get('/users/pdf',[UserController::class,'usersRelatorio'])->name('users.pdf')->middleware(['auth',isAdmin::class]);
+Route::get('/users/pdf', [UserController::class, 'usersRelatorio'])->name('users.pdf')->middleware(['auth', isAdmin::class]);
 
 Route::get('/user/alterar-senha', [UserController::class, 'changePassword'])->name('users.password');
 Route::post('/user/alterar-senha', [UserController::class, 'updatePassword'])->name('users.password');
@@ -119,6 +121,11 @@ Route::prefix('apresentacoes')->name('apresentacoes.')->middleware('auth')->grou
 Route::prefix('atividades')->name('atividades.')->middleware('auth')->group(function () {
     Route::get('/', [AtividadeController::class, 'index'])->name('index');
     Route::post('/', [AtividadeController::class, 'index'])->name('atividades.index');
+    Route::get('/executadas', [AtividadeController::class, 'painelAtividadesExecutadas'])->name('executadas');
+    Route::get('/acompanhamento', [AtividadeController::class, 'painelAtividadesAcompanhamento'])->name('acompanhamento');
+    Route::get('/nao-executadas', [AtividadeController::class, 'painelAtividadesNaoExecutadas'])->name('nao-executadas');
+    Route::get('/concluidas', [AtividadeController::class, 'painelAtividadesConcluidas'])->name('concluidas');
+    Route::get('/plano-acao', [AtividadeController::class, 'planoAcao'])->name('plano-acao');
     Route::get('/show/{id}', [AtividadeController::class, 'showAtividade'])->name('show');
     Route::get('/create', [AtividadeController::class, 'createAtividade'])->name('create');
     Route::post('/store', [AtividadeController::class, 'storeAtividade'])->name('store');
@@ -167,4 +174,11 @@ Route::prefix('documentos')->middleware('auth')->group(function () {
 
 Route::post('/respostas/homologar-multipla', [RiscoController::class, 'homologacaoMultipla'])
     ->name('riscos.homologar.multipla')
-    ->middleware('auth'); 
+    ->middleware('auth');
+
+Route::resource('unidades', UnidadeController::class)->middleware(['auth', isAdmin::class]);
+Route::resource('diretorias', DiretoriaController::class)->middleware(['auth', isAdmin::class]);
+
+Route::get('/relatorios/atividades-status/{status}', [RelatorioController::class, 'relatorioAtividadesPorStatus'])
+    ->name('relatorios.atividades-status')
+    ->middleware('auth');

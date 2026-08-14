@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\InsertCanalRequest;
 use App\Services\AtividadeService;
 use App\Services\CanalService;
-use App\Services\LogService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -14,33 +13,84 @@ use Exception;
 
 class AtividadeController extends Controller
 {
-    protected $atividade, $canal, $log;
+    protected $atividade, $canal;
 
-    public function __construct(AtividadeService $atividade, CanalService $canal, LogService $log)
+    public function __construct(AtividadeService $atividade, CanalService $canal)
     {
         $this->atividade = $atividade;
         $this->canal = $canal;
-        $this->log = $log;
     }
+
+   
     public function index(Request $request)
     {
         try {
             $eixo_id = $request->get('eixo_id');
-            $dados = $this->atividade->indexAtividades($eixo_id);
-
-            if (Auth::check()) {
-                $username = Auth::user()->name;
-                $this->log->insertLog([
-                    'acao' => 'Acesso',
-                    'descricao' => "O usuário de nome $username está acessando a lista de atividades",
-                    'user_id' => Auth::user()->id
-                ]);
-            }
-
+            $dados = $this->atividade->indexAtividadesConcluidas($eixo_id); 
             return view('atividades.index', $dados);
-
         } catch (Exception $e) {
-            Log::error('Erro ao listar atividades: ' . $e->getMessage(), [
+            Log::error('Erro ao listar atividades concluídas: ' . $e->getMessage(), [
+                'user_id' => Auth::id(),
+                'eixo_id' => $request->get('eixo_id'),
+            ]);
+            return redirect()->back()->with('error', 'Erro ao carregar a lista de atividades.');
+        }
+    }
+
+    public function planoAcao(Request $request)
+    {
+        try {
+            $eixo_id = $request->get('eixo_id');
+            // Crie este método no seu AtividadeService para retornar os itens pendentes/não ocorridos
+            $dados = $this->atividade->indexPlanoAcao($eixo_id); 
+            return view('atividades.plano_acao', $dados);
+        } catch (Exception $e) {
+            Log::error('Erro ao listar plano de ação: ' . $e->getMessage(), [
+                'user_id' => Auth::id(),
+                'eixo_id' => $request->get('eixo_id'),
+            ]);
+            return redirect()->back()->with('error', 'Erro ao carregar o plano de ação.');
+        }
+    }
+
+    public function painelAtividadesExecutadas(Request $request)
+    {
+        try {
+            $eixo_id = $request->get('eixo_id');
+            $dados = $this->atividade->indexAtividadesExecutadasByEixo($eixo_id);
+            return view('atividades.executadas', $dados);
+        } catch (Exception $e) {
+            Log::error('Erro ao listar atividades executadas: ' . $e->getMessage(), [
+                'user_id' => Auth::id(),
+                'eixo_id' => $request->get('eixo_id'),
+            ]);
+            return redirect()->back()->with('error', 'Erro ao carregar a lista de atividades.');
+        }
+    }
+
+    public function painelAtividadesAcompanhamento(Request $request)
+    {
+        try {
+            $eixo_id = $request->get('eixo_id');
+            $dados = $this->atividade->indexAtividadesAcompanhamentoByEixo($eixo_id);
+            return view('atividades.acompanhamento', $dados);
+        } catch (Exception $e) {
+            Log::error('Erro ao listar atividades em acompanhamento: ' . $e->getMessage(), [
+                'user_id' => Auth::id(),
+                'eixo_id' => $request->get('eixo_id'),
+            ]);
+            return redirect()->back()->with('error', 'Erro ao carregar a lista de atividades.');
+        }
+    }
+
+    public function painelAtividadesNaoExecutadas(Request $request)
+    {
+        try {
+            $eixo_id = $request->get('eixo_id');
+            $dados = $this->atividade->indexAtividadesNaoExecutadasByEixo($eixo_id);
+            return view('atividades.nao_executadas', $dados);
+        } catch (Exception $e) {
+            Log::error('Erro ao listar atividades não executadas: ' . $e->getMessage(), [
                 'user_id' => Auth::id(),
                 'eixo_id' => $request->get('eixo_id'),
             ]);
@@ -54,14 +104,11 @@ class AtividadeController extends Controller
             $validatedData = $request->validated();
             $canal = $this->canal->insertCanal($validatedData);
 
-            if (Auth::check()) {
-                $username = Auth::user()->name;
-                $this->log->insertLog([
-                    'acao' => 'Inserção',
-                    'descricao' => "O usuário de nome $username está inserindo um novo canal",
-                    'user_id' => Auth::user()->id
-                ]);
-            }
+            Log::info("Inserção de Canal realizada", [
+                'user_id' => Auth::id(),
+                'user_name' => Auth::user()->name ?? 'Visitante',
+                'canal_id' => $canal->id ?? null
+            ]);
 
             return response()->json([
                 'success' => true,
@@ -84,18 +131,7 @@ class AtividadeController extends Controller
     {
         try {
             $atividade = $this->atividade->show($id);
-
-            if (Auth::check()) {
-                $username = Auth::user()->name;
-                $this->log->insertLog([
-                    'acao' => 'Acesso',
-                    'descricao' => "O usuário de nome $username está visualizando a atividade de ID $id",
-                    'user_id' => Auth::user()->id
-                ]);
-            }
-
             return view('atividades.showAtividade', ['atividade' => $atividade]);
-
         } catch (Exception $e) {
             Log::error("Erro ao mostrar atividade $id: " . $e->getMessage(), [
                 'user_id' => Auth::id(),
@@ -109,18 +145,7 @@ class AtividadeController extends Controller
     {
         try {
             $dados = $this->atividade->createFormAtividade();
-
-            if (Auth::check()) {
-                $username = Auth::user()->name;
-                $this->log->insertLog([
-                    'acao' => 'Acesso',
-                    'descricao' => "O usuário de nome $username está acessando a página de criação de atividade",
-                    'user_id' => Auth::user()->id
-                ]);
-            }
-
             return view('atividades.createAtividade', $dados);
-
         } catch (Exception $e) {
             Log::error('Erro ao carregar formulário de criação de atividade: ' . $e->getMessage(), [
                 'user_id' => Auth::id(),
@@ -131,19 +156,17 @@ class AtividadeController extends Controller
 
     public function storeAtividade(AtividadeRequest $request)
     {
-        Log::info('Dados recebidos para criação da atividade:', $request->all());
+        Log::channel('action')->info('Dados do formulário', ['dados' => $request->all()]);
+        
         try {
             $validatedData = $request->validated();
             $atividade = $this->atividade->store($validatedData);
 
-            if (Auth::check()) {
-                $username = Auth::user()->name;
-                $this->log->insertLog([
-                    'acao' => 'Inserção',
-                    'descricao' => "O usuário de nome $username está criando uma nova atividade",
-                    'user_id' => Auth::user()->id
-                ]);
-            }
+            Log::info("Criação de Atividade realizada", [
+                'user_id' => Auth::id(),
+                'user_name' => Auth::user()->name ?? 'Visitante',
+                'atividade_id' => $atividade['id'] ?? null
+            ]);
 
             return redirect()->route('atividades.index', ['eixo_id' => $atividade['eixo_id']])->with('success', 'Atividade criada com sucesso!');
         } catch (Exception $e) {
@@ -156,20 +179,11 @@ class AtividadeController extends Controller
             return redirect()->back()->with('error', 'Ocorreu um erro ao salvar a atividade. Por favor, tente novamente mais tarde.')->withInput();
         }
     }
+
     public function editAtividade($id)
     {
         try {
             $dados = $this->atividade->editFormAtividade($id);
-
-            if (Auth::check()) {
-                $username = Auth::user()->name;
-                $this->log->insertLog([
-                    'acao' => 'Acesso',
-                    'descricao' => "O usuário de nome $username está acessando a página de edição da atividade de ID $id",
-                    'user_id' => Auth::user()->id
-                ]);
-            }
-
             return view('atividades.editAtividade', $dados);
         } catch (Exception $e) {
             Log::error('Erro ao acessar página de edição de atividade', [
@@ -180,7 +194,6 @@ class AtividadeController extends Controller
         }
     }
 
-
     public function updateAtividade(AtividadeRequest $request, $id)
     {
         Log::info('Dados recebidos para atualização da atividade:', $request->all());
@@ -189,14 +202,11 @@ class AtividadeController extends Controller
             $validatedData = $request->validated();
             $atividade = $this->atividade->updateAtividade($id, $validatedData);
 
-            if (Auth::check()) {
-                $username = Auth::user()->name;
-                $this->log->insertLog([
-                    'acao' => 'Atualização',
-                    'descricao' => "O usuário de nome $username está atualizando a atividade de ID $id",
-                    'user_id' => Auth::user()->id
-                ]);
-            }
+            Log::info("Atualização de Atividade realizada", [
+                'user_id' => Auth::id(),
+                'user_name' => Auth::user()->name ?? 'Visitante',
+                'atividade_id' => $id
+            ]);
 
             return redirect()->route('atividades.index', ['eixo_id' => $atividade['eixo_id']])->with('success', 'Atividade atualizada com sucesso!');
         } catch (Exception $e) {
@@ -215,18 +225,18 @@ class AtividadeController extends Controller
         try {
             $this->atividade->delete($id);
 
-            if (Auth::check()) {
-                $username = Auth::user()->name;
-                $this->log->insertLog([
-                    'acao' => 'Exclusão',
-                    'descricao' => "O usuário de nome $username está excluindo a atividade de ID $id",
-                    'user_id' => Auth::user()->id
-                ]);
-            }
+            Log::info("Exclusão de Atividade realizada", [
+                'user_id' => Auth::id(),
+                'user_name' => Auth::user()->name ?? 'Visitante',
+                'atividade_id' => $id
+            ]);
 
-            return redirect()->route('atividades.index')->with('success', 'Atividade deletada com sucesso!');
+            return redirect()->back()->with('success', 'Atividade deletada com sucesso!');
         } catch (Exception $e) {
-            Log::error('Houve um erro inesperado ao deletar a atividade selecionada', ['error' => $e->getMessage(), 'atividade_id' => $id]);
+            Log::error('Houve um erro inesperado ao deletar a atividade selecionada', [
+                'error' => $e->getMessage(), 
+                'atividade_id' => $id
+            ]);
             return redirect()->back()->with('error', 'Ocorreu um erro ao excluir a atividade. Por favor, tente novamente mais tarde.');
         }
     }

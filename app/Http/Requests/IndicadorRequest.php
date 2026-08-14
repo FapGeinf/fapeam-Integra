@@ -25,7 +25,7 @@ class IndicadorRequest extends FormRequest
     {
         return [
             'nomeIndicador' => 'required|string|max:255',
-            'descricaoIndicador' => 'required|string',
+            'descricaoIndicador' => 'required|string|max:255',
             'eixo_fk' => 'required|exists:eixos,id',
         ];
     }
@@ -39,6 +39,7 @@ class IndicadorRequest extends FormRequest
 
             'descricaoIndicador.required' => 'O campo Descrição é obrigatório.',
             'descricaoIndicador.string' => 'O campo Descrição deve ser do tipo texto.',
+            'descricaoIndicador.max' => 'O objetivo do indicador está muito longo! Tente resumir um pouco.',
 
             'eixo_fk.required' => 'Por favor, selecione um eixo.',
             'eixo_fk.exists' => 'Por favor, escolha um eixo que exista.'
