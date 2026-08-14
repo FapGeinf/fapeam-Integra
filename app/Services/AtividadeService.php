@@ -346,13 +346,11 @@ class AtividadeService
             }
 
             try {
-                $query->where(function ($subQuery) {
-                    $subQuery->whereHas('statusAtividade', function ($q) {
-                        $q->where('nome', 'Executada');
-                    })->orWhereNull('status_atividade_id');
-                });
+                $query->whereHas('statusAtividade', function ($q) {
+                            $q->where('nome', 'Executada');
+                        });
             } catch (Exception $e) {
-                // Fallback caso a coluna/tabela falhe
+                return redirect()->back()->with('error', 'Não foi possível carregar os dados no momento devido a uma instabilidade. Por favor, tente novamente em alguns instantes.');
             }
 
             $atividades = $query->with(['publico', 'canais', 'medida', 'statusAtividade'])->orderBy('data_prevista', 'asc')->get();
