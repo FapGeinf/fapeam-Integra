@@ -90,35 +90,37 @@
             <option value="desc">Mais Recente</option>
           </select>
         </div>
+
+        <div class="col-12 col-sm-6 col-md-2">
+          <label for="" class="f-size">Ações:</label>
+          <div class="dropdown">
+            <button class="highlighted-btn-sm highlight-blue dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+              Escolha uma opção
+            </button>
+              
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              @if(Auth::user()->unidadeIdFK == 1)
+                <li>
+                  <a class="dropdown-item gap-1" href="{{ route('atividades.create') }}"
+                  style="font-size: 13px !important;">
+                    <i class="bi bi-plus-lg text-primary"></i> 
+                    Inserir Atividade
+                  </a>
+                </li>
+              @endif
+
+              <li>
+                <button type="button" class="dropdown-item gap-1" data-bs-toggle="modal" data-bs-target="#modalRelatorioStatus" style="font-size: 13px !important;">
+                  <i class="bi bi-file-earmark-pdf text-danger"></i> 
+                  Gerar Relatório por Status
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
       
       <div class="table-responsive pt-4">
-        <div class="d-flex pb-3">
-            <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle d-flex align-items-center gap-2" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-gear-fill"></i> Ações
-                </button>
-                
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    @if(Auth::user()->unidadeIdFK == 1)
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center gap-2" href="{{ route('atividades.create') }}">
-                                <i class="bi bi-plus-lg text-primary"></i> 
-                                Inserir Atividade
-                            </a>
-                        </li>
-                    @endif
-
-                    <li>
-                        <button type="button" class="dropdown-item d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalRelatorioStatus">
-                            <i class="bi bi-file-earmark-pdf-fill text-danger"></i> 
-                            Gerar Relatório por Status
-                        </button>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
         <div class="modal fade" id="modalRelatorioStatus" tabindex="-1" aria-labelledby="modalRelatorioStatusLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -230,27 +232,30 @@
                 </td>
 
                 <td class="text-center">
-                    @switch($atividade->statusAtividade->nome ?? '')
-                        @case('Acompanhamento')
-                            <div class="badge bg-warning text-dark">
-                                {{ $atividade->statusAtividade->nome }} <i class="bi bi-clock-history ms-1"></i>
-                            </div>
-                            @break
-                        @case('Executado')
-                            <div class="badge bg-success">
-                                {{ $atividade->statusAtividade->nome }} <i class="bi bi-check-circle ms-1"></i>
-                            </div>
-                            @break
-                        @case('Não Executado')
-                            <div class="badge bg-danger">
-                                {{ $atividade->statusAtividade->nome }} <i class="bi bi-x-circle ms-1"></i>
-                            </div>
-                            @break
-                        @default
-                            <div class="badge bg-secondary">
-                                {{ $atividade->statusAtividade->nome ?? 'N/A' }} <i class="bi bi-question-circle ms-1"></i>
-                            </div>
-                    @endswitch
+                  @switch($atividade->statusAtividade->nome ?? '')
+                    @case('Acompanhamento')
+                      <div class="badge bg-warning text-dark">
+                        {{ $atividade->statusAtividade->nome }} <i class="bi bi-clock-history ms-1"></i>
+                      </div>
+                    @break
+
+                    @case('Executado')
+                      <div class="badge bg-success">
+                        {{ $atividade->statusAtividade->nome }} <i class="bi bi-check-circle ms-1"></i>
+                      </div>
+                    @break
+
+                    @case('Não Executado')
+                      <div class="badge bg-danger">
+                        {{ $atividade->statusAtividade->nome }} <i class="bi bi-x-circle ms-1"></i>
+                      </div>
+                    @break
+
+                  @default
+                    <div class="badge bg-secondary">
+                      {{ $atividade->statusAtividade->nome ?? 'N/A' }} <i class="bi bi-question-circle ms-1"></i>
+                    </div>
+                  @endswitch
                 </td>
 
                 <td class="text-center">
@@ -277,7 +282,9 @@
                       <h5 class="modal-title" id="deleteModalLabel{{ $atividade->id }}">Confirmar Exclusão</h5>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+
                     <div class="modal-body">Tem certeza que deseja excluir esta atividade?</div>
+                    
                     <div class="modal-footer">
                       <button type="button" class="footer-btn footer-secondary" data-bs-dismiss="modal">Cancelar</button>
                       <form action="{{ route('atividades.delete', $atividade->id) }}" method="POST" class="m-0 p-0">
