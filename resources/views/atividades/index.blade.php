@@ -90,45 +90,23 @@
           </select>
         </div>
 
-
+        <div class="col-12 col-sm-6 col-md-2">
+          <label for="" class="f-size">Ações:</label>
+          <div class="d-flex pb-2">
+            <button type="button" class="highlighted-btn-sm highlight-blue d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalRelatorioStatus">
+              <i class="bi bi-file-earmark-pdf"></i>
+              Gerar Relatório
+            </button>
+          </div>
+        </div>
       </div>
       
       <div class="table-responsive pt-4">
-        <div class="d-flex pb-3">
-            <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle d-flex align-items-center gap-2" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-gear-fill"></i> Ações
-                </button>
-                
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <!--                     
-                    @if(Auth::user()->unidadeIdFK == 1)
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center gap-2" href="{{ route('atividades.create') }}">
-                                <i class="bi bi-plus-lg text-primary"></i> 
-                                Inserir Atividade
-                            </a>
-                        </li>
-                    @endif -->
-
-                    <li>
-                        <button type="button" class="dropdown-item d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalRelatorioStatus">
-                            <i class="bi bi-file-earmark-pdf-fill text-danger"></i> 
-                            Gerar Relatório por Status
-                        </button>
-                    </li>
-                    
-                </ul>
-            </div>
-        </div>
-
         <div class="modal fade" id="modalRelatorioStatus" tabindex="-1" aria-labelledby="modalRelatorioStatusLabel" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="modalRelatorioStatusLabel">
-                  <i class="bi bi-file-earmark-pdf text-danger me-2"></i>Gerar Relatório de Atividades
-                </h5>
+                <h5 class="modal-title" id="modalRelatorioStatusLabel">Gerar Relatório de Atividades</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               
@@ -137,8 +115,8 @@
                   <p class="text-muted text13">Selecione o status desejado para gerar o arquivo PDF consolidado de todas as atividades correspondentes:</p>
                   
                   <div class="mb-3">
-                    <label for="select-relatorio-status" class="fw-bold mb-2">Status da Atividade:</label>
-                    <select id="select-relatorio-status" class="form-select border-grey" required>
+                    <label for="select-relatorio-status" class="f-size">Status da Atividade:</label>
+                    <select id="select-relatorio-status" class="form-select input-enabled f-size border-grey" required>
                       <option value="" selected disabled>Selecione um status...</option>
                       @foreach ($statusAtividades as $status)
                         <option value="{{ $status->id }}">{{ $status->nome }}</option>
@@ -246,34 +224,34 @@
                 </td>
 
                 <td class="text-center">
-                    @switch($atividade->statusAtividade->nome ?? '')
-                        @case('Acompanhamento')
-                            <div class="badge bg-warning text-dark">
-                                {{ $atividade->statusAtividade->nome }}
-                                <i class="bi bi-clock-history ms-1"></i>
-                            </div>
-                            @break
+                  @switch($atividade->statusAtividade->nome ?? '')
+                    @case('Acompanhamento')
+                      <div class="badge bg-warning text-dark">
+                        {{ $atividade->statusAtividade->nome }}
+                        <i class="bi bi-clock-history ms-1"></i>
+                      </div>
+                    @break
 
-                        @case('Executado')
-                            <div class="badge bg-success">
-                                {{ $atividade->statusAtividade->nome }}
-                                <i class="bi bi-check-circle ms-1"></i>
-                            </div>
-                            @break
+                    @case('Executado')
+                      <div class="badge bg-success">
+                        {{ $atividade->statusAtividade->nome }}
+                        <i class="bi bi-check-circle ms-1"></i>
+                      </div>
+                    @break
 
-                        @case('Não Executado')
-                            <div class="badge bg-danger">
-                                {{ $atividade->statusAtividade->nome }}
-                                <i class="bi bi-x-circle ms-1"></i>
-                            </div>
-                            @break
+                    @case('Não Executado')
+                      <div class="badge bg-danger">
+                        {{ $atividade->statusAtividade->nome }}
+                        <i class="bi bi-x-circle ms-1"></i>
+                      </div>
+                    @break
 
-                        @default
-                            <div class="badge bg-secondary">
-                                {{ $atividade->statusAtividade->nome ?? 'N/A' }}
-                                <i class="bi bi-question-circle ms-1"></i>
-                            </div>
-                    @endswitch
+                    @default
+                      <div class="badge bg-secondary">
+                        {{ $atividade->statusAtividade->nome ?? 'N/A' }}
+                        <i class="bi bi-question-circle ms-1"></i>
+                      </div>
+                  @endswitch
                 </td>
 
                 <td class="text-center">
