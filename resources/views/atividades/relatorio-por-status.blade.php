@@ -170,23 +170,23 @@
                     <tr>
                         <td>
                             <strong>#{{ $atividade->id }}</strong>
-                            <div class="meta-text" style="font-weight: bold;">Resp: {{ $atividade->responsavel ?? 'N/I' }}</div>
+                            <div class="meta-text" style="font-weight: bold;">Responsável: {{ $atividade->responsavel ?? 'Não informado' }}</div>
                         </td>
 
                         <td>
                             <div style="font-weight: bold; color: #2d3748; font-size: 11px;">
-                                {{ strip_tags($atividade->atividade_descricao) }}
+                                {{ html_entity_decode(strip_tags($atividade->atividade_descricao), ENT_QUOTES, 'UTF-8') }}
                             </div>
                             
                             @if($atividade->objetivo)
                                 <div class="meta-text" style="margin-top: 4px;">
-                                    <strong>Objetivo:</strong> {{ Str::limit(strip_tags($atividade->objetivo), 150) }}
+                                    <strong>Objetivo:</strong> {{ html_entity_decode(Str::limit(strip_tags($atividade->objetivo), 150)) }}
                                 </div>
                             @endif
                             
                             @if($atividade->justificativa)
                                 <div class="meta-text" style="color: #9b2c2c; margin-top: 4px;">
-                                    <strong>Justificativa:</strong> {{ Str::limit(strip_tags($atividade->justificativa), 100) }}
+                                    <strong>Justificativa:</strong> {{ html_entity_decode(Str::limit(strip_tags($atividade->justificativa), 100)) }}
                                 </div>
                             @endif
                         </td>
@@ -237,7 +237,7 @@
     @endif
 
     <div class="footer">
-        Relatório Analítico de Atividades por Status • Página Dinâmica
+        Relatório Analítico de Atividades por Status
     </div>
 
 </body>
