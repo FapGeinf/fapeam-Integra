@@ -249,7 +249,7 @@
                     @default
                       <div class="badge bg-secondary">
                         {{ $atividade->statusAtividade->nome ?? 'N/A' }}
-                        <i class="bi bi-question-circle ms-1"></i>
+                        {{-- <i class="bi bi-question-circle ms-1"></i> --}}
                       </div>
                   @endswitch
                 </td>
