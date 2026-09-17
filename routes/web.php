@@ -118,6 +118,9 @@ Route::prefix('apresentacoes')->name('apresentacoes.')->middleware('auth')->grou
     Route::get('/eixo8', [EixosController::class, 'Eixo8'])->name('eixo8');
 });
 
+Route::get('/anexo/{eixo_id}', [EixosController::class, 'downloadAnexo'])->name('anexo');
+Route::post('/anexo/{eixo_id}', [EixosController::class, 'uploadAnexo'])->name('anexo.upload');
+
 Route::prefix('atividades')->name('atividades.')->middleware('auth')->group(function () {
     Route::get('/', [AtividadeController::class, 'index'])->name('index');
     Route::post('/', [AtividadeController::class, 'index'])->name('atividades.index');

@@ -9,7 +9,7 @@ class Eixo extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nome'];
+    protected $fillable = ['nome','anexo_path'];
 
     public function atividades()
     {
