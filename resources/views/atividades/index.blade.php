@@ -79,7 +79,7 @@
             <option value="Presencial e Online">Presencial e Online</option>
           </select>
         </div>
-
+<!-- 
         <div class="col-12 col-sm-6 col-md-2">
           <label for="filter-data" class="f-size">Ordenar por data prevista:</label>
           <select name="filter-data" id="filter-data" class="form-select input-enabled f-size border-grey">
@@ -88,7 +88,19 @@
             <option value="asc">Mais Antiga</option>
             <option value="desc">Mais Recente</option>
           </select>
+        </div> -->
+
+         <div class="col-12 col-sm-6 col-md-2">
+          <label for="filter-ano" class="f-size">Filtrar por ano:</label>
+          <select name="filter-ano" id="filter-ano" class="form-select input-enabled f-size border-grey">
+            <option selected disabled>Escolha um ano</option>
+            <option value="">Todos</option>
+            @foreach (range(date('Y'), date('Y') - 5) as $ano)
+              <option value="{{ $ano }}">{{ $ano }}</option>
+            @endforeach
+          </select>
         </div>
+
 
         <div class="col-12 col-sm-6 col-md-2">
           <label for="" class="f-size">Ações:</label>
@@ -151,7 +163,7 @@
               <th scope="col" class="text-center text-light">Datas</th>
               <th scope="col" class="text-center text-light">Ano</th>
               <th scope="col" class="text-center text-light">Meta</th>
-              <th scope="col" class="text-center text-light">Status</th>
+              <!-- <th scope="col" class="text-center text-light">Status</th> -->
               <th scope="col" class="text-center text-light">Ações</th>
             </tr>
           </thead>
@@ -223,7 +235,7 @@
                   </div>
                 </td>
 
-                <td class="text-center">
+                <!-- <td class="text-center">
                   @switch($atividade->statusAtividade->nome ?? '')
                     @case('Acompanhamento')
                       <div class="badge bg-warning text-dark">
@@ -252,7 +264,7 @@
                         {{-- <i class="bi bi-question-circle ms-1"></i> --}}
                       </div>
                   @endswitch
-                </td>
+                </td> -->
 
                 <td class="text-center">
                   @if(Auth::user()->unidade->unidadeTipoFK == 1 || Auth::user()->usuario_tipo_fk == 1  || Auth::user()->usuario_tipo_fk == 4)

@@ -34,7 +34,11 @@ $(document).ready(function () {
 
     $('#filter-data').on('change', function () {
         let ordem = $(this).val();
-        tabela.order([7, ordem]).draw();
+        if (ordem) {
+            tabela.order([7, ordem]).draw();
+        } else {
+            tabela.order([7, "asc"]).draw();
+        }
     });
 
     $('#filter-canal').on('change', function () {
@@ -55,5 +59,15 @@ $(document).ready(function () {
     $('#filter-status').on('change', function () {
         let status = $(this).val();
         tabela.column(10).search(status).draw();
+    });
+
+    $('#filter-ano').on('change', function () {
+        let ano = $(this).val();
+
+        if (ano) {
+            tabela.column(8).search('^' + ano + '$', true, false).draw();
+        } else {
+            tabela.column(8).search('').draw();
+        }
     });
 });
