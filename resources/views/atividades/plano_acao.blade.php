@@ -82,14 +82,14 @@
           </div>
 
           <!-- <div class="col-12 col-sm-6 col-md-2">
-            <label for="filter-data" class="f-size">Ordenar por data prevista:</label>
-            <select name="filter-data" id="filter-data" class="form-select input-enabled f-size border-grey">
-              <option selected disabled>Escolha uma opção</option>
-              <option value="">Todos</option>
-              <option value="asc">Mais Antiga</option>
-              <option value="desc">Mais Recente</option>
-            </select>
-          </div> -->
+              <label for="filter-data" class="f-size">Ordenar por data prevista:</label>
+              <select name="filter-data" id="filter-data" class="form-select input-enabled f-size border-grey">
+                <option selected disabled>Escolha uma opção</option>
+                <option value="">Todos</option>
+                <option value="asc">Mais Antiga</option>
+                <option value="desc">Mais Recente</option>
+              </select>
+            </div> -->
 
           <div class="col-12 col-sm-6 col-md-2">
             <label for="filter-ano" class="f-size">Filtrar por ano:</label>
@@ -253,31 +253,31 @@
                   </td>
 
                   <!-- <td class="text-center">
-                      @switch($atividade->statusAtividade->nome ?? '')
-                        @case('Acompanhamento')
-                          <div class="badge bg-warning text-dark">
-                            {{ $atividade->statusAtividade->nome }} <i class="bi bi-clock-history ms-1"></i>
-                          </div>
-                        @break
+                          @switch($atividade->statusAtividade->nome ?? '')
+                            @case('Acompanhamento')
+                              <div class="badge bg-warning text-dark">
+                                {{ $atividade->statusAtividade->nome }} <i class="bi bi-clock-history ms-1"></i>
+                              </div>
+                            @break
 
-                        @case('Executado')
-                          <div class="badge bg-success">
-                            {{ $atividade->statusAtividade->nome }} <i class="bi bi-check-circle ms-1"></i>
-                          </div>
-                        @break
+                            @case('Executado')
+                              <div class="badge bg-success">
+                                {{ $atividade->statusAtividade->nome }} <i class="bi bi-check-circle ms-1"></i>
+                              </div>
+                            @break
 
-                        @case('Não Executado')
-                          <div class="badge bg-danger">
-                            {{ $atividade->statusAtividade->nome }} <i class="bi bi-x-circle ms-1"></i>
-                          </div>
-                        @break
+                            @case('Não Executado')
+                              <div class="badge bg-danger">
+                                {{ $atividade->statusAtividade->nome }} <i class="bi bi-x-circle ms-1"></i>
+                              </div>
+                            @break
 
-                      @default
-                        <div class="badge bg-secondary">
-                          {{ $atividade->statusAtividade->nome ?? 'N/A' }} <i class="bi bi-question-circle ms-1"></i>
-                        </div>
-                      @endswitch
-                    </td> -->
+                          @default
+                            <div class="badge bg-secondary">
+                              {{ $atividade->statusAtividade->nome ?? 'N/A' }} <i class="bi bi-question-circle ms-1"></i>
+                            </div>
+                          @endswitch
+                        </td> -->
 
                   <td class="text-center">
                     @if(Auth::user()->unidade->unidadeTipoFK == 1 || Auth::user()->usuario_tipo_fk == 1 || Auth::user()->usuario_tipo_fk == 4)
@@ -287,28 +287,28 @@
                           <i class="bi bi-eye me-2"></i> Visualizar
                         </a>
                         @php
-                            $anoAtual = now()->year;
-                            $anoPassado = $anoAtual - 1;
-                            
-                            $anoRealizada = $atividade->data_realizada ? \Carbon\Carbon::parse($atividade->data_realizada)->year : null;
-                            $anoPrevista = $atividade->data_prevista ? \Carbon\Carbon::parse($atividade->data_prevista)->year : null;
-                            
-                            $dataValidaParaEdicaoExclusao = ($anoRealizada && $anoRealizada >= $anoPassado) || ($anoPrevista && $anoPrevista >= $anoPassado);
-                            $exibirRelatorio = ($anoRealizada && $anoRealizada <= $anoAtual) || ($anoPrevista && $anoPrevista <= $anoAtual);
-                          @endphp
+                          $anoAtual = now()->year;
+                          $anoPassado = $anoAtual - 1;
 
-                          @if($dataValidaParaEdicaoExclusao)
-                            <a href="{{ route('atividades.edit', $atividade->id) }}"
-                              class="footer-btn footer-warning w-100 text-start d-inline-block text-decoration-none text-nowrap">
-                              <i class="bi bi-pencil me-2"></i> Editar
-                            </a>
+                          $anoRealizada = $atividade->data_realizada ? \Carbon\Carbon::parse($atividade->data_realizada)->year : null;
+                          $anoPrevista = $atividade->data_prevista ? \Carbon\Carbon::parse($atividade->data_prevista)->year : null;
 
-                            <a href="#"
-                              class="footer-btn footer-danger w-100 text-start d-inline-block text-decoration-none text-nowrap"
-                              data-bs-toggle="modal" data-bs-target="#deleteModal{{ $atividade->id }}">
-                              <i class="bi bi-trash me-2"></i> Excluir
-                            </a>
-                          @endif
+                          $dataValidaParaEdicaoExclusao = ($anoRealizada && $anoRealizada >= $anoPassado) || ($anoPrevista && $anoPrevista >= $anoPassado);
+                          $exibirRelatorio = ($anoRealizada && $anoRealizada <= $anoAtual) || ($anoPrevista && $anoPrevista <= $anoAtual);
+                        @endphp
+
+                        @if($dataValidaParaEdicaoExclusao)
+                          <a href="{{ route('atividades.edit', $atividade->id) }}"
+                            class="footer-btn footer-warning w-100 text-start d-inline-block text-decoration-none text-nowrap">
+                            <i class="bi bi-pencil me-2"></i> Editar
+                          </a>
+
+                          <a href="#"
+                            class="footer-btn footer-danger w-100 text-start d-inline-block text-decoration-none text-nowrap"
+                            data-bs-toggle="modal" data-bs-target="#deleteModal{{ $atividade->id }}">
+                            <i class="bi bi-trash me-2"></i> Excluir
+                          </a>
+                        @endif
                       </div>
                     @endif
                   </td>
