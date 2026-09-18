@@ -286,15 +286,29 @@
                           class="footer-btn footer-primary w-100 text-start d-inline-block text-decoration-none text-nowrap">
                           <i class="bi bi-eye me-2"></i> Visualizar
                         </a>
-                        <a href="{{ route('atividades.edit', $atividade->id) }}"
-                          class="footer-btn footer-warning w-100 text-start d-inline-block text-decoration-none text-nowrap">
-                          <i class="bi bi-pencil me-2"></i> Editar
-                        </a>
-                        <a href="#"
-                          class="footer-btn footer-danger w-100 text-start d-inline-block text-decoration-none text-nowrap"
-                          data-bs-toggle="modal" data-bs-target="#deleteModal{{ $atividade->id }}">
-                          <i class="bi bi-trash me-2"></i> Excluir
-                        </a>
+                        @php
+                            $anoAtual = now()->year;
+                            $anoPassado = $anoAtual - 1;
+                            
+                            $anoRealizada = $atividade->data_realizada ? \Carbon\Carbon::parse($atividade->data_realizada)->year : null;
+                            $anoPrevista = $atividade->data_prevista ? \Carbon\Carbon::parse($atividade->data_prevista)->year : null;
+                            
+                            $dataValidaParaEdicaoExclusao = ($anoRealizada && $anoRealizada >= $anoPassado) || ($anoPrevista && $anoPrevista >= $anoPassado);
+                            $exibirRelatorio = ($anoRealizada && $anoRealizada <= $anoAtual) || ($anoPrevista && $anoPrevista <= $anoAtual);
+                          @endphp
+
+                          @if($dataValidaParaEdicaoExclusao)
+                            <a href="{{ route('atividades.edit', $atividade->id) }}"
+                              class="footer-btn footer-warning w-100 text-start d-inline-block text-decoration-none text-nowrap">
+                              <i class="bi bi-pencil me-2"></i> Editar
+                            </a>
+
+                            <a href="#"
+                              class="footer-btn footer-danger w-100 text-start d-inline-block text-decoration-none text-nowrap"
+                              data-bs-toggle="modal" data-bs-target="#deleteModal{{ $atividade->id }}">
+                              <i class="bi bi-trash me-2"></i> Excluir
+                            </a>
+                          @endif
                       </div>
                     @endif
                   </td>
