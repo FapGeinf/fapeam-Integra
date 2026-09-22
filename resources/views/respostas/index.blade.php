@@ -105,47 +105,47 @@
 								@endif
 							</td>
 						</tr>
-
-						<div class="modal fade" id="homologacaoPresidenciaModal{{ $resposta->id }}" tabindex="-1"
-							aria-labelledby="homologacaoPresidenciaModalLabel{{ $resposta->id }}" aria-hidden="true">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title" id="homologacaoPresidenciaModalLabel{{ $resposta->id }}">
-											Homologar pela Presidência
-                    </h5>
-
-										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-									</div>
-
-									<div class="modal-body">
-										Tem certeza que deseja homologar esta resposta como <span class="fw-medium">presidente</span>?
-									</div>
-
-									<div class="modal-footer">
-										<button type="button" class="footer-btn footer-secondary"
-											data-bs-dismiss="modal">
-                      <i class="bi bi-x-lg"></i>
-                      Cancelar
-                    </button>
-
-										<form action="{{ route('riscos.homologar', $resposta->id) }}" method="POST"
-											class="m-0 p-0">
-											@csrf
-											@method('PUT')
-
-											<button type="submit" class="footer-btn footer-success">
-                        <i class="bi bi-check-circle me-1"></i>
-                        Homologar
-                      </button>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
 					@endforeach
 				</tbody>
 			</table>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="homologacaoPresidenciaModal{{ $resposta->id }}" tabindex="-1"
+	aria-labelledby="homologacaoPresidenciaModalLabel{{ $resposta->id }}" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="homologacaoPresidenciaModalLabel{{ $resposta->id }}">
+					Homologar pela Presidência
+				</h5>
+
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+			</div>
+
+			<div class="modal-body">
+				Tem certeza que deseja homologar esta resposta como <span class="fw-medium">presidente</span>?
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" class="footer-btn footer-secondary"
+					data-bs-dismiss="modal">
+					<i class="bi bi-x-lg"></i>
+					Cancelar
+				</button>
+
+				<form action="{{ route('riscos.homologar', $resposta->id) }}" method="POST"
+					class="m-0 p-0">
+					@csrf
+					@method('PUT')
+
+					<button type="submit" class="footer-btn footer-success">
+						<i class="bi bi-check-circle me-1"></i>
+						Homologar
+					</button>
+				</form>
+			</div>
 		</div>
 	</div>
 </div>
@@ -203,10 +203,7 @@
 	</div>
 </div>
 
-<script>
-	window.ROTA_HOMOLOGAR_MULTIPLA = "{{ route('riscos.homologar.multipla') }}";
-</script>
-	
+<script>window.ROTA_HOMOLOGAR_MULTIPLA = "{{ route('riscos.homologar.multipla') }}";</script>
 <script src="{{ asset('js/respostas/homologacao.js') }}"></script>
 
 @endsection
