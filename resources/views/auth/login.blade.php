@@ -95,5 +95,19 @@
 
         </div>
       </div>
-  </body>
+      
+      <div class="footerLogo">
+        <span>&copy; {{ now()->year }} FAPEAM</span>
+      </div>
+
+      {{-- <div class="version">
+        <span>
+          <a href="{{ route('versionamentos.public') }}" style="color: #152d6e; text-decoration: none;">Ver últimas atualizações do sistema</a>
+        </span>
+        <i class="fas fa-arrow-right version-logo"></i>
+      </div> --}}
+
+    </div>
+  </div>
+</body>
 @endsection

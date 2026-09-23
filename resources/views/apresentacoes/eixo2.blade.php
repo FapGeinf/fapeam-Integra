@@ -44,13 +44,13 @@
     </div>
   </main>
 
-  @if(auth()->user()->unidade->unidadeTipoFK == 1 || auth()->user()->unidade->unidadeTipoFK == 3 || auth()->user()->unidade->unidadeTipoFK == 4)
-    {{-- Todos os botões reunidos na mesma div flex para alinhamento perfeito --}}
-    <div class="d-flex justify-content-center gap-2 flex-wrap mb-4">
-      <a href="{{ route('relatorios.eixos', ['id' => 2]) }}" class="highlighted-btn-sm highlight-blue text-decoration-none">
-        <i class="bi bi-list-columns-reverse"></i>
-        Relatório
-      </a>
+@if(auth()->user()->unidade->unidadeTipoFK == 1 || auth()->user()->unidade->unidadeTipoFK == 3 || auth()->user()->unidade->unidadeTipoFK == 4)
+  <div class="d-flex justify-content-center gap-2">
+    <a href="{{ route('relatorios.eixos', ['id' => 2]) }}" 
+      class="highlighted-btn-sm highlight-blue text-decoration-none">
+      <i class="bi bi-download"></i>
+      Relatório
+    </a>
 
       <form action="{{ route('atividades.index') }}" method="POST" class="d-inline">
         @csrf

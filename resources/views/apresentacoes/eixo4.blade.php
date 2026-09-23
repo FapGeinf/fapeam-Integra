@@ -86,16 +86,11 @@
   </div>
 
   @if(auth()->user()->unidade->unidadeTipoFK == 1 || auth()->user()->unidade->unidadeTipoFK == 3 || auth()->user()->unidade->unidadeTipoFK == 4)
-    {{-- MODAL DE UPLOAD DE ANEXO --}}
-    <div class="modal fade" id="modalUploadAnexo" tabindex="-1" aria-labelledby="modalUploadAnexoLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="modalUploadAnexoLabel">
-              <i class="bi bi-upload text-primary me-2"></i>Enviar Anexo do Eixo
-            </h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
+    <a href="{{ route('relatorios.eixos', ['id' => 4]) }}" 
+      class="highlighted-btn-sm highlight-blue text-decoration-none">
+      <i class="bi bi-download"></i>
+      Relatório
+    </a>    
 
           <form action="{{ route('anexo.upload', $eixo_id ?? 4) }}" method="POST" enctype="multipart/form-data">
             @csrf

@@ -6,43 +6,6 @@
 <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
 <link rel="stylesheet" href="{{ asset('css/main.css') }}">
 
-<style>
-  .dropdown-content1 {
-    display: none;
-    position: absolute;
-    background-color: white;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-  }
-
-  .dropdown-content1.show {
-    display: block;
-  }
-
-  .dropdown-container {
-    position: relative;
-    display: inline-block;
-  }
-
-  .accordion-button:not(.collapsed) {
-    color: #212529;
-    background-color: #f8fafc;
-  }
-
-  .accordion-button,
-  .accordion-button:focus,
-  .accordion-button:active,
-  .accordion-button:hover,
-  .accordion-button:not(.collapsed),
-  .accordion-button:not(.collapsed):focus,
-  .accordion-button:not(.collapsed):hover,
-  .accordion-button:not(.collapsed):active {
-    outline: none !important;
-    box-shadow: none !important;
-  }
-</style>
-
 <x-alert-toast/>
 
 <div class="container pt-5" style="max-width: 600px;">
@@ -63,7 +26,7 @@
       @foreach ($tiposDocumentos as $tipo)
         <div class="accordion-item">
           <h2 class="accordion-header" id="heading{{ $tipo->id }}">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            <button class="accordion-button text13 collapsed" type="button" data-bs-toggle="collapse"
               data-bs-target="#collapse{{ $tipo->id }}" aria-expanded="false"
               aria-controls="collapse{{ $tipo->id }}">
               {{ $tipo->nome }}
@@ -72,10 +35,10 @@
 
           <div id="collapse{{ $tipo->id }}" class="accordion-collapse collapse"
             aria-labelledby="heading{{ $tipo->id }}" data-bs-parent="#accordionDocumentos">
-            <div class="accordion-body" style="background-color: #fff;">
+            <div class="accordion-body" style="background-color: #fff; font-size: 13px !important;">
               @if (isset($documentosAgrupados[$tipo->id]))
                 @foreach ($documentosAgrupados[$tipo->id] as $ano => $docsPorAno)
-                  <div class="mb-2 fw-medium">
+                  <div class="mb-2">
                     {{ $ano }}
                   </div>
 
@@ -91,7 +54,7 @@
                     </ul>
 
                     @if (Auth::user()->usuario_tipo_fk == 1 || Auth::user()->usuario_tipo_fk == 4)
-                      <div class="text-end mt-2 mb-3">
+                      <div class="text-start mt-2 mb-3">
                         <a href="{{ route('documentos.edit', ['id' => $documento->id]) }}"
                           class="highlighted-btn-sm highlight-blue text-nowrap text-decoration-none">
                           <i class="bi bi-pencil-square"></i>
