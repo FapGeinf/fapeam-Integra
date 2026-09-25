@@ -5,6 +5,7 @@ use App\Http\Controllers\AtividadeController;
 use App\Http\Controllers\DocumentoController;
 use App\Http\Controllers\EixosController;
 use App\Http\Controllers\LogController;
+use App\Http\Controllers\PlanoAcaoController;
 use App\Http\Middleware\isAdmin;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RiscoController;
@@ -185,3 +186,5 @@ Route::resource('diretorias', DiretoriaController::class)->middleware(['auth', i
 Route::get('/relatorios/atividades-status/{status}', [RelatorioController::class, 'relatorioAtividadesPorStatus'])
     ->name('relatorios.atividades-status')
     ->middleware('auth');
+
+Route::resource('plano_acoes',PlanoAcaoController::class);
