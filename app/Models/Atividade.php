@@ -9,7 +9,7 @@ class Atividade extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['eixo_id', 'atividade_descricao', 'objetivo','ano','publico_id', 'tipo_evento', 'canal_id', 'data_prevista', 'data_realizada', 'meta', 'realizado', 'medida_id', 'responsavel', 'justificativa','status_atividade_id'];
+    protected $fillable = ['eixo_id', 'atividade_descricao', 'objetivo','ano','publico_id', 'tipo_evento', 'canal_id', 'data_prevista', 'data_realizada', 'meta', 'realizado', 'medida_id', 'responsavel', 'justificativa','status_atividade_id','plano_acao_id'];
 
     public function eixos()
     {
@@ -38,5 +38,10 @@ class Atividade extends Model
     public function statusAtividade()
     {
         return $this->belongsTo(StatusAtividade::class, 'status_atividade_id');
+    }
+
+    public function planoAcao()
+    {
+           return $this->belongsTo(PlanoAcao::class,'plano_acao_id');
     }
 }

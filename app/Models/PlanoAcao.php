@@ -37,4 +37,9 @@ class PlanoAcao extends Model
     {
         return $this->belongsTo(User::class, 'responsavel_id');
     }
+
+    public function atividades()
+    {
+           return $this->hasMany(Atividade::class);
+    }
 }
