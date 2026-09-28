@@ -28,7 +28,7 @@
             <p class="text-center text-muted small mb-3">Gerencie e acompanhe as metas e ações estratégicas cadastradas.</p>
             
             <div class="d-flex justify-content-center">
-                <a class="text-decoration-none highlighted-btn-sm highlight-success px-4 py-2 shadow-sm" href="{{ route('plano_acoes.create') }}">
+                <a class="text-decoration-none highlighted-btn-sm highlight-success px-4 py-2 shadow-sm" href="{{ route('plano-acoes.create') }}">
                     <i class="bi bi-plus-circle me-1"></i>
                     Adicionar Plano de Ação
                 </a>
@@ -103,7 +103,7 @@
                                                 <i class="bi bi-arrow-left me-1"></i> Cancelar
                                             </button>
 
-                                            <form action="{{ route('plano_acoes.destroy', $plano->id) }}" method="POST" class="m-0 p-0">
+                                            <form action="{{ route('plano-acoes.destroy', $plano->id) }}" method="POST" class="m-0 p-0">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="highlighted-btn-sm highlight-danger px-4">

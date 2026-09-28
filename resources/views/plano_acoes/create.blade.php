@@ -34,7 +34,7 @@
 
             <!-- Corpo do Formulário -->
             <div class="card-body p-4 bg-light bg-opacity-10">
-                <form action="{{ route('plano_acoes.store') }}" method="POST" id="formStorePlanoAcao">
+                <form action="{{ route('plano-acoes.store') }}" method="POST" id="formStorePlanoAcao">
                     @csrf
 
                     <div class="row g-4">

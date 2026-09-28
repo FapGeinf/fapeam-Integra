@@ -34,7 +34,7 @@
 
 
             <div class="card-body p-4 bg-light bg-opacity-10">
-                <form action="{{ route('plano_acoes.update', $planoAcao->id) }}" method="POST" id="formUpdatePlanoAcao">
+                <form action="{{ route('plano-acoes.update', $planoAcao->id) }}" method="POST" id="formUpdatePlanoAcao">
                     @csrf
                     @method('PUT')
 

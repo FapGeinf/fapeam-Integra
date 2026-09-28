@@ -187,5 +187,5 @@ Route::get('/relatorios/atividades-status/{status}', [RelatorioController::class
     ->name('relatorios.atividades-status')
     ->middleware('auth');
 
-Route::resource('plano_acoes', PlanoAcaoController::class)
-     ->parameters(['plano_acoes' => 'planoAcao']);
+Route::resource('plano-acoes', PlanoAcaoController::class)
+     ->parameters(['plano-acoes' => 'planoAcao']);
