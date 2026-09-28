@@ -18,9 +18,9 @@ class PlanoAcaoController extends Controller
         Log::info('Acessando a listagem de Planos de Ação.');
 
         $planos = PlanoAcao::with(['eixo', 'responsavel', 'indicador'])
-            ->join('eixos', 'plano_acaos.eixo_id', '=', 'eixos.id')
+            ->join('eixos', 'plano_acoes.eixo_id', '=', 'eixos.id')
             ->orderBy('eixos.nome')
-            ->select('plano_acaos.*')
+            ->select('plano_acoes.*')
             ->get();
 
         return view('plano_acoes.index', ['planos' => $planos]);
