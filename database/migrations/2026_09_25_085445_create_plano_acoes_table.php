@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('plano_acoes', function (Blueprint $table) {
@@ -24,17 +19,13 @@ return new class extends Migration
             $table->text('procedimentos')->nullable();
             $table->text('metricas')->nullable();
             $table->date('prazo_execucao')->nullable();
+            $table->string('bienio', 9)->nullable(); 
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
-        Schema::dropIfExists('plano_acaos');
+        Schema::dropIfExists('plano_acoes'); // Corrigido de 'plano_acaos' para 'plano_acoes'
     }
 };

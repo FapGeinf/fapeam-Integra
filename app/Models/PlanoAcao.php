@@ -18,7 +18,8 @@ class PlanoAcao extends Model
         'procedimentos',
         'metricas',
         'prazo_execucao',
-        'responsavel_id' 
+        'responsavel_id',
+        'bienio' 
     ];
 
     protected $table = 'plano_acoes';
@@ -40,6 +41,16 @@ class PlanoAcao extends Model
 
     public function atividades()
     {
-           return $this->hasMany(Atividade::class);
+        return $this->hasMany(Atividade::class);
+    }
+
+    public function getAnoInicioAttribute()
+    {
+        return $this->bienio ? explode('-', $this->bienio)[0] : null;
+    }
+
+    public function getAnoFimAttribute()
+    {
+        return $this->bienio ? explode('-', $this->bienio)[1] : null;
     }
 }
