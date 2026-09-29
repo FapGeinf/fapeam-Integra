@@ -10,7 +10,6 @@ return new class extends Migration
     {
         Schema::create('plano_acoes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('eixo_id')->constrained('eixos')->onDelete('cascade');
             $table->foreignId('responsavel_id')->nullable()->constrained('users')->onDelete('set null');
             $table->foreignId('indicador_id')->nullable()->constrained('indicadores')->onDelete('set null');
             $table->text('objetivo');

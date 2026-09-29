@@ -1,5 +1,40 @@
 function showConfirmationModal() {
- 
+    
+    function getMultipleSelectInfo(selectId) {
+        let selectElement = document.getElementById(selectId);
+        if (!selectElement) return { values: [], text: "" };
+
+        let values = [];
+        let texts = [];
+
+        for (let option of selectElement.options) {
+            if (option.selected && option.value) {
+                values.push(option.value);
+                texts.push(option.text.trim());
+            }
+        }
+
+       
+        if (values.length === 0 && window.ChoicesInstances && window.ChoicesInstances[selectId]) {
+            let choiceInstance = window.ChoicesInstances[selectId];
+            let activeChoices = choiceInstance.getValue(true); // Retorna array de valores
+            if (activeChoices && activeChoices.length > 0) {
+                values = activeChoices;
+                for (let val of values) {
+                    let opt = Array.from(selectElement.options).find(o => o.value == val);
+                    if (opt) {
+                        texts.push(opt.text.trim());
+                    }
+                }
+            }
+        }
+
+        return { 
+            values: values, 
+            text: texts.length > 0 ? texts.join(', ') : "" 
+        };
+    }
+
     function getSelectInfo(selectId) {
         let selectElement = document.getElementById(selectId);
         if (!selectElement) return { value: "", text: "" };
@@ -22,7 +57,6 @@ function showConfirmationModal() {
         return { value: value, text: (value ? text : "") };
     }
 
-  
     function getFieldValue(fieldId) {
         let element = document.getElementById(fieldId);
         if (!element) return "";
@@ -34,7 +68,6 @@ function showConfirmationModal() {
         return element.value ? element.value.trim() : "";
     }
 
-    
     function formatDateToBr(dateString) {
         if (!dateString) return "";
         let parts = dateString.split('-');
@@ -44,7 +77,8 @@ function showConfirmationModal() {
         return dateString;
     }
 
-    let eixo = getSelectInfo('eixo_id');
+   
+    let eixos = getMultipleSelectInfo('eixos');
     let indicador = getSelectInfo('indicador_id');
     let responsavel = getSelectInfo('responsavel_id');
 
@@ -59,9 +93,9 @@ function showConfirmationModal() {
     let prazoExecucaoRaw = document.getElementById('prazo_execucao').value.trim();
     let prazoExecucaoBr = formatDateToBr(prazoExecucaoRaw);
 
-    // Validação dos campos obrigatórios
+   
     let errors = {
-        eixo_id: eixo.value ? "" : "Selecione um eixo válido.",
+        eixos: eixos.values.length > 0 ? "" : "Selecione pelo menos um eixo válido.",
         objetivo: objetivo ? "" : "O campo 'Objetivo' é obrigatório.",
         descricao_acao: descricaoAcao ? "" : "O campo 'Descrição da Ação' é obrigatório.",
         meta: meta ? "" : "O campo 'Meta' é obrigatório.",
@@ -102,7 +136,7 @@ function showConfirmationModal() {
         </div>
         <form novalidate>
             <div class="row g-3">
-                ${createReadonlyField("Eixo", eixo.text, errors.eixo_id, true)}
+                ${createReadonlyField("Eixos Estratégicos", eixos.text, errors.eixos, true)}
                 ${createReadonlyField("Objetivo", objetivo, errors.objetivo, true, true)}
                 ${createReadonlyField("Descrição da Ação", descricaoAcao, errors.descricao_acao, true, true)}
                 <div class="col-md-6">

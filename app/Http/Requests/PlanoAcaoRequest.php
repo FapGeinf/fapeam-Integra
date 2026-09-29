@@ -24,7 +24,8 @@ class PlanoAcaoRequest extends FormRequest
     public function rules()
     {
         return [
-            'eixo_id'        => 'required|exists:eixos,id',
+            'eixos'          => 'required|array|min:1',
+            'eixos.*'        => 'exists:eixos,id',
             'responsavel_id' => 'required|exists:users,id',
             'indicador_id'   => 'nullable|exists:indicadores,id', 
             'objetivo'       => 'required|string',
@@ -45,8 +46,10 @@ class PlanoAcaoRequest extends FormRequest
     public function messages()
     {
         return [
-            'eixo_id.required'        => 'O campo eixo é obrigatório.',
-            'eixo_id.exists'          => 'O eixo selecionado é inválido.',
+            'eixos.required'          => 'Selecione pelo menos um eixo estratégico.',
+            'eixos.array'             => 'O formato dos eixos selecionados é inválido.',
+            'eixos.min'               => 'Selecione pelo menos um eixo estratégico.',
+            'eixos.*.exists'          => 'Um ou mais eixos selecionados são inválidos.',
             'responsavel_id.required' => 'O responsável é obrigatório.',
             'responsavel_id.exists'   => 'O usuário responsável selecionado é inválido.',
             'indicador_id.exists'     => 'O indicador selecionado é inválido.',

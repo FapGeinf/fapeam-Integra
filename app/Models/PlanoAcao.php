@@ -10,7 +10,6 @@ class PlanoAcao extends Model
     use HasFactory;
 
     protected $fillable = [
-        'eixo_id',
         'objetivo',
         'descricao_acao',
         'meta',
@@ -21,6 +20,11 @@ class PlanoAcao extends Model
         'responsavel_id',
         'bienio' 
     ];
+
+    public function eixos()
+    {
+        return $this->belongsToMany(Eixo::class, 'eixo_plano_acao', 'plano_acao_id', 'eixo_id');
+    }
 
     protected $table = 'plano_acoes';
 

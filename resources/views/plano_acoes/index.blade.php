@@ -35,9 +35,43 @@
             </div>
         </div>
 
+        <!-- SEÇÃO DE FILTROS -->
+        <div class="row g-3 mb-4 bg-light p-3 rounded-3 border">
+            <div class="col-md-4">
+                <label for="filter-bienio" class="form-label small fw-bold text-dark">Filtrar por Biênio</label>
+                <select id="filter-bienio" class="form-select form-select-sm">
+                    <option value="">Todos os biênios</option>
+                    @foreach($planos->pluck('bienio')->unique()->filter() as $bienio)
+                        <option value="{{ $bienio }}">{{ $bienio }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label for="filter-eixo" class="form-label small fw-bold text-dark">Filtrar por Eixo</label>
+                <select id="filter-eixo" class="form-select form-select-sm">
+                    <option value="">Todos os eixos</option>
+                    @foreach($planos->pluck('eixos')->flatten()->pluck('nome')->unique()->filter() as $eixo)
+                        <option value="{{ $eixo }}">{{ $eixo }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label for="filter-responsavel" class="form-label small fw-bold text-dark">Filtrar por Responsável</label>
+                <select id="filter-responsavel" class="form-select form-select-sm">
+                    <option value="">Todos os responsáveis</option>
+                    @foreach($planos->pluck('responsavel.name')->unique()->filter() as $responsavel)
+                        <option value="{{ $responsavel }}">{{ $responsavel }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <!-- FIM DA SEÇÃO DE FILTROS -->
+
         <div>
             <div class="table-responsive">
-                <table class="table table-bordered table-striped align-middle">
+                <table id="tablePlanoAcao" class="table table-bordered table-striped align-middle">
                     <thead>
                         <tr class="text13">
                             <th class="text-center text-light bg-dark">#</th>
@@ -56,16 +90,22 @@
                                 <td class="text-center">
                                     <span class="badge bg-light text-secondary border px-2 py-1">{{ $plano->bienio ?? 'Não definido' }}</span>
                                 </td>
-                                <td class="text-center">{{ $plano->eixo->nome ?? 'N/A' }}</td>
+                                <td class="text-center">
+                                    @if($plano->eixos->isNotEmpty())
+                                        {{ $plano->eixos->pluck('nome')->implode(', ') }}
+                                    @else
+                                        <span class="text-muted">N/A</span>
+                                    @endif
+                                </td>
                                 <td class="text-start">{!! Str::limit($plano->objetivo, 50) !!}</td>
                                 <td class="text-center">{{ $plano->responsavel->name ?? 'Não atribuído' }}</td>
                                 <td class="text-center">{{ $plano->meta }}</td>
                                 <td class="text-center">
                                     <div class="d-flex justify-content-center gap-1">
-                                        <a href="{{ route('plano_acoes.show', $plano->id) }}" class="highlighted-btn-sm highlight-info text-decoration-none" title="Visualizar">
+                                        <a href="{{ route('plano-acoes.show', $plano->id) }}" class="highlighted-btn-sm highlight-info text-decoration-none" title="Visualizar">
                                             <i class="bi bi-eye"></i>
                                         </a>
-                                        <a href="{{ route('plano_acoes.edit', $plano->id) }}" class="highlighted-btn-sm highlight-warning text-decoration-none" title="Editar">
+                                        <a href="{{ route('plano-acoes.edit', $plano->id) }}" class="highlighted-btn-sm highlight-warning text-decoration-none" title="Editar">
                                             <i class="bi bi-pencil"></i>
                                         </a>
                                         
@@ -82,7 +122,6 @@
                                 </td>
                             </tr>
 
-                            
                             <div class="modal fade" id="deleteModal{{ $plano->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $plano->id }}" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content border-0 shadow rounded-4">
@@ -129,5 +168,6 @@
     </div>
 </div>
 
+<script src="{{ asset('js/tables/tablePlanoAcao.js') }}"></script>
 <x-back-button/>
 @endsection

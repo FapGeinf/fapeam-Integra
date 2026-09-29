@@ -17,11 +17,7 @@ class PlanoAcaoController extends Controller
     {
         Log::info('Acessando a listagem de Planos de Ação.');
 
-        $planos = PlanoAcao::with(['eixo', 'responsavel', 'indicador'])
-            ->join('eixos', 'plano_acoes.eixo_id', '=', 'eixos.id')
-            ->orderBy('eixos.nome')
-            ->select('plano_acoes.*')
-            ->get();
+        $planos = PlanoAcao::with(['eixos', 'responsavel', 'indicador'])->get();
 
         return view('plano_acoes.index', ['planos' => $planos]);
     }
@@ -46,10 +42,14 @@ class PlanoAcaoController extends Controller
         Log::info('Tentando cadastrar um novo Plano de Ação.', ['dados' => $request->validated()]);
 
         try {
-            $planoAcao = PlanoAcao::create($request->validated());
+            $planoAcao = PlanoAcao::create($request->except('eixos'));
+            
+            if ($request->has('eixos')) {
+                $planoAcao->eixos()->sync($request->eixos);
+            }
             
             Log::info('Plano de Ação cadastrado com sucesso.', ['id' => $planoAcao->id]);
-            return redirect()->route('plano_acoes.index')->with('success', 'Plano de Ação cadastrado com sucesso.');
+            return redirect()->route('plano-acoes.index')->with('success', 'Plano de Ação cadastrado com sucesso.');
         
         } catch (QueryException $e) {
             Log::error('Erro de banco de dados ao cadastrar Plano de Ação.', [
@@ -65,7 +65,7 @@ class PlanoAcaoController extends Controller
     {
         Log::info('Visualizando detalhes do Plano de Ação.', ['id' => $planoAcao->id]);
 
-        $planoAcao->load(['eixo', 'responsavel', 'indicador']);
+        $planoAcao->load(['eixos', 'responsavel', 'indicador']);
         
         return view('plano_acoes.show', ['planoAcao' => $planoAcao]);
     }
@@ -73,6 +73,8 @@ class PlanoAcaoController extends Controller
     public function edit(PlanoAcao $planoAcao)
     {
         Log::info('Acessando o formulário de edição do Plano de Ação.', ['id' => $planoAcao->id]);
+
+        $planoAcao->load('eixos');
 
         $usuarios = User::with(['unidade'])->orderBy('name')->get();
         $eixos = Eixo::orderBy('nome')->get();
@@ -94,10 +96,12 @@ class PlanoAcaoController extends Controller
         ]);
 
         try {
-            $planoAcao->update($request->validated());
+            $planoAcao->update($request->except('eixos'));
+
+            $planoAcao->eixos()->sync($request->eixos ?? []);
 
             Log::info('Plano de Ação atualizado com sucesso.', ['id' => $planoAcao->id]);
-            return redirect()->route('plano_acoes.index')->with('success', 'Plano de Ação atualizado com sucesso.');
+            return redirect()->route('plano-acoes.index')->with('success', 'Plano de Ação atualizado com sucesso.');
         
         } catch (QueryException $e) {
             Log::error('Erro de banco de dados ao atualizar Plano de Ação.', [
@@ -115,10 +119,10 @@ class PlanoAcaoController extends Controller
         Log::info('Tentando excluir o Plano de Ação.', ['id' => $planoAcao->id]);
 
         try {
+            $planoAcao->eixos()->detach();
             $planoAcao->delete();
-
             Log::info('Plano de Ação excluído com sucesso.', ['id' => $planoAcao->id]);
-            return redirect()->route('plano_acoes.index')->with('success', 'Plano de Ação excluído com sucesso.');
+            return redirect()->route('plano-acoes.index')->with('success', 'Plano de Ação excluído com sucesso.');
         
         } catch (QueryException $e) {
             Log::error('Erro de banco de dados ao excluir Plano de Ação (possível restrição de chave estrangeira).', [
