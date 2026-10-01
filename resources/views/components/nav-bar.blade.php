@@ -44,14 +44,14 @@
             </a>
           </li>
 
-          @if(in_array(Auth::user()->usuario_tipo_fk, [1, 4]))
+          {{-- @if(in_array(Auth::user()->usuario_tipo_fk, [1, 4]))
             <li class="nav-item fs-custom">
               <a href="{{ route('relatorios.download') }}" class="nav-link nav-a text-light d-flex align-items-center">
                 <i class="bi bi-archive me-1"></i>
                 <span>Relatório Geral</span>
               </a>
             </li>
-          @endif
+          @endif --}}
 
           @if(Auth::user()->usuario_tipo_fk == 4)
             <li class="nav-item fs-custom">
@@ -92,6 +92,19 @@
                   </small>
                 </div>
               </li>
+
+              @if(in_array(Auth::user()->usuario_tipo_fk, [1, 4]))
+                <li>
+                  <hr class="dropdown-divider border-secondary w-100">
+                </li>
+
+                <li class="nav-item fs-custom">
+                  <a class="dropdown-item custom-a" href="{{ route('relatorios.download') }}">
+                    <i class="bi bi-download me-1"></i>
+                    <span>Relatório Geral</span>
+                  </a>
+                </li>
+              @endif
 
               <li>
                 <hr class="dropdown-divider border-secondary w-100">
