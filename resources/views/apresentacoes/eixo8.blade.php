@@ -30,7 +30,6 @@
     </div>
   </section>
 
-
   @if(auth()->user()->unidade->unidadeTipoFK == 1 || auth()->user()->unidade->unidadeTipoFK == 3 || auth()->user()->unidade->unidadeTipoFK == 4)
     <section class="eixo-functions">
       <div class="function-section">
@@ -126,7 +125,7 @@
 
           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownRelatorios">
             <li>
-              <a href="{{ route('relatorios.eixos', ['id' => 8]) }}" class="dropdown-item">
+              <a href="{{ route('relatorios.eixos', ['id' => 8]) }}" class="dropdown-item fs-12">
                 <i class="bi bi-download me-2"></i>
                 Baixar relatório gerado pelo sistema
               </a>
@@ -148,7 +147,7 @@
             </li>
 
             <li>
-              <a href="{{ route('anexo', $eixo_id ?? 8) }}" class="dropdown-item">
+              <a href="{{ route('anexo', $eixo_id ?? 8) }}" class="dropdown-item fs-12">
                 <i class="bi bi-download me-2"></i>
                 Baixar relatório externo
               </a>
